@@ -14,7 +14,7 @@
 #endif
 #import <React/RCTBundleURLProvider.h>
 
-
+#import "Global.h"
 #import <React/RCTRootView.h>
 #import "RCTBaiduMapViewManager.h"
 #import <React/RCTLinkingManager.h>
