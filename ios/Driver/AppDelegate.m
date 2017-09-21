@@ -16,7 +16,7 @@
 
 #import "Global.h"
 #import <React/RCTRootView.h>
-#import "RCTBaiduMapViewManager.h"
+//#import "RCTBaiduMapViewManager.h"
 #import <React/RCTLinkingManager.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
@@ -57,7 +57,7 @@
   [JPUSHService setupWithOption:launchOptions appKey:appKey
                         channel:nil apsForProduction:isProduction];
   
-  [RCTBaiduMapViewManager initSDK:@"YQTDK3RGAXnoGrLfFqyYLyPxcMft4LHn"];
+//  [RCTBaiduMapViewManager initSDK:@"YQTDK3RGAXnoGrLfFqyYLyPxcMft4LHn"];
   
   NSURL *jsCodeLocation;
   
