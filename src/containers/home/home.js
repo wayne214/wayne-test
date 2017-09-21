@@ -6,10 +6,15 @@
  */
 import React, {Component, PropTypes} from 'react';
 import BaseContainer from '../base/baseContainer';
+import NavigationBar from '../../common/navigationBar/navigationBar';
+
+import EmptyView from '../../common/emptyView/emptyView';
 
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Text,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -27,7 +32,16 @@ class Home extends BaseContainer{
 
     render() {
         return (
-            <View style={styles.container}></View>
+            <View style={styles.container}>
+                <NavigationBar
+                    title={'首页'}
+                    navigator={this.props.navigation}
+                    leftButtonHidden={true}
+                />
+
+                <EmptyView />
+
+            </View>
         )
     }
 }

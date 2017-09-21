@@ -8,6 +8,17 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <RCTJPushModule.h>
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+
+
+static NSString *appKey = @"8a227072a0c81d6be9d3ddae";
+
+static NSString *channel = nil;
+
+static BOOL isProduction = false;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

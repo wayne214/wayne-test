@@ -12,7 +12,9 @@ import BaseContainer from '../base/baseContainer';
 
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Text,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -30,7 +32,15 @@ class Order extends BaseContainer{
 
     render() {
         return (
-            <View style={styles.container}></View>
+            <View style={styles.container}>
+                <TouchableOpacity style={{marginTop: 30, width: 1000, height: 30}} onPress={()=>{
+                    console.log('userName=',global.userName);
+                }}>
+                    <Text>
+                        点击输出global值
+                    </Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }

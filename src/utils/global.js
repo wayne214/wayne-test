@@ -1,3 +1,13 @@
-/**
- * Created by xizhixin on 2017/9/21.
- */
+const Global = {};
+
+export default Global;
+
+/*
+* token : 网络请求token验证
+*
+*
+*
+*
+* */
+
+
