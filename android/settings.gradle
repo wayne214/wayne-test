@@ -1,4 +1,8 @@
 rootProject.name = 'Driver'
+include ':jpush-react-native'
+project(':jpush-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/jpush-react-native/android')
+include ':@remobile/react-native-toast'
+project(':@remobile/react-native-toast').projectDir = new File(rootProject.projectDir, '../node_modules/@remobile/react-native-toast/android')
 include ':react-native-baidu-map-xzx'
 project(':react-native-baidu-map-xzx').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-baidu-map-xzx/android')
 include ':react-native-toast'

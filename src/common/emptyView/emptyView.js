@@ -4,17 +4,31 @@ import {
     Text,
     StyleSheet,
     Image,
+    Dimensions,
+    Platform,
 } from 'react-native';
 
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: width,
+        height: height,
+        left: 0,
+        ...Platform.select({
+            ios: {
+                top: 64,
+            },
+            android: {
+                top: 50,
+            },
+        }),
         alignItems: 'center',
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        position: 'absolute',
     },
     content: {
         fontSize: 17,
