@@ -1,11 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
- */
-/**
- * Created by xizhixin on 2017/9/20.
- */
-/**
- * Created by xizhixin on 2017/9/20.
+ * 订单界面
  */
 import React, {Component, PropTypes} from 'react';
 import BaseContainer from '../base/baseContainer';

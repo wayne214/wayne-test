@@ -1,11 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
- */
-/**
- * Created by xizhixin on 2017/9/20.
- */
-/**
- * Created by xizhixin on 2017/9/20.
+ * 我的界面
  */
 import React, {Component, PropTypes} from 'react';
 import BaseContainer from '../base/baseContainer';

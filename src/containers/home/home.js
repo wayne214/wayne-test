@@ -1,11 +1,10 @@
 /**
  * Created by xizhixin on 2017/9/20.
- */
-/**
- * Created by xizhixin on 2017/9/20.
+ * 首页界面
  */
 import React, {Component, PropTypes} from 'react';
 import BaseContainer from '../base/baseContainer';
+import Toast from '@remobile/react-native-toast';
 
 import {
     View,
@@ -23,6 +22,7 @@ class Home extends BaseContainer{
         super(props);
     }
     componentDidMount(){
+        Toast.showShortCenter('hello world');
     }
 
     render() {

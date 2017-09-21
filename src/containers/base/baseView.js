@@ -1,5 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
+ * 基类，编写组件继承该类
  */
 import React, {Component, PropTypes} from 'react';
 import {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class BaseContainer extends Component{
+class BaseView extends Component{
     constructor(props) {
         super(props);
     }
@@ -28,4 +29,4 @@ class BaseContainer extends Component{
     }
 }
 
-export default BaseContainer;
+export default BaseView;

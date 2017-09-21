@@ -1,5 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
+ * 闪屏界面
  */
 import React, {Component} from 'react';
 import {
@@ -9,17 +10,16 @@ import {
     Platform,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
-import SplashImg from './images/splash.png';
-const {width, height} = Dimensions.get('window');
+import splashImg from './images/splash.png';
 import BaseContainer from '../base/baseContainer';
+
+const {width, height} = Dimensions.get('window');
 
 export default class Splash extends BaseContainer {
     constructor(props) {
         super(props);
     }
     componentDidMount() {
-        console.log('splash ================================');
         global.platform = Platform.OS === 'ios' ? 1 : 2;
         if (Platform.OS === 'ios') {
             const resetAction = NavigationActions.reset({
@@ -37,7 +37,7 @@ export default class Splash extends BaseContainer {
                 const resetAction = NavigationActions.reset({
                     index: 0,
                     actions: [
-                        NavigationActions.navigate({ routeName: 'Guide'}),
+                        NavigationActions.navigate({ routeName: 'Main'}),
                     ]
                 });
                 this.props.navigation.dispatch(resetAction);
@@ -60,11 +60,8 @@ export default class Splash extends BaseContainer {
                 // 保持原有大小
                 resizeMode="stretch"
                 style={{flex: 1, width, height}}
-                source={SplashImg}
+                source={splashImg}
             />
         );
     }
 }
-
-
- Splash;

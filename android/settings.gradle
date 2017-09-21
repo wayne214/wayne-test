@@ -1,0 +1,4 @@
+rootProject.name = 'Driver'
+include ':react-native-toast'
+project(':react-native-toast').projectDir = new File(settingsDir, '../node_modules/@remobile/react-native-toast/android')
+include ':app'

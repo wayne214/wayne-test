@@ -1,5 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
+ * 底部tabBar导航
  */
 import React from 'react';
 import {
@@ -109,8 +110,8 @@ const TabNavigatorConfigs = {
         // inactiveTintColor: '#999999', // 文字和图片默认颜色
         showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
         indicatorStyle: {
-            height: 0
-        }, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？
+            height: 0 // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了
+        },
         style: {
             backgroundColor: '#FFFFFF', // TabBar 背景色
         },
