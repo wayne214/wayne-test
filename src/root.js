@@ -1,4 +1,7 @@
-import React from 'react';
+/**
+ *
+ */
+import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {AppRegistry} from 'react-native';
 import configureStore from './store/store';
@@ -7,7 +10,7 @@ import App from './containers/app';
 
 const store = configureStore();
 
-class Driver extends React.Component {
+class Root extends Component {
 
     constructor(props) {
         super(props);
@@ -23,4 +26,4 @@ class Driver extends React.Component {
     }
 }
 
-AppRegistry.registerComponent('Driver', () => Driver);
+AppRegistry.registerComponent('Driver', () => Root);

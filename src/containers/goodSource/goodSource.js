@@ -1,5 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
+ * 货源界面
  */
 import React, {Component, PropTypes} from 'react';
 import {

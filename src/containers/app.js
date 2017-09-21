@@ -30,7 +30,7 @@ class App extends Component {
         lastBackPressed = null;
     }
 
-
+    // Android物理返回键点击事件
     onBackAndroid() {
         if(this.navigator._navigation.state.routes.length > 1) {
             this.navigator._navigation.goBack();
@@ -40,7 +40,7 @@ class App extends Component {
             return false;
         }
         lastBackPressed = Date.now();
-        ToastAndroid.show('再点击一次退出程序',ToastAndroid.SHORT);
+        ToastAndroid.showWithGravity('再点击一次退出程序', ToastAndroid.SHORT, ToastAndroid.CENTER);
         return true;
     }
 

@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@remobile/react-native-toast": "^1.0.6",
     "immutable": "^3.8.1",
     "jcore-react-native": "^1.1.8-beta2",
     "jpush-react-native": "^2.0.9",

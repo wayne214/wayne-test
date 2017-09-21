@@ -1,5 +1,6 @@
 /**
  * Created by xizhixin on 2017/9/20.
+ * 基类，编写界面继承该类
  */
 import React, {Component, PropTypes} from 'react';
 import {
