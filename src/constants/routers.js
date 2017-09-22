@@ -10,8 +10,8 @@ import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
 import Splash from '../containers/splash/splash';
-// import Login from '../containers/login';
-// import Guide from '../containers/guide';
+import Login from '../containers/login/login';
+import Guide from '../containers/guide/guide';
 // import Protocol from '../containers/protocol';
 // import Registered from '../containers/registered';
 // import RegisterSuccess from '../containers/registerSuccess';
@@ -28,18 +28,18 @@ const StackRouteConfigs = {
             header: null
         }
     },
-    // Login: {
-    //     screen: Login,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // Guide: {
-    //     screen: Guide,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Guide: {
+        screen: Guide,
+        navigationOptions: {
+            header: null
+        }
+    },
     Main: {
         screen: TabBarNavigator,
         navigationOptions: {
