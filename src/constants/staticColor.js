@@ -36,3 +36,9 @@ export const BLUE_ALL_COLOR = '#1b82d1';
 
 export const ADDRESS_TEXT_COLOR = '#1B82D1';
 
+export const BLUE_BUTTON_COLOR = '#0084ff';
+
+export const MODAL_BACKGROUND_COLOR = '#383838';
+
+
+
