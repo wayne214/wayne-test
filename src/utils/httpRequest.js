@@ -1,4 +1,5 @@
 import Storage from './storage';
+import Toast from '@remobile/react-native-toast';
 
 const headers = {
     "Accept": "application/json",
@@ -93,9 +94,9 @@ const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack
             .catch(error => {
                 console.log("----http error", error.message);
                 if (error.message === 'timeout') {
-                    //网络超时
+                    Toast.showShortCenter('网络超时');
                 } else {
-                    //网络异常
+                    Toast.showShortCenter('网络异常');
                 }
             });
 };

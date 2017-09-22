@@ -37,6 +37,8 @@
 		1FAC304D1F73C9E9004DF4C6 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA91DF850E9000B6D8A /* libcxxreact.a */; };
 		1FAC304E1F73C9EF004DF4C6 /* libdouble-conversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BC822D1F73AD75005CD20C /* libdouble-conversion.a */; };
 		1FAC304F1F73C9F5004DF4C6 /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EAD1DF850E9000B6D8A /* libjschelpers.a */; };
+		1FB818FF1F751C2F0031BB24 /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC30331F73BAB9004DF4C6 /* SplashScreen.m */; };
+		1FB819221F751C370031BB24 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC30301F73BAB9004DF4C6 /* Global.m */; };
 		212FDB5EDAFB4FDA879D2354 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8688350182D48379FF9BBD1 /* Foundation.framework */; };
 		263FAD2C6F43480EAB06FC29 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78C7E1F8F6D47FAB5218691 /* CoreTelephony.framework */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -1284,6 +1286,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB819221F751C370031BB24 /* Global.m in Sources */,
+				1FB818FF1F751C2F0031BB24 /* SplashScreen.m in Sources */,
 				1FAC2F801F73AD03004DF4C6 /* RNCallNative.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				1FAC2F7E1F73AD03004DF4C6 /* PermissionsManager.m in Sources */,

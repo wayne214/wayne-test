@@ -9,7 +9,7 @@ import {
     NativeAppEventEmitter,//导入
 } from 'react-native';
 
-import {upLoadImageManager} from '../utils/upLoadImageToVerified';
+import {upLoadImageManager} from './upLoadImageRequest';
 import ReadAndWriteFileUtil from '../utils/readAndWriteFileUtil';
 import * as API from '../constants/api';
 

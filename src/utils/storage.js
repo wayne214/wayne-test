@@ -5,12 +5,12 @@ import {AsyncStorage} from 'react-native';
 
 class DB {
 
-    save(key, value) {
+    async save(key, value) {
         let result = value;
         if (value && typeof value === 'object') {
             result = JSON.stringify(value);
         }
-        return AsyncStorage.setItem(key, result);
+        return await AsyncStorage.setItem(key, result);
     }
 
     async get(key) {
