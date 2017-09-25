@@ -114,6 +114,8 @@ const postRequest = (
                         Storage.remove('setCarSuccessFlag');
                         Storage.remove('plateNumber');
                     }
+                    Toast.showShortCenter(responseData.message);
+
                     failCallBack(responseData);
                 }
                 finishCallBack();

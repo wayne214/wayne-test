@@ -218,8 +218,7 @@ export default class Login extends BaseContainer {
                         style={{width, height}}
                     />
                 </View>
-                <KeyboardAwareScrollView style={{ width: width, height: height}}
-                >
+                <KeyboardAwareScrollView style={{ width: width, height: height}}>
                     <View style={{alignItems: 'center', paddingTop: 122}}>
                         <Image
                             source={StaticImage.LoginIcon}
