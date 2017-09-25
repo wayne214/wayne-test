@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import BaseView from '../../base/baseView';
-import rightArrow from '../images/rightarrow.png';
+import rightArrow from '../../../../assets/home/rightarrow.png';
 import {
     WHITE_COLOR,
     RED_TEXT_COLOR,
