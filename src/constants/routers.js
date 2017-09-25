@@ -18,6 +18,8 @@ import RegisterSuccess from '../containers/register/registerSuccess';
 // import ChooseCar from '../containers/chooseCar';
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
+import ChangePwd from '../containers/login/changePassword';
+import ChangeCodePwd from '../containers/login/changeCodePwd';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -84,6 +86,18 @@ const StackRouteConfigs = {
     },
     LoginSms: {
         screen: LoginSms,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChangePwd: {
+        screen: ChangePwd,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChangeCodePwd: {
+        screen: ChangeCodePwd,
         navigationOptions: {
             header: null
         }
