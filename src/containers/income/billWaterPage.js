@@ -96,15 +96,7 @@ export default class BillWaterPage extends Component {
                 },
 
             })
-
-            // this.props.acAccountFlow({
-            //     url: API.API_AC_ACCOUNT_FLOW,
-            //     body: {
-            //         page: 1,
-            //         pageSize: 20,
-            //         phoneNum: global.phone,
-            //     }
-            // }, acAccountFlowSuccessCallBack, acAccountFlowFailCallBack)
+            
         } else {
 
             HTTPRequest({
@@ -129,14 +121,6 @@ export default class BillWaterPage extends Component {
 
             })
 
-            // this.props.acAccountFlow({
-            //     url: API.API_AC_ACCOUNT_FLOW,
-            //     body: {
-            //         page: this.state.page,
-            //         pageSize: 20,
-            //         phoneNum: global.phone,
-            //     }
-            // }, acAccountFlowSuccessCallBack,acAccountFlowFailCallBack)
         }
 
 
