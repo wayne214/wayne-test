@@ -37,14 +37,20 @@ export default class Splash extends BaseContainer {
     //global赋值
     getInfoForGlobal() {
         Storage.get(StorageKey.TOKEN).then((value) => {
-            global.token = value;
+            if (value){
+                global.token = value;
+            }
         });
         Storage.get(StorageKey.USER_INFO).then((value) => {
-            global.userId = value.result.userId;
-            global.userName = value.result.userName;
+            if (value){
+                global.userId = value.result.userId;
+                global.userName = value.result.userName;
+            }
         });
         Storage.get(StorageKey.PHOTO_REF_NO).then((value) => {
-            global.photoRefNo = value.result.photoRefNo;
+            if (value){
+                global.photoRefNo = value.result.photoRefNo;
+            }
         });
         Storage.get(StorageKey.UDID).then((value) => {
             if (value) {
@@ -87,7 +93,7 @@ export default class Splash extends BaseContainer {
                         this.timer = setTimeout(() => {
                             this.resetTo(0, title);
                             NativeModules.SplashScreen.close();
-                        },1500)
+                        },10000)
                     }
                     if (Platform.OS === 'android') {
                         this.timer = setTimeout(() => {

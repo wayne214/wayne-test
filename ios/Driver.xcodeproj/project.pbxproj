@@ -381,6 +381,10 @@
 		1FAC30351F73BAB9004DF4C6 /* ToastModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToastModule.m; sourceTree = "<group>"; };
 		1FAC30361F73BB15004DF4C6 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		1FAC30381F73BB20004DF4C6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		1FB8193C1F7520680031BB24 /* launch4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch4.png; sourceTree = "<group>"; };
+		1FB8193D1F7520680031BB24 /* launch7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch7.png; sourceTree = "<group>"; };
+		1FB8193E1F7520680031BB24 /* launch5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch5.png; sourceTree = "<group>"; };
+		1FB8193F1F7520680031BB24 /* launch6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch6.png; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Driver-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Driver-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Driver-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Driver-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3435735946DF462E8035CEE1 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -568,6 +572,10 @@
 				1FAC2F7B1F73AD02004DF4C6 /* PermissionsManager.m */,
 				1FAC2F791F73AD02004DF4C6 /* RNCallNative.h */,
 				1FAC2F7C1F73AD02004DF4C6 /* RNCallNative.m */,
+				1FB8193C1F7520680031BB24 /* launch4.png */,
+				1FB8193E1F7520680031BB24 /* launch5.png */,
+				1FB8193F1F7520680031BB24 /* launch6.png */,
+				1FB8193D1F7520680031BB24 /* launch7.png */,
 				1FAC2F811F73AD12004DF4C6 /* Default-568.png */,
 				1FAC2F821F73AD12004DF4C6 /* Default-568@2x.png */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
