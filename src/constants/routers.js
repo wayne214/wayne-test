@@ -20,6 +20,8 @@ import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
 import ChangeCodePwd from '../containers/login/changeCodePwd';
+import Income from '../containers/income/income';
+import BillWaterPage from '../containers/income/billWaterPage';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -98,6 +100,18 @@ const StackRouteConfigs = {
     },
     ChangeCodePwd: {
         screen: ChangeCodePwd,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Income: {
+        screen: Income,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BillWaterPage: {
+        screen: BillWaterPage,
         navigationOptions: {
             header: null
         }
