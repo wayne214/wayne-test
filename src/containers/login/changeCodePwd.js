@@ -13,14 +13,17 @@ import {
 } from 'react-native';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
 import Toast from '@remobile/react-native-toast';
+import { NavigationActions } from 'react-navigation';
+import  HTTPRequest from '../../utils/httpRequest';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 
-// import * as API from '../../constants/api';
+import * as API from '../../constants/api';
 import * as StaticColor from '../../constants/staticColor';
 
-// import XeEncrypt from '../../utils/XeEncrypt';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import XeEncrypt from '../../utils/XeEncrypt';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import Loading from '../../utils/loading';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
 });
 
 
-class changeCodePWD extends Component {
+export default class changeCodePWD extends Component {
 
     constructor(props) {
         super(props);
@@ -63,13 +66,12 @@ class changeCodePWD extends Component {
             newPWDagain: '',
             identifyCode: params.identifyCode,
             phoneNum: params.phoneNum,
+            loading: false,
+
         };
 
-        // this.getForgetChangeCodeAction = this.getForgetChangeCodeAction.bind(this);
-        // this.getForgetChangeCodeSucccessCallBack =
-        //     this.getForgetChangeCodeSucccessCallBack.bind(this);
-        // this.loginSecretCode = this.loginSecretCode.bind(this);
-        // this.loginSecretCodeSuccessCallBack = this.loginSecretCodeSuccessCallBack.bind(this);
+        this.changePsd = this.changePsd.bind(this);
+        this.loginSecretCode = this.loginSecretCode.bind(this);
         this.finish = this.finish.bind(this);
     }
 
@@ -85,60 +87,88 @@ class changeCodePWD extends Component {
     //         console.log(e, 'error');
     //     });
     // }
-    // loginSecretCode(loginSecretCodeSuccessCallBack) {
-    //     currentTime = new Date().getTime();
-    //     this.props.loginSecretCode(loginSecretCodeSuccessCallBack);
-    // }
-    //
-    // loginSecretCodeSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime);
-    //     const secretCode = result;
-    //     const secretnewPWD = XeEncrypt.aesEncrypt(this.state.newPWD, secretCode, secretCode);
-    //     const secretnewPWDagain = XeEncrypt.aesEncrypt(this.state.newPWDagain, secretCode, secretCode);
-    //     console.log('----changeCodePWD--', secretnewPWD, secretnewPWDagain);
-    //     this.getForgetChangeCodeAction(secretnewPWD, this.getForgetChangeCodeSucccessCallBack);
-    // }
-    //
-    // getForgetChangeCodeAction(secret,getForgetChangeCodeSucccessCallBack) {
-    //     currentTime = new Date().getTime();
-    //     this.props.getForgetChangeCodeAction({
-    //         confirmPassword: secret,
-    //         // identifyCode: this.state.identifyCode,
-    //         identifyCode: this.state.identifyCode,
-    //         // newPassword: this.state.newPWD,
-    //         newPassword: secret,
-    //         // phoneNum: this.state.phoneNum,
-    //         phoneNum: this.state.phoneNum,
-    //     }, getForgetChangeCodeSucccessCallBack);
-    // }
-    //
-    // getForgetChangeCodeSucccessCallBack(result) {
-    //     console.log('------dengluchenggong66666-----', result);
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('忘记密码', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '忘记密码页面');
-    //     // this.props.router.popToRoute(RouteType.LOGIN_PAGE);
-    //     this.props.navigator.resetTo({
-    //         component: LoginContainer,
-    //         name: RouteType.LOGIN_PAGE,
-    //         key: RouteType.LOGIN_PAGE,
-    //     });
-    // }
-    //
+    /*获取加密秘钥*/
+    loginSecretCode() {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_GET_SEC_TOKEN,
+            params: {},
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime);
+                const secretCode = responseData.result;
+                const secretnewPWD = XeEncrypt.aesEncrypt(this.state.newPWD, secretCode, secretCode);
+
+                this.changePsd(secretnewPWD);
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish:()=>{
+
+            }
+        });
+    }
+
+
+    /*修改密码*/
+    changePsd(secret) {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_NEW_CHANGE_PSD_WITH_CODE,
+            params: {
+                confirmPassword: secret,
+                identifyCode: this.state.identifyCode,
+                newPassword: secret,
+                phoneNum: this.state.phoneNum,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('忘记密码', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '忘记密码页面');
+                // this.props.router.popToRoute(RouteType.LOGIN_PAGE);
+
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'Login'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+                Toast.showShortCenter(responseData.message);
+
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+    }
+
+
     finish() {
         if (this.state.newPWD === '' && this.state.newPWDagain === '') {
             Toast.showShortCenter('密码不能为空');
         } else if (this.state.newPWD !== this.state.newPWDagain) {
             Toast.showShortCenter('两次密码输入不一致');
         } else {
-            // this.getForgetChangeCodeAction(this.getForgetChangeCodeSucccessCallBack);
-            // global.newPWD = this.state.newPWD;
-            // global.newPWDagain = this.state.newPWDagain;
-            // global.phoneNum = this.state.phoneNum;
-            // global.identifyCode = this.state.identifyCode;
-            // this.loginSecretCode(this.loginSecretCodeSuccessCallBack);
+
+            this.loginSecretCode();
         }
     }
 
@@ -238,53 +268,12 @@ class changeCodePWD extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
 
 
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        // app: state.app,
-        // forgetChangeCode: state.app.get('forgetChangeCode'),
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        // getForgetChangeCodeAction: (params, getForgetChangeCodeSucccessCallBack) =>
-        //     dispatch(getForgetChangeCodeAction({
-        //         url: API.API_NEW_CHANGE_PSD_WITH_CODE,
-        //         body: {	// 调用接口时真正传递的参数是 body
-        //             confirmPassword: params.confirmPassword,
-        //             identifyCode: params.identifyCode,
-        //             newPassword: params.newPassword,
-        //             phoneNum: params.phoneNum,
-        //         },
-        //         successMsg: '密码更改成功',
-        //         successCallBack: (response) => {
-        //             getForgetChangeCodeSucccessCallBack(response.result);
-        //             dispatch(gotForgetChangeCodeSuccAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //
-        //         },
-        //     })),
-        // loginSecretCode: (loginSecretCodeSuccessCallBack) => {
-        //     dispatch(loginSecretCodeAction({
-        //         url: API.API_NEW_GET_SEC_TOKEN,
-        //         successCallBack: (response) => {
-        //             loginSecretCodeSuccessCallBack(response.result);
-        //             dispatch(loginSecretCodeSuccessAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //             console.log(err);
-        //         },
-        //
-        //     }));
-        // },
-    };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(changeCodePWD);
