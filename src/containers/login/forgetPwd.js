@@ -18,6 +18,8 @@ import Toast from '@remobile/react-native-toast';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
+import Loading from '../../utils/loading';
+import  HTTPRequest from '../../utils/httpRequest';
 
 import {
     LIGHT_GRAY_TEXT_COLOR,
@@ -25,10 +27,10 @@ import {
     COLOR_VIEW_BACKGROUND,
     COLOR_MAIN,
 } from '../../constants/staticColor';
-// import * as API from '../../constants/api';
+import * as API from '../../constants/api';
 
 import Validator from '../../utils/validator';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
 
 let currentTime = 0;
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class forgetPWD extends Component {
+export default class forgetPWD extends Component {
 
     constructor(props) {
         super(props);
@@ -74,14 +76,14 @@ class forgetPWD extends Component {
             phoneNo: params.loginPhone,
             pwdCode: '',
             buttonForget: '获取验证码',
+            loading: false,
+
         };
-        // this.getForgetVCode = this.getForgetVCode.bind(this);
+        this.getForgetVCode = this.getForgetVCode.bind(this);
         this.canclePhoneNO = this.canclePhoneNO.bind(this);
         this.canclePhonePWD = this.canclePhonePWD.bind(this);
-        // this._sendCode = this._sendCode.bind(this);
-        this.nextPage = this.nextPage.bind(this);
-        // this.getForgetNextPageNew = this.getForgetNextPageNew.bind(this);
-        // this.getForgetNextPageNewSuccessCallBack = this.getForgetNextPageNewSuccessCallBack.bind(this);
+        this.nextStep = this.nextStep.bind(this);
+        this.checkCode = this.checkCode.bind(this);
     }
 
     componentDidMount() {
@@ -115,15 +117,34 @@ class forgetPWD extends Component {
     //     }, 500);
     // }
 
-    // getForgetVCode(shouldStartCountting) {
-    //     this.props.getForgetVCode({
-    //         body: {
-    //             deviceId: global.UDID,
-    //             phoneNum: this.state.phoneNo,
-    //         },
-    //         successMsg: '验证码已发送',
-    //     }, shouldStartCountting);
-    // }
+    /*获取验证码*/
+    getForgetVCode(shouldStartCountting) {
+
+        HTTPRequest({
+            url: API.API_GET_FORGET_PSD_CODE,
+            params: {
+                deviceId: global.UDID,
+                phoneNum: this.state.phoneNo,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                /*开启倒计时*/
+                shouldStartCountting(true);
+                Toast.showShortCenter('验证码已发送');
+
+            },
+            error: (errorInfo)=>{
+                /*关闭倒计时*/
+                shouldStartCountting(false);
+
+            },
+            finish: ()=>{
+
+            }
+        })
+    }
 
     canclePhoneNO() {
         this.setState({
@@ -137,71 +158,53 @@ class forgetPWD extends Component {
         });
     }
 
-    // getForgetNextPageNew(getForgetNextPageNewSuccessCallBack){
-    //     currentTime = new Date().getTime();
-    //     this.props.getForgetNextPageNew({
-    //         body: {
-    //             identifyCode: this.state.pwdCode,
-    //             phoneNum: this.state.phoneNo,
-    //         },
-    //     }, getForgetNextPageNewSuccessCallBack);
-    // }
-    //
-    // getForgetNextPageNewSuccessCallBack(result){
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '忘记密码');
-    //     if (result === true) {
-    //         this.props.router.redirect(
-    //             RouteType.CHANGE_CODE_PWD,
-    //             {
-    //                 w_identifyCode: this.state.pwdCode,
-    //                 w_phoneNum: this.state.phoneNo,
-    //             },
-    //         );
-    //     } else {
-    //         Toast.showShortCenter('校验失败');
-    //     }
-    //
-    // }
+    /*检验验证码是否正确*/
+    checkCode(){
+        currentTime = new Date().getTime();
 
-    // 下一页按钮
-    nextPage() {
+        HTTPRequest({
+            url: API.API_CHECK_IDENTIFY_CODE,
+            params: {
+                identifyCode: this.state.pwdCode,
+                phoneNum: this.state.phoneNo,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '忘记密码');
+                if (responseData.result) {
+                    // this.props.navigation.navigate('LoginSms', {
+                    //     loginPhone:this.state.phoneNumber
+                    // });
+                } else {
+                    Toast.showShortCenter('输入的验证啊不正确');
+                }
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        })
+    }
+
+    // 下一步按钮
+    nextStep() {
         if (this.state.phoneNo !== '' && this.state.pwdCode !== '') {
-            // this.getForgetNextPageNew(this.getForgetNextPageNewSuccessCallBack);
-
-            // this.props.getForgetNextPage({
-            //     identifyCode: this.state.pwdCode,
-            //     phoneNum: this.state.phoneNo,
-            // });
-
-            // this.props.router.redirect(
-            //     RouteType.CHANGE_CODE_PWD,
-            //     {
-            //         w_identifyCode: this.state.pwdCode,
-            //         w_phoneNum: this.state.phoneNo
-            //     }
-            // );
+            this.checkCode();
         } else {
             Toast.showShortCenter('账号或密码不能为空');
         }
     }
 
-    // 获取验证码按钮
-    // _sendCode() {
-    //     if (this.state.phoneNo != '') {
-    //         this.props.getForgetVCode({
-    //             deviceId: DeviceInfo.getUniqueID(),
-    //             phoneNum: this.state.phoneNo
-    //         })
-    //         //判断返回的提示
-    //         if (typeof(this.props.app.get('forgetVcode').code) != "undefined") {
-    //             Toast.showShortCenter(`${this.props.app.get('forgetVcode').code}`);
-    //         }
-    //     } else {
-    //         Toast.showShortCenter('手机号不能为空');
-    //     }
-    // }
 
     render() {
         const navigator = this.props.navigation;
@@ -209,11 +212,6 @@ class forgetPWD extends Component {
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    // backIconClick={
-                    //     () => {
-                    //         this.props.router.pop();
-                    //     }
-                    // }
                     title={'忘记密码'}
                     navigator={navigator}
                     hiddenBackIcon={false}
@@ -280,6 +278,8 @@ class forgetPWD extends Component {
                             onChangeText={(pwdCode) => {
                                 this.setState({pwdCode});
                             }}
+                            returnKeyType='done'
+
                         />
                     </View>
                     {
@@ -303,7 +303,7 @@ class forgetPWD extends Component {
                         timerCount={60}
                         onClick={(shouldStartCountting) => {
                             if (Validator.isPhoneNumber(phoneNo)) {
-                                {/*this.getForgetVCode(shouldStartCountting);*/}
+                                this.getForgetVCode(shouldStartCountting);
                             } else {
                                 Toast.showShortCenter('手机号码输入有误，请重新输入');
                                 shouldStartCountting(false);
@@ -312,7 +312,7 @@ class forgetPWD extends Component {
                     />
                 </View>
 
-                <TouchableOpacity onPress={() => this.nextPage()}>
+                <TouchableOpacity onPress={() => this.nextStep()}>
                     <View
                         style={{
                             backgroundColor: COLOR_MAIN,
@@ -338,51 +338,12 @@ class forgetPWD extends Component {
                     </View>
                 </TouchableOpacity>
 
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
 
 
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        // app: state.app,
-        // forgetNextPage: state.app.get('forgetNextPage'),
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        // getForgetVCode: (params, shouldStartCountting) => dispatch(getForgetVCodeAction({
-        //     url: API.API_NEW_GET_FORGET_PSD_CODE,
-        //     body: {
-        //         deviceId: params.deviceId,
-        //         phoneNum: params.phoneNo,
-        //     },
-        //     successCallBack: () => {
-        //         console.log('获取验证码成功，开始倒计时');
-        //         shouldStartCountting(true);
-        //     },
-        //     failCallBack: () => {
-        //         shouldStartCountting(false);
-        //     },
-        //     ...params,
-        // })),
-        // getForgetNextPageNew: (params, getForgetNextPageNewSuccessCallBack) => {
-        //     dispatch(getForgetNextPageNewAction({
-        //         url: API.API_NEW_CHECK_IDENTIFY_CODE,
-        //         successCallBack: (response) => {
-        //             getForgetNextPageNewSuccessCallBack(response.result);
-        //             dispatch(getForgetNextPageNewSuccessAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //             console.log(err);
-        //         },
-        //         ...params,
-        //     }));
-        // },
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(forgetPWD);

@@ -17,18 +17,19 @@ import Button from 'apsl-react-native-button';
 import Toast from '@remobile/react-native-toast';
 // import JPushModule from 'jpush-react-native';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
+import { NavigationActions } from 'react-navigation';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
-
+import Loading from '../../utils/loading';
 import StaticImage from '../../constants/staticImage';
 import * as StaticColor from '../../constants/staticColor';
-// import * as API from '../../constants/api';
-
-// import Storage from '../../utils/storage';
+import * as API from '../../constants/api';
+import HTTPRequest from '../../utils/httpRequest';
+import Storage from '../../utils/storage';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 const {width, height} = Dimensions.get('window');
 
@@ -100,20 +101,19 @@ const styles = StyleSheet.create({
 });
 
 
-class LoginSms extends Component {
+export default class LoginSms extends Component {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
             phoneNumber: params.loginPhone,
             smsCode: '',
+            loading: false,
         };
-        // this.changeTab = this.changeTab.bind(this);
         this.clearPhoneNum = this.clearPhoneNum.bind(this);
         this.clearSmsCodeNum = this.clearSmsCodeNum.bind(this);
-        // this.login = this.login.bind(this);
-        // this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
-        // this.loginSuccessCallBack = this.loginSuccessCallBack.bind(this);
+        this.login = this.login.bind(this);
+        this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
     }
 
     componentDidMount() {
@@ -142,57 +142,88 @@ class LoginSms extends Component {
         });
     }
 
-    // login(loginSuccessCallBack) {
-    //     currentTime = new Date().getTime();
-    //     this.props.login({
-    //         body: {
-    //             phoneNum: this.state.phoneNumber,
-    //             identifyCode: this.state.smsCode,
-    //             deviceId: global.UDID,
-    //             platform: global.platform,
-    //         },
-    //     }, loginSuccessCallBack);
-    // }
-    //
-    // requestVCodeForLogin(shouldStartCountting) {
-    //     this.props.requestVCodeForLogin({
-    //         body: {
-    //             deviceId: global.UDID,
-    //             phoneNum: this.state.phoneNumber,
-    //         },
-    //         successMsg: '验证码已发送',
-    //     }, shouldStartCountting);
-    // }
-    //
-    // loginSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '短信登录页面');
-    //     const loginUserId = result.userId;
-    //     Storage.save('userId', loginUserId);
-    //     // const loginIsAcceptMessage = result.isAcceptMessage.toString();
-    //     // Storage.save('isAcceptMessage', loginIsAcceptMessage);
-    //     Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
-    //     global.userId = result.userId;
-    //     global.phone = result.phone;
-    //     const routes = this.props.navigator.getCurrentRoutes();
-    //     console.log(' ======= routesLength', routes.length, routes);
-    //     if (routes.length < 3) {
-    //         this.props.navigator.resetTo({
-    //             component: MainContainer,
-    //             name: 'Main',
-    //             key: 'Main',
-    //         });
-    //     } else {
-    //         // this.props.router.replaceWithHome();
-    //         this.props.navigator.resetTo({
-    //             component: MainContainer,
-    //             name: 'Main',
-    //             key: 'Main',
-    //         });
-    //     }
-    //     JPushModule.setAlias(result.phone, this.success, this.fail);
-    // }
+    /*验证码登录*/
+    login() {
+        currentTime = new Date().getTime();
+
+        HTTPRequest({
+            url: API.API_LOGIN_WITH_CODE,
+            params: {
+                phoneNum: this.state.phoneNumber,
+                identifyCode: this.state.smsCode,
+                deviceId: global.UDID,
+                platform: global.platform,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '短信登录页面');
+                const loginUserId = responseData.result.userId;
+                Storage.save('userId', loginUserId);
+
+
+                Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
+                global.userId = responseData.result.userId;
+                global.phone = responseData.result.phone;
+
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'Main'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+
+
+                // JPushModule.setAlias(result.phone, this.success, this.fail);
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        })
+
+
+    }
+
+
+    /*获取登录验证码*/
+    requestVCodeForLogin(shouldStartCountting) {
+       HTTPRequest({
+           url: API.API_GET_LOGIN_WITH_CODE,
+           params: {
+               deviceId: global.UDID,
+               phoneNum: this.state.phoneNumber,
+           },
+           loading: ()=>{
+
+           },
+           success: (responseData)=>{
+               /*开启倒计时*/
+               shouldStartCountting(true);
+               Toast.showShortCenter('验证码已发送');
+
+           },
+           error: (errorInfo)=>{
+               /*关闭倒计时*/
+               shouldStartCountting(false);
+
+           },
+           finish: ()=>{
+
+           }
+       })
+    }
 
 
     render() {
@@ -264,6 +295,7 @@ class LoginSms extends Component {
                                 this.setState({smsCode});
                             }}
                             placeholder="请输入验证码"
+                            returnKeyType='done'
                         />
                         {
                             (() => {
@@ -296,7 +328,7 @@ class LoginSms extends Component {
                             timerCount={60}
                             onClick={(shouldStartCountting) => {
                                 if (Validator.isPhoneNumber(phoneNumber)) {
-                                    {/*this.requestVCodeForLogin(shouldStartCountting);*/}
+                                    this.requestVCodeForLogin(shouldStartCountting);
                                 } else {
                                     Toast.showShortCenter('手机号输入有误，请重新输入');
                                     shouldStartCountting(false);
@@ -314,52 +346,18 @@ class LoginSms extends Component {
                             this.setState({
                                 smsCode:'',
                             });
-                            {/*this.login(this.loginSuccessCallBack);*/}
+                            this.login();
 
                         }
                     }}
                 >
                     登录
                 </Button>
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // changeTab: (tab) => {
-        //     dispatch(changeTabBarAction(tab));
-        // },
-        // requestVCodeForLogin: (params, shouldStartCountting) => dispatch(getVCodeForLoginAction({
-        //     url: API.API_NEW_GET_LOGIN_WITH_CODE,
-        //     successCallBack: () => {
-        //         console.log('获取验证码成功，开始倒计时');
-        //         shouldStartCountting(true);
-        //     },
-        //     failCallBack: () => {
-        //         shouldStartCountting(false);
-        //     },
-        //     ...params,
-        // })),
-        // login: (params, loginSuccessCallBack) => dispatch(loginAction({
-        //     url: API.API_NEW_LOGIN_WITH_CODE,
-        //     successMsg: '登录成功',
-        //     successCallBack: (response) => {
-        //         dispatch(changeTabBarAction('home'));
-        //         dispatch(loginSuccessAction(response));
-        //         loginSuccessCallBack(response.result);
-        //     },
-        //     failCallBack: (err) => {
-        //     },
-        //     ...params,
-        // })),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginSms);
 

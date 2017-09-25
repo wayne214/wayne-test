@@ -23,16 +23,16 @@ export const API_GET_SEC_TOKEN = `${HOST}app/uam/login/getSecToken`;
 // 通过密码登录接口
 export const API_LOGIN_WITH_PSD = `${HOST}app/uam/login/loginWithPassword`;
 // 通过验证码登录接口
-export const API_NEW_LOGIN_WITH_CODE = `${HOST}app/uam/login/loginWithVerificationCode`;
+export const API_LOGIN_WITH_CODE = `${HOST}app/uam/login/loginWithVerificationCode`;
 // 根据旧密码修改密码
 export const API_NEW_CHANGE_PSD_WITH_OLD_PSD = `${HOST}app/uam/login/modifyPassword`;
 
 // 校验忘记密码的验证码是否正确
-export const API_NEW_CHECK_IDENTIFY_CODE = `${HOST}app/uam/message/checkForgetIdentifyCode`;
+export const API_CHECK_IDENTIFY_CODE = `${HOST}app/uam/message/checkForgetIdentifyCode`;
 // 获取忘记密码验证码接口
-export const API_NEW_GET_FORGET_PSD_CODE = `${HOST}app/uam/message/getForgetIdentifyCode`;
+export const API_GET_FORGET_PSD_CODE = `${HOST}app/uam/message/getForgetIdentifyCode`;
 // 获取登录验证码接口
-export const API_NEW_GET_LOGIN_WITH_CODE = `${HOST}app/uam/message/getLoginIdentifyCode`;
+export const API_GET_LOGIN_WITH_CODE = `${HOST}app/uam/message/getLoginIdentifyCode`;
 
 // 注册用户接口
 export const API_REGISTER = `${HOST}app/uam/register`;
