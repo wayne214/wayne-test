@@ -3,6 +3,8 @@ package com.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import cn.jpush.reactnativejpush.JPushPackage;
 import com.remobile.toast.RCTToastPackage;
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
+            new RNDeviceInfo(),
             new JPushPackage(),
             new RCTToastPackage(),
           new BaiduMapPackage(getApplicationContext()),

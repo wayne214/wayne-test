@@ -93,7 +93,7 @@ export default class Splash extends BaseContainer {
                         this.timer = setTimeout(() => {
                             this.resetTo(0, title);
                             NativeModules.SplashScreen.close();
-                        },10000)
+                        },3000)
                     }
                     if (Platform.OS === 'android') {
                         this.timer = setTimeout(() => {

@@ -34,7 +34,36 @@ const _fetch = (fetch_promise, timeout = 30000) => {
  * successCallBack  ：请求成功回调
  * failCallBack     ：请求失败回调
  * */
-const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack) => {
+
+/* using
+*  import HTTPRequest from '';
+*
+*   HTTPRequest({
+*       url: ''
+        params: {},
+        loading: ()=>{
+
+        },
+        success: (responseData)=>{
+
+        },
+        error: (errorInfo)=>{
+
+        },
+        finish:()=>{
+
+        }
+    });
+* */
+const postRequest = (
+    {
+        url: url,
+        params: params,
+        loading: loadingCallBack,
+        success: successCallBack,
+        error: failCallBack,
+        finish: finishCallBack
+    }) => {
 
     loadingCallBack();
 
@@ -42,7 +71,7 @@ const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack
         params = {}
     }
 
-    console.log('global.token===1', global.token);
+    console.log('global.token===', global.token);
     if (global.token) {
         headers.Authorization = `Bearer ${global.token}`;
         headers.DeviceId = global.UDID;
@@ -54,7 +83,7 @@ const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack
     const jsonBody = JSON.stringify(params);
 
     console.log("%c%s",
-        "color: green; font-size: 20px;",
+        "color: green; font-size: 18px;",
         jsonBody,url,'的请求参数');
 
     const myFetch = fetch(url, {
@@ -87,9 +116,10 @@ const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack
                     }
                     failCallBack(responseData);
                 }
+                finishCallBack();
                 console.log("%c%s",
-                    "color: red; font-size: 24px;",
-                    responseData,url,'的请求结果');
+                    "color: red; font-size: 17px;",
+                    url,'的请求结果',responseData);
             })
             .catch(error => {
                 console.log("----http error", error.message);
@@ -98,6 +128,7 @@ const postRequest = (url, params, loadingCallBack, successCallBack, failCallBack
                 } else {
                     Toast.showShortCenter('网络异常');
                 }
+                finishCallBack();
             });
 };
 

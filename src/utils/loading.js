@@ -20,13 +20,11 @@ export default class loading extends Component {
 
     /*声明属性*/
     static propTypes = {
-        visible: PropTypes.bool,
         color: PropTypes.string,
     };
 
     /*属性默认值*/
     static defaultProps = {
-        visible: false,
         color: 'red',
     };
 
@@ -76,9 +74,9 @@ export default class loading extends Component {
     }
 
     render() {
-        const {visible , color} = this.props;
+        const {color} = this.props;
         return (
-            <View style={[styles.container, {opacity: visible ? 1 : 0}]}>
+            <View style={[styles.container]}>
                 <View style={styles.centerViewStyle}>
 
                     <Animated.View style={

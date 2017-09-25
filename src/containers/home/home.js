@@ -27,7 +27,6 @@ class Home extends BaseContainer{
         super(props);
     }
     componentDidMount(){
-        Toast.showShortCenter('hello world');
     }
 
     render() {

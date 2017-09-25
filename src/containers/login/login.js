@@ -12,25 +12,26 @@ import {
     TextInput,
     Dimensions,
     Platform,
-    ScrollView,
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
-// import * as API from '../constants/api';
-// import Storage from '../../utils/storage';
-// import XeEncrypt from '../../utils/XeEncrypt';
-// import JPushModule from 'jpush-react-native';
+import * as API from '../../constants/api';
+import  HTTPRequest from '../../utils/httpRequest';
+import Storage from '../../utils/storage';
+import XeEncrypt from '../../utils/XeEncrypt';
 import Validator from '../../utils/validator';
 import Toast from '@remobile/react-native-toast';
+import Loading from '../../utils/loading';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
-
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+// import JPushModule from 'jpush-react-native';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -109,32 +110,20 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0)',
     },
 });
-
-class Login extends Component {
+export default class Login extends BaseContainer {
 
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: __DEV__ ? '' : '',
-            password: __DEV__ ? '' : '',
+            phoneNumber: __DEV__ ? '15136273254' : '',
+            password: __DEV__ ? '123456' : '',
+            loading: false,
         };
-        // this.login = this.login.bind(this);
-        // this.loginSecretCode = this.loginSecretCode.bind(this);
-        // this.changeAppLoading = this.changeAppLoading.bind(this);
-        // this.loginSuccessCallBack = this.loginSuccessCallBack.bind(this);
-        // this.loginSecretCodeSuccessCallBack = this.loginSecretCodeSuccessCallBack.bind(this);
-        this.keyboardDidShow = this.keyboardDidShow.bind(this);
-        this.keyboardDidHide = this.keyboardDidHide.bind(this);
-    }
-    componentWillMount() {
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+        this.loginSecretCode = this.loginSecretCode.bind(this);
+        this.login = this.login.bind(this);
     }
 
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-    }
+
     componentDidMount() {
         // Geolocation.getCurrentPosition().then(data => {
         //     console.log('position..........',JSON.stringify(data));
@@ -143,83 +132,81 @@ class Login extends Component {
         //     console.log(e, 'error');
         // });
     }
-    // 键盘弹起后执行
-    keyboardDidShow = (e) => {
-        // console.log('startCoordinates', e.startCoordinates.height);
-        if (Platform.OS === 'ios') {
-            this.scrollView.scrollTo({x: 0, y: e.startCoordinates.height - 100, animated: true});
-        } else {
-            // this.scrollView.scrollTo({x: 0, y: 130, animated: false});
-        }
-    };
 
-    // 键盘收起后执行
-    keyboardDidHide = () => {
-        this.scrollView.scrollTo({x: 0, y: 0, animated: true});
-    };
+    /*获取加密秘钥*/
+    loginSecretCode() {
+        HTTPRequest({
+            url: API.API_GET_SEC_TOKEN,
+            params:{},
+            loading:()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success:(responseData)=>{
+                const secretCode = responseData.result;
+                const secretPassWord = XeEncrypt.aesEncrypt(this.state.password, secretCode, secretCode);
+                console.log('----log--', secretPassWord);
+                this.login(secretPassWord);
+            },
+            error:(errorInfo)=>{
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: ()=>{
 
-    // loginSecretCode(loginSecretCodeSuccessCallBack) {
-    //     this.props.loginSecretCode(loginSecretCodeSuccessCallBack);
-    // }
-    //
-    // loginSecretCodeSuccessCallBack(result) {
-    //     console.log('1234567', result);
-    //     const secretCode = result;
-    //     const secretPassWord = XeEncrypt.aesEncrypt(this.state.password, secretCode, secretCode);
-    //     console.log('----log--', secretPassWord);
-    //     this.login(secretPassWord, this.loginSuccessCallBack);
-    // }
-    //
-    // login(secretCode, loginSuccessCallBack) {
-    //     console.log('login navigator',this.props.navigation);
-    //     currentTime = new Date().getTime();
-    //     this.props.login({
-    //         body: {
-    //             phoneNum: this.state.phoneNumber,
-    //             password: secretCode,
-    //             deviceId: global.UDID,
-    //             platform: global.platform,
-    //         }
-    //     }, loginSuccessCallBack);
-    // }
-    //
-    // loginSuccessCallBack(result) {
-    //     console.log('============= login success call back ', result);
-    //     // lastTime = new Date().getTime();
-    //     // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, result.phone, locationData.province,
-    //     //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
-    //     // const current = this.props.router.getCurrentRoute();
-    //     const loginUserId = result.userId;
-    //     Storage.save('userId', loginUserId);
-    //
-    //     Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
-    //     global.userId = result.userId;
-    //     global.phone = result.phone;
-    //     const resetAction = NavigationActions.reset({
-    //         index: 0,
-    //         actions: [
-    //             NavigationActions.navigate({ routeName: 'Main'}),
-    //         ]
-    //     });
-    //     this.props.navigation.dispatch(resetAction);
-    //     // JPushModule.setAlias(result.phone, this.success, this.fail);
-    //
-    // }
-    // fail = () => {
-    //     console.log('fail');
-    //     JPushModule.setAlias(global.phone, this.success, this.fail);
-    // };
-    //
-    // success = () => {
-    //     NativeAppEventEmitter.addListener('ReceiveNotification', (message) => {
-    //         console.log(message);
-    //     });
-    // };
-    //
-    //
-    // changeAppLoading(appLoading) {
-    //     this.props.changeAppLoading(appLoading);
-    // }
+            }
+        });
+    }
+
+
+    /*账号密码登录*/
+    login(secretCode) {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_LOGIN_WITH_PSD,
+            params: {
+                phoneNum: this.state.phoneNumber,
+                password: secretCode,
+                deviceId: global.UDID,
+                platform: global.platform,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+
+                // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, result.phone, locationData.province,
+                //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
+
+                const loginUserId = responseData.result.userId;
+                Storage.save('userId', loginUserId);
+
+                Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
+                global.userId = responseData.result.userId;
+                global.phone = responseData.result.phone;
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'Main'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+                // JPushModule.setAlias(result.phone, this.success, this.fail);
+            },
+            error: (errorInfo)=>{
+            },
+            finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+
+
+    }
 
     render() {
         const {phoneNumber, password} = this.state;
@@ -231,9 +218,7 @@ class Login extends Component {
                         style={{width, height}}
                     />
                 </View>
-                <ScrollView
-                    ref={component => this.scrollView = component} scrollEnabled={false}
-                    keyboardShouldPersistTaps="always"
+                <KeyboardAwareScrollView style={{ width: width, height: height}}
                 >
                     <View style={{alignItems: 'center', paddingTop: 122}}>
                         <Image
@@ -283,19 +268,10 @@ class Login extends Component {
                             onPress={() => {
                                 dismissKeyboard();
                                 if (Validator.isPhoneNumber(phoneNumber)) {
-                                    {/*this.changeAppLoading(true);*/}
-                                    {/*this.loginSecretCode(this.loginSecretCodeSuccessCallBack);*/}
-                                    const resetAction = NavigationActions.reset({
-                                        index: 0,
-                                        actions: [
-                                            NavigationActions.navigate({ routeName: 'Main'}),
-                                        ]
-                                    });
-                                    this.props.navigation.dispatch(resetAction);
+                                    this.loginSecretCode();
                                 } else {
                                     Toast.showShortCenter('手机号码输入有误，请重新输入');
                                 }
-
                             }}
                             style={styles.loginButton}
                             textStyle={styles.loginButtonText}
@@ -305,6 +281,7 @@ class Login extends Component {
                         <View style={styles.bottomView}>
                             <Text
                                 onPress={() => {
+
                                     {/*this.props.navigation.navigate('LoginSms', {*/}
                                         {/*loginPhone:this.state.phoneNumber*/}
                                     {/*});*/}
@@ -327,7 +304,6 @@ class Login extends Component {
                         </View>
                     </View>
 
-                </ScrollView>
                 <View style={styles.screenEndView}>
                     <Text style={styles.bottomViewText}>没有账号？</Text>
                     <Text
@@ -342,56 +318,12 @@ class Login extends Component {
                 {/*<LoadingView*/}
                     {/*showLoading={this.props.appLoading}*/}
                 {/*/>*/}
+                </KeyboardAwareScrollView>
+
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        // appLoading: state.app.get('appLoading'),
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        // changeAppLoading: (appLoading) => {
-        //     dispatch(changeAppLoadingAction(appLoading));
-        // },
-        // loginSecretCode: (loginSecretCodeSuccessCallBack) => {
-        //     dispatch(loginSecretCodeAction({
-        //         url: API.API_NEW_GET_SEC_TOKEN,
-        //         successCallBack: (response) => {
-        //             loginSecretCodeSuccessCallBack(response.result);
-        //             dispatch(loginSecretCodeSuccessAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //             console.log(err);
-        //             dispatch(changeAppLoadingAction(false));
-        //         },
-        //
-        //     }));
-        // },
-        // login: (params, loginSuccessCallBack) => {
-        //     dispatch(loginAction({
-        //         url: API.API_NEW_LOGIN_WITH_PSD,
-        //         successMsg: '登录成功',
-        //         successCallBack: (response) => {
-        //             dispatch(loginSuccessAction(response));
-        //             dispatch(changeAppLoadingAction(false));
-        //             loginSuccessCallBack(response.result);
-        //         },
-        //         failCallBack: (err) => {
-        //             console.log(err);
-        //             dispatch(changeAppLoadingAction(false));
-        //         },
-        //         ...params,
-        //     }));
-        // },
-        // setMessageListIcon: (data) => {
-        //     dispatch(setMessageListIconAction(data));
-        // },
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
