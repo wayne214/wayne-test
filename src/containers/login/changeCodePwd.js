@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
-// import Toast from '@remobile/react-native-toast';
+import Toast from '@remobile/react-native-toast';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 
@@ -61,8 +61,8 @@ class changeCodePWD extends Component {
         this.state = {
             newPWD: '',
             newPWDagain: '',
-            identifyCode: params.w_identifyCode,
-            phoneNum: params.w_phoneNum,
+            identifyCode: params.identifyCode,
+            phoneNum: params.phoneNum,
         };
 
         // this.getForgetChangeCodeAction = this.getForgetChangeCodeAction.bind(this);
@@ -70,7 +70,7 @@ class changeCodePWD extends Component {
         //     this.getForgetChangeCodeSucccessCallBack.bind(this);
         // this.loginSecretCode = this.loginSecretCode.bind(this);
         // this.loginSecretCodeSuccessCallBack = this.loginSecretCodeSuccessCallBack.bind(this);
-        // this.finish = this.finish.bind(this);
+        this.finish = this.finish.bind(this);
     }
 
     componentDidMount() {
@@ -127,31 +127,30 @@ class changeCodePWD extends Component {
     //     });
     // }
     //
-    // finish() {
-    //     if (this.state.newPWD === '' && this.state.newPWDagain === '') {
-    //         Toast.showShortCenter('密码不能为空');
-    //     } else if (this.state.newPWD !== this.state.newPWDagain) {
-    //         Toast.showShortCenter('两次密码输入不一致');
-    //     } else {
-    //         // this.getForgetChangeCodeAction(this.getForgetChangeCodeSucccessCallBack);
-    //         console.log(this.state.newPWD)
-    //         // global.newPWD = this.state.newPWD;
-    //         // global.newPWDagain = this.state.newPWDagain;
-    //         // global.phoneNum = this.state.phoneNum;
-    //         // global.identifyCode = this.state.identifyCode;
-    //         this.loginSecretCode(this.loginSecretCodeSuccessCallBack);
-    //     }
-    // }
+    finish() {
+        if (this.state.newPWD === '' && this.state.newPWDagain === '') {
+            Toast.showShortCenter('密码不能为空');
+        } else if (this.state.newPWD !== this.state.newPWDagain) {
+            Toast.showShortCenter('两次密码输入不一致');
+        } else {
+            // this.getForgetChangeCodeAction(this.getForgetChangeCodeSucccessCallBack);
+            // global.newPWD = this.state.newPWD;
+            // global.newPWDagain = this.state.newPWDagain;
+            // global.phoneNum = this.state.phoneNum;
+            // global.identifyCode = this.state.identifyCode;
+            // this.loginSecretCode(this.loginSecretCodeSuccessCallBack);
+        }
+    }
 
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
 
         return (
             <View style={styles.container}>
                 <NavigationBar
                     title={'忘记密码'}
                     navigator={navigator}
-                    hiddenBackIcon={false}
+                    leftButtonHidden={false}
                 />
 
                 <View
@@ -218,8 +217,8 @@ class changeCodePWD extends Component {
                 >
                     <View
                         style={{
-                            backgroundColor: '#008BCA',
-                            borderRadius: 10,
+                            backgroundColor: StaticColor.COLOR_MAIN,
+                            borderRadius: 5,
                             height: 40,
                             margin: 10,
                             marginTop: 15,

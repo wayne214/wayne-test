@@ -7,7 +7,9 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import backIcon from './images/back.png';
+
+import * as StaticColor from '../../constants/staticColor';
+import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
     container: {
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
                 height: 50,
             },
         }),
-        backgroundColor: '#1B82D1',
+        backgroundColor: StaticColor.BLUE_ALL_COLOR,
     },
     contentContainer: {
         flex: 1,
@@ -59,19 +61,19 @@ const styles = StyleSheet.create({
     },
     centerTextStyle: {
         textAlign: 'center',
-        color: 'white',
+        color: StaticColor.WHITE_COLOR,
         fontSize: 18,
     },
     leftIconFontStyle: {
         marginLeft: 10,
         fontSize: 20,
-        color: 'white',
+        color: StaticColor.WHITE_COLOR,
         fontFamily: 'iconfont',
     },
     rightIconFontStyle: {
         marginRight: 10,
         fontSize: 20,
-        color: 'white',
+        color: StaticColor.WHITE_COLOR,
         fontFamily: 'iconfont',
     },
     leftTitleStyle: {
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     },
     rightTitleStyle: {
         fontSize:16,
-        color: 'white',
+        color: StaticColor.WHITE_COLOR,
         marginRight: 10,
     },
     centerImg: {
@@ -130,7 +132,7 @@ export default class NavigatorBar extends React.Component {
         if (!leftButtonConfig) {
             leftButtonConfig = {
                 type: 'image',
-                image: backIcon,
+                image: StaticImage.backIcon,
                 onClick: () => {
                     if (backIconClick) {
                         backIconClick();

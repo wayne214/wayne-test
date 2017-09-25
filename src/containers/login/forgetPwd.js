@@ -178,9 +178,10 @@ export default class forgetPWD extends Component {
                 // ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                 //     locationData.district, lastTime - currentTime, '忘记密码');
                 if (responseData.result) {
-                    // this.props.navigation.navigate('LoginSms', {
-                    //     loginPhone:this.state.phoneNumber
-                    // });
+                    this.props.navigation.navigate('ChangeCodePwd', {
+                        identifyCode: this.state.pwdCode,
+                        phoneNum: this.state.phoneNo,
+                    });
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }

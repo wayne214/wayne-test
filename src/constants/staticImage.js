@@ -18,6 +18,9 @@ import clearIcon from '../containers/login/images/forgetdel.png';
 /*注册背景图片*/
 import registerBackground from '../containers/register/images/registeredBackground.png';
 
+/*返回按钮*/
+import backIcon from '../common/navigationBar/images/back.png';
+
 
 export default {
     EmptyImage,
@@ -28,5 +31,6 @@ export default {
     LoginIcon,
     clearIcon,
     registerBackground,
+    backIcon,
 }
 
