@@ -306,7 +306,7 @@ class Login extends Component {
                             <Text
                                 onPress={() => {
                                     this.props.navigation.navigate('LoginSms', {
-                                        loginPhone:this.state.phoneNumber
+                                        loginPhone: this.state.phoneNumber
                                     });
                                 }}
                                 style={styles.bottomViewText}
@@ -315,9 +315,9 @@ class Login extends Component {
                             </Text>
                             <Text
                                 onPress={() => {
-                                    {/*this.props.navigation.navigate('ForgetPWD', {*/}
-                                        {/*loginPhone:this.state.phoneNumber*/}
-                                    {/*});*/}
+                                    this.props.navigation.navigate('ForgetPwd', {
+                                        loginPhone: this.state.phoneNumber
+                                    });
 
                                 }}
                                 style={styles.bottomViewText}
