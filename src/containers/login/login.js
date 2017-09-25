@@ -36,7 +36,7 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 const dismissKeyboard = require('dismissKeyboard');
-const {width, height} = GIT Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container:{
