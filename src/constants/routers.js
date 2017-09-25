@@ -16,8 +16,8 @@ import Guide from '../containers/guide/guide';
 // import Registered from '../containers/registered';
 // import RegisterSuccess from '../containers/registerSuccess';
 // import ChooseCar from '../containers/chooseCar';
-// import ForgetPWD from '../containers/forgetPWD';
-// import LoginSms from '../containers/loginSms';
+import ForgetPwd from '../containers/login/forgetPwd';
+import LoginSms from '../containers/login/loginSms';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -76,18 +76,18 @@ const StackRouteConfigs = {
     //         header: null
     //     }
     // },
-    // ForgetPWD: {
-    //     screen: ForgetPWD,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // LoginSms: {
-    //     screen: LoginSms,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    ForgetPwd: {
+        screen: ForgetPwd,
+        navigationOptions: {
+            header: null
+        }
+    },
+    LoginSms: {
+        screen: LoginSms,
+        navigationOptions: {
+            header: null
+        }
+    },
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'Splash', // 初始化哪个界面为根界面

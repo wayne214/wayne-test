@@ -282,9 +282,10 @@ export default class Login extends BaseContainer {
                             <Text
                                 onPress={() => {
 
-                                    {/*this.props.navigation.navigate('LoginSms', {*/}
-                                        {/*loginPhone:this.state.phoneNumber*/}
-                                    {/*});*/}
+                                    this.props.navigation.navigate('LoginSms', {
+                                        loginPhone:this.state.phoneNumber
+                                    });
+
                                 }}
                                 style={styles.bottomViewText}
                             >
@@ -292,9 +293,9 @@ export default class Login extends BaseContainer {
                             </Text>
                             <Text
                                 onPress={() => {
-                                    {/*this.props.navigation.navigate('ForgetPWD', {*/}
-                                        {/*loginPhone:this.state.phoneNumber*/}
-                                    {/*});*/}
+                                    this.props.navigation.navigate('ForgetPwd', {
+                                        loginPhone: this.state.phoneNumber
+                                    });
 
                                 }}
                                 style={styles.bottomViewText}

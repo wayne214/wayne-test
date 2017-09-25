@@ -12,6 +12,12 @@ import LoginBackground from '../containers/login/images/loginbg.png';
 import LoginIcon from '../containers/login/images/luckybear.png';
 /*鲜易通字体图标*/
 import LoginFont from '../containers/login/images/xytfront.png';
+/*输入框清除按钮图标*/
+import clearIcon from '../containers/login/images/forgetdel.png';
+
+/*注册背景图片*/
+import registerBackground from '../containers/register/images/registeredBackground.png';
+
 
 export default {
     EmptyImage,
@@ -20,5 +26,7 @@ export default {
     LoginBackground,
     LoginFont,
     LoginIcon,
+    clearIcon,
+    registerBackground,
 }
 
