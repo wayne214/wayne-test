@@ -12,7 +12,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import rightArrow from '../../../../assets/income/rightarrow.png';
+import StaticImage from '../../../constants/staticImage';
 import bankIconUtil from '../../utils/bankIconUtil'
 
 const {height,width} = Dimensions.get('window');
@@ -112,7 +112,7 @@ class BankCardCell extends Component {
                                     height: 15,
                                     marginRight: 10
                                 }}
-                                source={rightArrow}/>
+                                source={StaticImage.rightArrow}/>
                         </View>
 
 

@@ -20,6 +20,11 @@ import registerBackground from '../../assets/register/registeredBackground.png';
 
 /*返回按钮*/
 import backIcon from '../common/navigationBar/images/back.png';
+/*箭头*/
+import rightArrow from '../../assets/income/rightarrow.png';
+// 空界面
+import noDataIcon from '../../assets/income/nodata.png';
+
 
 
 export default {
@@ -32,5 +37,7 @@ export default {
     clearIcon,
     registerBackground,
     backIcon,
+    rightArrow,
+    noDataIcon,
 }
 

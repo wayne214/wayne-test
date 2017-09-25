@@ -12,7 +12,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import rightArrow from '../../../../assets/income/rightarrow.png';
+import StaticImage from '../../../constants/staticImage';
 import * as StaticColor from '../../../constants/staticColor';
 
 const {width} = Dimensions.get('window');
@@ -105,7 +105,7 @@ class IncomeCell extends Component {
                         <View style={{
                             justifyContent: 'center'
                         }}>
-                        <Image style={styles.rightIcon} source={rightArrow}/>
+                        <Image style={styles.rightIcon} source={StaticImage.rightArrow}/>
                         </View>
                     </View>
                     {

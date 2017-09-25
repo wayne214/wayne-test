@@ -16,7 +16,7 @@ import NavigationBar from '../../common/navigationBar/navigationBar';
 import BillWaterCell from './cell/billWaterCell';
 import * as API from '../../constants/api';
 import EmptyView from '../../common/emptyView/emptyView';
-import noDataIcon from '../../../assets/income/nodata.png';
+import StaticImage from '../../constants/staticImage';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest'
@@ -96,7 +96,7 @@ export default class BillWaterPage extends Component {
                 },
 
             })
-            
+
         } else {
 
             HTTPRequest({
@@ -208,7 +208,7 @@ export default class BillWaterPage extends Component {
                     leftButtonHidden={false}
                 />
                 {
-                    this.state.dataLength > 0 ? this.listView() : <EmptyView icon={noDataIcon} content={'暂时没有数据'}/>
+                    this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
                 }
 
             </View>
