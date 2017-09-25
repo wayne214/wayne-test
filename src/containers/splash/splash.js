@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
-import splashImg from './images/splash.png';
+import splashImg from '../../../assets/splash/splash.png';
 import BaseContainer from '../base/baseContainer';
 import StorageKey from '../../constants/storageKeys';
 import Storage from '../../utils/storage';
