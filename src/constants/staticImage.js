@@ -21,6 +21,17 @@ import registerBackground from '../containers/register/images/registeredBackgrou
 /*返回按钮*/
 import backIcon from '../common/navigationBar/images/back.png';
 
+/*货源*/
+import close from '../../assets/good/close.png';
+import reject from '../../assets/good/reject.png';
+import waitHandle from '../../assets/good/waithandle.png';
+import open from '../../assets/good/open.png';
+import radioButton from '../../assets/good/radiobuttonIcon.png';
+import GreenIcon from '../../assets/good/greenIcon.png';
+import OrangeIcon from '../../assets/good/orangeIcon.png';
+import RejectIcon from '../../assets/good/reject-icon.png';
+
+
 
 export default {
     EmptyImage,
@@ -32,5 +43,13 @@ export default {
     clearIcon,
     registerBackground,
     backIcon,
+    close,
+    reject,
+    waitHandle,
+    open,
+    radioButton,
+    GreenIcon,
+    OrangeIcon,
+    RejectIcon,
 }
 
