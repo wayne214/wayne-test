@@ -38,10 +38,31 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
+    registeredTitle: {
+        fontSize: 20,
+        color: StaticColor.WHITE_COLOR,
+        backgroundColor: 'transparent',
+        fontWeight: 'bold',
+        marginTop: 18
+    },
+    content: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 200,
+    },
+    codeInput: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    verticalLine: {
+        height: 45,
+        width: 1,
+        backgroundColor: StaticColor.DEVIDE_LINE_COLOR
+    },
     registeredTextInput: {
         height: 45,
         fontSize: 16,
-        color: 'black',
+        color: StaticColor.BLACK_COLOR,
         alignItems: 'center',
         marginLeft: 10,
     },
@@ -49,7 +70,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 45,
         fontSize: 16,
-        color: 'black',
+        color: StaticColor.BLACK_COLOR,
         alignItems: 'center',
         marginLeft: 10,
     },
@@ -81,17 +102,17 @@ const styles = StyleSheet.create({
     screenEndViewText: {
         fontSize: 14,
         color: StaticColor.COLOR_MAIN,
-        backgroundColor: 'rgba(255,255,255,0)',
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
     bottomViewText: {
         fontSize: 14,
-        color: '#cccccc',
-        backgroundColor: 'rgba(255,255,255,0)',
+        color: StaticColor.LIGHT_GRAY_TEXT_COLOR,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
     separateLine: {
         height: 1,
         width,
-        backgroundColor: "#e8e8e8",
+        backgroundColor: StaticColor.DEVIDE_LINE_COLOR,
     },
 });
 
@@ -106,9 +127,9 @@ class Registered extends Component {
             newPassword: '',
         };
 
-        this.registerAccount = this.registerAccount.bind(this);
-        this.registerAccountSuccessCallback = this.registerAccountSuccessCallback.bind(this);
-        this.registeredIdentityCode = this.registeredIdentityCode.bind(this);
+        // this.registerAccount = this.registerAccount.bind(this);
+        // this.registerAccountSuccessCallback = this.registerAccountSuccessCallback.bind(this);
+        // this.registeredIdentityCode = this.registeredIdentityCode.bind(this);
     }
 
     // componentDidMount() {
@@ -172,7 +193,7 @@ class Registered extends Component {
                         <Text
                             style={styles.screenEndViewText}
                             onPress={() => {
-                                {/*this.props.navigation.navigate('Protocol');*/}
+                                this.props.navigation.navigate('Protocol');
                             }}
                         >
                             鲜易供应链服务协议
@@ -186,37 +207,18 @@ class Registered extends Component {
                     leftButtonHidden={false}
                 />
 
-                <View
-                    style={{
-                        backgroundColor: 'skyblue',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: 200,
-                    }}
-                >
+                <View style={styles.content}>
                     <View style={{position: 'absolute'}}>
                         <Image
                             source={StaticImage.registerBackground}
                             style={{width, height: 200}}
                         />
                     </View>
-                    <Image
-                        source={StaticImage.LoginIcon}
-                    />
-                    <Text
-                        style={{
-                            fontSize: 20,
-                            color: 'white',
-                            backgroundColor: 'transparent',
-                            fontWeight: 'bold',
-                            marginTop: 18
-                        }}
-                    >
-                        欢迎加入鲜易通
-                    </Text>
+                    <Image source={StaticImage.LoginIcon} />
+                    <Text style={styles.registeredTitle}>欢迎加入鲜易通</Text>
                 </View>
 
-                <View style={{backgroundColor: 'white'}}>
+                <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
                     <TextInput
                         underlineColorAndroid={'transparent'}
                         placeholder="手机号"
@@ -228,15 +230,8 @@ class Registered extends Component {
                             this.setState({phoneNum});
                         }}
                     />
-
-                    <View
-                        style={styles.separateLine}
-                    />
-
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center'
-                    }}>
+                    <View style={styles.separateLine} />
+                    <View style={styles.codeInput}>
                         <TextInput
                             underlineColorAndroid={'transparent'}
                             placeholder="验证码"
@@ -248,19 +243,11 @@ class Registered extends Component {
                                 this.setState({messageCode});
                             }}
                         />
-
-                        <View
-                            style={{
-                                height: 45,
-                                width: 1,
-                                backgroundColor: "#e8e8e8",
-                            }}
-                        />
-
+                        <View style={styles.verticalLine}/>
                         <CountDownButton
                             enable={phoneNum.length}
                             style={{width: 110, marginRight: 10}}
-                            textStyle={{color: '#1b82d1'}}
+                            textStyle={{color: StaticColor.COLOR_MAIN}}
                             timerCount={60}
                             onClick={(shouldStartCountting) => {
                                 if (Validator.isPhoneNumber(phoneNum)) {
@@ -273,11 +260,7 @@ class Registered extends Component {
                         />
 
                     </View>
-
-                    <View
-                        style={styles.separateLine}
-                    />
-
+                    <View style={styles.separateLine} />
                     <TextInput
                         underlineColorAndroid={'transparent'}
                         secureTextEntry={true}
@@ -289,11 +272,7 @@ class Registered extends Component {
                             this.setState({password});
                         }}
                     />
-
-                    <View
-                        style={styles.separateLine}
-                    />
-
+                    <View style={styles.separateLine} />
                     <TextInput
                         underlineColorAndroid={'transparent'}
                         secureTextEntry={true}
@@ -305,7 +284,6 @@ class Registered extends Component {
                             this.setState({newPassword});
                         }}
                     />
-
                 </View>
 
                 <Button
@@ -331,10 +309,8 @@ class Registered extends Component {
     }
 }
 
-Registered.propTypes = {};
 
 function mapStateToProps(state) {
-
     return {};
 }
 

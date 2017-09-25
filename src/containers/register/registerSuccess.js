@@ -1,23 +1,44 @@
 /**
  * Created by wangl on 2017/7/25.
- */
-/**
- * Created by lenovo on 2017/3/22.
+ * 注册成功界面
  */
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {
     View,
     Image,
     Text,
     Dimensions,
+    StyleSheet,
 } from 'react-native';
-import NavigatorBar from '../common/navigationBar';
-import stylesCommon from '../../assets/css/common';
-// 获取屏幕宽高尺寸
-const {width, height} = Dimensions.get('window');
 
-class RegisterSuccess extends Component {
+import NavigatorBar from '../../common/navigationBar/navigationBar';
+import * as StaticColor from '../../constants/staticColor';
+
+const {width, height} = Dimensions.get('window'); // 获取屏幕宽高尺寸
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND
+    },
+    content: {
+        width,
+        height,
+        alignItems: 'center'
+    },
+    textStyle: {
+        fontFamily: 'iconfont',
+        color: StaticColor.COLOR_MAIN,
+        fontSize: 60,
+        marginTop: 80
+    },
+    tip: {
+        color: StaticColor.COLOR_MAIN,
+        fontSize: 18,
+        marginTop: 10
+    }
+});
+
+export default class RegisterSuccess extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -28,7 +49,7 @@ class RegisterSuccess extends Component {
     render() {
         const navigator = this.props.navigation;
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.container}>
                 <NavigatorBar
                     title={'注册成功'}
                     navigator={navigator}
@@ -41,35 +62,11 @@ class RegisterSuccess extends Component {
                         },
                     }}
                 />
-                <View style={{width, height, alignItems: 'center',}}>
-                    <Text
-                        style={{
-                            fontFamily:'iconfont',
-                            color:'#1b82d1',
-                            fontSize:60,
-                            marginTop:80
-                        }}>&#xe616;</Text>
-                    <Text
-                        style={{
-                            color:'#1b82d1',
-                            fontSize:18,
-                            marginTop:10
-                        }}
-                    >
-                        注册成功
-                    </Text>
+                <View style={styles.content}>
+                    <Text style={styles.textStyle}>&#xe616;</Text>
+                    <Text style={styles.tip}>注册成功</Text>
                 </View>
             </View>
         );
     }
 }
-
-function mapStateToProps(state) {
-    console.log('------ state', state);
-    return {};
-}
-
-function mapDispatchToProps() {
-    return {};
-}
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterSuccess);

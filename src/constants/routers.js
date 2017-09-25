@@ -12,9 +12,9 @@ import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
-// import Protocol from '../containers/protocol';
-// import Registered from '../containers/registered';
-// import RegisterSuccess from '../containers/registerSuccess';
+import Protocol from '../containers/register/protocol';
+import Registered from '../containers/register/registered';
+import RegisterSuccess from '../containers/register/registerSuccess';
 // import ChooseCar from '../containers/chooseCar';
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
@@ -52,24 +52,24 @@ const StackRouteConfigs = {
     //         header: null
     //     }
     // },
-    // Protocol: {
-    //     screen: Protocol,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // Registered: {
-    //     screen: Registered,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // RegisterSuccess: {
-    //     screen: RegisterSuccess,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    Protocol: {
+        screen: Protocol,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Registered: {
+        screen: Registered,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RegisterSuccess: {
+        screen: RegisterSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
     // ChooseCar: {
     //     screen: ChooseCar,
     //     navigationOptions: {

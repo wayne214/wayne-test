@@ -310,7 +310,7 @@ export default class Login extends BaseContainer {
                     <Text
                         style={styles.screenEndViewText}
                         onPress={()=>{
-                            {/*this.props.navigation.navigate('Registered');*/}
+                            this.props.navigation.navigate('Registered');
                         }}
                     >
                         立即注册
