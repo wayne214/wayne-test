@@ -24,6 +24,7 @@ import StaticImage from '../../constants/staticImage';
 import * as API from '../../constants/api';
 import  HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
 import XeEncrypt from '../../utils/XeEncrypt';
 import Validator from '../../utils/validator';
 import Toast from '@remobile/react-native-toast';
@@ -185,9 +186,9 @@ export default class Login extends BaseContainer {
                     //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
 
                     const loginUserId = responseData.result.userId;
-                    Storage.save('userId', loginUserId);
+                    Storage.save(StorageKey.USER_ID, loginUserId);
 
-                    Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
+                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
                     global.userId = responseData.result.userId;
                     global.phone = responseData.result.phone;
                     const resetAction = NavigationActions.reset({

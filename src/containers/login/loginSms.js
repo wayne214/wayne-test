@@ -27,6 +27,7 @@ import * as StaticColor from '../../constants/staticColor';
 import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
@@ -165,10 +166,10 @@ export default class LoginSms extends Component {
                 // ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                 //     locationData.district, lastTime - currentTime, '短信登录页面');
                 const loginUserId = responseData.result.userId;
-                Storage.save('userId', loginUserId);
+                Storage.save(StorageKey.USER_ID, loginUserId);
 
 
-                Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
+                Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
                 global.userId = responseData.result.userId;
                 global.phone = responseData.result.phone;
 

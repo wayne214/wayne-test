@@ -16,15 +16,18 @@ import {
 import Toast from '@remobile/react-native-toast';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
+import { NavigationActions } from 'react-navigation';
 
-// import * as API from '../../constants/api';
+import * as API from '../../constants/api';
 import * as StaticColor from '../../constants/staticColor';
+import  HTTPRequest from '../../utils/httpRequest';
 
-// import XeEncrypt from '../../utils/XeEncrypt';
+import XeEncrypt from '../../utils/XeEncrypt';
 import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
 });
-class changePassword extends Component {
+export default class changePassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -93,17 +96,10 @@ class changePassword extends Component {
             confirmNewPwd: '',
             userId: '',
         };
-        this.modifyPwdSuccCallback = this.modifyPwdSuccCallback.bind(this);
-        this.press = this.press.bind(this);
+        this.changePSD = this.changePSD.bind(this);
         this.loginSecretCode = this.loginSecretCode.bind(this);
-        this.loginSecretCodeSuccessCallBack = this.loginSecretCodeSuccessCallBack.bind(this);
 
-
-        this.success = this.success.bind(this);
-        this.fail = this.fail.bind(this);
-
-
-        Storage.get('userId').then((value) => {
+        Storage.get(StorageKey.USER_ID).then((value) => {
             console.log('value', value);
             this.setState({
                 userId: value,
@@ -124,74 +120,103 @@ class changePassword extends Component {
     //         console.log(e, 'error');
     //     });
     // }
-    // loginSecretCode(loginSecretCodeSuccessCallBack) {
-    //     const oldPwd = this.state.oldPassword;
-    //     const newPwd = this.state.newPassword;
-    //     const confNd = this.state.confirmNewPwd;
-    //     if (oldPwd === '') {
-    //         Toast.showShortCenter('原密码不能为空');
-    //         return;
-    //     }
-    //     if (newPwd === '') {
-    //         Toast.showShortCenter('新密码不能为空');
-    //         return;
-    //     }
-    //     if (newPwd === oldPwd) {
-    //         Toast.showShortCenter('原密码和新密码不能相同');
-    //     } else if (newPwd !== confNd) {
-    //         Toast.showShortCenter('新密码两次输入不一致，请重新输入');
-    //     } else {
-    //         currentTime = new Date().getTime();
-    //         this.props.loginSecretCode(loginSecretCodeSuccessCallBack);
-    //     }
-    // }
 
-    // loginSecretCodeSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '修改密码页面');
-    //     console.log('1234567', result);
-    //     const secretCode = result;
-    //     const secretOldPWD = XeEncrypt.aesEncrypt(this.state.oldPassword, secretCode, secretCode);
-    //     const secretNewPWD = XeEncrypt.aesEncrypt(this.state.newPassword, secretCode, secretCode);
-    //     console.log('----changeCodePWD--', secretOldPWD, secretNewPWD);
-    //     // this.getForgetChangeCodeAction(secretnewPWD, this.getForgetChangeCodeSucccessCallBack);
-    //     this.press(this.modifyPwdSuccCallback, secretOldPWD, secretNewPWD, this.state.userId);
-    // }
-    //
-    // press(modifyPasswordSuccCallBack, secretOldPWD, secretNewPWD, userid) {
-    //     currentTime = new Date().getTime();
-    //     this.props.changPasswordAction({
-    //         confirmPassword: secretNewPWD,
-    //         newPassword: secretNewPWD,
-    //         oldPassword: secretOldPWD,
-    //         userId: userid,
-    //     }, modifyPasswordSuccCallBack);
-    // }
-    // fail = () => {
-    // };
-    //
-    // success = () => {
-    //     NativeAppEventEmitter.addListener('ReceiveNotification', (message) => {
-    //     });
-    // };
-    // modifyPwdSuccCallback(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '修改密码页面');
-    //     if (result) {
-    //         Toast.showShortCenter('恭喜，密码修改成功');
-    //         Storage.remove('userInfo');
-    //         Storage.remove('setCarSuccessFlag');
-    //         Storage.remove('plateNumber');
-    //         JPushModule.setAlias('', this.success, this.fail);
-    //         this.props.navigator.resetTo({
-    //             component: LoginContainer,
-    //             name: RouteType.LOGIN_PAGE,
-    //             key: RouteType.LOGIN_PAGE,
-    //         });
-    //     }
-    // }
+    /*获取密码秘钥*/
+    loginSecretCode() {
+        const oldPwd = this.state.oldPassword;
+        const newPwd = this.state.newPassword;
+        const confNd = this.state.confirmNewPwd;
+        if (oldPwd === '') {
+            Toast.showShortCenter('原密码不能为空');
+            return;
+        }
+        if (newPwd === '') {
+            Toast.showShortCenter('新密码不能为空');
+            return;
+        }
+        if (newPwd === oldPwd) {
+            Toast.showShortCenter('原密码和新密码不能相同');
+        } else if (newPwd !== confNd) {
+            Toast.showShortCenter('新密码两次输入不一致，请重新输入');
+        } else {
+            currentTime = new Date().getTime();
+
+            HTTPRequest({
+                url: API.API_GET_SEC_TOKEN,
+                params: {},
+                loading: ()=>{
+
+                },
+                success: (responseData)=>{
+                    lastTime = new Date().getTime();
+                    // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    //     locationData.district, lastTime - currentTime, '修改密码页面');
+                    const secretCode = responseData.result;
+                    const secretOldPWD = XeEncrypt.aesEncrypt(this.state.oldPassword, secretCode, secretCode);
+                    const secretNewPWD = XeEncrypt.aesEncrypt(this.state.newPassword, secretCode, secretCode);
+
+                    /*修改密码*/
+                    this.changePSD(secretOldPWD, secretNewPWD, this.state.userId);
+
+
+                },
+                error: (errorInfo)=>{
+
+                },
+                finish: ()=>{
+                }
+            });
+
+        }
+    }
+
+
+    /*修改密码*/
+    changePSD(secretOldPWD, secretNewPWD, userid) {
+        currentTime = new Date().getTime();
+
+        HTTPRequest({
+            url: API.API_CHANGE_PSD_WITH_OLD_PSD,
+            params: {
+                confirmPassword: secretNewPWD,
+                newPassword: secretNewPWD,
+                oldPassword: secretOldPWD,
+                userId: userid,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '修改密码页面');
+                if (responseData.result) {
+                    Toast.showShortCenter('恭喜，密码修改成功');
+                    Storage.remove(StorageKey.USER_INFO);
+                    Storage.remove(StorageKey.CarSuccessFlag);
+                    Storage.remove(StorageKey.PlateNumber);
+                    // JPushModule.setAlias('', this.success, this.fail);
+
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Login'}),
+                        ]
+                    });
+                    this.props.navigation.dispatch(resetAction);
+
+                }
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+            }
+        });
+
+
+    }
+
 
     render() {
         const navigator = this.props.navigation;
@@ -254,7 +279,7 @@ class changePassword extends Component {
                                 if (ClickUtil.onMultiClick()) {
                                     if (Validator.isNewPassword(this.state.newPassword)) {
                                         if (Validator.isNewPassword(this.state.confirmNewPwd)) {
-                                            {/*this.loginSecretCode(this.loginSecretCodeSuccessCallBack)*/}
+                                            this.loginSecretCode()
                                         } else {
                                             Toast.showShortCenter('新密码不可包含特殊字符,总长度应为6至14位,需包含英文和数字');
                                         }
@@ -274,49 +299,3 @@ class changePassword extends Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        // app: state.app,
-        // userInfo: state.user.get('userInfo'),
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        // changPasswordAction: (params, modifyPasswordSuccCallBack) => {
-        //     dispatch(changPasswordAction({
-        //         url: API.API_NEW_CHANGE_PSD_WITH_OLD_PSD,
-        //         body: {
-        //             confirmPassword: params.confirmPassword,
-        //             newPassword: params.newPassword,
-        //             oldPassword: params.oldPassword,
-        //             userId: params.userId,
-        //         },
-        //         successCallBack: (response) => {
-        //             modifyPasswordSuccCallBack(response.result);
-        //             dispatch(changePwdSucc(response));
-        //         },
-        //         failCallBack: () => {
-        //             // Toast.showShortCenter('网络异常');
-        //         },
-        //         ...params,
-        //     }));
-        // },
-        // loginSecretCode: (loginSecretCodeSuccessCallBack) => {
-        //     dispatch(loginSecretCodeAction({
-        //         url: API.API_NEW_GET_SEC_TOKEN,
-        //         successCallBack: (response) => {
-        //             loginSecretCodeSuccessCallBack(response.result);
-        //             dispatch(loginSecretCodeSuccessAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //             console.log(err);
-        //         },
-        //
-        //     }));
-        // },
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(changePassword);

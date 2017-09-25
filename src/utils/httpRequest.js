@@ -1,4 +1,6 @@
 import Storage from './storage';
+import StorageKey from '../constants/storageKeys';
+
 import Toast from '@remobile/react-native-toast';
 
 const headers = {
@@ -39,8 +41,8 @@ const _fetch = (fetch_promise, timeout = 30000) => {
 /* using
 *  import HTTPRequest from '';
 *
-*   HTTPRequest({
-*       url: ''
+    HTTPRequest({
+        url: ''
         params: {},
         loading: ()=>{
 
@@ -100,7 +102,7 @@ const postRequest = (
                 if (response.headers.get('newtoken')) {
                     console.log('response.header.newtoken');
                     global.token = response.headers.get('newtoken');
-                    Storage.save('token', response.headers.get('newtoken'));
+                    Storage.save(StorageKey.TOKEN, response.headers.get('newtoken'));
                 }
 
                 return response.json();
@@ -112,11 +114,11 @@ const postRequest = (
                         successCallBack(responseData);
                 } else {
                     if (responseData.code == '504') {
-                        Storage.save('token', '');
+                        Storage.save(StorageKey.TOKEN, '');
                         global.token = '';
-                        Storage.remove('userInfo');
-                        Storage.remove('setCarSuccessFlag');
-                        Storage.remove('plateNumber');
+                        Storage.remove(StorageKey.USER_INFO);
+                        Storage.remove(StorageKey.CarSuccessFlag);
+                        Storage.remove(StorageKey.PlateNumber);
                     }
                     Toast.showShortCenter(responseData.message);
 
