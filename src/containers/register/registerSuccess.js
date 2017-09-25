@@ -13,6 +13,7 @@ import {
 
 import NavigatorBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';
+import { NavigationActions } from 'react-navigation';
 
 const {width, height} = Dimensions.get('window'); // 获取屏幕宽高尺寸
 const styles = StyleSheet.create({
@@ -58,7 +59,14 @@ export default class RegisterSuccess extends Component {
                         type: 'string',
                         title: '完成',
                         onClick: () => {
-                            this.props.navigation.goBack('Login');
+                            {/*this.props.navigation.goBack('Login')*/}
+                            const resetAction = NavigationActions.reset({
+                                index: 0,
+                                actions: [
+                                    NavigationActions.navigate({ routeName: 'Main'}),
+                                ]
+                            });
+                            this.props.navigation.dispatch(resetAction);
                         },
                     }}
                 />

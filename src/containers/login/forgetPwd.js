@@ -183,7 +183,7 @@ export default class forgetPWD extends Component {
                         phoneNum: this.state.phoneNo,
                     });
                 } else {
-                    Toast.showShortCenter('输入的验证啊不正确');
+                    Toast.showShortCenter('输入的验证码不正确');
                 }
             },
             error: (errorInfo)=>{

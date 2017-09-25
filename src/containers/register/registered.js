@@ -13,18 +13,21 @@ import {
     Dimensions
 } from 'react-native';
 import Button from 'apsl-react-native-button';
-// import Toast from '@remobile/react-native-toast';
+import Toast from '@remobile/react-native-toast';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
+import Loading from '../../utils/loading';
+import  HTTPRequest from '../../utils/httpRequest';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 import StaticImage from '../../constants/staticImage';
 import * as StaticColor from '../../constants/staticColor';
-// import * as API from '../../constants/api';
+import * as API from '../../constants/api';
 
 import Validator from '../../utils/validator';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -91,13 +94,11 @@ const styles = StyleSheet.create({
     },
     screenEndView: {
         position: 'absolute',
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        height: height - 40,
         width: width,
-        marginTop: 15,
+        marginTop: height - 40 - 64,
     },
     screenEndViewText: {
         fontSize: 14,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class Registered extends Component {
+export default class Registered extends Component {
 
     constructor(props) {
         super(props);
@@ -125,59 +126,93 @@ class Registered extends Component {
             messageCode: '',
             password: '',
             newPassword: '',
+            loading: false,
         };
 
-        // this.registerAccount = this.registerAccount.bind(this);
-        // this.registerAccountSuccessCallback = this.registerAccountSuccessCallback.bind(this);
-        // this.registeredIdentityCode = this.registeredIdentityCode.bind(this);
+        this.registerAccount = this.registerAccount.bind(this);
+        this.registeredIdentityCode = this.registeredIdentityCode.bind(this);
     }
 
     // componentDidMount() {
-        // this.getCurrentPosition();
+    // this.getCurrentPosition();
     // }
 
     // 获取当前位置
     // getCurrentPosition() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position =', JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e => {
-        //     console.log(e, 'error');
-        // });
+    // Geolocation.getCurrentPosition().then(data => {
+    //     console.log('position =', JSON.stringify(data));
+    //     locationData = data;
+    // }).catch(e => {
+    //     console.log(e, 'error');
+    // });
     // }
 
-    // registerAccount(registerAccountSuccessCallback) {
-    //     currentTime = new Date().getTime();
-    //     this.props.registerAccount({
-    //         body: {
-    //             confirmPassword: this.state.newPassword,
-    //             identifyCode: this.state.messageCode,
-    //             password: this.state.password,
-    //             phoneNum: this.state.phoneNum,
-    //         }
-    //     }, registerAccountSuccessCallback);
-    //     console.log('registerAccount');
-    // }
-    //
-    // registerAccountSuccessCallback(result) {
-    //     // lastTime = new Date().getTime();
-    //     // ReadAndWriteFileUtil.appendFile('注册用户', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //     //     locationData.district, lastTime - currentTime, '注册页面');
-    //     // console.log('registerAccountSuccessCallback', result);
-    //
-    //     // this.props.router.replace(RouteType.REGISTERED_SUCCESS_PAGE);
-    //     this.props.navigation.navigate('RegisterSuccess');
-    //
-    // }
-    //
-    // registeredIdentityCode(shouldStartCountting) {
-    //     this.props.registeredIdentity({
-    //         body: {
-    //             deviceId: global.UDID,
-    //             phoneNum: this.state.phoneNum,
-    //         }
-    //     }, shouldStartCountting);
-    // }
+    /*注册*/
+    registerAccount() {
+        currentTime = new Date().getTime();
+
+        HTTPRequest({
+            url: API.API_REGISTER,
+            params: {
+                confirmPassword: this.state.newPassword,
+                identifyCode: this.state.messageCode,
+                password: this.state.password,
+                phoneNum: this.state.phoneNum,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('注册用户', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '注册页面');
+
+                this.props.navigation.navigate('RegisterSuccess');
+
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        })
+
+    }
+
+
+    /*获取注册验证码*/
+    registeredIdentityCode(shouldStartCountting) {
+
+        HTTPRequest({
+            url: API.API_REGISTER_IDENTIFY_CODE,
+            params: {
+                deviceId: global.UDID,
+                phoneNum: this.state.phoneNum,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                /*开启倒计时*/
+                shouldStartCountting(true);
+                Toast.showShortCenter('验证码已发送');
+
+            },
+            error: (errorInfo)=>{
+                /*关闭倒计时*/
+                shouldStartCountting(false);
+
+            },
+            finish: ()=>{
+
+            }
+        })
+    }
 
 
     render() {
@@ -185,164 +220,131 @@ class Registered extends Component {
         const {phoneNum, messageCode, password, newPassword} = this.state;
         return (
             <View style={styles.container}>
-                <View style={styles.screenEndView}>
-                    <View style={{height: 20, justifyContent: 'center'}}>
-                        <Text style={styles.bottomViewText}>点击"立即注册"代表同意</Text>
-                    </View>
-                    <View style={{height: 21, justifyContent: 'center'}}>
-                        <Text
-                            style={styles.screenEndViewText}
-                            onPress={() => {
-                                this.props.navigation.navigate('Protocol');
-                            }}
-                        >
-                            鲜易供应链服务协议
-                        </Text>
-                    </View>
-                </View>
-
                 <NavigationBar
                     title={'注册'}
                     navigator={navigator}
                     leftButtonHidden={false}
                 />
+                <KeyboardAwareScrollView style={{ width: width, height: height}}>
 
-                <View style={styles.content}>
-                    <View style={{position: 'absolute'}}>
-                        <Image
-                            source={StaticImage.registerBackground}
-                            style={{width, height: 200}}
-                        />
+                    <View style={styles.content}>
+                        <View style={{position: 'absolute'}}>
+                            <Image
+                                source={StaticImage.registerBackground}
+                                style={{width, height: 200}}
+                            />
+                        </View>
+                        <Image source={StaticImage.LoginIcon}/>
+                        <Text style={styles.registeredTitle}>欢迎加入鲜易通</Text>
                     </View>
-                    <Image source={StaticImage.LoginIcon} />
-                    <Text style={styles.registeredTitle}>欢迎加入鲜易通</Text>
-                </View>
 
-                <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
-                    <TextInput
-                        underlineColorAndroid={'transparent'}
-                        placeholder="手机号"
-                        placeholderTextColor="#cccccc"
-                        keyboardType="numeric"
-                        style={styles.registeredTextInput}
-                        value={phoneNum}
-                        onChangeText={(phoneNum) => {
-                            this.setState({phoneNum});
-                        }}
-                    />
-                    <View style={styles.separateLine} />
-                    <View style={styles.codeInput}>
+                    <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
                         <TextInput
                             underlineColorAndroid={'transparent'}
-                            placeholder="验证码"
+                            placeholder="手机号"
                             placeholderTextColor="#cccccc"
                             keyboardType="numeric"
-                            style={styles.registeredCodeTextInput}
-                            value={messageCode}
-                            onChangeText={(messageCode) => {
+                            style={styles.registeredTextInput}
+                            value={phoneNum}
+                            onChangeText={(phoneNum) => {
+                            this.setState({phoneNum});
+                        }}
+                        />
+                        <View style={styles.separateLine}/>
+                        <View style={styles.codeInput}>
+                            <TextInput
+                                underlineColorAndroid={'transparent'}
+                                placeholder="验证码"
+                                placeholderTextColor="#cccccc"
+                                keyboardType="numeric"
+                                style={styles.registeredCodeTextInput}
+                                value={messageCode}
+                                onChangeText={(messageCode) => {
                                 this.setState({messageCode});
                             }}
-                        />
-                        <View style={styles.verticalLine}/>
-                        <CountDownButton
-                            enable={phoneNum.length}
-                            style={{width: 110, marginRight: 10}}
-                            textStyle={{color: StaticColor.COLOR_MAIN}}
-                            timerCount={60}
-                            onClick={(shouldStartCountting) => {
+                            />
+                            <View style={styles.verticalLine}/>
+                            <CountDownButton
+                                enable={phoneNum.length}
+                                style={{width: 110, marginRight: 10}}
+                                textStyle={{color: StaticColor.COLOR_MAIN}}
+                                timerCount={60}
+                                onClick={(shouldStartCountting) => {
                                 if (Validator.isPhoneNumber(phoneNum)) {
-                                    {/*this.registeredIdentityCode(shouldStartCountting)*/}
+                                    this.registeredIdentityCode(shouldStartCountting)
                                 } else {
-                                    {/*Toast.showShortCenter('手机号输入有误，请重新输入');*/}
+                                    Toast.showShortCenter('手机号输入有误，请重新输入');
                                     shouldStartCountting(false);
                                 }
                             }}
-                        />
+                            />
 
-                    </View>
-                    <View style={styles.separateLine} />
-                    <TextInput
-                        underlineColorAndroid={'transparent'}
-                        secureTextEntry={true}
-                        placeholder="新密码"
-                        placeholderTextColor="#cccccc"
-                        style={styles.registeredTextInput}
-                        value={password}
-                        onChangeText={(password) => {
+                        </View>
+                        <View style={styles.separateLine}/>
+                        <TextInput
+                            underlineColorAndroid={'transparent'}
+                            secureTextEntry={true}
+                            placeholder="新密码"
+                            placeholderTextColor="#cccccc"
+                            style={styles.registeredTextInput}
+                            value={password}
+                            onChangeText={(password) => {
                             this.setState({password});
                         }}
-                    />
-                    <View style={styles.separateLine} />
-                    <TextInput
-                        underlineColorAndroid={'transparent'}
-                        secureTextEntry={true}
-                        placeholder="确认密码"
-                        placeholderTextColor="#cccccc"
-                        style={styles.registeredTextInput}
-                        value={newPassword}
-                        onChangeText={(newPassword) => {
+                        />
+                        <View style={styles.separateLine}/>
+                        <TextInput
+                            underlineColorAndroid={'transparent'}
+                            secureTextEntry={true}
+                            placeholder="确认密码"
+                            placeholderTextColor="#cccccc"
+                            style={styles.registeredTextInput}
+                            value={newPassword}
+                            onChangeText={(newPassword) => {
                             this.setState({newPassword});
                         }}
-                    />
-                </View>
+                        />
+                    </View>
 
-                <Button
-                    isDisabled={!(phoneNum && messageCode && password && newPassword)}
-                    style={styles.loginButton}
-                    textStyle={styles.loginButtonText}
-                    onPress={() => {
+                    <Button
+                        isDisabled={!(phoneNum && messageCode && password && newPassword)}
+                        style={styles.loginButton}
+                        textStyle={styles.loginButtonText}
+                        onPress={() => {
+                this.props.navigation.navigate('RegisterSuccess');
 
-                        if (Validator.isPhoneNumber(phoneNum)) {
-                            {/*this.registerAccount(this.registerAccountSuccessCallback);*/}
-                            this.setState({
-                                messageCode:'',
-                            })
-                        } else {
+                        {/*if (Validator.isPhoneNumber(phoneNum)) {*/}
+                            {/*this.registerAccount();*/}
+                            {/*this.setState({*/}
+                                {/*messageCode:'',*/}
+                            {/*})*/}
+                        {/*} else {*/}
                             {/*Toast.showShortCenter('手机号码输入有误，请重新输入');*/}
-                        }
+                        {/*}*/}
                     }}
-                >
-                    立即注册
-                </Button>
+                    >
+                        立即注册
+                    </Button>
+                    <View style={styles.screenEndView}>
+                        <View style={{height: 20, justifyContent: 'center'}}>
+                            <Text style={styles.bottomViewText}>点击"立即注册"代表同意</Text>
+                        </View>
+                        <View style={{height: 21, justifyContent: 'center'}}>
+                            <Text
+                                style={styles.screenEndViewText}
+                                onPress={() => {
+                                this.props.navigation.navigate('Protocol');
+                            }}
+                            >
+                                鲜易供应链服务协议
+                            </Text>
+                        </View>
+                    </View>
+                </KeyboardAwareScrollView>
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
 }
-
-
-function mapStateToProps(state) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        // registerAccount: (params, registerAccountSuccessCallback) => {
-        //     dispatch(registeredAccountAction({
-        //         url: API.API_REGISTER,
-        //         successMsg: '注册成功',
-        //         successCallBack: (response) => {
-        //             registerAccountSuccessCallback(response.result)
-        //         },
-        //         failCallBack: (err) => {
-        //
-        //         },
-        //         ...params,
-        //     }))
-        // },
-        // registeredIdentity: (params, shouldStartCountting) => {
-        //     dispatch(registeredIdentityCodeAction({
-        //         url: API.API_REGISTER_IDENTIFY_CODE,
-        //         successCallBack: (response) => {
-        //             shouldStartCountting(true);
-        //         },
-        //         failCallBack: (err) => {
-        //             // console.log('jjj',err);
-        //             shouldStartCountting(false);
-        //         },
-        //         ...params,
-        //     }))
-        // }
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Registered);
