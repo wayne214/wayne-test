@@ -113,6 +113,7 @@ export default class NavigatorBar extends React.Component {
 
     render() {
         const {
+            navigator,
             title,
             centerIcon,
             backIconClick,
@@ -125,7 +126,6 @@ export default class NavigatorBar extends React.Component {
             rightSubIconFont,
             style,
         } = this.props;
-        const navigator = this.props.navigation;
         let leftButtonConfig = this.props.leftButtonConfig;
         if (!leftButtonConfig) {
             leftButtonConfig = {

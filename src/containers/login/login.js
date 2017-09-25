@@ -305,9 +305,9 @@ class Login extends Component {
                         <View style={styles.bottomView}>
                             <Text
                                 onPress={() => {
-                                    {/*this.props.navigation.navigate('LoginSms', {*/}
-                                        {/*loginPhone:this.state.phoneNumber*/}
-                                    {/*});*/}
+                                    this.props.navigation.navigate('LoginSms', {
+                                        loginPhone:this.state.phoneNumber
+                                    });
                                 }}
                                 style={styles.bottomViewText}
                             >

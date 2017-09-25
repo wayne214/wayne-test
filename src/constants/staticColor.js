@@ -3,9 +3,9 @@
  */
 // 主色调
 export const COLOR_MAIN = '#1B82D1';
-
+// 背景色
 export const COLOR_VIEW_BACKGROUND = '#F5F5F5';
-
+// 分割线
 export const COLOR_SEPARATE_LINE = '#d9d9d9';
 
 export const COLOR_SEPARATE_GRAY_LINE = '#DCDCDC';
