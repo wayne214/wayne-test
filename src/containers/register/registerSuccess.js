@@ -59,14 +59,15 @@ export default class RegisterSuccess extends Component {
                         type: 'string',
                         title: '完成',
                         onClick: () => {
+
                             {/*this.props.navigation.goBack('Login')*/}
-                            const resetAction = NavigationActions.reset({
-                                index: 0,
-                                actions: [
-                                    NavigationActions.navigate({ routeName: 'Main'}),
-                                ]
-                            });
-                            this.props.navigation.dispatch(resetAction);
+                            {/*const resetAction = NavigationActions.reset({*/}
+                                {/*index: 0,*/}
+                                {/*actions: [*/}
+                                    {/*NavigationActions.navigate({ routeName: 'Login'}),*/}
+                                {/*]*/}
+                            {/*});*/}
+                            {/*this.props.navigation.dispatch(resetAction);*/}
                         },
                     }}
                 />

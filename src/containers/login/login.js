@@ -3,7 +3,6 @@
  * 登录界面
  */
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {
     Text,
     View,
@@ -14,7 +13,7 @@ import {
     Platform,
     Keyboard,
     NativeAppEventEmitter,
-    InteractionManager
+    InteractionManager,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -131,6 +130,7 @@ export default class Login extends BaseContainer {
         // }).catch(e =>{
         //     console.log(e, 'error');
         // });
+
     }
 
     /*获取加密秘钥*/
@@ -176,35 +176,39 @@ export default class Login extends BaseContainer {
 
             },
             success: (responseData)=>{
-                lastTime = new Date().getTime();
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    lastTime = new Date().getTime();
 
-                // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, result.phone, locationData.province,
-                //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
+                    // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, result.phone, locationData.province,
+                    //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
 
-                const loginUserId = responseData.result.userId;
-                Storage.save('userId', loginUserId);
+                    const loginUserId = responseData.result.userId;
+                    Storage.save('userId', loginUserId);
 
-                Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
-                global.userId = responseData.result.userId;
-                global.phone = responseData.result.phone;
-                const resetAction = NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({ routeName: 'Main'}),
-                    ]
+                    Storage.save('setCarSuccessFlag', '1'); // 设置车辆的Flag
+                    global.userId = responseData.result.userId;
+                    global.phone = responseData.result.phone;
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Main'}),
+                        ]
+                    });
+                    this.props.navigation.dispatch(resetAction);
+                    // JPushModule.setAlias(result.phone, this.success, this.fail);
                 });
-                this.props.navigation.dispatch(resetAction);
-                // JPushModule.setAlias(result.phone, this.success, this.fail);
+
             },
             error: (errorInfo)=>{
-            },
-            finish: ()=>{
                 this.setState({
                     loading: false,
                 });
+            },
+            finish: ()=>{
             }
         });
-
 
     }
 
