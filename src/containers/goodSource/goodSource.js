@@ -14,13 +14,17 @@ import {
     DeviceEventEmitter,
 } from 'react-native';
 import moment from 'moment';
+import { NavigationActions } from 'react-navigation';
 import BaseContainer from '../base/baseContainer';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 import DropdownMenu from './component/dropdownMenu';
 import EmptyView from '../../common/emptyView/emptyView';
 import * as API from '../../constants/api';
-
+import StorageKey from '../../constants/storageKeys';
+import Storage from '../../utils/storage';
+import HTTPRequest from '../../utils/httpRequest';
+import CommonListItem from './goodListItem/commonListItem';
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
 let list = [];
@@ -70,36 +74,171 @@ class GoodSource extends BaseContainer{
 
         this.resetParams = this.resetParams.bind(this);
 
-        // this.getData = this.getData.bind(this);
-        // this.getDataSuccessCallBack = this.getDataSuccessCallBack.bind(this);
-        // this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
+        this.getData = this.getData.bind(this);
+        this.getDataSuccessCallBack = this.getDataSuccessCallBack.bind(this);
+        this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
     }
     componentDidMount(){
+        pageNO = 1;
+        if (pageNO === 1) {
+            this.setState({
+                isRefresh: true,
+            });
+        }
+        this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
+        this.listener = DeviceEventEmitter.addListener('resetgood', () => {
+            this.receiveEventAndFetchData();
+        });
+    }
+    componentWillUnmount() {
+        this.listener.remove();
+    }
+    // 刷新
+    onRefresh() {
+        if (pageNO === 1) {
+            this.setState({
+                isRefresh: true,
+            });
+        }
+
+        this.resetParams();
+        this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
     }
     // 获取数据
-    // getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
-    //     currentTime = new Date().getTime();
-    //     // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
-    //     const plateNumber = this.props.userPlateNumber;
-    //     Storage.get('userInfo').then((value) => {
-    //         if (value) {
-    //             this.props.requestGoodsSourceData({
-    //                 beginTime: '2017-06-01 00:00:00',
-    //                 endTime: beginTime,
-    //                 page: pageNO,
-    //                 pageSize,
-    //                 driverPhone: value.result.phone,
-    //                 status,
-    //                 plateNumber: plateNumber,
-    //             }, getDataSuccessCallBack, getDataFailCallBack, pageNo);
-    //         }
-    //     });
-    // }
+    getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
+        currentTime = new Date().getTime();
+        // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
+        // const plateNumber = this.props.userPlateNumber;
+        console.log('global phone',global.phone);
+        Storage.get(StorageKey.PlateNumber).then((plateNum) => {
+            if (plateNum) {
+                // this.props.requestGoodsSourceData({
+                //     beginTime: '2017-06-01 00:00:00',
+                //     endTime: beginTime,
+                //     page: pageNO,
+                //     pageSize,
+                //     driverPhone: global.phone,
+                //     status,
+                //     plateNumber: plateNum,
+                // }, getDataSuccessCallBack, getDataFailCallBack, pageNo);
+                HTTPRequest({
+                    url: API.API_NEW_GET_SOURCE_BY_DATE,
+                    params: {
+                        beginTime: '2017-06-01 00:00:00',
+                        endTime: beginTime,
+                        pageNum: pageNo,
+                        pageSize,
+                        driverPhone: global.phone,
+                        status,
+                        plateNumber: plateNum,
+                    },
+                    loading: ()=>{
+
+                    },
+                    success: (responseData)=>{
+                        console.log('success',responseData);
+                        this.setState({
+                            loading: false,
+                        }, ()=>{
+                            lastTime = new Date().getTime();
+                            getDataSuccessCallBack(responseData.result);
+                        });
+
+                    },
+                    error: (errorInfo)=>{
+                        this.setState({
+                            loading: false,
+                        });
+                        getDataFailCallBack();
+                    },
+                    finish: ()=>{
+                    }
+                });
+            }
+        });
+    }
+    // 成功回调
+    getDataSuccessCallBack(result) {
+        lastTime = new Date().getTime();
+        // ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+        //     locationData.district, lastTime - currentTime, '货源页面');
+        startRow = result.startRow + pageSize;
+        console.log('....startRow', startRow);
+        if (result.total <= startRow || result.total === 0) {
+            this.setState({
+                isLoadMore: false,
+                goodsListLength: result.list.length,
+            });
+        } else {
+            this.setState({
+                isLoadMore: true,
+                goodsListLength: result.list.length,
+            });
+        }
+
+        if (pageNO === 1) {
+            list = [];
+        }
+
+        list = list.concat(result.list);
+        console.log('goooododisfiodojif---list,', list);
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(list),
+            isRefresh: false,
+        });
+        // this.getTotalProduct(result.total);
+    }
+    // 失败回调
+    getDataFailCallBack() {
+        this.setState({
+            isRefresh: false,
+            goodsListLength: 0,
+        });
+    }
+    getDataAndCallBack(goodStatus, date, pageNo) {
+        this.getData(goodStatus, date, this.getDataSuccessCallBack, this.getDataFailCallBack, pageNo);
+    }
+    // 重置数据
     resetParams() {
         list = [];
         pageNO = 1;
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(list),
+        });
+    }
+    // 收到监听后进行网络请求
+    receiveEventAndFetchData() {
+        this.resetParams();
+        if (pageNO === 1) {
+            this.setState({
+                isRefresh: true,
+            });
+        }
+        const resetDate = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+        this.getDataAndCallBack('1', resetDate, pageNO);
+        this.setState({
+            goodStatus: '1',
+            date: resetDate,
+        });
+    }
+    // 加载更多
+    loadMoreData() {
+        if (!this.state.isLoadMore) {
+            return;
+        }
+        // this.props.changeProductListLoadingMore(true);
+        pageNO = parseInt(startRow / pageSize, 10) + 1;
+        this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
+    }
+    // 到达底部的时候会自动触发此方法
+    toEnd() {
+        // ListView滚动到底部，根据是否正在加载更多 是否正在刷新 是否已加载全部来判断是否执行加载更多
+        if (!this.state.isLoadMore || this.state.isRefresh || this.state.goodsListLength === 0) {
+            return;
+        }
+        InteractionManager.runAfterInteractions(() => {
+            console.log('触发加载更多 toEnd() --> ');
+            this.loadMoreData();
         });
     }
     // listView的分割线
@@ -139,6 +278,21 @@ class GoodSource extends BaseContainer{
                     //         });
                     //     },
                     // });
+                    this.props.navigation.navigate('GoodsDetailPage',{
+                        transOrderList: dataRow.transOrderList,
+                        scheduleCode: dataRow.dispatchCode,
+                        scheduleStatus: this.state.goodStatus,
+                        allocationModel: dataRow.allocationModel,
+                        bidEndTime: dataRow.bidEndTime,
+                        bidStartTime: dataRow.bidBeginTime,
+                        refPrice: dataRow.refPrice,
+                        getOrderSuccess: () => {
+                            // 刷新
+                            InteractionManager.runAfterInteractions(() => {
+                                this.onRefresh();
+                            });
+                        },
+                    })
                 }}
             />
         );
@@ -157,13 +311,13 @@ class GoodSource extends BaseContainer{
                     data={data}
                     handler={(selection, row) => {
                         this.resetParams();
-                        // data[selection][row] === '待处理' ?
-                        //     this.getDataAndCallBack('1', this.state.date, pageNO)
-                        //     : this.getDataAndCallBack('2', this.state.date, pageNO);
-                        //
-                        // data[selection][row] === '待处理' ?
-                        //     this.setState({goodStatus: '1'})
-                        //     : this.setState({goodStatus: '2'});
+                        data[selection][row] === '待处理' ?
+                            this.getDataAndCallBack('1', this.state.date, pageNO)
+                            : this.getDataAndCallBack('2', this.state.date, pageNO);
+
+                        data[selection][row] === '待处理' ?
+                            this.setState({goodStatus: '1'})
+                            : this.setState({goodStatus: '2'});
                     }
                     }
                     preferences={() => {
