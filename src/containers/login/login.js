@@ -116,7 +116,7 @@ export default class Login extends BaseContainer {
         super(props);
         this.state = {
             phoneNumber: __DEV__ ? '15136273254' : '',
-            password: __DEV__ ? '123456' : '',
+            password: __DEV__ ? 'a123456' : '',
             loading: false,
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
