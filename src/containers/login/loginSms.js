@@ -167,8 +167,7 @@ export default class LoginSms extends Component {
                 //     locationData.district, lastTime - currentTime, '短信登录页面');
                 const loginUserId = responseData.result.userId;
                 Storage.save(StorageKey.USER_ID, loginUserId);
-
-
+                Storage.save(StorageKey.USER_INFO, responseData.result);
                 Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
                 global.userId = responseData.result.userId;
                 global.phone = responseData.result.phone;
