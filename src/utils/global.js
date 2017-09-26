@@ -10,7 +10,7 @@ export default Global;
 * platform ： 当前系统
 * userName  ： 当前用户用户名
 * photoRefNo ： 当前用户用户头像
-*
+* plateNumber : dangqian车牌号
 *
 *
 *

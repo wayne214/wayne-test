@@ -13,8 +13,6 @@ export default (state = initState, action) => {
     switch (action.type) {
         case ActionTypes.ACTION_LOGIN_SUCCESS:
 
-            debugger
-
             global.token = action.payload.token;
             global.userId = action.payload.userId;
             global.userName = action.payload.userName;

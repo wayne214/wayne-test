@@ -25,7 +25,6 @@ import rightArrow from '../../assets/income/rightarrow.png';
 // 空界面
 import noDataIcon from '../../assets/income/nodata.png';
 
-
 /*货源*/
 import close from '../../assets/good/close.png';
 import reject from '../../assets/good/reject.png';
@@ -35,6 +34,15 @@ import radioButton from '../../assets/good/radiobuttonIcon.png';
 import GreenIcon from '../../assets/good/greenIcon.png';
 import OrangeIcon from '../../assets/good/orangeIcon.png';
 import RejectIcon from '../../assets/good/reject-icon.png';
+
+/*业务明细*/
+import bussniessRedImg from '../../assets/income/bussness_red.png';
+import bussniessGreenImg from '../../assets/income/bussness_green.png';
+import bussniessGrayImg from '../../assets/income/bussness_gray.png';
+import bussniessLineImg from '../../assets/income/bussness_line.png';
+import bussness_gg from '../../assets/income/bussness_gg.png';
+import bussniessDeteleImg from '../../assets/income/require_delete.png';
+import bussniessSureImg from '../../assets/income/typeItem_sure.png';
 
 
 
@@ -58,5 +66,12 @@ export default {
     RejectIcon,
     rightArrow,
     noDataIcon,
+    bussniessRedImg,
+    bussniessGreenImg,
+    bussniessGrayImg,
+    bussniessLineImg,
+    bussness_gg,
+    bussniessDeteleImg,
+    bussniessSureImg
 }
 

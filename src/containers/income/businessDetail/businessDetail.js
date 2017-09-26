@@ -14,18 +14,17 @@ import {
 } from 'react-native';
 import * as API from '../../../constants/api';
 import Storage from '../../../utils/storage';
-import {
-    getBusinessDetailsAction,
-} from '../../action/order';
-import NavigationBar from '../../common/navigationBar';
-import AddressLineItem from './bussnessDetail/addressListItem';
-import InfoItem from './bussnessDetail/bussnessInfoItem';
-import HeaderItem from './bussnessDetail/bussnessHeaderItem';
-import HeaderRequire from './bussnessDetail/bussnessRequier';
-import TypeItem from './bussnessDetail/typeItem';
+import HTTPRequest from '../../../utils/httpRequest';
+import Loading from '../../../utils/loading';
+import NavigationBar from '../../../common/navigationBar/navigationBar';
+
+import AddressLineItem from './comment/addressListItem';
+import InfoItem from './comment/bussnessInfoItem';
+import HeaderItem from './comment/bussnessHeaderItem';
+import HeaderRequire from './comment/bussnessRequier';
+import TypeItem from './comment/typeItem';
 import Toast from '@remobile/react-native-toast';
-import EmptyView from '../../components/emptyView';
-import noDataIcon from '../../../assets/img/nodata.png';
+import EmptyView from '../../../common/emptyView/emptyView';
 
 
 let pageNO = 1; // 第一页
@@ -36,7 +35,7 @@ let isLoadMore = false;
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-import {Geolocation} from 'react-native-baidu-map-xzx';
+// import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 let currentTime = 0;
 let lastTime = 0;
@@ -51,9 +50,6 @@ const styles = StyleSheet.create({
 
 });
 
-let phoneNumber = '';
-let platNumber = '';
-
 class detailsPage extends Component {
     constructor(props) {
         super(props);
@@ -63,6 +59,7 @@ class detailsPage extends Component {
             isRefresh: false,
             requires:[],
             isShowType: false,
+            loading: false,
         };
 
         this.onRefresh = this.onRefresh.bind(this);
@@ -70,84 +67,84 @@ class detailsPage extends Component {
         this.renderSeparator = this.renderSeparator.bind(this);
         this.renderRow = this.renderRow.bind(this);
         this.getData = this.getData.bind(this);
-        this.getDataSuccessCallBack = this.getDataSuccessCallBack.bind(this);
-        this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
         this.chooseType = this.chooseType.bind(this);
     }
 
     componentDidMount() {
         this.getCurrentPosition();
-        Storage.get('userInfo').then((userInfo) => {
-            phoneNumber = userInfo.result.phone;
-            Storage.get('plateNumber').then((plate) => {
-                if (plate) {
-                    platNumber = plate;
-                }
-                this.onRefresh();
-            });
-        });
+
+        this.onRefresh();
     }
 // 获取当前位置
     getCurrentPosition() {
-        Geolocation.getCurrentPosition().then(data => {
-            console.log('position =', JSON.stringify(data));
-            locationData = data;
-        }).catch(e => {
-            console.log(e, 'error');
-        });
+        // Geolocation.getCurrentPosition().then(data => {
+        //     console.log('position =', JSON.stringify(data));
+        //     locationData = data;
+        // }).catch(e => {
+        //     console.log(e, 'error');
+        // });
     }
+
     // 获取数据
-    getData(getDataSuccessCallBack, getDataFailCallBack, pageNo) {
+    getData() {
         currentTime = new Date().getTime();
-        Storage.get('userInfo').then((value) => {
-            if (value) {
-                this.props.requestDetailData({
-                    page: pageNO,
-                    pageSize: pageSize,
-                    phoneNum: phoneNumber, //   13312345678
-                    searchType: searchType
-                }, getDataSuccessCallBack, getDataFailCallBack, pageNo);
+
+        HTTPRequest({
+            url: API.API_BUSSNESS_DETAIL,
+            params: {
+                page: pageNO,
+                pageSize: pageSize,
+                phoneNum: global.phone, //   13312345678
+                searchType: searchType
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取业务明细', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '业务明细页面');
+                    if (!result) {
+                        Toast.showShortCenter('暂无数据');
+                        this.setState({
+                            isRefresh: false,
+                        });
+                        return;
+                    }
+
+                    if (result.length < pageSize) {
+                        isLoadMore = false;
+                    } else {
+                        isLoadMore = true;
+                    }
+
+                    if (pageNO === 1) {
+                        list = [];
+                    }
+
+                    list = list.concat(responseData.result);
+
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows(list),
+                    });
+                });
+
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+                this.setState({
+                    isRefresh: false,
+                });
             }
         });
+
     }
 
-    /*获取列表成功*/
-    getDataSuccessCallBack(result) {
-        lastTime = new Date().getTime();
-        ReadAndWriteFileUtil.appendFile('获取业务明细', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-            locationData.district, lastTime - currentTime, '业务明细页面');
-        if (!result) {
-            Toast.showShortCenter('暂无数据');
-            this.setState({
-                isRefresh: false,
-            });
-            return;
-        }
-
-        if (result.length < pageSize) {
-            isLoadMore = false;
-        } else {
-            isLoadMore = true;
-        }
-
-        if (pageNO === 1) {
-            list = [];
-        }
-
-        list = list.concat(result);
-
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(list),
-            isRefresh: false,
-        });
-    }
-
-    /*获取列表失败*/
-    getDataFailCallBack() {
-        this.setState({
-            isRefresh: false,
-        });
-    }
 
     // 刷新
     onRefresh() {
@@ -157,13 +154,14 @@ class detailsPage extends Component {
             isRefresh: true,
         });
         // 请求刷新接口
-        this.getData(this.getDataSuccessCallBack, this.getDataFailCallBack, pageNO);
+        this.getData();
     }
 
     // 加载更多
     loadMoreData() {
         if (isLoadMore){
-            this.getData(this.getDataSuccessCallBack, this.getDataFailCallBack, pageNO++);
+            pageNO++;
+            this.getData();
         }else {
             if (pageNO !== 1){
                 Toast.showShortCenter('没有更多了');
@@ -208,9 +206,7 @@ class detailsPage extends Component {
 
     }
     render() {
-        const {
-            navigator
-        } = this.props;
+        const navigator = this.props.navigation;
 
         const requireView = this.state.requires.length === 0 ? null :
             <View style={{height: 55}}>
@@ -336,6 +332,9 @@ class detailsPage extends Component {
 
                 {typeView}
 
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
