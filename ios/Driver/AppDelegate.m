@@ -64,7 +64,7 @@
   
   [[RCTBundleURLProvider sharedSettings] setDefaults];
 #if DEBUG
-  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.104"];
+  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.114"];
 #endif
   
   //模拟器测试
