@@ -342,7 +342,7 @@ class Mine extends Component {
     }
 
     pushToSetting() {
-        this.props.router.redirect(RouteType.SETTING_PAGE);
+        this.props.navigation.navigate('Setting');
     }
 
     pushToMsgList() {
@@ -870,7 +870,7 @@ class Mine extends Component {
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
-                                            this.props.router.redirect(RouteType.ABOUT_US_PAGE);
+                                            navigator.navigate('AboutUs');
                                         }
                                     }}
                                 />

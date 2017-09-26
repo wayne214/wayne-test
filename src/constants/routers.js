@@ -26,6 +26,8 @@ import BillWaterPage from '../containers/income/AccountFlow/billWaterPage';
 import AddBankCard from '../containers/income/addBankCard/addBankCard';
 import AddBankCardPhone from '../containers/income/addBankCard/addBankCardPhone';
 import VerificationCardPhone from '../containers/income/addBankCard/verificationCardPhone';
+import Setting from '../containers/mine/setting';
+import AboutUs from '../containers/mine/aboutUs';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -140,6 +142,18 @@ const StackRouteConfigs = {
     },
     VerificationCardPhone: {
         screen: VerificationCardPhone,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Setting: {
+        screen: Setting,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AboutUs: {
+        screen: AboutUs,
         navigationOptions: {
             header: null
         }
