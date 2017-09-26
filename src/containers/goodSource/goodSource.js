@@ -14,6 +14,7 @@ import {
     DeviceEventEmitter,
 } from 'react-native';
 import moment from 'moment';
+import { NavigationActions } from 'react-navigation';
 import BaseContainer from '../base/baseContainer';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
@@ -277,6 +278,21 @@ class GoodSource extends BaseContainer{
                     //         });
                     //     },
                     // });
+                    this.props.navigation.navigate('GoodsDetailPage',{
+                        transOrderList: dataRow.transOrderList,
+                        scheduleCode: dataRow.dispatchCode,
+                        scheduleStatus: this.state.goodStatus,
+                        allocationModel: dataRow.allocationModel,
+                        bidEndTime: dataRow.bidEndTime,
+                        bidStartTime: dataRow.bidBeginTime,
+                        refPrice: dataRow.refPrice,
+                        getOrderSuccess: () => {
+                            // 刷新
+                            InteractionManager.runAfterInteractions(() => {
+                                this.onRefresh();
+                            });
+                        },
+                    })
                 }}
             />
         );

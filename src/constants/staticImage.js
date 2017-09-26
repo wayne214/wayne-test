@@ -35,6 +35,7 @@ import radioButton from '../../assets/good/radiobuttonIcon.png';
 import GreenIcon from '../../assets/good/greenIcon.png';
 import OrangeIcon from '../../assets/good/orangeIcon.png';
 import RejectIcon from '../../assets/good/reject-icon.png';
+import receiveBottomArrow from '../../assets/good/receive_bottom_arrow.png';
 
 
 
@@ -58,5 +59,6 @@ export default {
     RejectIcon,
     rightArrow,
     noDataIcon,
+    receiveBottomArrow,
 }
 
