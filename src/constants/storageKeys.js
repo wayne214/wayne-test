@@ -13,7 +13,11 @@ const PHOTO_REF_NO = 'PHOTO_REF_NO'; // 用户头像
 
 const UDID = 'UDID'; // 唯一标识
 
-const LOGIN_KEY = 'LOGIN_KEY'; // Login界面key，跳转界面使用
+const USER_ID = 'USER_ID'; // 用户ID
+
+const CarSuccessFlag = 'setCarSuccessFlag'; //设置车辆的flag
+
+const PlateNumber = 'plateNumber'; // 车牌号
 
 export default {
     IS_FIRST_START_FLAG,
@@ -21,6 +25,8 @@ export default {
     TOKEN,
     PHOTO_REF_NO,
     UDID,
-    LOGIN_KEY
+    USER_ID,
+    CarSuccessFlag,
+    PlateNumber,
 }
 

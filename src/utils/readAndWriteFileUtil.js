@@ -6,6 +6,7 @@ import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs'; // 导入
 import moment from 'moment';
 import Storage from './storage';
+import StorageKey from '../constants/storageKeys';
 
 // const currentData = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 const path = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/logger.txt' : RNFS.DocumentDirectoryPath + '/logger.txt'; // 文件路径
@@ -47,7 +48,7 @@ class readAndWriteFileUtil {
         const gpsYValue = typeof (gpsY) === 'undefined' ? 0 : gpsY; // 经度
         const provValue = typeof (prov) === 'undefined' ? '' : prov; // 省
         const regionValue = typeof (region) === 'undefined' ? '' : region; // 区
-        Storage.get('plateNumber').then((value) => {
+        Storage.get(StorageKey.PlateNumber).then((value) => {
             plateNumber = value;
         });
         var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': phoneNum, 'prov': provValue,
@@ -71,12 +72,12 @@ class readAndWriteFileUtil {
         const provValue = typeof (prov) === 'undefined' ? '' : prov; // 省
         const regionValue = typeof (region) === 'undefined' ? '' : region; // 区
         setTimeout(() => {
-            Storage.get('userInfo').then((value) => {
+            Storage.get(StorageKey.USER_INFO).then((value) => {
                 if (value) {
                     userID = value.result.userId;
                     userNAME = value.result.userName;
                     userPhone = value.result.phone;
-                    Storage.get('plateNumber').then((plateNum) => {
+                    Storage.get(StorageKey.PlateNumber).then((plateNum) => {
                         plateNumber = plateNum;
                         var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': userPhone, 'prov': provValue,
                             'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userID, 'userName': userNAME,
