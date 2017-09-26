@@ -3,6 +3,8 @@
  * 登录界面
  */
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import {
     Text,
     View,
@@ -20,6 +22,7 @@ import Toast from '@remobile/react-native-toast';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
+import {loginSuccessAction} from '../../action/user';
 
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0)',
     },
 });
-export default class Login extends BaseContainer {
+class Login extends BaseContainer {
 
     constructor(props) {
         super(props);
@@ -190,10 +193,11 @@ export default class Login extends BaseContainer {
                     const loginUserId = responseData.result.userId;
                     Storage.save(StorageKey.USER_ID, loginUserId);
                     Storage.save(StorageKey.USER_INFO, responseData.result);
-
                     Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
-                    global.userId = responseData.result.userId;
-                    global.phone = responseData.result.phone;
+
+                    // 发送Action,全局赋值用户信息
+                    this.props.sendLoginSuccessAction(responseData.result);
+
                     const resetAction = NavigationActions.reset({
                         index: 0,
                         actions: [
@@ -334,3 +338,18 @@ export default class Login extends BaseContainer {
         );
     }
 }
+function mapStateToProps(state) {
+    return {};
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        /*登录成功发送Action，全局保存用户信息*/
+        sendLoginSuccessAction: (result) => {
+            dispatch(loginSuccessAction(result));
+        },
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
