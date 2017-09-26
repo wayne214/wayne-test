@@ -14,7 +14,7 @@ import {
     Image
 } from 'react-native';
 import Toast from '@remobile/react-native-toast';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
@@ -87,35 +87,17 @@ export default class forgetPWD extends Component {
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
+         this.getCurrentPosition();
     }
     // 获取当前位置
-    // getCurrentPosition() {
-    //     Geolocation.getCurrentPosition().then(data => {
-    //         console.log('position =',JSON.stringify(data));
-    //         locationData = data;
-    //     }).catch(e =>{
-    //         console.log(e, 'error');
-    //     });
-    // }
-    // componentWillReceiveProps() {
-    //     setTimeout(() => {
-    //         const {forgetNextPage} = this.props;
-    //         console.log('====login======');
-    //         console.log('7890-===== ', forgetNextPage);
-    //
-    //         if (forgetNextPage.code == '200') {
-    //             console.log('====loginggggg======');
-    //             this.props.router.redirect(
-    //                 RouteType.CHANGE_CODE_PWD,
-    //                 {
-    //                     w_identifyCode: this.state.pwdCode,
-    //                     w_phoneNum: this.state.phoneNo,
-    //                 },
-    //             );
-    //         }
-    //     }, 500);
-    // }
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
+    }
 
     /*获取验证码*/
     getForgetVCode(shouldStartCountting) {
@@ -175,8 +157,8 @@ export default class forgetPWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '忘记密码');
+                ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '忘记密码');
                 if (responseData.result) {
                     this.props.navigation.navigate('ChangeCodePwd', {
                         identifyCode: this.state.pwdCode,

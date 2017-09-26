@@ -9,8 +9,8 @@ export const USERINFO = 'userInfo';
 export const PHOTOREFNO = 'photoRefNo';
 
 
- // const HOST_DEV = 'http://mproxy-beta.xianyiscm.com/';
  const HOST_DEV = 'http://mproxy-test.xianyiscm.com/';
+// const HOST_DEV = 'http://mproxy-beta.xianyiscm.com/';
 // const HOST_DEV = 'http://mproxy.xianyiscm.com/';
 
 const HOST_PRODUCT = 'http://mproxy.xianyiscm.com/';

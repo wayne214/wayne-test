@@ -3,7 +3,8 @@ import * as ActionTypes from '../constants/actionType';
 
 const initState = Immutable.fromJS({
     userInfo: {}, // 登录返回的用户信息
-    abc: '',
+    userName: '', // 用户名
+    plateNumber: '', // 用户绑定的车辆
 });
 
 export default (state = initState, action) => {
@@ -22,6 +23,14 @@ export default (state = initState, action) => {
             globalState = globalState.set('userInfo', action.payload);
             return globalState;
 
+        case ActionTypes.ACTION_USER_NAME:
+
+            globalState = globalState.set('userName', action.payload);
+            return globalState;
+
+        case ActionTypes.ACTION_USER_CAR:
+            globalState = globalState.set('plateNumber', action.payload);
+            return globalState;
         default:
             return state;
     }

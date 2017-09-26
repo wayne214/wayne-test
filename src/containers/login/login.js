@@ -22,7 +22,7 @@ import Toast from '@remobile/react-native-toast';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
-import {loginSuccessAction} from '../../action/user';
+import {loginSuccessAction, setUserNameAction} from '../../action/user';
 
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
@@ -34,9 +34,9 @@ import StorageKey from '../../constants/storageKeys';
 import XeEncrypt from '../../utils/XeEncrypt';
 import Validator from '../../utils/validator';
 import Loading from '../../utils/loading';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 // import JPushModule from 'jpush-react-native';
-// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -120,9 +120,8 @@ class Login extends BaseContainer {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: __DEV__ ? '18888888888' : '',
-            password: __DEV__ ? '123456' : '',
-            loading: false,
+            phoneNumber: __DEV__ ? '15112345678' : '',
+            password: __DEV__ ? '123456' : ''
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
@@ -130,12 +129,12 @@ class Login extends BaseContainer {
 
 
     componentDidMount() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position..........',JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e =>{
-        //     console.log(e, 'error');
-        // });
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position..........',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
 
     }
 
@@ -187,8 +186,8 @@ class Login extends BaseContainer {
                 }, ()=>{
                     lastTime = new Date().getTime();
 
-                    // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, result.phone, locationData.province,
-                    //     locationData.district, lastTime - currentTime, result.userId, result.userName, '登录页面');
+                    ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
+                        locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
 
                     const loginUserId = responseData.result.userId;
                     Storage.save(StorageKey.USER_ID, loginUserId);
@@ -326,9 +325,7 @@ class Login extends BaseContainer {
                         立即注册
                     </Text>
                 </View>
-                {/*<LoadingView*/}
-                    {/*showLoading={this.props.appLoading}*/}
-                {/*/>*/}
+
                 </KeyboardAwareScrollView>
 
                 {
@@ -348,6 +345,7 @@ function mapDispatchToProps(dispatch) {
         /*登录成功发送Action，全局保存用户信息*/
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
+            dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
         },
     };
 }

@@ -14,7 +14,7 @@ import {
 import {connect} from 'react-redux';
 
 import { NavigationActions } from 'react-navigation';
-import {loginSuccessAction} from '../../action/user';
+import {loginSuccessAction, setUserNameAction} from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
 import BaseContainer from '../base/baseContainer';
@@ -145,6 +145,8 @@ function mapDispatchToProps(dispatch) {
         /*登录成功发送Action，全局保存用户信息*/
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
+            dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
+
         },
     };
 }
