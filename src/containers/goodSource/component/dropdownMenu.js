@@ -77,7 +77,7 @@ export default class DropdownMenu extends Component {
             bgColor: 'grey',
             tintColor: 'white',
             selectItemColor: 'red',
-            arrowImg,
+            arrowImg: StaticImage.close,
             checkImage: StaticImage.close,
         };
     }
