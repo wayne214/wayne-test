@@ -12,8 +12,8 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import StaticImage from '../../../constants/staticImage';
-import * as StaticColor from '../../../constants/staticColor';
+import StaticImage from '../../../../constants/staticImage';
+import * as StaticColor from '../../../../constants/staticColor';
 
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({

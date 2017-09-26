@@ -10,13 +10,13 @@ import {
     TouchableOpacity,
     DeviceEventEmitter
 } from 'react-native';
-import NavigationBar from '../../common/navigationBar/navigationBar';
+import NavigationBar from '../../../common/navigationBar/navigationBar';
 import IncomeCell from './cell/incomeCell';
-import * as API from '../../constants/api';
-import Storage from '../../utils/storage';
+import * as API from '../../../constants/api';
+import Storage from '../../../utils/storage';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import HTTPRequest from '../../utils/httpRequest';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+import HTTPRequest from '../../../utils/httpRequest';
 
 const {height, width} = Dimensions.get('window');
 let currentTime = 0;
