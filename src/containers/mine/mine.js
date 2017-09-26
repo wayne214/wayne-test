@@ -3,6 +3,8 @@
  * 我的界面
  */
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+
 import BaseContainer from '../base/baseContainer';
 
 import {
@@ -30,4 +32,17 @@ class Mine extends BaseContainer{
     }
 }
 
-export default Mine;
+function mapStateToProps(state) {
+
+    console.log('Mine:',state.user.get('userInfo'));
+
+    return {};
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Mine);

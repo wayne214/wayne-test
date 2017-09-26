@@ -11,7 +11,10 @@ import {
     InteractionManager,
     NativeModules
 } from 'react-native';
+import {connect} from 'react-redux';
+
 import { NavigationActions } from 'react-navigation';
+import {loginSuccessAction} from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
 import BaseContainer from '../base/baseContainer';
@@ -21,7 +24,7 @@ import UUID from '../../utils/uuid';
 
 const {width, height} = Dimensions.get('window');
 
-export default class Splash extends BaseContainer {
+class Splash extends BaseContainer {
     constructor(props) {
         super(props);
         this.getInfoForGlobal = this.getInfoForGlobal.bind(this);
@@ -36,22 +39,14 @@ export default class Splash extends BaseContainer {
 
     //global赋值
     getInfoForGlobal() {
-        Storage.get(StorageKey.TOKEN).then((value) => {
-            if (value){
-                global.token = value;
+
+        Storage.get(StorageKey.USER_INFO).then((result) => {
+            if (result){
+                // 发送Action,全局赋值用户信息
+                this.props.sendLoginSuccessAction(result);
             }
         });
-        Storage.get(StorageKey.USER_INFO).then((value) => {
-            if (value){
-                global.userId = value.result.userId;
-                global.userName = value.result.userName;
-            }
-        });
-        Storage.get(StorageKey.PHOTO_REF_NO).then((value) => {
-            if (value){
-                global.photoRefNo = value.result.photoRefNo;
-            }
-        });
+
         Storage.get(StorageKey.UDID).then((value) => {
             if (value) {
                 global.UDID = value;
@@ -140,3 +135,18 @@ export default class Splash extends BaseContainer {
         );
     }
 }
+function mapStateToProps(state) {
+    return {};
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        /*登录成功发送Action，全局保存用户信息*/
+        sendLoginSuccessAction: (result) => {
+            dispatch(loginSuccessAction(result));
+        },
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);
