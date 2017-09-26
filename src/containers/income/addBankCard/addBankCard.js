@@ -64,9 +64,9 @@ export default class AddBankCard extends Component {
 
         // 初始状态
         this.state = {
-            holdCardName: '',
-            IDCardNum: '',
-            bankCardNum: '',
+            holdCardName: '李艳兵',
+            IDCardNum: '110108198801240414',
+            bankCardNum: '6217730707723670',
             loading: false,
         };
     }
@@ -88,12 +88,9 @@ export default class AddBankCard extends Component {
     }
 
     fetchData() {
-        Storage.get('userInfo').then((userInfo) => {
-            if (userInfo) {
-
-
+            if (global.phone) {
                 HTTPRequest({
-                    url: API.API_AUTH_REALNAME_DETAIL + userInfo.result.phone,
+                    url: API.API_AUTH_REALNAME_DETAIL + global.phone,
                     params: {
                         mobilePhone: userInfo.result.phone,
                     },
@@ -111,20 +108,21 @@ export default class AddBankCard extends Component {
                         });
                     },
                     finish: () => {
-
+                        this.setState({
+                            loading: false,
+                        });
                     },
 
                 })
 
             }
-        });
+
     }
 
     getPersonInfoSuccessCallback(result) {
 
         if (result) {
             Storage.save('personInfoResult', result);
-
             this.setState({
                 holdCardName: result.idCardName,
                 IDCardNum: result.idCard,
@@ -152,7 +150,9 @@ export default class AddBankCard extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             },
 
         })
