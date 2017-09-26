@@ -12,13 +12,13 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import StaticImage from '../../../constants/staticImage';
-import bankIconUtil from '../../utils/bankIconUtil'
+import StaticImage from '../../../../constants/staticImage';
+import bankIconUtil from '../../../../utils/bankIconUtil';
 
 const {height,width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
 
-class BankCardCell extends Component {
+export default class BankCardCell extends Component {
     static propTypes = {
         accountBank: PropTypes.string,
         bankCarType: PropTypes.string,
@@ -123,4 +123,3 @@ class BankCardCell extends Component {
     }
 }
 
-export default BankCardCell;

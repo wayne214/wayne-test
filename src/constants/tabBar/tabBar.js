@@ -27,7 +27,7 @@ import Home from '../../containers/home/home';
 import Mine from '../../containers/mine/mine';
 import GoodsSource from '../../containers/goodSource/goodSource';
 import Order from '../../containers/order/order';
-import Income from '../../containers/income/income';
+import Income from '../../containers/income/AccountFlow/income';
 
 const styles = StyleSheet.create({
     tabIcon: {

@@ -20,8 +20,12 @@ import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
 import ChangeCodePwd from '../containers/login/changeCodePwd';
-import Income from '../containers/income/income';
-import BillWaterPage from '../containers/income/billWaterPage';
+import MyBankCard from '../containers/income/myBankCard';
+import Income from '../containers/income/AccountFlow/income';
+import BillWaterPage from '../containers/income/AccountFlow/billWaterPage';
+import AddBankCard from '../containers/income/addBankCard/addBankCard';
+import AddBankCardPhone from '../containers/income/addBankCard/addBankCardPhone';
+import VerificationCardPhone from '../containers/income/addBankCard/verificationCardPhone';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -112,6 +116,30 @@ const StackRouteConfigs = {
     },
     BillWaterPage: {
         screen: BillWaterPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    MyBankCard: {
+        screen: MyBankCard,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddBankCard: {
+        screen: AddBankCard,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddBankCardPhone: {
+        screen: AddBankCardPhone,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VerificationCardPhone: {
+        screen: VerificationCardPhone,
         navigationOptions: {
             header: null
         }

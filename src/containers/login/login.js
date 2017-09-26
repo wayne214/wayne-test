@@ -189,6 +189,7 @@ export default class Login extends BaseContainer {
 
                     const loginUserId = responseData.result.userId;
                     Storage.save(StorageKey.USER_ID, loginUserId);
+                    Storage.save(StorageKey.USER_INFO, responseData.result);
 
                     Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
                     global.userId = responseData.result.userId;

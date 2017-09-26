@@ -12,14 +12,14 @@ import {
     TouchableOpacity,
     RefreshControl,
 } from 'react-native';
-import NavigationBar from '../../common/navigationBar/navigationBar';
+import NavigationBar from '../../../common/navigationBar/navigationBar';
 import BillWaterCell from './cell/billWaterCell';
-import * as API from '../../constants/api';
-import EmptyView from '../../common/emptyView/emptyView';
-import StaticImage from '../../constants/staticImage';
+import * as API from '../../../constants/api';
+import EmptyView from '../../../common/emptyView/emptyView';
+import StaticImage from '../../../constants/staticImage';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import HTTPRequest from '../../utils/httpRequest'
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+import HTTPRequest from '../../../utils/httpRequest'
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
