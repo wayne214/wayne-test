@@ -264,10 +264,10 @@ class Mine extends Component {
                     params: {
                         phoneNum: this.props.userInfo.phone,
                     },
-                    loading: ()=>{
+                    loading: () => {
 
                     },
-                    success: (responseData)=>{
+                    success: (responseData) => {
 
                         lastTime = new Date().getTime();
                         ReadAndWriteFileUtil.appendFile('实名认证状态查询', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
@@ -278,17 +278,15 @@ class Mine extends Component {
                             verifiedState: 1202,
                         })
                     },
-                    error: (errorInfo)=>{
+                    error: (errorInfo) => {
 
                     },
-                    finish: ()=>{
+                    finish: () => {
                     }
                 });
             }
         }
-
     }
-
     /*资质认证状态请求*/
     certificationState() {
 
@@ -719,7 +717,7 @@ class Mine extends Component {
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
-                                            //this.props.router.redirect(RouteType.ABOUT_US_PAGE);
+                                            navigator.navigate('AboutUs');
                                         }
                                     }}
                                 />
