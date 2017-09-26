@@ -13,7 +13,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import StaticImage from '../../../constants/staticImage';
-import bankIconUtil from '../../utils/bankIconUtil'
+import bankIconUtil from '../../../utils/bankIconUtil'
 
 const {height,width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
