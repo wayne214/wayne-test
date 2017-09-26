@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import HTTPRequest from '../../utils/httpRequest';
 import NavigationBar from '../../common/navigationBar/navigationBar';
-import BankCardCell from '../../containers/income/cell/bankCardCell'
+import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import * as API from '../../constants/api';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';

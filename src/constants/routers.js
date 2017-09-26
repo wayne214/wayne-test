@@ -20,9 +20,9 @@ import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
 import ChangeCodePwd from '../containers/login/changeCodePwd';
-import Income from '../containers/income/income';
-import BillWaterPage from '../containers/income/billWaterPage';
 import MyBankCard from '../containers/income/myBankCard';
+import Income from '../containers/income/AccountFlow/income';
+import BillWaterPage from '../containers/income/AccountFlow/billWaterPage';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 

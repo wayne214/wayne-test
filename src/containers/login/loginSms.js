@@ -180,7 +180,6 @@ export default class LoginSms extends Component {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-
                 // JPushModule.setAlias(result.phone, this.success, this.fail);
             },
             error: (errorInfo)=>{
