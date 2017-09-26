@@ -111,10 +111,31 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.keystore")
+            storePassword "123456"
+            keyAlias "my-key-alias"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            manifestPlaceholders = [JPUSH_APPKEY: "8a227072a0c81d6be9d3ddae",
+                                    APP_CHANNEL: "developer-default",
+                                    MAP_APP_KEY: "8pywyKRqzpiA9prGf5xkkPV01uNEuq6G",
+                                    PACKAGE_NAME      : "com.xescm.driver"]
+                }
+        debug {
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [JPUSH_APPKEY: "5563a0930a5e921653a789e2",
+                                    APP_CHANNEL: "developer-default",
+                                    MAP_APP_KEY: "uwUCzQSp7ddci8tBVcltMQgHvRYRGOKI",
+                                    PACKAGE_NAME      : "com.xescm.driver.debug"]
         }
     }
     // applicationVariants are e.g. debug, release
