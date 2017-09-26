@@ -88,9 +88,6 @@ export default class MyBankCard extends Component {
 
         })
 
-        // this.props.bankCardList({
-        //     url: API.API_BANK_CARD_LIST + global.phone,
-        // }, bankCardBundingCallBack)
     }
 
     bankCardBundingCallBack(result) {
@@ -175,7 +172,7 @@ export default class MyBankCard extends Component {
                     }
                 </View>
                 <TouchableOpacity onPress={() => {
-                    // this.props.router.redirect(RouteType.ADD_BANK_CARD_PAGE);
+                    navigator.navigate('AddBankCard');
                 }}>
                     <View style={{
                         justifyContent: 'center',

@@ -55,6 +55,20 @@
 		2DCD954D1E0B4F2C00145EB5 /* DriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DriverTests.m */; };
 		34F6E74EEBE7465883BA7A9F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */; };
 		35AC22A71F78B462007D53B5 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 35AC22A61F78B462007D53B5 /* fonts */; };
+		35AC22E41F79F41D007D53B5 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22C11F79F410007D53B5 /* libRCTBaiduMap.a */; };
+		35AC22F01F79F4A1007D53B5 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22E61F79F4A1007D53B5 /* BaiduMapAPI_Base.framework */; };
+		35AC22F11F79F4A1007D53B5 /* BaiduMapAPI_Cloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22E71F79F4A1007D53B5 /* BaiduMapAPI_Cloud.framework */; };
+		35AC22F21F79F4A2007D53B5 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22E81F79F4A1007D53B5 /* BaiduMapAPI_Location.framework */; };
+		35AC22F31F79F4A2007D53B5 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22E91F79F4A1007D53B5 /* BaiduMapAPI_Map.framework */; };
+		35AC22F41F79F4A2007D53B5 /* BaiduMapAPI_Radar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22EA1F79F4A1007D53B5 /* BaiduMapAPI_Radar.framework */; };
+		35AC22F51F79F4A2007D53B5 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22EB1F79F4A1007D53B5 /* BaiduMapAPI_Search.framework */; };
+		35AC22F61F79F4A2007D53B5 /* BaiduMapAPI_Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22EC1F79F4A1007D53B5 /* BaiduMapAPI_Utils.framework */; };
+		35AC22F71F79F4A2007D53B5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22EE1F79F4A1007D53B5 /* libcrypto.a */; };
+		35AC22F81F79F4A2007D53B5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22EF1F79F4A1007D53B5 /* libssl.a */; };
+		35AC22FA1F79F4BA007D53B5 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35AC22F91F79F4BA007D53B5 /* mapapi.bundle */; };
+		35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */; };
+		35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FD1F79F506007D53B5 /* QuartzCore.framework */; };
+		35AC23001F79F512007D53B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FF1F79F512007D53B5 /* OpenGLES.framework */; };
 		3E304C86D7DA4190BA6E131C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867703CCF1DF475B81CC8A6E /* Security.framework */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		76FA9D87C0FC40E19FE1CA3D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3435735946DF462E8035CEE1 /* libz.tbd */; };
@@ -230,6 +244,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "Driver-tvOS";
+		};
+		35AC22C01F79F410007D53B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EF3C22561CC2C30D0099E9B6;
+			remoteInfo = RCTBaiduMap;
 		};
 		35BC82281F73AD75005CD20C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -414,6 +435,20 @@
 		2D02E4901E0B4A5D006451C7 /* Driver-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Driver-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3435735946DF462E8035CEE1 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		35AC22A61F78B462007D53B5 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBaiduMap.xcodeproj; path = "../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap.xcodeproj"; sourceTree = "<group>"; };
+		35AC22E61F79F4A1007D53B5 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		35AC22E71F79F4A1007D53B5 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
+		35AC22E81F79F4A1007D53B5 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
+		35AC22E91F79F4A1007D53B5 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
+		35AC22EA1F79F4A1007D53B5 /* BaiduMapAPI_Radar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Radar.framework; sourceTree = "<group>"; };
+		35AC22EB1F79F4A1007D53B5 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
+		35AC22EC1F79F4A1007D53B5 /* BaiduMapAPI_Utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Utils.framework; sourceTree = "<group>"; };
+		35AC22EE1F79F4A1007D53B5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		35AC22EF1F79F4A1007D53B5 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		35AC22F91F79F4BA007D53B5 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
+		35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		35AC22FD1F79F506007D53B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		35AC22FF1F79F512007D53B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4F0CDCD3C7844CB19FCC2856 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
@@ -448,39 +483,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
+				263FAD2C6F43480EAB06FC29 /* CoreTelephony.framework in Frameworks */,
+				1FAC30391F73BB20004DF4C6 /* libsqlite3.0.tbd in Frameworks */,
+				3E304C86D7DA4190BA6E131C /* Security.framework in Frameworks */,
+				800088E0CD1648C2971072DF /* CoreGraphics.framework in Frameworks */,
+				EF51AF10896447A7A62C037A /* SystemConfiguration.framework in Frameworks */,
+				35AC23001F79F512007D53B5 /* OpenGLES.framework in Frameworks */,
+				35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */,
+				35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */,
+				35AC22E41F79F41D007D53B5 /* libRCTBaiduMap.a in Frameworks */,
 				1FAC304F1F73C9F5004DF4C6 /* libjschelpers.a in Frameworks */,
 				1FAC304E1F73C9EF004DF4C6 /* libdouble-conversion.a in Frameworks */,
 				1FAC304D1F73C9E9004DF4C6 /* libcxxreact.a in Frameworks */,
 				1FAC304C1F73C9E4004DF4C6 /* libthird-party.a in Frameworks */,
 				1FAC304B1F73C9DB004DF4C6 /* libyoga.a in Frameworks */,
-				1FAC30391F73BB20004DF4C6 /* libsqlite3.0.tbd in Frameworks */,
-				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
 				1FAC302B1F73BA4D004DF4C6 /* libRCTJCoreModule.a in Frameworks */,
 				1FAC302C1F73BA4D004DF4C6 /* libRCTJPushModule.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				35AC22F51F79F4A2007D53B5 /* BaiduMapAPI_Search.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				35AC22F31F79F4A2007D53B5 /* BaiduMapAPI_Map.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				35AC22F01F79F4A1007D53B5 /* BaiduMapAPI_Base.framework in Frameworks */,
+				35AC22F61F79F4A2007D53B5 /* BaiduMapAPI_Utils.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				35AC22F71F79F4A2007D53B5 /* libcrypto.a in Frameworks */,
+				35AC22F21F79F4A2007D53B5 /* BaiduMapAPI_Location.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				76FA9D87C0FC40E19FE1CA3D /* libz.tbd in Frameworks */,
 				D4788828684B408B999B5927 /* UserNotifications.framework in Frameworks */,
-				263FAD2C6F43480EAB06FC29 /* CoreTelephony.framework in Frameworks */,
-				3E304C86D7DA4190BA6E131C /* Security.framework in Frameworks */,
 				0D4CE6E948E94FD497177F4F /* CFNetwork.framework in Frameworks */,
 				11B4292660194C4A864D77ED /* CoreFoundation.framework in Frameworks */,
-				EF51AF10896447A7A62C037A /* SystemConfiguration.framework in Frameworks */,
 				212FDB5EDAFB4FDA879D2354 /* Foundation.framework in Frameworks */,
+				35AC22F11F79F4A1007D53B5 /* BaiduMapAPI_Cloud.framework in Frameworks */,
+				35AC22F81F79F4A2007D53B5 /* libssl.a in Frameworks */,
 				DD7E18AC16E8476E9F226B7F /* UIKit.framework in Frameworks */,
 				9EFCBF0AEA264BEA8472DB8A /* libresolv.tbd in Frameworks */,
-				800088E0CD1648C2971072DF /* CoreGraphics.framework in Frameworks */,
+				35AC22F41F79F4A2007D53B5 /* BaiduMapAPI_Radar.framework in Frameworks */,
 				D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */,
 				34F6E74EEBE7465883BA7A9F /* libRNDeviceInfo.a in Frameworks */,
 				9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */,
@@ -655,6 +703,9 @@
 		1FAC2F991F73AF7F004DF4C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35AC22FF1F79F512007D53B5 /* OpenGLES.framework */,
+				35AC22FD1F79F506007D53B5 /* QuartzCore.framework */,
+				35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */,
 				1FAC30381F73BB20004DF4C6 /* libsqlite3.0.tbd */,
 				1FAC30361F73BB15004DF4C6 /* libstdc++.6.0.9.tbd */,
 				3435735946DF462E8035CEE1 /* libz.tbd */,
@@ -738,6 +789,38 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		35AC22BA1F79F410007D53B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35AC22C11F79F410007D53B5 /* libRCTBaiduMap.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35AC22E51F79F4A1007D53B5 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				35AC22E61F79F4A1007D53B5 /* BaiduMapAPI_Base.framework */,
+				35AC22E71F79F4A1007D53B5 /* BaiduMapAPI_Cloud.framework */,
+				35AC22E81F79F4A1007D53B5 /* BaiduMapAPI_Location.framework */,
+				35AC22E91F79F4A1007D53B5 /* BaiduMapAPI_Map.framework */,
+				35AC22EA1F79F4A1007D53B5 /* BaiduMapAPI_Radar.framework */,
+				35AC22EB1F79F4A1007D53B5 /* BaiduMapAPI_Search.framework */,
+				35AC22EC1F79F4A1007D53B5 /* BaiduMapAPI_Utils.framework */,
+				35AC22ED1F79F4A1007D53B5 /* thirdlibs */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		35AC22ED1F79F4A1007D53B5 /* thirdlibs */ = {
+			isa = PBXGroup;
+			children = (
+				35AC22EE1F79F4A1007D53B5 /* libcrypto.a */,
+				35AC22EF1F79F4A1007D53B5 /* libssl.a */,
+			);
+			path = thirdlibs;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,6 +842,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -793,6 +877,8 @@
 			isa = PBXGroup;
 			children = (
 				1FAC2F551F73ACD1004DF4C6 /* ding.mp3 */,
+				35AC22F91F79F4BA007D53B5 /* mapapi.bundle */,
+				35AC22E51F79F4A1007D53B5 /* lib */,
 				13B07FAE1A68108700A75B9A /* Driver */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DriverTests */,
@@ -955,6 +1041,10 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
+				},
+				{
+					ProductGroup = 35AC22BA1F79F410007D53B5 /* Products */;
+					ProjectRef = 35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */;
 				},
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
@@ -1175,6 +1265,13 @@
 			remoteRef = 1FAC31091F73DC0B004DF4C6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		35AC22C11F79F410007D53B5 /* libRCTBaiduMap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBaiduMap.a;
+			remoteRef = 35AC22C01F79F410007D53B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		35BC82291F73AD75005CD20C /* libthird-party.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1309,6 +1406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35AC22A71F78B462007D53B5 /* fonts in Resources */,
+				35AC22FA1F79F4BA007D53B5 /* mapapi.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -1520,21 +1618,27 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 6SAK22F6U5;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-toast/ios/RCTToast",
 					"$(SRCROOT)/../node_modules/react-native/React",
-					"$(SRCROOT)/../node_modules/@remobile/react-native-toast/ios/RCTToast",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/thirdlibs",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1559,21 +1663,27 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6SAK22F6U5;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule",
 					"$(SRCROOT)/../node_modules/@remobile/react-native-toast/ios/RCTToast",
 					"$(SRCROOT)/../node_modules/react-native/React",
-					"$(SRCROOT)/../node_modules/@remobile/react-native-toast/ios/RCTToast",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/thirdlibs",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1767,6 +1877,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../React/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1802,6 +1916,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../React/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
