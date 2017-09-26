@@ -17,21 +17,23 @@ import {
     InteractionManager
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import Toast from '@remobile/react-native-toast';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
+
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 import * as API from '../../constants/api';
+
 import  HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
 import XeEncrypt from '../../utils/XeEncrypt';
 import Validator from '../../utils/validator';
-import Toast from '@remobile/react-native-toast';
 import Loading from '../../utils/loading';
 // import {Geolocation} from 'react-native-baidu-map-xzx';
 // import JPushModule from 'jpush-react-native';
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+// import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -280,9 +282,8 @@ export default class Login extends BaseContainer {
                         <View style={styles.bottomView}>
                             <Text
                                 onPress={() => {
-
                                     this.props.navigation.navigate('LoginSms', {
-                                        loginPhone:this.state.phoneNumber
+                                        loginPhone: this.state.phoneNumber
                                     });
 
                                 }}

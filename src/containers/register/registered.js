@@ -133,9 +133,9 @@ export default class Registered extends Component {
         this.registeredIdentityCode = this.registeredIdentityCode.bind(this);
     }
 
-    // componentDidMount() {
+    componentDidMount() {
     // this.getCurrentPosition();
-    // }
+    }
 
     // 获取当前位置
     // getCurrentPosition() {
@@ -311,7 +311,7 @@ export default class Registered extends Component {
                         style={styles.loginButton}
                         textStyle={styles.loginButtonText}
                         onPress={() => {
-                this.props.navigation.navigate('RegisterSuccess');
+                            this.props.navigation.navigate('RegisterSuccess');
 
                         {/*if (Validator.isPhoneNumber(phoneNum)) {*/}
                             {/*this.registerAccount();*/}

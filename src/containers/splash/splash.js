@@ -59,7 +59,7 @@ export default class Splash extends BaseContainer {
             } else {
                 const NewUUID = UUID();
                 global.UDID = NewUUID;
-                Storage.save(UDID, global.UDID);
+                Storage.save(StorageKey.UDID, global.UDID);
                 console.log('-- Create New UDID  --', global.UDID);
             }
         });
