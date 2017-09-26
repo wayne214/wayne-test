@@ -115,8 +115,8 @@ export default class Login extends BaseContainer {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: __DEV__ ? '15136273254' : '',
-            password: __DEV__ ? 'a123456' : '',
+            phoneNumber: __DEV__ ? '18611908428' : '',
+            password: __DEV__ ? '123456' : '',
             loading: false,
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
@@ -189,6 +189,7 @@ export default class Login extends BaseContainer {
                     Storage.save(StorageKey.USER_ID, loginUserId);
 
                     Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+                    Storage.save(StorageKey.PlateNumber, '京LPL001'); // 设置车辆的Flag
                     global.userId = responseData.result.userId;
                     global.phone = responseData.result.phone;
                     const resetAction = NavigationActions.reset({

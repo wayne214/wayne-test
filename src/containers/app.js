@@ -9,6 +9,9 @@ import {
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import {StackRouteConfigs, StackNavigatorConfigs} from '../constants/routers';
+import {
+    DEBUG,
+} from '../constants/setting';
 
 const AppNavigator = StackNavigator(StackRouteConfigs, StackNavigatorConfigs);
 let lastBackPressed = null;
@@ -17,7 +20,19 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.onBackAndroid = this.onBackAndroid.bind(this);
-
+        // 生产环境日志打印重定向，提高性能
+        if (!DEBUG) {
+            console.log = () => {
+            };
+            console.error = () => {
+            };
+            console.warn = () => {
+            };
+            global.ErrorUtils.setGlobalHandler(() => {
+            });
+        }
+        // 开发模式下关闭黄屏警告
+        console.disableYellowBox = true;
     }
 
     componentWillMount() {
