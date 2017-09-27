@@ -12,13 +12,10 @@ import {
     InteractionManager,
 } from 'react-native';
 import moment from 'moment';
-// import NavigatorBar from '../../../../common/navigationBar';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import EntryTest from './goodsSouceDetails';
 import * as API from '../../constants/api';
-// import {getOrderDetaiInfoSuccess, receiveGoods, refusedGoods} from '../../action/order';
 import Loading from '../../utils/loading';
-import Storage from '../../utils/storage';
 import ChooseButtonCell from './component/chooseButtonCell';
 import EmptyView from '../../common/emptyView/emptyView';
 import prventDoubleClickUtil from '../../utils/prventMultiClickUtil';
@@ -28,10 +25,9 @@ import CountdownWithText from './component/countdownWithText';
 import HTTPRequest from '../../utils/httpRequest';
 
 
-// import {
-//     mainPressAction,
-//     changeTabBarAction,
-// } from '../../action/app';
+import {
+    mainPressAction,
+} from '../../action/app';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -45,9 +41,6 @@ const styles = StyleSheet.create({
 });
 
 let transOrderInfo = [];
-let userID = '';
-let userName = '';
-let plateNumber = '';
 
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
@@ -125,14 +118,6 @@ class entryGoodsDetail extends Component {
             this.getOrderDetailInfoSuccessCallBack,
             this.getOrderDetailInfoFailCallBack,
         );
-
-        // Storage.get('userInfo').then((userInfo) => {
-        //     userID = userInfo.result.userId;
-        //     userName = userInfo.result.userName;
-        // });
-        // Storage.get('plateNumber').then((plate) => {
-        //     plateNumber = plate;
-        // });
     }
 // 获取当前位置
     getCurrentPosition(){
@@ -496,7 +481,7 @@ class entryGoodsDetail extends Component {
                             endTime={this.state.bidEndTime}
                             showReviewText={(Date.parse(new Date(this.state.bidEndTime.replace(/-/g,"/"))) - Date.parse(new Date)) <= 0}
                             onClick={() => {
-                                this.props.router.redirect(RouteType.GOODS_BIDDING_PAGE, {
+                                this.props.navigation.navigate('GoodsBiddingPage', {
                                     bidScheduleCode: this.state.scheduleCode,
                                     endTime: this.state.bidEndTime,
                                     refPrices: this.state.refPrice,
@@ -534,13 +519,11 @@ entryGoodsDetail.propTypes = {
     refusedGoods: React.PropTypes.func,
     receiveGoods: React.PropTypes.func,
     getOrderDetaiInfoSuccess: React.PropTypes.func,
-    appLoading: React.PropTypes.bool,
     router: React.PropTypes.object,
     navigator: React.PropTypes.object,
 };
 function mapStateToProps(state) {
     return {
-        appLoading: state.app.get('appLoading'),
         plateNumber: state.app.get('plateNumber'),
     };
 }

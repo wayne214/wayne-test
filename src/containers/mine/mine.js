@@ -619,6 +619,7 @@ class Mine extends Component {
                                                         navigator.navigate('CarInfo');
                                                         //this.props.router.redirect(RouteType.CAR_INFO_PAGE);
                                                     } else {
+                                                        navigator.navigate('CarDisablePage');
                                                         //this.props.router.redirect(RouteType.CAR_DISABLE_PAGE);
                                                     }
                                                 }
