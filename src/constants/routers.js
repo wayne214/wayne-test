@@ -50,6 +50,7 @@ import MsgDetails from '../containers/mine/msgDetails';
 import PersonInfo from '../containers/mine/personInfo';
 import BankCardDeatil from '../containers/income/bankCardDeatil';
 import ImageShow from '../containers/order/imageShow';
+import CarInfo from '../containers/mine/carInfo';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -279,6 +280,12 @@ const StackRouteConfigs = {
     },
     ImageShow: {
         screen: ImageShow,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarInfo: {
+        screen: CarInfo,
         navigationOptions: {
             header: null
         }

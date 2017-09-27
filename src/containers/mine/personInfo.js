@@ -242,13 +242,6 @@ export default class PersonInfo extends Component {
                     image: imgList,
                     num: imgIndex,
                 });
-            // this.props.router.redirect(
-            //     RouteType.IMAGE_SHOW_PAGE,
-            //     {
-            //         image: imgList,
-            //         num: imgIndex,
-            //     },
-            // );
         }
     }
     render() {
