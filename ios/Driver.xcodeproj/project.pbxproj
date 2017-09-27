@@ -491,11 +491,8 @@
 		35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35AC22FD1F79F506007D53B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35AC22FF1F79F512007D53B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-<<<<<<< HEAD
 		3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
-=======
 		4A3EA8449B8D4C84BD01E517 /* libRCTBEEPickerManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBEEPickerManager.a; sourceTree = "<group>"; };
->>>>>>> feature-good
 		4F0CDCD3C7844CB19FCC2856 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
@@ -587,12 +584,8 @@
 				9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */,
 				15A1E7E1D19E4AE1BA6845CC /* libRNFetchBlob.a in Frameworks */,
 				E1267DBF4CDE4098B7384B04 /* libRNImagePicker.a in Frameworks */,
-<<<<<<< HEAD
 				CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */,
 				815E3CFFF2DD434FA2C0D55A /* libRCTBEEPickerManager.a in Frameworks */,
-=======
-				00C9360BD0F643D1BCF8A8C7 /* libRCTBEEPickerManager.a in Frameworks */,
->>>>>>> feature-good
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,12 +936,8 @@
 				21393D99632448779A432B6D /* RNFS.xcodeproj */,
 				22273DD0C9EC4F5EB7D49795 /* RNFetchBlob.xcodeproj */,
 				905439F7535D4479ABAC4A9A /* RNImagePicker.xcodeproj */,
-<<<<<<< HEAD
 				91776CF503274D06928D137A /* RCTCamera.xcodeproj */,
 				3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */,
-=======
-				D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */,
->>>>>>> feature-good
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1160,13 +1149,8 @@
 					ProjectRef = 35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */;
 				},
 				{
-<<<<<<< HEAD
 					ProductGroup = 1F9176271F7B925400F68EFB /* Products */;
 					ProjectRef = 3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */;
-=======
-					ProductGroup = B00EE83A1F7B6F26001AE54E /* Products */;
-					ProjectRef = D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */;
->>>>>>> feature-good
 				},
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
@@ -1719,10 +1703,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
@@ -1738,10 +1719,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1771,10 +1749,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
@@ -1790,10 +1765,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1830,10 +1802,7 @@
 					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
@@ -1882,10 +1851,7 @@
 					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
@@ -1931,10 +1897,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
@@ -1949,10 +1912,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1989,10 +1949,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
-=======
->>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
@@ -2007,10 +1964,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2047,10 +2001,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2083,10 +2034,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-=======
->>>>>>> feature-good
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
