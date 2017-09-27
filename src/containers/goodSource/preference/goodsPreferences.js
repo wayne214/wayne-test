@@ -362,7 +362,7 @@ class goodsPreferences extends Component {
     chooseCity() {
         console.log('__departureCityArray___', this.state.departureCityArray);
         if (this.state.departureCityArray.length <= 5) {
-            this.props.router.redirect(RouteType.CHOICE_CITYS_PAGE, {
+            this.props.navigation.navigate('ChoiceCityPage', {
                 cityList: this.state.departureCityArray,
                 selectedCityCallback: (data) => {
                     let content = '';
@@ -386,7 +386,7 @@ class goodsPreferences extends Component {
         } else {
             const deleteCount = this.state.departureCityArray.length - 5;
             this.state.departureCityArray.splice(0, deleteCount);
-            this.props.router.redirect(RouteType.CHOICE_CITYS_PAGE, {
+            this.props.navigation.navigate('ChoiceCityPage', {
                 cityList: this.state.departureCityArray,
                 selectedCityCallback: (data) => {
                     let content = '';

@@ -33,6 +33,7 @@ import BusinessDetail from '../containers/income/businessDetail/businessDetail';
 // import BillWaterPage from '../containers/income/billWaterPage';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
+import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -178,6 +179,12 @@ const StackRouteConfigs = {
     },
     GoodsPreferencePage: {
         screen: GoodsPreferencePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChoiceCityPage: {
+        screen: ChoiceCityPage,
         navigationOptions: {
             header: null
         }

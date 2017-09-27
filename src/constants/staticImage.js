@@ -37,7 +37,7 @@ import RejectIcon from '../../assets/good/reject-icon.png';
 import receiveBottomArrow from '../../assets/good/receive_bottom_arrow.png';
 import rightArrowTurn from '../../assets/good/right-turn.png';
 import timeIcon from '../../assets/good/timeIcon.png';
-
+import deleteIcon from '../../assets/good/delete.png';
 /*业务明细*/
 import bussniessRedImg from '../../assets/income/bussness_red.png';
 import bussniessGreenImg from '../../assets/income/bussness_green.png';
@@ -78,6 +78,7 @@ export default {
     bussniessSureImg,
     receiveBottomArrow,
     rightArrowTurn,
-    timeIcon
+    timeIcon,
+    deleteIcon,
 }
 
