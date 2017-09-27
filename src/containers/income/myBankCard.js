@@ -17,7 +17,7 @@ import HTTPRequest from '../../utils/httpRequest';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import * as API from '../../constants/api';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 const {height, width} = Dimensions.get('window');
@@ -66,12 +66,12 @@ export default class MyBankCard extends Component {
 
 // 获取当前位置
     getCurrentPosition() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position =', JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e => {
-        //     console.log(e, 'error');
-        // });
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch(e => {
+            console.log(e, 'error');
+        });
     }
     bankCardList(bankCardBundingCallBack) {
         currentTime = new Date().getTime();
@@ -169,15 +169,6 @@ export default class MyBankCard extends Component {
                                                         bankAccount: rowData.bankAccount,
                                                         default: rowData.isDefault,
                                                     })
-                                                // this.props.router.redirect(
-                                                //     RouteType.MY_BANK_CARD_DETAILS_PAGE,
-                                                //     {
-                                                //         bank: rowData.accountBank,
-                                                //         bankType: rowData.bankCarType,
-                                                //         bankAccount: rowData.bankAccount,
-                                                //         default: rowData.isDefault,
-                                                //     },
-                                                // );
                                             }}
                                     />
                                 }
