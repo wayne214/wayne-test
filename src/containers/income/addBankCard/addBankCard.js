@@ -58,7 +58,6 @@ export default class AddBankCard extends Component {
         super(props);
         this.getBankCardInfo = this.getBankCardInfo.bind(this);
         this.getBankCardInfoCallBack = this.getBankCardInfoCallBack.bind(this);
-
         this.fetchData = this.fetchData.bind(this);
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
 
@@ -72,9 +71,7 @@ export default class AddBankCard extends Component {
     }
 
     componentDidMount() {
-
         Storage.get('personInfoResult').then((value) => {
-
             if (value) {
                 this.setState({
                     holdCardName: value.idCardName,
@@ -84,7 +81,6 @@ export default class AddBankCard extends Component {
                 this.fetchData();
             }
         });
-
     }
 
     fetchData() {
@@ -92,7 +88,7 @@ export default class AddBankCard extends Component {
                 HTTPRequest({
                     url: API.API_AUTH_REALNAME_DETAIL + global.phone,
                     params: {
-                        mobilePhone: userInfo.result.phone,
+                        mobilePhone: global.phone,
                     },
                     loading: () => {
                         this.setState({
@@ -112,11 +108,8 @@ export default class AddBankCard extends Component {
                             loading: false,
                         });
                     },
-
                 })
-
             }
-
     }
 
     getPersonInfoSuccessCallback(result) {
@@ -154,12 +147,7 @@ export default class AddBankCard extends Component {
                     loading: false,
                 });
             },
-
         })
-
-        // this.props.getBankCardInfo({
-        //     url:API.API_BANKCARD_INFO + this.state.bankCardNum
-        // },getBankCardInfoCallBack,getBankCardInfoFailCallBack)
     }
 
     getBankCardInfoCallBack(result) {
@@ -175,20 +163,9 @@ export default class AddBankCard extends Component {
                     bankName:result.bankName,
                     cardName:result.cardName,
                 });
-            // this.props.router.redirect(RouteType.ADD_BANK_CARD_USEPHONE_PAGE,
-            //     {
-            //         holdCardName: this.state.holdCardName,
-            //         IDCardNum: this.state.IDCardNum,
-            //         bankCardNum: this.state.bankCardNum,
-            //         bankName:result.bankName,
-            //         cardName:result.cardName,
-            //     }
-            // );
         }
 
     }
-
-
 
 
     render() {
@@ -316,43 +293,3 @@ export default class AddBankCard extends Component {
         );
     }
 }
-
-// function mapStateToProps(state) {
-//     return {
-//         appLoading: state.app.get('appLoading'),
-//     };
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//     return {
-//
-//         getBankCardInfo: (params, getBankCardInfoCallBack, getBankCardInfoFailCallBack) => {
-//             dispatch(getBankCardInfoAction({
-//                 successCallBack: (response) => {
-//                     getBankCardInfoCallBack(response.result);
-//                 },
-//                 failCallBack: (err) => {
-//                     getBankCardInfoFailCallBack();
-//                 },
-//                 ...params,
-//             }));
-//         },
-//         getPersonInfoAction: (params, getPersonInfoSuccessCallback, getPersonInfoFailCallback) => {
-//             dispatch(getPersonInfoAction({
-//                 url: API.API_AUTH_REALNAME_DETAIL + params.mobilePhone,
-//                 body: {
-//                     phoneNum: params.mobilePhone,
-//                 },
-//                 successCallBack: (response) => {
-//                     getPersonInfoSuccessCallback(response.result);
-//                 },
-//                 failCallBack: () => {
-//                     getPersonInfoFailCallback();
-//                     dispatch(changeAppLoadingAction(false));
-//                 },
-//             }));
-//         },
-//     };
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(AddBankCard);

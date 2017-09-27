@@ -54,7 +54,7 @@ export default class AddBankCardPhone extends Component {
         this.sendVerifyCode = this.sendVerifyCode.bind(this);
         this.sendVerifyCodeCallBack = this.sendVerifyCodeCallBack.bind(this);
 
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
         // 初始状态
         this.state = {
             holdCardName: params.holdCardName,

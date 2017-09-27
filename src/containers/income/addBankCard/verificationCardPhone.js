@@ -48,7 +48,7 @@ export default class VerificationCardPhone extends Component {
     // 构造
     constructor(props) {
         super(props);
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
         // 初始状态
         this.state = {
             holdCardName: params.holdCardName,
