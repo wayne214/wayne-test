@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         fontSize: 15,
         color: '#333333',
-        flex: 1,
         textAlign: 'right',
     }
 
@@ -53,9 +52,12 @@ class verifiedIDInfoDateItem extends Component{
 
     render() {
         const {IDDate} = this.props;
-        let date='';
 
-        if (IDDate) {
+        let date='请手动选择有效期';
+        let color = {color: '#666666'};
+
+        if (IDDate && IDDate !== '请选择有效期') {
+            color = {color: 'black'};
 
             date = IDDate.length === 8 && IDDate.indexOf('-') < 0 ?
                 IDDate.substr(0, 4) + '-' + IDDate.substr(4, 2) + '-' + IDDate.substr(6, 2) + ''
@@ -69,7 +71,9 @@ class verifiedIDInfoDateItem extends Component{
             } else {
                 date = date.replace('月', '');
             }
-        }
+        }else
+            color = {color: '#666666'};
+
         return (
             <View style={styles.container}>
 
@@ -82,14 +86,9 @@ class verifiedIDInfoDateItem extends Component{
                                           this.click();
                                       }}>
 
-                        <TextInput style={styles.textInputStyle}
-                                   underlineColorAndroid={'transparent'}
-                                   value={date}
-                                   placeholder={'请手动选择有效期'}
-                                   editable={false}
-
-                        />
-
+                        <Text style={[styles.textInputStyle, color]}>
+                            {date}
+                        </Text>
 
                     </TouchableOpacity>
                 </View>

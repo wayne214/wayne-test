@@ -8,7 +8,6 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    InteractionManager,
     DeviceEventEmitter,
 } from 'react-native';
 
@@ -91,11 +90,9 @@ class verifiedState extends Component{
         this.getCurrentPosition();
 
         if (this.state.qualifications == '1203') {
-            InteractionManager.runAfterInteractions(() => {
 
-                this.getRealNameDetail(global.phone);
+            this.getRealNameDetail(global.phone);
 
-            });
         } else {
             Storage.get(StorageKey.personInfoResult).then((value) => {
 
@@ -301,9 +298,9 @@ class verifiedState extends Component{
 
                 {bottomReloadView}
 
-                <LoadingView
-                    showLoading={this.state.appLoading}
-                />
+                {
+                    this.state.appLoading ? <LoadingView /> : null
+                }
             </View>
         )
     }

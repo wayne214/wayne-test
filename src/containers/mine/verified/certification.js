@@ -12,12 +12,12 @@ import {
     ScrollView,
     TouchableOpacity,
     DeviceEventEmitter,
-    InteractionManager,
     Platform,
     Alert
 } from 'react-native';
 
 import * as API from '../../../constants/api';
+import { NavigationActions } from 'react-navigation';
 
 import ImagePicker from 'react-native-image-picker';
 import TimePicker from 'react-native-picker-custom';
@@ -36,7 +36,7 @@ import {upLoadImageManager} from '../../../utils/upLoadImageToVerified';
 import VerifiedTravelPaperItem from './verifiedIDItem/verifiedTravelPaperItem';
 import VerifiedDateSources from './verifiedIDItem/verifiedDateSource';
 import HTTPRequest from '../../../utils/httpRequest';
-import { setUserCarAction } from '../../../action/user';
+import {setUserCarAction} from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
 import LoadingView from '../../../utils/loading';
 import Toast from '@remobile/react-native-toast';
@@ -82,7 +82,7 @@ let locationData = '';
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: '#f5f5f5',
     },
 });
@@ -183,76 +183,75 @@ class certification extends Component {
 
     componentDidMount() {
         this.getCurrentPosition();
-        InteractionManager.runAfterInteractions(() => {
-            this.getCarLengthWeight();
+        this.getCarLengthWeight();
 
-            userID = global.userId;
-            userName = global.userName;
-            userPhone = global.phone;
-
-
-            this.listener = DeviceEventEmitter.addListener('endSureCameraPhoto', (imagePath) => {
-
-                imagePath = 'file://' + imagePath;
-
-                let source = {uri: imagePath};
-
-                let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
-                let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
-
-                formData.append("photo", file);   //这里的files就是后台需要的key
-                formData.append('phoneNum', userPhone);
-                formData.append('isShot', 'Y');
-
-                switch (selectType) {
-                    case 0:
-                        this.setState({
-                            travelRightImage: source,
-                            carOwner: '',
-                            isChooseTravelRightImage: true
-                        });
-                        isFirst = true;
-                        this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
-
-                        break;
-                    case 1:
-                        this.setState({
-                            travelTrunRightImage: source,
-                            isChooseTravelTrunRightImage: true,
-                        });
-                        this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData);
+        userID = global.userId;
+        userName = global.userName;
+        userPhone = global.phone;
 
 
-                        break;
-                    case 2:
-                        this.setState({
-                            qiangxianRightImage: source,
-                        });
-                        this.upLoadImage(API.API_GET_SEND_QIANGXIAN_INFO, formData);
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhoto', (imagePath) => {
 
-                        break;
-                    case 3:
-                        this.setState({
-                            carHeaderRightImage: source,
-                        });
-                        this.upLoadImage(API.API_GET_CAR_HEADER_INFO, formData);
+            imagePath = 'file://' + imagePath;
 
-                        break;
-                    default:
-                        break
-                }
-                this.setState({
-                    appLoading: true,
-                });
+            let source = {uri: imagePath};
 
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
+
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('phoneNum', userPhone);
+            formData.append('isShot', 'Y');
+
+            switch (selectType) {
+                case 0:
+                    this.setState({
+                        travelRightImage: source,
+                        carOwner: '',
+                        isChooseTravelRightImage: true
+                    });
+                    isFirst = true;
+                    this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
+
+                    break;
+                case 1:
+                    this.setState({
+                        travelTrunRightImage: source,
+                        isChooseTravelTrunRightImage: true,
+                    });
+                    this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData);
+
+
+                    break;
+                case 2:
+                    this.setState({
+                        qiangxianRightImage: source,
+                    });
+                    this.upLoadImage(API.API_GET_SEND_QIANGXIAN_INFO, formData);
+
+                    break;
+                case 3:
+                    this.setState({
+                        carHeaderRightImage: source,
+                    });
+                    this.upLoadImage(API.API_GET_CAR_HEADER_INFO, formData);
+
+                    break;
+                default:
+                    break
+            }
+            this.setState({
+                appLoading: true,
             });
 
         });
 
+
     }
 
     componentWillUnmount() {
-        this.listener.remove();
+        if (this.listener)
+            this.listener.remove();
     }
 
     // 获取当前位置
@@ -298,6 +297,7 @@ class certification extends Component {
 
     /*点击弹出菜单*/
     showAlertSelected() {
+
         this.dialog.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
     }
 
@@ -776,6 +776,7 @@ class certification extends Component {
                 DeviceEventEmitter.emit('certificationSuccess');
                 Storage.remove(StorageKey.carInfoResult);
 
+
                 this.props.navigation.goBack();
 
             },
@@ -907,6 +908,7 @@ class certification extends Component {
                     </View>
                     <VerifiedIDDateItem IDDate={this.state.carDate}
                                         clickDataPick={()=>{
+
                                              selectDatePickerType = 0;
                                              this.showDatePick(true, VerifiedDateSources.createDateDataYearMouth(), 'yearMouth');
                                         }}

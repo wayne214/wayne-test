@@ -286,7 +286,8 @@ class Verified extends Component {
     }
 
     componentWillUnmount() {
-        this.listener.remove();
+        if (this.listener)
+            this.listener.remove();
     }
 
     // 获取当前位置
@@ -347,11 +348,11 @@ class Verified extends Component {
 
     /*选择相机*/
     selectCamera() {
-        this.props.router.redirect(RouteType.MINE_VERIFIED_TAKE_CARMEAT, {
+        this.props.navigation.navigate('TakeCamearPage', {
             cameraType: selectType,
             verifiedType: 1,
-
         });
+
     }
 
     /*选择照片*/
@@ -830,6 +831,8 @@ class Verified extends Component {
                     appLoading: false,
                 });
 
+                this.props.reloadUserName(this.state.IDName);
+
                 Storage.remove(StorageKey.changePersonInfoResult);
                 Storage.remove(StorageKey.personInfoResult);
                 Toast.showShortCenter('实名认证提交成功');
@@ -1094,6 +1097,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        reloadUserName:(data)=>{
+            dispatch(setUserNameAction(data));
+        }
     };
 }
 

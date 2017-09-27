@@ -709,8 +709,8 @@ class Mine extends Component {
                                 }
 
                                 {
-                                    this.state.verifiedState != '1202' && this.state.certificationState != '1202' ?
-                                        <View style={styles.separateView}/> : null
+                                    this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?
+                                        null : <View style={styles.separateView}/>
                                 }
 
                                 <SettingCell

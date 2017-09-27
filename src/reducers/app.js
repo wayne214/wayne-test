@@ -5,8 +5,6 @@ import * as ActionTypes from '../constants/actionType';
 const initState = Immutable.fromJS({
     locationData: '定位中', // 首页城市名称
     getHomePageCount: {}, // 首页状态数量
-    plateNumber: '', // 车牌号
-    plateNumberObj: {}, //车牌号对象
 });
 
 

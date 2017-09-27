@@ -9,6 +9,7 @@ import {
     Platform,
     DeviceEventEmitter,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 const TakeBold = require('./images/takeCameraBord.png');
 const TakeBack = require('./images/takeCameraBack.png');
@@ -163,6 +164,7 @@ export default class takeCameraEnd extends Component {
 
         DeviceEventEmitter.emit('endSureCameraPhoto',this.props.navigation.state.params.imagePath);
 
+        /*
         if (this.props.navigation.state.params.verifiedType === 1){
             // 实名认证页面
             const resetAction = NavigationActions.reset({
@@ -184,6 +186,9 @@ export default class takeCameraEnd extends Component {
             });
             this.props.navigation.dispatch(resetAction);
         }
+        */
+        this.props.navigation.goBack();
+
 
     }
 
