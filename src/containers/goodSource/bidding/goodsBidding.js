@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 class goodsBidding extends Component {
     constructor(props) {
         super(props);
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
         console.log('==',Date.parse(new Date), Date.parse('2017-07-12 18:40:28'.replace(/-/g,"/")), this.props.userPlateNumber, this.props.userInfo.result.phone);
         this.state = {
             price: '',
@@ -246,19 +246,10 @@ class goodsBidding extends Component {
             },
             success: (responseData)=>{
                 console.log('success',responseData);
-                this.setState({
-                    loading: false,
-                }, ()=>{
-                    queryRankSuccessCallBack(responseData.result);
-                });
-
+                queryRankSuccessCallBack(responseData.result);
             },
             error: (errorInfo)=>{
-                this.setState({
-                    loading: false,
-                }, () => {
-                    queryRankFailCallBack();
-                });
+                queryRankFailCallBack();
             },
             finish: ()=>{
             }
