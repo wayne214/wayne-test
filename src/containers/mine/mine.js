@@ -334,6 +334,7 @@ class Mine extends Component {
 
     /*跳转到设置*/
     pushToSetting() {
+        this.props.navigation.navigate('Setting');
         //this.props.router.redirect(RouteType.SETTING_PAGE);
     }
 
