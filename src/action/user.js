@@ -23,3 +23,11 @@ export const setUserCarAction = (data) => {
         payload: data,
     };
 };
+
+/*clear user 信息*/
+export const clearUser = (data) => {
+    return {
+        type: ActionTypes.ACTION_USER_CLEAR,
+        payload: data,
+    };
+};

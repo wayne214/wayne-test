@@ -14,7 +14,7 @@ import {
 import {connect} from 'react-redux';
 
 import { NavigationActions } from 'react-navigation';
-import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import {loginSuccessAction, setUserNameAction, setUserCarAction} from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
 import BaseContainer from '../base/baseContainer';
@@ -44,6 +44,13 @@ class Splash extends BaseContainer {
             if (result){
                 // 发送Action,全局赋值用户信息
                 this.props.sendLoginSuccessAction(result);
+            }
+        });
+
+        Storage.get(StorageKey.PlateNumberObj).then((result) => {
+            if (result){
+                // 发送Action,全局赋值车辆信息
+                this.props.setUserCarAction(result);
             }
         });
 

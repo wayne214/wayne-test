@@ -13,13 +13,9 @@ import Storage from '../../utils/storage';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import LoginContainer from '../../containers/login/login';
 // import {changeAcceptMessageAction, changeAcceptMessageSuccessAction} from '../../action/setting';
-// import {
-//     pushStatusByUserIdAction,
-//     pushStatusByUserIdActionSuccessAction,
-//     getIsAcceptMessageAction,
-//     loadUserFromLocalAction,
-//     loginOutAction,
-// } from '../../action/user';
+import {
+    clearUser,
+} from '../../action/user';
 // import {saveUserSetCarSuccess, getHomePageCountAction} from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
@@ -179,7 +175,6 @@ class setting extends Component {
         Storage.remove('acceptMessage');
         Storage.remove('setCityFlag');
         Storage.remove('plateNumberObj');
-        this.props.saveUserSetCarSuccess('');
         JPushModule.setAlias('', this.success, this.fail);
         this.props.navigator.resetTo({
             component: LoginContainer,
@@ -308,7 +303,7 @@ function mapDispatchToProps(dispatch) {
             }));
         },
         removeUserInfoAction:()=>{
-            dispatch(loadUserFromLocalAction(null));
+            dispatch(clearUser());
         },
 
         getIsAcceptMessage: (data) => {
