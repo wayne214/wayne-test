@@ -48,7 +48,7 @@ export default class VerificationCardPhone extends Component {
     // 构造
     constructor(props) {
         super(props);
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
         // 初始状态
         this.state = {
             holdCardName: params.holdCardName,
@@ -71,7 +71,6 @@ export default class VerificationCardPhone extends Component {
         this.sendVerifyCode = this.sendVerifyCode.bind(this);
         this.sendVerifyCodeCallBack = this.sendVerifyCodeCallBack.bind(this);
         this.sendVerifyCodeFailCallBack = this.sendVerifyCodeFailCallBack.bind(this);
-        this.changeAppLoading = this.changeAppLoading.bind(this);
     }
 
     componentDidMount() {
@@ -94,6 +93,9 @@ export default class VerificationCardPhone extends Component {
             },
             success: (response) => {
                 checkVerifyCodeCallBack(response.result);
+                this.setState({
+                    loading: false,
+                });
             },
             error: (err) => {
                 checkVerifyCodeFailCallBack();
@@ -106,14 +108,6 @@ export default class VerificationCardPhone extends Component {
             },
 
         })
-
-        // this.props.checkVerifyCode({
-        //     url: API.API_BANKCARD_CHECK_VERIFYCODE,
-        //     body: {
-        //         txSnBinding: this.state.txSnBinding,
-        //         verifyCode: this.state.SMSCode,
-        // }
-        // },checkVerifyCodeCallBack,checkVerifyCodeFailCallBack)
     }
 
     checkVerifyCodeCallBack(result){
@@ -152,33 +146,17 @@ export default class VerificationCardPhone extends Component {
             finish: () => {
 
             },
-
         })
-
-        // this.props.bankCardBunding({
-        //     body: {
-        //         accountName: this.state.holdCardName,
-        //         bankCardNumber: this.state.bankCardNum,
-        //         bankName: this.state.bankName,
-        //         phoneNum: global.phone,
-        //         userId: global.userId,
-        //         userName: global.userName,
-        //     }
-        // },bankCardBundingCallBack,bankCardBundingFailCallBack)
     }
     bankCardBundingCallBack(result){
         console.log(result,'result')
         DeviceEventEmitter.emit('BankCardList');
         this.props.navigation.navigate('MyBankCard');
-        // this.props.router.popToRoute(RouteType.MY_BANK_CARD_PAGE);
-
     }
     bankCardBundingFailCallBack(){
 
         DeviceEventEmitter.emit('BankCardList');
         this.props.navigation.navigate('MyBankCard');
-
-        // this.props.router.popToRoute(RouteType.MY_BANK_CARD_PAGE);
     }
 
     sendVerifyCode(sendVerifyCodeCallBack,sendVerifyCodeFailCallBack,shouldStartCountting){
@@ -210,16 +188,6 @@ export default class VerificationCardPhone extends Component {
 
             },
         })
-        // this.props.sendVerifyCode({
-        //     url:API.API_BANKCARD_SENDVERIFYCODE,
-        //     body: {
-        //         abkCard: this.state.bankCardNum,
-        //         abkCode: this.state.abkCode,
-        //         accIdCard: this.state.IDCardNum,
-        //         accName: this.state.accName,
-        //         mobile: this.state.phoneNum,
-        //     }
-        // }, sendVerifyCodeCallBack,sendVerifyCodeFailCallBack,shouldStartCountting);
     }
     sendVerifyCodeCallBack(result){
 

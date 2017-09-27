@@ -36,6 +36,7 @@ import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import MsgList from '../containers/mine/msgList';
 import MsgDetails from '../containers/mine/msgDetails';
 import PersonInfo from '../containers/mine/personInfo';
+import BankCardDeatil from '../containers/income/bankCardDeatil';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -199,6 +200,12 @@ const StackRouteConfigs = {
     },
     PersonInfo: {
         screen: PersonInfo,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BankCardDeatil: {
+        screen: BankCardDeatil,
         navigationOptions: {
             header: null
         }

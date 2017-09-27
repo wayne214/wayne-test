@@ -234,7 +234,6 @@ class Mine extends Component {
 
     componentWillUnmount() {
         this.mineListener.remove();
-        this.infoListener.remove();
         this.cerlistener.remove();
         this.verlistener.remove();
         this.imglistener.remove();
