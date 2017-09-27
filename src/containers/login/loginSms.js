@@ -17,7 +17,7 @@ import {
 import Button from 'apsl-react-native-button';
 import Toast from '@remobile/react-native-toast';
 // import JPushModule from 'jpush-react-native';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import { NavigationActions } from 'react-navigation';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
@@ -32,7 +32,7 @@ import StorageKey from '../../constants/storageKeys';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import {loginSuccessAction} from '../../action/user';
+import {loginSuccessAction, setUserNameAction} from '../../action/user';
 
 const {width, height} = Dimensions.get('window');
 
@@ -120,18 +120,18 @@ class LoginSms extends Component {
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
+        this.getCurrentPosition();
     }
 
     // 获取当前位置
-    // getCurrentPosition() {
-    //     Geolocation.getCurrentPosition().then(data => {
-    //         console.log('position =',JSON.stringify(data));
-    //         locationData = data;
-    //     }).catch(e =>{
-    //         console.log(e, 'error');
-    //     });
-    // }
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
+    }
 
     clearPhoneNum() {
         this.setState({
@@ -165,8 +165,8 @@ class LoginSms extends Component {
             success: (responseData)=>{
 
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '短信登录页面');
+                ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '短信登录页面');
                 const loginUserId = responseData.result.userId;
                 Storage.save(StorageKey.USER_ID, loginUserId);
                 Storage.save(StorageKey.USER_INFO, responseData.result);
@@ -374,6 +374,8 @@ function mapDispatchToProps(dispatch) {
         /*登录成功发送Action，全局保存用户信息*/
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
+            dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
+
         },
     };
 }

@@ -34,6 +34,7 @@ import radioButton from '../../assets/good/radiobuttonIcon.png';
 import GreenIcon from '../../assets/good/greenIcon.png';
 import OrangeIcon from '../../assets/good/orangeIcon.png';
 import RejectIcon from '../../assets/good/reject-icon.png';
+import receiveBottomArrow from '../../assets/good/receive_bottom_arrow.png';
 
 /*业务明细*/
 import bussniessRedImg from '../../assets/income/bussness_red.png';
@@ -72,6 +73,7 @@ export default {
     bussniessLineImg,
     bussness_gg,
     bussniessDeteleImg,
-    bussniessSureImg
+    bussniessSureImg,
+    receiveBottomArrow,
 }
 

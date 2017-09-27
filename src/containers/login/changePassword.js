@@ -12,7 +12,7 @@ import {
     StyleSheet,
 } from 'react-native';
 // import JPushModule from 'jpush-react-native';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import Toast from '@remobile/react-native-toast';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
@@ -109,17 +109,17 @@ export default class changePassword extends Component {
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
+        this.getCurrentPosition();
     }
     // 获取当前位置
-    // getCurrentPosition() {
-    //     Geolocation.getCurrentPosition().then(data => {
-    //         console.log('position =',JSON.stringify(data));
-    //         locationData = data;
-    //     }).catch(e =>{
-    //         console.log(e, 'error');
-    //     });
-    // }
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
+    }
 
     /*获取密码秘钥*/
     loginSecretCode() {
@@ -149,8 +149,8 @@ export default class changePassword extends Component {
                 },
                 success: (responseData)=>{
                     lastTime = new Date().getTime();
-                    // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    //     locationData.district, lastTime - currentTime, '修改密码页面');
+                    ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '修改密码页面');
                     const secretCode = responseData.result;
                     const secretOldPWD = XeEncrypt.aesEncrypt(this.state.oldPassword, secretCode, secretCode);
                     const secretNewPWD = XeEncrypt.aesEncrypt(this.state.newPassword, secretCode, secretCode);
@@ -188,8 +188,8 @@ export default class changePassword extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '修改密码页面');
+                ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '修改密码页面');
                 if (responseData.result) {
                     Toast.showShortCenter('恭喜，密码修改成功');
                     Storage.remove(StorageKey.USER_INFO);

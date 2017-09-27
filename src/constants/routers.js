@@ -29,6 +29,9 @@ import VerificationCardPhone from '../containers/income/addBankCard/verification
 import Setting from '../containers/mine/setting';
 import AboutUs from '../containers/mine/aboutUs';
 import BusinessDetail from '../containers/income/businessDetail/businessDetail';
+// import Income from '../containers/income/income';
+// import BillWaterPage from '../containers/income/billWaterPage';
+import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -162,6 +165,12 @@ const StackRouteConfigs = {
     },
     BusinessDetail: {
         screen: BusinessDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    GoodsDetailPage: {
+        screen: GoodsDetailPage,
         navigationOptions: {
             header: null
         }

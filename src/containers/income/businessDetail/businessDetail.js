@@ -35,7 +35,7 @@ let isLoadMore = false;
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 let currentTime = 0;
 let lastTime = 0;
@@ -77,12 +77,12 @@ class detailsPage extends Component {
     }
 // 获取当前位置
     getCurrentPosition() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position =', JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e => {
-        //     console.log(e, 'error');
-        // });
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch(e => {
+            console.log(e, 'error');
+        });
     }
 
     // 获取数据
