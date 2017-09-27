@@ -37,6 +37,7 @@ import MsgList from '../containers/mine/msgList';
 import MsgDetails from '../containers/mine/msgDetails';
 import PersonInfo from '../containers/mine/personInfo';
 import BankCardDeatil from '../containers/income/bankCardDeatil';
+import ImageShow from '../containers/order/imageShow';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -206,6 +207,12 @@ const StackRouteConfigs = {
     },
     BankCardDeatil: {
         screen: BankCardDeatil,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageShow: {
+        screen: ImageShow,
         navigationOptions: {
             header: null
         }
