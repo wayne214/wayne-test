@@ -34,6 +34,7 @@ import BusinessDetail from '../containers/income/businessDetail/businessDetail';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
 import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
+import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -185,6 +186,12 @@ const StackRouteConfigs = {
     },
     ChoiceCityPage: {
         screen: ChoiceCityPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    GoodsBiddingPage: {
+        screen: GoodsBiddingPage,
         navigationOptions: {
             header: null
         }
