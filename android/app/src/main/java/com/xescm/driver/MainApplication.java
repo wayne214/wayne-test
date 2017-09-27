@@ -4,7 +4,10 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.beefe.picker.PickerViewPackage;
+<<<<<<< HEAD
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
+=======
+>>>>>>> feature-good
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
@@ -34,7 +37,10 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new PickerViewPackage(),
+<<<<<<< HEAD
             new RCTCameraPackage(),
+=======
+>>>>>>> feature-good
             new ImagePickerPackage(),
             new RNFetchBlobPackage(),
             new RNFSPackage(),

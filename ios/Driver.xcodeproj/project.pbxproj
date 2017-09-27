@@ -12,6 +12,7 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		00C9360BD0F643D1BCF8A8C7 /* libRCTBEEPickerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3EA8449B8D4C84BD01E517 /* libRCTBEEPickerManager.a */; };
 		00E356F31AD99517003FC87E /* DriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DriverTests.m */; };
 		0D4CE6E948E94FD497177F4F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E39DD4857DE42F58995836A /* CFNetwork.framework */; };
 		11B4292660194C4A864D77ED /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7F2542BABE446E94F626F3 /* CoreFoundation.framework */; };
@@ -403,6 +404,13 @@
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
 		};
+		B00EE8411F7B6F27001AE54E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 17D41E551D7EE0CA0031415E;
+			remoteInfo = RCTBEEPickerManager;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -483,7 +491,11 @@
 		35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35AC22FD1F79F506007D53B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35AC22FF1F79F512007D53B5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD
 		3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
+=======
+		4A3EA8449B8D4C84BD01E517 /* libRCTBEEPickerManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBEEPickerManager.a; sourceTree = "<group>"; };
+>>>>>>> feature-good
 		4F0CDCD3C7844CB19FCC2856 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
@@ -503,6 +515,7 @@
 		B9611214D3D440F288F4E89C /* RCTJPushModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTJPushModule.xcodeproj; path = "../node_modules/jpush-react-native/ios/RCTJPushModule.xcodeproj"; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		D8688350182D48379FF9BBD1 /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
 		E075F0553D5B473F81735ABE /* UserNotifications.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		E78C7E1F8F6D47FAB5218691 /* CoreTelephony.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EA7F2542BABE446E94F626F3 /* CoreFoundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -574,8 +587,12 @@
 				9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */,
 				15A1E7E1D19E4AE1BA6845CC /* libRNFetchBlob.a in Frameworks */,
 				E1267DBF4CDE4098B7384B04 /* libRNImagePicker.a in Frameworks */,
+<<<<<<< HEAD
 				CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */,
 				815E3CFFF2DD434FA2C0D55A /* libRCTBEEPickerManager.a in Frameworks */,
+=======
+				00C9360BD0F643D1BCF8A8C7 /* libRCTBEEPickerManager.a in Frameworks */,
+>>>>>>> feature-good
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,8 +943,12 @@
 				21393D99632448779A432B6D /* RNFS.xcodeproj */,
 				22273DD0C9EC4F5EB7D49795 /* RNFetchBlob.xcodeproj */,
 				905439F7535D4479ABAC4A9A /* RNImagePicker.xcodeproj */,
+<<<<<<< HEAD
 				91776CF503274D06928D137A /* RCTCamera.xcodeproj */,
 				3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */,
+=======
+				D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */,
+>>>>>>> feature-good
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -991,6 +1012,14 @@
 			isa = PBXGroup;
 			children = (
 				B00EE8111F7A51D8001AE54E /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B00EE83A1F7B6F26001AE54E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B00EE8421F7B6F27001AE54E /* libRCTBEEPickerManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1131,8 +1160,13 @@
 					ProjectRef = 35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */;
 				},
 				{
+<<<<<<< HEAD
 					ProductGroup = 1F9176271F7B925400F68EFB /* Products */;
 					ProjectRef = 3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */;
+=======
+					ProductGroup = B00EE83A1F7B6F26001AE54E /* Products */;
+					ProjectRef = D98272AC9C2E43189AB5A054 /* RCTBEEPickerManager.xcodeproj */;
+>>>>>>> feature-good
 				},
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
@@ -1519,6 +1553,13 @@
 			remoteRef = B00EE8101F7A51D8001AE54E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B00EE8421F7B6F27001AE54E /* libRCTBEEPickerManager.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBEEPickerManager.a;
+			remoteRef = B00EE8411F7B6F27001AE54E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1678,7 +1719,10 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
@@ -1694,7 +1738,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1724,7 +1771,10 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
@@ -1740,7 +1790,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1777,7 +1830,10 @@
 					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
@@ -1826,7 +1882,10 @@
 					"$(SRCROOT)/../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
@@ -1872,7 +1931,10 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
@@ -1887,7 +1949,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1924,7 +1989,10 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
+=======
+>>>>>>> feature-good
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
@@ -1939,7 +2007,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1976,7 +2047,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2009,7 +2083,10 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+=======
+>>>>>>> feature-good
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

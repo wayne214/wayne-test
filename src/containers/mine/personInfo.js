@@ -237,13 +237,18 @@ export default class PersonInfo extends Component {
             imgList = imgListTemp.map((i, index) => {
                 return {url: i ? i : ''};
             });
-            this.props.router.redirect(
-                RouteType.IMAGE_SHOW_PAGE,
+            this.props.navigation.navigate('ImageShow',
                 {
                     image: imgList,
                     num: imgIndex,
-                },
-            );
+                });
+            // this.props.router.redirect(
+            //     RouteType.IMAGE_SHOW_PAGE,
+            //     {
+            //         image: imgList,
+            //         num: imgIndex,
+            //     },
+            // );
         }
     }
     render() {
