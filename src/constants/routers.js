@@ -54,6 +54,7 @@ import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
 import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
 import ImageShow from '../containers/order/imageShow';
 import CarInfo from '../containers/mine/carInfo';
+import CarDisablePage from '../containers/mine/carDisablePage';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -307,6 +308,12 @@ const StackRouteConfigs = {
     },
     CarInfo: {
         screen: CarInfo,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarDisablePage: {
+        screen: CarDisablePage,
         navigationOptions: {
             header: null
         }
