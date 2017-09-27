@@ -89,7 +89,6 @@ class goodsPreferences extends Component {
 
     componentDidMount() {
         const phoneNum = global.phone;
-        // const userPlateNumber = global.plateNumber;
         const {userPlateNumber} = this.props;
         console.log('是否返程开启', this.props.isResetCityList, this.state.isBackTracking);
         // 查询货源偏好设置
@@ -125,7 +124,7 @@ class goodsPreferences extends Component {
                     }
                 }
 
-                console.log('。。。。车发城市', cityArray);
+                console.log('出发城市', cityArray);
                 this.setState({
                     departureCityArray: cityArray,
                     departureCity: data.city,

@@ -8,7 +8,6 @@ import moment from 'moment';
 import Storage from './storage';
 import StorageKey from '../constants/storageKeys';
 
-// const currentData = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 const path = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/logger.txt' : RNFS.DocumentDirectoryPath + '/logger.txt'; // 文件路径
 const destPath = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/abc/logger.txt' : RNFS.DocumentDirectoryPath + '/abc/logger.txt'; // 文件路径
 const platForm = Platform.OS === 'ios' ? 'IOS' : 'Android';

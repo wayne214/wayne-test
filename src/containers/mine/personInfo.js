@@ -10,7 +10,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-// import {CachedImage} from 'react-native-img-cache';
+import {CachedImage} from 'react-native-img-cache';
 import Toast from '@remobile/react-native-toast';
 import Button from 'apsl-react-native-button';
 import CommonCell from '../../containers/mine/cell/commonCell';
@@ -18,17 +18,15 @@ import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
 // import {getPersonInfoAction} from '../../action/mine';
-// import {changeAppLoadingAction} from '../../action/app';
 import Storage from '../../utils/storage';
 import PersonImage from '../../../assets/person/personInfo.png';
 import * as StaticColor from '../../constants/staticColor';
-// import * as RouteType from '../../constants/routeType';
-// import LoadingView from '../../common/loading';
+import Loading from '../../utils/loading';
 import NoImage from '../../../assets/person/noiamgeShow.png';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest';
-import EmptyView from '../../common/emptyView/emptyView';
+import StorageKeys from '../../constants/storageKeys';
 
 
 const {width} = Dimensions.get('window');
@@ -109,7 +107,7 @@ export default class PersonInfo extends Component {
         const {verifiedState} = this.props;
         imgListTemp = [];
         imgList = [];
-        Storage.get('personInfoResult').then((value) => {
+        Storage.get(StorageKeys.personInfoResult).then((value) => {
             if (value) {
                 if (value.drivingLicenceHomePage && value.drivingLicenceHomePage !== '') {
                     imgListTemp.push(value.drivingLicenceHomePage);
@@ -151,8 +149,6 @@ export default class PersonInfo extends Component {
         });
     }
     getPersonInfoFailCallback() {
-        this.changeAppLoading(false);
-
         const {verifiedState} = this.props;
         if (verifiedState === '1200') {
             this.setState({
@@ -165,7 +161,6 @@ export default class PersonInfo extends Component {
         }
     }
     getPersonInfoSuccessCallback(result) {
-        this.changeAppLoading(false);
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('实名认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '个人信息页面');
@@ -191,7 +186,6 @@ export default class PersonInfo extends Component {
     fetchData(getPersonInfoSuccessCallback,getPersonInfoFailCallback) {
 
             if (global.phone) {
-                this.changeAppLoading(true);
                 currentTime = new Date().getTime();
 
                 HTTPRequest({
@@ -288,7 +282,8 @@ export default class PersonInfo extends Component {
                                 style={styles.Button}
                                 textStyle={styles.ButtonText}
                                 onPress={() => {
-                                    this.props.router.replace(RouteType.VERIFIED_PAGE);
+                                    // 跳转实名认证页面
+                                    this.props.navigation.navigate('VerifiedStatePage');
                                 }}
                             >
                                 立即认证
