@@ -335,12 +335,11 @@ class Mine extends Component {
     /*跳转到设置*/
     pushToSetting() {
         this.props.navigation.navigate('Setting');
-        //this.props.router.redirect(RouteType.SETTING_PAGE);
     }
 
     /*跳转到消息列表*/
     pushToMsgList() {
-        //this.props.router.redirect(RouteType.MSGLIST_PAGE);
+        this.props.navigation.navigate('MsgList');
     }
 
 
