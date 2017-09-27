@@ -19,6 +19,20 @@ const CarSuccessFlag = 'setCarSuccessFlag'; //设置车辆的flag
 
 const PlateNumber = 'plateNumber'; // 车牌号
 
+const changeCarInfoResult = 'changeCarInfoResult'; // 资质认证提交的信息
+
+const carInfoResult = 'carInfoResult'; // 车辆的信息
+
+const changePersonInfoResult = 'changePersonInfoResult'; // 实名认证提交的信息
+
+const personInfoResult = 'personInfoResult'; // 个人信息
+
+const PlateNumberObj = 'PlateNumberObj'; // 绑定车辆的具体信息
+
+const userCarList = 'userCarList'; // 车辆列表
+
+
+
 export default {
     IS_FIRST_START_FLAG,
     USER_INFO,
@@ -28,5 +42,11 @@ export default {
     USER_ID,
     CarSuccessFlag,
     PlateNumber,
+    changeCarInfoResult,
+    carInfoResult,
+    changePersonInfoResult,
+    personInfoResult,
+    PlateNumberObj,
+    userCarList
 }
 

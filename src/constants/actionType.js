@@ -15,6 +15,9 @@ export const ACTION_USER_NAME = 'ACTION_USER_NAME';
 /*用户绑定车辆发生改变*/
 export const ACTION_USER_CAR = 'ACTION_USER_CAR';
 
+/*清空user里面的值*/
+export const ACTION_USER_CLEAR = 'ACTION_USER_CLEAR';
+
 export const ACTION_SET_MESSAGE_LIST_ICON = 'ACTION_SET_MESSAGE_LIST_ICON';   // 获取首页状态数量
 
 export const ACTION_SET_VERIFIED_STATE = 'ACTION_SET_VERIFIED_STATE'; // 实名

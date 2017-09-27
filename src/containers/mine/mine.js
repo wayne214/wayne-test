@@ -23,20 +23,8 @@ import CenterLoginAvatar from '../../../assets/mine/login_avatar.png';
 import Message from '../../../assets/mine/message.png';
 import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
-import {changeAppLoadingAction} from '../../action/app';
 import ClickUtil from '../../utils/prventDoubleClickUtil';
-import {
-    setMessageListIconAction,
-    setVerifiedAction,
-    setCertificationAction,
-    setCarNumAction
-} from '../../action/jpush';
-import {
-    getQualificationsStatusAction,
-    // getQualificationsStatusSuccessAction,
-    getRealNameStatusAction,
-    // getRealNameStatusSuccessAction,
-} from '../../action/user';
+
 import * as API from '../../constants/api';
 import ImagePicker from 'react-native-image-picker';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
@@ -46,6 +34,7 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import PermissionsManager from '../../utils/permissionManager';
 import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
+import StorageKey from '../../constants/storageKeys';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -170,10 +159,8 @@ class Mine extends Component {
         this.pushToSetting = this.pushToSetting.bind(this);
         this.pushToMsgList = this.pushToMsgList.bind(this);
         this.queryUserAvatar = this.queryUserAvatar.bind(this);
-        this.queryUserAvatarSuccessCallBack = this.queryUserAvatarSuccessCallBack.bind(this);
         this.certificationState = this.certificationState.bind(this);
         this.verifiedState = this.verifiedState.bind(this);
-        this.changeAppLoading = this.changeAppLoading.bind(this);
 
 
     }
@@ -186,15 +173,17 @@ class Mine extends Component {
         Storage.get('newMessageFlag').then((value) => {
             console.log('newMessageFlag');
             if (value === '1') {
-                this.props.setMessageListIcon(true);
+
+                // 右上角图片改变
+
             }
         });
 
         /*获取头像具体的地址，*/
         Storage.get('NewPhotoRefNo').then((value) => {
-            console.log('=====NewPhotoRefNo====', value)
+
             if (value) {
-                this.queryUserAvatar(value, this.queryUserAvatarSuccessCallBack)
+                this.queryUserAvatar(value)
             }
         });
 
@@ -274,7 +263,7 @@ class Mine extends Component {
 
                         this.setState({
                             // verifiedState: responseData.result,
-                            verifiedState: 1202,
+                            verifiedState: 1200,
                         })
                     },
                     error: (errorInfo) => {
@@ -311,7 +300,7 @@ class Mine extends Component {
                 success: (responseData)=>{
                     this.setState({
                         // certificationState: responseData.result,
-                        certificationState: 1202,
+                        certificationState: 1200,
                     });
                     if (responseData.result === '1202') {
                         /*资质认证成功，绑定当前车牌号*/
@@ -343,31 +332,38 @@ class Mine extends Component {
 
 
     /*查询头像地址*/
-    queryUserAvatar(photoRefNo, queryUserAvatarSuccessCallBack) {
+    queryUserAvatar(photoRefNo) {
         currentTime = new Date().getTime();
-        this.props.queryAvatar({
+
+        HTTPRequest({
             url: API.API_QUERY_USER_AVATAR,
-            body: {
+            params: {
                 photoRefNo: photoRefNo,
                 userId: global.userId,
                 userName: global.userName ? global.userName : this.state.phoneNum,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('查询头像', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '我的页面');
+                console.log("成功的路径", result);
+                if (result == null) {
+
+                } else {
+                    this.setState({
+                        avatarSource: {uri: result},
+                    });
+                }
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
             }
-        }, queryUserAvatarSuccessCallBack);
-    }
-
-    queryUserAvatarSuccessCallBack(result) {
-        lastTime = new Date().getTime();
-        ReadAndWriteFileUtil.appendFile('查询头像', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-            locationData.district, lastTime - currentTime, '我的页面');
-        console.log("成功的路径", result);
-        if (result == null) {
-
-        } else {
-            this.setState({
-                avatarSource: {uri: result},
-            });
-        }
-
+        });
     }
 
 
@@ -428,7 +424,6 @@ class Mine extends Component {
 
                     Storage.save('NewPhotoRefNo', respones.result);
 
-                    // this.queryUserAvatar(respones.result, this.queryUserAvatarSuccessCallBack)
                 } else {
                     Toast.showShortCenter('图片上传失败，请重新选择上传');
                 }
@@ -439,12 +434,49 @@ class Mine extends Component {
 
             });
     }
-    changeAppLoading(appLoading) {
-    this.props.changeAppLoading(appLoading);
-}
 
     render() {
         const navigator = this.props.navigation;
+        const statusRender =
+            this.state.certificationState == '1202' && this.state.verifiedState == '1202' ?
+                <View
+                    style={{
+                        height: 18,
+                        width: 50,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        marginLeft: 10,
+                        borderColor: 'transparent',
+                        backgroundColor: '#f6bd0e',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                    <Text
+                        style={{
+                            fontSize: 12,
+                            color: '#ffffff',
+                        }}
+                    >已认证</Text>
+                </View> :
+                <View
+                    style={{
+                        height: 18,
+                        width: 50,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        marginLeft: 10,
+                        borderColor: 'transparent',
+                        backgroundColor: 'rgba(0,37,105,0.2)',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                    <Text
+                        style={{
+                            fontSize: 12,
+                            color: '#bbcfe8',
+                        }}
+                    >未认证</Text>
+                </View>
 
         const changeCarView = this.props.userCarList && this.props.userCarList.length > 1 ?
             <TouchableOpacity onPress={() => {
@@ -490,7 +522,6 @@ class Mine extends Component {
                         type: 'image',
                         image: this.props.jpushIcon == true ? MessageNew : Message,
                         onClick: () => {
-                            this.props.setMessageListIcon(false);
                             Storage.save('newMessageFlag', '0');
                             this.pushToMsgList();
                         },
@@ -533,6 +564,7 @@ class Mine extends Component {
                                             }
                                         </Text>
 
+                                        {statusRender}
 
                                     </View>
 
@@ -619,30 +651,25 @@ class Mine extends Component {
                                             if (this.state.verifiedState == '1200') {
                                                 // 未认证
 
-                                                {/*Storage.get('changePersonInfoResult').then((value) => {*/}
+                                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 
-                                                    {/*if (value){*/}
-                                                        {/*this.props.router.redirect(RouteType.VERIFIED_PAGE,{*/}
-                                                            {/*resultInfo: value,*/}
-                                                        {/*});*/}
-                                                    {/*}else {*/}
-                                                        {/*this.props.router.redirect(RouteType.VERIFIED_PAGE);*/}
-
-                                                    {/*}*/}
-                                                {/*});*/}
+                                                    if (value){
+                                                         this.props.navigation.navigate('VerifiedPage', {
+                                                             resultInfo: value,
+                                                         });
+                                                    }else {
+                                                        this.props.navigation.navigate('VerifiedPage');
+                                                    }
+                                                });
 
 
                                             } else {
                                                 // 认证中，认证驳回，认证通过
-                                                {/*this.props.router.redirect(RouteType.MINE_VERIFIED_END_STATE, {*/}
-                                                    {/*qualifications: this.state.verifiedState,*/}
-                                                {/*});*/}
-                                            }
 
-                                            // setTimeout(()=>{
-                                            //     this.changeAppLoading(false);
-                                            //
-                                            // }, 500);
+                                                 this.props.navigation.navigate('VerifiedStatePage', {
+                                                     qualifications: this.state.verifiedState,
+                                                 });
+                                            }
                                         }
                                     }}
                                         /> : null
@@ -658,34 +685,27 @@ class Mine extends Component {
                                             clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
-                                            // this.changeAppLoading(true);
+                                            if (this.state.certificationState) {
+                                                if (this.state.certificationState == '1200') {
+                                                    // 未认证
 
-                                            {/*//this.props.router.redirect(RouteType.MINE_VERIFIED_CERFICATION_END_STATE);*/}
-                                            {/*if (this.state.certificationState) {*/}
-                                                {/*if (this.state.certificationState == '1200') {*/}
-                                                    {/*// 未认证*/}
+                                                    Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                                                    if (value){
+                                                        this.props.navigation.navigate('CertificationPage', {
+                                                            resultInfo: value,
+                                                         });
 
-                                                    {/*Storage.get('changeCarInfoResult').then((value) => {*/}
-                                                    {/*if (value){*/}
-                                                        {/*this.props.router.redirect(RouteType.CERTIFICATION_PAGE, {*/}
-                                                            {/*resultInfo: value,*/}
-                                                        {/*});*/}
-                                                    {/*}else {*/}
-                                                        {/*this.props.router.redirect(RouteType.CERTIFICATION_PAGE);*/}
-                                                    {/*}*/}
-                                                {/*});*/}
-                                                {/*} else {*/}
-                                                    {/*// 认证中，认证驳回，认证通过*/}
-                                                    {/*this.props.router.redirect(RouteType.MINE_VERIFIED_CERFICATION_END_STATE, {*/}
-                                                        {/*qualifications: this.state.certificationState,*/}
-                                                    {/*});*/}
-                                                {/*}*/}
-                                            {/*}*/}
+                                                    }else {
+                                                        this.props.navigation.navigate('CertificationPage');                                                    }
+                                                    });
+                                                } else {
+                                                    // 认证中，认证驳回，认证通过
+                                                        this.props.navigation.navigate('CerifiedStatePage', {
+                                                        qualifications: this.state.certificationState,
+                                                    });
+                                                }
+                                            }
 
-                                            // setTimeout(()=>{
-                                            //     this.changeAppLoading(false);
-                                            //     // ClickUtil.resetLastTime();
-                                            // },500)
                                         }
                                     }}
                                         /> : null
@@ -752,97 +772,12 @@ function mapStateToProps(state) {
         userInfo: state.user.get('userInfo'),
         userName: state.user.get('userName'),
         plateNumber: state.user.get('plateNumber'),
+        userCarList: state.user.get('userCarList'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeAppLoading: (appLoading) => {
-            dispatch(changeAppLoadingAction(appLoading));
-        },
-        loadUserFromLocal: (userInfo) => {
-            dispatch(loadUserFromLocalAction(userInfo));
-        },
-        // receiveOrRefuseOrderCountAction: (params) => {
-        //     dispatch(receiveOrRefuseOrderCountAction({
-        //         url: API.API_NEW_QUERY_BOL_COUNT + params.phoneNum,
-        //     }));
-        // },
-        setMessageListIcon: (data) => {
-            dispatch(setMessageListIconAction(data));
-        },
-        getQualificationsStatus: (params, getQualificationsStatusSuccessCallBack) => {
-            dispatch(getQualificationsStatusAction({
-                url: API.API_AUTH_QUALIFICATIONS_STATUS,
-                successCallBack: (response) => {
-                    getQualificationsStatusSuccessCallBack(response.result);
-                    // dispatch(getQualificationsStatusSuccessAction(response));
-                },
-                failCallBack: () => {
-
-                },
-                ...params,
-            }));
-        },
-        getRealNameStatus: (params, getRealNameStatusSuccessCallBack) => {
-            dispatch(getRealNameStatusAction({
-                successCallBack: (response) => {
-                    getRealNameStatusSuccessCallBack(response.result);
-                    // dispatch(getRealNameStatusSuccessAction(response));
-                },
-                failCallBack: () => {
-
-                },
-                ...params,
-            }));
-        },
-        queryAvatar: (params, queryUserAvatarSuccessCallBack) => {
-            dispatch(queryUserAvatarAction({
-                successCallBack: (response) => {
-                    queryUserAvatarSuccessCallBack(response.result)
-                },
-                failCallBack: () => {
-
-                },
-                ...params,
-            }));
-        },
-        changeAvatar: (params) => {
-            dispatch(changeUserAvatarAction({
-                successCallBack: (response) => {
-
-                },
-                failCallBack: () => {
-
-                },
-                ...params,
-            }));
-        },
-        setVerifiedState: (data) => {
-            dispatch(setVerifiedAction(data));
-        },
-        setCertificationState: (data) => {
-            dispatch(setCertificationAction(data));
-        },
-        setCarNumState: (data) => {
-
-            dispatch(setCarNumAction(data));
-        },
-        // getPersonInfoAction: (params, getPersonInfoSuccessCallback) => {
-        //     dispatch(getPersonInfoAction({
-        //         url: API.API_AUTH_REALNAME_DETAIL + params.mobilePhone,
-        //         body: {
-        //             phoneNum: params.mobilePhone,
-        //         },
-        //         successCallBack: (response) => {
-        //             getPersonInfoSuccessCallback(response.result);
-        //         },
-        //         failCallBack: () => {
-        //             dispatch(changeAppLoadingAction(false));
-        //         },
-        //     }));
-        // },
-
     };
 }
 

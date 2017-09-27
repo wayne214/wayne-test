@@ -5,18 +5,23 @@
 import React from 'react';
 
 import {TabNavigator} from 'react-navigation';
-
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
+// import ChooseCar from '../containers/chooseCar';
+// import Income from '../containers/income/income';
+// import BillWaterPage from '../containers/income/billWaterPage';
+
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
 import Registered from '../containers/register/registered';
 import RegisterSuccess from '../containers/register/registerSuccess';
+
 import ChooseCar from '../containers/home/chooseCar';
 import Location from '../containers/home/location';
+
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
@@ -30,9 +35,16 @@ import VerificationCardPhone from '../containers/income/addBankCard/verification
 import Setting from '../containers/mine/setting';
 import AboutUs from '../containers/mine/aboutUs';
 import BusinessDetail from '../containers/income/businessDetail/businessDetail';
-// import Income from '../containers/income/income';
-// import BillWaterPage from '../containers/income/billWaterPage';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
+import TakeCamear from '../containers/mine/verified/takeCamera';
+import TakeCamearV from '../containers/mine/verified/takeCameraVertical';
+import Certification from '../containers/mine/verified/certification';
+import TakeCameraEnd from '../containers/mine/verified/takeCameraEnd';
+import TakeCameraVEnd from '../containers/mine/verified/takeCameraVerticalEnd';
+import Verified from '../containers/mine/verified/verified';
+import ShowBigImage from '../containers/mine/verified/verifiedShowBigImage';
+import VerifiedState from '../containers/mine/verified/verifiedState';
+import CerifiedState from '../containers/mine/verified/certificationState';
 import MsgList from '../containers/mine/msgList';
 import MsgDetails from '../containers/mine/msgDetails';
 import PersonInfo from '../containers/mine/personInfo';
@@ -187,8 +199,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    TakeCamearPage: {
+        screen: TakeCamear,
+        navigationOptions: {
+            header: null
+        }
+    },
     MsgList: {
         screen: MsgList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakeCamearVPage: {
+        screen: TakeCamearV,
         navigationOptions: {
             header: null
         }
@@ -199,8 +223,50 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    CertificationPage: {
+        screen: Certification,
+            navigationOptions: {
+            header: null
+        }
+    },
+    TakeCameraEndPage: {
+        screen: TakeCameraEnd,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VerifiedPage: {
+        screen: Verified,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakeCameraVEndPage: {
+        screen: TakeCameraVEnd,
+            navigationOptions: {
+            header: null
+        }
+    },
+    ShowBigImagePage: {
+        screen: ShowBigImage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VerifiedStatePage: {
+        screen: VerifiedState,
+        navigationOptions: {
+            header: null
+        }
+    },
     PersonInfo: {
         screen: PersonInfo,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CerifiedStatePage: {
+        screen: CerifiedState,
         navigationOptions: {
             header: null
         }
