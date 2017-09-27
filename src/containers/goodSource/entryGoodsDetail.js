@@ -256,18 +256,12 @@ class entryGoodsDetail extends Component {
     receiveGoodsAction(receiveGoodsSuccessCallBack, receiveGoodsFailCallBack) {
         currentTime = new Date().getTime();
         // 传递参数
-        // this.props.receiveGoods({
-        //     userId: userID,
-        //     userName,
-        //     plateNumber,
-        //     scheduleCode: this.state.scheduleCode,
-        // }, receiveGoodsSuccessCallBack, receiveGoodsFailCallBack);
         HTTPRequest({
             url: API.API_NEW_DRIVER_RECEIVE_ORDER,
             params: {
                 userId: global.userId,
                 userName: global.userName,
-                plateNumber: global.plateNumber,
+                plateNumber: this.props.plateNumber,
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -326,7 +320,7 @@ class entryGoodsDetail extends Component {
             params: {
                 userId: global.userId,
                 userName: global.userName,
-                plateNumber: global.plateNumber,
+                plateNumber: this.props.plateNumber,
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -547,18 +541,15 @@ entryGoodsDetail.propTypes = {
 function mapStateToProps(state) {
     return {
         appLoading: state.app.get('appLoading'),
+        plateNumber: state.app.get('plateNumber'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        // changeTab: (tab) => {
-        //     dispatch(changeTabBarAction(tab));
-        // },
-        //
-        // changeOrderTab: (orderTab) => {
-        //     dispatch(mainPressAction(orderTab));
-        // },
+        changeOrderTab: (orderTab) => {
+            dispatch(mainPressAction(orderTab));
+        },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(entryGoodsDetail);

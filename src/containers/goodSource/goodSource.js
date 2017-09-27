@@ -3,6 +3,7 @@
  * 货源界面
  */
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import {
     View,
     StyleSheet,
@@ -21,8 +22,6 @@ import StaticImage from '../../constants/staticImage';
 import DropdownMenu from './component/dropdownMenu';
 import EmptyView from '../../common/emptyView/emptyView';
 import * as API from '../../constants/api';
-import StorageKey from '../../constants/storageKeys';
-import Storage from '../../utils/storage';
 import HTTPRequest from '../../utils/httpRequest';
 import CommonListItem from './goodListItem/commonListItem';
 let pageNO = 1; // 第一页
@@ -108,52 +107,39 @@ class GoodSource extends BaseContainer{
     getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
-        // const plateNumber = this.props.userPlateNumber;
+        const plateNumber = this.props.userPlateNumber;
         console.log('global phone',global.phone);
-        Storage.get(StorageKey.PlateNumber).then((plateNum) => {
-            if (plateNum) {
-                // this.props.requestGoodsSourceData({
-                //     beginTime: '2017-06-01 00:00:00',
-                //     endTime: beginTime,
-                //     page: pageNO,
-                //     pageSize,
-                //     driverPhone: global.phone,
-                //     status,
-                //     plateNumber: plateNum,
-                // }, getDataSuccessCallBack, getDataFailCallBack, pageNo);
-                HTTPRequest({
-                    url: API.API_NEW_GET_SOURCE_BY_DATE,
-                    params: {
-                        beginTime: '2017-06-01 00:00:00',
-                        endTime: beginTime,
-                        pageNum: pageNo,
-                        pageSize,
-                        driverPhone: global.phone,
-                        status,
-                        plateNumber: plateNum,
-                    },
-                    loading: ()=>{
+        HTTPRequest({
+            url: API.API_NEW_GET_SOURCE_BY_DATE,
+            params: {
+                beginTime: '2017-06-01 00:00:00',
+                endTime: beginTime,
+                pageNum: pageNo,
+                pageSize,
+                driverPhone: global.phone,
+                status,
+                plateNumber: plateNumber,
+            },
+            loading: ()=>{
 
-                    },
-                    success: (responseData)=>{
-                        console.log('success',responseData);
-                        this.setState({
-                            loading: false,
-                        }, ()=>{
-                            lastTime = new Date().getTime();
-                            getDataSuccessCallBack(responseData.result);
-                        });
-
-                    },
-                    error: (errorInfo)=>{
-                        this.setState({
-                            loading: false,
-                        });
-                        getDataFailCallBack();
-                    },
-                    finish: ()=>{
-                    }
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    lastTime = new Date().getTime();
+                    getDataSuccessCallBack(responseData.result);
                 });
+
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                });
+                getDataFailCallBack();
+            },
+            finish: ()=>{
             }
         });
     }
@@ -305,7 +291,7 @@ class GoodSource extends BaseContainer{
                     }
                     }
                     preferences={() => {
-                        // this.props.router.redirect(RouteType.GOODS_SOURCE_PREFERENCES_PAGE);
+                        this.props.navigation.navigate('GoodsPreferencePage');
                     }}
                 >
                     <View>
@@ -320,15 +306,15 @@ class GoodSource extends BaseContainer{
                                     onEndReachedThreshold={100}
                                     enableEmptySections={true}
                                     showsVerticalScrollIndicator={false}
-                                    // refreshControl={
-                                    //     <RefreshControl
-                                    //         refreshing={this.state.isRefresh}
-                                    //         onRefresh={this.onRefresh.bind(this)}
-                                    //         tintColor="#CCC"
-                                    //         colors={['#43B8FF', '#309DED', '#008dcf']}
-                                    //         progressBackgroundColor="#CCC"
-                                    //     />
-                                    // }
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={this.state.isRefresh}
+                                            onRefresh={this.onRefresh.bind(this)}
+                                            tintColor="#CCC"
+                                            colors={['#43B8FF', '#309DED', '#008dcf']}
+                                            progressBackgroundColor="#CCC"
+                                        />
+                                    }
                                 />
                                 : <EmptyView />
                         }
@@ -339,4 +325,15 @@ class GoodSource extends BaseContainer{
     }
 }
 
-export default GoodSource;
+function mapStateToProps(state) {
+    return {
+        userPlateNumber: state.app.get('plateNumber'),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoodSource);

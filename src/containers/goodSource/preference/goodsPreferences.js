@@ -7,26 +7,19 @@ import {
 import Picker from 'react-native-picker-custom'; // 时间弹窗
 import Toast from '@remobile/react-native-toast';
 import moment from 'moment'; // 时间格式化工具
-import NavigationBar from '../../common/navigationBar';
-import stylesCommon from '../../../assets/css/common';
-import SwitchItem from '../../components/goods/switchItem';
-import CommonCellWithArrow from '../../components/goods/commonCellWithArrow';
-import {setGoodsPreference, queryGoodsPreference, preferenceSetResult} from '../../action/goods';
+import NavigationBar from '../../../common/navigationBar/navigationBar';
+import SwitchItem from '../component/switchItem';
+import CommonCellWithArrow from '../component/commonCellWithArrow';
 import {
-    getOrderDetailAction,
-    gotOrderDetailSuccAction,
-    getOrderTransportDetailAction,
     isReSetCity,
-    getTransPortingAction,
-} from '../../action/order';
-import * as API from '../../constants/api';
-import * as RouteType from '../../constants/routeType';
-
+} from '../../../action/order';
+import * as API from '../../../constants/api';
+import StorageKey from '../../../constants/storageKeys';
 import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import ProvinceListJson from '../../../assets/data/province.json';
-import UniqueUtil from '../../utils/unique';
-import Storage from '../../utils/storage';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+import ProvinceListJson from '../data/province.json';
+import Storage from '../../../utils/storage';
+import HTTPRequest from '../../../utils/httpRequest';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -40,6 +33,10 @@ let transCodeListData2 = [];
 let transCodeListData3 = [];
 
 const styles = StyleSheet.create({
+    outContainer: {
+        flex: 1,
+        backgroundColor: '#f5f5f5'
+    },
     container: {
         marginTop: 10,
         backgroundColor: 'white',
@@ -75,6 +72,7 @@ class goodsPreferences extends Component {
             appointmentEndTime: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'), // 预约时间
             appointmentStartTime: moment(new Date()).format('YYYY-MM-DD'), // 预约时间
             carNature: '',
+            loading: false,
         };
         this.setDispatchModel = this.setDispatchModel.bind(this);
         this.setBiddingModel = this.setBiddingModel.bind(this);
@@ -86,32 +84,15 @@ class goodsPreferences extends Component {
         this.setGoodsPreferenceFailCallback = this.setGoodsPreferenceFailCallback.bind(this);
         this.queryPreferenceSuccessCallBack = this.queryPreferenceSuccessCallBack.bind(this);
 
-        this.getOrderTransportDetail = this.getOrderTransportDetail.bind(this);
-        this.getOrderTransportDetailSuccessCallBack = this.getOrderTransportDetailSuccessCallBack.bind(this);
-        this.getOrderTransportDetailFailCallBack = this.getOrderTransportDetailFailCallBack.bind(this);
-
-        this.getTransPorting = this.getTransPorting.bind(this);
-        this.getTransPortingCallBack = this.getTransPortingCallBack.bind(this);
-        this.getTransPortingFailCallBack = this.getTransPortingFailCallBack.bind(this);
-
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
-        const {userInfo, userPlateNumber, isResetCityList} = this.props;
-        const phoneNum = userInfo.result.phone;
+        const phoneNum = global.phone;
+        // const userPlateNumber = global.plateNumber;
+        const {userPlateNumber} = this.props;
         console.log('是否返程开启', this.props.isResetCityList, this.state.isBackTracking);
-        // this.getTransPorting(this.getTransPortingCallBack, this.getTransPortingFailCallBack);
         // 查询货源偏好设置
         this.queryGoodSourcePre(phoneNum, userPlateNumber, this.queryPreferenceSuccessCallBack);
-        // if (!isResetCityList) {
-        //     this.queryGoodSourcePre(phoneNum, userPlateNumber, this.queryPreferenceSuccessCallBack);
-        // }
-        // if (isResetCityList) {
-        //     if (this.state.isBackTracking) {
-        //         this.getTransPorting(this.getTransPortingCallBack, this.getTransPortingFailCallBack);
-        //     }
-        // }
     }
 
     componentWillUnmount() {
@@ -182,9 +163,6 @@ class goodsPreferences extends Component {
                 departureCityArray: prefereceObj.departureCityArray && prefereceObj.departureCityArray !== '' ? prefereceObj.departureCityArray : [], // 出发城市列表
                 carNature: prefereceObj.carNature && prefereceObj.carNature !== '' ? prefereceObj.carNature : '',
             });
-            // if (!prefereceObj.departureCityArray) {
-            //     this.getOrderDetailAction(this.getOrderDetailSuccessCallBack, this.getOrderDetailFailCallBack);
-            // }
             if (prefereceObj.departureCityArray === null || prefereceObj.departureCityArray === [] || prefereceObj.departureCityArray === '') {
                 this.getCurrentPosition();
             }
@@ -194,10 +172,33 @@ class goodsPreferences extends Component {
     // 查询货源偏好设置
     queryGoodSourcePre(phone, plateNum, queryPreferenceSuccessCallBack) {
         currentTime = new Date().getTime();
-        this.props.queryGoodsPreferenceAction({
-            phoneNum: phone,
-            plateNumber: plateNum,
-        }, queryPreferenceSuccessCallBack);
+        HTTPRequest({
+            url: API.API_QUERY_GOODSOURCE_PREFERENCE,
+            params: {
+                phoneNum: phone,
+                plateNumber: plateNum,
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    queryPreferenceSuccessCallBack(responseData.result);
+                });
+
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                }, () => {
+                });
+            },
+            finish: ()=>{
+            }
+        });
     }
 
     // 设置平台派单模式
@@ -418,147 +419,69 @@ class goodsPreferences extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('设置偏好', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '偏好设置页面');
-        console.log('result');
         this.resetCityAction(false);
     }
 
     setGoodsPreferenceFailCallback() {
-        console.log('fail');
         this.resetCityAction(false);
     }
 
     // 确认设置
     submit(isPlatformDispatch, isBidding, isBackTracking, departureCity, departureCityArray, appointmentTime) {
         currentTime = new Date();
-        const {userInfo, userPlateNumber} = this.props;
-        const phoneNum = userInfo.result.phone;
-        const userId = userInfo.result.userId;
-        const userName = userInfo.result.userName;
-        const plateNumber = userPlateNumber;
+        const phoneNum = global.phone;
+        const userId = global.userId;
+        const userName = global.userName;
+        const { userPlateNumber} = this.props;
         const {appointmentEndTime, appointmentStartTime} = this.state;
         console.log('===departureCityArray===', departureCityArray);
-        this.props.setGoodsPreference({
-            appointmentEndTime: appointmentEndTime,
-            appointmentStartTime: appointmentStartTime,
-            appointmentTime: appointmentTime,
-            departureCity: departureCity,
-            departureCityArray: departureCityArray,
-            isBackTracking: isBackTracking,
-            isBidding: isBidding,
-            isPlatformDispatch: isPlatformDispatch,
-            phoneNum: phoneNum,
-            plateNumber: plateNumber,
-            userId: userId,
-            userName: userName,
-        }, this.setGoodsPreferenceSuccessCallback, this.setGoodsPreferenceFailCallback);
-        console.log('preferencesss', appointmentTime, departureCity, isBackTracking, isBidding, isPlatformDispatch, phoneNum, userId, userName, plateNumber);
-    }
+        HTTPRequest({
+            url: API.API_SET_GOODSOURCE_PREFERENCE,
+            params: {
+                appointmentEndTime: appointmentEndTime,
+                appointmentStartTime: appointmentStartTime,
+                appointmentTime: appointmentTime,
+                departureCity: departureCity,
+                departureCityArray: departureCityArray,
+                isBackTracking: isBackTracking,
+                isBidding: isBidding,
+                isPlatformDispatch: isPlatformDispatch,
+                phoneNum: phoneNum,
+                plateNumber: userPlateNumber,
+                userId: userId,
+                userName: userName,
+            },
+            loading: ()=>{
 
-    getTransPorting(getTransPortingCallBack, getTransPortingFailCallBack) {
-        this.props.getTransPorting({
-            url: API.API_NEW_GET_ORDER_LIST_TRANSPORT,
-            body: {
-                pageNum: 0,
-                pageSize: 500,
-                phoneNum: global.phone,
-                plateNumber: this.props.userPlateNumber,
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    lastTime = new Date().getTime();
+                    this.setGoodsPreferenceSuccessCallback(responseData.result);
+                });
+
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                }, () => {
+                    this.setGoodsPreferenceFailCallback()
+                });
+            },
+            finish: ()=>{
             }
-        }, getTransPortingCallBack, getTransPortingFailCallBack)
-    }
+        });
 
-    getTransPortingCallBack(result) {
-        console.log('result', result)
-        transCodeListData = [];
-        transCodeListData2 = [];
-        transCodeListData3 = [];
-        transCodeListData = transCodeListData.concat(result.list);
-        for (let i = 0; i < transCodeListData.length; i++) {
-            transCodeListData2 = transCodeListData2.concat(transCodeListData[i].transports);
-        }
-        for (let j = 0; j < transCodeListData2.length; j++) {
-            transCodeListData3.push(transCodeListData2[j].transCode);
-        }
-        console.log('transCodeListData3', transCodeListData3.length, transCodeListData3);
-
-        this.getOrderTransportDetail(transCodeListData3, this.getOrderTransportDetailSuccessCallBack, this.getOrderTransportDetailFailCallBack);
-
-    }
-
-    getTransPortingFailCallBack(err) {
-
-    }
-
-    // 获取运输中订单详情
-    getOrderTransportDetail(transCodeList, getOrderTransportDetailSuccessCallBack, getOrderTransportDetailFailCallBack) {
-        this.props.getOrderTransportDetailAction({
-            plateNumber: '',
-            transCodeList: transCodeList,
-        }, getOrderTransportDetailSuccessCallBack, getOrderTransportDetailFailCallBack);
-    }
-
-    // 获取运输中订单详情成功回调
-    getOrderTransportDetailSuccessCallBack(result) {
-        if (result && result.length > 0) {
-            const cityArray = [];
-            for (let i = 0; i < result.length; i++) {
-                cityArray.push(result[i].toCity);
-            }
-            const newArray = UniqueUtil.unique(cityArray);
-
-            const cityTempArray = [];
-            const provinces = ProvinceListJson.provinces;
-            for (let i = 0; i < provinces.length; i++) {
-                for (let j = 0; j < provinces[i].citys.length; j++) {
-                    for (let m = 0; m < newArray.length; m++) {
-                        if (newArray[m] === provinces[i].citys[j].departureCityArrayName) {
-                            let obj = provinces[i].citys[j];
-                            cityTempArray.push(obj);
-                            break;
-                        }
-                    }
-                }
-            }
-            console.log('cityArray', cityTempArray);
-            let cityContent = '';
-            for (let i = 0; i < newArray.length; i++) {
-                cityContent += newArray[i];
-                if (i < newArray.length - 1) {
-                    cityContent += '、';
-                }
-            }
-            console.log('cityContent', cityContent);
-            this.setState({
-                departureCity: cityContent,
-                departureCityArray: cityTempArray,
-            });
-            Storage.get('prefereceObj').then((value) => {
-                if (value) {
-                    this.setState({
-                        isPlatformDispatch: value.platformSendMode, // 派单模式
-                        isBidding: value.biddingGrabMode, // 竞价抢单模式
-                        isBackTracking: value.backTracking, // 返程
-                        appointmentTime: value.appointmentTime, // 预约时间
-                        appointmentStartTime: value.appointmentStartTime, // 预约开始时间
-                        appointmentEndTime: value.appointmentEndTime, // 预约结束时间
-                        carNature: value.carNature,
-                    });
-                }
-            });
-            this.submit(this.state.isPlatformDispatch, this.state.isBidding, this.state.isBackTracking, '', cityTempArray, '');
-
-            // Storage.save('cityArrayData', cityTempArray);
-        }
-    }
-
-    // 获取运输中订单详情失败回调
-    getOrderTransportDetailFailCallBack() {
     }
 
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         console.log('this.state.isBackTracking', this.state.isBackTracking);
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.outContainer}>
                 <NavigationBar
                     title={'货源偏好'}
                     navigator={navigator}
@@ -633,88 +556,17 @@ class goodsPreferences extends Component {
 
 function mapStateToProps(state) {
     return {
-        userInfo: state.user.get('userInfo'),
         userPlateNumber: state.app.get('plateNumber'),
         preferenceResult: state.goods.get('preferenceResult'),
         isResetCityList: state.order.get('isResetCity'),
-
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setGoodsPreference: (params, setGoodsPreferenceSuccessCallback, setGoodsPreferenceFailCallback) => {
-            dispatch(setGoodsPreference({
-                url: API.API_SET_GOODSOURCE_PREFERENCE,
-                body: {
-                    appointmentEndTime: params.appointmentEndTime,
-                    appointmentStartTime: params.appointmentStartTime,
-                    appointmentTime: params.appointmentTime,
-                    departureCity: params.departureCity,
-                    departureCityArray: params.departureCityArray,
-                    isBackTracking: params.isBackTracking,
-                    isBidding: params.isBidding,
-                    isPlatformDispatch: params.isPlatformDispatch,
-                    phoneNum: params.phoneNum,
-                    plateNumber: params.plateNumber,
-                    userId: params.userId,
-                    userName: params.userName,
-                },
-                successCallBack: (response) => {
-                    setGoodsPreferenceSuccessCallback(response);
-                },
-                failCallBack: () => {
-                    setGoodsPreferenceFailCallback();
-                },
-            }));
-        },
-        queryGoodsPreferenceAction: (params, querySuccessCallBack) => {
-            dispatch(queryGoodsPreference({
-                url: API.API_QUERY_GOODSOURCE_PREFERENCE,
-                body: {
-                    phoneNum: params.phoneNum,
-                    plateNumber: params.plateNumber,
-                },
-                successCallBack: (response) => {
-                    querySuccessCallBack(response.result);
-                    dispatch(preferenceSetResult(response.result));
-                },
-                failCallBack: () => {
-
-                },
-            }));
-        },
-        getOrderTransportDetailAction: (params, getOrderTransportDetailSuccessCallBack, getOrderTransportDetailFailCallBack) => {
-            dispatch(getOrderTransportDetailAction({
-                url: API.API_NEW_GET_GOODS_SOURCE,
-                body: {
-                    plateNumber: params.plateNumber,
-                    transCodeList: params.transCodeList,
-                },
-                successCallBack: (response) => {
-                    getOrderTransportDetailSuccessCallBack(response.result);
-                },
-                failCallBack: () => {
-                    getOrderTransportDetailFailCallBack();
-                },
-            }));
-        },
         // 刷新城市列表
         resetCityListAction: (data) => {
             dispatch(isReSetCity(data));
-        },
-
-        getTransPorting: (params, getTransPortingCallBack, getTransPortingFailCallBack) => {
-            dispatch(getTransPortingAction({
-                successCallBack: (response) => {
-                    getTransPortingCallBack(response.result);
-                },
-                failCallBack: () => {
-                    getTransPortingFailCallBack();
-                },
-                ...params,
-            }));
-
         },
     };
 }

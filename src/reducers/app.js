@@ -13,6 +13,9 @@ export default (state = initState, action) => {
         case ActionTypes.CHANGE_TAB:
             globalState = globalState.set('currentTab', action.payload.tab);
             return globalState;
+        case ActionTypes.ACTION_MAIN_PRESS:
+            globalState = globalState.set('mainPress', action.payload.orderTab);
+            return globalState;
         default:
             return state;
     }
