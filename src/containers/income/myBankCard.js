@@ -54,10 +54,16 @@ export default class MyBankCard extends Component {
         this.getCurrentPosition();
         this.bankCardList(this.bankCardBundingCallBack);
 
-        this.listener = DeviceEventEmitter.addListener('BankCardList', () => {
+        this.listListener = DeviceEventEmitter.addListener('BankCardList', () => {
             this.bankCardList(this.bankCardBundingCallBack);
         });
     }
+
+    componentWillUnmount() {
+        this.listListener.remove();
+    }
+
+
 // 获取当前位置
     getCurrentPosition() {
         // Geolocation.getCurrentPosition().then(data => {
@@ -156,6 +162,13 @@ export default class MyBankCard extends Component {
                                         isDefault={rowData.isDefault}
                                         clickAction={
                                             () => {
+                                                navigator.navigate('BankCardDeatil',
+                                                    {
+                                                        bank: rowData.accountBank,
+                                                        bankType: rowData.bankCarType,
+                                                        bankAccount: rowData.bankAccount,
+                                                        default: rowData.isDefault,
+                                                    })
                                                 // this.props.router.redirect(
                                                 //     RouteType.MY_BANK_CARD_DETAILS_PAGE,
                                                 //     {
