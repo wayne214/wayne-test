@@ -249,7 +249,7 @@ class Home extends Component {
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
         this.setUserCar = this.setUserCar.bind(this);
-        // this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
+        this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
         this.getUserCar = this.getUserCar.bind(this);
         this.getUserCarSuccessCallBack = this.getUserCarSuccessCallBack.bind(this);
         // this.saveMessage = this.saveMessage.bind(this);
