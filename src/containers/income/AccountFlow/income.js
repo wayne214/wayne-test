@@ -124,8 +124,7 @@ export default class Income extends Component {
                     <View style={{marginTop: 10}}/>
 
                     <IncomeCell leftIcon="&#xe622;" content={'业务明细'} clickAction={() => {
-                        //navigator.navigate('')
-                        //this.props.router.redirect(RouteType.MY_BANK_DETAILS_PAGE);
+                        navigator.navigate('BusinessDetail');
                     }}/>
 
                     <View style={{marginTop: 1}}/>

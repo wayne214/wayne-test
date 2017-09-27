@@ -11,7 +11,7 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
 import  HTTPRequest from '../../utils/httpRequest';
@@ -76,17 +76,17 @@ export default class changeCodePWD extends Component {
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
+         this.getCurrentPosition();
     }
-    // 获取当前位置
-    // getCurrentPosition() {
-    //     Geolocation.getCurrentPosition().then(data => {
-    //         console.log('position =',JSON.stringify(data));
-    //         locationData = data;
-    //     }).catch(e =>{
-    //         console.log(e, 'error');
-    //     });
-    // }
+    //获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
+    }
     /*获取加密秘钥*/
     loginSecretCode() {
         currentTime = new Date().getTime();
@@ -100,8 +100,8 @@ export default class changeCodePWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime);
+                ReadAndWriteFileUtil.appendFile('获取登录密钥', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime);
                 const secretCode = responseData.result;
                 const secretnewPWD = XeEncrypt.aesEncrypt(this.state.newPWD, secretCode, secretCode);
 
@@ -135,9 +135,8 @@ export default class changeCodePWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('忘记密码', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '忘记密码页面');
-                // this.props.router.popToRoute(RouteType.LOGIN_PAGE);
+                ReadAndWriteFileUtil.appendFile('忘记密码', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '忘记密码页面');
 
                 const resetAction = NavigationActions.reset({
                     index: 0,

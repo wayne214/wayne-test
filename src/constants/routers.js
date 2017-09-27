@@ -27,6 +27,15 @@ import BillWaterPage from '../containers/income/AccountFlow/billWaterPage';
 import AddBankCard from '../containers/income/addBankCard/addBankCard';
 import AddBankCardPhone from '../containers/income/addBankCard/addBankCardPhone';
 import VerificationCardPhone from '../containers/income/addBankCard/verificationCardPhone';
+import Setting from '../containers/mine/setting';
+import AboutUs from '../containers/mine/aboutUs';
+import BusinessDetail from '../containers/income/businessDetail/businessDetail';
+// import Income from '../containers/income/income';
+// import BillWaterPage from '../containers/income/billWaterPage';
+import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
+import MsgList from '../containers/mine/msgList';
+import MsgDetails from '../containers/mine/msgDetails';
+import PersonInfo from '../containers/mine/personInfo';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -151,11 +160,54 @@ const StackRouteConfigs = {
             header: null
         }
     },
+
+    Setting: {
+        screen: Setting,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AboutUs: {
+        screen: AboutUs,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BusinessDetail: {
+        screen: BusinessDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    GoodsDetailPage: {
+        screen: GoodsDetailPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    MsgList: {
+        screen: MsgList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    MsgDetails: {
+        screen: MsgDetails,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonInfo: {
+        screen: PersonInfo,
+        navigationOptions: {
+            header: null
+        }
+    },
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'Splash', // 初始化哪个界面为根界面
-    mode:'card', // 跳转方式：默认的card，在iOS上是从右到左跳转，在Android上是从下到上，都是使用原生系统的默认跳转方式。
-    headerMode:'screen', // 导航条动画效果：float表示会渐变，类似于iOS的原生效果，screen表示没有渐变。none表示隐藏导航条
+    mode: 'card', // 跳转方式：默认的card，在iOS上是从右到左跳转，在Android上是从下到上，都是使用原生系统的默认跳转方式。
+    headerMode: 'screen', // 导航条动画效果：float表示会渐变，类似于iOS的原生效果，screen表示没有渐变。none表示隐藏导航条
 };
 
 export {

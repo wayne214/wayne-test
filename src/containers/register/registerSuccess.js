@@ -14,8 +14,6 @@ import { NavigationActions } from 'react-navigation';
 
 import NavigatorBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';
-import Storage from '../../utils/storage';
-import StorageKey from '../../constants/storageKeys';
 
 
 const {width, height} = Dimensions.get('window'); // 获取屏幕宽高尺寸

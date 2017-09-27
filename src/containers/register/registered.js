@@ -3,7 +3,6 @@
  * 注册界面
  */
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {
     View,
     StyleSheet,
@@ -14,7 +13,7 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Toast from '@remobile/react-native-toast';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import Loading from '../../utils/loading';
 import  HTTPRequest from '../../utils/httpRequest';
 
@@ -134,18 +133,18 @@ export default class Registered extends Component {
     }
 
     componentDidMount() {
-    // this.getCurrentPosition();
+        this.getCurrentPosition();
     }
 
     // 获取当前位置
-    // getCurrentPosition() {
-    // Geolocation.getCurrentPosition().then(data => {
-    //     console.log('position =', JSON.stringify(data));
-    //     locationData = data;
-    // }).catch(e => {
-    //     console.log(e, 'error');
-    // });
-    // }
+    getCurrentPosition() {
+    Geolocation.getCurrentPosition().then(data => {
+        console.log('position =', JSON.stringify(data));
+        locationData = data;
+    }).catch(e => {
+        console.log(e, 'error');
+    });
+    }
 
     /*注册*/
     registerAccount() {
@@ -312,15 +311,6 @@ export default class Registered extends Component {
                         textStyle={styles.loginButtonText}
                         onPress={() => {
                             this.props.navigation.navigate('RegisterSuccess');
-
-                        {/*if (Validator.isPhoneNumber(phoneNum)) {*/}
-                            {/*this.registerAccount();*/}
-                            {/*this.setState({*/}
-                                {/*messageCode:'',*/}
-                            {/*})*/}
-                        {/*} else {*/}
-                            {/*Toast.showShortCenter('手机号码输入有误，请重新输入');*/}
-                        {/*}*/}
                     }}
                     >
                         立即注册

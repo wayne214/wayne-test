@@ -133,7 +133,10 @@ const postRequest = (
                     url,'的请求结果',responseData);
             })
             .catch(error => {
-                console.log("----http error", error.message);
+                console.log("----http error----%c%s",
+                    "color: red; font-size: 20px;",
+                    error.message, url);
+
                 if (error.message === 'timeout') {
                     Toast.showShortCenter('网络超时');
                 } else {
