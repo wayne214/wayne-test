@@ -16,17 +16,20 @@ export default (state = initState, action) => {
         case ActionTypes.CHANGE_TAB:
             globalState = globalState.set('currentTab', action.payload.tab);
             return globalState;
-<<<<<<< HEAD
-            case ActionTypes.ACTION_GET_LOCATION:
+
+        case ActionTypes.ACTION_GET_LOCATION:
             globalState = globalState.set('locationData', action.payload);
             return globalState;
+
         case ActionTypes.ACTION_GET_HOME_PAGE_COUNT:
             globalState = globalState.set('getHomePageCount', action.payload);
-=======
+            return globalState;
+
         case ActionTypes.ACTION_MAIN_PRESS:
             globalState = globalState.set('mainPress', action.payload.orderTab);
->>>>>>> feature-good
             return globalState;
+
+
         default:
             return state;
     }
