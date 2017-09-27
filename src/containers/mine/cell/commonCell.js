@@ -9,8 +9,6 @@ import {
     StyleSheet,
     Text,
 } from 'react-native';
-import * as StaticColor from '../../../constants/staticColor';
-
 const styles = StyleSheet.create({
     container: {
         paddingLeft: 20,

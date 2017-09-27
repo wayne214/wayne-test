@@ -18,11 +18,9 @@ import EntryTest from './goodsSouceDetails';
 import * as API from '../../constants/api';
 // import {getOrderDetaiInfoSuccess, receiveGoods, refusedGoods} from '../../action/order';
 import Loading from '../../utils/loading';
-// import {changeAppLoadingAction} from '../../action/app';
 import Storage from '../../utils/storage';
 import ChooseButtonCell from './component/chooseButtonCell';
 import EmptyView from '../../common/emptyView/emptyView';
-// import noDataIcon from '../../../../../assets/img/nodata.png';
 import prventDoubleClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
 
@@ -51,7 +49,7 @@ let userID = '';
 let userName = '';
 let plateNumber = '';
 
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
@@ -62,10 +60,9 @@ class entryGoodsDetail extends Component {
 
     constructor(props) {
         super(props);
-
-        // const params = this.props.router.getCurrentRoute().params;
-        const params = this.props.navigation.state;
-        console.log('******6666====666',params.bidEndTime,params.bidStartTime);
+        // 获取上个页面传递的值
+        const params = this.props.navigation.state.params;
+        console.log('entryGoodsDetail.params',params);
 
         this.state = {
             datas: [],
@@ -73,7 +70,7 @@ class entryGoodsDetail extends Component {
             transOrderList: params.transOrderList,
             scheduleCode: params.scheduleCode,
             scheduleStatus: params.scheduleStatus,
-
+            loading: false, // 加载框
             isShowEmptyView: false,
             allocationModel: params.allocationModel,
             bidEndTime: params.bidEndTime !== null && params.bidEndTime !== '' ? params.bidEndTime : moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
@@ -101,7 +98,6 @@ class entryGoodsDetail extends Component {
         this.refusedGoodsSuccessCallBack = this.refusedGoodsSuccessCallBack.bind(this);
         this.refusedGoodsFailCallBack = this.refusedGoodsFailCallBack.bind(this);
 
-        this.changeAppLoading = this.changeAppLoading.bind(this);
         this.isShowEmptyView = this.isShowEmptyView.bind(this);
         this.emptyView = this.emptyView.bind(this);
         this.contentView = this.contentView.bind(this);
@@ -124,21 +120,19 @@ class entryGoodsDetail extends Component {
     }
 
     componentDidMount() {
-        // this.getCurrentPosition();
-        InteractionManager.runAfterInteractions(() => {
-            this.getOrderDetailInfo(
-                this.getOrderDetailInfoSuccessCallBack,
-                this.getOrderDetailInfoFailCallBack,
-            );
-        });
+        this.getCurrentPosition();
+        this.getOrderDetailInfo(
+            this.getOrderDetailInfoSuccessCallBack,
+            this.getOrderDetailInfoFailCallBack,
+        );
 
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
-        });
-        Storage.get('plateNumber').then((plate) => {
-            plateNumber = plate;
-        });
+        // Storage.get('userInfo').then((userInfo) => {
+        //     userID = userInfo.result.userId;
+        //     userName = userInfo.result.userName;
+        // });
+        // Storage.get('plateNumber').then((plate) => {
+        //     plateNumber = plate;
+        // });
     }
 // 获取当前位置
     getCurrentPosition(){
@@ -167,25 +161,22 @@ class entryGoodsDetail extends Component {
     getOrderDetailInfo(getOrderDetailInfoSuccessCallBack, getOrderDetailInfoFailCallBack) {
         currentTime = new Date().getTime();
         // 传递参数
-        // this.changeAppLoading(true);
-        console.log('fafjdoifijoe', this.state.transOrderList);
-        // this.props.getOrderDetaiInfoSuccess({
-        //     transCodeList: this.state.transOrderList
-        // }, getOrderDetailInfoSuccessCallBack, getOrderDetailInfoFailCallBack);
+        console.log('transOrderList', this.state.transOrderList);
         HTTPRequest({
             url: API.API_NEW_GET_GOODS_SOURCE,
             params: {
                 transCodeList: this.state.transOrderList,
             },
             loading: ()=>{
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData)=>{
                 console.log('success',responseData);
                 this.setState({
                     loading: false,
                 }, ()=>{
-                    lastTime = new Date().getTime();
                     getOrderDetailInfoSuccessCallBack(responseData.result);
                 });
 
@@ -206,7 +197,6 @@ class entryGoodsDetail extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('订单详情',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源详情页面');
-        // this.changeAppLoading(false);
         const array = [];
         transOrderInfo = Array();
         for (let i = 0; i < result.length; i++) {
@@ -235,9 +225,6 @@ class entryGoodsDetail extends Component {
 
     // 获取数据失败回调
     getOrderDetailInfoFailCallBack() {
-        // Toast.showShortCenter('获取订单详情失败!');
-        this.changeAppLoading(false);
-
         this.setState({
             isShowEmptyView: true,
         });
@@ -263,25 +250,44 @@ class entryGoodsDetail extends Component {
         );
     }
 
-    changeAppLoading(appLoading) {
-        this.props.changeAppLoading(appLoading);
-    }
-
     /*
      * 点击接单调用接口
      * */
     receiveGoodsAction(receiveGoodsSuccessCallBack, receiveGoodsFailCallBack) {
         currentTime = new Date().getTime();
         // 传递参数
-        this.changeAppLoading(true);
+        HTTPRequest({
+            url: API.API_NEW_DRIVER_RECEIVE_ORDER,
+            params: {
+                userId: global.userId,
+                userName: global.userName,
+                plateNumber: this.props.plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    receiveGoodsSuccessCallBack(responseData.result);
+                });
 
-        this.props.receiveGoods({
-            userId: userID,
-            userName,
-            plateNumber,
-            scheduleCode: this.state.scheduleCode,
-        }, receiveGoodsSuccessCallBack, receiveGoodsFailCallBack);
-
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                }, () => {
+                    receiveGoodsFailCallBack();
+                });
+            },
+            finish: ()=>{
+            }
+        });
     }
 
     // 获取数据成功回调
@@ -290,25 +296,17 @@ class entryGoodsDetail extends Component {
         ReadAndWriteFileUtil.appendFile('接单',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源详情页面');
         Toast.showShortCenter('接单成功!');
-        this.changeAppLoading(false);
-
-        if (this.props.router.getCurrentRoute().params.getOrderSuccess) {
-            this.props.router.getCurrentRoute().params.getOrderSuccess();
+        if (this.props.navigation.state.params.getOrderSuccess) {
+            this.props.navigation.state.params.getOrderSuccess();
         }
-        // DeviceEventEmitter.emit('refreshHome');
-
-
-        this.props.navigator.popToTop();
-
         DeviceEventEmitter.emit('reloadOrderAllAnShippt');
-        this.changeTab('order');
+        this.props.navigation.navigate('Order');
         this.changeOrderTab(1);
     }
 
     // 获取数据失败回调
     receiveGoodsFailCallBack() {
         Toast.showShortCenter('接单失败!');
-        this.changeAppLoading(false);
     }
 
     /*
@@ -317,14 +315,38 @@ class entryGoodsDetail extends Component {
     refusedGoodsAction(refusedGoodsSuccessCallBack, refusedGoodsFailCallBack) {
         currentTime = new Date().getTime();
         // 传递参数
-        this.changeAppLoading(true);
+        HTTPRequest({
+            url: API.API_NEW_DRIVER_REFUSE_ORDER,
+            params: {
+                userId: global.userId,
+                userName: global.userName,
+                plateNumber: this.props.plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                this.setState({
+                    loading: false,
+                }, ()=>{
+                    refusedGoodsSuccessCallBack(responseData.result);
+                });
 
-        this.props.refusedGoods({
-            userId: userID,
-            userName,
-            plateNumber,
-            scheduleCode: this.state.scheduleCode,
-        }, refusedGoodsSuccessCallBack, refusedGoodsFailCallBack);
+            },
+            error: (errorInfo)=>{
+                this.setState({
+                    loading: false,
+                }, () => {
+                    refusedGoodsFailCallBack();
+                });
+            },
+            finish: ()=>{
+            }
+        });
     }
 
     // 获取数据成功回调
@@ -333,19 +355,16 @@ class entryGoodsDetail extends Component {
         ReadAndWriteFileUtil.appendFile('拒单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源详情页面');
         Toast.showShortCenter('拒单成功!');
-        this.changeAppLoading(false);
-
-        if (this.props.router.getCurrentRoute().params.getOrderSuccess) {
-            this.props.router.getCurrentRoute().params.getOrderSuccess();
+        if (this.props.navigation.state.params.getOrderSuccess) {
+            this.props.navigation.state.params.getOrderSuccess();
         }
-        // DeviceEventEmitter.emit('refreshHome');
-        this.props.navigator.popToTop();
+        // 返回上一个页面
+        this.props.navigation.goBack();
     }
 
     // 获取数据失败回调
     refusedGoodsFailCallBack() {
         Toast.showShortCenter('拒单失败!');
-        this.changeAppLoading(false);
     }
 
     /*
@@ -368,8 +387,8 @@ class entryGoodsDetail extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
-                        // this.props.navigator.popToTop();
-                        // DeviceEventEmitter.emit('resetgood');
+                        navigator.goBack();
+                        DeviceEventEmitter.emit('resetgood');
                     }}
                 />
                 <EmptyView />
@@ -492,14 +511,16 @@ class entryGoodsDetail extends Component {
                             }}
                         /> : null
                 }
-                <Loading />
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
 
     render() {
 
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
 
         return (
             <View style={styles.container}>
@@ -513,7 +534,6 @@ entryGoodsDetail.propTypes = {
     refusedGoods: React.PropTypes.func,
     receiveGoods: React.PropTypes.func,
     getOrderDetaiInfoSuccess: React.PropTypes.func,
-    changeAppLoading: React.PropTypes.func,
     appLoading: React.PropTypes.bool,
     router: React.PropTypes.object,
     navigator: React.PropTypes.object,
@@ -521,76 +541,15 @@ entryGoodsDetail.propTypes = {
 function mapStateToProps(state) {
     return {
         appLoading: state.app.get('appLoading'),
+        plateNumber: state.app.get('plateNumber'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeAppLoading: (appLoading) => {
-            dispatch(changeAppLoadingAction(appLoading));
+        changeOrderTab: (orderTab) => {
+            dispatch(mainPressAction(orderTab));
         },
-        // 订单详情
-        getOrderDetaiInfoSuccess: (params, getOrderSuccessCallBack, getOrderFailCallBack) => {
-            dispatch(getOrderDetaiInfoSuccess({
-                url: API.API_NEW_GET_GOODS_SOURCE,
-                body: {
-                    transCodeList: params.transCodeList,
-                },
-                successCallBack: (response) => {
-                    getOrderSuccessCallBack(response.result);
-                },
-                failCallBack: () => {
-                    getOrderFailCallBack();
-                    dispatch(changeAppLoadingAction(false));
-                },
-            }));
-        },
-
-        // 接单
-        receiveGoods: (params, receiveGoodsSuccessCallBack, receiveGoodsFailCallBack) => {
-            dispatch(receiveGoods({
-                url: API.API_NEW_DRIVER_RECEIVE_ORDER,
-                body: {
-                    userId: params.userId,
-                    userName: params.userName,
-                    plateNumber: params.plateNumber,
-                    dispatchCode: params.scheduleCode,
-                },
-                successCallBack: () => {
-                    receiveGoodsSuccessCallBack();
-                },
-                failCallBack: () => {
-                    receiveGoodsFailCallBack();
-                },
-            }));
-        },
-
-        // 拒单
-        refusedGoods: (params, refusedGoodsSuccessCallBack, refusedeGoodsFailCallBack) => {
-            dispatch(refusedGoods({
-                url: API.API_NEW_DRIVER_REFUSE_ORDER,
-                body: {
-                    userId: params.userId,
-                    userName: params.userName,
-                    plateNumber: params.plateNumber,
-                    dispatchCode: params.scheduleCode,
-                },
-                successCallBack: () => {
-                    refusedGoodsSuccessCallBack();
-                },
-                failCallBack: () => {
-                    refusedeGoodsFailCallBack();
-                },
-            }));
-        },
-
-        // changeTab: (tab) => {
-        //     dispatch(changeTabBarAction(tab));
-        // },
-        //
-        // changeOrderTab: (orderTab) => {
-        //     dispatch(mainPressAction(orderTab));
-        // },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(entryGoodsDetail);

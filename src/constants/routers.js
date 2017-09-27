@@ -49,6 +49,9 @@ import MsgList from '../containers/mine/msgList';
 import MsgDetails from '../containers/mine/msgDetails';
 import PersonInfo from '../containers/mine/personInfo';
 import BankCardDeatil from '../containers/income/bankCardDeatil';
+import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
+import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
+import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -204,8 +207,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    GoodsPreferencePage: {
+        screen: GoodsPreferencePage,
+        navigationOptions: {
+            header: null
+        }
+    },
     MsgList: {
         screen: MsgList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChoiceCityPage: {
+        screen: ChoiceCityPage,
         navigationOptions: {
             header: null
         }
@@ -272,6 +287,12 @@ const StackRouteConfigs = {
     },
     BankCardDeatil: {
         screen: BankCardDeatil,
+            navigationOptions: {
+            header: null
+        }
+    },
+    GoodsBiddingPage: {
+        screen: GoodsBiddingPage,
         navigationOptions: {
             header: null
         }
