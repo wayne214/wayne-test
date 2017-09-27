@@ -41,9 +41,17 @@ import {
     COLOR_VIEW_BACKGROUND
 } from '../../constants/staticColor';
 import * as API from '../../constants/api';
-import {locationAction} from '../../action/app';
+import {
+    locationAction,
+    getHomePageCountAction
+} from '../../action/app';
+
+import {
+    setUserCarAction
+} from '../../action/user';
 
 import Storage from '../../utils/storage';
+import StoradeKey from '../../constants/storageKeys';
 import Toast from '@remobile/react-native-toast';
 
 
@@ -239,12 +247,11 @@ class Home extends Component {
             plateNumberObj: {},
         };
 
-        // this.getHomePageCount = this.getHomePageCount.bind(this);
-        // this.getHomoPageCountSuccessCallBack = this.getHomoPageCountSuccessCallBack.bind(this);
-        // this.setUserCar = this.setUserCar.bind(this);
+        this.getHomePageCount = this.getHomePageCount.bind(this);
+        this.setUserCar = this.setUserCar.bind(this);
         // this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
-        // this.getUserCar = this.getUserCar.bind(this);
-        // this.getUserCarSuccessCallBack = this.getUserCarSuccessCallBack.bind(this);
+        this.getUserCar = this.getUserCar.bind(this);
+        this.getUserCarSuccessCallBack = this.getUserCarSuccessCallBack.bind(this);
         // this.saveMessage = this.saveMessage.bind(this);
         // this.saveUserCarInfo = this.saveUserCarInfo.bind(this);
         this.locate = this.locate.bind(this);
@@ -520,119 +527,175 @@ class Home extends Component {
     //     this.bindCarListener.remove();
     //     this.notifyCarStatusListener.remove();
     // }
-    //
-    // compareVersion(compareSuccessCallBack, compareFailCallBack) {
-    //     currentTime = new Date().getTime();
-    //     this.props.compareVersionAction({
-    //         version: DeviceInfo.getVersion(),
-    //         platform: Platform.OS === 'ios' ? '1': '2',
-    //     }, compareSuccessCallBack, compareFailCallBack);
-    // }
-    //
-    // // 版本对比
-    // compareSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '首页');
-    //     if (result) {
-    //         this.props.updateVersion(result);
-    //     }else {
-    //         this.setData();
-    //     }
-    // }
-    // compareFailCallBack() {
-    //     this.setData();
-    // }
-    //
-    // // 设置车辆
-    // setUserCar(plateNumber, setUserCarSuccessCallBack) {
-    //     currentTime = new Date().getTime();
-    //     Storage.get('userInfo').then((value) => {
-    //         this.props.setUserCarAction({
-    //             plateNumber: plateNumber,
-    //             phoneNum: value.result.phone,
-    //         }, setUserCarSuccessCallBack);
-    //     });
-    // }
-    //
-    //
-    // setUserCarSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('设置车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '首页');
-    //     const {userInfo} = this.props;
-    //
-    //
-    //     Storage.get('plateNumber').then((plate) => {
-    //         if (plate){
-    //             console.log('设置车辆成功了', plate, userInfo.result.phone);
-    //             this.getHomePageCount(plate, userInfo.result.phone, this.getHomoPageCountSuccessCallBack);
-    //             this.saveUserCarInfo(plate);
-    //             Storage.save('setCarSuccessFlag', '2');
-    //         }
-    //     });
-    //     Storage.get('plateNumberObj').then((platformObj) => {
-    //         if (platformObj) {
-    //             this.saveUserCarObj(platformObj);
-    //         }
-    //     });
-    // }
-    //
-    // // 获取首页状态数量
-    // getHomePageCount(plateNumber, phone, getHomoPageCountSuccessCallBack) {
-    //     currentTime = new Date().getTime();
-    //     this.props.getHomoPageCountAction({
-    //         plateNumber,
-    //         driverPhone: phone,
-    //     }, getHomoPageCountSuccessCallBack);
-    // }
-    //
-    // getHomoPageCountSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '首页');
-    // }
-    //
-    // getUserCarSuccessCallBack(result) {
-    //     lastTime = new Date().getTime();
-    //     ReadAndWriteFileUtil.appendFile('获取绑定车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-    //         locationData.district, lastTime - currentTime, '首页');
-    //     console.log('carjofijeowj',result);
-    //
-    //     if (result) {
-    //         if(result.length > 1) {
-    //             this.props.router.redirect(RouteType.CHOOSE_CAR_PAGE,{
-    //                 carList: result,
-    //                 currentCar: '',
-    //                 flag: true,
-    //             });
-    //         } else if (result.length === 1) {
-    //             // this.setUserCar(result[0].carNum, this.setUserCarSuccessCallBack);
-    //             this.setState({
-    //                 plateNumber: result[0].carNum,
-    //                 plateNumberObj: result[0],
-    //             });
-    //             this.certificationState();
-    //         } else {
-    //             this.certificationState();
-    //         }
-    //     } else {
-    //         Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',
-    //             [
-    //                 {
-    //                     text: '好的',
-    //                     onPress: () => {
-    //                         this.changeTab('mine');
-    //                     },
-    //                 },
-    //             ], {cancelable: false});
-    //     }
-    // }
-    // /*资质认证请求*/
+
+    // 版本对比
+    compareVersion() {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_COMPARE_VERSION,
+            params: {
+                version: DeviceInfo.getVersion(),
+                platform: Platform.OS === 'ios' ? '1': '2',
+            },
+            loading: ()=>{
+
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '首页');
+                if (responseData.result) {
+                    // this.props.updateVersion(responseData.result);
+                }else {
+                    this.setData();
+                }
+            },
+            error: (errorInfo)=>{
+                this.setData();
+            },
+            finish:()=>{
+
+            }
+        });
+    }
+
+    // 获取车辆列表
+    getUserCar() {
+        Storage.get(StoradeKey.USER_INFO).then((value) => {
+            currentTime = new Date().getTime();
+            if(value) {
+                HTTPRequest({
+                    url: API.API_QUERY_ALL_BIND_CAR_BY_PHONE,
+                    params: {
+                        phoneNum: value.result.phone,
+                    },
+                    loading: ()=>{},
+                    success: (responseData)=>{
+                        this.getUserCarSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo)=>{},
+                    finish:()=>{}
+                });
+            }
+        });
+    }
+
+    // 获取车辆列表成功
+    getUserCarSuccessCallBack(result) {
+        lastTime = new Date().getTime();
+        ReadAndWriteFileUtil.appendFile('获取绑定车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '首页');
+        console.log('carList=',result);
+
+        if (result) {
+            if(result.length > 1) {
+                this.props.navigation.navigate('',{
+                    carList: result,
+                    currentCar: '',
+                    flag: true,
+                });
+            } else if (result.length === 1) {
+                // this.setUserCar(result[0].carNum, this.setUserCarSuccessCallBack);
+                this.setState({
+                    plateNumber: result[0].carNum,
+                    plateNumberObj: result[0],
+                });
+                // this.certificationState();
+            } else {
+                // this.certificationState();
+            }
+        } else {
+            Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',
+                [
+                    {
+                        text: '好的',
+                        onPress: () => {
+                            // this.changeTab('mine');
+                        },
+                    },
+                ], {cancelable: false});
+        }
+    }
+
+    // 设置车辆
+    setUserCar(plateNumber) {
+        currentTime = new Date().getTime();
+        Storage.get(StoradeKey.USER_INFO).then((value) => {
+            if(value) {
+                HTTPRequest({
+                    url: API.API_SET_USER_CAR,
+                    params: {
+                        plateNumber: plateNumber,
+                        phoneNum: value.result.phone,
+                    },
+                    loading: ()=>{},
+                    success: (responseData)=>{
+                        this.setUserCarSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo)=>{},
+                    finish:()=>{}
+                });
+            }
+        });
+    }
+
+    // 设置车辆成功
+    setUserCarSuccessCallBack(result) {
+        lastTime = new Date().getTime();
+        ReadAndWriteFileUtil.appendFile('设置车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '首页');
+        const {userInfo} = this.props;
+
+        console.log('设置车辆成功了', this.state.plateNumber, userInfo.result.phone);
+        this.getHomePageCount(this.state.plateNumber, userInfo.result.phone);
+        this.saveUserCarInfo(this.state.plateNumberObj);
+        Storage.save('setCarSuccessFlag', '2');
+
+        // Storage.get(StoradeKey.PlateNumber).then((plate) => {
+        //     if (plate){
+        //         console.log('设置车辆成功了', plate, userInfo.result.phone);
+        //         this.getHomePageCount(plate, userInfo.result.phone);
+        //         this.saveUserCarInfo(plate);
+        //         Storage.save('setCarSuccessFlag', '2');
+        //     }
+        // });
+        // Storage.get(StoradeKey.PlateNumberObj).then((platformObj) => {
+        //     if (platformObj) {
+        //         this.saveUserCarObj(platformObj);
+        //     }
+        // });
+    }
+
+
+    // 获取首页状态数量
+    getHomePageCount(plateNumber, phone) {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_INDEX_STATUS_NUM,
+            params: {
+                plateNumber,
+                driverPhone: phone,
+            },
+            loading: ()=>{},
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '首页');
+                this.props.getHomoPageCountAction(responseData.result);
+            },
+            error: ()=>{},
+            finish: ()=>{},
+        });
+    }
+
+
+    /*资质认证请求*/
     // certificationState() {
     //     setTimeout(() => {
-    //         Storage.get('plateNumber').then((plate) => {
-    //             this.getQualificationsStatus(plate, this.getQualificationsStatusSuccessCallBack);
+    //         Storage.get(StoradeKey.plateNumber).then((plate) => {
+    //             if(plate){
+    //                 this.getQualificationsStatus(plate, this.getQualificationsStatusSuccessCallBack);
+    //             }
     //         });
     //     }, 500);
     //
@@ -655,7 +718,7 @@ class Home extends Component {
     //         }, getQualificationsStatusSuccessCallBack);
     //     }
     // }
-    //
+
     // getQualificationsStatusSuccessCallBack(result) {
     //     console.log('getQualificationsStatusSuccessCallBack', result);
     //     if (result === '1201') {
@@ -673,21 +736,20 @@ class Home extends Component {
     //             },
     //         ],{cancelable: true});
     //     } else if (result === '1202') {
-    //         this.saveUserCarInfo(this.state.plateNumber);
-    //         this.saveUserCarObj(this.state.plateNumberObj);
+    //         this.saveUserCarInfo(this.state.plateNumberObj);
     //         this.setUserCar(this.state.plateNumber, this.setUserCarSuccessCallBack);
     //     } else{
     //         Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',[
     //             {
     //                 text: '好的',
     //                 onPress: () => {
-    //                     this.changeTab('mine');
+    //                     // this.changeTab('mine');
     //                 },
     //             },
     //         ], {cancelable: false});
     //     }
     // };
-    //
+
     // setData(){
     //     Storage.get('setCarSuccessFlag').then((value) => {
     //         console.log('....home_value...', value);
@@ -724,19 +786,8 @@ class Home extends Component {
     //     });
     // }
     //
-    // getUserCar(getUserCarSuccessCallBack) {
-    //     Storage.get('userInfo').then((value) => {
-    //         currentTime = new Date().getTime();
-    //         this.props.getUserCarAction({
-    //             phoneNum: value.result.phone,  // '13718891700'
-    //         }, getUserCarSuccessCallBack);
-    //     });
-    // }
-    //
-    // changeTab(tab) {
-    //     this.props.changeTab(tab);
-    // }
-    //
+
+
     // // 切换订单tab
     // changeOrderTab(orderTab) {
     //     this.props.changeOrderTab(orderTab);
@@ -787,6 +838,7 @@ class Home extends Component {
     //         }
     //     });
     // }
+
     // 获取当前位置
     getCurrentPosition(){
         Geolocation.getCurrentPosition().then(data => {
@@ -794,13 +846,14 @@ class Home extends Component {
             this.props.getLocationAction(data.city);
             locationData = data;
 
-            this.getWeather(data.city, this.getWeatherSuccessCallBack, this.getWeatherFailCallBack);
-            // this.vehicleLimit(data.city, this.vehicleLimitSuccessCallBack, this.vehicleLimitFailCallBack);
+            this.getWeather(data.city);
+            this.vehicleLimit(data.city);
 
         }).catch(e =>{
             console.log(e, 'error');
         });
     }
+
     // 定位城市选择
     locate(){
         this.props.navigation.navigate('Location', {
@@ -812,10 +865,10 @@ class Home extends Component {
             }
         });
     }
+
     pushToMsgList() {
         // this.props.navigation.navigate('');
     }
-
 
     //获取天气方法
     getWeather(city) {
@@ -915,7 +968,7 @@ class Home extends Component {
     }
 
     render() {
-        // const {homePageState} = this.props;
+        const {homePageState} = this.props;
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const TitleView =
             <View style={styles.container}>
@@ -1006,7 +1059,7 @@ class Home extends Component {
                             padding={10}// 文字与文字间距
                             imageStyle={styles.imageView}
                             backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                            // badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                            badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
                             renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                             clickAction={() => { // 点击事件
                                 {/*if (this.props.plateNumber && this.props.plateNumber !== '') {*/}
@@ -1028,7 +1081,7 @@ class Home extends Component {
                             padding={10}
                             imageStyle={styles.imageView}
                             backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            // badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                            badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
                             renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                             clickAction={() => {
                                 {/*if (this.props.plateNumber && this.props.plateNumber !== '') {*/}
@@ -1099,69 +1152,24 @@ class Home extends Component {
 
 function mapStateToProps(state) {
     return {
-        // userInfo: state.user.get('userInfo'),
-        // homePageState: state.app.get('getHomePageCount'),
+        userInfo: state.user.get('userInfo'),
+        homePageState: state.app.get('getHomePageCount'),
         // jpushIcon: state.jpush.get('jpushIcon'),
         location: state.app.get('locationData'),
-        // plateNumber: state.app.get('plateNumber'),
-        // plateNumberObj: state.app.get('plateNumberObj'),
+        plateNumber: state.user.get('plateNumber'),
+        plateNumberObj: state.user.get('plateNumberObj'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        // getHomoPageCountAction: (params, getHomoPageCountSuccessCallBack) => {
-        //     dispatch(getHomoPageCountAction({
-        //         url: API.API_NEW_INDEX_STATUS_NUM,
-        //         body: {
-        //             plateNumber: params.plateNumber,
-        //             driverPhone: params.driverPhone,
-        //         },
-        //         successCallBack: (response) => {
-        //             getHomoPageCountSuccessCallBack(response.result);
-        //             dispatch(getHomePageCountAction(response.result));
-        //         },
-        //         failCallBack: () => {
-        //
-        //         },
-        //     }));
-        // },
-        //
-        // setUserCarAction: (params, setUserCarSuccessCallBack) => {
-        //     dispatch(setUserCarAction({
-        //         url: API.API_NEW_SET_USER_CAR,
-        //         body: {
-        //             phoneNum: params.phoneNum,
-        //             plateNumber: params.plateNumber,
-        //         },
-        //         successCallBack: (response) => {
-        //             setUserCarSuccessCallBack(response.result);
-        //         },
-        //         failCallBack: () => {
-        //         },
-        //     }));
-        // },
-        //
-        // getUserCarAction: (params, getUserCarSuccessCallBack) => {
-        //     dispatch(getUserCarAction({
-        //         url: API.API_NEW_QUERY_ALL_BIND_CAR_BY_PHONE,
-        //         body: {
-        //             phoneNum: params.phoneNum,
-        //         },
-        //         successCallBack: (response) => {
-        //             getUserCarSuccessCallBack(response.result);
-        //             dispatch(saveUserCarList(response.result));
-        //         },
-        //         failCallBack: () => {
-        //
-        //         },
-        //     }));
-        // },
-        //
-        // changeTab: (tab) => {
-        //     dispatch(changeTabBarAction(tab));
-        // },
-        //
+        getHomoPageCountAction: (response) => {
+            dispatch(getHomePageCountAction(response));
+        },
+        saveUserSetCarSuccess: (plateNumberObj) => {
+            dispatch(setUserCarAction(plateNumberObj));
+        },
+
         // getIsAcceptMessage: (data) => {
         //     dispatch(getIsAcceptMessageAction(data));
         // },

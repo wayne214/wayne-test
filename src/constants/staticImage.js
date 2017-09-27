@@ -54,7 +54,10 @@ import bussness_gg from '../../assets/income/bussness_gg.png';
 import bussniessDeteleImg from '../../assets/income/require_delete.png';
 import bussniessSureImg from '../../assets/income/typeItem_sure.png';
 
-
+/*车辆选择图标*/
+import checkActive from '../../assets/carList/check-active.png';
+import checkNormal from '../../assets/carList/check-normal.png';
+import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 
 export default {
     EmptyImage,
@@ -89,5 +92,8 @@ export default {
     bussniessDeteleImg,
     bussniessSureImg,
     receiveBottomArrow,
+    checkActive,
+    checkNormal,
+    checkboxChecked
 }
 
