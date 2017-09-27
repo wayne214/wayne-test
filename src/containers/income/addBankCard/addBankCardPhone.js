@@ -90,6 +90,9 @@ export default class AddBankCardPhone extends Component {
             },
             success: (response) => {
                 this.sendVerifyCodeCallBack(response.result);
+                this.setState({
+                    loading: false,
+                });
             },
             error: (err) => {
                 this.setState({

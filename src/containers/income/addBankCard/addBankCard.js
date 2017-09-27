@@ -63,9 +63,9 @@ export default class AddBankCard extends Component {
 
         // 初始状态
         this.state = {
-            holdCardName: '李艳兵',
-            IDCardNum: '110108198801240414',
-            bankCardNum: '6217730707723670',
+            holdCardName: '',
+            IDCardNum: '',
+            bankCardNum: '',
             loading: false,
         };
     }
