@@ -52,6 +52,7 @@ import BankCardDeatil from '../containers/income/bankCardDeatil';
 import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
 import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
 import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
+import ImageShow from '../containers/order/imageShow';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -293,6 +294,12 @@ const StackRouteConfigs = {
     },
     GoodsBiddingPage: {
         screen: GoodsBiddingPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageShow: {
+        screen: ImageShow,
         navigationOptions: {
             header: null
         }
