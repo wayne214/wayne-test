@@ -83,8 +83,8 @@ let locationData = '';
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        backgroundColor: 'white',
+        flex:1,
+        backgroundColor: '#f5f5f5',
     },
 });
 
@@ -851,7 +851,6 @@ class Verified extends Component {
 
     render() {
         const navigator = this.props.navigation;
-
 
         const IDInfoTitle = (!isFirstCarD) ?
             <View>

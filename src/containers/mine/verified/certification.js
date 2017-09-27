@@ -82,8 +82,8 @@ let locationData = '';
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        backgroundColor: 'white',
+        flex:1,
+        backgroundColor: '#f5f5f5',
     },
 });
 
@@ -92,9 +92,8 @@ class certification extends Component {
     constructor(props) {
         super(props);
         /*从认证驳回跳转到此页面，传递过来详细的信息*/
-        if (this.props.router.getCurrentRoute().params) {
+        if (this.props.navigation.state.params) {
 
-            // const result = this.props.router.getCurrentRoute().params.resultInfo;
             const result = this.props.navigation.state.params.resultInfo;
             isFirst = result.carNum ? false : true;
 
