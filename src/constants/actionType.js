@@ -2,6 +2,8 @@
 /*切换tabbar*/
 export const CHANGE_TAB = 'CHANGE_TAB';
 
+/*改变首页城市*/
+export const ACTION_GET_LOCATION = 'ACTION_GET_LOCATION';
 /*用户登录成功，或者登录状态下*/
 export const ACTION_LOGIN_SUCCESS = 'ACTION_LOGIN_SUCCESS';
 

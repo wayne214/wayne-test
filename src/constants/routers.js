@@ -16,6 +16,7 @@ import Protocol from '../containers/register/protocol';
 import Registered from '../containers/register/registered';
 import RegisterSuccess from '../containers/register/registerSuccess';
 // import ChooseCar from '../containers/chooseCar';
+import Location from '../containers/home/location';
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
@@ -94,6 +95,12 @@ const StackRouteConfigs = {
     //         header: null
     //     }
     // },
+    Location: {
+        screen: Location,
+        navigationOptions: {
+            header: null
+        }
+    },
     ForgetPwd: {
         screen: ForgetPwd,
         navigationOptions: {
