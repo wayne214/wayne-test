@@ -226,7 +226,6 @@ class GoodSource extends BaseContainer{
         if (!this.state.isLoadMore) {
             return;
         }
-        // this.props.changeProductListLoadingMore(true);
         pageNO = parseInt(startRow / pageSize, 10) + 1;
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
     }
@@ -263,21 +262,6 @@ class GoodSource extends BaseContainer{
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
                 onSelect={() => {
-                    // this.props.router.redirect(RouteType.GOODS_SOURCE_DETAILS, {
-                    //     transOrderList: dataRow.transOrderList,
-                    //     scheduleCode: dataRow.dispatchCode,
-                    //     scheduleStatus: this.state.goodStatus,
-                    //     allocationModel: dataRow.allocationModel,
-                    //     bidEndTime: dataRow.bidEndTime,
-                    //     bidStartTime: dataRow.bidBeginTime,
-                    //     refPrice: dataRow.refPrice,
-                    //     getOrderSuccess: () => {
-                    //         // 刷新
-                    //         InteractionManager.runAfterInteractions(() => {
-                    //             this.onRefresh();
-                    //         });
-                    //     },
-                    // });
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,
                         scheduleCode: dataRow.dispatchCode,

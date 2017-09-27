@@ -154,6 +154,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker-custom')
     compile project(':react-native-image-picker')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-fs')
