@@ -104,11 +104,10 @@ class verifiedState extends Component{
                         resultInfo: value,
                     });
                 } else {
-                    InteractionManager.runAfterInteractions(() => {
 
-                        this.getRealNameDetail(global.phone);
+                    console.log('global.phone:', global.phone);
+                    this.getRealNameDetail(global.phone);
 
-                    });
                 }
             });
 
