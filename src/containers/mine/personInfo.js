@@ -10,7 +10,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-// import {CachedImage} from 'react-native-img-cache';
+import {CachedImage} from 'react-native-img-cache';
 import Toast from '@remobile/react-native-toast';
 import Button from 'apsl-react-native-button';
 import CommonCell from '../../containers/mine/cell/commonCell';
@@ -18,17 +18,14 @@ import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
 // import {getPersonInfoAction} from '../../action/mine';
-// import {changeAppLoadingAction} from '../../action/app';
 import Storage from '../../utils/storage';
 import PersonImage from '../../../assets/person/personInfo.png';
 import * as StaticColor from '../../constants/staticColor';
-// import * as RouteType from '../../constants/routeType';
-// import LoadingView from '../../common/loading';
+import Loading from '../../utils/loading';
 import NoImage from '../../../assets/person/noiamgeShow.png';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest';
-import EmptyView from '../../common/emptyView/emptyView';
 import StorageKeys from '../../constants/storageKeys';
 
 
