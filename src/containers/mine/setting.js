@@ -24,6 +24,8 @@ import LoginContainer from '../../containers/login/login';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
 // import {ImageCache} from 'react-native-img-cache';
+import HTTPRequest from '../../utils/httpRequest';
+
 
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
@@ -156,9 +158,33 @@ class setting extends Component {
     }
 
     loginOut(){
-        this.props.loginOut({
+
+        HTTPRequest({
             url:API.API_USER_LOGOUT + global.phone,
+            params: {},
+            loading: () => {
+
+            },
+            success: (response) => {
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('获取账户余额', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '收入页面');
+                this.setState({
+                    accountMoney: response.result
+                })
+            },
+            error: (err) => {
+
+            },
+            finish: () => {
+
+            },
+
         })
+
+        // this.props.loginOut({
+        //     url:API.API_USER_LOGOUT + global.phone,
+        // })
     }
 
     press() {

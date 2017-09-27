@@ -856,7 +856,7 @@ class Mine extends Component {
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
-                                            this.props.router.redirect(RouteType.CHANGE_PWD_PAGE);
+                                            navigator.navigate('ChangePwd');
                                         }
                                     }}
                                 />
