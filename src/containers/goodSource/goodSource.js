@@ -15,7 +15,7 @@ import {
     DeviceEventEmitter,
 } from 'react-native';
 import moment from 'moment';
-import { NavigationActions } from 'react-navigation';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import BaseContainer from '../base/baseContainer';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
@@ -24,6 +24,9 @@ import EmptyView from '../../common/emptyView/emptyView';
 import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
 import CommonListItem from './goodListItem/commonListItem';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+
+
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
 let list = [];
@@ -78,6 +81,8 @@ class GoodSource extends BaseContainer{
         this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
     }
     componentDidMount(){
+        this.getCurrentPosition();
+        this.resetParams();
         pageNO = 1;
         if (pageNO === 1) {
             this.setState({
@@ -91,6 +96,15 @@ class GoodSource extends BaseContainer{
     }
     componentWillUnmount() {
         this.listener.remove();
+    }
+    // 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
     }
     // 刷新
     onRefresh() {
@@ -125,18 +139,9 @@ class GoodSource extends BaseContainer{
             },
             success: (responseData)=>{
                 console.log('success',responseData);
-                this.setState({
-                    loading: false,
-                }, ()=>{
-                    lastTime = new Date().getTime();
-                    getDataSuccessCallBack(responseData.result);
-                });
-
+                getDataSuccessCallBack(responseData.result);
             },
             error: (errorInfo)=>{
-                this.setState({
-                    loading: false,
-                });
                 getDataFailCallBack();
             },
             finish: ()=>{
@@ -146,8 +151,8 @@ class GoodSource extends BaseContainer{
     // 成功回调
     getDataSuccessCallBack(result) {
         lastTime = new Date().getTime();
-        // ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-        //     locationData.district, lastTime - currentTime, '货源页面');
+        ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '货源页面');
         startRow = result.startRow + pageSize;
         console.log('....startRow', startRow);
         if (result.total <= startRow || result.total === 0) {
