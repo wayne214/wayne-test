@@ -32,7 +32,7 @@ class choiceCitys extends Component {
     constructor(props) {
         super(props);
         this.select;
-        const cityArray = this.props.router.getCurrentRoute().params.cityList;
+        const cityArray = this.props.navigation.state.params.cityList;
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => true});
         // cityList = cityList.concat(cityArray);
         this.state = {
@@ -131,7 +131,7 @@ class choiceCitys extends Component {
 
     render() {
         const {checkBoxSource, selectedCitys} = this.state;
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         console.log('===selectedCitys',selectedCitys, checkBoxSource);
         return (
             <View style={styles.outContainer}>
@@ -140,10 +140,10 @@ class choiceCitys extends Component {
                     navigator={navigator}
                     hiddenBackIcon={false}
                     backIconClick={() => {
-                        if (this.props.router.getCurrentRoute().params.selectedCityCallback) {
-                            this.props.router.getCurrentRoute().params.selectedCityCallback(this.state.selectedCitys);
+                        if (this.props.navigation.state.params.selectedCityCallback) {
+                            this.props.navigation.state.params.selectedCityCallback(this.state.selectedCitys);
                         }
-                        navigator.pop();
+                        navigator.goBack();
                     }
                     }
                     rightButtonConfig={{
@@ -151,10 +151,10 @@ class choiceCitys extends Component {
                         title: '保存',
                         onClick: () => {
                             Storage.save('cityArray', this.state.selectedCitys);
-                            if (this.props.router.getCurrentRoute().params.selectedCityCallback) {
-                                this.props.router.getCurrentRoute().params.selectedCityCallback(this.state.selectedCitys);
+                            if (this.props.navigation.state.params.selectedCityCallback) {
+                                this.props.navigation.state.params.selectedCityCallback(this.state.selectedCitys);
                             }
-                            navigator.pop();
+                            navigator.goBack();
                         },
                     }}
                 />
