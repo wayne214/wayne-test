@@ -83,6 +83,7 @@ class goodsPreferences extends Component {
         this.setGoodsPreferenceSuccessCallback = this.setGoodsPreferenceSuccessCallback.bind(this);
         this.setGoodsPreferenceFailCallback = this.setGoodsPreferenceFailCallback.bind(this);
         this.queryPreferenceSuccessCallBack = this.queryPreferenceSuccessCallBack.bind(this);
+        this.queryPreferenceFailCallBack = this.queryPreferenceFailCallBack.bind(this);
 
     }
 
@@ -92,7 +93,7 @@ class goodsPreferences extends Component {
         const {userPlateNumber} = this.props;
         console.log('是否返程开启', this.props.isResetCityList, this.state.isBackTracking);
         // 查询货源偏好设置
-        this.queryGoodSourcePre(phoneNum, userPlateNumber, this.queryPreferenceSuccessCallBack);
+        this.queryGoodSourcePre(phoneNum, userPlateNumber, this.queryPreferenceSuccessCallBack, this.queryPreferenceFailCallBack);
     }
 
     componentWillUnmount() {
@@ -168,9 +169,12 @@ class goodsPreferences extends Component {
             }
         }
     }
-
+    // 如果调用接口失败，出发城市显示定位城市
+    queryPreferenceFailCallBack() {
+        this.getCurrentPosition();
+    }
     // 查询货源偏好设置
-    queryGoodSourcePre(phone, plateNum, queryPreferenceSuccessCallBack) {
+    queryGoodSourcePre(phone, plateNum, queryPreferenceSuccessCallBack, queryPreferenceFailCallBack) {
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_QUERY_GOODSOURCE_PREFERENCE,
@@ -183,18 +187,10 @@ class goodsPreferences extends Component {
             },
             success: (responseData)=>{
                 console.log('success',responseData);
-                this.setState({
-                    loading: false,
-                }, ()=>{
-                    queryPreferenceSuccessCallBack(responseData.result);
-                });
-
+                queryPreferenceSuccessCallBack(responseData.result);
             },
             error: (errorInfo)=>{
-                this.setState({
-                    loading: false,
-                }, () => {
-                });
+                queryPreferenceFailCallBack();
             },
             finish: ()=>{
             }
