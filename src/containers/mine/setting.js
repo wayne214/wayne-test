@@ -189,9 +189,12 @@ class setting extends Component {
 
     press() {
         this.loginOut();
-        this.props.removeUserInfoAction();
-        this.props.reloadHomePageNum();
+        // this.props.removeUserInfoAction();
+        // this.props.reloadHomePageNum();
         // ImageCache.get().clear();
+        // this.props.saveUserSetCarSuccess('');
+        // JPushModule.setAlias('', this.success, this.fail);
+
         Storage.remove('userInfo');
         Storage.remove('setCarSuccessFlag');
         Storage.remove('plateNumber');
@@ -205,13 +208,8 @@ class setting extends Component {
         Storage.remove('acceptMessage');
         Storage.remove('setCityFlag');
         Storage.remove('plateNumberObj');
-        this.props.saveUserSetCarSuccess('');
-        JPushModule.setAlias('', this.success, this.fail);
-        this.props.navigator.resetTo({
-            component: LoginContainer,
-            name: RouteType.LOGIN_PAGE,
-            key: RouteType.LOGIN_PAGE,
-        });
+
+        this.props.navigation.navigate('Login');
     }
 
     fail = () => {
