@@ -100,11 +100,13 @@ export default class changePassword extends Component {
         this.loginSecretCode = this.loginSecretCode.bind(this);
 
         Storage.get(StorageKey.USER_ID).then((value) => {
-            console.log('value', value);
-            this.setState({
-                userId: value,
-            });
-            console.log('value', this.state.userId);
+            if(value){
+                console.log('value', value);
+                this.setState({
+                    userId: value,
+                });
+                console.log('value', this.state.userId);
+            }
         });
     }
 

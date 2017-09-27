@@ -1,2 +1,4 @@
 
 export const CHANGE_TAB = 'CHANGE_TAB';
+
+export const ACTION_GET_LOCATION = 'ACTION_GET_LOCATION';

@@ -25,6 +25,14 @@ import rightArrow from '../../assets/income/rightarrow.png';
 // 空界面
 import noDataIcon from '../../assets/income/nodata.png';
 
+/*首页轮播图片*/
+import bannerImage1 from '../../assets/home/banner-1.png';
+import bannerImage2 from '../../assets/home/banner-2.png';
+
+/*首页快捷入口图标*/
+import signIcon from '../../assets/home/sign_icon.png';
+import receiptIcon from '../../assets/home/receipt_icon.png';
+import dispatchIcon from '../../assets/home/despatch_icon.png';
 
 /*货源*/
 import close from '../../assets/good/close.png';
@@ -58,5 +66,10 @@ export default {
     RejectIcon,
     rightArrow,
     noDataIcon,
+    bannerImage1,
+    bannerImage2,
+    signIcon,
+    receiptIcon,
+    dispatchIcon,
 }
 
