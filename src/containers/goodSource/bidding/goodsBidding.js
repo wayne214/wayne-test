@@ -265,7 +265,7 @@ class goodsBidding extends Component {
         });
     }
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         return (
             <View style={styles.outContainer}>
                 <NavigationBar
