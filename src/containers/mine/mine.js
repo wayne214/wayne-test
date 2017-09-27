@@ -322,12 +322,12 @@ class Mine extends Component {
 
     /*跳转到设置*/
     pushToSetting() {
-        //this.props.router.redirect(RouteType.SETTING_PAGE);
+        this.props.navigation.navigate('Setting');
     }
 
     /*跳转到消息列表*/
     pushToMsgList() {
-        //this.props.router.redirect(RouteType.MSGLIST_PAGE);
+        this.props.navigation.navigate('MsgList');
     }
 
 
@@ -602,7 +602,7 @@ class Mine extends Component {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
                                             if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
-                                                //this.props.router.redirect(RouteType.PERSON_INFO_PAGE);
+                                                navigator.navigate('PersonInfo');
                                             } else if (this.state.verifiedState == '1201') {
                                                 Alert.alert('提示', '实名认证中');
                                             } else if (this.state.verifiedState == '1203') {
@@ -722,7 +722,7 @@ class Mine extends Component {
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.noDoubleClick()) {
-                                            //this.props.router.redirect(RouteType.CHANGE_PWD_PAGE);
+                                            navigator.navigate('ChangePwd');
                                         }
                                     }}
                                 />

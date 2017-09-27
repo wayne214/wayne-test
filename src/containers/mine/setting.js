@@ -20,9 +20,12 @@ import {
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
 // import {ImageCache} from 'react-native-img-cache';
+import HTTPRequest from '../../utils/httpRequest';
+
 
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import { NavigationActions } from 'react-navigation';
 
 
 let currentTime = 0;
@@ -152,16 +155,43 @@ class setting extends Component {
     }
 
     loginOut(){
-        this.props.loginOut({
+
+        HTTPRequest({
             url:API.API_USER_LOGOUT + global.phone,
+            params: {},
+            loading: () => {
+
+            },
+            success: (response) => {
+                lastTime = new Date().getTime();
+                // ReadAndWriteFileUtil.appendFile('获取账户余额', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '收入页面');
+                this.setState({
+                    accountMoney: response.result
+                })
+            },
+            error: (err) => {
+
+            },
+            finish: () => {
+
+            },
+
         })
+
+        // this.props.loginOut({
+        //     url:API.API_USER_LOGOUT + global.phone,
+        // })
     }
 
     press() {
         this.loginOut();
-        this.props.removeUserInfoAction();
-        this.props.reloadHomePageNum();
+        // this.props.removeUserInfoAction();
+        // this.props.reloadHomePageNum();
         // ImageCache.get().clear();
+        // this.props.saveUserSetCarSuccess('');
+        // JPushModule.setAlias('', this.success, this.fail);
+
         Storage.remove('userInfo');
         Storage.remove('setCarSuccessFlag');
         Storage.remove('plateNumber');
@@ -176,11 +206,15 @@ class setting extends Component {
         Storage.remove('setCityFlag');
         Storage.remove('plateNumberObj');
         JPushModule.setAlias('', this.success, this.fail);
-        this.props.navigator.resetTo({
-            component: LoginContainer,
-            name: RouteType.LOGIN_PAGE,
-            key: RouteType.LOGIN_PAGE,
+
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Login'}),
+            ]
         });
+        this.props.navigation.dispatch(resetAction);
+
     }
 
     fail = () => {

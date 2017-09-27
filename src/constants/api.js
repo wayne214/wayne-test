@@ -10,7 +10,7 @@ export const API_AC_ACCOUNT_FLOW = `${HOST}app/ac/accountFlow`;
 
 /** *****************************************************用户中心接口******************************************************/
 // 用户绑定车辆
-export const API_NEW_SET_USER_CAR = `${HOST}app/uam/addUserCar`;
+export const API_SET_USER_CAR = `${HOST}app/uam/addUserCar`;
 // 根据司机id获取推送状态
 export const API_NEW_GET_PUSHSTATUS_WITH_DRIVERID = `${HOST}app/uam/jpush/getPushStatusByUserId/`;
 // 更改状态
@@ -62,7 +62,7 @@ export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate
 // // 调度单发车数量接口
 // export const API_NEW_QUERY_BOL_COUNT = `${HOST}app/transport/queryBolCountByTelPhoneNo/`;
 // 首页-状态数量统计
-export const API_NEW_INDEX_STATUS_NUM = `${HOST}app/dpc/queryIndexStatusNum`;
+export const API_INDEX_STATUS_NUM = `${HOST}app/dpc/queryIndexStatusNum`;
 // 竞价排名查询接口
 export const API_NEW_QUERY_RANK = `${HOST}app/dpc/queryRank`;
 // 提交报价接口
@@ -74,7 +74,7 @@ export const API_NEW_GET_CARS_WITH_USER_PHONE = `${HOST}app/rmc/getCarInfoByDriv
 // 根据司机手机号查询司机信息
 export const API_NEW_GET_DRIVER_INFO_WITH_DRIVER_PHONE = `${HOST}app/rmc/getDriverInfoByDriverPhone`;
 // 查询绑定的车辆信息
-export const API_NEW_QUERY_ALL_BIND_CAR_BY_PHONE = `${HOST}app/rmc/rmcCar/queryAllBindCarByPhone/v2.1.0`;
+export const API_QUERY_ALL_BIND_CAR_BY_PHONE = `${HOST}app/rmc/rmcCar/queryAllBindCarByPhone/v2.1.0`;
 // 资质认证状态查询接口
 export const API_AUTH_QUALIFICATIONS_STATUS = `${HOST}app/rmc/auth/qualifications/status`;
 // 实名认证状态查询接口

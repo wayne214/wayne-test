@@ -18,6 +18,10 @@ import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
 import Registered from '../containers/register/registered';
 import RegisterSuccess from '../containers/register/registerSuccess';
+
+import ChooseCar from '../containers/home/chooseCar';
+import Location from '../containers/home/location';
+
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
 import ChangePwd from '../containers/login/changePassword';
@@ -41,6 +45,10 @@ import Verified from '../containers/mine/verified/verified';
 import ShowBigImage from '../containers/mine/verified/verifiedShowBigImage';
 import VerifiedState from '../containers/mine/verified/verifiedState';
 import CerifiedState from '../containers/mine/verified/certificationState';
+import MsgList from '../containers/mine/msgList';
+import MsgDetails from '../containers/mine/msgDetails';
+import PersonInfo from '../containers/mine/personInfo';
+import BankCardDeatil from '../containers/income/bankCardDeatil';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -93,12 +101,18 @@ const StackRouteConfigs = {
             header: null
         }
     },
-    // ChooseCar: {
-    //     screen: ChooseCar,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    ChooseCar: {
+        screen: ChooseCar,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Location: {
+        screen: Location,
+        navigationOptions: {
+            header: null
+        }
+    },
     ForgetPwd: {
         screen: ForgetPwd,
         navigationOptions: {
@@ -190,8 +204,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    MsgList: {
+        screen: MsgList,
+        navigationOptions: {
+            header: null
+        }
+    },
     TakeCamearVPage: {
         screen: TakeCamearV,
+        navigationOptions: {
+            header: null
+        }
+    },
+    MsgDetails: {
+        screen: MsgDetails,
         navigationOptions: {
             header: null
         }
@@ -232,8 +258,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    PersonInfo: {
+        screen: PersonInfo,
+        navigationOptions: {
+            header: null
+        }
+    },
     CerifiedStatePage: {
         screen: CerifiedState,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BankCardDeatil: {
+        screen: BankCardDeatil,
         navigationOptions: {
             header: null
         }

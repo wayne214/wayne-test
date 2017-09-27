@@ -49,7 +49,9 @@ class readAndWriteFileUtil {
         const provValue = typeof (prov) === 'undefined' ? '' : prov; // 省
         const regionValue = typeof (region) === 'undefined' ? '' : region; // 区
         Storage.get(StorageKey.PlateNumber).then((value) => {
-            plateNumber = value;
+            if(value) {
+                plateNumber = value;
+            }
         });
         var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': phoneNum, 'prov': provValue,
             'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userId, 'userName': userName,
@@ -78,18 +80,20 @@ class readAndWriteFileUtil {
                     userNAME = value.result.userName;
                     userPhone = value.result.phone;
                     Storage.get(StorageKey.PlateNumber).then((plateNum) => {
-                        plateNumber = plateNum;
-                        var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': userPhone, 'prov': provValue,
-                            'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userID, 'userName': userNAME,
-                            'app': appName, 'platform': platForm, 'deviceModel' : deviceModels, 'page' : pageName, 'plateNumber': plateNumber, 'version': version };
-                        var jsonarr = JSON.stringify(content);
-                        RNFS.appendFile(path, jsonarr + '\n', 'utf8')
-                            .then((success) => {
-                                console.log('FILE APPEND SUCCESS');
-                            })
-                            .catch((err) => {
-                                console.log(err.message);
-                            });
+                        if(plateNum) {
+                            plateNumber = plateNum;
+                            var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': userPhone, 'prov': provValue,
+                                'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userID, 'userName': userNAME,
+                                'app': appName, 'platform': platForm, 'deviceModel' : deviceModels, 'page' : pageName, 'plateNumber': plateNumber, 'version': version };
+                            var jsonarr = JSON.stringify(content);
+                            RNFS.appendFile(path, jsonarr + '\n', 'utf8')
+                                .then((success) => {
+                                    console.log('FILE APPEND SUCCESS');
+                                })
+                                .catch((err) => {
+                                    console.log(err.message);
+                                });
+                        }
                     });
                 }
             });
