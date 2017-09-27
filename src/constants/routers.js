@@ -34,6 +34,7 @@ import BusinessDetail from '../containers/income/businessDetail/businessDetail';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import MsgList from '../containers/mine/msgList';
 import MsgDetails from '../containers/mine/msgDetails';
+import PersonInfo from '../containers/mine/personInfo';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -185,6 +186,12 @@ const StackRouteConfigs = {
     },
     MsgDetails: {
         screen: MsgDetails,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonInfo: {
+        screen: PersonInfo,
         navigationOptions: {
             header: null
         }
