@@ -91,6 +91,33 @@ class verifiedTravelInfoItem extends Component{
 
         const {carType, carWeight, carLength} = this.props;
 
+
+        let catString = '请手动选择车辆类型';
+        let carColor = {color : '#666666'};
+        if (carType){
+            catString = carType;
+            carColor = {color: '#333333'}
+        }
+
+        let carWeightString = '请手动选择车辆长度';
+        let carWeightColor = {color : '#666666'};
+        if (carWeight){
+            carWeightString = carWeight;
+            carWeightColor = {color: '#333333'}
+        }
+
+        let carLengthString = '请手动选择车辆长度';
+        let carLengthColor = {color : '#666666'};
+        if (carLength){
+            carLengthString = carLength;
+            carLengthColor = {color: '#333333'}
+        }
+
+
+        console.log('carType: ', carType);
+        console.log('carWeight: ', carWeight);
+        console.log('carLength: ', carLength);
+
         return (
             <View style={styles.container}>
 
@@ -146,13 +173,9 @@ class verifiedTravelInfoItem extends Component{
                                       onPress={()=>{
                                           this.clickCarType();
                                       }}>
-                        <TextInput style={styles.textInputStyle}
-                                   editable={false}
-                                   placeholder={'请手动选择车辆类型'}
-                                   value={carType}
-                                   underlineColorAndroid={'transparent'}
-
-                        />
+                        <Text style={[styles.textInputStyle, carColor]}>
+                            {catString}
+                        </Text>
 
                     </TouchableOpacity>
                 </View>
@@ -166,13 +189,9 @@ class verifiedTravelInfoItem extends Component{
                                           this.clickCarLength();
                                       }}>
 
-                        <TextInput style={styles.textInputStyle}
-                                   editable={false}
-                                   placeholder={'请手动选择车辆长度'}
-                                   value={carLength}
-                                   underlineColorAndroid={'transparent'}
-
-                        />
+                        <Text style={[styles.textInputStyle, carWeightColor]}>
+                            {carWeightString}
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <Line />
@@ -184,12 +203,9 @@ class verifiedTravelInfoItem extends Component{
                                       onPress={()=>{
                                       }}>
 
-                        <TextInput style={styles.textInputStyle}
-                                   editable={false}
-                                   underlineColorAndroid={'transparent'}
-                                   placeholder={'请手动选择车辆长度'}
-                                   value={carWeight ? carWeight + '吨' : ''}
-                        />
+                        <Text style={[styles.textInputStyle, carLengthColor]}>
+                            {carLengthString}
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <Line />

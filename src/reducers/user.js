@@ -44,6 +44,7 @@ export default (state = initState, action) => {
             global.platform = action.payload.carNum;
 
             Storage.save(StorageKey.PlateNumber, action.payload.carNum);
+
             Storage.save(StorageKey.PlateNumberObj, action.payload);
 
             globalState = globalState.set('plateNumber', action.payload.carNum);
@@ -52,6 +53,19 @@ export default (state = initState, action) => {
             return globalState;
 
         case ActionTypes.ACTION_USER_CLEAR:
+
+            global.token = '';
+            global.userId = '';
+            global.userName = '';
+            global.photoRefNo = '';
+            global.phone = '';
+            global.userInfo = {};
+
+            Storage.save(StorageKey.USER_INFO, {});
+            Storage.save(StorageKey.TOKEN, '');
+            Storage.save(StorageKey.PHOTO_REF_NO, '');
+            Storage.save(StorageKey.USER_ID, '');
+
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');
             globalState = globalState.set('plateNumber', '');

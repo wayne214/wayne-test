@@ -7,7 +7,6 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    InteractionManager,
     DeviceEventEmitter,
 } from 'react-native';
 
@@ -88,11 +87,9 @@ export default class certificationState extends Component{
         this.getCurrentPosition();
 
         if (this.state.qualifications == '1203'){
-            InteractionManager.runAfterInteractions(()=>{
 
-                this.getVerifiedDetail(global.userInfo.result.phone, global.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
+            this.getVerifiedDetail(global.userInfo.phone, global.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
 
-            });
         }else {
 
             Storage.get(StorageKey.carInfoResult).then((value) => {
@@ -101,11 +98,9 @@ export default class certificationState extends Component{
                         resultInfo: value,
                     });
                 } else {
-                    InteractionManager.runAfterInteractions(() => {
 
-                        this.getVerifiedDetail(global.userInfo.result.phone, global.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
+                    this.getVerifiedDetail(global.userInfo.phone, global.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
 
-                    });
                 }
             });
         }
@@ -166,7 +161,8 @@ export default class certificationState extends Component{
     reloadVerified(){
         Storage.remove(StorageKey.carInfoResult);
 
-               Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+        Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+
             if (value){
                 this.props.navigation.navigate('CertificationPage', {
                     resultInfo: value,
@@ -177,7 +173,6 @@ export default class certificationState extends Component{
                 });
             }
         });
-
     }
 
     /*显示原图*/
@@ -289,9 +284,9 @@ export default class certificationState extends Component{
 
                 {bottomReloadView}
 
-                <LoadingView
-                    showLoading={this.state.appLoading}
-                />
+                {
+                    this.state.loading ? <LoadingView/> : null
+                }
             </View>
         )
     }

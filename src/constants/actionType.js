@@ -29,3 +29,7 @@ export const ACTION_SET_CAR_NUM = 'ACTION_SET_CAR_NUM'; // 我的界面车牌号
 export const ACTION_QUERY_ENTER_PRISE_NATURE = 'ACTION_QUERY_ENTER_PRISE_NATURE';   // 查询司机对应企业性质
 
 export const UPDATE_VERSION = 'UPDATE_VERSION'; // 版本升级
+
+export const ACTION_RESET_CITY_LIST = 'ACTION_RESET_CITY_LIST'; // 是否刷新出发城市
+
+export const ACTION_MAIN_PRESS = 'ACTION_MAIN_PRESS';// 主界面点击事件

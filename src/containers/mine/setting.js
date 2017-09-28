@@ -11,21 +11,16 @@ import {
 } from 'react-native';
 import Storage from '../../utils/storage';
 import NavigationBar from '../../common/navigationBar/navigationBar';
-import LoginContainer from '../../containers/login/login';
-// import {changeAcceptMessageAction, changeAcceptMessageSuccessAction} from '../../action/setting';
 import {
     clearUser,
 } from '../../action/user';
-// import {saveUserSetCarSuccess, getHomePageCountAction} from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
-// import {ImageCache} from 'react-native-img-cache';
 import HTTPRequest from '../../utils/httpRequest';
-
-
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import { NavigationActions } from 'react-navigation';
+import {ImageCache} from "react-native-img-cache";
 
 
 let currentTime = 0;
@@ -72,52 +67,58 @@ class setting extends Component {
         super(props);
         this.state = {
             switchIsOn: true,
-            userId: '',
         };
         this.loginChangeAcceptMessage = this.loginChangeAcceptMessage.bind(this);
-        this.loginChangeAcceptMessageSuccessCallBack =
-            this.loginChangeAcceptMessageSuccessCallBack.bind(this);
         this.press = this.press.bind(this);
         this.valueChange = this.valueChange.bind(this);
         this.getPushStatusAction = this.getPushStatusAction.bind(this);
-        this.getPushStatusSuccessCallBack = this.getPushStatusSuccessCallBack.bind(this);
         this.loginOut = this.loginOut.bind(this);
-
-
-        this.success = this.success.bind(this);
-        this.fail = this.fail.bind(this);
     }
 
     componentDidMount() {
         this.getCurrentPosition();
-        setTimeout(() =>{
-            Storage.get('userInfo').then((value) => {
-                this.setState({
-                    userId: value.result.userId,
-                });
-                this.getPushStatusAction(value.result.userId,this.getPushStatusSuccessCallBack);
-            });
-        },200);
 
-        console.log('isacceptmessage6666666', this.props.isChangeMessage,this.state.userId);
-        this.setState({
-            switchIsOn: this.props.isChangeMessage,
-        });
-        console.log('data22222')
-        this.subscription = DeviceEventEmitter.addListener('jpushMessage',(data) => {
-            console.log('data',data)
-            if (data != null){
-                this.setState({
-                    switchIsOn: data,
-                });
-            }
+        this.getPushStatusAction();
 
-        })
     }
-
     componentWillUnmount() {
-        this.subscription.remove();
+        if (this.subscription)
+            this.subscription.remove();
     }
+
+    /*获取通知状态*/
+    getPushStatusAction() {
+        currentTime = new Date().getTime();
+
+        HTTPRequest({
+            url:API.API_NEW_GET_PUSHSTATUS_WITH_DRIVERID + global.userId,
+            params: {
+                id:global.userId,
+            },
+            loading: () => {
+
+            },
+            success: (response) => {
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('查询推送司机APP的状态', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '设置页面');
+                //const loginIsAcceptMessage = response.result.toString();
+
+                this.setState({
+                    switchIsOn: response.result,
+                });
+            },
+            error: (err) => {
+
+            },
+            finish: () => {
+
+            },
+
+        });
+
+    }
+
     // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
@@ -127,35 +128,9 @@ class setting extends Component {
             console.log(e, 'error');
         });
     }
-    loginChangeAcceptMessage(loginChangeAcceptMessageSuccessCallBack, value) {
-        if (value) {
-            this.props.loginChangeAcceptMessage({
-                body: {
-                    id: this.state.userId,
-                    status: 0,
-                },
-            }, loginChangeAcceptMessageSuccessCallBack);
-        } else {
-            this.props.loginChangeAcceptMessage({
-                body: {
-                    id: this.state.userId,
-                    status: 1,
-                },
-            }, loginChangeAcceptMessageSuccessCallBack);
-        }
-    }
 
-    loginChangeAcceptMessageSuccessCallBack(result) {
-        console.log(result, 'setting--line--83');
-        if (this.state.switchIsOn){
-            this.props.getIsAcceptMessage(true);
-        } else {
-            this.props.getIsAcceptMessage(false);
-        }
-    }
-
+    /*退出登录请求*/
     loginOut(){
-
         HTTPRequest({
             url:API.API_USER_LOGOUT + global.phone,
             params: {},
@@ -163,12 +138,7 @@ class setting extends Component {
 
             },
             success: (response) => {
-                lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('获取账户余额', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '收入页面');
-                this.setState({
-                    accountMoney: response.result
-                })
+
             },
             error: (err) => {
 
@@ -177,20 +147,14 @@ class setting extends Component {
 
             },
 
-        })
-
-        // this.props.loginOut({
-        //     url:API.API_USER_LOGOUT + global.phone,
-        // })
+        });
     }
 
+    /*退出登录*/
     press() {
         this.loginOut();
-        // this.props.removeUserInfoAction();
-        // this.props.reloadHomePageNum();
-        // ImageCache.get().clear();
-        // this.props.saveUserSetCarSuccess('');
-        // JPushModule.setAlias('', this.success, this.fail);
+        this.props.removeUserInfoAction();
+        ImageCache.get().clear();
 
         Storage.remove('userInfo');
         Storage.remove('setCarSuccessFlag');
@@ -205,7 +169,7 @@ class setting extends Component {
         Storage.remove('acceptMessage');
         Storage.remove('setCityFlag');
         Storage.remove('plateNumberObj');
-        JPushModule.setAlias('', this.success, this.fail);
+        JPushModule.setAlias('', ()=>{}, ()=>{});
 
         const resetAction = NavigationActions.reset({
             index: 0,
@@ -217,44 +181,42 @@ class setting extends Component {
 
     }
 
-    fail = () => {
-    };
 
-    success = () => {
-        NativeAppEventEmitter.addListener('ReceiveNotification', (message) => {
-        });
-    };
-
+    /*通知开关状态改变*/
     valueChange(value) {
-        console.log('llll', value);
         this.setState({
             switchIsOn: value,
         });
-        this.loginChangeAcceptMessage(this.loginChangeAcceptMessageSuccessCallBack, value);
+        this.loginChangeAcceptMessage( value );
     }
+    loginChangeAcceptMessage(value) {
+        let body = {};
+        if (value) {
+                body = {
+                    id: global.userId,
+                    status: 0,
+                }
+        } else {
+                body = {
+                    id: global.userId,
+                    status: 1,
+                }
+        }
 
-    getPushStatusAction(userID,getPushStatusSuccessCallBack){
-        currentTime = new Date().getTime();
-        console.log('userID',userID)
-        this.props.getPushStatusAction({
-            url: API.API_NEW_GET_PUSHSTATUS_WITH_DRIVERID + this.state.userId,
-            body:{
-                id:this.state.userId,
+
+        HTTPRequest({
+            url:API.API_CHANGE_ACCEPT_MESSAGE,
+            params: body,
+            loading: () => {
             },
-        },getPushStatusSuccessCallBack);
-    }
+            success: (response) => {
+            },
+            error: (err) => {
+            },
+            finish: () => {
+            },
 
-    getPushStatusSuccessCallBack(result) {
-        lastTime = new Date().getTime();
-        ReadAndWriteFileUtil.appendFile('查询推送司机APP的状态', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-            locationData.district, lastTime - currentTime, '设置页面');
-        console.log('成功',result);
-        const loginIsAcceptMessage = result.toString();
-        console.log('成功',loginIsAcceptMessage);
-        Storage.save('isAcceptMessage', loginIsAcceptMessage);
-
-        DeviceEventEmitter.emit('jpushMessage', result);
-        console.log('data1')
+        });
     }
 
     render() {
@@ -296,69 +258,16 @@ class setting extends Component {
     }
 }
 
-setting.propTypes = {
-    router: React.PropTypes.object.isRequired,
-    navigator: React.PropTypes.object.isRequired,
-    loginChangeAcceptMessage: React.PropTypes.func.isRequired,
-};
-
 function mapStateToProps(state) {
-    console.log('------ state', state);
     return {
-        mine: state.mine,
-        isChangeMessage: state.user.get('isChangeMessage'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loginChangeAcceptMessage: (params, loginChangeAcceptMessageSuccessCallBack) =>
-            dispatch(changeAcceptMessageAction({
-                url: API.API_CHANGE_ACCEPT_MESSAGE,
-                successCallBack: (response) => {
-                    loginChangeAcceptMessageSuccessCallBack(response.result);
-                    dispatch(changeAcceptMessageSuccessAction(response));
-                },
-                failCallBack: (err) => {
-                    console.log('setting', err);
-                },
-                ...params,
-            })),
-        getPushStatusAction: (params, getPushStatusSuccessCallBack) => {
-            dispatch(pushStatusByUserIdAction({
-                successCallBack: (response) => {
-                    getPushStatusSuccessCallBack(response.result);
-                    dispatch(pushStatusByUserIdActionSuccessAction(response));
-                    dispatch(getIsAcceptMessageAction(response.result));
-                },
-                failCallBack: () => {
-                },
-                ...params,
-            }));
-        },
         removeUserInfoAction:()=>{
             dispatch(clearUser());
         },
-
-        getIsAcceptMessage: (data) => {
-            dispatch(getIsAcceptMessageAction(data));
-        },
-
-        saveUserSetCarSuccess: (plateNumber) => {
-            dispatch(saveUserSetCarSuccess(plateNumber));
-        },
-        loginOut: (params) => {
-            dispatch(loginOutAction({
-                successCallBack: (response) => {
-                },
-                failCallBack: () => {
-                },
-                ...params,
-            }));
-        },
-        reloadHomePageNum:()=>{
-            dispatch(getHomePageCountAction(null));
-        }
     };
 }
 

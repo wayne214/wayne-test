@@ -24,14 +24,10 @@ import Message from '../../../assets/mine/message.png';
 import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
 import ClickUtil from '../../utils/prventDoubleClickUtil';
-
 import * as API from '../../constants/api';
-import ImagePicker from 'react-native-image-picker';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
-// import {getPersonInfoAction} from '../../action/mine';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import PermissionsManager from '../../utils/permissionManager';
 import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
@@ -40,21 +36,7 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
-const options = {
-    title: '选择照片',
-    cancelButtonTitle: '取消',
-    takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '相册',
-    storageOptions: {
-        skipBackup: true,
-        path: 'images'
-    },
-    quality: 1.0,
-    maxWidth: 500,
-    maxHeight: 500,
-};
 const {height, width} = Dimensions.get('window');
-const selectedArr = ["拍照", "从手机相册选择"];
 
 const styles = StyleSheet.create({
     headerImage: {
@@ -188,11 +170,10 @@ class Mine extends Component {
         });
 
 
-
         /*点击我，刷新认证状态*/
         this.mineListener = DeviceEventEmitter.addListener('refreshMine', () => {
-             this.certificationState();
-             this.verifiedState();
+            this.certificationState();
+            this.verifiedState();
         });
 
 
@@ -215,7 +196,7 @@ class Mine extends Component {
         });
 
         /*点击上传图片*/
-        this.imglistener = DeviceEventEmitter.addListener('imageCallBack',(response)=>{
+        this.imglistener = DeviceEventEmitter.addListener('imageCallBack', (response) => {
             this.imageProcess(response);
         });
     }
@@ -227,7 +208,6 @@ class Mine extends Component {
         this.verlistener.remove();
         this.imglistener.remove();
     }
-
 
 
     // 获取当前位置
@@ -262,8 +242,7 @@ class Mine extends Component {
                             locationData.district, lastTime - currentTime, '我的页面');
 
                         this.setState({
-                            // verifiedState: responseData.result,
-                            verifiedState: 1200,
+                            verifiedState: responseData.result,
                         })
                     },
                     error: (errorInfo) => {
@@ -275,6 +254,7 @@ class Mine extends Component {
             }
         }
     }
+
     /*资质认证状态请求*/
     certificationState() {
 
@@ -294,30 +274,27 @@ class Mine extends Component {
             HTTPRequest({
                 url: API.API_AUTH_QUALIFICATIONS_STATUS,
                 params: obj,
-                loading: ()=>{
+                loading: () => {
 
                 },
-                success: (responseData)=>{
+                success: (responseData) => {
                     this.setState({
-                        // certificationState: responseData.result,
-                        certificationState: 1200,
+                        certificationState: responseData.result,
                     });
                     if (responseData.result === '1202') {
                         /*资质认证成功，绑定当前车牌号*/
-                        DeviceEventEmitter.emit('bindUserCar',this.props.plateNumber);
+                        DeviceEventEmitter.emit('bindUserCar', this.props.plateNumber);
                     }
                 },
-                error: (errorInfo)=>{
+                error: (errorInfo) => {
 
                 },
-                finish: ()=>{
+                finish: () => {
                 }
             });
 
         }
     }
-
-
 
 
     /*跳转到设置*/
@@ -342,10 +319,10 @@ class Mine extends Component {
                 userId: global.userId,
                 userName: global.userName ? global.userName : this.state.phoneNum,
             },
-            loading: ()=>{
+            loading: () => {
 
             },
-            success: (responseData)=>{
+            success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('查询头像', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '我的页面');
@@ -358,17 +335,17 @@ class Mine extends Component {
                     });
                 }
             },
-            error: (errorInfo)=>{
+            error: (errorInfo) => {
 
             },
-            finish: ()=>{
+            finish: () => {
             }
         });
     }
 
 
     /*获取头像数据*/
-    imageProcess(response){
+    imageProcess(response) {
         if (response.didCancel) {
             console.log('User cancelled image picker');
         }
@@ -579,7 +556,7 @@ class Mine extends Component {
 
 
                                         {
-                                            this.state.certificationState == 1202 ? '车辆：'+  this.props.plateNumber: ''
+                                            this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                         }
 
                                     </Text>
@@ -621,12 +598,11 @@ class Mine extends Component {
                                             if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
                                                 if (this.props.plateNumberObj) {
                                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                                        //this.props.router.redirect(RouteType.CAR_INFO_PAGE);
+                                                        navigator.navigate('CarInfo');
                                                     } else {
-                                                        //this.props.router.redirect(RouteType.CAR_DISABLE_PAGE);
+                                                        navigator.navigate('CarDisablePage');
                                                     }
                                                 }
-                                                // this.props.router.redirect(RouteType.CAR_INFO_PAGE);
                                             } else if (this.state.certificationState === '1201') {
                                                 Alert.alert('提示', '资质认证中');
                                             } else if (this.state.certificationState === '1203') {
@@ -683,36 +659,38 @@ class Mine extends Component {
                                             authenticationStatus={this.state.certificationState}
                                             showBottomLine={false}
                                             clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
-                                            if (this.state.certificationState) {
-                                                if (this.state.certificationState == '1200') {
-                                                    // 未认证
+                                                ClickUtil.resetLastTime();
+                                                if (ClickUtil.noDoubleClick()) {
+                                                    if (this.state.certificationState) {
+                                                        if (this.state.certificationState == '1200') {
+                                                            // 未认证
 
-                                                    Storage.get(StorageKey.changeCarInfoResult).then((value) => {
-                                                    if (value){
-                                                        this.props.navigation.navigate('CertificationPage', {
-                                                            resultInfo: value,
-                                                         });
+                                                            Storage.get(StorageKey.changeCarInfoResult).then((value) => {
 
-                                                    }else {
-                                                        this.props.navigation.navigate('CertificationPage');                                                    }
-                                                    });
-                                                } else {
-                                                    // 认证中，认证驳回，认证通过
-                                                        this.props.navigation.navigate('CerifiedStatePage', {
-                                                        qualifications: this.state.certificationState,
-                                                    });
+                                                            if (value){
+                                                                this.props.navigation.navigate('CertificationPage', {
+                                                                    resultInfo: value,
+                                                                 });
+
+                                                            }else {
+                                                                this.props.navigation.navigate('CertificationPage');                                                    }
+                                                            });
+                                                        } else {
+                                                            // 认证中，认证驳回，认证通过
+                                                                this.props.navigation.navigate('CerifiedStatePage', {
+                                                                qualifications: this.state.certificationState,
+                                                            });
+                                                        }
+                                                    }
+
                                                 }
-                                            }
-
-                                        }
-                                    }}
+                                            }}
                                         /> : null
                                 }
 
                                 {
-                                    this.state.verifiedState != '1202' && this.state.certificationState != '1202' ? <View style={styles.separateView}/> : null
+                                    this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?
+                                        null : <View style={styles.separateView}/>
                                 }
 
                                 <SettingCell
@@ -773,12 +751,12 @@ function mapStateToProps(state) {
         userName: state.user.get('userName'),
         plateNumber: state.user.get('plateNumber'),
         userCarList: state.user.get('userCarList'),
+        plateNumberObj: state.user.get('plateNumberObj'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-    };
+    return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);

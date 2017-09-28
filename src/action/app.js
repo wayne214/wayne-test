@@ -15,6 +15,12 @@ export const getHomePageCountAction = (data) => {
         type: ActionTypes.ACTION_GET_HOME_PAGE_COUNT,
         payload: data,
     };
+}
+export const mainPressAction = (orderTab) => {
+    return {
+        type: ActionTypes.ACTION_MAIN_PRESS,
+        payload: {orderTab},
+    };
 };
 // 版本升级
 export const updateVersionAction = (versionUrl) => {

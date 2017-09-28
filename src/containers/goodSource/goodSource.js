@@ -3,6 +3,7 @@
  * 货源界面
  */
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import {
     View,
     StyleSheet,
@@ -14,17 +15,18 @@ import {
     DeviceEventEmitter,
 } from 'react-native';
 import moment from 'moment';
-import { NavigationActions } from 'react-navigation';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import BaseContainer from '../base/baseContainer';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 import DropdownMenu from './component/dropdownMenu';
 import EmptyView from '../../common/emptyView/emptyView';
 import * as API from '../../constants/api';
-import StorageKey from '../../constants/storageKeys';
-import Storage from '../../utils/storage';
 import HTTPRequest from '../../utils/httpRequest';
 import CommonListItem from './goodListItem/commonListItem';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+
+
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
 let list = [];
@@ -79,6 +81,8 @@ class GoodSource extends BaseContainer{
         this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
     }
     componentDidMount(){
+        this.getCurrentPosition();
+        this.resetParams();
         pageNO = 1;
         if (pageNO === 1) {
             this.setState({
@@ -92,6 +96,15 @@ class GoodSource extends BaseContainer{
     }
     componentWillUnmount() {
         this.listener.remove();
+    }
+    // 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
     }
     // 刷新
     onRefresh() {
@@ -108,60 +121,38 @@ class GoodSource extends BaseContainer{
     getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
-        // const plateNumber = this.props.userPlateNumber;
+        const plateNumber = this.props.userPlateNumber;
         console.log('global phone',global.phone);
-        Storage.get(StorageKey.PlateNumber).then((plateNum) => {
-            if (plateNum) {
-                // this.props.requestGoodsSourceData({
-                //     beginTime: '2017-06-01 00:00:00',
-                //     endTime: beginTime,
-                //     page: pageNO,
-                //     pageSize,
-                //     driverPhone: global.phone,
-                //     status,
-                //     plateNumber: plateNum,
-                // }, getDataSuccessCallBack, getDataFailCallBack, pageNo);
-                HTTPRequest({
-                    url: API.API_NEW_GET_SOURCE_BY_DATE,
-                    params: {
-                        beginTime: '2017-06-01 00:00:00',
-                        endTime: beginTime,
-                        pageNum: pageNo,
-                        pageSize,
-                        driverPhone: global.phone,
-                        status,
-                        plateNumber: plateNum,
-                    },
-                    loading: ()=>{
+        HTTPRequest({
+            url: API.API_NEW_GET_SOURCE_BY_DATE,
+            params: {
+                beginTime: '2017-06-01 00:00:00',
+                endTime: beginTime,
+                pageNum: pageNo,
+                pageSize,
+                driverPhone: global.phone,
+                status,
+                plateNumber: plateNumber,
+            },
+            loading: ()=>{
 
-                    },
-                    success: (responseData)=>{
-                        console.log('success',responseData);
-                        this.setState({
-                            loading: false,
-                        }, ()=>{
-                            lastTime = new Date().getTime();
-                            getDataSuccessCallBack(responseData.result);
-                        });
-
-                    },
-                    error: (errorInfo)=>{
-                        this.setState({
-                            loading: false,
-                        });
-                        getDataFailCallBack();
-                    },
-                    finish: ()=>{
-                    }
-                });
+            },
+            success: (responseData)=>{
+                console.log('success',responseData);
+                getDataSuccessCallBack(responseData.result);
+            },
+            error: (errorInfo)=>{
+                getDataFailCallBack();
+            },
+            finish: ()=>{
             }
         });
     }
     // 成功回调
     getDataSuccessCallBack(result) {
         lastTime = new Date().getTime();
-        // ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-        //     locationData.district, lastTime - currentTime, '货源页面');
+        ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '货源页面');
         startRow = result.startRow + pageSize;
         console.log('....startRow', startRow);
         if (result.total <= startRow || result.total === 0) {
@@ -226,7 +217,6 @@ class GoodSource extends BaseContainer{
         if (!this.state.isLoadMore) {
             return;
         }
-        // this.props.changeProductListLoadingMore(true);
         pageNO = parseInt(startRow / pageSize, 10) + 1;
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
     }
@@ -263,21 +253,6 @@ class GoodSource extends BaseContainer{
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
                 onSelect={() => {
-                    // this.props.router.redirect(RouteType.GOODS_SOURCE_DETAILS, {
-                    //     transOrderList: dataRow.transOrderList,
-                    //     scheduleCode: dataRow.dispatchCode,
-                    //     scheduleStatus: this.state.goodStatus,
-                    //     allocationModel: dataRow.allocationModel,
-                    //     bidEndTime: dataRow.bidEndTime,
-                    //     bidStartTime: dataRow.bidBeginTime,
-                    //     refPrice: dataRow.refPrice,
-                    //     getOrderSuccess: () => {
-                    //         // 刷新
-                    //         InteractionManager.runAfterInteractions(() => {
-                    //             this.onRefresh();
-                    //         });
-                    //     },
-                    // });
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,
                         scheduleCode: dataRow.dispatchCode,
@@ -321,7 +296,7 @@ class GoodSource extends BaseContainer{
                     }
                     }
                     preferences={() => {
-                        // this.props.router.redirect(RouteType.GOODS_SOURCE_PREFERENCES_PAGE);
+                        this.props.navigation.navigate('GoodsPreferencePage');
                     }}
                 >
                     <View>
@@ -336,15 +311,15 @@ class GoodSource extends BaseContainer{
                                     onEndReachedThreshold={100}
                                     enableEmptySections={true}
                                     showsVerticalScrollIndicator={false}
-                                    // refreshControl={
-                                    //     <RefreshControl
-                                    //         refreshing={this.state.isRefresh}
-                                    //         onRefresh={this.onRefresh.bind(this)}
-                                    //         tintColor="#CCC"
-                                    //         colors={['#43B8FF', '#309DED', '#008dcf']}
-                                    //         progressBackgroundColor="#CCC"
-                                    //     />
-                                    // }
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={this.state.isRefresh}
+                                            onRefresh={this.onRefresh.bind(this)}
+                                            tintColor="#CCC"
+                                            colors={['#43B8FF', '#309DED', '#008dcf']}
+                                            progressBackgroundColor="#CCC"
+                                        />
+                                    }
                                 />
                                 : <EmptyView />
                         }
@@ -355,4 +330,15 @@ class GoodSource extends BaseContainer{
     }
 }
 
-export default GoodSource;
+function mapStateToProps(state) {
+    return {
+        userPlateNumber: state.app.get('plateNumber'),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoodSource);

@@ -9,6 +9,7 @@ import {
     Platform,
     DeviceEventEmitter,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 const TakeBold = require('./images/takeCameraBord.png');
 const TakeVBack = require('./images/takeCameraBackV.png');
@@ -160,8 +161,10 @@ export default class takeCameraVerticalEnd extends Component {
      * */
     next() {
 
+
         DeviceEventEmitter.emit('endSureCameraPhoto',this.props.navigation.state.params.imagePath);
 
+        /*
         const resetAction = NavigationActions.reset({
             index: 1,
             actions: [
@@ -170,6 +173,9 @@ export default class takeCameraVerticalEnd extends Component {
             ]
         });
         this.props.navigation.dispatch(resetAction);
+        */
+        this.props.navigation.goBack();
+
     }
 
     render() {

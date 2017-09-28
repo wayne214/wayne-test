@@ -18,7 +18,7 @@ export default (state = initState, action) => {
             globalState = globalState.set('currentTab', action.payload.tab);
             return globalState;
 
-            case ActionTypes.ACTION_GET_LOCATION:
+        case ActionTypes.ACTION_GET_LOCATION:
             globalState = globalState.set('locationData', action.payload);
             return globalState;
 
@@ -29,6 +29,11 @@ export default (state = initState, action) => {
         case ActionTypes.UPDATE_VERSION:
             globalState = globalState.set('versionUrl', action.payload);
             return globalState;
+
+        case ActionTypes.ACTION_MAIN_PRESS:
+            globalState = globalState.set('mainPress', action.payload.orderTab);
+            return globalState;
+
         default:
             return state;
     }
