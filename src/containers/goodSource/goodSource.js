@@ -332,7 +332,7 @@ class GoodSource extends BaseContainer{
 
 function mapStateToProps(state) {
     return {
-        userPlateNumber: state.app.get('plateNumber'),
+        userPlateNumber: state.user.get('plateNumber'),
     };
 }
 

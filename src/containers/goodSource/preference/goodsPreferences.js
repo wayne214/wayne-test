@@ -551,7 +551,7 @@ class goodsPreferences extends Component {
 
 function mapStateToProps(state) {
     return {
-        userPlateNumber: state.app.get('plateNumber'),
+        userPlateNumber: state.user.get('plateNumber'),
         preferenceResult: state.goods.get('preferenceResult'),
         isResetCityList: state.order.get('isResetCity'),
     };
