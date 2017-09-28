@@ -887,10 +887,11 @@ class Home extends Component {
             url: API.API_GET_WEATHER + '?city=' + city,
             params: {},
             loading: ()=>{},
-            success: (result)=>{
+            success: (responseData)=>{
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取天气', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                         locationData.district, lastTime - currentTime, '首页');
+                const result = responseData.result;
                 if (result.weather){
                     this.setState({
                         weather: result.weather,
