@@ -599,13 +599,10 @@ class Mine extends Component {
                                                 if (this.props.plateNumberObj) {
                                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
                                                         navigator.navigate('CarInfo');
-                                                        //this.props.router.redirect(RouteType.CAR_INFO_PAGE);
                                                     } else {
                                                         navigator.navigate('CarDisablePage');
-                                                        //this.props.router.redirect(RouteType.CAR_DISABLE_PAGE);
                                                     }
                                                 }
-                                                // this.props.router.redirect(RouteType.CAR_INFO_PAGE);
                                             } else if (this.state.certificationState === '1201') {
                                                 Alert.alert('提示', '资质认证中');
                                             } else if (this.state.certificationState === '1203') {
@@ -754,6 +751,7 @@ function mapStateToProps(state) {
         userName: state.user.get('userName'),
         plateNumber: state.user.get('plateNumber'),
         userCarList: state.user.get('userCarList'),
+        plateNumberObj: state.user.get('plateNumberObj'),
     };
 }
 
