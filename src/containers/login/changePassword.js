@@ -11,7 +11,7 @@ import {
     View,
     StyleSheet,
 } from 'react-native';
-// import JPushModule from 'jpush-react-native';
+import JPushModule from 'jpush-react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import Toast from '@remobile/react-native-toast';
 
@@ -197,7 +197,7 @@ export default class changePassword extends Component {
                     Storage.remove(StorageKey.USER_INFO);
                     Storage.remove(StorageKey.CarSuccessFlag);
                     Storage.remove(StorageKey.PlateNumber);
-                    // JPushModule.setAlias('', this.success, this.fail);
+                    JPushModule.setAlias('', ()=>{}, ()=>{});
 
                     const resetAction = NavigationActions.reset({
                         index: 0,

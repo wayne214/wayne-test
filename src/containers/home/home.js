@@ -788,7 +788,6 @@ class Home extends Component {
                                     // this.prop.plateNumber
                                     this.getHomePageCount(plateNumber, userInfo.phone);
                                 } else {
-                                    debugger
                                     this.setUserCar(plateNumber, this.setUserCarSuccessCallBack);
                                 }
                             }

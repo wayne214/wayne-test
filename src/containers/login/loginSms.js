@@ -16,7 +16,7 @@ import {
 
 import Button from 'apsl-react-native-button';
 import Toast from '@remobile/react-native-toast';
-// import JPushModule from 'jpush-react-native';
+import JPushModule from 'jpush-react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import { NavigationActions } from 'react-navigation';
 
@@ -184,7 +184,7 @@ class LoginSms extends Component {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                // JPushModule.setAlias(result.phone, this.success, this.fail);
+                JPushModule.setAlias(result.phone, ()=>{}, ()=>{});
             },
             error: (errorInfo)=>{
 

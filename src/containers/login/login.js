@@ -35,7 +35,7 @@ import XeEncrypt from '../../utils/XeEncrypt';
 import Validator from '../../utils/validator';
 import Loading from '../../utils/loading';
 import {Geolocation} from 'react-native-baidu-map-xzx';
-// import JPushModule from 'jpush-react-native';
+import JPushModule from 'jpush-react-native';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 let currentTime = 0;
@@ -204,7 +204,7 @@ class Login extends BaseContainer {
                         ]
                     });
                     this.props.navigation.dispatch(resetAction);
-                    // JPushModule.setAlias(result.phone, this.success, this.fail);
+                    JPushModule.setAlias(result.phone, ()=>{}, ()=>{});
                 });
 
             },

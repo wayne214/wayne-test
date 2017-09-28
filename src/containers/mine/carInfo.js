@@ -255,9 +255,6 @@ export default class CarInfo extends Component {
                 },
                 error: (err) => {
                     getCarInfoFailCallBack();
-                    this.setState({
-                        loading: false,
-                    });
                 },
                 finish: () => {
                     this.setState({
