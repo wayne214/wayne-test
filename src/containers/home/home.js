@@ -877,7 +877,7 @@ class Home extends Component {
     }
 
     pushToMsgList() {
-        // this.props.navigation.navigate('');
+        this.props.navigation.navigate('MsgList');
     }
 
     //获取天气方法
