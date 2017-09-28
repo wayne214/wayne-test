@@ -29,6 +29,7 @@ import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import StorageKeys from '../../constants/storageKeys';
 
 const screenHeight = Dimensions.get('window').height;
 const topHeight = 40;
@@ -140,19 +141,22 @@ class chooseCar extends Component {
     // 保存设置车辆
     setUserCar(plateNumber) {
         currentTime = new Date().getTime();
-        Storage.get('userInfo').then((value) => {
+        Storage.get(StorageKeys.USER_INFO).then((value) => {
+            console.log('va----',value);
             if(value) {
                 HTTPRequest({
                     url: API.API_SET_USER_CAR,
                     params: {
                         plateNumber: plateNumber,
-                        phoneNum: value.result.phone,
+                        phoneNum: value.phone,
                     },
                     loading: ()=>{},
                     success: (responseData)=>{
                         this.setUserCarSuccessCallBack(responseData.result);
                     },
-                    error: (errorInfo)=>{},
+                    error: (errorInfo)=>{
+                        console.log('eerronfFinf',errorInfo);
+                    },
                     finish:()=>{}
                 });
             }
@@ -163,11 +167,10 @@ class chooseCar extends Component {
         ReadAndWriteFileUtil.appendFile('绑定车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '设置车辆页面');
         const {userInfo} = this.props;
-        console.log('设置车辆成功了', this.state.plateNumber, userInfo.result.phone);
+        console.log('设置车辆成功了', this.state.plateNumber, userInfo.phone, this.state.plateNumberObj);
         Storage.save('setCarSuccessFlag', '3');
         this.saveUserCarInfo(this.state.plateNumberObj);
         Storage.remove('carInfoResult');
-
         if (this.state.flag){
             this.resetTo(0, 'Main');
         } else {

@@ -22,3 +22,10 @@ export const mainPressAction = (orderTab) => {
         payload: {orderTab},
     };
 };
+// 版本升级
+export const updateVersionAction = (versionUrl) => {
+    return {
+        type: ActionTypes.UPDATE_VERSION,
+        payload: versionUrl,
+    };
+};

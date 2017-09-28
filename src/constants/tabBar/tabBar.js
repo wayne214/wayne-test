@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 const TabRouteConfigs = {
     Home: {
         screen: Home,
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({navigation, screenProps}) => ({
             title: '首页',
             tabBarIcon: ({focused, tintColor})=>(
                 <Image
@@ -46,11 +46,15 @@ const TabRouteConfigs = {
                     style={styles.tabIcon}
                 />
             ),
+            tabBarOnPress:(scene, jumpToIndex) => {
+                console.log('-------home------',scene);
+                jumpToIndex(scene.index)
+            },
         }),
     },
     GoodsSource: {
         screen: GoodsSource,
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({navigation, screenProps}) => ({
             title: '货源',
             tabBarIcon: ({focused,tintColor})=>(
                 <Image
@@ -58,11 +62,15 @@ const TabRouteConfigs = {
                     style={styles.tabIcon}
                 />
             ),
+            tabBarOnPress:(scene, jumpToIndex) => {
+                console.log('-------goods------',scene);
+                jumpToIndex(scene.index)
+            },
         }),
     },
     Order: {
         screen: Order,
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({navigation, screenProps}) => ({
             title: '订单',
             tabBarIcon: ({focused,tintColor})=>(
                 <Image
@@ -70,11 +78,15 @@ const TabRouteConfigs = {
                     style={styles.tabIcon}
                 />
             ),
+            tabBarOnPress:(scene, jumpToIndex) => {
+                console.log('-------order------',scene);
+                jumpToIndex(scene.index)
+            },
         }),
     },
     Income: {
         screen: Income,
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({navigation, screenProps}) => ({
             title: '收入',
             tabBarIcon: ({focused,tintColor})=>(
                 <Image
@@ -82,11 +94,15 @@ const TabRouteConfigs = {
                     style={styles.tabIcon}
                 />
             ),
+            tabBarOnPress:(scene, jumpToIndex) => {
+                console.log('-------income------',scene);
+                jumpToIndex(scene.index)
+            },
         }),
     },
     Mine: {
         screen: Mine,
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({navigation, screenProps}) => ({
             title: '我的',
             tabBarIcon: ({focused,tintColor})=>(
                 <Image
@@ -94,6 +110,10 @@ const TabRouteConfigs = {
                     style={styles.tabIcon}
                 />
             ),
+            tabBarOnPress:(scene, jumpToIndex) => {
+                console.log('-------mine------',scene);
+                jumpToIndex(scene.index)
+            },
         }),
     }
 };
