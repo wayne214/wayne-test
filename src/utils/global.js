@@ -7,7 +7,7 @@ export default Global;
 * userId: 用户ID
 * phone : 用户电话
 * UDID : 当前设备号
-* platform ： 当前系统
+* fplatform ： 当前系统
 * userName  ： 当前用户用户名
 * photoRefNo ： 当前用户用户头像
 * plateNumber : 当前车牌号
