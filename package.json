@@ -31,7 +31,7 @@
     "react-native-picker-custom": "^1.0.0",
     "react-native-swipeout": "^2.2.2",
     "react-native-swiper": "^1.5.12",
-    "react-navigation": "^1.0.0-beta.11",
+    "react-navigation": "^1.0.0-beta.13",
     "react-redux": "^5.0.6",
     "react-timer-mixin": "^0.13.3",
     "redux": "^3.7.2",

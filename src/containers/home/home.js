@@ -702,7 +702,6 @@ class Home extends Component {
     certificationState() {
         setTimeout(() => {
             Storage.get(StoradeKey.plateNumber).then((plate) => {
-                debugger
                 if(plate){
                     this.getQualificationsStatus(plate);
                 }
