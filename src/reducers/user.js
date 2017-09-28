@@ -69,7 +69,7 @@ export default (state = initState, action) => {
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');
             globalState = globalState.set('plateNumber', '');
-            globalState = globalState.set('plateNumberObj', {});
+            globalState = globalState.set('plateNumberObj', {carNum: '', carStatus: 0});
             globalState = globalState.set('userCarList', []);
 
             return globalState;
