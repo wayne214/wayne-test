@@ -7,6 +7,7 @@ const initState = Immutable.fromJS({
     getHomePageCount: {}, // 首页状态数量
     plateNumber: '', // 车牌号
     plateNumberObj: {}, //车牌号对象
+    versionUrl: '', // 版本地址
 });
 
 
@@ -16,11 +17,17 @@ export default (state = initState, action) => {
         case ActionTypes.CHANGE_TAB:
             globalState = globalState.set('currentTab', action.payload.tab);
             return globalState;
+
             case ActionTypes.ACTION_GET_LOCATION:
             globalState = globalState.set('locationData', action.payload);
             return globalState;
+
         case ActionTypes.ACTION_GET_HOME_PAGE_COUNT:
             globalState = globalState.set('getHomePageCount', action.payload);
+            return globalState;
+
+        case ActionTypes.UPDATE_VERSION:
+            globalState = globalState.set('versionUrl', action.payload);
             return globalState;
         default:
             return state;

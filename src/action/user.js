@@ -31,3 +31,10 @@ export const clearUser = (data) => {
         payload: data,
     };
 };
+/*查询司机对应企业性质*/
+export const queryEnterpriseNatureSuccessAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_QUERY_ENTER_PRISE_NATURE,
+        payload: data,
+    };
+};

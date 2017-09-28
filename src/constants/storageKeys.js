@@ -31,7 +31,9 @@ const PlateNumberObj = 'PlateNumberObj'; // 绑定车辆的具体信息
 
 const userCarList = 'userCarList'; // 车辆列表
 
+const acceptMessage = 'acceptMessage'; //接收消息
 
+const newMessageFlag = 'newMessageFlag'; //新消息标记
 
 export default {
     IS_FIRST_START_FLAG,
@@ -47,6 +49,8 @@ export default {
     changePersonInfoResult,
     personInfoResult,
     PlateNumberObj,
-    userCarList
+    userCarList,
+    acceptMessage,
+    newMessageFlag,
 }
 

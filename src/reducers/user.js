@@ -17,7 +17,6 @@ export default (state = initState, action) => {
     let globalState = state;
     switch (action.type) {
         case ActionTypes.ACTION_LOGIN_SUCCESS:
-
             global.token = action.payload.token;
             global.userId = action.payload.userId;
             global.userName = action.payload.userName;
@@ -36,35 +35,34 @@ export default (state = initState, action) => {
             return globalState;
 
         case ActionTypes.ACTION_USER_NAME:
-
             global.userName = action.payload;
 
             globalState = globalState.set('userName', action.payload);
             return globalState;
 
         case ActionTypes.ACTION_USER_CAR:
+            global.platform = action.payload.carNum;
 
-            global.platform = action.payload.plateNumber;
-
-            Storage.save(StorageKey.PlateNumber, action.payload.plateNumber);
+            Storage.save(StorageKey.PlateNumber, action.payload.carNum);
             Storage.save(StorageKey.PlateNumberObj, action.payload);
 
-            globalState = globalState.set('plateNumber', action.payload.plateNumber);
+            globalState = globalState.set('plateNumber', action.payload.carNum);
             globalState = globalState.set('plateNumberObj', action.payload);
 
             return globalState;
 
         case ActionTypes.ACTION_USER_CLEAR:
-
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');
             globalState = globalState.set('plateNumber', '');
             globalState = globalState.set('plateNumberObj', {});
             globalState = globalState.set('userCarList', []);
 
-
             return globalState;
 
+        case ActionTypes.ACTION_QUERY_ENTER_PRISE_NATURE:
+            globalState = globalState.set('queryEnterPrise', action.payload);
+            return globalState;
 
         default:
             return state;

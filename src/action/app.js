@@ -16,3 +16,10 @@ export const getHomePageCountAction = (data) => {
         payload: data,
     };
 };
+// 版本升级
+export const updateVersionAction = (versionUrl) => {
+    return {
+        type: ActionTypes.UPDATE_VERSION,
+        payload: versionUrl,
+    };
+};

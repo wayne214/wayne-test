@@ -59,6 +59,11 @@ import checkActive from '../../assets/carList/check-active.png';
 import checkNormal from '../../assets/carList/check-normal.png';
 import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 
+/*消息图标*/
+import MessageNew from '../../assets/mine/newmessage.png';
+import Message from '../../assets/mine/message.png';
+
+
 export default {
     EmptyImage,
     Img01,
@@ -94,6 +99,8 @@ export default {
     receiveBottomArrow,
     checkActive,
     checkNormal,
-    checkboxChecked
+    checkboxChecked,
+    Message,
+    MessageNew
 }
 
