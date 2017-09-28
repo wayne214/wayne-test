@@ -5,7 +5,8 @@
 import React from 'react';
 import {
     Image,
-    StyleSheet
+    StyleSheet,
+    DeviceEventEmitter,
 } from 'react-native';
 
 import {
@@ -111,7 +112,7 @@ const TabRouteConfigs = {
                 />
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                console.log('-------mine------',scene);
+                DeviceEventEmitter.emit('refreshMine');
                 jumpToIndex(scene.index)
             },
         }),

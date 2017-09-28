@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import {
     BackHandler,
     ToastAndroid,
-    DeviceEventEmitter,
 } from 'react-native';
 import {StackNavigator, addNavigationHelpers} from 'react-navigation';
 import {StackRouteConfigs, StackNavigatorConfigs} from '../constants/routers';
@@ -66,31 +65,6 @@ class App extends Component {
         return (
             <AppNavigator
                 ref={nav => { this.navigator = nav; }}
-                onNavigationStateChange={(prevNav, nav, action)=>{
-                    console.log('prevNav=',prevNav);
-                    console.log('nav=',nav);
-                    console.log('action=',action);
-
-                    switch (action.routeName) {
-
-                        case 'Home':
-                            break;
-
-                        case 'GoodsSource':
-                            break;
-
-                        case 'Order':
-                            break;
-
-                        case 'Mine':
-                            DeviceEventEmitter.emit('refreshMine');
-                            break;
-
-                        default:
-                            break
-                    }
-
-                }}
             />
         );
     }

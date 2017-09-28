@@ -41,7 +41,7 @@ export default (state = initState, action) => {
             return globalState;
 
         case ActionTypes.ACTION_USER_CAR:
-            global.platform = action.payload.carNum;
+            global.plateNumber = action.payload.carNum;
 
             Storage.save(StorageKey.PlateNumber, action.payload.carNum);
 
