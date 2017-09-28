@@ -769,13 +769,12 @@ class certification extends Component {
                 ReadAndWriteFileUtil.appendFile('提交资质认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '资质认证页面');
 
-                this.props.saveUserSetCarSuccess({'plateNumber': this.state.carNumber});
+                this.props.saveUserSetCarSuccess({carNum: this.state.carNumber, carStatus: 20});
 
                 Toast.showShortCenter('资质认证提交成功');
                 Storage.remove(StorageKey.changeCarInfoResult);
                 DeviceEventEmitter.emit('certificationSuccess');
                 Storage.remove(StorageKey.carInfoResult);
-
 
                 this.props.navigation.goBack();
 

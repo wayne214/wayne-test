@@ -48,9 +48,10 @@ class Splash extends BaseContainer {
         });
 
         Storage.get(StorageKey.PlateNumberObj).then((result) => {
+
             if (result){
                 // 发送Action,全局赋值车辆信息
-                this.props.setUserCarAction(result);
+                this.props.sendUserPlateNumberAction(result);
             }
         });
 
@@ -153,7 +154,9 @@ function mapDispatchToProps(dispatch) {
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
             dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
-
+        },
+        sendUserPlateNumberAction: (result) => {
+          dispatch(setUserCarAction(result));
         },
     };
 }
