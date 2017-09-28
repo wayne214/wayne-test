@@ -198,7 +198,11 @@ export default class PersonInfo extends Component {
                         });
                     },
                     success: (response) => {
-                        getPersonInfoSuccessCallback(response.result);
+                        this.setState({
+                            loading: false,
+                        }, () => {
+                            getPersonInfoSuccessCallback(response.result);
+                        });
                     },
                     error: (err) => {
                         getPersonInfoFailCallback();
@@ -211,11 +215,6 @@ export default class PersonInfo extends Component {
                     },
 
                 })
-                // this.props.getPersonInfoAction({
-                //     mobilePhone: userInfo.result.phone,
-                // }, getPersonInfoSuccessCallback);
-
-
             }
 
     }
@@ -237,8 +236,6 @@ export default class PersonInfo extends Component {
     }
     render() {
         const navigator = this.props.navigation;
-        const {driverInfo} = this.props;
-
         const person = this.state.personInfo !== null && this.state.personInfo !== '' ? this.state.personInfo : '';
         const showDrivingLicenceHomePage = person.drivingLicenseHomepageThumbnailAddress !== null && person.drivingLicenseHomepageThumbnailAddress !== '' ||
             person.drivingLicenceHomePage && person.drivingLicenceHomePage !== '';
