@@ -3,12 +3,13 @@
  */
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
     BackHandler,
     ToastAndroid,
     DeviceEventEmitter,
 } from 'react-native';
-import {StackNavigator} from 'react-navigation';
+import {StackNavigator, addNavigationHelpers} from 'react-navigation';
 import {StackRouteConfigs, StackNavigatorConfigs} from '../constants/routers';
 import {
     DEBUG,
@@ -95,5 +96,4 @@ class App extends Component {
     }
 }
 
-export default App;
-
+export default connect(state => ({ nav: state.nav }))(App);
