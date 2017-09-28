@@ -24,14 +24,10 @@ import Message from '../../../assets/mine/message.png';
 import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
 import ClickUtil from '../../utils/prventDoubleClickUtil';
-
 import * as API from '../../constants/api';
-import ImagePicker from 'react-native-image-picker';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
-// import {getPersonInfoAction} from '../../action/mine';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import PermissionsManager from '../../utils/permissionManager';
 import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
@@ -40,21 +36,7 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
-const options = {
-    title: '选择照片',
-    cancelButtonTitle: '取消',
-    takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '相册',
-    storageOptions: {
-        skipBackup: true,
-        path: 'images'
-    },
-    quality: 1.0,
-    maxWidth: 500,
-    maxHeight: 500,
-};
 const {height, width} = Dimensions.get('window');
-const selectedArr = ["拍照", "从手机相册选择"];
 
 const styles = StyleSheet.create({
     headerImage: {
