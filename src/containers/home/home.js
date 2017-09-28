@@ -988,7 +988,8 @@ class Home extends Component {
     }
 
     render() {
-        const {homePageState} = this.props;
+        const {homePageState,routes} = this.props;
+        console.log('routes=',routes);
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const TitleView =
             <View style={styles.container}>
@@ -1179,6 +1180,7 @@ function mapStateToProps(state) {
         location: state.app.get('locationData'),
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
+        routes: state.nav.routes,
     };
 }
 

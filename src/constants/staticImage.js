@@ -1,6 +1,6 @@
 
 /*无数据时显示图片*/
-import EmptyImage from '../common/emptyView/images/nodata.png';
+import EmptyImage from '../../assets/emptyView/nodata.png';
 
 /*引导页图片*/
 import Img01 from '../../assets/guide/guide_01.png';
@@ -19,7 +19,7 @@ import clearIcon from '../../assets/login/forgetdel.png';
 import registerBackground from '../../assets/register/registeredBackground.png';
 
 /*返回按钮*/
-import backIcon from '../common/navigationBar/images/back.png';
+import backIcon from '../../assets/navigationBar/back.png';
 /*箭头*/
 import rightArrow from '../../assets/income/rightarrow.png';
 // 空界面

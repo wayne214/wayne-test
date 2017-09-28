@@ -4,7 +4,10 @@
  */
 import React from 'react';
 
-import {TabNavigator} from 'react-navigation';
+import {
+    TabNavigator,
+    StackNavigator,
+} from 'react-navigation';
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
@@ -326,7 +329,7 @@ const StackNavigatorConfigs = {
     gesturesEnabled: false,
 };
 
-export {
-    StackRouteConfigs,
-    StackNavigatorConfigs
-};
+const AppNavigator = StackNavigator(StackRouteConfigs, StackNavigatorConfigs);
+
+
+export default AppNavigator;
