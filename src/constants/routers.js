@@ -4,7 +4,10 @@
  */
 import React from 'react';
 
-import {TabNavigator} from 'react-navigation';
+import {
+    TabNavigator,
+    StackNavigator,
+} from 'react-navigation';
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
@@ -325,7 +328,7 @@ const StackNavigatorConfigs = {
     headerMode: 'screen', // 导航条动画效果：float表示会渐变，类似于iOS的原生效果，screen表示没有渐变。none表示隐藏导航条
 };
 
-export {
-    StackRouteConfigs,
-    StackNavigatorConfigs
-};
+const AppNavigator = StackNavigator(StackRouteConfigs, StackNavigatorConfigs);
+
+
+export default AppNavigator;

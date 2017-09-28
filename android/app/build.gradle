@@ -155,16 +155,12 @@ android {
 
 dependencies {
     compile project(':react-native-picker-custom')
-<<<<<<< HEAD
     compile project(':react-native-camera')
-=======
->>>>>>> feature-good
     compile project(':react-native-image-picker')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-fs')
     compile project(':react-native-device-info')
     compile project(':jpush-react-native')
-    compile project(':@remobile/react-native-toast')
     compile project(':react-native-baidu-map-xzx')
     compile project(':react-native-toast')
     compile fileTree(dir: "libs", include: ["*.jar"])

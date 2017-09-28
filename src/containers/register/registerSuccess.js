@@ -3,6 +3,7 @@
  * 注册成功界面
  */
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
     View,
     Image,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class RegisterSuccess extends Component {
+class RegisterSuccess extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -50,6 +51,7 @@ export default class RegisterSuccess extends Component {
 
     render() {
         const navigator = this.props.navigation;
+        const {routes} = this.props;
         return (
             <View style={styles.container}>
                 <NavigatorBar
@@ -60,13 +62,8 @@ export default class RegisterSuccess extends Component {
                         type: 'string',
                         title: '完成',
                         onClick: () => {
-                            const resetAction = NavigationActions.reset({
-                                index: 0,
-                                actions: [
-                                    NavigationActions.navigate({ routeName: 'Login'}),
-                                ]
-                            });
-                            this.props.navigation.dispatch(resetAction);
+                            let key = routes[routes.length - 2].key;
+                            this.props.navigation.goBack(key);
                         },
                     }}
                 />
@@ -78,3 +75,13 @@ export default class RegisterSuccess extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {
+        routes: state.nav.routes,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterSuccess);

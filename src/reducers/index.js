@@ -9,6 +9,7 @@ import goods from './goods';
 import order from './order';
 import jpush from './jpush';
 import income from './income';
+import nav from './navReducers';
 
 const rootReducer = combineReducers({
     app,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     order,
     jpush,
     income,
+    nav,
 });
 
 export default rootReducer;

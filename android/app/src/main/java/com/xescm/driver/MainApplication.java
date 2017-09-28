@@ -4,16 +4,12 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.beefe.picker.PickerViewPackage;
-<<<<<<< HEAD
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
-=======
->>>>>>> feature-good
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import cn.jpush.reactnativejpush.JPushPackage;
-import com.remobile.toast.RCTToastPackage;
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.facebook.react.ReactNativeHost;
@@ -37,18 +33,14 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new PickerViewPackage(),
-<<<<<<< HEAD
             new RCTCameraPackage(),
-=======
->>>>>>> feature-good
             new ImagePickerPackage(),
             new RNFetchBlobPackage(),
             new RNFSPackage(),
             new RNDeviceInfo(),
             new JPushPackage(),
             new RCTToastPackage(),
-          new BaiduMapPackage(getApplicationContext()),
-          new RCTToastPackage()
+          new BaiduMapPackage(getApplicationContext())
       );
     }
   };
