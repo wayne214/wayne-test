@@ -167,7 +167,7 @@ class chooseCar extends Component {
         ReadAndWriteFileUtil.appendFile('绑定车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '设置车辆页面');
         const {userInfo} = this.props;
-        console.log('设置车辆成功了', this.state.plateNumber, userInfo.phone);
+        console.log('设置车辆成功了', this.state.plateNumber, userInfo.phone, this.state.plateNumberObj);
         Storage.save('setCarSuccessFlag', '3');
         this.saveUserCarInfo(this.state.plateNumberObj);
         Storage.remove('carInfoResult');

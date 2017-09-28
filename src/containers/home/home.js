@@ -52,7 +52,7 @@ import {
 import {setMessageListIconAction} from '../../action/jpush';
 
 import Storage from '../../utils/storage';
-import StoradeKey from '../../constants/storageKeys';
+import StorageKey from '../../constants/storageKeys';
 import NUmberLength from '../../utils/validator';
 import HTTPRequest from '../../utils/httpRequest'
 
@@ -565,7 +565,7 @@ class Home extends Component {
 
     // 获取车辆列表
     getUserCar() {
-        Storage.get(StoradeKey.USER_INFO).then((value) => {
+        Storage.get(StorageKey.USER_INFO).then((value) => {
             currentTime = new Date().getTime();
             if(value) {
                 console.log('value',value);
@@ -624,7 +624,7 @@ class Home extends Component {
     // 设置车辆
     setUserCar(plateNumber) {
         currentTime = new Date().getTime();
-        Storage.get(StoradeKey.USER_INFO).then((value) => {
+        Storage.get(StorageKey.USER_INFO).then((value) => {
             if(value) {
                 HTTPRequest({
                     url: API.API_SET_USER_CAR,
@@ -655,7 +655,7 @@ class Home extends Component {
         this.saveUserCarInfo(this.state.plateNumberObj);
         Storage.save('setCarSuccessFlag', '2');
 
-        // Storage.get(StoradeKey.PlateNumber).then((plate) => {
+        // Storage.get(StorageKey.PlateNumber).then((plate) => {
         //     if (plate){
         //         console.log('设置车辆成功了', plate, userInfo.result.phone);
         //         this.getHomePageCount(plate, userInfo.result.phone);
@@ -663,7 +663,7 @@ class Home extends Component {
         //         Storage.save('setCarSuccessFlag', '2');
         //     }
         // });
-        // Storage.get(StoradeKey.PlateNumberObj).then((platformObj) => {
+        // Storage.get(StorageKey.PlateNumberObj).then((platformObj) => {
         //     if (platformObj) {
         //         this.saveUserCarObj(platformObj);
         //     }
@@ -672,7 +672,7 @@ class Home extends Component {
 
     // 保存车辆列表
     saveUserCarList(carList) {
-        Storage.save(StoradeKey.userCarList, carList);
+        Storage.save(StorageKey.userCarList, carList);
     }
 
 
@@ -701,10 +701,11 @@ class Home extends Component {
     /*资质认证*/
     certificationState() {
         setTimeout(() => {
-            Storage.get(StoradeKey.plateNumber).then((plate) => {
-                debugger
+            Storage.get(StorageKey.PlateNumber).then((plate) => {
                 if(plate){
                     this.getQualificationsStatus(plate);
+                } else {
+                    this.getQualificationsStatus(this.state.plateNumber);
                 }
             });
         }, 500);
@@ -724,9 +725,7 @@ class Home extends Component {
             }
             HTTPRequest({
                 url: API.API_AUTH_QUALIFICATIONS_STATUS,
-                params: {
-                    obj
-                },
+                params: obj,
                 loading: () => {},
                 success: (responseData) => {
                     this.getQualificationsStatusSuccessCallBack(responseData.result);
@@ -769,13 +768,13 @@ class Home extends Component {
     };
 
     setData(){
-        Storage.get(StoradeKey.CarSuccessFlag).then((value) => {
+        Storage.get(StorageKey.CarSuccessFlag).then((value) => {
             console.log('---value', value);
             if (value && value * 1 === 1) {
                 this.getUserCar();
             } else {
                 setTimeout(() => {
-                    Storage.get(StoradeKey.PlateNumberObj).then((plateNumObj) => {
+                    Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
                             console.log('home_plateNumber=', plateNumber);
@@ -813,7 +812,7 @@ class Home extends Component {
     saveMessage(Message) {
         // Toast.showShortCenter(Message);
         console.log('-- save SearchList From Storage --', Message);
-        Storage.get(StoradeKey.acceptMessage).then((value) => {
+        Storage.get(StorageKey.acceptMessage).then((value) => {
             const date = new Date();
             let mouth = parseInt(date.getMonth())+1;
 
@@ -831,16 +830,16 @@ class Home extends Component {
                     let msgObj = {message: Message, isRead: false, time: timer};
                     value.unshift(msgObj);
                 }
-                Storage.save(StoradeKey.acceptMessage, value);
-                Storage.save(StoradeKey.newMessageFlag, '1');
+                Storage.save(StorageKey.acceptMessage, value);
+                Storage.save(StorageKey.newMessageFlag, '1');
             } else {
 
                 let msgObj = {message: Message, isRead: false, time: timer};
 
                 const searchList = [];
                 searchList.unshift(msgObj);
-                Storage.save(StoradeKey.acceptMessage, searchList);
-                Storage.save(StoradeKey.newMessageFlag, '1');
+                Storage.save(StorageKey.acceptMessage, searchList);
+                Storage.save(StorageKey.newMessageFlag, '1');
             }
         });
     }
@@ -1010,7 +1009,7 @@ class Home extends Component {
                             activeOpacity={1}
                             onPress={() => {
                                 this.props.setMessageListIcon(false);
-                                Storage.save(StoradeKey.newMessageFlag, '0');
+                                Storage.save(StorageKey.newMessageFlag, '0');
                                 this.pushToMsgList();
                             }}
                         >

@@ -213,7 +213,6 @@ export default class CarInfo extends Component {
         }
     }
     getCarInfoSuccessCallBack(result) {
-        this.changeAppLoading(false);
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('资质认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '车辆信息页面');
@@ -240,8 +239,6 @@ export default class CarInfo extends Component {
         currentTime = new Date().getTime();
         const plateNum = this.props.userPlateNumber;
         if (plateNum) {
-            this.changeAppLoading(true);
-
             HTTPRequest({
                 url: API.API_AUTH_QUALIFICATIONS_DETAIL,
                 params: {
@@ -258,9 +255,6 @@ export default class CarInfo extends Component {
                 },
                 error: (err) => {
                     getCarInfoFailCallBack();
-                    this.setState({
-                        loading: false,
-                    });
                 },
                 finish: () => {
                     this.setState({
@@ -439,8 +433,7 @@ export default class CarInfo extends Component {
 
 function mapStateToProps(state) {
     return {
-        userPlateNumber: state.app.get('plateNumber'),
-        appLoading: state.app.get('appLoading'),
+        userPlateNumber: state.user.get('plateNumber'),
         userInfo: state.user.get('userInfo'),
         certificationState: state.jpush.get('certificationState'),
     };

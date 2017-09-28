@@ -17,7 +17,6 @@ import CommonCell from '../../containers/mine/cell/commonCell';
 import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
-// import {getPersonInfoAction} from '../../action/mine';
 import Storage from '../../utils/storage';
 import PersonImage from '../../../assets/person/personInfo.png';
 import * as StaticColor from '../../constants/staticColor';
@@ -203,9 +202,7 @@ export default class PersonInfo extends Component {
                     },
                     error: (err) => {
                         getPersonInfoFailCallback();
-                        this.setState({
-                            loading: false,
-                        });
+
                     },
                     finish: () => {
                         this.setState({
