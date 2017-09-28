@@ -14,21 +14,17 @@ import {
     NativeAppEventEmitter,
     Alert,
     DeviceEventEmitter,
-    InteractionManager,
     TouchableOpacity,
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
-// import Communications from 'react-native-communications';
-
-import StaticImage from '../../constants/staticImage';
+import Toast from '@remobile/react-native-toast';
+import { NavigationActions } from 'react-navigation';
 
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
-import NUmberLength from '../../utils/validator';
-import HTTPRequest from '../../utils/httpRequest'
 
 import {
     WHITE_COLOR,
@@ -37,26 +33,32 @@ import {
     COLOR_SEPARATE_LINE,
     LIGHT_GRAY_TEXT_COLOR,
     LIGHT_BLACK_TEXT_COLOR,
-    COLOR_MAIN,
-    COLOR_VIEW_BACKGROUND
 } from '../../constants/staticColor';
+import StaticImage from '../../constants/staticImage';
 import * as API from '../../constants/api';
+
 import {
     locationAction,
-    getHomePageCountAction
+    getHomePageCountAction,
+    mainPressAction,
+    updateVersionAction,
 } from '../../action/app';
 
 import {
-    setUserCarAction
+    setUserCarAction,
+    queryEnterpriseNatureSuccessAction
 } from '../../action/user';
+
+import {setMessageListIconAction} from '../../action/jpush';
 
 import Storage from '../../utils/storage';
 import StoradeKey from '../../constants/storageKeys';
-import Toast from '@remobile/react-native-toast';
+import NUmberLength from '../../utils/validator';
+import HTTPRequest from '../../utils/httpRequest'
 
 
 const {width, height} = Dimensions.get('window');
-// const JpushAliasNumber = global.userId;
+const JpushAliasNumber = global.userId;
 
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
@@ -248,28 +250,26 @@ class Home extends Component {
         };
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
+        this.setData = this.setData.bind(this);
         this.setUserCar = this.setUserCar.bind(this);
         this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
         this.getUserCar = this.getUserCar.bind(this);
         this.getUserCarSuccessCallBack = this.getUserCarSuccessCallBack.bind(this);
-        // this.saveMessage = this.saveMessage.bind(this);
-        // this.saveUserCarInfo = this.saveUserCarInfo.bind(this);
+        this.saveUserCarInfo = this.saveUserCarInfo.bind(this);
+        this.saveUserCarList = this.saveUserCarList.bind(this);
+
+        this.saveMessage = this.saveMessage.bind(this);
         this.locate = this.locate.bind(this);
-        // this.pushToMsgList = this.pushToMsgList.bind(this);
+        this.pushToMsgList = this.pushToMsgList.bind(this);
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
         this.getWeather = this.getWeather.bind(this);
-        // this.compareVersion = this.compareVersion.bind(this);
-        // this.compareSuccessCallBack = this.compareSuccessCallBack.bind(this);
-        // this.compareFailCallBack = this.compareFailCallBack.bind(this);
-        // this.setData = this.setData.bind(this);
-        // this.saveUserCarList = this.saveUserCarList.bind(this);
-        //
-        // this.getQualificationsStatus = this.getQualificationsStatus.bind(this);
-        // this.getQualificationsStatusSuccessCallBack = this.getQualificationsStatusSuccessCallBack.bind(this);
-        //
+        this.compareVersion = this.compareVersion.bind(this);
+
+        this.getQualificationsStatus = this.getQualificationsStatus.bind(this);
+        this.getQualificationsStatusSuccessCallBack = this.getQualificationsStatusSuccessCallBack.bind(this);
         this.vehicleLimit = this.vehicleLimit.bind(this);
-        // this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
-        // this.queryEnterpriseNatureSuccessCallBack = this.queryEnterpriseNatureSuccessCallBack.bind(this);
+        this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
+        this.resetTo = this.resetTo.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -281,252 +281,249 @@ class Home extends Component {
     }
     componentDidMount() {
 
-        // this.compareVersion(this.compareSuccessCallBack,this.compareFailCallBack);
+        this.compareVersion();
         this.getCurrentPosition();
-        // this.queryEnterpriseNature(this.queryEnterpriseNatureSuccessCallBack);
+        this.queryEnterpriseNature();
 
 
-    //     if (Platform.OS === 'android') {
-    //         JPushModule.notifyJSDidLoad((resultCode) => {
-    //             if (resultCode === 0) {
-    //             }
-    //         });
-    //         // 收到自定义消息后触发
-    //         JPushModule.addReceiveCustomMsgListener((message) => {
-    //             console.log(message);
-    //         });
-    //         // 收到推送时将会触发此事件
-    //         JPushModule.addReceiveNotificationListener((message) => {
-    //             console.log('home,ANreceive notification: ', message);
-    //
-    //             this.props.setMessageListIcon(true);
-    //             this.saveMessage(message.alertContent);
-    //
-    //             if (message.alertContent.indexOf('新货源') > -1) {
-    //                 Alert.alert('提示', '您有新的订单，是否进入货源界面', [
-    //                     {
-    //                         text: '确定',
-    //                         onPress: () => {
-    //                             this.props.navigator.popToTop();
-    //                             DeviceEventEmitter.emit('resetgood');
-    //                             this.changeTab('goodsSource');
-    //                         },
-    //                     },
-    //                     {text: '取消'},
-    //                 ], {cancelable: false});
-    //             }
-    //
-    //             if (message.alertContent.indexOf('快来竞拍吧') > -1) {
-    //                 Alert.alert('提示', '您有新的货源可以竞拍', [
-    //                     {
-    //                         text: '确定',
-    //                         onPress: () => {
-    //                             this.props.navigator.popToTop();
-    //                             this.changeTab('order');
-    //                             this.changeOrderTab(1);
-    //                             DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //                         },
-    //                     },
-    //                     {text: '取消'},
-    //                 ], {cancelable: false});
-    //             }
-    //
-    //             if (message.alertContent.indexOf('竞价成功') > -1) {
-    //                 Alert.alert('提示', '恭喜您，竞价成功, 是否进入订单页面', [
-    //                     {
-    //                         text: '确定',
-    //                         onPress: () => {
-    //                             this.props.navigator.popToTop();
-    //                             this.changeTab('order');
-    //                             this.changeOrderTab(1);
-    //                             DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //                         },
-    //                     },
-    //                     {text: '取消'},
-    //                 ], {cancelable: false});
-    //             }
-    //
-    //             if (message.alertContent.indexOf('竞拍失败') > -1) {
-    //
-    //             }
-    //
-    //             if (message.alertContent.indexOf('实名认证>已认证通过') > -1) {
-    //
-    //             }
-    //
-    //             if (message.alertContent.indexOf('实名认证>已认证驳回') > -1) {
-    //
-    //             }
-    //
-    //             if (message.alertContent.indexOf('资质认证>已认证通过') > -1) {
-    //
-    //             }
-    //
-    //             if (message.alertContent.indexOf('资质认证>已认证驳回') > -1) {
-    //
-    //             }
-    //
-    //
-    //         });
-    //         // 点击通知后，将会触发此事件
-    //         JPushModule.addReceiveOpenNotificationListener((map) => {
-    //             console.log('home,ANOpening notification!', map);
-    //
-    //             this.props.setMessageListIcon(true);
-    //             this.saveMessage(map.alertContent);
-    //             if (map.alertContent.indexOf('竞价成功') > -1) {
-    //                 this.changeTab('order');
-    //                 this.changeOrderTab(1);
-    //                 DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //             }
-    //             if (map.alertContent.indexOf('新货源') > -1) {
-    //                 DeviceEventEmitter.emit('resetgood');
-    //                 this.changeTab('goodsSource');
-    //             }
-    //         });
-    //     }
-    //     // -----------jpush  ios start
-    //     if (Platform.OS === 'ios') {
-    //         NativeAppEventEmitter.addListener(
-    //             'OpenNotification',
-    //             (notification) => {
-    //                 console.log('打开推送', notification);
-    //
-    //                 this.props.setMessageListIcon(true);
-    //                 this.saveMessage(notification.aps.alert);
-    //                 if (notification.aps.alert.indexOf('竞价成功') > -1) {
-    //                     this.changeTab('order');
-    //                     this.changeOrderTab(1);
-    //                     DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //                 }
-    //                 if (notification.aps.alert.indexOf('新货源') > -1) {
-    //                     DeviceEventEmitter.emit('resetgood');
-    //                     this.changeTab('goodsSource');
-    //                 }
-    //             },
-    //         );
-    //         NativeAppEventEmitter.addListener(
-    //             'ReceiveNotification',
-    //             (notification) => {
-    //                 console.log('-------------------收到推送----------------', notification);
-    //
-    //                 this.props.setMessageListIcon(true);
-    //                 this.saveMessage(notification.aps.alert);
-    //
-    //                 if (notification.aps.alert.indexOf('新货源') > -1) {
-    //                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
-    //                         {
-    //                             text: '确定',
-    //                             onPress: () => {
-    //                                 this.props.navigator.popToTop();
-    //                                 DeviceEventEmitter.emit('resetgood');
-    //                                 this.changeTab('goodsSource');
-    //                             },
-    //                         },
-    //                         {text: '取消'},
-    //                     ], {cancelable: false});
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('快来竞拍吧') > -1) {
-    //                     Alert.alert('提示', '您有新的货源可以竞拍', [
-    //                         {
-    //                             text: '确定',
-    //                             onPress: () => {
-    //                                 this.props.navigator.popToTop();
-    //                                 this.changeTab('order');
-    //                                 this.changeOrderTab(1);
-    //                                 DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //                             },
-    //                         },
-    //                         {text: '取消'},
-    //                     ], {cancelable: false});
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('竞价成功') > -1) {
-    //                     Alert.alert('提示', '恭喜您，竞价成功, 是否进入订单页面', [
-    //                         {
-    //                             text: '确定',
-    //                             onPress: () => {
-    //                                 this.props.navigator.popToTop();
-    //                                 this.changeTab('order');
-    //                                 this.changeOrderTab(1);
-    //                                 DeviceEventEmitter.emit('changeOrderTabPage', 1);
-    //                             },
-    //                         },
-    //                         {text: '取消'},
-    //                     ], {cancelable: false});
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('竞拍失败') > -1) {
-    //
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('实名认证>已认证通过') > -1) {
-    //
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('实名认证>已认证驳回') > -1) {
-    //
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('资质认证>已认证通过') > -1) {
-    //
-    //                 }
-    //
-    //                 if (notification.aps.alert.indexOf('资质认证>已认证驳回') > -1) {
-    //
-    //                 }
-    //
-    //
-    //             },
-    //         );
-    //
-    //
-    //     }
-    //     // -----------jpush  ios end
-    //
-    //     this.listener = DeviceEventEmitter.addListener('refreshHome', () => {
-    //         if (this.props.plateNumber) {
-    //             const {userInfo} = this.props;
-    //             this.getHomePageCount(this.props.plateNumber, userInfo.result.phone, this.getHomoPageCountSuccessCallBack);
-    //         }
-    //     });
-    //     this.getUserCarListener = DeviceEventEmitter.addListener('getUserCar', () => {
-    //         this.getUserCar(this.getUserCarSuccessCallBack);
-    //     });
-    //
-    //     this.notifyCarStatusListener = DeviceEventEmitter.addListener('notifyCarStatus', () => {
-    //         this.notifyCarStatus();
-    //     });
-    //
-    //     this.Listener = DeviceEventEmitter.addListener('restToLoginPage', (message) => {
-    //         Toast.showShortCenter(message);
-    //         this.props.navigator.resetTo({
-    //             component: LoginContainer,
-    //             name: RouteType.LOGIN_PAGE,
-    //             key: RouteType.LOGIN_PAGE,
-    //         });
-    //     });
-    //
-    //     this.bindCarListener = DeviceEventEmitter.addListener('bindUserCar', (value) => {
-    //         if (value) {
-    //             this.setUserCar(value, this.setUserCarSuccessCallBack);
-    //         }
-    //     });
-    //
+        if (Platform.OS === 'android') {
+            JPushModule.notifyJSDidLoad((resultCode) => {
+                if (resultCode === 0) {
+                }
+            });
+            // 收到自定义消息后触发
+            JPushModule.addReceiveCustomMsgListener((message) => {
+                console.log(message);
+            });
+            // 收到推送时将会触发此事件
+            JPushModule.addReceiveNotificationListener((message) => {
+                console.log('home,ANreceive notification: ', message);
+
+                this.props.setMessageListIcon(true);
+                this.saveMessage(message.alertContent);
+
+                if (message.alertContent.indexOf('新货源') > -1) {
+                    Alert.alert('提示', '您有新的订单，是否进入货源界面', [
+                        {
+                            text: '确定',
+                            onPress: () => {
+                                // this.props.navigator.popToTop();
+                                DeviceEventEmitter.emit('resetGood');
+                                this.props.navigation.navigate('GoodsSource');
+                            },
+                        },
+                        {text: '取消'},
+                    ], {cancelable: false});
+                }
+
+                if (message.alertContent.indexOf('快来竞拍吧') > -1) {
+                    Alert.alert('提示', '您有新的货源可以竞拍', [
+                        {
+                            text: '确定',
+                            onPress: () => {
+                                // this.props.navigator.popToTop();
+                                this.props.navigation.navigate('Order');
+                                this.changeOrderTab(1);
+                                DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                            },
+                        },
+                        {text: '取消'},
+                    ], {cancelable: false});
+                }
+
+                if (message.alertContent.indexOf('竞价成功') > -1) {
+                    Alert.alert('提示', '恭喜您，竞价成功, 是否进入订单页面', [
+                        {
+                            text: '确定',
+                            onPress: () => {
+                                // this.props.navigator.popToTop();
+                                this.props.navigation.navigate('Order');
+                                this.changeOrderTab(1);
+                                DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                            },
+                        },
+                        {text: '取消'},
+                    ], {cancelable: false});
+                }
+
+                if (message.alertContent.indexOf('竞拍失败') > -1) {
+
+                }
+
+                if (message.alertContent.indexOf('实名认证>已认证通过') > -1) {
+
+                }
+
+                if (message.alertContent.indexOf('实名认证>已认证驳回') > -1) {
+
+                }
+
+                if (message.alertContent.indexOf('资质认证>已认证通过') > -1) {
+
+                }
+
+                if (message.alertContent.indexOf('资质认证>已认证驳回') > -1) {
+
+                }
+
+
+            });
+            // 点击通知后，将会触发此事件
+            JPushModule.addReceiveOpenNotificationListener((map) => {
+                console.log('home,ANOpening notification!', map);
+
+                this.props.setMessageListIcon(true);
+                this.saveMessage(map.alertContent);
+                if (map.alertContent.indexOf('竞价成功') > -1) {
+                    this.props.navigation.navigate('Order');
+                    this.changeOrderTab(1);
+                    DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                }
+                if (map.alertContent.indexOf('新货源') > -1) {
+                    DeviceEventEmitter.emit('resetGood');
+                    this.props.navigation.navigate('GoodsSource');
+                }
+            });
+        }
+        // -----------jpush  ios start
+        if (Platform.OS === 'ios') {
+            NativeAppEventEmitter.addListener(
+                'OpenNotification',
+                (notification) => {
+                    console.log('打开推送', notification);
+
+                    this.props.setMessageListIcon(true);
+                    this.saveMessage(notification.aps.alert);
+                    if (notification.aps.alert.indexOf('竞价成功') > -1) {
+                        this.props.navigation.navigate('Order');
+                        this.changeOrderTab(1);
+                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                    }
+                    if (notification.aps.alert.indexOf('新货源') > -1) {
+                        DeviceEventEmitter.emit('resetGood');
+                        this.props.navigation.navigate('GoodsSource');
+                    }
+                },
+            );
+            NativeAppEventEmitter.addListener(
+                'ReceiveNotification',
+                (notification) => {
+                    console.log('-------------------收到推送----------------', notification);
+
+                    this.props.setMessageListIcon(true);
+                    this.saveMessage(notification.aps.alert);
+
+                    if (notification.aps.alert.indexOf('新货源') > -1) {
+                        Alert.alert('提示', '您有新的订单，是否进入货源界面', [
+                            {
+                                text: '确定',
+                                onPress: () => {
+                                    // this.props.navigator.popToTop();
+                                    DeviceEventEmitter.emit('resetGood');
+                                    this.props.navigation.navigate('GoodsSource');
+                                },
+                            },
+                            {text: '取消'},
+                        ], {cancelable: false});
+                    }
+
+                    if (notification.aps.alert.indexOf('快来竞拍吧') > -1) {
+                        Alert.alert('提示', '您有新的货源可以竞拍', [
+                            {
+                                text: '确定',
+                                onPress: () => {
+                                    // this.props.navigator.popToTop();
+                                    this.props.navigation.navigate('Order');
+                                    this.changeOrderTab(1);
+                                    DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                },
+                            },
+                            {text: '取消'},
+                        ], {cancelable: false});
+                    }
+
+                    if (notification.aps.alert.indexOf('竞价成功') > -1) {
+                        Alert.alert('提示', '恭喜您，竞价成功, 是否进入订单页面', [
+                            {
+                                text: '确定',
+                                onPress: () => {
+                                    // this.props.navigator.popToTop();
+                                    this.props.navigation.navigate('Order');
+                                    this.changeOrderTab(1);
+                                    DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                },
+                            },
+                            {text: '取消'},
+                        ], {cancelable: false});
+                    }
+
+                    if (notification.aps.alert.indexOf('竞拍失败') > -1) {
+
+                    }
+
+                    if (notification.aps.alert.indexOf('实名认证>已认证通过') > -1) {
+
+                    }
+
+                    if (notification.aps.alert.indexOf('实名认证>已认证驳回') > -1) {
+
+                    }
+
+                    if (notification.aps.alert.indexOf('资质认证>已认证通过') > -1) {
+
+                    }
+
+                    if (notification.aps.alert.indexOf('资质认证>已认证驳回') > -1) {
+
+                    }
+
+
+                },
+            );
+
+
+        }
+        // -----------jpush  ios end
+
+        this.listener = DeviceEventEmitter.addListener('refreshHome', () => {
+            if (this.props.plateNumber) {
+                const {userInfo} = this.props;
+                this.getHomePageCount(this.props.plateNumber, userInfo.phone);
+            }
+        });
+        this.getUserCarListener = DeviceEventEmitter.addListener('getUserCar', () => {
+            this.getUserCar();
+        });
+
+        this.notifyCarStatusListener = DeviceEventEmitter.addListener('notifyCarStatus', () => {
+            this.notifyCarStatus();
+        });
+
+        this.Listener = DeviceEventEmitter.addListener('restToLoginPage', (message) => {
+            Toast.showShortCenter(message);
+            this.resetTo(0, 'Login');
+        });
+
+        this.bindCarListener = DeviceEventEmitter.addListener('bindUserCar', (value) => {
+            if (value) {
+                this.setUserCar(value);
+            }
+        });
+
     }
+
     //
-    // notifyCarStatus() {
-    //     Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
-    // }
-    //
-    // componentWillUnmount() {
-    //     this.listener.remove();
-    //     this.getUserCarListener.remove();
-    //     this.Listener.remove();
-    //     this.bindCarListener.remove();
-    //     this.notifyCarStatusListener.remove();
-    // }
+    notifyCarStatus() {
+        Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
+    }
+
+    componentWillUnmount() {
+        this.listener.remove();
+        this.getUserCarListener.remove();
+        this.Listener.remove();
+        this.bindCarListener.remove();
+        this.notifyCarStatusListener.remove();
+    }
 
     // 版本对比
     compareVersion() {
@@ -537,15 +534,13 @@ class Home extends Component {
                 version: DeviceInfo.getVersion(),
                 platform: Platform.OS === 'ios' ? '1': '2',
             },
-            loading: ()=>{
-
-            },
+            loading: ()=>{},
             success: (responseData)=>{
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
                 if (responseData.result) {
-                    // this.props.updateVersion(responseData.result);
+                    this.props.updateVersion(responseData.result);
                 }else {
                     this.setData();
                 }
@@ -553,10 +548,19 @@ class Home extends Component {
             error: (errorInfo)=>{
                 this.setData();
             },
-            finish:()=>{
-
-            }
+            finish:()=>{}
         });
+    }
+
+    // 跳转界面并重置路由栈
+    resetTo(index = 0, routeName) {
+        const resetAction = NavigationActions.reset({
+            index: index,
+            actions: [
+                NavigationActions.navigate({ routeName: routeName}),
+            ]
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 
     // 获取车辆列表
@@ -564,10 +568,11 @@ class Home extends Component {
         Storage.get(StoradeKey.USER_INFO).then((value) => {
             currentTime = new Date().getTime();
             if(value) {
+                console.log('value',value);
                 HTTPRequest({
                     url: API.API_QUERY_ALL_BIND_CAR_BY_PHONE,
                     params: {
-                        phoneNum: value.result.phone,
+                        phoneNum: value.phone,
                     },
                     loading: ()=>{},
                     success: (responseData)=>{
@@ -589,20 +594,19 @@ class Home extends Component {
 
         if (result) {
             if(result.length > 1) {
-                this.props.navigation.navigate('',{
+                this.props.navigation.navigate('ChooseCar',{
                     carList: result,
                     currentCar: '',
                     flag: true,
                 });
             } else if (result.length === 1) {
-                // this.setUserCar(result[0].carNum, this.setUserCarSuccessCallBack);
                 this.setState({
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
-                // this.certificationState();
+                this.certificationState();
             } else {
-                // this.certificationState();
+                this.certificationState();
             }
         } else {
             Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',
@@ -626,7 +630,7 @@ class Home extends Component {
                     url: API.API_SET_USER_CAR,
                     params: {
                         plateNumber: plateNumber,
-                        phoneNum: value.result.phone,
+                        phoneNum: value.phone,
                     },
                     loading: ()=>{},
                     success: (responseData)=>{
@@ -644,10 +648,10 @@ class Home extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('设置车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '首页');
-        const {userInfo} = this.props;
+        const userInfo = this.props.userInfo;
 
-        console.log('设置车辆成功了', this.state.plateNumber, userInfo.result.phone);
-        this.getHomePageCount(this.state.plateNumber, userInfo.result.phone);
+        console.log('设置车辆成功了', this.state.plateNumber, userInfo.phone);
+        this.getHomePageCount(this.state.plateNumber, userInfo.phone);
         this.saveUserCarInfo(this.state.plateNumberObj);
         Storage.save('setCarSuccessFlag', '2');
 
@@ -664,6 +668,11 @@ class Home extends Component {
         //         this.saveUserCarObj(platformObj);
         //     }
         // });
+    }
+
+    // 保存车辆列表
+    saveUserCarList(carList) {
+        Storage.save(StoradeKey.userCarList, carList);
     }
 
 
@@ -689,155 +698,152 @@ class Home extends Component {
     }
 
 
-    /*资质认证请求*/
-    // certificationState() {
-    //     setTimeout(() => {
-    //         Storage.get(StoradeKey.plateNumber).then((plate) => {
-    //             if(plate){
-    //                 this.getQualificationsStatus(plate, this.getQualificationsStatusSuccessCallBack);
-    //             }
-    //         });
-    //     }, 500);
-    //
-    // }
-    // getQualificationsStatus(plate, getQualificationsStatusSuccessCallBack) {
-    //     if (this.props.userInfo.result.phone) {
-    //
-    //         let obj = {};
-    //         if (plate) {
-    //             obj = {
-    //                 phoneNum: this.props.userInfo.result.phone,
-    //                 plateNumber: plate,
-    //             }
-    //         } else {
-    //             obj = {phoneNum: this.props.userInfo.result.phone};
-    //         }
-    //
-    //         this.props.getQualificationsStatus({
-    //             body: obj
-    //         }, getQualificationsStatusSuccessCallBack);
-    //     }
-    // }
+    /*资质认证*/
+    certificationState() {
+        setTimeout(() => {
+            Storage.get(StoradeKey.plateNumber).then((plate) => {
+                debugger
+                if(plate){
+                    this.getQualificationsStatus(plate);
+                }
+            });
+        }, 500);
+    }
 
-    // getQualificationsStatusSuccessCallBack(result) {
-    //     console.log('getQualificationsStatusSuccessCallBack', result);
-    //     if (result === '1201') {
-    //         Alert.alert('提示', '认证资料正在审核中');
-    //     } else if (result === '1203') {
-    //         Alert.alert('提示', '认证资料已驳回，请重新上传资料',[
-    //             {
-    //                 text: '好的',
-    //                 onPress: () => {
-    //                     // this.changeTab('mine');
-    //                     this.props.router.redirect(RouteType.MINE_VERIFIED_CERFICATION_END_STATE, {
-    //                         qualifications: result,
-    //                     });
-    //                 },
-    //             },
-    //         ],{cancelable: true});
-    //     } else if (result === '1202') {
-    //         this.saveUserCarInfo(this.state.plateNumberObj);
-    //         this.setUserCar(this.state.plateNumber, this.setUserCarSuccessCallBack);
-    //     } else{
-    //         Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',[
-    //             {
-    //                 text: '好的',
-    //                 onPress: () => {
-    //                     // this.changeTab('mine');
-    //                 },
-    //             },
-    //         ], {cancelable: false});
-    //     }
-    // };
+    // 查询资质认证状态
+    getQualificationsStatus(plate) {
+        if (this.props.userInfo.phone) {
+            let obj = {};
+            if (plate) {
+                obj = {
+                    phoneNum: this.props.userInfo.phone,
+                    plateNumber: plate,
+                }
+            } else {
+                obj = {phoneNum: this.props.userInfo.phone};
+            }
+            HTTPRequest({
+                url: API.API_AUTH_QUALIFICATIONS_STATUS,
+                params: {
+                    obj
+                },
+                loading: () => {},
+                success: (responseData) => {
+                    this.getQualificationsStatusSuccessCallBack(responseData.result);
+                },
+                error: (errorInfo) => {},
+                finish: () => {}
+            });
+        }
+    }
 
-    // setData(){
-    //     Storage.get('setCarSuccessFlag').then((value) => {
-    //         console.log('....home_value...', value);
-    //         if (value && value * 1 === 1) {
-    //             this.getUserCar(this.getUserCarSuccessCallBack);
-    //         } else {
-    //             setTimeout(() => {
-    //                 Storage.get('userCarList').then((value) => {
-    //                     this.saveUserCarList(value);
-    //                 });
-    //                 Storage.get('plateNumber').then((plateNum) => {
-    //                     const plateNumber = plateNum;
-    //                     console.log('home_plateNumber....', plateNumber);
-    //                     if (plateNumber !== null) {
-    //                         this.setState({
-    //                             plateNumber: plateNumber,
-    //                         });
-    //                         if (value === 3) {
-    //                             const {userInfo} = this.props;
-    //                             this.saveUserCarInfo(plateNumber);
-    //                             this.getHomePageCount(this.props.plateNumber, userInfo.result.phone, this.getHomoPageCountSuccessCallBack);
-    //                         } else {
-    //                             this.setUserCar(plateNumber, this.setUserCarSuccessCallBack);
-    //                         }
-    //                     }
-    //                 });
-    //                 Storage.get('plateNumberObj').then((plateNumberObj) => {
-    //                     if (plateNumberObj) {
-    //                         this.saveUserCarObj(plateNumberObj);
-    //                     }
-    //                 })
-    //             }, 200);
-    //         }
-    //     });
-    // }
-    //
+    // 查询资质认证状态成功
+    getQualificationsStatusSuccessCallBack(result) {
+        console.log('getQualificationsStatusSuccessCallBack', result);
+        if (result === '1201') {
+            Alert.alert('提示', '认证资料正在审核中');
+        } else if (result === '1203') {
+            Alert.alert('提示', '认证资料已驳回，请重新上传资料',[
+                {
+                    text: '好的',
+                    onPress: () => {
+                        this.props.navigation.navigate('CertificationPage', {
+                            qualifications: result,
+                        })
+                    },
+                },
+            ],{cancelable: true});
+        } else if (result === '1202') {
+            this.saveUserCarInfo(this.state.plateNumberObj);
+            this.setUserCar(this.state.plateNumber, this.setUserCarSuccessCallBack);
+        } else{
+            Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',[
+                {
+                    text: '好的',
+                    onPress: () => {
+                        this.props.navigation.navigate('Mine');
+                    },
+                },
+            ], {cancelable: false});
+        }
+    };
 
+    setData(){
+        Storage.get(StoradeKey.CarSuccessFlag).then((value) => {
+            console.log('---value', value);
+            if (value && value * 1 === 1) {
+                this.getUserCar();
+            } else {
+                setTimeout(() => {
+                    Storage.get(StoradeKey.PlateNumberObj).then((plateNumObj) => {
+                        if(plateNumObj) {
+                            const plateNumber = plateNumObj.carNum;
+                            console.log('home_plateNumber=', plateNumber);
+                            if (plateNumber !== null) {
+                                this.setState({
+                                    plateNumber: plateNumber,
+                                });
+                                if (value === 3) {
+                                    const {userInfo} = this.props;
+                                    this.saveUserCarInfo(plateNumObj);
+                                    // this.prop.plateNumber
+                                    this.getHomePageCount(plateNumber, userInfo.phone);
+                                } else {
+                                    this.setUserCar(plateNumber, this.setUserCarSuccessCallBack);
+                                }
+                            }
+                        }
+                    });
+                }, 200);
+            }
+        });
+    }
 
-    // // 切换订单tab
-    // changeOrderTab(orderTab) {
-    //     this.props.changeOrderTab(orderTab);
-    // }
-    //
-    // // 保存车牌号
-    // saveUserCarInfo(plateNumber) {
-    //     this.props.saveUserSetCarSuccess(plateNumber);
-    // }
-    // // 保存车牌号对象
-    // saveUserCarObj(plateNumberObj) {
-    //     this.props.saveUserSetCarObjSuccess(plateNumberObj);
-    // }
-    // saveMessage(Message) {
-    //     // Toast.showShortCenter(Message);
-    //     console.log('-- save SearchList From Storage --', Message);
-    //     Storage.get('acceptMessage').then((value) => {
-    //
-    //
-    //         const date = new Date();
-    //         let mouth = parseInt(date.getMonth())+1;
-    //
-    //         const timer = date.getFullYear()+'/'+NUmberLength.leadingZeros(mouth, 2)+'/'+
-    //             NUmberLength.leadingZeros(date.getDate(), 2)+ ' '+
-    //             NUmberLength.leadingZeros(date.getHours(), 2)+':'+
-    //             NUmberLength.leadingZeros(date.getMinutes(), 2)+':'+
-    //             NUmberLength.leadingZeros(date.getSeconds(), 2);
-    //
-    //
-    //         if (value) {
-    //             if (value.length >= 20) {
-    //                 value.pop();
-    //             }
-    //             if (value.indexOf(Message) < 0) {
-    //                 let msgObj = {message: Message, isRead: false, time: timer};
-    //                 value.unshift(msgObj);
-    //             }
-    //             Storage.save('acceptMessage', value);
-    //             Storage.save('newMessageFlag', '1');
-    //         } else {
-    //
-    //             let msgObj = {message: Message, isRead: false, time: timer};
-    //
-    //             const searchList = [];
-    //             searchList.unshift(msgObj);
-    //             Storage.save('acceptMessage', searchList);
-    //             Storage.save('newMessageFlag', '1');
-    //         }
-    //     });
-    // }
+    // 切换订单tab
+    changeOrderTab(orderTab) {
+        this.props.changeOrderTab(orderTab);
+    }
+
+    // 保存车牌号对象
+    saveUserCarInfo(plateNumberObj) {
+        this.props.saveUserSetCarSuccess(plateNumberObj);
+    }
+
+    // 保存消息列表
+    saveMessage(Message) {
+        // Toast.showShortCenter(Message);
+        console.log('-- save SearchList From Storage --', Message);
+        Storage.get(StoradeKey.acceptMessage).then((value) => {
+            const date = new Date();
+            let mouth = parseInt(date.getMonth())+1;
+
+            const timer = date.getFullYear()+'/'+NUmberLength.leadingZeros(mouth, 2)+'/'+
+                NUmberLength.leadingZeros(date.getDate(), 2)+ ' '+
+                NUmberLength.leadingZeros(date.getHours(), 2)+':'+
+                NUmberLength.leadingZeros(date.getMinutes(), 2)+':'+
+                NUmberLength.leadingZeros(date.getSeconds(), 2);
+
+            if (value) {
+                if (value.length >= 20) {
+                    value.pop();
+                }
+                if (value.indexOf(Message) < 0) {
+                    let msgObj = {message: Message, isRead: false, time: timer};
+                    value.unshift(msgObj);
+                }
+                Storage.save(StoradeKey.acceptMessage, value);
+                Storage.save(StoradeKey.newMessageFlag, '1');
+            } else {
+
+                let msgObj = {message: Message, isRead: false, time: timer};
+
+                const searchList = [];
+                searchList.unshift(msgObj);
+                Storage.save(StoradeKey.acceptMessage, searchList);
+                Storage.save(StoradeKey.newMessageFlag, '1');
+            }
+        });
+    }
 
     // 获取当前位置
     getCurrentPosition(){
@@ -922,14 +928,17 @@ class Home extends Component {
             },
             loading: ()=>{},
             success: (responseData)=> {
-                if (responseData.result && responseData.result !== '') {
+                console.log('---------------',responseData.result);
+                let result = responseData.result;
+                if(result && result !== '') {
                     this.setState({
                         limitNumber: '限行 ' + responseData.result,
                     });
-                } else
+                } else {
                     this.setState({
                         limitNumber: '',
                     });
+                }
             },
             error: (error)=>{
                 console.log('获取限行尾号失败');
@@ -938,16 +947,22 @@ class Home extends Component {
         });
     }
 
-    // queryEnterpriseNature(queryEnterpriseNatureSuccessCallBack){
-    //     this.props.queryEnterpriseNature({
-    //         url: API.API_QUERY_ENTERPRISE_NATURE + global.phone,
-    //     }, queryEnterpriseNatureSuccessCallBack);
-    // }
-    //
-    // queryEnterpriseNatureSuccessCallBack(result){
-    //     console.log('queryEnterpriseNatureSuccessCallBack',result);
-    //     global.enterpriseNature = result;
-    // }
+    // 查询司机对应企业性质
+    queryEnterpriseNature(){
+        HTTPRequest({
+            url: API.API_QUERY_ENTERPRISE_NATURE + global.phone,
+            params: {},
+            loading: ()=>{},
+            success: (responseData)=>{
+                global.enterpriseNature = responseData.result;
+                if (responseData.result) {
+                    this.props.queryEnterpriseNatureAction(responseData.result);
+                }
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{}
+        });
+    }
 
     renderImg() {
         const imageViews = [];
@@ -994,15 +1009,15 @@ class Home extends Component {
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => {
-                                {/*this.props.setMessageListIcon(false);*/}
-                                {/*Storage.save('newMessageFlag', '0');*/}
-                                {/*this.pushToMsgList();*/}
+                                this.props.setMessageListIcon(false);
+                                Storage.save(StoradeKey.newMessageFlag, '0');
+                                this.pushToMsgList();
                             }}
                         >
-                            {/*<Image*/}
-                                {/*source={this.props.jpushIcon === true ? MessageNew : Message}*/}
-                                {/*style={{alignSelf:'center'}}*/}
-                            {/*/>*/}
+                            <Image
+                                source={this.props.jpushIcon === true ? StaticImage.MessageNew : StaticImage.Message}
+                                style={{alignSelf:'center'}}
+                            />
                             <Text style={styles.iconTitle}>消息</Text>
                         </TouchableOpacity>
                     </View>
@@ -1062,16 +1077,16 @@ class Home extends Component {
                             badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
                             renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                             clickAction={() => { // 点击事件
-                                {/*if (this.props.plateNumber && this.props.plateNumber !== '') {*/}
-                                    {/*if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {*/}
-                                        {/*/!*this.changeTab('goodsSource');*!/*/}
-                                        {/*DeviceEventEmitter.emit('resetgood');*/}
-                                    {/*} else {*/}
-                                        {/*/!*this.notifyCarStatus();*!/*/}
-                                    {/*}*/}
-                                {/*} else {*/}
-                                    {/*/!*this.getUserCar(this.getUserCarSuccessCallBack);*!/*/}
-                                {/*}*/}
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('GoodsSource');
+                                        DeviceEventEmitter.emit('resetGood');
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
+                                } else {
+                                    this.getUserCar();
+                                }
                             }}
                         />
                         <View style={styles.line}/>
@@ -1084,17 +1099,17 @@ class Home extends Component {
                             badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
                             renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                             clickAction={() => {
-                                {/*if (this.props.plateNumber && this.props.plateNumber !== '') {*/}
-                                    {/*if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {*/}
-                                        {/*/!*this.changeTab('order');*!/*/}
-                                        {/*/!*this.changeOrderTab(1);*!/*/}
-                                        {/*DeviceEventEmitter.emit('changeOrderTabPage', 1);*/}
-                                    {/*} else {*/}
-                                        {/*/!*this.notifyCarStatus();*!/*/}
-                                    {/*}*/}
-                                {/*} else {*/}
-                                    {/*/!*this.getUserCar(this.getUserCarSuccessCallBack);*!/*/}
-                                {/*}*/}
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('Order');
+                                        this.changeOrderTab(1);
+                                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
+                                } else {
+                                    this.getUserCar();
+                                }
                             }}
                         />
                         <View style={styles.line}/>
@@ -1107,17 +1122,17 @@ class Home extends Component {
                             badgeText={0}
                             renderImage={() => <Image source={StaticImage.signIcon}/>}
                             clickAction={() => {
-                                {/*if (this.props.plateNumber && this.props.plateNumber !== '') {*/}
-                                    {/*if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {*/}
-                                        {/*/!*this.changeTab('order');*!/*/}
-                                        {/*/!*this.changeOrderTab(2);*!/*/}
-                                        {/*DeviceEventEmitter.emit('changeOrderTabPage', 2);*/}
-                                    {/*} else {*/}
-                                        {/*/!*this.notifyCarStatus();*!/*/}
-                                    {/*}*/}
-                                {/*} else {*/}
-                                    {/*/!*this.getUserCar(this.getUserCarSuccessCallBack);*!/*/}
-                                {/*}*/}
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('Order');
+                                        this.changeOrderTab(2);
+                                        DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
+                                } else {
+                                    this.getUserCar();
+                                }
                             }}
                         />
                         {/*<View style={styles.line}/>*/}
@@ -1154,7 +1169,7 @@ function mapStateToProps(state) {
     return {
         userInfo: state.user.get('userInfo'),
         homePageState: state.app.get('getHomePageCount'),
-        // jpushIcon: state.jpush.get('jpushIcon'),
+        jpushIcon: state.jpush.get('jpushIcon'),
         location: state.app.get('locationData'),
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
@@ -1170,99 +1185,24 @@ function mapDispatchToProps(dispatch) {
             dispatch(setUserCarAction(plateNumberObj));
         },
 
-        // getIsAcceptMessage: (data) => {
-        //     dispatch(getIsAcceptMessageAction(data));
-        // },
-        //
-        // changeOrderTab: (orderTab) => {
-        //     dispatch(mainPressAction(orderTab));
-        // },
-        //
-        // saveUserSetCarSuccess: (plateNumber) => {
-        //     dispatch(saveUserSetCarSuccess(plateNumber));
-        // },
-        //
-        // saveUserSetCarObjSuccess: (plateNumberObj) => {
-        //     dispatch(saveUserSetCarObjSuccess(plateNumberObj));
-        // },
-        //
-        // setMessageListIcon: (data) => {
-        //     dispatch(setMessageListIconAction(data));
-        // },
-        //
-        // getWeather: (params, getWeatherSuccessCallBack, getWeatherFailCallBack) => {
-        //     dispatch(getWeatherAction({
-        //         successCallBack: (response) => {
-        //             getWeatherSuccessCallBack(response.result);
-        //             dispatch(getWeatherSuccessAction(response));
-        //         },
-        //         failCallBack: (err) => {
-        //             getWeatherFailCallBack();
-        //         },
-        //         ...params,
-        //     }));
-        // },
-        // compareVersionAction: (params, compareSuccessCallBack, compareFailCallBack) => {
-        //     dispatch(compareVersionAction({
-        //         url: API.API_COMPARE_VERSION,
-        //         // url: 'http://192.168.32.144:8899/app/version/',
-        //         body: {
-        //             version: params.version,
-        //             platform: params.platform,
-        //         },
-        //         successCallBack: (response) => {
-        //             compareSuccessCallBack(response.result);
-        //         },
-        //         failCallBack: (response) => {
-        //             compareFailCallBack(response);
-        //         },
-        //     }));
-        // },
-        // updateVersion: (data) => {
-        //     dispatch(updateVersionAction(data));
-        // },
-        // saveUserCarListAction: (data) => {
-        //     dispatch(saveUserCarList(data));
-        // },
-        // getQualificationsStatus: (params, getQualificationsStatusSuccessCallBack) => {
-        //     dispatch(getQualificationsStatusAction({
-        //         url: API.API_AUTH_QUALIFICATIONS_STATUS,
-        //         successCallBack: (response) => {
-        //             getQualificationsStatusSuccessCallBack(response.result);
-        //             // dispatch(getQualificationsStatusSuccessAction(response));
-        //         },
-        //         failCallBack: () => {
-        //
-        //         },
-        //         ...params,
-        //     }));
-        // },
+        changeOrderTab: (orderTab) => {
+            dispatch(mainPressAction(orderTab));
+        },
+
+        setMessageListIcon: (data) => {
+            dispatch(setMessageListIconAction(data));
+        },
+
+        updateVersion: (data) => {
+            dispatch(updateVersionAction(data));
+        },
+
         getLocationAction: (data) => {
             dispatch(locationAction(data));
         },
-        // vehicleLimit: (params, vehicleLimitSuccessCallBack, vehicleLimitFailCallBack) => {
-        //     dispatch(vehicleLimitAction({
-        //         successCallBack: (response) => {
-        //             vehicleLimitSuccessCallBack(response.result);
-        //         },
-        //         failCallBack: (err) => {
-        //             vehicleLimitFailCallBack();
-        //         },
-        //         ...params,
-        //     }));
-        // },
-        // queryEnterpriseNature: (params, queryEnterpriseNatureSuccessCallBack) => {
-        //     dispatch(queryEnterpriseNatureAction({
-        //         successCallBack: (response) => {
-        //             queryEnterpriseNatureSuccessCallBack(response.result);
-        //             dispatch(queryEnterpriseNatureSuccessAction(response.result));
-        //         },
-        //         failCallBack: (err) => {
-        //
-        //         },
-        //         ...params,
-        //     }));
-        // },
+        queryEnterpriseNatureAction: (data) => {
+            dispatch(queryEnterpriseNatureSuccessAction(data));
+        },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

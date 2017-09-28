@@ -292,7 +292,8 @@ export default class CarInfo extends Component {
     }
 
     render() {
-        const {navigator, userInfo} = this.props;
+        // const {navigator, userInfo} = this.props;
+        const navigator = this.props.navigation;
         const aCar = this.state.aCar !== null && this.state.aCar !== '' ? this.state.aCar : '';
         const showDrivingLicensePic = aCar.drivingLicenseThumbnail !== null && aCar.drivingLicenseThumbnail !== '' ||
             aCar.drivingLicensePic && aCar.drivingLicensePic !== '';
@@ -333,7 +334,7 @@ export default class CarInfo extends Component {
                                 style={styles.Button}
                                 textStyle={styles.ButtonText}
                                 onPress={() => {
-                                    this.props.router.replace(RouteType.CERTIFICATION_PAGE);
+                                    this.props.navigation.navigate('CertificationPage')
                                 }}
                             >
                                 立即认证
