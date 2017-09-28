@@ -3,18 +3,20 @@
  */
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
     BackHandler,
     ToastAndroid,
-    DeviceEventEmitter,
 } from 'react-native';
-import {StackNavigator} from 'react-navigation';
-import {StackRouteConfigs, StackNavigatorConfigs} from '../constants/routers';
+import {
+    addNavigationHelpers,
+    NavigationActions,
+} from 'react-navigation';
+import AppNavigator from '../constants/routers';
 import {
     DEBUG,
 } from '../constants/setting';
 
-const AppNavigator = StackNavigator(StackRouteConfigs, StackNavigatorConfigs);
 let lastBackPressed = null;
 
 class App extends Component {
@@ -48,52 +50,49 @@ class App extends Component {
 
     // Android物理返回键点击事件
     onBackAndroid() {
-        if (this.navigator._navigation.state.routes.length > 1) {
-            this.navigator._navigation.goBack();
+        const routers = this.props.nav.routes;
+        console.log('backAndroid,routers=',routers);
+        if (routers.length > 1) {
+            this.props.navigation.dispatch(NavigationActions.back());
+            return true;
+        } else {
+            if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+                //最近2秒内按过back键，可以退出应用。
+                return false;
+            }
+            lastBackPressed = Date.now();
+            ToastAndroid.showWithGravity('再点击一次退出程序', ToastAndroid.SHORT, ToastAndroid.CENTER);
             return true;
         }
-        if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
-            return false;
-        }
-        lastBackPressed = Date.now();
-        ToastAndroid.showWithGravity('再点击一次退出程序', ToastAndroid.SHORT, ToastAndroid.CENTER);
-        return true;
+        // if (this.navigator._navigation.state.routes.length > 1) {
+        //     this.navigator._navigation.goBack();
+        //     return true;
+        // }
+        // if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+        //     return false;
+        // }
+        // lastBackPressed = Date.now();
+        // ToastAndroid.showWithGravity('再点击一次退出程序', ToastAndroid.SHORT, ToastAndroid.CENTER);
+        // return true;
     }
 
 
     render() {
+        const { dispatch, nav } = this.props;
         return (
             <AppNavigator
-                ref={nav => { this.navigator = nav; }}
-                onNavigationStateChange={(prevNav, nav, action)=>{
-                    console.log('prevNav=',prevNav);
-                    console.log('nav=',nav);
-                    console.log('action=',action);
-
-                    switch (action.routeName) {
-
-                        case 'Home':
-                            break;
-
-                        case 'GoodsSource':
-                            break;
-
-                        case 'Order':
-                            break;
-
-                        case 'Mine':
-                            DeviceEventEmitter.emit('refreshMine');
-                            break;
-
-                        default:
-                            break
-                    }
-
-                }}
+                // ref={nav => { this.navigator = nav; }}
+                navigation={addNavigationHelpers({
+                    dispatch: dispatch,
+                    state: nav
+                })}
             />
         );
     }
 }
 
-export default App;
+const mapStateToProps = state =>({
+    nav: state.nav,
+});
 
+export default connect(mapStateToProps)(App);

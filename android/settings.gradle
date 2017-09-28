@@ -1,11 +1,8 @@
 rootProject.name = 'Driver'
 include ':react-native-picker-custom'
 project(':react-native-picker-custom').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-picker-custom/android')
-<<<<<<< HEAD
 include ':react-native-camera'
 project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
-=======
->>>>>>> feature-good
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':react-native-fetch-blob'
@@ -16,8 +13,6 @@ include ':react-native-device-info'
 project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
 include ':jpush-react-native'
 project(':jpush-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/jpush-react-native/android')
-include ':@remobile/react-native-toast'
-project(':@remobile/react-native-toast').projectDir = new File(rootProject.projectDir, '../node_modules/@remobile/react-native-toast/android')
 include ':react-native-baidu-map-xzx'
 project(':react-native-baidu-map-xzx').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-baidu-map-xzx/android')
 include ':react-native-toast'

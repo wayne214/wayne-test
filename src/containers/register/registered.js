@@ -310,7 +310,7 @@ export default class Registered extends Component {
                         style={styles.loginButton}
                         textStyle={styles.loginButtonText}
                         onPress={() => {
-                            this.props.navigation.navigate('RegisterSuccess');
+                            this.registerAccount();
                     }}
                     >
                         立即注册
