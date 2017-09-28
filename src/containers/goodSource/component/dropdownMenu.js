@@ -83,7 +83,7 @@ export default class DropdownMenu extends Component {
     }
 
     componentDidMount() {
-        this.listener = DeviceEventEmitter.addListener('resetgood', () => {
+        this.listener = DeviceEventEmitter.addListener('resetGood', () => {
             this.setState({
                 selectIndex: [0, 1],
             });
