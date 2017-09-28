@@ -690,7 +690,9 @@ class Home extends Component {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
-                this.props.getHomoPageCountAction(responseData.result);
+                if (responseData.result) {
+                    this.props.getHomoPageCountAction(responseData.result);
+                }
             },
             error: ()=>{},
             finish: ()=>{},
@@ -781,6 +783,7 @@ class Home extends Component {
                             if (plateNumber !== null) {
                                 this.setState({
                                     plateNumber: plateNumber,
+                                    plateNumberObj: plateNumObj,
                                 });
                                 if (value === 3) {
                                     const {userInfo} = this.props;
@@ -788,7 +791,9 @@ class Home extends Component {
                                     // this.prop.plateNumber
                                     this.getHomePageCount(plateNumber, userInfo.phone);
                                 } else {
-                                    this.setUserCar(plateNumber, this.setUserCarSuccessCallBack);
+                                    if (plateNumber) {
+                                        this.setUserCar(plateNumber, this.setUserCarSuccessCallBack);
+                                    }
                                 }
                             }
                         }
