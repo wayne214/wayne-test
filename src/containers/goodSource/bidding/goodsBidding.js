@@ -328,7 +328,7 @@ class goodsBidding extends Component {
 
 function mapStateToProps(state) {
     return {
-        userPlateNumber: state.app.get('plateNumber'),
+        userPlateNumber: state.user.get('plateNumber'),
     };
 }
 

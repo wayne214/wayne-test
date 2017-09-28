@@ -524,7 +524,7 @@ entryGoodsDetail.propTypes = {
 };
 function mapStateToProps(state) {
     return {
-        plateNumber: state.app.get('plateNumber'),
+        plateNumber: state.user.get('plateNumber'),
     };
 }
 
