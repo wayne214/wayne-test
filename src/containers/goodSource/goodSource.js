@@ -90,7 +90,7 @@ class GoodSource extends BaseContainer{
             });
         }
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
-        this.listener = DeviceEventEmitter.addListener('resetgood', () => {
+        this.listener = DeviceEventEmitter.addListener('resetGood', () => {
             this.receiveEventAndFetchData();
         });
     }

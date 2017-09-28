@@ -1084,8 +1084,9 @@ class Home extends Component {
                             clickAction={() => { // 点击事件
                                 if (this.props.plateNumber && this.props.plateNumber !== '') {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('GoodsSource');
                                         DeviceEventEmitter.emit('resetGood');
+                                        this.props.navigation.navigate('GoodsSource');
+                                        // DeviceEventEmitter.emit('resetGood');
                                     } else {
                                         this.notifyCarStatus();
                                     }
