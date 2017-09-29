@@ -225,11 +225,11 @@ class entryGoodsDetail extends Component {
             typeString = 'receiver';
         }
 
-        // this.props.navigation.navigate('', {
-        //     sendAddr: item.deliveryInfo.departureAddress,
-        //     receiveAddr: item.deliveryInfo.receiveAddress,
-        //     clickFlag: typeString,
-        // });
+        this.props.navigation.navigate('BaiduMap', {
+            sendAddr: item.deliveryInfo.departureAddress,
+            receiveAddr: item.deliveryInfo.receiveAddress,
+            clickFlag: typeString,
+        });
     }
 
     /*

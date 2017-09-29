@@ -177,9 +177,7 @@ class CarInfo extends Component {
                     this.setState({
                         aCar: {},
                     });
-                    InteractionManager.runAfterInteractions(() => {
-                        this.fetchData();
-                    });
+                    this.fetchData();
                 }
             }
         });
@@ -251,10 +249,18 @@ class CarInfo extends Component {
                     });
                 },
                 success: (response) => {
-                    getCarInfoSuccessCallBack(response.result);
+                    this.setState({
+                        loading: false,
+                    }, () => {
+                        getCarInfoSuccessCallBack(response.result);
+                    });
                 },
                 error: (err) => {
-                    getCarInfoFailCallBack();
+                    this.setState({
+                        loading: false,
+                    }, () => {
+                        getCarInfoFailCallBack();
+                    });
                 },
                 finish: () => {
                     this.setState({
