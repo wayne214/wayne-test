@@ -46,7 +46,8 @@ import {
 
 import {
     setUserCarAction,
-    queryEnterpriseNatureSuccessAction
+    queryEnterpriseNatureSuccessAction,
+    saveUserCarList,
 } from '../../action/user';
 
 import {setMessageListIconAction} from '../../action/jpush';
@@ -594,6 +595,7 @@ class Home extends Component {
 
         if (result) {
             if(result.length > 1) {
+                this.saveUserCarList(result);
                 this.props.navigation.navigate('ChooseCar',{
                     carList: result,
                     currentCar: '',
@@ -620,7 +622,9 @@ class Home extends Component {
                 ], {cancelable: false});
         }
     }
-
+    saveUserCarList(carList) {
+        this.props.saveUserCarListAction(carList);
+    }
     // 设置车辆
     setUserCar(plateNumber) {
         currentTime = new Date().getTime();
@@ -672,7 +676,7 @@ class Home extends Component {
 
     // 保存车辆列表
     saveUserCarList(carList) {
-        Storage.save(StorageKey.userCarList, carList);
+        this.props.saveUserCarListAction(carList);
     }
 
 
@@ -776,6 +780,10 @@ class Home extends Component {
                 this.getUserCar();
             } else {
                 setTimeout(() => {
+                    // 开发中reload后，保存车辆列表信息，后面切换车辆会用到
+                    Storage.get(StorageKey.userCarList).then((value) => {
+                        this.saveUserCarList(value);
+                    });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
@@ -1210,6 +1218,9 @@ function mapDispatchToProps(dispatch) {
         },
         queryEnterpriseNatureAction: (data) => {
             dispatch(queryEnterpriseNatureSuccessAction(data));
+        },
+        saveUserCarListAction: (data) => {
+            dispatch(saveUserCarList(data));
         },
     };
 }

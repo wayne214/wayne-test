@@ -33,3 +33,5 @@ export const UPDATE_VERSION = 'UPDATE_VERSION'; // 版本升级
 export const ACTION_RESET_CITY_LIST = 'ACTION_RESET_CITY_LIST'; // 是否刷新出发城市
 
 export const ACTION_MAIN_PRESS = 'ACTION_MAIN_PRESS';// 主界面点击事件
+
+export const ACTION_SAVE_USER_CAR_LIST = 'ACTION_SAVE_USER_CAR_LIST';// 主界面点击事件

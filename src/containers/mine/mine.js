@@ -457,13 +457,11 @@ class Mine extends Component {
 
         const changeCarView = this.props.userCarList && this.props.userCarList.length > 1 ?
             <TouchableOpacity onPress={() => {
-                {/*Storage.get('userCarList').then((value) => {*/}
-                    {/*this.props.router.redirect(RouteType.CHANGECAR_PAGE, {*/}
-                        {/*carList: value,*/}
-                        {/*currentCar: this.props.plateNumber,*/}
-                        {/*flag: false,*/}
-                    {/*});*/}
-                {/*});*/}
+                this.props.navigation.navigate('ChooseCar',{
+                    carList: this.props.userCarList,
+                    currentCar: this.props.plateNumber,
+                    flag: false,
+                });
             }}>
                 <View
                     style={{
