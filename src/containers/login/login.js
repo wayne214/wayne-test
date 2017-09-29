@@ -120,8 +120,8 @@ class Login extends BaseContainer {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: __DEV__ ? '15111111111' : '',
-            password: __DEV__ ? '123456' : ''
+            phoneNumber: __DEV__ ? '13120382724' : '',
+            password: __DEV__ ? 'asd123' : ''
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);

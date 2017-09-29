@@ -11,7 +11,7 @@ import {
     Dimensions,
     StyleSheet,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+// import { NavigationActions } from 'react-navigation';
 
 import NavigatorBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';

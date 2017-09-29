@@ -11,7 +11,7 @@ import {
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
-// import ChooseCar from '../containers/chooseCar';
+import BaiduMap from '../common/baiduMap';
 // import Income from '../containers/income/income';
 // import BillWaterPage from '../containers/income/billWaterPage';
 
@@ -55,7 +55,7 @@ import BankCardDeatil from '../containers/income/bankCardDeatil';
 import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
 import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
 import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
-import ImageShow from '../containers/order/imageShow';
+import ImageShow from '../containers/order/components/imageShow';
 import CarInfo from '../containers/mine/carInfo';
 import CarDisablePage from '../containers/mine/carDisablePage';
 
@@ -86,12 +86,12 @@ const StackRouteConfigs = {
             header: null
         }
     },
-    // Setting: {
-    //     screen: Setting,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    BaiduMap: {
+        screen: BaiduMap,
+        navigationOptions: {
+            header: null
+        }
+    },
     Protocol: {
         screen: Protocol,
         navigationOptions: {
