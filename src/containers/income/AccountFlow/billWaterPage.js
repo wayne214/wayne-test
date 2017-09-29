@@ -17,7 +17,7 @@ import BillWaterCell from './cell/billWaterCell';
 import * as API from '../../../constants/api';
 import EmptyView from '../../../common/emptyView/emptyView';
 import StaticImage from '../../../constants/staticImage';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../../utils/httpRequest'
 let currentTime = 0;
