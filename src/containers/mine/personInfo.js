@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {
     View,
@@ -205,8 +205,11 @@ class PersonInfo extends Component {
                         });
                     },
                     error: (err) => {
-                        getPersonInfoFailCallback();
-
+                        this.setState({
+                            loading: false,
+                        }, () => {
+                            getPersonInfoFailCallback();
+                        });
                     },
                     finish: () => {
                         this.setState({
@@ -380,12 +383,12 @@ class PersonInfo extends Component {
     }
 }
 
-// PersonInfo.propTypes = {
-//     navigator: React.PropTypes.object.isRequired,
-//     getPersonInfoAction: React.PropTypes.func.isRequired,
-//     driverInfo: React.PropTypes.object.isRequired,
-//     router: React.PropTypes.object.isRequired,
-// };
+PersonInfo.propTypes = {
+    navigator: PropTypes.object.isRequired,
+    getPersonInfoAction: PropTypes.func.isRequired,
+    driverInfo: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
     return {

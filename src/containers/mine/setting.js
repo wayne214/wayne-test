@@ -156,18 +156,19 @@ class setting extends Component {
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
-        Storage.remove('userInfo');
-        Storage.remove('setCarSuccessFlag');
-        Storage.remove('plateNumber');
-        Storage.remove('userCarList');
-        Storage.remove('personInfoResult');
-        Storage.remove('carInfoResult');
-        Storage.remove('NewPhotoRefNo');
-        Storage.remove('changePersonInfoResult');
-        Storage.remove('changeCarInfoResult');
-        Storage.remove('acceptMessage');
-        Storage.remove('setCityFlag');
-        Storage.remove('plateNumberObj');
+        // Storage.remove('userInfo');
+        // Storage.remove('setCarSuccessFlag');
+        // Storage.remove('plateNumber');
+        // Storage.remove('userCarList');
+        // Storage.remove('personInfoResult');
+        // Storage.remove('carInfoResult');
+        // Storage.remove('NewPhotoRefNo');
+        // Storage.remove('changePersonInfoResult');
+        // Storage.remove('changeCarInfoResult');
+        // Storage.remove('acceptMessage');
+        // Storage.remove('setCityFlag');
+        // Storage.remove('plateNumberObj');
+        Storage.clear();
         JPushModule.setAlias('', ()=>{}, ()=>{});
 
         const resetAction = NavigationActions.reset({
