@@ -107,7 +107,7 @@ class verifiedTravelPaperItem extends Component{
 
         let imagePath;
 
-        if (rightImage.uri === '../images/qiangxian_right.png') {
+        if (rightImage.uri === '../navigationBar/qiangxian_right.png') {
             imagePath = a8;
         }else
             imagePath = rightImage;

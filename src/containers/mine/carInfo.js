@@ -27,7 +27,7 @@ import NoImage from '../../../assets/person/noiamgeShow.png';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import Loading from '../../utils/loading';
-
+import StorageKeys from '../../constants/storageKeys';
 
 let imgListTemp = [];
 let imgList = [];
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class CarInfo extends Component {
+class CarInfo extends Component {
 
     constructor(props) {
         super(props);
@@ -194,7 +194,7 @@ export default class CarInfo extends Component {
         });
     }
     fetchData() {
-        Storage.get('userInfo').then((userInfo) => {
+        Storage.get(StorageKeys.USER_INFO).then((userInfo) => {
             if (userInfo) {
                 this.getCarInfo(userInfo, this.getCarInfoSuccessCallBack, this.getCarInfoFailCallBack);
             }
@@ -237,13 +237,13 @@ export default class CarInfo extends Component {
     }
     getCarInfo(userInfo, getCarInfoSuccessCallBack, getCarInfoFailCallBack) {
         currentTime = new Date().getTime();
-        const plateNum = this.props.userPlateNumber;
-        if (plateNum) {
+        const plateNumber = this.props.userPlateNumber;
+        if (plateNumber) {
             HTTPRequest({
                 url: API.API_AUTH_QUALIFICATIONS_DETAIL,
                 params: {
-                    phoneNum: userInfo.result.phone,
-                    plateNumber: plateNum,
+                    phoneNum: userInfo.phone,
+                    plateNumber: plateNumber,
                 },
                 loading: () => {
                     this.setState({
@@ -446,4 +446,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-connect(mapStateToProps, mapDispatchToProps)(CarInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(CarInfo);

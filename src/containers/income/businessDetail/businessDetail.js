@@ -107,6 +107,7 @@ class detailsPage extends Component {
                     lastTime = new Date().getTime();
                     ReadAndWriteFileUtil.appendFile('获取业务明细', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                         locationData.district, lastTime - currentTime, '业务明细页面');
+                    const result = responseData.result;
                     if (!result) {
                         Toast.showShortCenter('暂无数据');
                         this.setState({

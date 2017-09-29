@@ -183,7 +183,7 @@ export default class AddBankCard extends Component {
                 <Text
                     style={{
                         margin: 10,
-                        lineHeight: 20,
+                        lineHeight: 22,
                         color: '#666666'
                     }}
                 >该银行卡将用于接收您在鲜易供应链的运费。为保证您能顺利收到，请务必填写真实准确的信息。</Text>

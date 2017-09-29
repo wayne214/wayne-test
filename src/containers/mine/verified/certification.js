@@ -116,7 +116,7 @@ class certification extends Component {
                 travelRightImage: {uri: result.drivingLicenseThumbnail},
                 travelTrunRightImage: {
                     uri: result.drivingLicenseSecondaryThumbnail ?
-                        result.drivingLicenseSecondaryThumbnail : '../images/driverTrunAdd.png'
+                        result.drivingLicenseSecondaryThumbnail : '../navigationBar/driverTrunAdd.png'
                 },
                 qiangxianRightImage: {uri: result.insuranceThumbnail},
                 carHeaderRightImage: {uri: result.carHeadThumbnail},
@@ -870,10 +870,10 @@ class certification extends Component {
                             insuranceDate: this.state.insuranceData, // 强险有效期至
 
 
-                            drivingLicenseThumbnail: this.state.travelRightImage.uri ? this.state.travelRightImage.uri : '../images/travelCardHome_right.png',
-                            drivingLicenseSecondaryThumbnail: this.state.travelTrunRightImage.uri ? this.state.travelTrunRightImage.uri : '../images/travelCard_right.png',
-                            insuranceThumbnail: this.state.qiangxianRightImage.uri ?this.state.qiangxianRightImage.uri : '../images/qiangxian_right.png',
-                            carHeadThumbnail: this.state.carHeaderRightImage.uri ? this.state.carHeaderRightImage.uri : '../images/carheader_right.png',
+                            drivingLicenseThumbnail: this.state.travelRightImage.uri ? this.state.travelRightImage.uri : '../navigationBar/travelCardHome_right.png',
+                            drivingLicenseSecondaryThumbnail: this.state.travelTrunRightImage.uri ? this.state.travelTrunRightImage.uri : '../navigationBar/travelCard_right.png',
+                            insuranceThumbnail: this.state.qiangxianRightImage.uri ?this.state.qiangxianRightImage.uri : '../navigationBar/qiangxian_right.png',
+                            carHeadThumbnail: this.state.carHeaderRightImage.uri ? this.state.carHeaderRightImage.uri : '../navigationBar/carheader_right.png',
 
 
                             drivingLicensePicRelative: this.state.vehicleLicenseHomepageNormalPhotoAddress, // 行驶证主页原图

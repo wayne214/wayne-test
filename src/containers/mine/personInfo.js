@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class PersonInfo extends Component {
+class PersonInfo extends Component {
 
     constructor(props) {
         super(props);
@@ -387,38 +387,14 @@ export default class PersonInfo extends Component {
 //     router: React.PropTypes.object.isRequired,
 // };
 
-// function mapStateToProps(state) {
-//     console.log('------ state====', state);
-//     console.log('......data', state.app.get('getPersonInfoData'));
-//     return {
-//         app: state.app,
-//         driverInfo: state.app.get('getPersonInfoData'),
-//         appLoading: state.app.get('appLoading'),
-//         verifiedState: state.jpush.get('verifiedState'),
-//     };
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getPersonInfoAction: (params, getPersonInfoSuccessCallback, getPersonInfoFailCallback) => {
-//             dispatch(getPersonInfoAction({
-//                 url: API.API_AUTH_REALNAME_DETAIL + params.mobilePhone,
-//                 body: {
-//                     phoneNum: params.mobilePhone,
-//                 },
-//                 successCallBack: (response) => {
-//                     getPersonInfoSuccessCallback(response.result);
-//                 },
-//                 failCallBack: () => {
-//                     getPersonInfoFailCallback();
-//                     dispatch(changeAppLoadingAction(false));
-//                 },
-//             }));
-//         },
-//         changeAppLoading: (appLoading) => {
-//             dispatch(changeAppLoadingAction(appLoading));
-//         },
-//     };
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(PersonInfo);
+function mapStateToProps(state) {
+    return {
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonInfo);

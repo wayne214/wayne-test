@@ -951,7 +951,7 @@ class Verified extends Component {
 
                             console.log('this.state.idCardTrunImage.uri:', this.state.idCardTrunImage.uri);
                         }else{
-                            console.log('./images/IdCardTurnAdd.png');
+                            console.log('./navigationBar/IdCardTurnAdd.png');
                         }
 
                         let info = {
@@ -959,8 +959,8 @@ class Verified extends Component {
 
                             idCardName: this.state.IDName, // 身份证姓名
                             idCard: this.state.IDCard, // 身份证ID
-                            idFaceSideThumbnailAddress: this.state.idCardImage.uri ? this.state.idCardImage.uri : '../images/IdCardAdd.png', // 身份证正面图片url
-                            idBackSideThumbnailAddress: this.state.idCardTrunImage.uri ? this.state.idCardTrunImage.uri : '../images/IdCardTurnAdd.png', // 身份证反面图片url
+                            idFaceSideThumbnailAddress: this.state.idCardImage.uri ? this.state.idCardImage.uri : '../navigationBar/IdCardAdd.png', // 身份证正面图片url
+                            idBackSideThumbnailAddress: this.state.idCardTrunImage.uri ? this.state.idCardTrunImage.uri : '../navigationBar/IdCardTurnAdd.png', // 身份证反面图片url
                             positiveCardRelative: this.state.idFaceSideNormalPhotoAddress, // 身份证正面原图
                             idFaceSideThumbnailAddressRelative: this.state.idFaceSideThumbnailAddress, // 身份证正面缩略图
 
@@ -973,8 +973,8 @@ class Verified extends Component {
                             drivingLicenseStartDate: this.state.drivingLicenseStartDate, // 驾驶证发证日期
                             driverCardExpiry: this.state.drivingLicenseValidUntil, // 驾驶证有效期
                             quasiCarType: this.state.motorcycleType, // 驾驶证类型
-                            drivingLicenseHomepageThumbnailAddress: this.state.driverCarImage.uri ? this.state.driverCarImage.uri : '../images/driverAdd.png', // 驾驶证正面图片url
-                            drivingLicenseVicePageThumbnailAddress: this.state.drivereCarTrunImage.uri ? this.state.drivereCarTrunImage.uri : '../images/driverTrunAdd.png', // 驾驶证反面图片url
+                            drivingLicenseHomepageThumbnailAddress: this.state.driverCarImage.uri ? this.state.driverCarImage.uri : '../navigationBar/driverAdd.png', // 驾驶证正面图片url
+                            drivingLicenseVicePageThumbnailAddress: this.state.drivereCarTrunImage.uri ? this.state.drivereCarTrunImage.uri : '../navigationBar/driverTrunAdd.png', // 驾驶证反面图片url
 
                             drivingLicenceHomePageRelative: this.state.drivingLicenseHomepageNormalPhotoAddress, // 驾驶证正面原图
                             drivingLicenseHomepageThumbnailAddressRelative: this.state.drivingLicenseHomepageThumbnailAddress, // 驾驶证正面缩略图
@@ -984,7 +984,7 @@ class Verified extends Component {
 
                             handleIdNormalPhotoAddressRelative: this.state.handleIDNormalPhotoAddress, // 手持身份证原图
                             handleIdThumbnailAddressRelative: this.state.handleIDThumbnailAddress, // 手持身份证缩略图
-                            handleIdThumbnailAddress: this.state.handPicImage.uri ? this.state.handPicImage.uri : '../images/handPicModel.png', // 手持身份证图片url
+                            handleIdThumbnailAddress: this.state.handPicImage.uri ? this.state.handPicImage.uri : '../navigationBar/handPicModel.png', // 手持身份证图片url
 
                             isChooseCardImage: this.state.isChooseCardImage,
                             isChooseCardTrunImage: this.state.isChooseCardTrunImage,
