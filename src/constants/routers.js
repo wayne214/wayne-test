@@ -55,7 +55,7 @@ import BankCardDeatil from '../containers/income/bankCardDeatil';
 import GoodsPreferencePage from '../containers/goodSource/preference/goodsPreferences';
 import ChoiceCityPage from '../containers/goodSource/preference/choiceCitys';
 import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
-import ImageShow from '../containers/order/imageShow';
+import ImageShow from '../containers/order/components/imageShow';
 import CarInfo from '../containers/mine/carInfo';
 import CarDisablePage from '../containers/mine/carDisablePage';
 

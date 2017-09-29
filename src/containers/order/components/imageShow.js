@@ -8,11 +8,14 @@ import {
     View,
     Text,
 } from 'react-native';
-// import NavigatorBar from '../../common/navigationBar';
+import NavigatorBar from '../../../common/navigationBar/navigationBar';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import stylesCommon from '../../../assets/css/common';
-// import loadFail from '../../../assets/img/load_fail.png';
+import loadFail from '../../../../assets/order/load_fail.png';
 const simpleStyle = {
+    container: {
+        flex: 1,
+        backgroundColor: '#F5F5F5',
+    },
     count: {
         position: 'absolute',
         left: 0,
@@ -55,17 +58,17 @@ export default class ImageShow extends Component {
     render() {
         const navigator = this.props.navigation;
         return (
-            <View style={stylesCommon.container}>
-                {/*<NavigatorBar*/}
-                    {/*title={'回单'}*/}
-                    {/*navigator={navigator}*/}
-                    {/*leftButtonHidden={false}*/}
-                {/*/>*/}
+            <View style={simpleStyle.container}>
+                <NavigatorBar
+                title={'回单'}
+                navigator={navigator}
+                leftButtonHidden={false}
+            />
                 <ImageViewer
                     imageUrls={this.state.images}
                     enableImageZoom={true}
                     index={this.state.imageIndex}
-                    // failImageSource={loadFail}
+                    failImageSource={loadFail}
                     renderIndicator={(currentIndex, allSize) => {
                         return React.createElement(View, { style: simpleStyle.count }, React.createElement(Text, { style: simpleStyle.countText }, allSize + '-' + currentIndex));
                     }}
