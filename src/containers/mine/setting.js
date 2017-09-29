@@ -157,22 +157,22 @@ class setting extends Component {
         ImageCache.get().clear();
         DeviceEventEmitter.emit('updateOrderList');
 
-        // Storage.remove('userInfo');
-        // Storage.remove('setCarSuccessFlag');
-        // Storage.remove('plateNumber');
-        // Storage.remove('userCarList');
-        // Storage.remove('personInfoResult');
-        // Storage.remove('carInfoResult');
-        // Storage.remove('NewPhotoRefNo');
-        // Storage.remove('changePersonInfoResult');
-        // Storage.remove('changeCarInfoResult');
-        // Storage.remove('acceptMessage');
-        // Storage.remove('setCityFlag');
-        // Storage.remove('plateNumberObj');
+        Storage.remove('userInfo');
+        Storage.remove('setCarSuccessFlag');
+        Storage.remove('plateNumber');
+        Storage.remove('userCarList');
+        Storage.remove('personInfoResult');
+        Storage.remove('carInfoResult');
+        Storage.remove('NewPhotoRefNo');
+        Storage.remove('changePersonInfoResult');
+        Storage.remove('changeCarInfoResult');
+        Storage.remove('acceptMessage');
+        Storage.remove('setCityFlag');
+        Storage.remove('plateNumberObj');
 
 
         // 清空存储数据
-        Storage.clear();
+        // Storage.clear();
         JPushModule.setAlias('', ()=>{}, ()=>{});
 
         const resetAction = NavigationActions.reset({
