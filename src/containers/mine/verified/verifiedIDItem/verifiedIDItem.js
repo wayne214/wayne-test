@@ -118,21 +118,21 @@ class verifiedIDItem extends Component{
 
         let imagePath;
 
-            if (rightImage.uri === '../images/IdCardAdd.png'){
+            if (rightImage.uri === '../navigationBar/IdCardAdd.png'){
                 imagePath = a1;
-            }else if (rightImage.uri === '../images/IdCardTurnAdd.png') {
+            }else if (rightImage.uri === '../navigationBar/IdCardTurnAdd.png') {
                 imagePath = a2;
-            }else if (rightImage.uri === '../images/driverAdd.png') {
+            }else if (rightImage.uri === '../navigationBar/driverAdd.png') {
                 imagePath = a3;
-            }else if (rightImage.uri === '../images/driverTrunAdd.png') {
+            }else if (rightImage.uri === '../navigationBar/driverTrunAdd.png') {
                 imagePath = a4;
-            }else if (rightImage.uri === '../images/handPicModel.png') {
+            }else if (rightImage.uri === '../navigationBar/handPicModel.png') {
                 imagePath = a5;
-            }else if (rightImage.uri === '../images/travelCardHome_right.png') {
+            }else if (rightImage.uri === '../navigationBar/travelCardHome_right.png') {
                 imagePath = a6;
-            }else if (rightImage.uri === '../images/travelCard_right.png') {
+            }else if (rightImage.uri === '../navigationBar/travelCard_right.png') {
                 imagePath = a7;
-            }else if (rightImage.uri === '../images/carheader_right.png') {
+            }else if (rightImage.uri === '../navigationBar/carheader_right.png') {
                 imagePath = a9;
             }else {
                 imagePath = rightImage;

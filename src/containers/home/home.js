@@ -877,7 +877,7 @@ class Home extends Component {
     }
 
     pushToMsgList() {
-        // this.props.navigation.navigate('');
+        this.props.navigation.navigate('MsgList');
     }
 
     //获取天气方法
@@ -887,10 +887,11 @@ class Home extends Component {
             url: API.API_GET_WEATHER + '?city=' + city,
             params: {},
             loading: ()=>{},
-            success: (result)=>{
+            success: (responseData)=>{
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取天气', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                         locationData.district, lastTime - currentTime, '首页');
+                const result = responseData.result;
                 if (result.weather){
                     this.setState({
                         weather: result.weather,
@@ -987,7 +988,8 @@ class Home extends Component {
     }
 
     render() {
-        const {homePageState} = this.props;
+        const {homePageState,routes} = this.props;
+        console.log('routes=',routes);
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const TitleView =
             <View style={styles.container}>
@@ -1083,8 +1085,9 @@ class Home extends Component {
                             clickAction={() => { // 点击事件
                                 if (this.props.plateNumber && this.props.plateNumber !== '') {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('GoodsSource');
                                         DeviceEventEmitter.emit('resetGood');
+                                        this.props.navigation.navigate('GoodsSource');
+                                        // DeviceEventEmitter.emit('resetGood');
                                     } else {
                                         this.notifyCarStatus();
                                     }
@@ -1177,6 +1180,7 @@ function mapStateToProps(state) {
         location: state.app.get('locationData'),
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
+        routes: state.nav.routes,
     };
 }
 

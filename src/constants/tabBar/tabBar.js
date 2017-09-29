@@ -13,16 +13,16 @@ import {
     TabBarBottom,
 } from 'react-navigation';
 
-import HomeRenderIcon from './images/bar_home_nomarl.png';
-import HomePressedIcon from './images/bar_home_pressed.png';
-import CenterRenderIcon from './images/bar_center_normal.png';
-import CenterPressedIcon from './images/bar_center_pressed.png';
-import NearRenderIcon from './images/bar_map_normal.png';
-import NearPressedIcon from './images/bar_map_pressed.png';
-import OrderRenderIcon from './images/bar_order_normal.png';
-import OrderPressedIcon from './images/bar_order_pressed.png';
-import IncomeRenderIcon from './images/bar_income_normal.png';
-import IncomePressedIcon from './images/bar_income_pressed.png';
+import HomeRenderIcon from '../../../assets/tabBar/bar_home_nomarl.png';
+import HomePressedIcon from '../../../assets/tabBar/bar_home_pressed.png';
+import CenterRenderIcon from '../../../assets/tabBar/bar_center_normal.png';
+import CenterPressedIcon from '../../../assets/tabBar/bar_center_pressed.png';
+import NearRenderIcon from '../../../assets/tabBar/bar_map_normal.png';
+import NearPressedIcon from '../../../assets/tabBar/bar_map_pressed.png';
+import OrderRenderIcon from '../../../assets/tabBar/bar_order_normal.png';
+import OrderPressedIcon from '../../../assets/tabBar/bar_order_pressed.png';
+import IncomeRenderIcon from '../../../assets/tabBar/bar_income_normal.png';
+import IncomePressedIcon from '../../../assets/tabBar/bar_income_pressed.png';
 
 import Home from '../../containers/home/home';
 import Mine from '../../containers/mine/mine';

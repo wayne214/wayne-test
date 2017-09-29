@@ -38,7 +38,7 @@ class bussnessHeaderItem extends Component{
         const imageViews = [];
         for (let i = 0; i < this.images.length; i++) {
             imageViews.push(
-                <Text key={i} style={{color: '#309ded', marginTop: 5, lineHeight: 20}}>
+                <Text key={i} style={{color: '#309ded', marginTop: 5, lineHeight: 22}}>
                     {this.images[i]}
                 </Text>,
             );
@@ -51,7 +51,7 @@ class bussnessHeaderItem extends Component{
                 <View style={styles.container}>
                     <View style={{height: 40, width: 40, borderRightWidth: 0.5, borderRightColor: '#999999',marginVertical: 5, marginHorizontal: 5}}>
                         <Image source={StaticImages.bussness_gg} style={{alignSelf: 'center', marginTop: 2}}/>
-                        <Text style={{color: '#309ded', alignSelf: 'center', marginTop: 5}}>公告</Text>
+                        <Text style={{color: '#309ded', alignSelf: 'center', marginTop: 7}}>公告</Text>
                     </View>
                     <Swiper
                         horizontal={false}
