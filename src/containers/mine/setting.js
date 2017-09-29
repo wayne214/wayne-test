@@ -165,7 +165,6 @@ class setting extends Component {
         Storage.remove('NewPhotoRefNo');
         Storage.remove('changePersonInfoResult');
         Storage.remove('changeCarInfoResult');
-        Storage.remove('haseSubmitQuote');
         Storage.remove('acceptMessage');
         Storage.remove('setCityFlag');
         Storage.remove('plateNumberObj');

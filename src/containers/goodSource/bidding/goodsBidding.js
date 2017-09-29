@@ -94,21 +94,16 @@ class goodsBidding extends Component {
         this.state = {
             price: '',
             scheduleCode: params.bidScheduleCode,
-            // scheduleCode: 'DP170801000005',
             bidEndTime: params.endTime,
-            // bidEndTime: '2017-08-10 17:55:28',
             isProvideInvoice: true,
             lastOffer: '', // 上次报价
             lastRank: '', // 上次排名
             referencePrice: '', // 参考价
             isClicked: true,
             plateNumber: this.props.userPlateNumber,
-            // plateNumber: '豫A6T16M',
             phone: global.phone,
-            // phone: '15637158767',
             showDeleteButton: false,
             refPrice: params.refPrices,
-            // refPrice: '111',
         };
         this.isProvideInvoice = this.isProvideInvoice.bind(this);
         this.clearInput = this.clearInput.bind(this);
@@ -154,7 +149,6 @@ class goodsBidding extends Component {
         this.setState({
             isClicked: false,
         });
-        Storage.save('haseSubmitQuote','1');
         this.queryRankPrice(this.queryRankSuccessCallBack, this.queryRankFailCallBack);
     }
     submitQuoteFailCallBack() {}
@@ -316,7 +310,7 @@ class goodsBidding extends Component {
                             this.state.isClicked ? this.submitPrice(this.submitQuoteSuccessCallBack, this.submitQuoteFailCallBack) : console.log('查询报价排名中');
                         }}
                         onEnded={() => {
-                            DeviceEventEmitter.emit('resetgood');
+                            DeviceEventEmitter.emit('resetGood');
                         }
                         }
                     />

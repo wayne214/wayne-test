@@ -492,7 +492,7 @@ class entryGoodsDetail extends Component {
                                     show: false,
                                 });
                                 // 竞单时间结束后，发送监听刷新货源列表
-                                DeviceEventEmitter.emit('resetgood');
+                                DeviceEventEmitter.emit('resetGood');
                             }}
                         /> : null
                 }
