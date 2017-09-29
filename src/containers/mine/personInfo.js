@@ -383,13 +383,6 @@ class PersonInfo extends Component {
     }
 }
 
-PersonInfo.propTypes = {
-    navigator: PropTypes.object.isRequired,
-    getPersonInfoAction: PropTypes.func.isRequired,
-    driverInfo: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired,
-};
-
 function mapStateToProps(state) {
     return {
     };
