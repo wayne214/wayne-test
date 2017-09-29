@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class commnCellWithArrow extends Component {
+class commonCellWithArrow extends Component {
     static propTypes = {
         style: PropTypes.object,
         hideArrowIcon: PropTypes.bool,
@@ -85,4 +85,4 @@ class commnCellWithArrow extends Component {
     }
 }
 
-export default commnCellWithArrow;
+export default commonCellWithArrow;
