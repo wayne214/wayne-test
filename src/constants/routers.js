@@ -11,7 +11,7 @@ import {
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 // import Setting from '../containers/setting';
-// import ChooseCar from '../containers/chooseCar';
+import BaiduMap from '../common/baiduMap';
 // import Income from '../containers/income/income';
 // import BillWaterPage from '../containers/income/billWaterPage';
 
@@ -86,12 +86,12 @@ const StackRouteConfigs = {
             header: null
         }
     },
-    // Setting: {
-    //     screen: Setting,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    BaiduMap: {
+        screen: BaiduMap,
+        navigationOptions: {
+            header: null
+        }
+    },
     Protocol: {
         screen: Protocol,
         navigationOptions: {

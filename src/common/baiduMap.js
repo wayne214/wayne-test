@@ -20,7 +20,7 @@ import {
 } from 'react-native-baidu-map-xzx';
 
 import stylesCommon from '../../assets/css/common';
-import NavigatorBar from './navigationBar';
+import NavigatorBar from './navigationBar/navigationBar';
 import Toast from '@remobile/react-native-toast';
 
 const {width, height} = Dimensions.get('window');
@@ -162,7 +162,7 @@ class BaiduMap extends Component {
     }
 
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         return (
             <View style={stylesCommon.container}>
                 <NavigatorBar
