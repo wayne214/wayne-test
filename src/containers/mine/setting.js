@@ -168,6 +168,9 @@ class setting extends Component {
         // Storage.remove('acceptMessage');
         // Storage.remove('setCityFlag');
         // Storage.remove('plateNumberObj');
+
+
+        // 清空存储数据
         Storage.clear();
         JPushModule.setAlias('', ()=>{}, ()=>{});
 

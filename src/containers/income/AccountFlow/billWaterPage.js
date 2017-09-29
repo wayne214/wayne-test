@@ -61,12 +61,12 @@ export default class BillWaterPage extends Component {
     }
 // 获取当前位置
     getCurrentPosition() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position =', JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e => {
-        //     console.log(e, 'error');
-        // });
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch(e => {
+            console.log(e, 'error');
+        });
     }
     acAccountFlow() {
         currentTime = new Date().getTime();
@@ -128,9 +128,9 @@ export default class BillWaterPage extends Component {
     acAccountFlowSuccessCallBack(result){
         console.log('result',result, result.length)
         lastTime = new Date().getTime();
-        // ReadAndWriteFileUtil.appendFile('获取账户流水', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-        //     locationData.district, lastTime - currentTime, '账户流水页面');
-        // console.log('acAccountFlowSuccessCallBack',result)
+        ReadAndWriteFileUtil.appendFile('获取账户流水', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '账户流水页面');
+        console.log('acAccountFlowSuccessCallBack',result)
         const datalenth = result.length;
         this.setState({
             refreshing:false,
