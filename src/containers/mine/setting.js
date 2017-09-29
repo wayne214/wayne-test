@@ -155,6 +155,7 @@ class setting extends Component {
         this.loginOut();
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
+        DeviceEventEmitter.emit('updateOrderList');
 
         Storage.remove('userInfo');
         Storage.remove('setCarSuccessFlag');
