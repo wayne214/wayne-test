@@ -10,10 +10,15 @@ import {
 } from 'react-navigation';
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
-// import Setting from '../containers/setting';
+import Scan from '../containers/order/scan';
 import BaiduMap from '../common/baiduMap';
-// import Income from '../containers/income/income';
-// import BillWaterPage from '../containers/income/billWaterPage';
+import Search from '../containers/order/search/search';
+import SearchResultForSchedule from '../containers/order/search/searchResultForSchedule';
+import SearchResultForToBeWaitSure from '../containers/order/search/searchResultForToBeWaitSure';
+import SearchResultForToBeSure from '../containers/order/search/searchResultForToBeSure';
+import SearchResultForToBeShipped from '../containers/order/search/searchResultForToBeShipped';
+import SearchResultForToBeSignIn from '../containers/order/search/searchResultForToBeSignIn';
+import WaitToSignIn from '../containers/order/waitToSignIn';
 
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
@@ -317,6 +322,54 @@ const StackRouteConfigs = {
     },
     CarDisablePage: {
         screen: CarDisablePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Scan: {
+        screen: Scan,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Search: {
+        screen: Search,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SearchResultForSchedule: {
+        screen: SearchResultForSchedule,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SearchResultForToBeSure: {
+        screen: SearchResultForToBeSure,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SearchResultForToBeWaitSure: {
+        screen: SearchResultForToBeWaitSure,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SearchResultForToBeSignIn: {
+        screen: SearchResultForToBeSignIn,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SearchResultForToBeShipped: {
+        screen: SearchResultForToBeShipped,
+        navigationOptions: {
+            header: null
+        }
+    },
+    WaitToSignIn: {
+        screen: WaitToSignIn,
         navigationOptions: {
             header: null
         }
