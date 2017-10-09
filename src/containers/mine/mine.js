@@ -23,7 +23,7 @@ import CenterLoginAvatar from '../../../assets/mine/login_avatar.png';
 import Message from '../../../assets/mine/message.png';
 import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
-import ClickUtil from '../../utils/prventDoubleClickUtil';
+import ClickUtil from '../../utils/prventMultiClickUtil';
 import * as API from '../../constants/api';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -575,7 +575,7 @@ class Mine extends Component {
                                     showBottomLine={true}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
                                             if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
                                                 navigator.navigate('PersonInfo');
                                             } else if (this.state.verifiedState == '1201') {
@@ -592,7 +592,7 @@ class Mine extends Component {
                                     showBottomLine={false}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
                                             if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
                                                 if (this.props.plateNumberObj) {
                                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
@@ -620,7 +620,7 @@ class Mine extends Component {
                                             showBottomLine={true}
                                             clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
 
                                             if (this.state.verifiedState == '1200') {
                                                 // 未认证
@@ -658,7 +658,7 @@ class Mine extends Component {
                                             showBottomLine={false}
                                             clickAction={() => {
                                                 ClickUtil.resetLastTime();
-                                                if (ClickUtil.noDoubleClick()) {
+                                                if (ClickUtil.onMultiClick()) {
                                                     if (this.state.certificationState) {
                                                         if (this.state.certificationState == '1200') {
                                                             // 未认证
@@ -697,7 +697,7 @@ class Mine extends Component {
                                     showBottomLine={false}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
                                             navigator.navigate('ChangePwd');
                                         }
                                     }}
@@ -711,7 +711,7 @@ class Mine extends Component {
                                     showBottomLine={true}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
                                             navigator.navigate('AboutUs');
                                         }
                                     }}
@@ -719,7 +719,7 @@ class Mine extends Component {
                                 <SettingCell
                                     leftIcon="&#xe637;" content={'设置'} clickAction={() => {
                                         ClickUtil.resetLastTime();
-                                        if (ClickUtil.noDoubleClick()) {
+                                        if (ClickUtil.onMultiClick()) {
                                             this.pushToSetting();
                                         }
                                 }}
