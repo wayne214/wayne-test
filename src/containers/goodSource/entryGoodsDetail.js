@@ -442,12 +442,12 @@ class entryGoodsDetail extends Component {
                         null : this.state.allocationModel === '10' || this.state.allocationModel === '' || this.state.allocationModel === null ?
                             <ChooseButtonCell
                                 toRefuse={() => {
-                                    if (PreventDoubleClickUtil.noDoubleClick()) {
+                                    if (PreventDoubleClickUtil.onMultiClick()) {
                                         this.refusedGoodsAction(this.refusedGoodsSuccessCallBack, this.refusedGoodsFailCallBack,);
                                     }
                                 }}
                                 getorders={() => {
-                                    if (PreventDoubleClickUtil.noDoubleClick()) {
+                                    if (PreventDoubleClickUtil.onMultiClick()) {
                                         this.receiveGoodsAction(this.receiveGoodsSuccessCallBack, this.receiveGoodsFailCallBack,);
                                     }
                                 }}
