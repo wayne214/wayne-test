@@ -25,7 +25,7 @@ export default class loading extends Component {
 
     /*属性默认值*/
     static defaultProps = {
-        color: 'red',
+        color: '#1B82D1',
     };
 
     constructor(props){
@@ -40,15 +40,13 @@ export default class loading extends Component {
 
     componentDidMount() {
         this.loadAnimation(this.springValue1);
-
-        setTimeout(()=>{
-        },100);
         setTimeout(()=>{
             this.loadAnimation(this.springValue2);
-        },100);
+        }, 200);
         setTimeout(()=>{
             this.loadAnimation(this.springValue3);
-        },400);
+        }, 400);
+
     }
 
     loadAnimation(springValue){
@@ -59,19 +57,20 @@ export default class loading extends Component {
                 {
                     toValue: 1,
                     friction: 1,
-                    duration: 400,
+                    duration: 600,
                 }
             ),
             Animated.timing(
                 springValue,
                 {
-                    toValue: 0,
+                    toValue: 0.5,
                     friction: 1,
-                    duration: 400,
+                    duration: 600,
                 }
             )
         ]).start(()=>{this.loadAnimation(springValue)});
     }
+
 
     render() {
         const {color} = this.props;

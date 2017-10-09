@@ -179,7 +179,7 @@ let transCodeListData3 = [];
                 pageNum = signPage;
 
                 selectPage = 2;
-                debugger
+                  
                 this.loadData(2, pageNum);
             }, 1000);
 
@@ -208,7 +208,7 @@ let transCodeListData3 = [];
                 });
 
                 selectPage = 2;
-                debugger
+                  
                 this.loadData(2, pageNum);
             }, 1000);
 
@@ -233,7 +233,7 @@ let transCodeListData3 = [];
                 });
 
                 selectPage = 1;
-                debugger
+                
                 this.loadData(1, pageNum);
             }, 1000);
 
@@ -255,7 +255,7 @@ let transCodeListData3 = [];
                 isLoadsignMore: true,
                 isLoadendReceiptMore: true,
             });
-            debugger
+              
             this.loadData(selectPage, 1);
         });
 
@@ -318,7 +318,7 @@ let transCodeListData3 = [];
 
     // 刷新
     onRefresh() {
-debugger
+  
         switch (selectPage) {
             case 0 : {
                 allListData = [];
@@ -365,7 +365,7 @@ debugger
 
     // 加载更多
     loadMoreData() {
-        debugger
+          
         switch (selectPage) {
             case 0 : {
                 if (!this.state.isLoadallMore) {
