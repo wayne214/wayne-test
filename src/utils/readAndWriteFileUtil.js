@@ -75,12 +75,25 @@ class readAndWriteFileUtil {
         setTimeout(() => {
             Storage.get(StorageKey.USER_INFO).then((value) => {
                 if (value) {
-                    userID = value.result.userId;
-                    userNAME = value.result.userName;
-                    userPhone = value.result.phone;
+                    userID = value.userId;
+                    userNAME = value.userName;
+                    userPhone = value.phone;
                     Storage.get(StorageKey.PlateNumber).then((plateNum) => {
                         if(plateNum) {
                             plateNumber = plateNum;
+                            var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': userPhone, 'prov': provValue,
+                                'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userID, 'userName': userNAME,
+                                'app': appName, 'platform': platForm, 'deviceModel' : deviceModels, 'page' : pageName, 'plateNumber': plateNumber, 'version': version };
+                            var jsonarr = JSON.stringify(content);
+                            RNFS.appendFile(path, jsonarr + '\n', 'utf8')
+                                .then((success) => {
+                                    console.log('FILE APPEND SUCCESS');
+                                })
+                                .catch((err) => {
+                                    console.log(err.message);
+                                });
+                        } else {
+                            plateNumber = global.plateNumber;
                             var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': userPhone, 'prov': provValue,
                                 'region': regionValue, 'time': currentData, 'useTime': useTime, 'userId': userID, 'userName': userNAME,
                                 'app': appName, 'platform': platForm, 'deviceModel' : deviceModels, 'page' : pageName, 'plateNumber': plateNumber, 'version': version };
