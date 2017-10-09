@@ -13,7 +13,7 @@ import {
     COLOR_VIEW_BACKGROUND,
 } from '../../constants/staticColor';
 
-import GoodInfoCell from '../../components/order/goodInfoCell';
+import GoodInfoCell from './goodInfoCell';
 
 const style = StyleSheet.create({
     // 名称style

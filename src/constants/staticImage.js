@@ -65,6 +65,16 @@ import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 import MessageNew from '../../assets/mine/newmessage.png';
 import Message from '../../assets/mine/message.png';
 
+/*扫描图标*/
+import scanBackIcon from '../../assets/scan/scanBackIcon.png';
+import scanLine from '../../assets/scan/scan_line.png';
+
+/*搜索图标*/
+import searchBackIcon from '../../assets/search/searchBackIcon.png';
+import closeIcon from '../../assets/search/forgetdel.png';
+
+import orderProductDetailItemAdd from '../../assets/order/orderProductDetailItem_add.png';
+import orderProductDetailItemSubtract from '../../assets/order/orderProductDetailItem_subtract.png';
 
 export default {
     EmptyImage,
@@ -107,5 +117,11 @@ export default {
     rightArrowTurn,
     timeIcon,
     deleteIcon,
+    scanBackIcon,
+    scanLine,
+    searchBackIcon,
+    closeIcon,
+    orderProductDetailItemAdd,
+    orderProductDetailItemSubtract,
 }
 

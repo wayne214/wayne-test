@@ -30,6 +30,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.3.0",
     "react-native-picker-custom": "^1.0.0",
     "react-native-scrollable-tab-view": "^0.6.7",
+    "react-native-sound": "^0.10.4",
     "react-native-swipeout": "^2.2.2",
     "react-native-swiper": "^1.5.12",
     "react-navigation": "^1.0.0-beta.13",
