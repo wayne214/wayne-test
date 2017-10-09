@@ -18,7 +18,7 @@ import * as API from '../../constants/api';
 import Loading from '../../utils/loading';
 import ChooseButtonCell from './component/chooseButtonCell';
 import EmptyView from '../../common/emptyView/emptyView';
-import prventDoubleClickUtil from '../../utils/prventMultiClickUtil';
+import PreventDoubleClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
 
 import CountdownWithText from './component/countdownWithText';
@@ -100,7 +100,7 @@ class entryGoodsDetail extends Component {
     }
 
     componentWillUnmount() {
-        transOrderInfo = Array();
+        transOrderInfo = [];
     }
 
     changeTab(tab) {
@@ -183,7 +183,7 @@ class entryGoodsDetail extends Component {
         ReadAndWriteFileUtil.appendFile('订单详情',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源详情页面');
         const array = [];
-        transOrderInfo = Array();
+        transOrderInfo = [];
         for (let i = 0; i < result.length; i++) {
             const obj = result[i];
             array.push(obj);
@@ -225,14 +225,11 @@ class entryGoodsDetail extends Component {
             typeString = 'receiver';
         }
 
-        this.props.router.redirect(
-            RouteType.MAP_PAGE,
-            {
-                sendAddr: item.deliveryInfo.departureAddress,
-                receiveAddr: item.deliveryInfo.receiveAddress,
-                clickFlag: typeString,
-            },
-        );
+        this.props.navigation.navigate('BaiduMap', {
+            sendAddr: item.deliveryInfo.departureAddress,
+            receiveAddr: item.deliveryInfo.receiveAddress,
+            clickFlag: typeString,
+        });
     }
 
     /*
@@ -445,12 +442,12 @@ class entryGoodsDetail extends Component {
                         null : this.state.allocationModel === '10' || this.state.allocationModel === '' || this.state.allocationModel === null ?
                             <ChooseButtonCell
                                 toRefuse={() => {
-                                    if (prventDoubleClickUtil.noDoubleClick()) {
+                                    if (PreventDoubleClickUtil.noDoubleClick()) {
                                         this.refusedGoodsAction(this.refusedGoodsSuccessCallBack, this.refusedGoodsFailCallBack,);
                                     }
                                 }}
                                 getorders={() => {
-                                    if (prventDoubleClickUtil.noDoubleClick()) {
+                                    if (PreventDoubleClickUtil.noDoubleClick()) {
                                         this.receiveGoodsAction(this.receiveGoodsSuccessCallBack, this.receiveGoodsFailCallBack,);
                                     }
                                 }}
@@ -492,7 +489,7 @@ class entryGoodsDetail extends Component {
                                     show: false,
                                 });
                                 // 竞单时间结束后，发送监听刷新货源列表
-                                DeviceEventEmitter.emit('resetgood');
+                                DeviceEventEmitter.emit('resetGood');
                             }}
                         /> : null
                 }

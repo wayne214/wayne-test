@@ -27,7 +27,6 @@ export default class ComponentTmpl extends Component {
 
     render() {
         const navigator = this.props.navigation;
-        const {userInfo} = this.props;
         return (
             <View style={stylesCommon.container}>
                 <NavigationBar

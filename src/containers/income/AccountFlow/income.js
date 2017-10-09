@@ -14,7 +14,7 @@ import NavigationBar from '../../../common/navigationBar/navigationBar';
 import IncomeCell from './cell/incomeCell';
 import * as API from '../../../constants/api';
 import Storage from '../../../utils/storage';
-// import {Geolocation} from 'react-native-baidu-map-xzx';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../../utils/httpRequest';
 
@@ -47,12 +47,12 @@ export default class Income extends Component {
 
 // 获取当前位置
     getCurrentPosition() {
-        // Geolocation.getCurrentPosition().then(data => {
-        //     console.log('position =', JSON.stringify(data));
-        //     locationData = data;
-        // }).catch(e => {
-        //     console.log(e, 'error');
-        // });
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch(e => {
+            console.log(e, 'error');
+        });
     }
 
     acBalance() {
@@ -66,8 +66,8 @@ export default class Income extends Component {
             },
             success: (response) => {
                 lastTime = new Date().getTime();
-                // ReadAndWriteFileUtil.appendFile('获取账户余额', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                //     locationData.district, lastTime - currentTime, '收入页面');
+                ReadAndWriteFileUtil.appendFile('获取账户余额', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '收入页面');
                 this.setState({
                     accountMoney: response.result
                 })

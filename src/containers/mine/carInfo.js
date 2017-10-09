@@ -177,9 +177,7 @@ class CarInfo extends Component {
                     this.setState({
                         aCar: {},
                     });
-                    InteractionManager.runAfterInteractions(() => {
-                        this.fetchData();
-                    });
+                    this.fetchData();
                 }
             }
         });
@@ -251,10 +249,18 @@ class CarInfo extends Component {
                     });
                 },
                 success: (response) => {
-                    getCarInfoSuccessCallBack(response.result);
+                    this.setState({
+                        loading: false,
+                    }, () => {
+                        getCarInfoSuccessCallBack(response.result);
+                    });
                 },
                 error: (err) => {
-                    getCarInfoFailCallBack();
+                    this.setState({
+                        loading: false,
+                    }, () => {
+                        getCarInfoFailCallBack();
+                    });
                 },
                 finish: () => {
                     this.setState({
@@ -262,11 +268,6 @@ class CarInfo extends Component {
                     });
                 },
             })
-
-            // this.props.getCarInfoAction({
-            //     phoneNum: userInfo.result.phone,
-            //     plateNumber: plateNum,
-            // }, getCarInfoSuccessCallBack, getCarInfoFailCallBack);
         }
     }
     onClickImage(imgIndex) {
@@ -286,7 +287,6 @@ class CarInfo extends Component {
     }
 
     render() {
-        // const {navigator, userInfo} = this.props;
         const navigator = this.props.navigation;
         const aCar = this.state.aCar !== null && this.state.aCar !== '' ? this.state.aCar : '';
         const showDrivingLicensePic = aCar.drivingLicenseThumbnail !== null && aCar.drivingLicenseThumbnail !== '' ||

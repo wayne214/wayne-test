@@ -78,6 +78,12 @@ export default (state = initState, action) => {
             globalState = globalState.set('queryEnterPrise', action.payload);
             return globalState;
 
+        case ActionTypes.ACTION_SAVE_USER_CAR_LIST:
+            console.log('userCarList', action.payload);
+            Storage.save('userCarList', action.payload);
+            globalState = globalState.set('userCarList', action.payload);
+            return globalState;
+
         default:
             return state;
     }

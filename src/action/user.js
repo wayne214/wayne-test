@@ -38,3 +38,11 @@ export const queryEnterpriseNatureSuccessAction = (data) => {
         payload: data,
     };
 };
+
+// 保存用户车辆列表
+export const saveUserCarList = (data) => {
+    return {
+        type: ActionTypes.ACTION_SAVE_USER_CAR_LIST,
+        payload: data,
+    };
+};
