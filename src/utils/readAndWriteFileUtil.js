@@ -50,6 +50,8 @@ class readAndWriteFileUtil {
         Storage.get(StorageKey.PlateNumber).then((value) => {
             if(value) {
                 plateNumber = value;
+            } else {
+                plateNumber = global.plateNumber;
             }
         });
         var content={'action':action, 'city': cityValue , 'lat': gpsXValue, 'lng': gpsYValue, 'phoneNum': phoneNum, 'prov': provValue,
