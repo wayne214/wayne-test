@@ -76,6 +76,11 @@ import closeIcon from '../../assets/search/forgetdel.png';
 import orderProductDetailItemAdd from '../../assets/order/orderProductDetailItem_add.png';
 import orderProductDetailItemSubtract from '../../assets/order/orderProductDetailItem_subtract.png';
 
+import orderProductDetailItemSubtractUnselect from '../../assets/order/orderProductDetailItem_subtract_unselect.png';
+import receiveRightArrow from '../../assets/order/receive_right_arrow.png';
+import receiveAdd from '../../assets/order/receive_add.png';
+import receiveDelete from '../../assets/order/receive_delete.png';
+
 export default {
     EmptyImage,
     Img01,
@@ -123,5 +128,9 @@ export default {
     closeIcon,
     orderProductDetailItemAdd,
     orderProductDetailItemSubtract,
+    orderProductDetailItemSubtractUnselect,
+    receiveRightArrow,
+    receiveAdd,
+    receiveDelete,
 }
 

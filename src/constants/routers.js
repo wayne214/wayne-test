@@ -12,6 +12,7 @@ import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 import Scan from '../containers/order/scan';
 import BaiduMap from '../common/baiduMap';
+
 import Search from '../containers/order/search/search';
 import SearchResultForSchedule from '../containers/order/search/searchResultForSchedule';
 import SearchResultForToBeWaitSure from '../containers/order/search/searchResultForToBeWaitSure';
@@ -21,6 +22,9 @@ import SearchResultForToBeSignIn from '../containers/order/search/searchResultFo
 import WaitToSignIn from '../containers/order/waitToSignIn';
 import EntryToBeShipped from '../containers/order/orderDetailScrollList/components/entryToBeShipped';
 import EntryToBeSignIn from '../containers/order/orderDetailScrollList/components/entryToBeSignin';
+import ReceiptPhotoShow from '../containers/order/imageViewer';
+import SignPage from '../containers/order/signPage';
+import UploadReceipt from '../containers/order/uploadReceipt';
 
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
@@ -384,6 +388,24 @@ const StackRouteConfigs = {
     },
     WaitToSignIn: {
         screen: WaitToSignIn,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ReceiptPhotoShow: {
+        screen: ReceiptPhotoShow,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SignPage: {
+        screen: SignPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    UploadReceipt: {
+        screen: UploadReceipt,
         navigationOptions: {
             header: null
         }
