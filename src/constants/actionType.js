@@ -3,18 +3,14 @@
 export const CHANGE_TAB = 'CHANGE_TAB';
 
 export const ACTION_GET_HOME_PAGE_COUNT = 'ACTION_GET_HOME_PAGE_COUNT'; // 获取首页状态数量
-
 /*改变首页城市*/
 export const ACTION_GET_LOCATION = 'ACTION_GET_LOCATION';
 /*用户登录成功，或者登录状态下*/
 export const ACTION_LOGIN_SUCCESS = 'ACTION_LOGIN_SUCCESS';
-
 /*用户名*/
 export const ACTION_USER_NAME = 'ACTION_USER_NAME';
-
 /*用户绑定车辆发生改变*/
 export const ACTION_USER_CAR = 'ACTION_USER_CAR';
-
 /*清空user里面的值*/
 export const ACTION_USER_CLEAR = 'ACTION_USER_CLEAR';
 
@@ -35,3 +31,9 @@ export const ACTION_RESET_CITY_LIST = 'ACTION_RESET_CITY_LIST'; // 是否刷新�
 export const ACTION_MAIN_PRESS = 'ACTION_MAIN_PRESS';// 主界面点击事件
 
 export const ACTION_SAVE_USER_CAR_LIST = 'ACTION_SAVE_USER_CAR_LIST';// 主界面点击事件
+
+export const ADD_IMAGE = 'ADD_IMAGE'; // 添加图片
+
+export const DELETE_IMAGE = 'DELETE_IMAGE'; // 删除图片
+
+export const UPDATE_IMAGES = 'UPDATE_IMAGES'; // 清空图片

@@ -103,6 +103,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        vectorDrawables.useSupportLibrary = true
     }
     dexOptions {
             jumboMode true
@@ -158,6 +159,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-picker-custom')
     compile project(':react-native-camera')
     compile project(':react-native-image-picker')

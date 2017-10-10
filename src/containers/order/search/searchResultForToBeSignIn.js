@@ -98,7 +98,7 @@ class searchResultForToBeSignIn extends Component {
                 style={buttonStyle}
                 onPress={() => {
                         if (goodsInfoList.length > 0) {
-                            this.props.navigation.navigate('Sign', {
+                            this.props.navigation.navigate('SignPage', {
                                 transCode: transCode,
                                 goodsInfoList: goodsInfoList,
                                 taskInfo: taskInfo

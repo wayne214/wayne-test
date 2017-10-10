@@ -26,6 +26,8 @@ export const LIGHT_BLACK_TEXT_COLOR = '#333333';
 
 export const LIGHT_GRAY_TEXT_COLOR = '#CCCCCC';
 
+export const PHOTO_BORDER_COLOR = '#CBCCCB';
+
 export const BLUE_TEXT_COLOR = '#008BCA';
 
 export const CALENDER_ICON_COLOR = '#309DED';

@@ -146,7 +146,7 @@ class SearchResultOnly extends Component {
                 onPress={() => {
                     if (this.state.buttonTitle == '签收') {
                         if (goodsInfoList.length > 0) {
-                            this.props.navigation.navigate('Sign', {
+                            this.props.navigation.navigate('SignPage', {
                                 transCode: transCode,
                                 goodsInfoList: goodsInfoList,
                                 taskInfo: taskInfo
