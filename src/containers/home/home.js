@@ -513,10 +513,10 @@ class Home extends Component {
             }
         });
         // 上传日志功能
-        // TimeToDoSomething.sendMsgToNative();
-        // this.logListener = NativeAppEventEmitter.addListener('nativeSendMsgToRN', (data) => {
-        //     this.getCurrentPosition(1);
-        // });
+        TimeToDoSomething.sendMsgToNative();
+        this.logListener = NativeAppEventEmitter.addListener('nativeSendMsgToRN', (data) => {
+            this.getCurrentPosition(1);
+        });
     }
 
     //
