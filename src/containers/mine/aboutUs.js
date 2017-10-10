@@ -8,6 +8,7 @@ import {
     Image,
     Text,
     Dimensions,
+    StyleSheet
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import NavigatorBar from '../../common/navigationBar/navigationBar';
@@ -17,6 +18,7 @@ import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 // 获取屏幕宽高尺寸
 const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
