@@ -12,6 +12,7 @@ import {
     InteractionManager,
     Platform,
     Alert,
+    Modal,
 } from 'react-native';
 import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
@@ -32,12 +33,30 @@ import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
 
+import AlertSheetItem from '../../common/alertSelected';
+import ImagePicker from 'react-native-image-picker';
+import PermissionsManager from '../../utils/permissionManager';
+import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
+
+
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
-
+const selectedArr = ["拍照", "从手机相册选择"];
 const {height, width} = Dimensions.get('window');
-
+const options = {
+    title: '选择照片',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: '相册',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    },
+    quality: 1.0,
+    maxWidth: 500,
+    maxHeight: 500,
+};
 const styles = StyleSheet.create({
     headerImage: {
         width,
@@ -136,7 +155,7 @@ class Mine extends Component {
             loading: false,
             certificationState: '1200', // 资质认证
             verifiedState: '1200', // 实名认证
-
+            modalVisible: false,
         };
         this.pushToSetting = this.pushToSetting.bind(this);
         this.pushToMsgList = this.pushToMsgList.bind(this);
@@ -144,11 +163,17 @@ class Mine extends Component {
         this.certificationState = this.certificationState.bind(this);
         this.verifiedState = this.verifiedState.bind(this);
 
-
+        this.selectCamera = this.selectCamera.bind(this);
+        this.selectPhoto = this.selectPhoto.bind(this);
+        this.showAlertSelected = this.showAlertSelected.bind(this);
+        this.callbackSelected = this.callbackSelected.bind(this);
     }
 
 
     componentDidMount() {
+        this.choosePhotoListener = DeviceEventEmitter.addListener('choosePhoto',() => {
+            this.showAlertSelected();
+        });
         this.getCurrentPosition();
 
         /*消息推送，有新的消息，有上角显示新的图片*/
@@ -199,6 +224,12 @@ class Mine extends Component {
         this.imglistener = DeviceEventEmitter.addListener('imageCallBack', (response) => {
             this.imageProcess(response);
         });
+
+        this.hideModuleListener = DeviceEventEmitter.addListener('hideModule', (response) => {
+            this.setState({
+                modalVisible: false,
+            })
+        });
     }
 
 
@@ -207,6 +238,74 @@ class Mine extends Component {
         this.cerlistener.remove();
         this.verlistener.remove();
         this.imglistener.remove();
+        this.choosePhotoListener.remove();
+        this.hideModuleListener.remove();
+    }
+
+    /*点击弹出菜单*/
+    showAlertSelected(){
+
+        if (this.refs.choose)
+            this.refs.choose.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
+
+    }
+
+    /*选择 拍照  相册*/
+    callbackSelected(i){
+        switch (i) {
+            case 0:
+                // 拍照
+                if (Platform.OS === 'ios') {
+                    PermissionsManager.cameraPermission().then(data=>{
+
+                        this.selectCamera();
+
+                    }).catch(err=>{
+                        // Toast.showShortCenter(err.message);
+                        Alert.alert(null,err.message)
+
+                    });
+                }else{
+                    PermissionsManagerAndroid.cameraPermission().then((data) => {
+                        this.selectCamera();
+                    }, (err) => {
+                        Alert.alert('提示','请到设置-应用-授权管理设置相机权限');
+                    });
+                }
+                break;
+            case 1:
+                if (Platform.OS === 'ios') {
+                    // 图库
+                    PermissionsManager.photoPermission().then(data=>{
+                        this.selectPhoto();
+
+                    }).catch(err=>{
+                        // Toast.showShortCenter(err.message);
+                        Alert.alert(null,err.message)
+
+                    });
+                }else
+                    this.selectPhoto();
+                break;
+        }
+    }
+    selectCamera(){
+        ImagePicker.launchCamera(options, (response)=>{
+            // this.imageProcess(response);
+            this.setState({
+                modalVisible: false,
+            });
+            DeviceEventEmitter.emit('imageCallBack',response);
+        })
+    }
+    selectPhoto(){
+        ImagePicker.launchImageLibrary(options, (response) =>{
+            // this.imageProcess(response);
+            this.setState({
+                modalVisible: false,
+            });
+            DeviceEventEmitter.emit('imageCallBack',response);
+        })
     }
 
 
@@ -507,7 +606,11 @@ class Mine extends Component {
                         <Image style={styles.headerImage} source={CenterHeaderIcon}>
                             <View style={styles.headerView}>
                                 <TouchableOpacity onPress={() => {
-                                    DeviceEventEmitter.emit('choosePhoto');
+                                    this.setState({
+                                        modalVisible: true,
+                                    }, () => {
+                                        DeviceEventEmitter.emit('choosePhoto');
+                                    });
                                 }}>
                                     <View style={styles.iconOutView}>
                                         {
@@ -737,6 +840,12 @@ class Mine extends Component {
                 {
                     this.state.loading ? <Loading /> : null
                 }
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={this.state.modalVisible}>
+                        <AlertSheetItem ref="choose" />
+                </Modal>
             </View>
         );
     }

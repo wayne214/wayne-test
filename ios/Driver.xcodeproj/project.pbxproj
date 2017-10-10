@@ -430,6 +430,13 @@
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
 		};
+		B024C4A51F8CC03500F1D0A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E059CE651A4145938FCA441F /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1079,6 +1086,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B024C4761F8CC03500F1D0A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B024C4A61F8CC03500F1D0A9 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1634,6 +1649,13 @@
 			fileType = archive.ar;
 			path = libRNSound.a;
 			remoteRef = B024C4531F8CBBD600F1D0A9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B024C4A61F8CC03500F1D0A9 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = B024C4A51F8CC03500F1D0A9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
