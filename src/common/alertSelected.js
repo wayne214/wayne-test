@@ -11,7 +11,8 @@ import {
     Easing,
     Dimensions,
     Platform,
-    TouchableOpacity
+    TouchableOpacity,
+    DeviceEventEmitter,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -164,6 +165,7 @@ export default class AlertSelected extends Component {
     cancel(event) {
         if (!this.state.hide) {
             this.out();
+            DeviceEventEmitter.emit('hideModule');
         }
     }
 
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     mask: {
         justifyContent: "center",
         backgroundColor: "#000000",
-        opacity: 0.3,
+        opacity: 0.5,
         position: "absolute",
         width: width,
         height: height,
