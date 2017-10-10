@@ -195,6 +195,7 @@ class Verified extends Component {
 
         this.isRightData = this.isRightData.bind(this);
         this.formatterTime = this.formatterTime.bind(this);
+        this.popToTop = this.popToTop.bind(this);
     }
 
     componentDidMount() {
@@ -541,7 +542,12 @@ class Verified extends Component {
             });
     }
 
-
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
 
 
     /*显示日期选取器*/
@@ -838,7 +844,7 @@ class Verified extends Component {
                 Toast.showShortCenter('实名认证提交成功');
                 DeviceEventEmitter.emit('verifiedSuccess');
 
-                this.props.navigation.goBack();
+                this.popToTop();
 
             },
             error: (errorInfo) => {
@@ -1092,7 +1098,9 @@ class Verified extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps(dispatch) {

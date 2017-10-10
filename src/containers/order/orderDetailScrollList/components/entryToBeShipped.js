@@ -75,6 +75,7 @@ class entryToBeShipped extends Component {
 
         this.jumpAddressPage = this.jumpAddressPage.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
+        this.popToTop = this.popToTop.bind(this);
 
         this.isShowEmptyView = this.isShowEmptyView.bind(this);
         this.emptyView = this.emptyView.bind(this);
@@ -275,7 +276,7 @@ class entryToBeShipped extends Component {
         // 发运成功后，更新货源偏好出发城市
         this.resetCityAction(true);
         DeviceEventEmitter.emit('resetCityLIST');
-        // this.props.navigator.popToTop();
+        this.popToTop();
     }
 
     // 获取数据失败回调
@@ -338,6 +339,12 @@ class entryToBeShipped extends Component {
 
     resetCityAction(data) {
         this.props.resetCityListAction(data);
+    }
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
     }
 
     // 底部组件
@@ -508,6 +515,7 @@ class entryToBeShipped extends Component {
 
 function mapStateToProps(state) {
     return {
+        routes: state.nav.routes,
     };
 }
 

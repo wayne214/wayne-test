@@ -119,6 +119,7 @@ class UploadReceipt extends Component {
         this.uploadOrderFailCallBack = this.uploadOrderFailCallBack.bind(this);
         this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
+        this.popToTop = this.popToTop.bind(this);
 
     }
     componentDidMount() {
@@ -133,7 +134,7 @@ class UploadReceipt extends Component {
         const { dispatch } = this.props;
         dispatch(updateImages());
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.props.navigation.goBack();
+        this.popToTop();
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -169,7 +170,7 @@ class UploadReceipt extends Component {
             locationData.district, lastTime - currentTime, '上传回单页面');
         Toast.showShortCenter('上传回单成功');
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.props.navigation.goBack();
+        this.popToTop();
     }
 
     // 获取数据失败回调
@@ -318,6 +319,13 @@ class UploadReceipt extends Component {
             });
     }
 
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
     render() {
         const {imageList} = this.props;
         const navigator = this.props.navigation;
@@ -365,10 +373,11 @@ class UploadReceipt extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
-                        const forward = this.props.routes[this.props.routes.length - 2];
-                        if (navigator && this.props.routes.length > 1) {
+                        const routes = this.props.routes;
+                        const forward = routes[routes.length - 2];
+                        if (navigator && routes.length > 1) {
                             if (forward.routeName === 'SignPage') {
-                                navigator.goBack();//popToTop
+                                this.popToTop();
                             }else {
                                 navigator.goBack();
                             }

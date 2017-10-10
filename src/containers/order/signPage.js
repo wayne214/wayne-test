@@ -79,6 +79,7 @@ class signPage extends Component {
         this.getSignInSuccessCallBack = this.getSignInSuccessCallBack.bind(this);
         this.getSignInFailCallBack = this.getSignInFailCallBack.bind(this);
         this.deleteComponent = this.deleteComponent.bind(this);
+        this.popToTop = this.popToTop.bind(this);
     }
 
     componentDidMount() {
@@ -208,12 +209,12 @@ class signPage extends Component {
                 {text: '否',
                     onPress: () => {
                         DeviceEventEmitter.emit('changeStateReceipt');
-                        this.props.navigator.popToTop();
+                        this.popToTop();
                     },
                 },
                 {text: '是',
                     onPress: () => {
-                        this.props.router.redirect(RouteType.UPLOAD_RECEIPT_PAGE, {
+                        this.props.navigation.navigate('UploadReceipt', {
                             transCode: this.state.orderID
                         });
                     },
@@ -221,9 +222,16 @@ class signPage extends Component {
             ], {cancelable: false});
         } else {
             DeviceEventEmitter.emit('changeStateReceipt');
-            // this.props.navigator.popToTop();
+            this.popToTop();
         }
 
+    }
+
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
     }
 
     // 获取数据失败回调
@@ -452,6 +460,7 @@ class signPage extends Component {
 
 function mapStateToProps(state) {
     return {
+        routes: state.nav.routes,
     };
 }
 
