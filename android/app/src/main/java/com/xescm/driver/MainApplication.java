@@ -3,11 +3,14 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.remobile.toast.RCTToastPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 import cn.jpush.reactnativejpush.JPushPackage;
@@ -37,6 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new RNSoundPackage(),
+            new RCTToastPackage(),
                     new PickerPackage(),
                     new PickerViewPackage(),
                     new RCTCameraPackage(),
