@@ -63,6 +63,8 @@ const JpushAliasNumber = global.userId;
 
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
+import TimeToDoSomething from '../../utils/uploadLoggerRequest';
+
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
@@ -283,7 +285,7 @@ class Home extends Component {
     componentDidMount() {
 
         this.compareVersion();
-        this.getCurrentPosition();
+        this.getCurrentPosition(0);
         this.queryEnterpriseNature();
 
 
@@ -510,7 +512,11 @@ class Home extends Component {
                 this.setUserCar(value);
             }
         });
-
+        // 上传日志功能
+        // TimeToDoSomething.sendMsgToNative();
+        // this.logListener = NativeAppEventEmitter.addListener('nativeSendMsgToRN', (data) => {
+        //     this.getCurrentPosition(1);
+        // });
     }
 
     //
@@ -524,6 +530,7 @@ class Home extends Component {
         this.Listener.remove();
         this.bindCarListener.remove();
         this.notifyCarStatusListener.remove();
+        this.logListener.remove();
     }
 
     // 版本对比
@@ -858,12 +865,16 @@ class Home extends Component {
     }
 
     // 获取当前位置
-    getCurrentPosition(){
+    getCurrentPosition(type){
         Geolocation.getCurrentPosition().then(data => {
             console.log('position =',JSON.stringify(data));
             this.props.getLocationAction(data.city);
             locationData = data;
-
+            if (type === 1) {
+                ReadAndWriteFileUtil.appendFile('定位', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, 0, '定位');
+                TimeToDoSomething.uploadDataFromLocalMsg();
+            }
             this.getWeather(data.city);
             this.vehicleLimit(data.city);
 
