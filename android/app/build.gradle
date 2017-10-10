@@ -91,17 +91,21 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.driver"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "2.1.0"
+        vectorDrawables.useSupportLibrary = true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+    }
+    dexOptions {
+            jumboMode true
     }
     splits {
         abi {
@@ -161,6 +165,7 @@ dependencies {
     compile project(':react-native-fs')
     compile project(':react-native-device-info')
     compile project(':jpush-react-native')
+    compile project(':jcore-react-native')
     compile project(':react-native-baidu-map-xzx')
     compile project(':react-native-toast')
     compile fileTree(dir: "libs", include: ["*.jar"])
