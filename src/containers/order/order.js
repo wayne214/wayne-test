@@ -868,9 +868,9 @@ let transCodeListData3 = [];
                     contact={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
                     phoneNum={dataRow.phoneNum}
                     onSelect={() => {
-                        {/*this.props.router.redirect(RouteType.SEARCH_RESULT_ONLY_PAGE, {*/}
-                            {/*productResult: dataRow.transports[0].transCode,*/}
-                        {/*});*/}
+                        this.props.navigation.navigate('WaitToSignIn', {
+                            productResult: dataRow.transports[0].transCode,
+                        })
                     }}
                 />
             );
@@ -888,9 +888,9 @@ let transCodeListData3 = [];
                         this.transportBatchSign(dataRow);
                     }}
                     onSelect={() => {
-                        {/*this.props.router.redirect(RouteType.ORDER_ENTRY_TO_BE_SIGNIN, {*/}
-                            {/*transOrderList: this.transportsList(dataRow),*/}
-                        {/*});*/}
+                        this.props.navigation.navigate('EntryToBeSignIn', {
+                            transOrderList: this.transportsList(dataRow),
+                        })
                     }}
                 />
             );
