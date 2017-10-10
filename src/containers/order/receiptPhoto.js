@@ -103,7 +103,7 @@ class ReceiptPhoto extends Component {
 
     clickImage(index) {
         if (this.state.result) {
-            this.props.router.redirect(
+            this.props.navigation.navigate(
                 'ImageShow',
                 {
                     image: this.state.result,

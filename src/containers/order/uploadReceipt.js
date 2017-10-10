@@ -281,7 +281,7 @@ class UploadReceipt extends Component {
 
     clickImage(index) {
         const {imageList} = this.props;
-        this.props.router.redirect(
+        this.props.navigation.navigate(
             'ReceiptPhotoShow',
             {
                 image: imageList.toArray(),

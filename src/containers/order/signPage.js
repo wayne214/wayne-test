@@ -384,7 +384,7 @@ class signPage extends Component {
     }
 
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         return (
             <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}>
                 <NavigationBar
