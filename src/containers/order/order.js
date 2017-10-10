@@ -945,56 +945,56 @@ let transCodeListData3 = [];
                     if (selectPage === 0) {
                         if (dataRow.dispatchStatus === '1') {
                             // 待发运
-                            {/*this.props.router.redirect(RouteType.ORDER_ENTRY_TO_BE_SHIPPED, {*/}
-                                {/*transOrderList: dataRow.transOrderList,*/}
-                                {/*scheduleCode: dataRow.scheduleCode,*/}
-                                {/*successCallBack: () => {*/}
-                                    {/*// 刷新*/}
-                                    {/*InteractionManager.runAfterInteractions(() => {*/}
-                                        {/*setTimeout(() => {*/}
-                                            {/*this.onRefresh();*/}
-                                        {/*}, 500);*/}
-                                    {/*});*/}
-                                {/*},*/}
-                            {/*});*/}
+                            this.props.navigation.navigate('EntryToBeShipped', {
+                                transOrderList: dataRow.transOrderList,
+                                scheduleCode: dataRow.scheduleCode,
+                                successCallBack: () => {
+                                    // 刷新
+                                    // InteractionManager.runAfterInteractions(() => {
+                                        setTimeout(() => {
+                                            this.onRefresh();
+                                        }, 500);
+                                    // });
+                                },
+                            });
                         } else {
                             // 待签收、待回单、已回单
-                            {/*this.props.router.redirect(RouteType.ORDER_ENTRY_TO_BE_SIGNIN, {*/}
-                                {/*transOrderList: dataRow.transOrderList,*/}
-                            {/*});*/}
+                            this.props.navigation.navigate('EntryToBeSignIn', {
+                                transOrderList: dataRow.transOrderList,
+                            });
                         }
 
                     } else if (selectPage === 1) {
                         // 待发运，跳转到 待发运
-                        {/*this.props.router.redirect(RouteType.ORDER_ENTRY_TO_BE_SHIPPED, {*/}
-                            {/*transOrderList: dataRow.transOrderList,*/}
-                            {/*scheduleCode: dataRow.scheduleCode,*/}
-                            {/*successCallBack: () => {*/}
-                                {/*// 刷新*/}
-                                {/*InteractionManager.runAfterInteractions(() => {*/}
-                                    {/*//setTimeout(()=>{*/}
-                                    {/*/**/}
-                                     {/*this.onRefresh();*/}
-                                     {/*allListData = [];*/}
-                                     {/*allPage =1;*/}
-                                     {/*this.setState({*/}
-                                     {/*isLoadallMore: true,*/}
-                                     {/*});*/}
+                        this.props.navigation.navigate('EntryToBeShipped', {
+                            transOrderList: dataRow.transOrderList,
+                            scheduleCode: dataRow.scheduleCode,
+                            successCallBack: () => {
+                                // 刷新
+                                // InteractionManager.runAfterInteractions(() => {
+                                    //setTimeout(()=>{
+
+                                     // this.onRefresh();
+                                     // allListData = [];
+                                     // allPage =1;
+                                     // this.setState({
+                                     // isLoadallMore: true,
+                                     // });
 
 
-                                    {/*delete shipListData[rowID];*/}
-                                    {/*this.setState({*/}
-                                        {/*dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData)*/}
-                                    {/*});*/}
-                                    {/*//},500);*/}
-                                {/*});*/}
-                            {/*},*/}
-                        {/*});*/}
+                                    delete shipListData[rowID];
+                                    this.setState({
+                                        dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData)
+                                    });
+                                    //},500);
+                                // });
+                            },
+                        });
                     } else {
                         // 其他的都跳转到  ORDER_ENTRY_TO_BE_SIGNIN
-                        {/*this.props.router.redirect(RouteType.ORDER_ENTRY_TO_BE_SIGNIN, {*/}
-                            {/*transOrderList: dataRow.transOrderList,*/}
-                        {/*});*/}
+                        this.props.navigation.navigate('EntryToBeSignIn', {
+                            transOrderList: dataRow.transOrderList,
+                        });
                     }
                 }}
             />
@@ -1002,7 +1002,7 @@ let transCodeListData3 = [];
     }
 
     render() {
-        const {navigator} = this.props;
+        const navigator = this.props.navigation;
         return (
             <View style={styles.container}>
                 <NavigationBar

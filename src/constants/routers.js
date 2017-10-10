@@ -19,6 +19,8 @@ import SearchResultForToBeSure from '../containers/order/search/searchResultForT
 import SearchResultForToBeShipped from '../containers/order/search/searchResultForToBeShipped';
 import SearchResultForToBeSignIn from '../containers/order/search/searchResultForToBeSignIn';
 import WaitToSignIn from '../containers/order/waitToSignIn';
+import EntryToBeShipped from '../containers/order/orderDetailScrollList/components/entryToBeShipped';
+import EntryToBeSignIn from '../containers/order/orderDetailScrollList/components/entryToBeSignin';
 
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
@@ -364,6 +366,18 @@ const StackRouteConfigs = {
     },
     SearchResultForToBeShipped: {
         screen: SearchResultForToBeShipped,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EntryToBeShipped: {
+        screen: EntryToBeShipped,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EntryToBeSignIn: {
+        screen: EntryToBeSignIn,
         navigationOptions: {
             header: null
         }

@@ -325,6 +325,7 @@ class Search extends Component {
             transCode: scheduleCode,
         });
         console.log('plateNumber=' + this.state.plateNumber);
+        console.log('scheduleCode=' + scheduleCode);
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_NEW_GET_SCHEDULE_INFO_BY_CODE,

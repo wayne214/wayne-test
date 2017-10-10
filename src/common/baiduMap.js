@@ -43,7 +43,7 @@ class BaiduMap extends Component {
     constructor(props) {
         super(props);
 
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
 
         this.state = {
             mayType: MapTypes.NORMAL,

@@ -29,7 +29,7 @@ import TotalsItemCell from '../../common/source/totalsItemCell';
 import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
 
 import * as API from '../../constants/api';
-
+import HTTPRequest from '../../utils/httpRequest';
 import LoadingView from '../../utils/loading';
 import EmptyView from '../../common/emptyView/emptyView';
 
@@ -84,24 +84,39 @@ class SearchResultOnly extends Component {
     }
 
     componentDidMount() {
-        this.getOrderDetaiInfo(this.getOrderSuccessCallBack, this.getOrderFailCallBack);
+        this.getOrderDetaiInfo();
     }
 
     componentWillUnmount() {
 
     }
 
-    getOrderDetaiInfo(getOrderSuccessCallBack, getOrderFailCallBack) {
-        this.props.getOrderDetaiInfo({
+    getOrderDetaiInfo() {
+        HTTPRequest({
             url: API.API_NEW_GET_GOODS_SOURCE,
-            body: {
+            params: {
                 transCodeList: [this.state.transCode],
             },
-        }, getOrderSuccessCallBack, getOrderFailCallBack)
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.getOrderSuccessCallBack(responseData.result);
+            },
+            error: (errorInfo)=>{
+                this.getOrderFailCallBack();
+            },
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
     }
 
     getOrderSuccessCallBack(result) {
-        this.changeAppLoading(false);
         this.setState({
             data: result[0]
         });
@@ -121,7 +136,6 @@ class SearchResultOnly extends Component {
     getOrderFailCallBack() {
 
     }
-
 
     // 底部组件
     subBottomComponent(buttonStyle, goodsInfoList, transCode, taskInfo) {
