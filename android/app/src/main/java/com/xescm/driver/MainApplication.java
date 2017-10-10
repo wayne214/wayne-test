@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.remobile.toast.RCTToastPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.imagepicker.ImagePickerPackage;
