@@ -23,6 +23,8 @@ import WaitToSignIn from '../containers/order/waitToSignIn';
 import EntryToBeShipped from '../containers/order/orderDetailScrollList/components/entryToBeShipped';
 import EntryToBeSignIn from '../containers/order/orderDetailScrollList/components/entryToBeSignin';
 import ReceiptPhotoShow from '../containers/order/imageViewer';
+import SignPage from '../containers/order/signPage';
+import UploadReceipt from '../containers/order/uploadReceipt';
 
 import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
@@ -392,6 +394,18 @@ const StackRouteConfigs = {
     },
     ReceiptPhotoShow: {
         screen: ReceiptPhotoShow,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SignPage: {
+        screen: SignPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    UploadReceipt: {
+        screen: UploadReceipt,
         navigationOptions: {
             header: null
         }
