@@ -164,7 +164,7 @@ class PersonInfo extends Component {
         ReadAndWriteFileUtil.appendFile('实名认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '个人信息页面');
         if (result) {
-            Storage.save('personInfoResult', result);
+            Storage.save(StorageKeys.personInfoResult, result);
             this.setState({
                 personInfo: result,
             });
