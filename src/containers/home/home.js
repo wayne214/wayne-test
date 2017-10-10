@@ -874,10 +874,10 @@ class Home extends Component {
                 ReadAndWriteFileUtil.appendFile('定位', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, 0, '定位');
                 TimeToDoSomething.uploadDataFromLocalMsg();
+            } else {
+                this.getWeather(data.city);
+                this.vehicleLimit(data.city);
             }
-            this.getWeather(data.city);
-            this.vehicleLimit(data.city);
-
         }).catch(e =>{
             console.log(e, 'error');
         });
