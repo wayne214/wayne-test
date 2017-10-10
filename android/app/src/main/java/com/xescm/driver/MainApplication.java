@@ -9,8 +9,11 @@ import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+
 import cn.jpush.reactnativejpush.JPushPackage;
+
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
+
 import com.remobile.toast.RCTToastPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -21,38 +24,41 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+    private boolean SHUTDOWN_TOAST = false;
+    private boolean SHUTDOWN_LOG = false;
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+            return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.<ReactPackage>asList(
+                    new MainReactPackage(),
+                    new PickerViewPackage(),
+                    new RCTCameraPackage(),
+                    new ImagePickerPackage(),
+                    new AnExampleReactPackage(),
+                    new RNFetchBlobPackage(),
+                    new RNFSPackage(),
+                    new RNDeviceInfo(),
+                    new JPushPackage(SHUTDOWN_TOAST,SHUTDOWN_LOG),
+                    new RCTToastPackage(),
+                    new BaiduMapPackage(getApplicationContext())
+            );
+        }
+    };
+
     @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
     }
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new PickerViewPackage(),
-            new RCTCameraPackage(),
-            new ImagePickerPackage(),
-            new RNFetchBlobPackage(),
-            new RNFSPackage(),
-            new RNDeviceInfo(),
-            new JPushPackage(),
-            new RCTToastPackage(),
-          new BaiduMapPackage(getApplicationContext())
-      );
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
     }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-  }
 }
