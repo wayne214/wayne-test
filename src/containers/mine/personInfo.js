@@ -14,7 +14,6 @@ import {CachedImage} from 'react-native-img-cache';
 import Toast from '@remobile/react-native-toast';
 import Button from 'apsl-react-native-button';
 import CommonCell from '../../containers/mine/cell/commonCell';
-import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
 import Storage from '../../utils/storage';
@@ -36,10 +35,14 @@ let lastTime = 0;
 let locationData = '';
 
 const styles = StyleSheet.create({
+    allContainer:{
+        flex: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+    },
     container: {
         marginTop: 10,
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
     Button: {
         backgroundColor: StaticColor.BLUE_ALL_COLOR,
@@ -58,17 +61,17 @@ const styles = StyleSheet.create({
     },
     separatorLine: {
         height: 10,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
     imageStyle: {
         width: 102,
         height: 65,
         borderWidth: 1,
-        borderColor: '#f5f5f5',
+        borderColor: StaticColor.COLOR_VIEW_BACKGROUND,
         borderRadius: 3,
     },
     subImageContainer: {
-        borderColor: '#cccccc',
+        borderColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
         borderWidth: 1,
         width: 112,
         height: 75,
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textStyle: {
-        color: '#666666',
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
         fontSize: 14,
         marginTop: 10,
     },
@@ -249,11 +252,11 @@ class PersonInfo extends Component {
         const showOppositeCard = person.idBackSideThumbnailAddress !== null && person.idBackSideThumbnailAddress !== '' ||
             person.oppositeCard && person.oppositeCard !== '';
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.allContainer}>
                 <NavigationBar
                     title={'个人信息'}
                     navigator={navigator}
-                    hiddenBackIcon={false}
+                    leftButtonHidden={false}
                 />
                 {
                     person == '' ?

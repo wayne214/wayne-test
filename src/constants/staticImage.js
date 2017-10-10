@@ -70,16 +70,21 @@ import scanBackIcon from '../../assets/scan/scanBackIcon.png';
 import scanLine from '../../assets/scan/scan_line.png';
 
 /*搜索图标*/
+
 import searchBackIcon from '../../assets/search/searchBackIcon.png';
 import closeIcon from '../../assets/search/forgetdel.png';
 
+/*订单图标*/
 import orderProductDetailItemAdd from '../../assets/order/orderProductDetailItem_add.png';
 import orderProductDetailItemSubtract from '../../assets/order/orderProductDetailItem_subtract.png';
-
 import orderProductDetailItemSubtractUnselect from '../../assets/order/orderProductDetailItem_subtract_unselect.png';
 import receiveRightArrow from '../../assets/order/receive_right_arrow.png';
 import receiveAdd from '../../assets/order/receive_add.png';
 import receiveDelete from '../../assets/order/receive_delete.png';
+
+/*关于我们*/
+import aboutUsImg from '../../assets/setting/aboutus.png';
+
 
 export default {
     EmptyImage,
@@ -132,5 +137,6 @@ export default {
     receiveRightArrow,
     receiveAdd,
     receiveDelete,
+    aboutUsImg,
 }
 

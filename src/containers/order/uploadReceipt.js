@@ -16,7 +16,6 @@ import {
     Alert,
 } from 'react-native';
 
-import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CommonCell from "../../containers/mine/cell/commonCell";
 import DialogSelected from '../../common/alertSelected';
@@ -98,6 +97,10 @@ const styles =StyleSheet.create({
         backgroundColor: StaticColor.COLOR_MAIN,
         borderRadius: 5,
     },
+    container: {
+        flex: 1,
+        backgroundColor:StaticColor.COLOR_VIEW_BACKGROUND,
+    }
 });
 
 class UploadReceipt extends Component {
@@ -367,7 +370,7 @@ class UploadReceipt extends Component {
             );
         });
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.container}>
                 <NavigationBar
                     title={'回单'}
                     navigator={navigator}

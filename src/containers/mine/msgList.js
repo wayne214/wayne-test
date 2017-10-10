@@ -9,27 +9,26 @@ import {
     Platform,
 } from 'react-native';
 import NavigatorBar from '../../common/navigationBar/navigationBar';
-import stylesCommon from '../../../assets/css/common'
 import JPushModule from 'jpush-react-native'
 import Storage from '../../utils/storage';
 import EmptyView from '../mine/cell/emptyView';
 import noDataIcon from '../../../assets/mine/nodata.png';
 import Toast from '@remobile/react-native-toast';
 import Swipeout from 'react-native-swipeout';
-
+import * as StaticColor from '../../constants/staticColor';
 
 
 const styles = StyleSheet.create({
     row: {
         paddingTop: 15,
-        backgroundColor: 'white',
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
     rowContent: {
         marginLeft: 10,
         paddingRight: 10,
         paddingBottom: 15,
         //设置item分割线
-        borderBottomColor: '#E8E8E8',
+        borderBottomColor: StaticColor.DEVIDE_LINE_COLOR,
         borderBottomWidth: 1,
     },
     title: {
@@ -37,7 +36,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingBottom: 15,
         justifyContent: 'space-between'
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+    },
 });
 
 export default class MsgList extends Component {
@@ -117,12 +120,12 @@ export default class MsgList extends Component {
         let styleeee2 = {};
 
         if (rowData.isRead){
-            styleeee1 = {fontSize: 14, color: '#999999', paddingLeft: 6, marginTop: 5};
-            styleeee2 = {fontSize: 12, color: '#999999', paddingLeft: 6, marginTop: 5};
+            styleeee1 = {fontSize: 14, color: StaticColor.GRAY_TEXT_COLOR, paddingLeft: 6, marginTop: 5};
+            styleeee2 = {fontSize: 12, color: StaticColor.GRAY_TEXT_COLOR, paddingLeft: 6, marginTop: 5};
 
         }else {
-            styleeee1 = {fontSize: 14, color: '#333333', paddingLeft: 6, marginTop: 5};
-            styleeee2 = {fontSize: 12, color: '#333333', paddingLeft: 6, marginTop: 5};
+            styleeee1 = {fontSize: 14, color: StaticColor.LIGHT_BLACK_TEXT_COLOR, paddingLeft: 6, marginTop: 5};
+            styleeee2 = {fontSize: 12, color: StaticColor.LIGHT_BLACK_TEXT_COLOR, paddingLeft: 6, marginTop: 5};
 
         }
 
@@ -158,7 +161,7 @@ export default class MsgList extends Component {
 
                     this.reloadListItemStatus(rowID);
 
-                    this.props.router.redirect(RouteType.MSG_DETAILS_PAGE,
+                    this.props.navigation.navigate('MsgDetails',
                          {
                              msgID: rowData.id,
                              msgData: rowData
@@ -210,28 +213,30 @@ export default class MsgList extends Component {
     }
     render() {
         const navigator = this.props.navigation;
-        return <View style={stylesCommon.container}>
-            <NavigatorBar
-                title={ '消息' }
-                navigator={ navigator }
-                leftButtonHidden={false}
-                rightButtonConfig={{
-                        type: 'string',
-                        title: '一键已读',
-                        onClick: () => {
-                            this.readAllList();
-                        },
-                    }}
-            />
-            {
-                this.state.msgList.length > 0 ?
-                    <ListView
-                        style={{marginTop: 12, backgroundColor: '#F5F5F5'}}
-                        dataSource={this.state.dataSource}
-                        renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
-                        enableEmptySections={true}
-                    /> : <EmptyView icon={noDataIcon} content={'暂时没有消息'} />
-            }
-        </View>
+        return (
+            <View style={styles.container}>
+                <NavigatorBar
+                    title={ '消息' }
+                    navigator={ navigator }
+                    leftButtonHidden={false}
+                    rightButtonConfig={{
+                            type: 'string',
+                            title: '一键已读',
+                            onClick: () => {
+                                this.readAllList();
+                            },
+                        }}
+                />
+                {
+                    this.state.msgList.length > 0 ?
+                        <ListView
+                            style={{marginTop: 12, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}
+                            dataSource={this.state.dataSource}
+                            renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
+                            enableEmptySections={true}
+                        /> : <EmptyView icon={noDataIcon} content={'暂时没有消息'} />
+                }
+            </View>
+        );
     }
 }
