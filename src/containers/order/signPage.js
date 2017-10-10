@@ -17,19 +17,18 @@ import {
     Alert
 } from 'react-native';
 
-import HeaderView from '../../components/order/SignHeaderView';
-import ProductInfoView from '../../components/order/SignProductInfoView';
-import NavigationBar from '../../common/navigationBar';
+import HeaderView from './components/SignHeaderView';
+import ProductInfoView from './components/SignProductInfoView';
+import NavigationBar from '../../common/navigationBar/navigationBar';
 import {SignInAction} from '../../action/order';
-import * as RouteType from '../../constants/routeType';
 import * as API from '../../constants/api';
-import {changeAppLoadingAction} from '../../action/app';
-import LoadingView from '../../common/loading';
+import Loading from '../../utils/loading';
 import Storage from '../../utils/storage';
 import computationUtil from '../../utils/computationUtil';
-import prventDoubleClickUtil from '../../utils/prventDoubleClickUtil';
+import prventDoubleClickUtil from '../../utils/prventMultiClickUtil';
 import * as StaticColor from '../../constants/staticColor';
 import Toast from '@remobile/react-native-toast';
+import HTTPRequest from '../../utils/httpRequest';
 
 
 let userID = '';
@@ -66,19 +65,19 @@ class signPage extends Component {
     constructor(props) {
         super(props);
         // 得到上一级传过来的值，把值放进state中，this.state.xxx取值
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
 
         this.state = {
             products: params.goodsInfoList,
             orderID: params.transCode,
-            isReceipt: params.taskInfo.isReceipt
+            isReceipt: params.taskInfo.isReceipt,
+            loading: false,
         };
 
         this.productInfo = this.productInfo.bind(this);
         this.getSignIn = this.getSignIn.bind(this);
         this.getSignInSuccessCallBack = this.getSignInSuccessCallBack.bind(this);
         this.getSignInFailCallBack = this.getSignInFailCallBack.bind(this);
-        this.changeAppLoading = this.changeAppLoading.bind(this);
         this.deleteComponent = this.deleteComponent.bind(this);
     }
 
@@ -167,13 +166,31 @@ class signPage extends Component {
         }
         console.log('goodsInfo:'+JSON.stringify(goodsInfo));
         currentTime = new Date().getTime();
-
-        this.props.SignInAction({
-            userId: userID,
-            userName,
-            transCode: this.state.orderID,
-            goodsInfo,
-        }, getSignInSuccessCallBack, getSignInFailCallBack);
+        HTTPRequest({
+            url: API.API_NEW_SIGN,
+            params: {
+                userId: userID,
+                userName,
+                transCode: this.state.orderID,
+                goodsInfo,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.getSignInSuccessCallBack(responseData.result);
+            },
+            error: (errorInfo)=>{
+                this.getSignInFailCallBack();
+            },
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
 
     }
 
@@ -184,7 +201,6 @@ class signPage extends Component {
         ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '签收页面');
         // Toast.showShortCenter('签收成功!');
-        this.changeAppLoading(false);
 
         if (this.state.isReceipt === '是'){
 
@@ -205,14 +221,13 @@ class signPage extends Component {
             ], {cancelable: false});
         } else {
             DeviceEventEmitter.emit('changeStateReceipt');
-            this.props.navigator.popToTop();
+            // this.props.navigator.popToTop();
         }
 
     }
 
     // 获取数据失败回调
     getSignInFailCallBack() {
-        this.changeAppLoading(false);
         Toast.showShortCenter('签收失败!');
     }
 
@@ -368,10 +383,6 @@ class signPage extends Component {
 
     }
 
-    changeAppLoading(appLoading) {
-        this.props.changeAppLoading(appLoading);
-    }
-
     render() {
         const {navigator} = this.props;
         return (
@@ -422,8 +433,8 @@ class signPage extends Component {
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}>
                     <TouchableOpacity
                         onPress={() => {
-                            if (prventDoubleClickUtil.noDoubleClick()) {
-                                this.getSignIn(this.getSignInSuccessCallBack,this.getSignInFailCallBack);
+                            if (prventDoubleClickUtil.onMultiClick()) {
+                                this.getSignIn();
                             }
                         }}
                         style={styles.viewSty}
@@ -431,52 +442,21 @@ class signPage extends Component {
                         <Text style={{color: StaticColor.WHITE_COLOR, fontSize: 16}}>提交</Text>
                     </TouchableOpacity>
                 </View>
-                <LoadingView showLoading={this.props.appLoading} />
+                {this.state.loading ? <Loading /> : null}
             </View>
         );
     }
 
 }
 
-signPage.propTypes = {
-    router: React.PropTypes.object.isRequired,
-    navigator: React.PropTypes.object.isRequired,
-    appLoading: React.PropTypes.bool.isRequired,
-    SignInAction: React.PropTypes.func.isRequired,
-    changeAppLoading: React.PropTypes.func.isRequired,
-};
 
 function mapStateToProps(state) {
     return {
-        appLoading: state.app.get('appLoading'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
-        changeAppLoading: (appLoading) => {
-            dispatch(changeAppLoadingAction(appLoading));
-        },
-        // 签收
-        SignInAction: (params, getSignInSuccessCallBack, getSignInFailCallBack) => {
-            dispatch(SignInAction({
-                url: API.API_NEW_SIGN,
-                body: {
-                    userId: params.userId,
-                    userName: params.userName,
-                    transCode: params.transCode,
-                    goodsInfo: params.goodsInfo,
-                },
-
-                successCallBack: () => {
-                    getSignInSuccessCallBack();
-                },
-                failCallBack: () => {
-                    getSignInFailCallBack();
-                },
-            }));
-        },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(signPage);
