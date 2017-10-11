@@ -15,7 +15,6 @@ import {
 import {CachedImage} from 'react-native-img-cache';
 import Toast from '@remobile/react-native-toast';
 import CommonCell from '../../containers/mine/cell/commonCell';
-import stylesCommon from '../../../assets/css/common';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
@@ -127,6 +126,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: StaticColor.COLOR_VIEW_BACKGROUND,
     },
+    allContainer: {
+        flex: 1,
+        backgroundColor:StaticColor.COLOR_VIEW_BACKGROUND,
+    }
 });
 
 class CarInfo extends Component {
@@ -298,7 +301,7 @@ class CarInfo extends Component {
         const showInsurancePic = aCar.insuranceThumbnail !== null && aCar.insuranceThumbnail !== '' ||
             aCar.insurancePic && aCar.insurancePic !== '';
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.allContainer}>
                 <NavigationBar
                     title={'车辆信息'}
                     navigator={navigator}

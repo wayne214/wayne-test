@@ -101,7 +101,7 @@ class entryGoodsDetail extends Component {
         this.emptyView = this.emptyView.bind(this);
         this.contentView = this.contentView.bind(this);
         this.changeOrderTab = this.changeOrderTab.bind(this);
-
+        this.popToTop = this.popToTop.bind(this);
     }
 
     componentWillUnmount() {
@@ -283,9 +283,6 @@ class entryGoodsDetail extends Component {
         }
         // DeviceEventEmitter.emit('refreshHome');
 
-        // let key = this.props.routes[this.props.routes.length - 2].key;
-        // this.props.navigation.goBack(key);
-
         DeviceEventEmitter.emit('reloadOrderAllAnShippt');
         this.props.navigation.navigate('Order');
         this.changeOrderTab(1);
@@ -341,12 +338,19 @@ class entryGoodsDetail extends Component {
             this.props.navigation.state.params.getOrderSuccess();
         }
         // DeviceEventEmitter.emit('refreshHome');
-        // this.props.navigator.popToTop();
+        this.popToTop();
     }
 
     // 获取数据失败回调
     refusedGoodsFailCallBack() {
         Toast.showShortCenter('拒单失败!');
+    }
+
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
     }
 
     /*
@@ -369,7 +373,7 @@ class entryGoodsDetail extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
-                        navigator.goBack();
+                        this.popToTop();
                         DeviceEventEmitter.emit('resetGood');
                     }}
                 />
@@ -512,6 +516,7 @@ class entryGoodsDetail extends Component {
 
 function mapStateToProps(state) {
     return {
+        routes: state.nav.routes,
     };
 }
 

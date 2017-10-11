@@ -179,6 +179,7 @@ class certification extends Component {
         this.implementationVerified = this.implementationVerified.bind(this);
         this.getCarLengthWeight = this.getCarLengthWeight.bind(this);
         this.isRightData = this.isRightData.bind(this);
+        this.popToTop = this.popToTop.bind(this);
     }
 
     componentDidMount() {
@@ -500,6 +501,13 @@ class certification extends Component {
             });
     }
 
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
 
     /*显示日期选取器*/
     showDatePick(showLongTime, data, type) {
@@ -776,7 +784,7 @@ class certification extends Component {
                 DeviceEventEmitter.emit('certificationSuccess');
                 Storage.remove(StorageKey.carInfoResult);
 
-                this.props.navigation.goBack();
+                this.popToTop();
 
             },
             error: (errorInfo) => {
@@ -998,7 +1006,9 @@ class certification extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps(dispatch) {

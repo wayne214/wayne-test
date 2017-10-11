@@ -5,14 +5,18 @@ import {
     Image,
     Text,
 } from 'react-native';
-import stylesCommon from '../../../assets/css/common';
 import CarImage from '../../../assets/car/carInfo.png';
 import NavigationBar from '../../common/navigationBar/navigationBar';
+import * as StaticColor from '../../constants/staticColor';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+    },
+    allContainer: {
+        flex: 1,
+        backgroundColor:StaticColor.COLOR_VIEW_BACKGROUND,
     },
 });
 
@@ -28,7 +32,7 @@ export default class ComponentTmpl extends Component {
     render() {
         const navigator = this.props.navigation;
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.allContainer}>
                 <NavigationBar
                     title={'车辆信息'}
                     navigator={navigator}
@@ -44,7 +48,7 @@ export default class ComponentTmpl extends Component {
                         style={{
                             marginTop: 30,
                             fontSize: 16,
-                            color: '#333333',
+                            color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                         }}
                     >
                         绑定车辆已被禁用，请联系运营人员

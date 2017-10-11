@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 export default class MsgDetails extends Component {
     constructor(props) {
         super(props);
-        const params = this.props.router.getCurrentRoute().params;
+        const params = this.props.navigation.state.params;
         this.state = {
             data: params.msgData,
         };
