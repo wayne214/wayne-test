@@ -16,7 +16,7 @@ import noDataIcon from '../../../assets/mine/nodata.png';
 import Toast from '@remobile/react-native-toast';
 import Swipeout from 'react-native-swipeout';
 import * as StaticColor from '../../constants/staticColor';
-
+import * as ConstValue from '../../constants/constValue';
 
 const styles = StyleSheet.create({
     row: {
@@ -230,7 +230,7 @@ export default class MsgList extends Component {
                 {
                     this.state.msgList.length > 0 ?
                         <ListView
-                            style={{marginTop: 12, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}
+                            style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginBottom : ConstValue.Tabbar_marginBottom}}
                             dataSource={this.state.dataSource}
                             renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
                             enableEmptySections={true}

@@ -22,7 +22,7 @@ import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
-
+import * as ConstValue from '../../constants/constValue';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,
@@ -791,9 +791,14 @@ class Home extends Component {
             } else {
                 setTimeout(() => {
                     // 开发中reload后，保存车辆列表信息，后面切换车辆会用到
-                    Storage.get(StorageKey.userCarList).then((value) => {
-                        this.saveUserCarList(value);
-                    });
+                    if (this.props.userCarList.length > 1) {
+                        Storage.get(StorageKey.userCarList).then((carList) => {
+                            this.saveUserCarList(carList);
+                        });
+                    }
+                    // Storage.get(StorageKey.userCarList).then((carList) => {
+                    //     this.saveUserCarList(carList);
+                    // });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
@@ -877,10 +882,10 @@ class Home extends Component {
                 ReadAndWriteFileUtil.appendFile('定位', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, 0, '定位');
                 TimeToDoSomething.uploadDataFromLocalMsg();
+            } else {
+                this.getWeather(data.city);
+                this.vehicleLimit(data.city);
             }
-            this.getWeather(data.city);
-            this.vehicleLimit(data.city);
-
         }).catch(e =>{
             console.log(e, 'error');
         });
@@ -1203,6 +1208,7 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
+        userCarList: state.user.get('userCarList')
     };
 }
 

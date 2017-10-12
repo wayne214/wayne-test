@@ -5,7 +5,7 @@ import React, {Component, PropTypes} from 'react';
 import {View, Text, Image, TouchableOpacity, ScrollView, Animated, Easing, StyleSheet, Platform, Dimensions, DeviceEventEmitter} from 'react-native';
 
 import StaticImage from '../../../constants/staticImage';
-
+import * as ConstValue from '../../../constants/constValue';
 const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         flex: 1,
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
                 paddingTop: 15,
             },
             android: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         right: 0,
         ...Platform.select({
             ios: {
-                top: 64,
+                top: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 top: 50,
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     preferences: {
         ...Platform.select({
             ios: {
-                height: 64,
-                paddingTop: 30,
+                height: ConstValue.NavigationBar_StatusBar_Height,
+                paddingTop: 40,
             },
             android: {
                 height: 50,

@@ -25,6 +25,7 @@ import * as API from '../../constants/api';
 import Loading from '../../utils/loading';
 import * as StaticColor from '../../constants/staticColor';
 import prventDoubleClickUtil from '../../utils/prventMultiClickUtil'
+import * as ConstValue from '../../constants/constValue';
 
 const space = 10;
 const topSpace = 10;
@@ -113,7 +114,7 @@ class orderToBeWaitSureDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                        ios:{height: screenHeight - topHeight - 64},
+                        ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                         android:{height: screenHeight - topHeight - 73}
                     })
                 }}
@@ -124,7 +125,7 @@ class orderToBeWaitSureDetail extends Component {
                     style={{
                         backgroundColor: 'white',
                         ...Platform.select({
-                            ios:{height: screenHeight - topHeight - 64},
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                             android:{height: screenHeight - topHeight - 73}
                         }),
                         borderColor: 'white',
