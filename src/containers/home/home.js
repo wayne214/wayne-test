@@ -22,7 +22,7 @@ import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
-
+import * as ConstValue from '../../constants/constValue';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,
@@ -273,6 +273,7 @@ class Home extends Component {
         this.vehicleLimit = this.vehicleLimit.bind(this);
         this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
         this.resetTo = this.resetTo.bind(this);
+        this.popToTop = this.popToTop.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -310,7 +311,6 @@ class Home extends Component {
                         {
                             text: '确定',
                             onPress: () => {
-                                // this.props.navigator.popToTop();
                                 DeviceEventEmitter.emit('resetGood');
                                 this.props.navigation.navigate('GoodsSource');
                             },
@@ -324,7 +324,6 @@ class Home extends Component {
                         {
                             text: '确定',
                             onPress: () => {
-                                // this.props.navigator.popToTop();
                                 this.props.navigation.navigate('Order');
                                 this.changeOrderTab(1);
                                 DeviceEventEmitter.emit('changeOrderTabPage', 1);
@@ -339,7 +338,6 @@ class Home extends Component {
                         {
                             text: '确定',
                             onPress: () => {
-                                // this.props.navigator.popToTop();
                                 this.props.navigation.navigate('Order');
                                 this.changeOrderTab(1);
                                 DeviceEventEmitter.emit('changeOrderTabPage', 1);
@@ -435,7 +433,6 @@ class Home extends Component {
                             {
                                 text: '确定',
                                 onPress: () => {
-                                    // this.props.navigator.popToTop();
                                     this.props.navigation.navigate('Order');
                                     this.changeOrderTab(1);
                                     DeviceEventEmitter.emit('changeOrderTabPage', 1);
@@ -450,7 +447,6 @@ class Home extends Component {
                             {
                                 text: '确定',
                                 onPress: () => {
-                                    // this.props.navigator.popToTop();
                                     this.props.navigation.navigate('Order');
                                     this.changeOrderTab(1);
                                     DeviceEventEmitter.emit('changeOrderTabPage', 1);
@@ -569,6 +565,13 @@ class Home extends Component {
             ]
         });
         this.props.navigation.dispatch(resetAction);
+    }
+
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
     }
 
     // 获取车辆列表

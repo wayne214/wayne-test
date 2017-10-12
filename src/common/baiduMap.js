@@ -19,23 +19,27 @@ import {
     GetDistance,
 } from 'react-native-baidu-map-xzx';
 
-import stylesCommon from '../../assets/css/common';
 import NavigatorBar from './navigationBar/navigationBar';
 import Toast from '@remobile/react-native-toast';
-
+import * as StaticColor from '../constants/staticColor';
+import * as ConstValue from '../constants/constValue';
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     map: {
         ...Platform.select({
             ios: {
-                height: height - 64,
+                height: height - ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: height - 73,
             },
         }),
         width,
+    },
+    container: {
+        flex: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
 });
 
@@ -164,7 +168,7 @@ class BaiduMap extends Component {
     render() {
         const navigator = this.props.navigation;
         return (
-            <View style={stylesCommon.container}>
+            <View style={styles.container}>
                 <NavigatorBar
                     title={'所在位置'}
                     navigator={navigator}

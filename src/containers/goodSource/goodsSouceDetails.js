@@ -15,7 +15,7 @@ import DetailsOrdersCell from '../../common/source/detailsOrdersCell';
 import TitlesCell from '../../common/source/titlesCell';
 import TotalsItemCell from '../../common/source/totalsItemCell';
 import OrderProductInfo from './component/goodsDetailInfo';
-
+import * as ConstValue from '../../constants/constValue';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
@@ -55,7 +55,7 @@ export default class GoodsSourceDetails extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                        ios:{height: isFullScreen ? screenHeight - topHeight - 64 : screenHeight - topHeight - bottomSpace - 64 - 5},
+                        ios:{height: isFullScreen ? screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height : screenHeight - topHeight - bottomSpace - ConstValue.NavigationBar_StatusBar_Height - 5},
                         android:{height: isFullScreen ? screenHeight - topHeight - 73 : screenHeight - topHeight - bottomSpace - 73 - 5}
                     })
                 }}
@@ -66,7 +66,7 @@ export default class GoodsSourceDetails extends Component {
                     style={{
                         backgroundColor: 'white',
                         ...Platform.select({
-                            ios:{height: isFullScreen ? screenHeight - topHeight - 64 : screenHeight - topHeight - bottomSpace - 64 - 5},
+                            ios:{height: isFullScreen ? screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height : screenHeight - topHeight - bottomSpace - ConstValue.NavigationBar_StatusBar_Height - 5},
                             android:{height: isFullScreen ? screenHeight - topHeight - 73 : screenHeight - topHeight - bottomSpace - 73 - 5}
                         }),
                         borderColor: 'white',

@@ -22,7 +22,7 @@ import {
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CommonButton from '../../common/commonButton';
 import CheckBoxList from '../../common/checkBoxList';
-
+import * as ConstValue from '../../constants/constValue';
 import * as StaticColor from '../../constants/staticColor';
 import * as API from '../../constants/api';
 
@@ -32,8 +32,7 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StorageKeys from '../../constants/storageKeys';
 
 const screenHeight = Dimensions.get('window').height;
-const topHeight = 40;
-const bottomSpace = 45;
+
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 10,
         backgroundColor: 'white',
-        height: screenHeight - topHeight - 64 - bottomSpace,
+        height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height - 10,
     },
     // 按钮
     buttonView: {

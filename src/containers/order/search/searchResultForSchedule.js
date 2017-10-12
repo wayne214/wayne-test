@@ -23,6 +23,7 @@ import Storage from '../../../utils/storage';
 import HTTPRequest from '../../../utils/httpRequest';
 
 import CommonListItem from '../../goodSource/goodListItem/commonListItem';
+import * as ConstValue from '../../../constants/constValue';
 
 import Toast from '@remobile/react-native-toast';
 import StaticImage from '../../../constants/staticImage';
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,

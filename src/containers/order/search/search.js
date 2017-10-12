@@ -15,6 +15,7 @@ import {
     TouchableOpacity,
     DeviceEventEmitter,
 } from 'react-native';
+import * as ConstValue from '../../../constants/constValue';
 
 import * as API from '../../../constants/api';
 import Storage from '../../../utils/storage';
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,

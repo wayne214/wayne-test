@@ -43,6 +43,7 @@ import {
     COLOR_MAIN,
 } from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
+import * as ConstValue from '../../constants/constValue';
 
 const {width, height} = Dimensions.get('window');
 let isLoadEnd = false;
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,

@@ -47,11 +47,19 @@ class RegisterSuccess extends Component {
         super(props);
         // 初始状态
         this.state = {};
+        this.popToTop = this.popToTop.bind(this);
     }
+
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
 
     render() {
         const navigator = this.props.navigation;
-        const {routes} = this.props;
         return (
             <View style={styles.container}>
                 <NavigatorBar
@@ -62,8 +70,7 @@ class RegisterSuccess extends Component {
                         type: 'string',
                         title: '完成',
                         onClick: () => {
-                            let key = routes[routes.length - 2].key;
-                            this.props.navigation.goBack(key);
+                            this.popToTop();
                         },
                     }}
                 />

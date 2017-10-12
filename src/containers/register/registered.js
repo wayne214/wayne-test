@@ -27,6 +27,7 @@ import * as API from '../../constants/api';
 
 import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import * as ConstValue from '../../constants/constValue';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-end',
         width: width,
-        marginTop: height - 40 - 64,
+        marginTop: height - 40 - ConstValue.NavigationBar_StatusBar_Height,
     },
     screenEndViewText: {
         fontSize: 14,
