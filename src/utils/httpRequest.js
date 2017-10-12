@@ -1,6 +1,7 @@
 import Storage from './storage';
 import StorageKey from '../constants/storageKeys';
-
+import JPushModule from 'jpush-react-native';
+import resetToLoginEmit from '../containers/home/receiveRestToLogin'
 import Toast from '@remobile/react-native-toast';
 
 const headers = {
@@ -119,6 +120,8 @@ const postRequest = (
                         Storage.remove(StorageKey.USER_INFO);
                         Storage.remove(StorageKey.CarSuccessFlag);
                         Storage.remove(StorageKey.PlateNumber);
+                        resetToLoginEmit.restToLogin(responseData.message);
+                        JPushModule.setAlias('', ()=>{}, ()=>{});
                     }
                     Toast.showShortCenter(responseData.message);
 
