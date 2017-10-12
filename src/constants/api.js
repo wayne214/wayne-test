@@ -95,7 +95,7 @@ export const API_BANK_CARD_SETDEFAULT = `${HOST}app/rmc/bankCard/setDefault/`;
 //银行卡-解除绑定设置
 export const API_BANK_CARD_UNBUNDING = `${HOST}app/rmc/bankCard/unbunding/`;
 //司机对应企业性质
-export const API_QUERY_ENTERPRISE_NATURE = `${HOST}/app/rmc/queryEnterpriseNature/`;
+export const API_QUERY_ENTERPRISE_NATURE = `${HOST}app/rmc/queryEnterpriseNature/`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
