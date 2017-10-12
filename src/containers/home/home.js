@@ -22,7 +22,7 @@ import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
-import * as ConstValue from '../../constants/constValue';
+
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: ConstValue.NavigationBar_StatusBar_Height,
+                height: 64,
             },
             android: {
                 height: 50,
@@ -796,9 +796,6 @@ class Home extends Component {
                             this.saveUserCarList(carList);
                         });
                     }
-                    // Storage.get(StorageKey.userCarList).then((carList) => {
-                    //     this.saveUserCarList(carList);
-                    // });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
