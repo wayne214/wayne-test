@@ -25,7 +25,7 @@ import { NavigationActions } from 'react-navigation';
 
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
-
+import * as ConstValue from '../../constants/constValue';
 import {
     WHITE_COLOR,
     BLUE_TEXT_COLOR,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         flex: 1,
         ...Platform.select({
             ios: {
-                paddingTop: 15,
+                paddingTop: ConstValue.StatusBar_Height,
             },
             android: {
                 paddingTop: 0,
