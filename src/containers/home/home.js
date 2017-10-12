@@ -791,9 +791,14 @@ class Home extends Component {
             } else {
                 setTimeout(() => {
                     // 开发中reload后，保存车辆列表信息，后面切换车辆会用到
-                    Storage.get(StorageKey.userCarList).then((value) => {
-                        this.saveUserCarList(value);
-                    });
+                    if (this.props.userCarList.length > 1) {
+                        Storage.get(StorageKey.userCarList).then((carList) => {
+                            this.saveUserCarList(carList);
+                        });
+                    }
+                    // Storage.get(StorageKey.userCarList).then((carList) => {
+                    //     this.saveUserCarList(carList);
+                    // });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
@@ -1203,6 +1208,7 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
+        userCarList: state.user.get('userCarList')
     };
 }
 
