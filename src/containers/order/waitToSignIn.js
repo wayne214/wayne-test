@@ -27,6 +27,7 @@ import DetailsOrdersCell from '../../common/source/detailsOrdersCell';
 import TitlesCell from '../../common/source/titlesCell';
 import TotalsItemCell from '../../common/source/totalsItemCell';
 import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
+import * as ConstValue from '../../constants/constValue';
 
 import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     scrollView: {
         ...Platform.select({
             ios: {
-                height: height - 64 - 54 - 10,
+                height: height - ConstValue.NavigationBar_StatusBar_Height - 54 - 10,
             },
             android: {
                 height: height - 73 - 54 - 10,
@@ -192,7 +193,7 @@ class SearchResultOnly extends Component {
                 style={{
                     ...Platform.select({
                         ios: {
-                            height: hideBottom ? height - 64 - 10 : height - 64 - 54 - 10,
+                            height: hideBottom ? height - ConstValue.NavigationBar_StatusBar_Height - 10 : height - ConstValue.NavigationBar_StatusBar_Height - 54 - 10,
                         },
                         android: {
                             height: hideBottom ? height - 73 - 10 : height - 73 - 54 - 10,

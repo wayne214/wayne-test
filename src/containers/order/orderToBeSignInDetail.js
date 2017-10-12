@@ -24,7 +24,7 @@ import TitlesCell from '../../common/source/titlesCell';
 import TotalsItemCell from '../../common/source/totalsItemCell';
 import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
 import * as StaticColor from '../../constants/staticColor';
-
+import * as ConstValue from '../../constants/constValue';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
@@ -104,7 +104,7 @@ export default class orderToBeSignInDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                            ios:{height: screenHeight - topHeight - 64},
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                             android:{height: screenHeight - topHeight - 73}
                     })
                 }}
@@ -115,7 +115,7 @@ export default class orderToBeSignInDetail extends Component {
                     style={{
                         backgroundColor: 'white',
                         ...Platform.select({
-                            ios:{height: screenHeight - topHeight - 64},
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                             android:{height: screenHeight - topHeight - 73}
                         }),
                         borderColor: 'white',

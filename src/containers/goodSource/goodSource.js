@@ -25,7 +25,7 @@ import * as API from '../../constants/api';
 import HTTPRequest from '../../utils/httpRequest';
 import CommonListItem from './goodListItem/commonListItem';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-
+import * as ConstValue from '../../constants/constValue';
 
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
@@ -45,16 +45,16 @@ const styles = StyleSheet.create({
     listView: {
         backgroundColor: '#F5F5F5',
         paddingTop: 10,
-        height: screenHeight - 64 - 49,
+        height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height,
     },
     dropDown: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
                 marginTop: 20,
             },
             android: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
         }),
     },

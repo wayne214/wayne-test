@@ -10,12 +10,12 @@ import {
 
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
-
+import * as ConstValue from '../../constants/constValue';
 const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,

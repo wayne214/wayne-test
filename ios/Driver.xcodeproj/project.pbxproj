@@ -430,13 +430,6 @@
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
 		};
-		B024C4A51F8CC03500F1D0A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E059CE651A4145938FCA441F /* RNSound.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
-			remoteInfo = RNSound;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -849,6 +842,8 @@
 				C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */,
 				327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */,
 				ED09E128A3804359AC8398A4 /* libRCTBEEPickerManager.a */,
+				062E833C16F6450FA50A03A5 /* libimageCropPicker.a */,
+				DE6BA98A06BC45FD94546BFF /* libRNSound.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1082,14 +1077,6 @@
 			isa = PBXGroup;
 			children = (
 				B024C4541F8CBBD600F1D0A9 /* libRNSound.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B024C4761F8CC03500F1D0A9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B024C4A61F8CC03500F1D0A9 /* libRNSound.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1649,13 +1636,6 @@
 			fileType = archive.ar;
 			path = libRNSound.a;
 			remoteRef = B024C4531F8CBBD600F1D0A9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B024C4A61F8CC03500F1D0A9 /* libRNSound.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSound.a;
-			remoteRef = B024C4A51F8CC03500F1D0A9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

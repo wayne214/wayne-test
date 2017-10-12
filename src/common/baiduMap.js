@@ -22,14 +22,14 @@ import {
 import NavigatorBar from './navigationBar/navigationBar';
 import Toast from '@remobile/react-native-toast';
 import * as StaticColor from '../constants/staticColor';
-
+import * as ConstValue from '../constants/constValue';
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     map: {
         ...Platform.select({
             ios: {
-                height: height - 64,
+                height: height - ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: height - 73,
