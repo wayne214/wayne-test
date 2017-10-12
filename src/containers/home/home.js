@@ -22,7 +22,7 @@ import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
-
+import * as ConstValue from '../../constants/constValue';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,

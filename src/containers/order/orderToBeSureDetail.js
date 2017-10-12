@@ -20,6 +20,7 @@ import TitlesCell from '../../common/source/titlesCell';
 import TotalsItemCell from '../../common/source/totalsItemCell';
 import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
 import * as StaticColor from '../../constants/staticColor';
+import * as ConstValue from '../../constants/constValue';
 
 const space = 10;
 const topSpace = 10;
@@ -58,7 +59,7 @@ export default class orderToBeSureDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                        ios:{height: screenHeight - topHeight - 64 - bottomSpace},
+                        ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - bottomSpace},
                         android:{height: screenHeight - topHeight - 73 - bottomSpace}
                     }),
                 }}
@@ -69,7 +70,7 @@ export default class orderToBeSureDetail extends Component {
                     style={{
                         backgroundColor: 'white',
                         ...Platform.select({
-                            ios:{height: screenHeight - topHeight - 64 - bottomSpace},
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - bottomSpace},
                             android:{height: screenHeight - topHeight - 73 - bottomSpace}
                         }),
                         borderColor: 'white',

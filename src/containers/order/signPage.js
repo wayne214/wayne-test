@@ -37,6 +37,7 @@ const {height} = Dimensions.get('window');
 
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import * as ConstValue from '../../constants/constValue';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -404,7 +405,7 @@ class signPage extends Component {
                 <ScrollView keyboardDismissMode="on-drag" style={{
                     marginBottom: 0,
                      ...Platform.select({
-                        ios:{height: height - 64 - 65},
+                        ios:{height: height - ConstValue.NavigationBar_StatusBar_Height - 65},
                         android:{height: height - 73 - 65}
                      })
 

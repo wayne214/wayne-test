@@ -24,6 +24,7 @@ import TitlesCell from '../../../common/source/titlesCell';
 import TotalsItemCell from '../../../common/source/totalsItemCell';
 import OrderProductInfo from '../components/orderProductItemInfo';
 import DetailsRedUserCell from '../../../common/source/detailsRedUserCell';
+import * as ConstValue from '../../../constants/constValue';
 
 
 const {height} = Dimensions.get('window');
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     scrollView: {
         ...Platform.select({
             ios: {
-                height: height - 64,
+                height: height - ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: height - 73,

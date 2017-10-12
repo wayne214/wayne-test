@@ -25,7 +25,7 @@ import HeaderRequire from './comment/bussnessRequier';
 import TypeItem from './comment/typeItem';
 import Toast from '@remobile/react-native-toast';
 import EmptyView from '../../../common/emptyView/emptyView';
-
+import * as ConstValue from '../../../constants/constValue';
 
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
@@ -45,7 +45,7 @@ let locationData = '';
 const styles = StyleSheet.create({
     listView: {
         backgroundColor: '#F5F5F5',
-        height: screenHeight - 64 - 49,
+        height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height,
     },
 
 });
