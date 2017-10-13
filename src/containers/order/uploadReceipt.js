@@ -124,6 +124,7 @@ class UploadReceipt extends Component {
         this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.popToTop = this.popToTop.bind(this);
+        this.goBackForward = this.goBackForward.bind(this);
 
     }
     componentDidMount() {
@@ -140,7 +141,6 @@ class UploadReceipt extends Component {
         const { dispatch } = this.props;
         dispatch(updateImages());
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.popToTop();
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -176,7 +176,7 @@ class UploadReceipt extends Component {
             locationData.district, lastTime - currentTime, '上传回单页面');
         Toast.showShortCenter('上传回单成功');
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.popToTop();
+        this.goBackForward();
     }
 
     // 获取数据失败回调
@@ -329,6 +329,12 @@ class UploadReceipt extends Component {
     popToTop() {
         const routes = this.props.routes;
         let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
+    goBackForward() {
+        const routes = this.props.routes;
+        let key = routes[routes.length - 2].key;
         this.props.navigation.goBack(key);
     }
 
