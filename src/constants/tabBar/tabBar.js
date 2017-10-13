@@ -7,6 +7,9 @@ import {
     Image,
     StyleSheet,
     DeviceEventEmitter,
+    View,
+    Dimensions,
+    Text,
 } from 'react-native';
 
 import {
@@ -23,6 +26,7 @@ import OrderRenderIcon from '../../../assets/tabBar/bar_order_normal.png';
 import OrderPressedIcon from '../../../assets/tabBar/bar_order_pressed.png';
 import IncomeRenderIcon from '../../../assets/tabBar/bar_income_normal.png';
 import IncomePressedIcon from '../../../assets/tabBar/bar_income_pressed.png';
+import * as ConstValue from '../../constants/constValue';
 
 import Home from '../../containers/home/home';
 import Mine from '../../containers/mine/mine';
@@ -30,9 +34,12 @@ import GoodsSource from '../../containers/goodSource/goodSource';
 import Order from '../../containers/order/order';
 import Income from '../../containers/income/AccountFlow/income';
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     tabIcon: {
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        marginTop: 10
     }
 });
 
@@ -72,7 +79,7 @@ const TabRouteConfigs = {
                     DeviceEventEmitter.emit('getUserCar');
                 }
                 jumpToIndex(scene.index)
-            },
+            }
         }),
     },
     Order: {
@@ -147,10 +154,14 @@ const TabNavigatorConfigs = {
         },
         style: {
             backgroundColor: '#FFFFFF', // TabBar 背景色
+            marginBottom: ConstValue.Tabbar_marginBottom
         },
         labelStyle: {
             fontSize: 10, // 文字大小
         },
+        iconStyle: {
+        }
+
     },
 };
 

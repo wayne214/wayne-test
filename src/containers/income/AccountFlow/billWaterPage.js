@@ -24,9 +24,6 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
-const {width} = Dimensions.get('window');
-const styles = StyleSheet.create({});
-
 export default class BillWaterPage extends Component {
     static propTypes = {
         content: PropTypes.string,
@@ -162,6 +159,7 @@ export default class BillWaterPage extends Component {
     listView() {
         return (
             <ListView
+
                 dataSource={this.state.dataSource}
                 onEndReached={this.onEndReached.bind(this)}
                 onEndReachedThreshold={100}

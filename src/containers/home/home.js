@@ -22,10 +22,10 @@ import JPushModule from 'jpush-react-native';
 import Swiper from 'react-native-swiper';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
-import * as ConstValue from '../../constants/constValue';
+
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
-
+import * as ConstValue from '../../constants/constValue';
 import {
     WHITE_COLOR,
     BLUE_TEXT_COLOR,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: ConstValue.NavigationBar_StatusBar_Height,
+                height: 64,
             },
             android: {
                 height: 50,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         flex: 1,
         ...Platform.select({
             ios: {
-                paddingTop: 15,
+                paddingTop: ConstValue.StatusBar_Height,
             },
             android: {
                 paddingTop: 0,
@@ -796,9 +796,6 @@ class Home extends Component {
                             this.saveUserCarList(carList);
                         });
                     }
-                    // Storage.get(StorageKey.userCarList).then((carList) => {
-                    //     this.saveUserCarList(carList);
-                    // });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
