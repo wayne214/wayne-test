@@ -19,7 +19,7 @@ import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import * as API from '../../constants/api';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-
+import * as ConstValue from '../../constants/constValue';
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
 let currentTime = 0;
@@ -129,7 +129,7 @@ export default class MyBankCard extends Component {
 
                 <View style={{
                     width,
-                    height:height-42-65
+                    height:height - 42 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                 }}>
                     {
                         isEmpty ?
