@@ -48,7 +48,7 @@ const TabRouteConfigs = {
                 />
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                console.log('-------home------',scene);
+                DeviceEventEmitter.emit('refreshHome');
                 jumpToIndex(scene.index)
             },
         }),
@@ -64,7 +64,13 @@ const TabRouteConfigs = {
                 />
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                console.log('-------goods------',scene);
+                if (global.plateNumber && global.plateNumber !== '') {
+                    if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
+                        DeviceEventEmitter.emit('notifyCarStatus');
+                    }
+                } else {
+                    DeviceEventEmitter.emit('getUserCar');
+                }
                 jumpToIndex(scene.index)
             },
         }),
@@ -80,7 +86,13 @@ const TabRouteConfigs = {
                 />
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                console.log('-------order------',scene);
+                if (global.plateNumber && global.plateNumber !== '') {
+                    if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
+                        DeviceEventEmitter.emit('notifyCarStatus');
+                    }
+                } else {
+                    DeviceEventEmitter.emit('getUserCar');
+                }
                 jumpToIndex(scene.index)
             },
         }),
@@ -96,7 +108,7 @@ const TabRouteConfigs = {
                 />
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                console.log('-------income------',scene);
+                DeviceEventEmitter.emit('refreshIncome');
                 jumpToIndex(scene.index)
             },
         }),

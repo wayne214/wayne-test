@@ -38,6 +38,7 @@ const {height} = Dimensions.get('window');
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import * as ConstValue from '../../constants/constValue';
+import StorageKey from '../../constants/storageKeys';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -81,13 +82,17 @@ class signPage extends Component {
         this.getSignInFailCallBack = this.getSignInFailCallBack.bind(this);
         this.deleteComponent = this.deleteComponent.bind(this);
         this.popToTop = this.popToTop.bind(this);
+        this.goBackForward = this.goBackForward.bind(this);
+
     }
 
     componentDidMount() {
         this.getCurrentPosition();
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
         });
     }
 
@@ -210,7 +215,7 @@ class signPage extends Component {
                 {text: '否',
                     onPress: () => {
                         DeviceEventEmitter.emit('changeStateReceipt');
-                        this.popToTop();
+                        this.goBackForward();
                     },
                 },
                 {text: '是',
@@ -232,6 +237,12 @@ class signPage extends Component {
     popToTop() {
         const routes = this.props.routes;
         let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+    //返回前两个界面
+    goBackForward() {
+        const routes = this.props.routes;
+        let key = routes[routes.length - 2].key;
         this.props.navigation.goBack(key);
     }
 

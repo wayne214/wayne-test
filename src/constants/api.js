@@ -102,6 +102,7 @@ export const API_QUERY_ENTERPRISE_NATURE = `${HOST}app/rmc/queryEnterpriseNature
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
 export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
+// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.125:8018/app/transport/goodsSource`;
 // 订单列表（已回单）
 export const API_NEW_GET_ORDER_LIST_V2 = `${HOST}app/transport/queryAlreadCompleteTransportListV2_1`;
 // 运输中
