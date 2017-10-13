@@ -24,6 +24,7 @@ import Button from 'apsl-react-native-button';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
 import {upLoadImageManager} from '../../utils/upLoadImageRequest';
+import StorageKey from '../../constants/storageKeys';
 
 import {
     addImage,
@@ -127,9 +128,11 @@ class UploadReceipt extends Component {
     }
     componentDidMount() {
         this.getCurrentPosition();
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
         });
     }
 

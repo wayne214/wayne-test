@@ -26,6 +26,7 @@ import Loading from '../../utils/loading';
 import * as StaticColor from '../../constants/staticColor';
 import prventDoubleClickUtil from '../../utils/prventMultiClickUtil'
 import * as ConstValue from '../../constants/constValue';
+import StorageKey from '../../constants/storageKeys';
 
 const space = 10;
 const topSpace = 10;
@@ -51,9 +52,11 @@ class orderToBeWaitSureDetail extends Component {
     }
 
     componentDidMount() {
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
         });
     }
 

@@ -634,9 +634,9 @@ let transCodeListData3 = [];
     submit(isPlatformDispatch, isBidding, isBackTracking, departureCity, departureCityArray, appointmentTime) {
         currentTime = new Date();
         const {userInfo, plateNumber} = this.props;
-        const phoneNum = userInfo.result.phone;
-        const userId = userInfo.result.userId;
-        const userName = userInfo.result.userName;
+        const phoneNum = userInfo.phone;
+        const userId = userInfo.userId;
+        const userName = userInfo.userName;
 
         HTTPRequest({
             url: API.API_SET_GOODSOURCE_PREFERENCE,
@@ -741,12 +741,12 @@ let transCodeListData3 = [];
 
             },
             success: (responseData) => {
-
+                let result = responseData.result;
                 if (this.props.isResetCity) {
                     if (pageNum === 1) {
                         signListData = [];
                     }
-                    signListData = signListData.concat(responseData.result.list);
+                    signListData = signListData.concat(result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
@@ -769,7 +769,7 @@ let transCodeListData3 = [];
                     if (pageNum === 1) {
                         signListData = [];
                     }
-                    signListData = signListData.concat(responseData.result.list);
+                    signListData = signListData.concat(result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
