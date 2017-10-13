@@ -10,7 +10,7 @@ import {
     Alert,
     Dimensions,
     DeviceEventEmitter,
-    BackAndroid
+    BackHandler
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import {NavigationActions} from 'react-navigation';
@@ -93,11 +93,11 @@ class chooseCar extends Component {
     }
     componentDidMount() {
         this.getCurrentPosition();
-        BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBack);
     }
 
     componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBack);
     }
 
     handleBack = () => {
