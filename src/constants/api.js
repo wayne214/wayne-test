@@ -108,7 +108,8 @@ export const API_NEW_GET_ORDER_LIST_V2 = `${HOST}app/transport/queryAlreadComple
 // 运输中
 export const API_NEW_GET_ORDER_LIST_TRANSPORT = `${HOST}app/transport/queryTransportList`;
 // 回单接口
-export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `${HOST}app/transport/returnTransportOrder/v2.1`;
+// export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `${HOST}app/transport/returnTransportOrder/v2.1`;
+export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `http://192.168.32.236:8018/app/transport/returnTransportOrder/v2.1`;
 // 回单照片展示接口
 export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 // 签收接口
