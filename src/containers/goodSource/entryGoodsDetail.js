@@ -349,6 +349,13 @@ class entryGoodsDetail extends Component {
         Toast.showShortCenter('拒单失败!');
     }
 
+    // 返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
     /*
      *  ...Platform.select({
      ios:{top: 200},
@@ -370,7 +377,7 @@ class entryGoodsDetail extends Component {
                     leftButtonHidden={false}
                     backIconClick={() => {
                         navigator.goBack();
-                        DeviceEventEmitter.emit('resetgood');
+                        DeviceEventEmitter.emit('resetGood');
                     }}
                 />
                 <EmptyView />
@@ -512,16 +519,11 @@ class entryGoodsDetail extends Component {
     }
 }
 
-entryGoodsDetail.propTypes = {
-    refusedGoods: React.PropTypes.func,
-    receiveGoods: React.PropTypes.func,
-    getOrderDetaiInfoSuccess: React.PropTypes.func,
-    router: React.PropTypes.object,
-    navigator: React.PropTypes.object,
-};
+
 function mapStateToProps(state) {
     return {
         plateNumber: state.user.get('plateNumber'),
+        routes: state.nav.routes,
     };
 }
 

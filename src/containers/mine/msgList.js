@@ -11,8 +11,7 @@ import {
 import NavigatorBar from '../../common/navigationBar/navigationBar';
 import JPushModule from 'jpush-react-native'
 import Storage from '../../utils/storage';
-import EmptyView from '../mine/cell/emptyView';
-import noDataIcon from '../../../assets/mine/nodata.png';
+import EmptyView from '../../common/emptyView/emptyView';
 import Toast from '@remobile/react-native-toast';
 import Swipeout from 'react-native-swipeout';
 import * as StaticColor from '../../constants/staticColor';
@@ -227,6 +226,7 @@ export default class MsgList extends Component {
                             },
                         }}
                 />
+                <View>
                 {
                     this.state.msgList.length > 0 ?
                         <ListView
@@ -234,8 +234,9 @@ export default class MsgList extends Component {
                             dataSource={this.state.dataSource}
                             renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
                             enableEmptySections={true}
-                        /> : <EmptyView icon={noDataIcon} content={'暂时没有消息'} />
+                        /> : <EmptyView content={'暂时没有消息'} />
                 }
+                </View>
             </View>
         );
     }

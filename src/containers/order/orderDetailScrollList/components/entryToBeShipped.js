@@ -23,6 +23,7 @@ import prventDoubleClickUtil from '../../../../utils/prventMultiClickUtil'
 import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import {isReSetCity} from '../../../../action/order';
+import StorageKey from '../../../../constants/storageKeys';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -86,12 +87,16 @@ class entryToBeShipped extends Component {
     componentDidMount() {
         this.getCurrentPosition();
         this.getOrderDetailInfo();
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
         });
-        Storage.get('plateNumber').then((plate) => {
-            plateNumber = plate;
+        Storage.get(StorageKey.PlateNumber).then((plate) => {
+            if(plate) {
+                plateNumber = plate;
+            }
         });
     }
 // 获取当前位置
@@ -276,7 +281,7 @@ class entryToBeShipped extends Component {
         // 发运成功后，更新货源偏好出发城市
         this.resetCityAction(true);
         DeviceEventEmitter.emit('resetCityLIST');
-        this.popToTop();
+        this.props.navigation.goBack();
     }
 
     // 获取数据失败回调

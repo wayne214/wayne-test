@@ -205,9 +205,8 @@ class Login extends BaseContainer {
                         ]
                     });
                     this.props.navigation.dispatch(resetAction);
-                    JPushModule.setAlias(result.phone, () => {
-                    }, () => {
-                    });
+
+                    JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
                 });
 
             },

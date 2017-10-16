@@ -95,19 +95,21 @@ export const API_BANK_CARD_SETDEFAULT = `${HOST}app/rmc/bankCard/setDefault/`;
 //银行卡-解除绑定设置
 export const API_BANK_CARD_UNBUNDING = `${HOST}app/rmc/bankCard/unbunding/`;
 //司机对应企业性质
-export const API_QUERY_ENTERPRISE_NATURE = `${HOST}/app/rmc/queryEnterpriseNature/`;
+export const API_QUERY_ENTERPRISE_NATURE = `${HOST}app/rmc/queryEnterpriseNature/`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
 export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
+// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.125:8018/app/transport/goodsSource`;
 // 订单列表（已回单）
 export const API_NEW_GET_ORDER_LIST_V2 = `${HOST}app/transport/queryAlreadCompleteTransportListV2_1`;
 // 运输中
 export const API_NEW_GET_ORDER_LIST_TRANSPORT = `${HOST}app/transport/queryTransportList`;
 // 回单接口
-export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `${HOST}app/transport/returnTransportOrder/v2.1`;
+// export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `${HOST}app/transport/returnTransportOrder/v2.1`;
+export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `http://192.168.32.236:8018/app/transport/returnTransportOrder/v2.1`;
 // 回单照片展示接口
 export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 // 签收接口
