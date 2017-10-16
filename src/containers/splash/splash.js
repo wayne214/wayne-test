@@ -21,6 +21,7 @@ import BaseContainer from '../base/baseContainer';
 import StorageKey from '../../constants/storageKeys';
 import Storage from '../../utils/storage';
 import UUID from '../../utils/uuid';
+import ObjectUitls from '../../utils/objectUitls';
 
 const {width, height} = Dimensions.get('window');
 
@@ -41,21 +42,21 @@ class Splash extends BaseContainer {
     getInfoForGlobal() {
 
         Storage.get(StorageKey.USER_INFO).then((result) => {
-            if (result){
+            if (result && !ObjectUitls.isOwnEmpty(result)){
                 // 发送Action,全局赋值用户信息
                 this.props.sendLoginSuccessAction(result);
             }
         });
 
         Storage.get(StorageKey.PlateNumberObj).then((result) => {
-            if (result){
+            if (result && !ObjectUitls.isOwnEmpty(result)){
                 // 发送Action,全局赋值车辆信息
                 this.props.sendUserPlateNumberAction(result);
             }
         });
 
         Storage.get(StorageKey.UDID).then((value) => {
-            if (value) {
+            if (value && !ObjectUitls.isOwnEmpty(value)) {
                 global.UDID = value;
                 console.log('-- UDID From Storage --', global.UDID);
             } else {
