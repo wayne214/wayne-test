@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
 class Home extends Component {
     constructor(props) {
         super(props);
-        if (Platform.OS === 'android') JPushModule.initPush();
+        // if (Platform.OS === 'android') JPushModule.initPush();
 
         this.state = {
             acceptMessge: '',

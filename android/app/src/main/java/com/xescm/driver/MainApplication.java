@@ -11,14 +11,12 @@ import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 import cn.jpush.reactnativejpush.JPushPackage;
 
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 
-import com.remobile.toast.RCTToastPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -41,8 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RNSoundPackage(),
-            new RCTToastPackage(),
+                    new RNSoundPackage(),
                     new PickerPackage(),
                     new PickerViewPackage(),
                     new RCTCameraPackage(),
@@ -51,7 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFetchBlobPackage(),
                     new RNFSPackage(),
                     new RNDeviceInfo(),
-                    new JPushPackage(SHUTDOWN_TOAST,SHUTDOWN_LOG),
+                    new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
                     new RCTToastPackage(),
                     new BaiduMapPackage(getApplicationContext())
             );

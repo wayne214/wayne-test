@@ -160,7 +160,6 @@ android {
 
 dependencies {
     compile project(':react-native-sound')
-    compile project(':@remobile/react-native-toast')
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-picker-custom')
     compile project(':react-native-camera')
