@@ -23,7 +23,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Button from 'apsl-react-native-button';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
-import {upLoadImageManager} from '../../utils/upLoadImageRequest';
+import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 import StorageKey from '../../constants/storageKeys';
 
 import {
@@ -181,7 +181,6 @@ class UploadReceipt extends Component {
 
     // 获取数据失败回调
     uploadOrderFailCallBack(err) {
-        console.log('err', err);
         Toast.showShortCenter('上传回单失败');
     }
 
@@ -297,17 +296,16 @@ class UploadReceipt extends Component {
         );
     }
 
-    uploadImage(url, data,){
+    uploadImage(url, data){
         upLoadImageManager(url,
             data,
             ()=>{
-                console.log('开始请求数据');
                 this.setState({
                     loading: true,
                 });
             },
             (response)=>{
-                console.log(response);
+                console.log('uploadResult===',response.result);
                 this.setState({
                     loading: false,
                 });
@@ -318,6 +316,7 @@ class UploadReceipt extends Component {
                 }
             },
             (error)=>{
+                console.log('uploadError===',error);
                 this.setState({
                     loading: false,
                 });
