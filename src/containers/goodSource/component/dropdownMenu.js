@@ -277,7 +277,7 @@ export default class DropdownMenu extends Component {
                                 key={index}
                                 style={styles.title}
                             >
-                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
                                     <Text
                                         style={{
                                             color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor,
