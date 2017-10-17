@@ -126,6 +126,10 @@ class Login extends BaseContainer {
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
+
+
+        this.success = this.success.bind(this);
+        this.fail = this.fail.bind(this);
     }
 
 
@@ -206,7 +210,7 @@ class Login extends BaseContainer {
                     });
                     this.props.navigation.dispatch(resetAction);
 
-                    JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
+                    JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
                 });
 
             },
@@ -220,6 +224,14 @@ class Login extends BaseContainer {
         });
 
     }
+
+    fail = () => {
+    };
+
+    success = () => {
+        NativeAppEventEmitter.addListener('ReceiveNotification', (message) => {
+        });
+    };
 
     render() {
         const {phoneNumber, password} = this.state;
