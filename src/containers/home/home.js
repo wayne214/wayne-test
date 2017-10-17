@@ -633,9 +633,6 @@ class Home extends Component {
                 ], {cancelable: false});
         }
     }
-    saveUserCarList(carList) {
-        this.props.saveUserCarListAction(carList);
-    }
     // 设置车辆
     setUserCar(plateNumber) {
         currentTime = new Date().getTime();
@@ -792,11 +789,9 @@ class Home extends Component {
             } else {
                 setTimeout(() => {
                     // 开发中reload后，保存车辆列表信息，后面切换车辆会用到
-                    if (this.props.userCarList.length > 1) {
-                        Storage.get(StorageKey.userCarList).then((carList) => {
-                            this.saveUserCarList(carList);
-                        });
-                    }
+                    Storage.get(StorageKey.userCarList).then((carList) => {
+                        this.saveUserCarList(carList);
+                    });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
