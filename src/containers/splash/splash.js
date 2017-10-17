@@ -87,7 +87,7 @@ class Splash extends BaseContainer {
             if (value && value * 1 === 1) {
                 Storage.get(StorageKey.USER_INFO).then((userInfo) => {
                     console.log('>>>>>>>> userinfo is login ', userInfo);
-                    if (userInfo) {
+                    if (!ObjectUitls.isOwnEmpty(userInfo)) {
                         title = 'Main';
                     } else {
                         title = 'Login';
