@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: StaticColor.WHITE_COLOR,
         fontSize: 18,
+        marginTop: 10,
     },
     leftIconFontStyle: {
         marginLeft: 10,
