@@ -7,9 +7,6 @@ import {
     Image,
     StyleSheet,
     DeviceEventEmitter,
-    View,
-    Dimensions,
-    Text,
 } from 'react-native';
 
 import {
@@ -34,7 +31,6 @@ import GoodsSource from '../../containers/goodSource/goodSource';
 import Order from '../../containers/order/order';
 import Income from '../../containers/income/AccountFlow/income';
 
-const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     tabIcon: {

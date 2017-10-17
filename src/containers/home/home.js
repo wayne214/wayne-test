@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 7,
     },
     rightContainer: {
         flex: 1,
