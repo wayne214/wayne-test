@@ -23,7 +23,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Button from 'apsl-react-native-button';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
-import {upLoadImageManager} from '../../utils/upLoadImageRequest';
+import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
+import StorageKey from '../../constants/storageKeys';
 
 import {
     addImage,
@@ -123,13 +124,16 @@ class UploadReceipt extends Component {
         this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.popToTop = this.popToTop.bind(this);
+        this.goBackForward = this.goBackForward.bind(this);
 
     }
     componentDidMount() {
         this.getCurrentPosition();
-        Storage.get('userInfo').then((userInfo) => {
-            userID = userInfo.result.userId;
-            userName = userInfo.result.userName;
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
         });
     }
 
@@ -137,7 +141,6 @@ class UploadReceipt extends Component {
         const { dispatch } = this.props;
         dispatch(updateImages());
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.popToTop();
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -173,12 +176,11 @@ class UploadReceipt extends Component {
             locationData.district, lastTime - currentTime, '上传回单页面');
         Toast.showShortCenter('上传回单成功');
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.popToTop();
+        this.goBackForward();
     }
 
     // 获取数据失败回调
     uploadOrderFailCallBack(err) {
-        console.log('err', err);
         Toast.showShortCenter('上传回单失败');
     }
 
@@ -294,17 +296,16 @@ class UploadReceipt extends Component {
         );
     }
 
-    uploadImage(url, data,){
+    uploadImage(url, data){
         upLoadImageManager(url,
             data,
             ()=>{
-                console.log('开始请求数据');
                 this.setState({
                     loading: true,
                 });
             },
             (response)=>{
-                console.log(response);
+                console.log('uploadResult===',response.result);
                 this.setState({
                     loading: false,
                 });
@@ -315,6 +316,7 @@ class UploadReceipt extends Component {
                 }
             },
             (error)=>{
+                console.log('uploadError===',error);
                 this.setState({
                     loading: false,
                 });
@@ -326,6 +328,12 @@ class UploadReceipt extends Component {
     popToTop() {
         const routes = this.props.routes;
         let key = routes[1].key;
+        this.props.navigation.goBack(key);
+    }
+
+    goBackForward() {
+        const routes = this.props.routes;
+        let key = routes[routes.length - 2].key;
         this.props.navigation.goBack(key);
     }
 

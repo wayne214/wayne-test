@@ -17,9 +17,9 @@ import {
     NativeAppEventEmitter,
     InteractionManager,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
 import {loginSuccessAction, setUserNameAction} from '../../action/user';
@@ -28,7 +28,7 @@ import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 import * as API from '../../constants/api';
 
-import  HTTPRequest from '../../utils/httpRequest';
+import HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
 import StorageKey from '../../constants/storageKeys';
 import XeEncrypt from '../../utils/XeEncrypt';
@@ -45,7 +45,7 @@ const dismissKeyboard = require('dismissKeyboard');
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     contentView: {
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         width,
         height: 185,
         marginTop: (height - 490) * 0.6,
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0)',
     },
     screenEndView: {
-        position:'absolute',
-        flex:1,
+        position: 'absolute',
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-end',
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0)',
     },
 });
+
 class Login extends BaseContainer {
 
     constructor(props) {
@@ -130,9 +131,9 @@ class Login extends BaseContainer {
 
     componentDidMount() {
         Geolocation.getCurrentPosition().then(data => {
-            console.log('position..........',JSON.stringify(data));
+            console.log('position..........', JSON.stringify(data));
             locationData = data;
-        }).catch(e =>{
+        }).catch(e => {
             console.log(e, 'error');
         });
 
@@ -142,24 +143,24 @@ class Login extends BaseContainer {
     loginSecretCode() {
         HTTPRequest({
             url: API.API_GET_SEC_TOKEN,
-            params:{},
-            loading:()=>{
+            params: {},
+            loading: () => {
                 this.setState({
                     loading: true,
                 });
             },
-            success:(responseData)=>{
+            success: (responseData) => {
                 const secretCode = responseData.result;
                 const secretPassWord = XeEncrypt.aesEncrypt(this.state.password, secretCode, secretCode);
                 console.log('----log--', secretPassWord);
                 this.login(secretPassWord);
             },
-            error:(errorInfo)=>{
+            error: (errorInfo) => {
                 this.setState({
                     loading: false,
                 });
             },
-            finish: ()=>{
+            finish: () => {
 
             }
         });
@@ -177,13 +178,13 @@ class Login extends BaseContainer {
                 deviceId: global.UDID,
                 platform: global.platform,
             },
-            loading: ()=>{
+            loading: () => {
 
             },
-            success: (responseData)=>{
+            success: (responseData) => {
                 this.setState({
                     loading: false,
-                }, ()=>{
+                }, () => {
                     lastTime = new Date().getTime();
 
                     ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
@@ -200,20 +201,21 @@ class Login extends BaseContainer {
                     const resetAction = NavigationActions.reset({
                         index: 0,
                         actions: [
-                            NavigationActions.navigate({ routeName: 'Main'}),
+                            NavigationActions.navigate({routeName: 'Main'}),
                         ]
                     });
                     this.props.navigation.dispatch(resetAction);
+
                     JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
                 });
 
             },
-            error: (errorInfo)=>{
+            error: (errorInfo) => {
                 this.setState({
                     loading: false,
                 });
             },
-            finish: ()=>{
+            finish: () => {
             }
         });
 
@@ -229,7 +231,7 @@ class Login extends BaseContainer {
                         style={{width, height}}
                     />
                 </View>
-                <KeyboardAwareScrollView style={{ width: width, height: height}}>
+                <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center', paddingTop: 122}}>
                         <Image
                             source={StaticImage.LoginIcon}
@@ -314,27 +316,28 @@ class Login extends BaseContainer {
                         </View>
                     </View>
 
-                <View style={styles.screenEndView}>
-                    <Text style={styles.bottomViewText}>没有账号？</Text>
-                    <Text
-                        style={styles.screenEndViewText}
-                        onPress={()=>{
-                            this.props.navigation.navigate('Registered');
-                        }}
-                    >
-                        立即注册
-                    </Text>
-                </View>
+                    <View style={styles.screenEndView}>
+                        <Text style={styles.bottomViewText}>没有账号？</Text>
+                        <Text
+                            style={styles.screenEndViewText}
+                            onPress={() => {
+                                this.props.navigation.navigate('Registered');
+                            }}
+                        >
+                            立即注册
+                        </Text>
+                    </View>
 
                 </KeyboardAwareScrollView>
 
                 {
-                    this.state.loading ? <Loading /> : null
+                    this.state.loading ? <Loading/> : null
                 }
             </View>
         );
     }
 }
+
 function mapStateToProps(state) {
     return {};
 

@@ -42,6 +42,7 @@ export default (state = initState, action) => {
 
         case ActionTypes.ACTION_USER_CAR:
             global.plateNumber = action.payload.carNum;
+            global.plateNumberObj = action.payload;
 
             Storage.save(StorageKey.PlateNumber, action.payload.carNum);
 

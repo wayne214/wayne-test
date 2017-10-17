@@ -135,9 +135,7 @@ class PersonInfo extends Component {
                     this.setState({
                         personInfo: {},
                     });
-                    InteractionManager.runAfterInteractions(() => {
-                        this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
-                    });
+                    this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
                 }
             }
         });

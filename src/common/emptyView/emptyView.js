@@ -20,17 +20,19 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         left: 0,
-        ...Platform.select({
-            ios: {
-                top: ConstValue.NavigationBar_StatusBar_Height,
-            },
-            android: {
-                top: 50,
-            },
-        }),
+        top: 0,
+        // ...Platform.select({
+        //     ios: {
+        //         top: ConstValue.NavigationBar_StatusBar_Height,
+        //     },
+        //     android: {
+        //         top: 50,
+        //     },
+        // }),
         alignItems: 'center',
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
         position: 'absolute',
+        flex: 1,
     },
     content: {
         fontSize: 17,
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     subViewStyle: {
-        marginVertical: 120,
+        marginVertical: height / 4,
     },
 });
 
