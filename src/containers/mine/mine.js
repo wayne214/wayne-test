@@ -854,7 +854,7 @@ class Mine extends Component {
 function mapStateToProps(state) {
 
     console.log('plateNumberObj: =', state.user.get('plateNumberObj'));
-    console.log('plateNumber: =', state.user.get('plateNumber'));
+    console.log('mine:plateNumber: =', state.user.get('plateNumber'));
 
     return {
         userInfo: state.user.get('userInfo'),
@@ -866,7 +866,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);

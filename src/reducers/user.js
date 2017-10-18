@@ -45,7 +45,6 @@ export default (state = initState, action) => {
             global.plateNumberObj = action.payload;
 
             Storage.save(StorageKey.PlateNumber, action.payload.carNum);
-
             Storage.save(StorageKey.PlateNumberObj, action.payload);
 
             globalState = globalState.set('plateNumber', action.payload.carNum);
