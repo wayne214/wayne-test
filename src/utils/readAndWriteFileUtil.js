@@ -10,6 +10,7 @@ import StorageKey from '../constants/storageKeys';
 
 const path = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/logger.txt' : RNFS.DocumentDirectoryPath + '/logger.txt'; // 文件路径
 const destPath = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/abc/logger.txt' : RNFS.DocumentDirectoryPath + '/abc/logger.txt'; // 文件路径
+const destPathDir = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath + '/abc' : RNFS.DocumentDirectoryPath + '/abc'; // 文件路径
 const platForm = Platform.OS === 'ios' ? 'IOS' : 'Android';
 const deviceModels = DeviceInfo.getModel();
 const appName = '司机APP';
@@ -161,8 +162,6 @@ class readAndWriteFileUtil {
     }
     // 复制文件
     copyFile(successCallback) {
-        console.log('yuanpath---', path);
-        console.log('destpath---', destPath);
         RNFS.copyFile(path, destPath)
             .then(() => {
                 // console.log('COPY FILE SUCCESSED');
@@ -206,7 +205,7 @@ class readAndWriteFileUtil {
             NSURLIsExcludedFromBackupKey: true, // iOS only
         };
 
-        return RNFS.mkdir(destPath, options)
+        return RNFS.mkdir(destPathDir, options)
             .then((res) => {
                 console.log('MKDIR success');
 
