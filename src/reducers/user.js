@@ -62,10 +62,10 @@ export default (state = initState, action) => {
             global.phone = '';
             global.userInfo = {};
 
-            Storage.save(StorageKey.USER_INFO, {});
-            Storage.save(StorageKey.TOKEN, '');
-            Storage.save(StorageKey.PHOTO_REF_NO, '');
-            Storage.save(StorageKey.USER_ID, '');
+            Storage.remove(StorageKey.USER_INFO);
+            Storage.remove(StorageKey.TOKEN);
+            Storage.remove(StorageKey.PHOTO_REF_NO);
+            Storage.remove(StorageKey.USER_ID);
 
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');

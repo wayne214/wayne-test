@@ -5,10 +5,11 @@
   "scripts": {
     "configureJPush": "node node_modules/jpush-react-native/JPushConfiguration.js",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "font": "node scripts/syncFont.js"
   },
   "dependencies": {
-    "@remobile/react-native-toast": "^1.0.6",
+    "@remobile/react-native-toast": "^1.0.7",
     "apsl-react-native-button": "^3.1.0",
     "crypto-js": "^3.1.9-1",
     "immutable": "^3.8.1",
@@ -29,7 +30,7 @@
     "react-native-image-zoom-viewer": "^2.0.6",
     "react-native-img-cache": "^1.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.3.0",
-    "react-native-picker-custom": "^1.0.0",
+    "react-native-picker-custom": "^1.1.0",
     "react-native-scrollable-tab-view": "^0.7.4",
     "react-native-sound": "^0.10.4",
     "react-native-swipeout": "^2.2.2",

@@ -277,7 +277,7 @@ export default class DropdownMenu extends Component {
                                 key={index}
                                 style={styles.title}
                             >
-                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
                                     <Text
                                         style={{
                                             color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor,
@@ -292,7 +292,7 @@ export default class DropdownMenu extends Component {
                     {/*货源偏好设置入口*/}
                     <TouchableOpacity style={styles.preferences} onPress={() => { this.props.preferences(); }} activeOpacity={1}>
                         <View>
-                            <Text style={{fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor}}>货源偏好</Text>
+                            <Text style={{marginTop: 10 ,fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor}}>货源偏好</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

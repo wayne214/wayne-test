@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 7,
     },
     rightContainer: {
         flex: 1,
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
 class Home extends Component {
     constructor(props) {
         super(props);
-        if (Platform.OS === 'android') JPushModule.initPush();
+        // if (Platform.OS === 'android') JPushModule.initPush();
 
         this.state = {
             acceptMessge: '',
@@ -612,6 +613,7 @@ class Home extends Component {
                     flag: true,
                 });
             } else if (result.length === 1) {
+                this.saveUserCarList(result);
                 this.setState({
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
@@ -631,9 +633,6 @@ class Home extends Component {
                     },
                 ], {cancelable: false});
         }
-    }
-    saveUserCarList(carList) {
-        this.props.saveUserCarListAction(carList);
     }
     // 设置车辆
     setUserCar(plateNumber) {
@@ -791,11 +790,9 @@ class Home extends Component {
             } else {
                 setTimeout(() => {
                     // 开发中reload后，保存车辆列表信息，后面切换车辆会用到
-                    if (this.props.userCarList.length > 1) {
-                        Storage.get(StorageKey.userCarList).then((carList) => {
-                            this.saveUserCarList(carList);
-                        });
-                    }
+                    Storage.get(StorageKey.userCarList).then((carList) => {
+                        this.saveUserCarList(carList);
+                    });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
                         if(plateNumObj) {
                             const plateNumber = plateNumObj.carNum;

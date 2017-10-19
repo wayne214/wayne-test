@@ -205,9 +205,11 @@ export default class BillWaterPage extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                 />
-                {
-                    this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
-                }
+                <View>
+                    {
+                        this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
+                    }
+                </View>
 
             </View>
         );

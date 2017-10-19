@@ -46,7 +46,7 @@ export default class MsgList extends Component {
     constructor(props) {
         super(props);
         this.getMessage = this.getMessage.bind(this);
-        if (Platform.OS === 'android') JPushModule.initPush();
+        // if (Platform.OS === 'android') JPushModule.initPush();
         // this._renderSeparator = this._renderSeparator.bind(this);
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
