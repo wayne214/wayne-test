@@ -671,20 +671,6 @@ class Home extends Component {
         this.getHomePageCount(this.props.plateNumber, userInfo.phone);
         this.saveUserCarInfo(this.props.plateNumberObj);
         Storage.save('setCarSuccessFlag', '2');
-
-        // Storage.get(StorageKey.PlateNumber).then((plate) => {
-        //     if (plate){
-        //         console.log('设置车辆成功了', plate, userInfo.result.phone);
-        //         this.getHomePageCount(plate, userInfo.result.phone);
-        //         this.saveUserCarInfo(plate);
-        //         Storage.save('setCarSuccessFlag', '2');
-        //     }
-        // });
-        // Storage.get(StorageKey.PlateNumberObj).then((platformObj) => {
-        //     if (platformObj) {
-        //         this.saveUserCarObj(platformObj);
-        //     }
-        // });
     }
 
     // 保存车辆列表
