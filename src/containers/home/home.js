@@ -506,9 +506,11 @@ class Home extends Component {
 
         this.bindCarListener = DeviceEventEmitter.addListener('bindUserCar', (value) => {
             if (value) {
+
                 this.setUserCar(value);
             }
         });
+
         // 上传日志功能
         TimeToDoSomething.sendMsgToNative();
         this.logListener = NativeAppEventEmitter.addListener('nativeSendMsgToRN', (data) => {
@@ -618,6 +620,8 @@ class Home extends Component {
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
+
+
                 this.certificationState();
             } else {
                 this.certificationState();
@@ -663,9 +667,9 @@ class Home extends Component {
             locationData.district, lastTime - currentTime, '首页');
         const userInfo = this.props.userInfo;
 
-        console.log('设置车辆成功了', this.state.plateNumber, userInfo.phone);
-        this.getHomePageCount(this.state.plateNumber, userInfo.phone);
-        this.saveUserCarInfo(this.state.plateNumberObj);
+        console.log('设置车辆成功了', this.props.plateNumber, userInfo.phone);
+        this.getHomePageCount(this.props.plateNumber, userInfo.phone);
+        this.saveUserCarInfo(this.props.plateNumberObj);
         Storage.save('setCarSuccessFlag', '2');
 
         // Storage.get(StorageKey.PlateNumber).then((plate) => {
@@ -827,6 +831,7 @@ class Home extends Component {
 
     // 保存车牌号对象
     saveUserCarInfo(plateNumberObj) {
+
         this.props.saveUserSetCarSuccess(plateNumberObj);
     }
 

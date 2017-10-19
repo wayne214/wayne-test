@@ -180,6 +180,7 @@ class chooseCar extends Component {
     }
     // 保存车牌号对象
     saveUserCarInfo(plateNumberObj) {
+
         this.props.saveUserSetCarSuccess(plateNumberObj);
     }
 
