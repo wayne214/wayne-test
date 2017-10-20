@@ -90,7 +90,7 @@ class goodsBidding extends Component {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
-        console.log('==',Date.parse(new Date), Date.parse('2017-07-12 18:40:28'.replace(/-/g,"/")), this.props.userPlateNumber, this.props.userInfo.result.phone);
+        console.log('==',Date.parse(new Date), Date.parse('2017-07-12 18:40:28'.replace(/-/g,"/")), this.props.userPlateNumber, this.props.userInfo.phone);
         this.state = {
             price: '',
             scheduleCode: params.bidScheduleCode,
@@ -323,6 +323,7 @@ class goodsBidding extends Component {
 function mapStateToProps(state) {
     return {
         userPlateNumber: state.user.get('plateNumber'),
+        userInfo: state.user.get('userInfo'),
     };
 }
 
