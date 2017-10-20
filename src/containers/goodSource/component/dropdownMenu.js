@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         flex: 1,
         ...Platform.select({
             ios: {
-                <height:react> dbnnddddddddd</height:react> ConstValue.NavigationBar_StatusBar_Height,
+                height: ConstValue.NavigationBar_StatusBar_Height,
                 paddingTop: 15,
             },
             android: {
@@ -260,7 +260,7 @@ export default class DropdownMenu extends Component {
 
     render() {
 
-        const TextStyle = ConstValue.is_iPhoneX ? {marginTop : 10} : {};
+        const TextStyle = ConstValue.is_iPhoneX ? {marginTop: 10} : {};
         return (
             <View style={{flexDirection: 'column', flex: 1}}>
                 <View
@@ -293,7 +293,7 @@ export default class DropdownMenu extends Component {
                     {/*货源偏好设置入口*/}
                     <TouchableOpacity style={styles.preferences} onPress={() => { this.props.preferences(); }} activeOpacity={1}>
                         <View>
-                            <Text style={[{fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor},TextStyle]}>货源偏好</Text>
+                            <Text style={[{fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor},]}>货源偏好</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
