@@ -56,11 +56,11 @@ class detailsPage extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds,
-            isRefresh: false,
+            isRefresh: true,
             requires:[],
             isShowType: false,
             loading: false,
-            dataLength: 0,
+            dataLength: 1,
         };
 
         this.onRefresh = this.onRefresh.bind(this);
@@ -314,7 +314,7 @@ class detailsPage extends Component {
                 {requireView}
                 <View>
                 {
-                    this.state.dataLength !== 0 ? <ListView
+                    this.state.dataLength > 0 ? <ListView
                             dataSource={this.state.dataSource}
                             renderRow={this.renderRow}
                             style={styles.listView}
