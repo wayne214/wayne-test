@@ -3,7 +3,7 @@
  */
 import DeviceInfo from 'react-native-device-info';
 
-export const is_iPhoneX             = DeviceInfo.getModel() === 'Simulato';
+export const is_iPhoneX             = DeviceInfo.getModel() === 'Simulator';
 
 export const Tabbar_Height          = (is_iPhoneX ? 34 + 49 : 49);
 
