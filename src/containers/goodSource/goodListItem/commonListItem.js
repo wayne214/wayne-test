@@ -27,14 +27,13 @@ const styles = StyleSheet.create({
         borderBottomColor: '#d9d9d9'
     },
     timeText: {
-        fontSize: 15,
+        fontSize: 14,
         color: StaticColor.GRAY_TEXT_COLOR,
         marginTop: 8,
     },
     transCodeText: {
-        fontSize: 15,
+        fontSize: 14,
         color: StaticColor.GRAY_TEXT_COLOR,
-        marginTop: 5,
     },
     arriveAndGoodsText: {
         fontSize: 16,
