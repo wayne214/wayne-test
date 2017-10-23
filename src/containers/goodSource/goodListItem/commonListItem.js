@@ -10,6 +10,8 @@ import {
 import * as StaticColor from '../../../constants/staticColor';
 
 import StaticImage from '../../../constants/staticImage';
+import GoodKindUtil from '../../../utils/goodKindUtil';
+import CommonLabelCell from '../../../common/commonLabelCell';
 
 
 const {width} = Dimensions.get('window');
@@ -22,23 +24,25 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: 'white',
+        borderBottomColor: '#d9d9d9'
     },
     timeText: {
-        fontSize: 16,
-        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
+        marginTop: 8,
     },
     transCodeText: {
-        fontSize: 13,
+        fontSize: 15,
         color: StaticColor.GRAY_TEXT_COLOR,
         marginTop: 5,
     },
     arriveAndGoodsText: {
-        fontSize: 15,
-        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        fontSize: 16,
+        color: '#FA5741',
     },
     separateLine: {
         height: 0.5,
-        backgroundColor: StaticColor.COLOR_SEPARATE_LINE,
+        backgroundColor: StaticColor.DEVIDE_LINE_COLOR,
         marginLeft: 10,
     },
     cellStyle: {
@@ -63,8 +67,8 @@ const styles = StyleSheet.create({
     },
     goodsTotal: {
         flexDirection: 'row',
-        paddingLeft: 10,
-        paddingBottom: 15,
+        marginBottom: 15,
+        marginTop: 8,
     },
     content: {
         paddingLeft: 10,
@@ -74,13 +78,14 @@ const styles = StyleSheet.create({
     title: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
     },
     text: {
-        paddingTop: 15,
-        paddingLeft: 10,
-        paddingBottom: 15,
-        paddingRight: 10,
+        padding: 10,
+    },
+    rightContainer: {
+        marginLeft: 20,
+        marginRight: 100,
+        paddingTop: 20
     },
     itemFlag: {
         position: 'absolute',
@@ -97,6 +102,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         transform: [{rotateZ: '45deg'}],
     },
+    goodKindStyle: {
+        marginTop: -50,
+        marginLeft: 10,
+    },
+    dispatchLineStyle: {
+        fontSize: 17,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+    },
+    arriveTimeStyle: {
+        fontSize: 12,
+        color: StaticColor.GRAY_TEXT_COLOR,
+    }
 });
 
 class commonListItem extends Component {
@@ -123,6 +140,8 @@ class commonListItem extends Component {
             vol,
             showRejectIcon,
             allocationModel,
+            dispatchLine,
+            goodKindsName,
         } = this.props;
         return (
             <View style={styles.container}>
@@ -134,9 +153,34 @@ class commonListItem extends Component {
                 >
                     <View>
                         <View style={styles.title}>
-                            <View style={styles.text}>
-                                <Text style={styles.timeText}>{time}</Text>
-                                <Text style={styles.transCodeText}>{transCode}</Text>
+                            <View style={styles.goodKindStyle}>
+                                {
+                                    GoodKindUtil.show('其他')
+                                }
+                            </View>
+                            <View style={styles.rightContainer}>
+                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司'}</Text>
+                                <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arriveTime}</Text>
+                                <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'其他'}/>
+                                    <CommonLabelCell content={'订单1单'} containerStyle={{backgroundColor: '#E6F2FF'}} textStyle={{color: '#59ABFD'}}/>
+                                    <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: '#E1F5ED'}} textStyle={{color: '#33BE85'}}/>
+                                </View>
+                                <View style={styles.goodsTotal}>
+                                    <View style={{flexDirection: 'row'}}>
+                                        <Text style={[styles.arriveAndGoodsText]}>{weight}</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>Kg</Text>
+                                    </View>
+                                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                                        <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>方</Text>
+                                    </View>
+                                </View>
                             </View>
                             {
                                 showRejectIcon ? null : allocationModel === '10' || allocationModel === '' || allocationModel === null ? <View style={styles.itemFlag}>
@@ -153,24 +197,10 @@ class commonListItem extends Component {
                             }
                         </View>
                         <View style={styles.separateLine} />
-                        <View style={styles.content}>
-                            <Text style={styles.arriveAndGoodsText}>配送点: {distributionPoint}</Text>
-                            <Text style={[styles.arriveAndGoodsText, {marginTop: 5}]}>到仓时间: {arriveTime}</Text>
+                        <View style={styles.text}>
+                            <Text style={styles.transCodeText}>调度单号：{transCode}</Text>
+                            <Text style={styles.timeText}>调度时间：{time}</Text>
                         </View>
-                        <View style={styles.goodsTotal}>
-                            <Text style={styles.arriveAndGoodsText}>货品总计:</Text>
-                            <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{weight}</Text>
-                            <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
-                        </View>
-                        {/*{*/}
-                            {/*showRejectIcon ?*/}
-                                {/*<View style={styles.rejectImg}>*/}
-                                    {/*<Image*/}
-                                        {/*style={{width: 70, height: 70}}*/}
-                                        {/*source={StaticImage.RejectIcon}*/}
-                                    {/*/>*/}
-                                {/*</View> : null*/}
-                        {/*}*/}
                     </View>
                 </TouchableOpacity>
             </View>

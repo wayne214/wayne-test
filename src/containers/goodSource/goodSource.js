@@ -241,15 +241,16 @@ class GoodSource extends BaseContainer{
         );
     }
     renderRow(dataRow) {
-        console.log('doadfdfa=====', dataRow);
+        const pushTime = dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3);
+        const arrivalTime = dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3)
         return (
             <CommonListItem
-                time={dataRow.pushTime}
+                time={pushTime}
                 transCode={dataRow.dispatchCode}
                 distributionPoint={dataRow.distributionPoint !== null ? `${dataRow.distributionPoint}个` : ''}
-                arriveTime={dataRow.arrivalTime}
-                weight={dataRow.weight !== null ? `${dataRow.totalWeight}Kg` : ''}
-                vol={dataRow.vol !== null ? `${dataRow.totalVolume}方` : ''}
+                arriveTime={arrivalTime}
+                weight={dataRow.weight !== null ? dataRow.totalWeight: ''}
+                vol={dataRow.vol !== null ? dataRow.totalVolume : ''}
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
                 onSelect={() => {
