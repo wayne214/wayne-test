@@ -89,6 +89,8 @@ class entryToBeShipped extends Component {
         this.getOrderDetailInfo();
         Storage.get(StorageKey.USER_INFO).then((userInfo) => {
             if(userInfo) {
+                console.log('Storage userId=', userInfo.userId);
+                console.log('Storage userName=', userInfo.userName);
                 userID = userInfo.userId;
                 userName = userInfo.userName;
             }

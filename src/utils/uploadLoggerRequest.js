@@ -38,9 +38,9 @@ const upLoadLogger = () => {
         let file = {uri: ReadAndWriteFileUtil.getPath(), type: 'multipart/form-data', name: 'logger.txt'};
         formData.append('logFile', file);
         const url = API.API_COLLECT_LOG;
-        ReadAndWriteFileUtil.readFile((result) => {
-            console.log('fileContent',result);
-        }, (err) => { console.log('文件不存在', err); });
+        // ReadAndWriteFileUtil.readFile((result) => {
+        //     console.log('fileContent',result);
+        // }, (err) => { console.log('文件不存在', err); });
         // ReadAndWriteFileUtil.isFilePathExists((value) => {
         //     console.log('destPathFile IS exists', value);
         // });

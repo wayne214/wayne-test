@@ -570,8 +570,6 @@ let transCodeListData3 = [];
                 });
             }
         });
-
-
     }
 
 

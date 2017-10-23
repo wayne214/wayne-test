@@ -4,7 +4,6 @@ import {
     View,
     StyleSheet,
     ScrollView,
-    InteractionManager,
     Text,
     Image,
     Dimensions,

@@ -307,7 +307,7 @@ class GoodSource extends BaseContainer{
                                     renderRow={this.renderRow.bind(this)}
                                     style={styles.listView}
                                     renderSeparator={this.renderSeparator}
-                                    // onEndReached={this.toEnd.bind(this)}
+                                    onEndReached={this.toEnd.bind(this)}
                                     onEndReachedThreshold={100}
                                     enableEmptySections={true}
                                     showsVerticalScrollIndicator={false}

@@ -60,6 +60,7 @@ class detailsPage extends Component {
             requires:[],
             isShowType: false,
             loading: false,
+            dataLength: 0,
         };
 
         this.onRefresh = this.onRefresh.bind(this);
@@ -112,6 +113,7 @@ class detailsPage extends Component {
                         Toast.showShortCenter('暂无数据');
                         this.setState({
                             isRefresh: false,
+                            dataLength: 0
                         });
                         return;
                     }
@@ -130,6 +132,7 @@ class detailsPage extends Component {
 
                     this.setState({
                         dataSource: this.state.dataSource.cloneWithRows(list),
+                        dataLength: list.length
                     });
                 });
 
@@ -309,9 +312,9 @@ class detailsPage extends Component {
                     <HeaderItem />
                 </View>
                 {requireView}
-
+                <View>
                 {
-                    this.state.dataSource.length !== 0 ? <ListView
+                    this.state.dataLength !== 0 ? <ListView
                             dataSource={this.state.dataSource}
                             renderRow={this.renderRow}
                             style={styles.listView}
@@ -328,9 +331,9 @@ class detailsPage extends Component {
                                       colors={['#43B8FF', '#309DED', '#008dcf']}
                                       progressBackgroundColor="#CCC"
                                 />
-                            }/> : <EmptyView icon={noDataIcon} content={'暂时没有数据'} />
+                            }/> : <EmptyView />
                 }
-
+                </View>
                 {typeView}
 
                 {
