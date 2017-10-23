@@ -150,10 +150,12 @@ const TabNavigatorConfigs = {
         },
         style: {
             backgroundColor: '#FFFFFF', // TabBar 背景色
-            marginBottom: ConstValue.Tabbar_marginBottom,
+            height:ConstValue.Tabbar_Height,
+            //marginBottom: ConstValue.Tabbar_marginBottom,
         },
         labelStyle: {
             fontSize: 10, // 文字大小
+            marginBottom: ConstValue.Tabbar_marginBottom,
         },
         iconStyle: {
         }

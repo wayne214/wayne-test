@@ -69,6 +69,11 @@ import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
 import ImageShow from '../containers/order/components/imageShow';
 import CarInfo from '../containers/mine/carInfo';
 import CarDisablePage from '../containers/mine/carDisablePage';
+import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
+import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
+
+
+
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -406,6 +411,18 @@ const StackRouteConfigs = {
     },
     UploadReceipt: {
         screen: UploadReceipt,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Withdrawals: {
+        screen: Withdrawals,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DrawalsChooseCard: {
+        screen: DrawalsChooseCard,
         navigationOptions: {
             header: null
         }
