@@ -40,8 +40,8 @@ import reject from '../../assets/good/reject.png';
 import waitHandle from '../../assets/good/waithandle.png';
 import open from '../../assets/good/open.png';
 import radioButton from '../../assets/good/radiobuttonIcon.png';
-import GreenIcon from '../../assets/good/greenIcon.png';
-import OrangeIcon from '../../assets/good/orangeIcon.png';
+import DispatchIcon from '../../assets/good/dispatchIcon.png';
+import BiddingIcon from '../../assets/good/biddingIcon.png';
 import RejectIcon from '../../assets/good/reject-icon.png';
 import receiveBottomArrow from '../../assets/good/receive_bottom_arrow.png';
 import rightArrowTurn from '../../assets/good/right-turn.png';
@@ -101,8 +101,6 @@ export default {
     waitHandle,
     open,
     radioButton,
-    GreenIcon,
-    OrangeIcon,
     RejectIcon,
     rightArrow,
     noDataIcon,
@@ -138,5 +136,7 @@ export default {
     receiveAdd,
     receiveDelete,
     aboutUsImg,
+    DispatchIcon,
+    BiddingIcon
 }
 

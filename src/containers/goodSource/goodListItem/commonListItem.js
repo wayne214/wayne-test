@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: StaticColor.WHITE_COLOR,
-        marginHorizontal: 10,
+        // marginHorizontal: 10,
         borderWidth: 1,
         borderRadius: 5,
         borderColor: 'white',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     itemFlag: {
         position: 'absolute',
         top: 0,
-        right: 0,
+        right: 10,
     },
     itemFlagText: {
         position: 'absolute',
@@ -141,16 +141,14 @@ class commonListItem extends Component {
                             {
                                 showRejectIcon ? null : allocationModel === '10' || allocationModel === '' || allocationModel === null ? <View style={styles.itemFlag}>
                                     <Image
-                                        style={{height: 60, width: 60}}
-                                        source={StaticImage.GreenIcon}
+                                        style={{height: 30, width: 51}}
+                                        source={StaticImage.DispatchIcon}
                                     />
-                                    <Text style={styles.itemFlagText}>派单</Text>
                                 </View> : <View style={styles.itemFlag}>
                                     <Image
-                                        style={{height: 60, width: 60}}
-                                        source={StaticImage.OrangeIcon}
+                                        style={{height: 30, width: 51}}
+                                        source={StaticImage.BiddingIcon}
                                     />
-                                    <Text style={styles.itemFlagText}>竞价</Text>
                                 </View>
                             }
                         </View>
@@ -164,15 +162,15 @@ class commonListItem extends Component {
                             <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{weight}</Text>
                             <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
                         </View>
-                        {
-                            showRejectIcon ?
-                                <View style={styles.rejectImg}>
-                                    <Image
-                                        style={{width: 70, height: 70}}
-                                        source={StaticImage.RejectIcon}
-                                    />
-                                </View> : null
-                        }
+                        {/*{*/}
+                            {/*showRejectIcon ?*/}
+                                {/*<View style={styles.rejectImg}>*/}
+                                    {/*<Image*/}
+                                        {/*style={{width: 70, height: 70}}*/}
+                                        {/*source={StaticImage.RejectIcon}*/}
+                                    {/*/>*/}
+                                {/*</View> : null*/}
+                        {/*}*/}
                     </View>
                 </TouchableOpacity>
             </View>
