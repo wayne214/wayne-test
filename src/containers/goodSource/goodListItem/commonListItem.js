@@ -142,6 +142,7 @@ class commonListItem extends Component {
             dispatchLine,
             goodKindsNames,
         } = this.props;
+        const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -154,7 +155,7 @@ class commonListItem extends Component {
                         <View style={styles.title}>
                             <View style={styles.goodKindStyle}>
                                 {
-                                    GoodKindUtil.show('其他')
+                                    GoodKindUtil.show(goodIcon)
                                 }
                             </View>
                             <View style={styles.rightContainer}>
