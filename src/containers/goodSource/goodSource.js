@@ -253,6 +253,7 @@ class GoodSource extends BaseContainer{
                 vol={dataRow.vol !== null ? dataRow.totalVolume : ''}
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
+                goodKindsNames={['其他']} // 货品种类
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,

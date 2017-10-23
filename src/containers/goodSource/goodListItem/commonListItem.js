@@ -140,7 +140,7 @@ class commonListItem extends Component {
             showRejectIcon,
             allocationModel,
             dispatchLine,
-            goodKindsName,
+            goodKindsNames,
         } = this.props;
         return (
             <View style={styles.container}>
@@ -161,12 +161,13 @@ class commonListItem extends Component {
                                 <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司'}</Text>
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arriveTime}</Text>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>
-                                    <CommonLabelCell content={'其他'}/>
-                                    <CommonLabelCell content={'其他'}/>
-                                    <CommonLabelCell content={'其他'}/>
-                                    <CommonLabelCell content={'其他'}/>
-                                    <CommonLabelCell content={'其他'}/>
-                                    <CommonLabelCell content={'其他'}/>
+                                    {
+                                        goodKindsNames.map((item, index) => {
+                                            return (
+                                                <CommonLabelCell content={item}/>
+                                            )
+                                        })
+                                    }
                                     <CommonLabelCell content={'订单1单'} containerStyle={{backgroundColor: '#E6F2FF'}} textStyle={{color: '#59ABFD'}}/>
                                     <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: '#E1F5ED'}} textStyle={{color: '#33BE85'}}/>
                                 </View>
