@@ -13,11 +13,13 @@ import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import {Geolocation} from 'react-native-baidu-map-xzx';
+import bankIconUtil from '../../../utils/bankIconUtil';
+import StaticImage from '../../../constants/staticImage';
 
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
-
+let selectRowData = {};
 class drawalsChooseCard extends Component {
     constructor(props) {
         super(props);
@@ -73,50 +75,43 @@ class drawalsChooseCard extends Component {
             locationData.district, lastTime - currentTime, '我的银行卡页面');
         console.log('result', result);
         if (result.length == 0) {
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(result),
-            })
+
         } else {
+            selectRowData = result[0];
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(result),
             })
         }
     }
     renderRow(rowData, section, index){
-        console.log(rowData);
-        console.log(section);
-        console.log(index);
+
+        const rightArrow = index == this.state.selectIndex ? <Text style={{fontFamily: 'iconfont',color:'#0071FF', position: 'absolute', right: 10, top: 25}}>&#xe629;</Text> : null;
+
 
         return(
             <View style={{height: 68, backgroundColor: 'white',}}>
                 <TouchableOpacity style={styles.itemStyle} onPress={()=>{
+                    this.setState({
+                        selectIndex: index
+                    });
 
+                    selectRowData = rowData;
                 }}>
-
-                    <Image style={{width: 32, height: 34, marginTop: 17, marginLeft: 10, backgroundColor: 'red'}}/>
-
-                    <View style={{width: 200, height: 40, marginTop: 15, marginLeft: 15}}>
+                    {
+                        bankIconUtil.show(rowData.accountBank)
+                    }
+                    <View style={{width: 200, height: 40, marginTop: 15, marginLeft: 10}}>
 
                         <Text style={{fontSize: 17, color: '#333333'}}>
-                            建设银行
+                            {rowData.accountBank}
                         </Text>
                         <Text style={{marginTop: 5, color: '#999999'}}>
-                            尾号1234   储蓄卡
+                            尾号{rowData.bankAccount.substring(rowData.bankAccount.length - 4)}  {rowData.bankCarType}
                         </Text>
                     </View>
 
                     {
-                        ()=>{
-                            console.log('123456op index:', index);
-                            console.log('123456op this.state.selectIndex:', this.state.selectIndex);
-
-                            if (index == this.state.selectIndex){
-                                console.log('123460754323456789');
-                                return (
-                                    <Text style={{fontFamily: 'iconfont',color:'#0071FF', position: 'absolute', right: 10, top: 25}}>&#xe629;</Text>
-                                )
-                            }
-                        }
+                        rightArrow
                     }
 
 
@@ -141,9 +136,20 @@ class drawalsChooseCard extends Component {
                         type: 'font',
                         disableColor: '#0071FF',
                         disable: true,
+
                         onClick: () => {
 
                         },
+                    }}
+                    leftButtonConfig = {{
+                        type: 'image',
+                        image: StaticImage.backIcon,
+                        onClick: () => {
+                            if (selectRowData != {}){
+                                navigator.state.params.chooseBankCard(selectRowData);
+                            }
+                            navigator.goBack();
+                        }
                     }}
                 />
 

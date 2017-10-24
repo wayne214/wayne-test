@@ -30,6 +30,7 @@
     "react-native-image-zoom-viewer": "^2.0.6",
     "react-native-img-cache": "^1.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.3.0",
+    "react-native-password-pay": "^1.0.1",
     "react-native-picker-custom": "^1.1.0",
     "react-native-scrollable-tab-view": "^0.7.4",
     "react-native-sound": "^0.10.4",
