@@ -577,7 +577,7 @@ class Mine extends Component {
                             fontSize: 13,
                             color: 'white',
                         }}
-                    >切换车辆</Text>
+                    >关联车辆</Text>
                 </View>
             </TouchableOpacity> : null;
         return (
