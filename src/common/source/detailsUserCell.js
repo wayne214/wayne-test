@@ -128,7 +128,7 @@ class DetailsUserCell extends Component {
                                 <Text
                                     style={styles.iconFont}
                                 >
-                                    &#xe66f;
+                                    &#xe666;
                                 </Text>
                             </View>
                         </TouchableOpacity> : null

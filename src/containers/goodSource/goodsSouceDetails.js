@@ -75,11 +75,7 @@ export default class GoodsSourceDetails extends Component {
                         borderRadius: 10,
                     }}
                 >
-                    {/*<View style={{backgroundColor: '#00A4FF', height: 2.5, width: screenWidth - 26, alignSelf: 'center', borderRadius: 5, marginTop: 10}}/>*/}
-                    {/*<View style={{alignSelf: 'center',width: screenWidth - 20, height: 150, borderRadius: 5, backgroundColor: 'white', borderWidth: 1, borderColor: '#d9d9d9'}}>*/}
-
-                    {/*</View>*/}
-                    <ImageBackground source={StaticImage.TaskBackground} style={{marginTop: 10, alignSelf: 'center',height: 150, width: screenWidth - 20}} resizeMode='stretch'>
+                    <ImageBackground source={StaticImage.TaskBackground} style={{marginTop: 10, alignSelf: 'center',height: 130, width: screenWidth - 20}} resizeMode='stretch'>
                         <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 10, paddingLeft: 10}}>
                             <Text style={{fontFamily: 'iconfont', color: '#B2B2B2', fontSize: 19}}>&#xe66d;</Text>
                             <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
@@ -91,34 +87,10 @@ export default class GoodsSourceDetails extends Component {
                             <DetailsOrdersCell
                                 ifReceipt={taskInfo.isReceipt}
                                 receiptStyle={taskInfo.receiptWay}
-                                arrivalTime={taskInfo.committedArrivalTime}
+                                arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
                             />
                         </View>
-                        {/*<DetailsOrdersCell*/}
-                            {/*ifReceipt={taskInfo.isReceipt}*/}
-                            {/*receiptStyle={taskInfo.receiptWay}*/}
-                            {/*arrivalTime={taskInfo.committedArrivalTime}*/}
-                        {/*/>*/}
                     </ImageBackground>
-                    {/*<Text style={{fontSize: 17, marginHorizontal: 20,marginVertical: 10, fontWeight: 'bold'}}>*/}
-                        {/*{deliveryInfo.receiveContactName}*/}
-                    {/*</Text>*/}
-
-                    {/*<View style={{height: 1, backgroundColor: '#F5F5F5'}}/>*/}
-
-                    {/*<DetailsOrdersCell*/}
-                        {/*ordersPayment={taskInfo.collectMoney}*/}
-                        {/*ordersFreight={taskInfo.carrFee}*/}
-                        {/*carrFeePayer={taskInfo.carrFeePayer}*/}
-                        {/*paymentWay={taskInfo.paymentWay}*/}
-                        {/*ifReceipt={taskInfo.isReceipt}*/}
-                        {/*receiptStyle={taskInfo.receiptWay}*/}
-                        {/*arrivalTime={taskInfo.committedArrivalTime}*/}
-                    {/*/>*/}
-
-
-                    {/*<View style={{height: 1, backgroundColor: '#F5F5F5'}}/>*/}
-
                     <TitlesCell title="配送信息" />
                     <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
                     <DetailsUserCell

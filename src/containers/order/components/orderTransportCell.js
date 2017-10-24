@@ -196,7 +196,7 @@ class OrdersItemCell extends Component {
                                     Communications.phonecall(phoneNum, true);
                                 }}
                             >
-                                <Text style={styles.icon}>&#xe66f;</Text>
+                                <Text style={styles.icon}>&#xe666;</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
