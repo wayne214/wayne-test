@@ -254,6 +254,7 @@ class GoodSource extends BaseContainer{
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
                 goodKindsNames={['其他','乳制品','水产品']} // 货品种类
+                orderCount={1}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,

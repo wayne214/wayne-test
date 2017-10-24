@@ -130,6 +130,7 @@ class commonListItem extends Component {
             allocationModel,
             dispatchLine,
             goodKindsNames,
+            orderCount
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         return (
@@ -158,7 +159,7 @@ class commonListItem extends Component {
                                             )
                                         })
                                     }
-                                    <CommonLabelCell content={'订单1单'} containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}} textStyle={{color: '#59ABFD'}}/>
+                                    <CommonLabelCell content={`订单${orderCount}单`} containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}} textStyle={{color: '#59ABFD'}}/>
                                     <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}} textStyle={{color: '#33BE85'}}/>
                                 </View>
                                 <View style={styles.goodsTotal}>
