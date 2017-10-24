@@ -7,10 +7,14 @@ import {
     View,
     StyleSheet,
     Text,
+    Dimensions
 } from 'react-native';
 
 import * as StaticColor from '../../constants/staticColor';
 import TaskInfoCell from '../../containers/goodSource/component/taskInfoCell';
+
+const space = 10;
+const screenWidth = Dimensions.get('window').width - space * 2;
 
 const styles = StyleSheet.create({
     // itemTitle: {
@@ -59,25 +63,25 @@ class DetailsOrdersCell extends Component {
             : <TaskInfoCell itemName="是否需要代收款项" content='不需要' />;
         const payWayView = carrFeePayer === '收货方' ? <TaskInfoCell itemName="支付方式" content={paymentWay} />
             : null;
-        const huiWayView = ifReceipt === '是' ? <View>
-                <TaskInfoCell itemName="签单返回" content={ifReceipt} />
-                <TaskInfoCell itemName="回单方式" content={receiptStyle} />
+        const huiWayView = ifReceipt === '是' ? <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TaskInfoCell itemName="是否签单返回：" content={ifReceipt} />
+                <TaskInfoCell itemName="回单方式：" content={receiptStyle} />
             </View> : <View>
                 <TaskInfoCell itemName="签单返回" content={ifReceipt} />
             </View>;
 
         return (
-            <View style={{backgroundColor: StaticColor.WHITE_COLOR, paddingLeft: 20}}>
+            <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
 
-                <Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>
+                {/*<Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>*/}
 
-                <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                {/*<View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />*/}
 
                 <View style={{paddingTop: 15, paddingRight: 20}}>
-                    {goodsView}
-                    {freightView}
-                    {payView}
-                    {payWayView}
+                    {/*{goodsView}*/}
+                    {/*{freightView}*/}
+                    {/*{payView}*/}
+                    {/*{payWayView}*/}
                     {huiWayView}
                     {timeView}
                 </View>

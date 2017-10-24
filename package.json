@@ -33,6 +33,7 @@
     "react-native-password-pay": "^1.0.1",
     "react-native-picker-custom": "^1.1.0",
     "react-native-scrollable-tab-view": "^0.7.4",
+    "react-native-snap-carousel": "^3.3.4",
     "react-native-sound": "^0.10.4",
     "react-native-swipeout": "^2.2.2",
     "react-native-swiper": "^1.5.12",
