@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         transform: [{rotateZ: '45deg'}],
     },
     goodKindStyle: {
-        marginTop: -50,
+        marginTop: -30,
         marginLeft: 10,
     },
     dispatchLineStyle: {
