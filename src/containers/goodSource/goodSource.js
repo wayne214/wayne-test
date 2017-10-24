@@ -253,7 +253,8 @@ class GoodSource extends BaseContainer{
                 vol={dataRow.vol !== null ? dataRow.totalVolume : ''}
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
-                goodKindsNames={['其他']} // 货品种类
+                goodKindsNames={['其他','乳制品','水产品']} // 货品种类
+                orderCount={1}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,
@@ -282,8 +283,8 @@ class GoodSource extends BaseContainer{
                     style={styles.dropDown}
                     arrowImg={StaticImage.open}
                     checkImage={StaticImage.radioButton}
-                    bgColor={'#1B82D1'}
-                    tintColor={'white'}
+                    bgColor={StaticColor.WHITE_COLOR}
+                    tintColor={StaticColor.LIGHT_BLACK_TEXT_COLOR}
                     selectItemColor={'black'}
                     data={data}
                     handler={(selection, row) => {

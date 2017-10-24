@@ -46,5 +46,17 @@ export const MODAL_BACKGROUND_COLOR = '#383838';
 
 export const REFRESH_COLOR = '#c4c4c4';
 
+export const BLUE_CONTACT_COLOR = '#0071FF';
+
+export const COLOR_CONTACT_ICON_COLOR = '#B2B2B2';
+
+export const READ_NUMBER_COLOR = '#FA5741';
+
+export const READ_UNIT_COLOR = '#2A2A2A';
+
+export const BLUE_ORDER_NUMBER_COLOR = '#E6F2FF';
+
+export const GREEN_POINTER_COLOR = '#E1F5ED';
+
 
 

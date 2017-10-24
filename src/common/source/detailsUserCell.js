@@ -8,19 +8,21 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
+    Image,
 } from 'react-native';
 import Communications from 'react-native-communications';
 import * as StaticColor from '../../constants/staticColor';
+import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
     iconFont: {
         fontFamily: 'iconfont',
         color: StaticColor.CALENDER_ICON_COLOR,
-        lineHeight: 20,
         fontSize: 18,
-        margin: 2,
-        paddingLeft: 18,
     },
+    dressIconStyle: {
+        marginLeft: 20,
+    }
 });
 
 class DetailsUserCell extends Component {
@@ -47,13 +49,14 @@ class DetailsUserCell extends Component {
                 style={{backgroundColor: StaticColor.WHITE_COLOR, paddingTop: 5}}
             >
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{flex: 3, paddingRight: 20}}>
+                    <View style={{flex: 3, paddingRight: 20, paddingTop: 10}}>
                         {
                             isShowContactAndPhone ? <View
                                 style={{
                                     flexDirection: 'row',
                                     paddingLeft: 40,
                                     marginBottom: 10,
+                                    justifyContent: 'space-between',
                                 }}
                             >
                                 <Text
@@ -65,6 +68,20 @@ class DetailsUserCell extends Component {
                                 >
                                     {deliveryInfo.departureContactName}
                                 </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Communications.phonecall(deliveryInfo.departurePhoneNum, true);
+                                    }}
+                                >
+                                    <View style={{flexDirection: 'row'}}>
+                                        <Image source={StaticImage.Contact} resizeMode='cover'/>
+                                        <Text style={{
+                                            fontSize: 15,
+                                            marginLeft: 10,
+                                            color: StaticColor.BLUE_CONTACT_COLOR,
+                                        }}>联系对方</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View> : null
                         }
                         <TouchableOpacity
@@ -77,34 +94,14 @@ class DetailsUserCell extends Component {
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
-                                    paddingRight: 30,
+                                    paddingRight: 40,
                                 }}
                             >
-                                <View
-                                    style={{
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 3,
-                                        borderWidth: 1,
-                                        marginLeft: 20,
-                                        width: 19,
-                                        height: 19,
-                                        borderColor: '#1bb42d',
-                                        backgroundColor: '#1bb42d',
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 11,
-                                            color: 'white',
-                                            fontWeight: 'bold',
-                                        }}
-                                    >始</Text>
-                                </View>
+                                <Image source={StaticImage.locationIcon} style={styles.dressIconStyle}/>
                                 <Text
                                     style={{
                                         fontSize: 15,
-                                        color: StaticColor.ADDRESS_TEXT_COLOR,
+                                        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                                         marginLeft: 10,
                                         marginTop: 5,
                                         marginBottom: 5,
@@ -115,25 +112,6 @@ class DetailsUserCell extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    {
-                        isShowContactAndPhone ? <View style={{height: 65, width: 1, backgroundColor: '#f5f5f5'}}/> : null
-                    }
-                    {
-                        isShowContactAndPhone ? <TouchableOpacity
-                            onPress={() => {
-                                Communications.phonecall(deliveryInfo.departurePhoneNum, true);
-                            }}
-                        >
-                            <View style={{justifyContent: 'center', alignItems: 'center', paddingRight: 20, flex: 2}}>
-                                <Text
-                                    style={styles.iconFont}
-                                >
-                                    &#xe66f;
-                                </Text>
-                            </View>
-                        </TouchableOpacity> : null
-                    }
-
                 </View>
                 <View
                     style={{height: 1, backgroundColor: '#f5f5f5', marginLeft: 20, marginTop: 5}}

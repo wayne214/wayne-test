@@ -67,12 +67,14 @@ class setting extends Component {
         super(props);
         this.state = {
             switchIsOn: true,
+            speechSwitch: global.canSpeak,
         };
         this.loginChangeAcceptMessage = this.loginChangeAcceptMessage.bind(this);
         this.press = this.press.bind(this);
         this.valueChange = this.valueChange.bind(this);
         this.getPushStatusAction = this.getPushStatusAction.bind(this);
         this.loginOut = this.loginOut.bind(this);
+        this.speechValueChange = this.speechValueChange.bind(this);
     }
 
     componentDidMount() {
@@ -185,7 +187,15 @@ class setting extends Component {
 
     }
 
-
+    /*语音播报开关状态改变*/
+    speechValueChange(value) {
+        this.setState({
+            speechSwitch: value,
+        });
+        global.canSpeak = value;
+        console.log('glabal.canSpeak', value)
+        // this.loginChangeAcceptMessage( value );
+    }
     /*通知开关状态改变*/
     valueChange(value) {
         this.setState({
@@ -246,6 +256,19 @@ class setting extends Component {
                         }}
                         style={{marginBottom: 10, marginTop: 10}}
                         value={this.state.switchIsOn}
+                    />
+                </View>
+                <View style={styles.contentItemView}>
+                    <Text style={styles.contentItemText}>
+                        语音播报
+                    </Text>
+                    <Switch
+                        onTintColor={'#008BCA'}
+                        onValueChange={(value) => {
+                            this.speechValueChange(value);
+                        }}
+                        style={{marginBottom: 10, marginTop: 10}}
+                        value={this.state.speechSwitch}
                     />
                 </View>
                 <TouchableOpacity

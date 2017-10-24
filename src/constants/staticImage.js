@@ -30,6 +30,7 @@ import bannerImage1 from '../../assets/home/banner1.png';
 import bannerImage2 from '../../assets/home/banner2.png';
 
 import locationIcon from '../../assets/home/location.png';
+import locationRedIcon from '../../assets/home/locationRed.png';
 
 /*首页快捷入口图标*/
 import signIcon from '../../assets/home/sign_icon.png';
@@ -103,6 +104,7 @@ import CenterLoginAvatar from '../../assets/mine/login_avatar.png';
 import IncomeBgimage from '../../assets/income/incomeBgimage.png'; // 收入背景
 import IncomeOpen from '../../assets/income/incomeOpen.png';
 import IncomeClose from '../../assets/income/incomeClose.png';
+import Contact from '../../assets/good/contact.png'; // 任务信息背景图
 
 
 export default {
@@ -168,8 +170,13 @@ export default {
     CenterLoginAvatar,
     CenterHeaderIcon,
     locationIcon,
+<<<<<<< HEAD
     IncomeBgimage,
     IncomeOpen,
     IncomeClose
+=======
+    Contact,
+    locationRedIcon
+>>>>>>> 635f392b362ba14d83c72b45ca78317a3249a278
 }
 
