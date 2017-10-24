@@ -170,13 +170,10 @@ export default {
     CenterLoginAvatar,
     CenterHeaderIcon,
     locationIcon,
-<<<<<<< HEAD
     IncomeBgimage,
     IncomeOpen,
     IncomeClose
-=======
     Contact,
     locationRedIcon
->>>>>>> 635f392b362ba14d83c72b45ca78317a3249a278
 }
 
