@@ -71,7 +71,7 @@ import CarInfo from '../containers/mine/carInfo';
 import CarDisablePage from '../containers/mine/carDisablePage';
 import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
 import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
-
+import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
 
 
 
@@ -423,6 +423,12 @@ const StackRouteConfigs = {
     },
     DrawalsChooseCard: {
         screen: DrawalsChooseCard,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DrawalsDetail: {
+        screen: DrawalsDetail,
         navigationOptions: {
             header: null
         }

@@ -8,11 +8,16 @@ import {
     Image,
     Dimensions,
     TextInput,
+    Alert,
 } from 'react-native';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
 import StaticImage from '../../../constants/staticImage';
+import bankIconUtil from '../../../utils/bankIconUtil';
+import PassWordPage from './sendPassword';
+
 
 const window = Dimensions.get('window');
+const allMonery = '123.00';
 
 class Withdrawals extends Component {
     constructor(props) {
@@ -20,10 +25,45 @@ class Withdrawals extends Component {
 
         this.state={
             monery: '0.00',
-        }
+            showPsd: false,
+            cardInfo: {
+                accountBank:'',
+                bankAccount:'',
+                bankCarType:'',
+                bankCode:'',
+                isDefault:'',
+            },
+        };
+
     }
     componentDidMount() {
 
+    }
+
+    /*确认提现*/
+    static outMonery(){
+        //没有提现密码
+        /*
+        Alert.alert(null, '为了保证您的账户安全，请立即设置支付密码',
+            [
+                {
+                    text: '取消',
+                    onPress: () => {
+
+                    },
+                },
+                {
+                    text: '设置',
+                    onPress: () => {
+
+                    },
+                },
+            ],
+        );
+        */
+        this.setState({
+            showPsd: true
+        })
     }
     render() {
         const navigator= this.props.navigation;
@@ -38,18 +78,25 @@ class Withdrawals extends Component {
                 <View style={{marginTop: 10}}/>
 
                 <TouchableOpacity style={styles.itemStyle} onPress={()=>{
-                    navigator.navigate('DrawalsChooseCard');
+                    navigator.navigate('DrawalsChooseCard',{
+                        chooseBankCard:(cardInfo)=>{
+                            console.log('chooseBankCard:', cardInfo);
+                            this.setState({cardInfo});
+                        }
+                    });
                 }}>
 
-                    <Image style={{width: 32, height: 34, marginTop: 17, marginLeft: 10, backgroundColor: 'red'}}/>
+                    {
+                        bankIconUtil.show(this.state.cardInfo.accountBank)
+                    }
 
-                    <View style={{width: 200, height: 40, marginTop: 15, marginLeft: 15}}>
+                    <View style={{width: 200, height: 40, marginTop: 15, marginLeft: 10}}>
 
                         <Text style={{fontSize: 17, color: '#333333'}}>
-                            建设银行
+                            {this.state.cardInfo.accountBank}
                         </Text>
                         <Text style={{marginTop: 5, color: '#999999'}}>
-                            尾号1234   储蓄卡
+                            尾号{this.state.cardInfo.bankAccount.substring(this.state.cardInfo.bankAccount.length - 4)}  {this.state.cardInfo.bankCarType}
                         </Text>
                     </View>
 
@@ -71,15 +118,21 @@ class Withdrawals extends Component {
                                    placeholderTextColor="#CCCCCC"
                                    underlineColorAndroid={'transparent'}
                                    onChangeText={(monery) => {
-                                       this.setState({monery});
+                                       if (parseFloat(monery) > parseFloat(allMonery)){
+                                           //如果输入的大于全部的
+                                           this.setState({monery: allMonery});
+                                       }else
+                                           this.setState({monery});
                                    }}
                                    value={this.state.monery}
                                    returnKeyType={'done'}
                             >
                         </TextInput>
 
-                        <TouchableOpacity style={styles.XStyle}>
-                            <Text style={{fontFamily: 'iconfont',color:'#cccccc'}}>&#xe61e;</Text>
+                        <TouchableOpacity style={styles.XStyle} onPress={()=>{
+                            this.setState({monery: ''})
+                        }}>
+                            <Text style={{fontFamily: 'iconfont',color:'#cccccc'}}>&#xe66a;</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -88,18 +141,33 @@ class Withdrawals extends Component {
 
                     <View style={{marginHorizontal: 0, flexDirection: 'row', marginVertical: 10}}>
 
-                        <Text style={{fontSize: 15, marginLeft: 10, color: '#999999'}}>可用余额：123.00</Text>
+                        <Text style={{fontSize: 15, marginLeft: 10, color: '#999999'}}>可用余额：{allMonery}</Text>
 
-                        <TouchableOpacity style={{position: 'absolute', right: 10}}>
+                        <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={()=>{
+                            this.setState({monery: allMonery})
+                        }}>
                             <Text style={{fontSize: 17, color: '#0071FF'}}>全部提现</Text>
                         </TouchableOpacity>
 
                     </View>
                 </View>
-                <TouchableOpacity style={styles.sureBtnStyle}>
+                <TouchableOpacity style={styles.sureBtnStyle} onPress={Withdrawals.outMonery.bind(this)}>
                     <Text style={{textAlign: 'center', color: 'white', fontSize: 20}}>确认提现</Text>
 
                 </TouchableOpacity>
+
+                {
+                    this.state.showPsd ? <PassWordPage closePsd={()=>{
+                                                            this.setState({
+                                                                showPsd: false
+                                                            })
+                                                         }}
+                                                        sendPsdSuccess={()=>{
+                                                            console.log('跳转到详情');
+                                                            navigator.navigate('DrawalsDetail');
+                                                        }}
+                                                        monery="100" /> : null
+                }
             </View>
         )
     }
