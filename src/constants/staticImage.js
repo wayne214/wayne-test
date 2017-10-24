@@ -30,6 +30,7 @@ import bannerImage1 from '../../assets/home/banner1.png';
 import bannerImage2 from '../../assets/home/banner2.png';
 
 import locationIcon from '../../assets/home/location.png';
+import locationRedIcon from '../../assets/home/locationRed.png';
 
 /*首页快捷入口图标*/
 import signIcon from '../../assets/home/sign_icon.png';
@@ -166,6 +167,7 @@ export default {
     CenterLoginAvatar,
     CenterHeaderIcon,
     locationIcon,
-    Contact
+    Contact,
+    locationRedIcon
 }
 
