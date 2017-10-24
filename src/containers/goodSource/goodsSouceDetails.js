@@ -5,7 +5,8 @@ import {
     ScrollView,
     Dimensions,
     Platform,
-    ImageBackground
+    ImageBackground,
+    StyleSheet,
 } from 'react-native';
 
 import DetailsCell from '../../common/source/detailsCell';
@@ -17,6 +18,7 @@ import TotalsItemCell from '../../common/source/totalsItemCell';
 import OrderProductInfo from './component/goodsDetailInfo';
 import * as ConstValue from '../../constants/constValue';
 import StaticImage from '../../constants/staticImage';
+import * as StaticColor from '../../constants/staticColor';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
@@ -26,7 +28,33 @@ const bottomSpace = 45;
 const screenWidth = Dimensions.get('window').width - space * 2;
 const screenHeight = Dimensions.get('window').height;
 
+const styles = StyleSheet.create({
+    imageBackground: {
+        marginTop: 10,
+        alignSelf: 'center',
+        height: 130,
+        width: screenWidth - 20
+    },
+    constantStyle: {
+        flexDirection: 'row',
+        paddingTop: 15,
+        paddingBottom: 10,
+        paddingLeft: 10
+    },
+    constantIcon: {
+        fontFamily: 'iconfont',
+        color: StaticColor.COLOR_CONTACT_ICON_COLOR,
+        fontSize: 19
+    },
+    separateLine: {
+        height: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        marginLeft: 10,
+        marginRight: 10
+    }
 
+
+});
 export default class GoodsSourceDetails extends Component {
 
     // 构造
@@ -75,14 +103,14 @@ export default class GoodsSourceDetails extends Component {
                         borderRadius: 10,
                     }}
                 >
-                    <ImageBackground source={StaticImage.TaskBackground} style={{marginTop: 10, alignSelf: 'center',height: 130, width: screenWidth - 20}} resizeMode='stretch'>
-                        <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 10, paddingLeft: 10}}>
-                            <Text style={{fontFamily: 'iconfont', color: '#B2B2B2', fontSize: 19}}>&#xe66d;</Text>
+                    <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                        <View style={styles.constantStyle}>
+                            <Text style={styles.constantIcon}>&#xe66d;</Text>
                             <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
                                 {deliveryInfo.receiveContactName}
                             </Text>
                         </View>
-                        <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 10, marginRight: 10}}/>
+                        <View style={styles.separateLine}/>
                         <View style={{marginHorizontal: 10}}>
                             <DetailsOrdersCell
                                 ifReceipt={taskInfo.isReceipt}
@@ -144,14 +172,14 @@ export default class GoodsSourceDetails extends Component {
         );
     }
 }
-GoodsSourceDetails.propTypes = {
-    deliveryInfo: React.PropTypes.object,
-    goodsInfoList: React.PropTypes.array,
-    taskInfo: React.PropTypes.object,
-    time: React.PropTypes.string,
-    transCode: React.PropTypes.string,
-    vol: React.PropTypes.number,
-    weight: React.PropTypes.number,
-    index: React.PropTypes.number,
-    addressMapSelect: React.PropTypes.func,
-};
+// GoodsSourceDetails.propTypes = {
+//     deliveryInfo: React.PropTypes.object,
+//     goodsInfoList: React.PropTypes.array,
+//     taskInfo: React.PropTypes.object,
+//     time: React.PropTypes.string,
+//     transCode: React.PropTypes.string,
+//     vol: React.PropTypes.number,
+//     weight: React.PropTypes.number,
+//     index: React.PropTypes.number,
+//     addressMapSelect: React.PropTypes.func,
+// };

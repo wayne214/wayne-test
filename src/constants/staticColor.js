@@ -46,5 +46,9 @@ export const MODAL_BACKGROUND_COLOR = '#383838';
 
 export const REFRESH_COLOR = '#c4c4c4';
 
+export const BLUE_CONTACT_COLOR = '#0071FF';
+
+export const COLOR_CONTACT_ICON_COLOR = '#B2B2B2';
+
 
 

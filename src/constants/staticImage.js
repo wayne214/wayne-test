@@ -99,6 +99,9 @@ import TaskBackground from '../../assets/good/taskBackground.png'; // 任务信�
 import CenterHeaderIcon from '../../assets/mine/userCenterHeader.png';
 import CenterLoginAvatar from '../../assets/mine/login_avatar.png';
 
+import Contact from '../../assets/good/contact.png'; // 任务信息背景图
+
+
 
 export default {
     EmptyImage,
@@ -163,5 +166,6 @@ export default {
     CenterLoginAvatar,
     CenterHeaderIcon,
     locationIcon,
+    Contact
 }
 

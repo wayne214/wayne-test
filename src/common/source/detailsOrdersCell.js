@@ -71,7 +71,7 @@ class DetailsOrdersCell extends Component {
                 <TaskInfoCell itemName="是否签单返回：" content={ifReceipt} />
                 <TaskInfoCell itemName="回单方式：" content={receiptStyle} />
             </View> : <View>
-                <TaskInfoCell itemName="签单返回" content={ifReceipt} />
+                <TaskInfoCell itemName="签单返回: " content={ifReceipt} />
             </View>;
 
         return (
