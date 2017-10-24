@@ -3,6 +3,7 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.react.arron.speech.speechModulePackage;
 import com.remobile.toast.RCTToastPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.remobile.toast.RCTToastPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new speechModulePackage(),
             new RCTToastPackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),

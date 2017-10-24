@@ -147,7 +147,7 @@ class Mine extends Component {
         super(props);
 
         this.state = {
-            rightImageName: Message,
+            // rightImageName: Message,
             avatarSource: '',
             loading: false,
             certificationState: '1200', // 资质认证
