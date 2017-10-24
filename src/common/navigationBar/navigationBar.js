@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     leftImageStyle: {
-        width: 25,
-        height: 25,
         marginLeft: 10,
     },
     rightImageStyle: {
@@ -131,13 +129,9 @@ export default class NavigatorBar extends React.Component {
         } = this.props;
         let leftButtonConfig = this.props.leftButtonConfig;
         if (!leftButtonConfig) {
-            let leftIconFont = leftIconFont;
-            if(!leftIconFont){
-                leftIconFont = '&#xe662;';
-            }
             leftButtonConfig = {
-                type: 'font',
-                disableColor: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+                type: 'image',
+                image: StaticImage.backIcon,
                 onClick: () => {
                     if (backIconClick) {
                         backIconClick();
