@@ -83,13 +83,12 @@ const styles = StyleSheet.create({
     },
     rightContainer: {
         marginLeft: 20,
-        marginRight: 100,
-        paddingTop: 20
+        marginRight: 20,
+        paddingTop: 20,
+        flex: 3
     },
     itemFlag: {
-        position: 'absolute',
-        top: 0,
-        right: 10,
+        flex: 1
     },
     goodKindStyle: {
         marginTop: 20,
@@ -149,7 +148,7 @@ class commonListItem extends Component {
                                 }
                             </View>
                             <View style={styles.rightContainer}>
-                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司'}</Text>
+                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司河南鲜易供应链有限公司'}</Text>
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arriveTime}</Text>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>
                                     {
