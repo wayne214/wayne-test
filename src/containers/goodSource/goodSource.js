@@ -282,8 +282,8 @@ class GoodSource extends BaseContainer{
                     style={styles.dropDown}
                     arrowImg={StaticImage.open}
                     checkImage={StaticImage.radioButton}
-                    bgColor={'#1B82D1'}
-                    tintColor={'white'}
+                    bgColor={StaticColor.WHITE_COLOR}
+                    tintColor={StaticColor.LIGHT_BLACK_TEXT_COLOR}
                     selectItemColor={'black'}
                     data={data}
                     handler={(selection, row) => {
