@@ -18,11 +18,7 @@ import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
 import {PHOTOREFNO} from '../../constants/setting';
 import NavigationBar from '../../common/navigationBar/navigationBar';
-import CenterHeaderIcon from '../../../assets/mine/userCenterHeader.png';
 import SettingCell from '../../containers/mine/cell/settingCell';
-import CenterLoginAvatar from '../../../assets/mine/login_avatar.png';
-import Message from '../../../assets/mine/message.png';
-import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import * as API from '../../constants/api';
@@ -32,6 +28,7 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
+import StaticImage from '../../constants/staticImage';
 
 import AlertSheetItem from '../../common/alertSelected';
 import ImagePicker from 'react-native-image-picker';
@@ -552,7 +549,7 @@ class Mine extends Component {
                             color: '#bbcfe8',
                         }}
                     >未认证</Text>
-                </View>
+                </View>;
 
         const changeCarView = this.props.userCarList && this.props.userCarList.length > 1 ?
             <TouchableOpacity onPress={() => {
@@ -594,7 +591,7 @@ class Mine extends Component {
                     leftButtonHidden={true}
                     rightButtonConfig={{
                         type: 'image',
-                        image: this.props.jpushIcon == true ? MessageNew : Message,
+                        image: this.props.jpushIcon == true ? StaticImage.MessageNew : StaticImage.Message,
                         onClick: () => {
                             Storage.save('newMessageFlag', '0');
                             this.pushToMsgList();
@@ -603,7 +600,7 @@ class Mine extends Component {
                 />
                 <View style={{flex: 1}}>
                     <View>
-                        <Image style={styles.headerImage} source={CenterHeaderIcon}>
+                        <Image style={styles.headerImage} source={StaticImage.CenterHeaderIcon}>
                             <View style={styles.headerView}>
                                 <TouchableOpacity onPress={() => {
                                     this.setState({
@@ -621,7 +618,7 @@ class Mine extends Component {
                                                 :
                                                 <Image
                                                     style={styles.driverIcon}
-                                                    source={CenterLoginAvatar}/>
+                                                    source={StaticImage.CenterLoginAvatar}/>
                                         }
 
                                     </View>

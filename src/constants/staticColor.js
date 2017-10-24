@@ -44,5 +44,7 @@ export const BLUE_SELECTED_COLOR = '#0066CC';
 
 export const MODAL_BACKGROUND_COLOR = '#383838';
 
+export const REFRESH_COLOR = '#c4c4c4';
+
 
 

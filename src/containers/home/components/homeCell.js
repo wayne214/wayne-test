@@ -13,13 +13,13 @@ import {
 } from 'react-native';
 
 import BaseView from '../../base/baseView';
-import rightArrow from '../../../../assets/home/rightarrow.png';
 import {
     WHITE_COLOR,
     RED_TEXT_COLOR,
     COLOR_LIGHT_GRAY_TEXT,
     BLACK_COLOR,
     LIGHT_BLACK_TEXT_COLOR,
+    GRAY_TEXT_COLOR,
 } from '../../../constants/staticColor';
 
 const styles = StyleSheet.create({
@@ -56,7 +56,10 @@ const styles = StyleSheet.create({
     rightIcon: {
         marginRight: 5,
         alignSelf: 'center',
-        marginLeft: 10
+        marginLeft: 10,
+        color: GRAY_TEXT_COLOR,
+        fontFamily: 'iconfont',
+        fontSize: 14,
     },
 });
 export default class HomeCell extends BaseView{
@@ -123,7 +126,7 @@ export default class HomeCell extends BaseView{
                                     >{badgeText}</Text></View>
                                 : <View style={styles.badgeNull}/>
                         }
-                        <Image style={styles.rightIcon} source={rightArrow}/>
+                        <Text style={styles.rightIcon}>&#xe665;</Text>
                     </View>
                 </View>
             </TouchableOpacity>

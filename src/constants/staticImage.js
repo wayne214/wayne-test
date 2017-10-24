@@ -26,13 +26,16 @@ import rightArrow from '../../assets/income/rightarrow.png';
 import noDataIcon from '../../assets/income/nodata.png';
 
 /*首页轮播图片*/
-import bannerImage1 from '../../assets/home/banner-1.png';
-import bannerImage2 from '../../assets/home/banner-2.png';
+import bannerImage1 from '../../assets/home/banner1.png';
+import bannerImage2 from '../../assets/home/banner2.png';
+
+import locationIcon from '../../assets/home/location.png';
 
 /*首页快捷入口图标*/
 import signIcon from '../../assets/home/sign_icon.png';
 import receiptIcon from '../../assets/home/receipt_icon.png';
 import dispatchIcon from '../../assets/home/despatch_icon.png';
+import receiveIcon from '../../assets/home/receive_icon.png';
 
 /*货源*/
 import close from '../../assets/good/close.png';
@@ -62,7 +65,7 @@ import checkNormal from '../../assets/carList/check-normal.png';
 import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 
 /*消息图标*/
-import MessageNew from '../../assets/mine/newmessage.png';
+import MessageNew from '../../assets/mine/new_message.png';
 import Message from '../../assets/mine/message.png';
 
 /*扫描图标*/
@@ -84,6 +87,9 @@ import receiveDelete from '../../assets/order/receive_delete.png';
 
 /*关于我们*/
 import aboutUsImg from '../../assets/setting/aboutus.png';
+
+import CenterHeaderIcon from '../../assets/mine/userCenterHeader.png';
+import CenterLoginAvatar from '../../assets/mine/login_avatar.png';
 
 
 export default {
@@ -111,6 +117,7 @@ export default {
     signIcon,
     receiptIcon,
     dispatchIcon,
+    receiveIcon,
     bussniessRedImg,
     bussniessGreenImg,
     bussniessGrayImg,
@@ -138,5 +145,8 @@ export default {
     receiveAdd,
     receiveDelete,
     aboutUsImg,
+    CenterLoginAvatar,
+    CenterHeaderIcon,
+    locationIcon,
 }
 
