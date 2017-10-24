@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
                 height: 50,
             },
         }),
-        backgroundColor: StaticColor.BLUE_ALL_COLOR,
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
     contentContainer: {
         flex: 1,
@@ -61,20 +61,20 @@ const styles = StyleSheet.create({
     },
     centerTextStyle: {
         textAlign: 'center',
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontSize: 18,
         marginTop: 10,
     },
     leftIconFontStyle: {
         marginLeft: 10,
         fontSize: 20,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
     },
     rightIconFontStyle: {
         marginRight: 10,
         fontSize: 20,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
     },
     leftTitleStyle: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     rightTitleStyle: {
         fontSize:16,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         marginRight: 10,
     },
     centerImg: {
@@ -131,9 +131,13 @@ export default class NavigatorBar extends React.Component {
         } = this.props;
         let leftButtonConfig = this.props.leftButtonConfig;
         if (!leftButtonConfig) {
+            let leftIconFont = leftIconFont;
+            if(!leftIconFont){
+                leftIconFont = '&#xe662;';
+            }
             leftButtonConfig = {
-                type: 'image',
-                image: StaticImage.backIcon,
+                type: 'font',
+                disableColor: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                 onClick: () => {
                     if (backIconClick) {
                         backIconClick();
