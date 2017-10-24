@@ -51,11 +51,13 @@ const styles = StyleSheet.create({
     },
     leftImageStyle: {
         marginLeft: 10,
+        marginTop: 10,
     },
     rightImageStyle: {
         width: 21,
         height: 21,
         marginRight: 10,
+        marginTop: 10,
     },
     centerTextStyle: {
         textAlign: 'center',
@@ -68,22 +70,26 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
+        marginTop: 10
     },
     rightIconFontStyle: {
         marginRight: 10,
         fontSize: 20,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
+        marginTop: 10
     },
     leftTitleStyle: {
         color: 'white',
         marginLeft: 10,
         fontSize:16,
+        marginTop: 5
     },
     rightTitleStyle: {
         fontSize:16,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         marginRight: 10,
+        marginTop: 5
     },
     centerImg: {
         alignSelf: 'center',

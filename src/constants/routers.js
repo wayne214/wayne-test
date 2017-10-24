@@ -72,7 +72,7 @@ import CarDisablePage from '../containers/mine/carDisablePage';
 import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
 import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
 import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
-
+import IncomeListDetail from '../containers/income/AccountFlow/incomeListDetail';
 
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
@@ -429,6 +429,12 @@ const StackRouteConfigs = {
     },
     DrawalsDetail: {
         screen: DrawalsDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    IncomeListDetail: {
+        screen: IncomeListDetail,
         navigationOptions: {
             header: null
         }

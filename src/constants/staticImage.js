@@ -99,6 +99,11 @@ import TaskBackground from '../../assets/good/taskBackground.png'; // 任务信�
 import CenterHeaderIcon from '../../assets/mine/userCenterHeader.png';
 import CenterLoginAvatar from '../../assets/mine/login_avatar.png';
 
+/*收入*/
+import IncomeBgimage from '../../assets/income/incomeBgimage.png'; // 收入背景
+import IncomeOpen from '../../assets/income/incomeOpen.png';
+import IncomeClose from '../../assets/income/incomeClose.png';
+
 
 export default {
     EmptyImage,
@@ -163,5 +168,8 @@ export default {
     CenterLoginAvatar,
     CenterHeaderIcon,
     locationIcon,
+    IncomeBgimage,
+    IncomeOpen,
+    IncomeClose
 }
 

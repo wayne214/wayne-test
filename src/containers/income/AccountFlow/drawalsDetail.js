@@ -29,7 +29,7 @@ class drawalsDetail extends Component {
                         disable: true,
                         title: '完成',
                         onClick: () => {
-
+                            navigator.goBack();
                         },
                     }}
                 />
