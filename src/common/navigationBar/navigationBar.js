@@ -131,9 +131,13 @@ export default class NavigatorBar extends React.Component {
         } = this.props;
         let leftButtonConfig = this.props.leftButtonConfig;
         if (!leftButtonConfig) {
+            let leftIconFont = leftIconFont;
+            if(!leftIconFont){
+                leftIconFont = '&#xe662;';
+            }
             leftButtonConfig = {
-                type: 'image',
-                image: StaticImage.backIcon,
+                type: 'font',
+                disableColor: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                 onClick: () => {
                     if (backIconClick) {
                         backIconClick();

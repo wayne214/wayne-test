@@ -61,8 +61,6 @@ import StorageKey from '../../constants/storageKeys';
 import NUmberLength from '../../utils/validator';
 import HTTPRequest from '../../utils/httpRequest'
 
-import bannerImage1 from '../../../assets/home/banner1.png';
-import bannerImage2 from '../../../assets/home/banner2.png';
 const {width, height} = Dimensions.get('window');
 const JpushAliasNumber = global.userId;
 
