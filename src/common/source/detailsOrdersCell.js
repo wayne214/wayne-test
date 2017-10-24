@@ -67,17 +67,17 @@ class DetailsOrdersCell extends Component {
             </View>;
 
         return (
-            <View style={{backgroundColor: StaticColor.WHITE_COLOR, paddingLeft: 20}}>
+            <View style={{backgroundColor: StaticColor.WHITE_COLOR, paddingLeft: 10}}>
 
-                <Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>
+                {/*<Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>*/}
 
-                <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                {/*<View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />*/}
 
                 <View style={{paddingTop: 15, paddingRight: 20}}>
-                    {goodsView}
-                    {freightView}
-                    {payView}
-                    {payWayView}
+                    {/*{goodsView}*/}
+                    {/*{freightView}*/}
+                    {/*{payView}*/}
+                    {/*{payWayView}*/}
                     {huiWayView}
                     {timeView}
                 </View>

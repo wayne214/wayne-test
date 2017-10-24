@@ -92,6 +92,8 @@ import Dairy from '../../assets/good/dairy.png'; // 乳制品
 import AgricultureProduct from '../../assets/good/agricultureProduct.png'; // 农产品
 import AquaticProduct from '../../assets/good/aquaticProduct.png'; // 水产品
 
+import TaskBackground from '../../assets/good/taskBackground.png'; // 任务信息背景图
+
 
 export default {
     EmptyImage,
@@ -150,6 +152,7 @@ export default {
     FrozenPastry,
     Dairy,
     AgricultureProduct,
-    AquaticProduct
+    AquaticProduct,
+    TaskBackground
 }
 
