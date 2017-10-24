@@ -586,7 +586,7 @@ class Mine extends Component {
                 backgroundColor: '#ffffff',
             }}>
                 <NavigationBar
-
+                    title={'我的'}
                     navigator={navigator}
                     leftButtonHidden={true}
                     rightButtonConfig={{
