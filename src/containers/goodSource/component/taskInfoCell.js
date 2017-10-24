@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
     },
     itemName: {
         fontSize: 15,

@@ -80,18 +80,25 @@ export default class GoodsSourceDetails extends Component {
 
                     {/*</View>*/}
                     <ImageBackground source={StaticImage.TaskBackground} style={{marginTop: 10, alignSelf: 'center',height: 150, width: screenWidth - 20}} resizeMode='stretch'>
-                        <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 15, paddingLeft: 10}}>
-                            <Text style={{fontFamily: 'iconfont', color: '#B2B2B2', fontSize: 15}}>&#xe66d;</Text>
+                        <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 10, paddingLeft: 10}}>
+                            <Text style={{fontFamily: 'iconfont', color: '#B2B2B2', fontSize: 19}}>&#xe66d;</Text>
                             <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
                                 {deliveryInfo.receiveContactName}
                             </Text>
                         </View>
                         <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 10, marginRight: 10}}/>
-                        <DetailsOrdersCell
-                            ifReceipt={taskInfo.isReceipt}
-                            receiptStyle={taskInfo.receiptWay}
-                            arrivalTime={taskInfo.committedArrivalTime}
-                        />
+                        <View style={{marginHorizontal: 10}}>
+                            <DetailsOrdersCell
+                                ifReceipt={taskInfo.isReceipt}
+                                receiptStyle={taskInfo.receiptWay}
+                                arrivalTime={taskInfo.committedArrivalTime}
+                            />
+                        </View>
+                        {/*<DetailsOrdersCell*/}
+                            {/*ifReceipt={taskInfo.isReceipt}*/}
+                            {/*receiptStyle={taskInfo.receiptWay}*/}
+                            {/*arrivalTime={taskInfo.committedArrivalTime}*/}
+                        {/*/>*/}
                     </ImageBackground>
                     {/*<Text style={{fontSize: 17, marginHorizontal: 20,marginVertical: 10, fontWeight: 'bold'}}>*/}
                         {/*{deliveryInfo.receiveContactName}*/}
