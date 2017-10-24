@@ -22,9 +22,6 @@ const styles = StyleSheet.create({
     },
     dressIconStyle: {
         marginLeft: 20,
-        fontFamily: 'iconfont',
-        fontSize: 18,
-        color: StaticColor.BLUE_BUTTON_COLOR
     }
 });
 
@@ -100,7 +97,7 @@ class DetailsUserCell extends Component {
                                     paddingRight: 40,
                                 }}
                             >
-                                <Text style={styles.dressIconStyle}>&#xe667;</Text>
+                                <Image source={StaticImage.locationIcon} style={styles.dressIconStyle}/>
                                 <Text
                                     style={{
                                         fontSize: 15,
