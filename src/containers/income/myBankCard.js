@@ -135,7 +135,7 @@ export default class MyBankCard extends Component {
 
                 <View style={{
                     width,
-                    height:height - 42 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
+                    height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                 }}>
                     {
                         isEmpty ?
