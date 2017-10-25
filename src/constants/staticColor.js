@@ -58,5 +58,9 @@ export const BLUE_ORDER_NUMBER_COLOR = '#E6F2FF';
 
 export const GREEN_POINTER_COLOR = '#E1F5ED';
 
+export const YELLOW_PAYICON_COLOR = '#FF9E51';
+
+export const RED_CHANGEPWDICON_COLOR = '#FF7856';
+
 
 
