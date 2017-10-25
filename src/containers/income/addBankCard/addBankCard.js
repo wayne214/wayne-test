@@ -70,7 +70,7 @@ export default class AddBankCard extends Component {
             bankName: '',
             bankCity: '',
             bankSubName: '',
-            bankCity:'',
+            bankCity: '',
         };
     }
 
@@ -267,16 +267,26 @@ export default class AddBankCard extends Component {
                     height: 46,
                 }}>
                     <Text style={styles.leftTextStyle}>开户行</Text>
-                    <TextInput
-                        placeholder="请填写开户行"
-                        placeholderTextColor="#CCCCCC"
-                        underlineColorAndroid={'transparent'}
-                        style={styles.textInputStyle}
-                        onChangeText={(bankName) => {
-                            this.setState({bankName});
-                        }}
-                        value={bankName}
-                    />
+                    <TouchableOpacity onPress={() => {
+                        navigator.navigate('ChooseBankName');
+                    }}>
+                        <Text
+                            style={{
+                                color: '#CCCCCC', fontSize: 16,
+                                marginLeft: 10,
+                            }}
+                        >请填写开户行</Text>
+                        {/*<TextInput*/}
+                            {/*placeholder="请填写开户行"*/}
+                            {/*placeholderTextColor="#CCCCCC"*/}
+                            {/*underlineColorAndroid={'transparent'}*/}
+                            {/*style={styles.textInputStyle}*/}
+                            {/*onChangeText={(bankName) => {*/}
+                                {/*this.setState({bankName});*/}
+                            {/*}}*/}
+                            {/*value={bankName}*/}
+                        {/*/>*/}
+                    </TouchableOpacity>
                 </View>
                 <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
 
@@ -290,11 +300,11 @@ export default class AddBankCard extends Component {
                     <Text style={styles.leftTextStyle}>开户省市</Text>
 
                     <TouchableOpacity onPress={() => {
-                        navigator.navigate('ChooseBankCity',{
+                        navigator.navigate('ChooseBankCity', {
                             selectedCityCallback: (data) => {
-                                console.log('----data',data[0].departureCityArrayName);
+                                console.log('----data', data[0].departureCityArrayName);
                                 this.setState({
-                                    bankCity:data[0].departureCityArrayName,
+                                    bankCity: data[0].departureCityArrayName,
                                 })
                             }
 
@@ -307,7 +317,7 @@ export default class AddBankCard extends Component {
                                     marginLeft: 10,
                                 }}
                             >{this.state.bankCity}</Text>
-                        :
+                            :
                             <Text
                                 style={{
                                     color: '#CCCCCC', fontSize: 16,

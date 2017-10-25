@@ -154,7 +154,7 @@ class ChooseBankCity extends Component {
                         type: 'string',
                         title: '确定',
                         onClick: () => {
-                            Storage.save('cityArray', this.state.selectedCitys);
+                            // Storage.save('cityArray', this.state.selectedCitys);
                             if (this.props.navigation.state.params.selectedCityCallback) {
                                 this.props.navigation.state.params.selectedCityCallback(this.state.selectedCitys);
                             }
