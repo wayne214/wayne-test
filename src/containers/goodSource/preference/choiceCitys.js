@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 10,
     },
+    separateLine: {
+        height: 1,
+        backgroundColor: '#e8e8e8',
+    },
 });
 
 class choiceCitys extends Component {
@@ -158,6 +162,7 @@ class choiceCitys extends Component {
                         },
                     }}
                 />
+                <View style={styles.separateLine} />
                 {
                     this.state.selectedCitys.length > 0 ?
                         <View style={{
