@@ -172,8 +172,8 @@ export default {
     locationIcon,
     IncomeBgimage,
     IncomeOpen,
-    IncomeClose
+    IncomeClose,
     Contact,
-    locationRedIcon
+    locationRedIcon,
 }
 
