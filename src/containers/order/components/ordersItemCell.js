@@ -1,6 +1,6 @@
-/*
+/**
  * @author:  wangl
- * @description:  货源详情 运货单界面
+ * 订单列表中全部、待发运、待回单item
  */
 import React, {Component} from 'react';
 import {
@@ -15,7 +15,7 @@ import {
 import * as StaticColor from '../../../constants/staticColor';
 import GoodKindUtil from '../../../utils/goodKindUtil';
 import CommonLabelCell from '../../../common/commonLabelCell';
-
+import OrderStateNumView from './orderStateNumView';
 
 const {width} = Dimensions.get('window');
 
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: StaticColor.WHITE_COLOR,
-        // marginHorizontal: 10,
         borderWidth: 1,
         borderRadius: 5,
         borderColor: 'white',
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     },
     rightContainer: {
         paddingTop: 20,
-        flex: 3,
+        flex: 1,
         marginLeft: 20
     },
     itemFlag: {
@@ -123,7 +122,25 @@ const styles = StyleSheet.create({
     stateView: {
         flex: 1,
         marginRight: 10,
-        marginTop: 23,
+        marginTop: 3,
+    },
+    orderNumView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    wrapView: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    centerView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    flexDirection: {
+        flexDirection: 'row',
+    },
+    flex: {
+        flex: 1,
     }
 });
 
@@ -133,7 +150,6 @@ class OrdersItemCell extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
         this.state = {
             showStatus: this.props.orderStatus,
         };
@@ -157,6 +173,19 @@ class OrdersItemCell extends Component {
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
 
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
+        const orderNumView = <View style={styles.orderNumView}>
+            <OrderStateNumView
+                fontText={'待回'}
+                num={5}
+                unit={'单'}
+            />
+            <OrderStateNumView
+                style={{marginLeft: 5}}
+                fontText={'已回'}
+                num={1}
+                unit={'单'}
+            />
+        </View>;
 
         return (
             <View style={styles.container}>
@@ -167,19 +196,29 @@ class OrdersItemCell extends Component {
                     underlayColor={StaticColor.COLOR_SEPARATE_LINE}
                 >
                     <View>
-
                         <View style={styles.title}>
-
                             <View style={styles.goodKindStyle}>
                                 {
                                     GoodKindUtil.show(goodIcon)
                                 }
                             </View>
                             <View style={styles.rightContainer}>
-                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '北京-天津-上海-苏州-南京-广州-海南'}</Text>
-
+                                <View style={styles.flexDirection}>
+                                    <View style={styles.flex}>
+                                        <Text
+                                            style={styles.dispatchLineStyle}
+                                            numberOfLines={2}
+                                        >
+                                            {dispatchLine ? dispatchLine : '北京-天津-上海-苏州-南京-广州-海南'}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.stateView}>
+                                        {orderStatus === 0 ? statusView : null}
+                                        {orderStatus === 3 ? orderNumView : null}
+                                    </View>
+                                </View>
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arrivalTime}</Text>
-                                <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>
+                                <View style={styles.wrapView}>
                                     {
                                         goodKindsNames.map((item, index) => {
                                             return (
@@ -191,21 +230,17 @@ class OrdersItemCell extends Component {
                                     <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: '#E1F5ED'}} textStyle={{color: '#33BE85'}}/>
                                 </View>
                                 <View style={styles.goodsTotal}>
-                                    <View style={{flexDirection: 'row'}}>
+                                    <View style={styles.flexDirection}>
                                         <Text style={[styles.arriveAndGoodsText]}>{weight}</Text>
                                         <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>Kg</Text>
                                     </View>
-                                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                                    <View style={styles.centerView}>
                                         <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
                                         <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>方</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.stateView}>
-                                {orderStatus === 0 ? statusView : null}
-                            </View>
                         </View>
-
                         <View style={styles.separateLine} />
                         <View style={styles.text}>
                             <Text style={styles.transCodeText}>调度单号：{scheduleCode}</Text>
