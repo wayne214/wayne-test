@@ -24,6 +24,7 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import { NavigationActions } from 'react-navigation';
 import {ImageCache} from "react-native-img-cache";
+import * as StaticColor from '../../constants/staticColor';
 
 
 let currentTime = 0;
@@ -61,6 +62,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#333333',
+    },
+    separateLine: {
+        height: 0.5,
+        backgroundColor: StaticColor.COLOR_SEPARATE_LINE,
+        marginLeft: 10,
     },
 });
 
@@ -259,6 +265,7 @@ class setting extends Component {
                         value={this.state.switchIsOn}
                     />
                 </View>
+                <View style={styles.separateLine}/>
                 <View style={styles.contentItemView}>
                     <Text style={styles.contentItemText}>
                         语音播报
