@@ -87,32 +87,32 @@ export default class AddBankCard extends Component {
     }
 
     fetchData() {
-            if (global.phone) {
-                HTTPRequest({
-                    url: API.API_AUTH_REALNAME_DETAIL + global.phone,
-                    params: {
-                        mobilePhone: global.phone,
-                    },
-                    loading: () => {
-                        this.setState({
-                            loading: true,
-                        });
-                    },
-                    success: (response) => {
-                        this.getPersonInfoSuccessCallback(response.result);
-                    },
-                    error: (err) => {
-                        this.setState({
-                            loading: false,
-                        });
-                    },
-                    finish: () => {
-                        this.setState({
-                            loading: false,
-                        });
-                    },
-                })
-            }
+        if (global.phone) {
+            HTTPRequest({
+                url: API.API_AUTH_REALNAME_DETAIL + global.phone,
+                params: {
+                    mobilePhone: global.phone,
+                },
+                loading: () => {
+                    this.setState({
+                        loading: true,
+                    });
+                },
+                success: (response) => {
+                    this.getPersonInfoSuccessCallback(response.result);
+                },
+                error: (err) => {
+                    this.setState({
+                        loading: false,
+                    });
+                },
+                finish: () => {
+                    this.setState({
+                        loading: false,
+                    });
+                },
+            })
+        }
     }
 
     getPersonInfoSuccessCallback(result) {
@@ -163,8 +163,8 @@ export default class AddBankCard extends Component {
                     holdCardName: this.state.holdCardName,
                     IDCardNum: this.state.IDCardNum,
                     bankCardNum: this.state.bankCardNum,
-                    bankName:result.bankName,
-                    cardName:result.cardName,
+                    bankName: result.bankName,
+                    cardName: result.cardName,
                 });
         }
 
@@ -285,18 +285,18 @@ export default class AddBankCard extends Component {
                     backgroundColor: '#ffffff',
                     height: 46,
                 }}>
-                    <Text style={styles.leftTextStyle}>开户省市</Text>
-                    <TouchableOpacity onPress={()=>{
 
+                    <Text style={styles.leftTextStyle}>开户省市</Text>
+
+                    <TouchableOpacity onPress={() => {
+                        navigator.navigate('ChooseBankCity');
                     }}>
-                        <TextInput
-                            placeholder="请选择开户省市"
-                            placeholderTextColor="#CCCCCC"
-                            underlineColorAndroid={'transparent'}
-                            style={styles.textInputStyle}
-                            value={bankCity}
-                            editable={false}
-                        />
+                        <Text
+                            style={{
+                                color: '#CCCCCC', fontSize: 16,
+                                marginLeft: 10,
+                            }}
+                        >请选择开户省市</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -309,7 +309,7 @@ export default class AddBankCard extends Component {
                     height: 46,
                 }}>
                     <Text style={styles.leftTextStyle}>开户支行</Text>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity onPress={() => {
                         console.log('123');
                     }}>
                         <TextInput
@@ -322,7 +322,6 @@ export default class AddBankCard extends Component {
                         />
                     </TouchableOpacity>
                 </View>
-
 
 
                 <Button
@@ -355,7 +354,7 @@ export default class AddBankCard extends Component {
                 </View>
 
                 {
-                    this.state.loading ? <Loading /> : null
+                    this.state.loading ? <Loading/> : null
                 }
 
             </View>

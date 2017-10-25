@@ -73,6 +73,7 @@ import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
 import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
 import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
 import IncomeListDetail from '../containers/income/AccountFlow/incomeListDetail';
+import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
 
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
@@ -435,6 +436,12 @@ const StackRouteConfigs = {
     },
     IncomeListDetail: {
         screen: IncomeListDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChooseBankCity:{
+        screen: ChooseBankCity,
         navigationOptions: {
             header: null
         }
