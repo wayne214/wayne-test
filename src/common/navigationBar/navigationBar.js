@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     divideLine: {
-        height: 0.5,
+        height: 1,
         backgroundColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
     },
 });
@@ -321,9 +321,8 @@ export default class NavigatorBar extends React.Component {
                                             return (
                                                 <TouchableOpacity
                                                     activeOpacity={rightButtonConfig.disable ? 1 : (rightButtonConfig.activeOpacity || 0.7)}
-                                                    onPress={rightButtonConfig.disable ? () => {
-                                                        console.log('--rightButton is disabled');
-                                                    } : rightButtonConfig.onClick}
+                                                    onPress={rightButtonConfig.onClick}
+
                                                 >
                                                     <Text
                                                         style={[(rightButtonConfig.type === 'string' ? styles.rightTitleStyle : styles.rightIconFontStyle), rightButtonConfig.titleStyle, rightButtonConfig.disable ? {color: rightButtonConfig.disableColor || 'gray'} : {}]}
@@ -341,10 +340,12 @@ export default class NavigatorBar extends React.Component {
                             })()
                         }
                     </View>
-
                 </View>
                 <View style={styles.divideLine}/>
             </View>
         );
     }
 }
+{/*onPress={rightButtonConfig.disable ? () => {*/}
+{/*console.log('--rightButton is disabled');*/}
+{/*} : rightButtonConfig.onClick}*/}

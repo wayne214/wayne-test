@@ -221,6 +221,7 @@ export default class BillWaterPage extends Component {
         const navigator= this.props.navigation;
         const data = [['全部', '收入', '支出']];
 
+        const topStyle = ConstValue.is_iPhoneX ? {marginTop: 18} : {marginTop: 2};
         return (
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
                 <DropdownMenu
@@ -239,7 +240,7 @@ export default class BillWaterPage extends Component {
                     <TouchableOpacity style={{position: 'absolute', marginTop: 30, height: 54, width: 44}} onPress={()=>{
                         navigator.goBack();
                     }}>
-                        <Image style={{marginTop: 18, marginLeft: 10}} source={StaticImage.backIcon} />
+                        <Image style={[{marginLeft: 10}, topStyle]} source={StaticImage.backIcon} />
                     </TouchableOpacity>
                     <View style={{marginTop: 10}}>
                         {

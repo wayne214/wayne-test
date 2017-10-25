@@ -73,9 +73,9 @@ import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
 import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
 import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
 import IncomeListDetail from '../containers/income/AccountFlow/incomeListDetail';
+import AddBankCardSuccess from '../containers/income/addBankCard/addBankCardSuccess';
 import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
 import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
-
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -263,7 +263,7 @@ const StackRouteConfigs = {
     },
     CertificationPage: {
         screen: Certification,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -281,7 +281,7 @@ const StackRouteConfigs = {
     },
     TakeCameraVEndPage: {
         screen: TakeCameraVEnd,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -311,7 +311,7 @@ const StackRouteConfigs = {
     },
     BankCardDeatil: {
         screen: BankCardDeatil,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -441,7 +441,13 @@ const StackRouteConfigs = {
             header: null
         }
     },
-    ChooseBankCity:{
+    AddBankCardSuccess: {
+        screen: AddBankCardSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChooseBankCity: {
         screen: ChooseBankCity,
         navigationOptions: {
             header: null

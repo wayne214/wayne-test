@@ -20,6 +20,7 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
 import Carousel from 'react-native-snap-carousel';
+import Speech from 'native-speech';
 
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     divideLine: {
-        height: 0.5,
+        height: 1,
         backgroundColor: LIGHT_GRAY_TEXT_COLOR,
     },
 });
@@ -285,6 +286,8 @@ class Home extends Component {
         this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
         this.resetTo = this.resetTo.bind(this);
         this.popToTop = this.popToTop.bind(this);
+
+        this.speechContent = this.speechContent.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -318,6 +321,7 @@ class Home extends Component {
                 this.saveMessage(message.alertContent);
 
                 if (message.alertContent.indexOf('新货源') > -1) {
+                    this.speechContent('您有新货源，快来接单啦');
                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                         {
                             text: '确定',
@@ -331,6 +335,7 @@ class Home extends Component {
                 }
 
                 if (message.alertContent.indexOf('快来竞拍吧') > -1) {
+                    this.speechContent('您有新货源，快来抢单啦');
                     Alert.alert('提示', '您有新的货源可以竞拍', [
                         {
                             text: '确定',
@@ -426,6 +431,7 @@ class Home extends Component {
                     this.saveMessage(notification.aps.alert);
 
                     if (notification.aps.alert.indexOf('新货源') > -1) {
+                        this.speechContent('您有新货源，快来接单啦');
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
                                 text: '确定',
@@ -440,6 +446,7 @@ class Home extends Component {
                     }
 
                     if (notification.aps.alert.indexOf('快来竞拍吧') > -1) {
+                        this.speechContent('您有新货源，快来抢单啦');
                         Alert.alert('提示', '您有新的货源可以竞拍', [
                             {
                                 text: '确定',
@@ -527,8 +534,14 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
     }
+    // 语音播报内容
+    speechContent(message) {
+        if (this.props.speechSwitchStatus) {
+            Speech.speak(message, () => alert('callback'));
+        }
+    }
 
-    //
+//
     notifyCarStatus() {
         Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
     }
@@ -959,7 +972,7 @@ class Home extends Component {
                 let result = responseData.result;
                 if(result && result !== '') {
                     this.setState({
-                        limitNumber: '限行尾号 ' + responseData.result,
+                        limitNumber: '今日限行 ' + responseData.result,
                     });
                 } else {
                     this.setState({
@@ -1212,7 +1225,8 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
-        userCarList: state.user.get('userCarList')
+        userCarList: state.user.get('userCarList'),
+        speechSwitchStatus: state.app.get('speechSwitchStatus')
     };
 }
 

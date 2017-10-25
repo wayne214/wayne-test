@@ -10,6 +10,8 @@ import {
     TouchableOpacity,
     View,
     StyleSheet,
+    ImageBackground,
+    Dimensions,
 } from 'react-native';
 import JPushModule from 'jpush-react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -28,10 +30,13 @@ import StorageKey from '../../constants/storageKeys';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import StaticImage from '../../constants/staticImage';
 
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -67,18 +72,16 @@ const styles = StyleSheet.create({
         height: 1,
     },
     button: {
-        marginLeft: 20,
-        marginRight: 20,
-        backgroundColor: '#008dcf',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5,
+        width: width - 40,
         height: 40,
+        backgroundColor: 'transparent',
+        alignSelf: 'center'
     },
     buttonText: {
         fontSize: 18,
         color: StaticColor.WHITE_COLOR,
-        fontWeight: '300',
     },
     tipText: {
         paddingTop: 15,
@@ -291,9 +294,9 @@ export default class changePassword extends Component {
                                 }
                             }}
                         >
-                            <View style={styles.button}>
+                            <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
                                 <Text style={styles.buttonText}>完成</Text>
-                            </View>
+                            </ImageBackground>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
         backgroundColor: StaticColor.WHITE_COLOR,
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: 'white',
-        borderBottomColor: '#d9d9d9'
+        borderColor: StaticColor.WHITE_COLOR,
+        borderBottomColor: StaticColor.COLOR_SEPARATE_LINE,
     },
     timeText: {
         fontSize: 14,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     arriveAndGoodsText: {
         fontSize: 16,
-        color: '#FA5741',
+        color: StaticColor.READ_NUMBER_COLOR,
     },
     separateLine: {
         height: 0.5,
@@ -222,21 +222,32 @@ class OrdersItemCell extends Component {
                                     {
                                         goodKindsNames.map((item, index) => {
                                             return (
-                                                <CommonLabelCell content={item}/>
+                                                <CommonLabelCell
+                                                    content={item}
+                                                    key={index}
+                                                />
                                             )
                                         })
                                     }
-                                    <CommonLabelCell content={'订单1单'} containerStyle={{backgroundColor: '#E6F2FF'}} textStyle={{color: '#59ABFD'}}/>
-                                    <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: '#E1F5ED'}} textStyle={{color: '#33BE85'}}/>
+                                    <CommonLabelCell
+                                        content={'订单1单'}
+                                        containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}}
+                                        textStyle={{color: StaticColor.BLUE_ORDER_TEXT_COLOR}}
+                                    />
+                                    <CommonLabelCell
+                                        content={`配送点${distributionPoint}`}
+                                        containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}}
+                                        textStyle={{color: StaticColor.GREEN_POINTER_TEXT_COLOR}}
+                                    />
                                 </View>
                                 <View style={styles.goodsTotal}>
                                     <View style={styles.flexDirection}>
                                         <Text style={[styles.arriveAndGoodsText]}>{weight}</Text>
-                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>Kg</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: StaticColor.READ_UNIT_COLOR, fontSize: 14, marginTop: 2}]}>Kg</Text>
                                     </View>
                                     <View style={styles.centerView}>
                                         <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
-                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>方</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: StaticColor.READ_UNIT_COLOR, fontSize: 14, marginTop: 2}]}>方</Text>
                                     </View>
                                 </View>
                             </View>

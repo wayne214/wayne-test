@@ -247,6 +247,7 @@ class GoodSource extends BaseContainer{
             <CommonListItem
                 time={pushTime}
                 transCode={dataRow.dispatchCode}
+                dispatchLine={'北京-天津-沈阳'}
                 distributionPoint={dataRow.distributionPoint !== null ? `${dataRow.distributionPoint}个` : ''}
                 arriveTime={arrivalTime}
                 weight={dataRow.weight !== null ? dataRow.totalWeight: ''}

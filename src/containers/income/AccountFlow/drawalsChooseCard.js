@@ -136,9 +136,8 @@ class drawalsChooseCard extends Component {
                         type: 'font',
                         disableColor: '#0071FF',
                         disable: true,
-
                         onClick: () => {
-
+                            navigator.navigate('AddBankCard');
                         },
                     }}
                     leftButtonConfig = {{
