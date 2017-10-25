@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.react.arron.speech.speechModulePackage;
 import com.remobile.toast.RCTToastPackage;
 import com.zmxv.RNSound.RNSoundPackage;
-import com.remobile.toast.RCTToastPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -15,7 +14,6 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.reactnativejpush.JPushPackage;
 
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
@@ -43,7 +41,6 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
             new speechModulePackage(),
-            new RCTToastPackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),
                     new PickerViewPackage(),
