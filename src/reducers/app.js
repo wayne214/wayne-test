@@ -8,6 +8,7 @@ const initState = Immutable.fromJS({
     plateNumber: '', // 车牌号
     plateNumberObj: {}, //车牌号对象
     versionUrl: '', // 版本地址
+    speechSwitchStatus: true, // 语音播报开关
 });
 
 
@@ -32,6 +33,10 @@ export default (state = initState, action) => {
 
         case ActionTypes.ACTION_MAIN_PRESS:
             globalState = globalState.set('mainPress', action.payload.orderTab);
+            return globalState;
+
+        case ActionTypes.ACTION_VOICE_SWITCH:
+            globalState = globalState.set('speechSwitchStatus', action.payload);
             return globalState;
 
         default:

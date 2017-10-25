@@ -29,3 +29,11 @@ export const updateVersionAction = (versionUrl) => {
         payload: versionUrl,
     };
 };
+
+// 语音播报
+export const voiceSpeechAction = (value) => {
+    return {
+        type: ActionTypes.ACTION_VOICE_SWITCH,
+        payload: value,
+    };
+};
