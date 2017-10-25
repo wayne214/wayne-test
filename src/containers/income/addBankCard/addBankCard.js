@@ -67,6 +67,9 @@ export default class AddBankCard extends Component {
             IDCardNum: '',
             bankCardNum: '',
             loading: false,
+            bankName: '',
+            bankCity: '',
+            bankSubName: ''
         };
     }
 
@@ -170,7 +173,7 @@ export default class AddBankCard extends Component {
 
     render() {
         const navigator = this.props.navigation;
-        const {holdCardName, IDCardNum, bankCardNum} = this.state;
+        const {holdCardName, IDCardNum, bankCardNum, bankName, bankCity, bankSubName} = this.state;
         return (
 
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -254,6 +257,73 @@ export default class AddBankCard extends Component {
                         value={bankCardNum}
                     />
                 </View>
+                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    height: 46,
+                }}>
+                    <Text style={styles.leftTextStyle}>开户行</Text>
+                    <TextInput
+                        placeholder="请填写开户行"
+                        placeholderTextColor="#CCCCCC"
+                        underlineColorAndroid={'transparent'}
+                        style={styles.textInputStyle}
+                        onChangeText={(bankName) => {
+                            this.setState({bankName});
+                        }}
+                        value={bankName}
+                    />
+                </View>
+                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    height: 46,
+                }}>
+                    <Text style={styles.leftTextStyle}>开户省市</Text>
+                    <TouchableOpacity onPress={()=>{
+
+                    }}>
+                        <TextInput
+                            placeholder="请选择开户省市"
+                            placeholderTextColor="#CCCCCC"
+                            underlineColorAndroid={'transparent'}
+                            style={styles.textInputStyle}
+                            value={bankCity}
+                            editable={false}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    height: 46,
+                }}>
+                    <Text style={styles.leftTextStyle}>开户支行</Text>
+                    <TouchableOpacity onPress={()=>{
+                        console.log('123');
+                    }}>
+                        <TextInput
+                            placeholder="请选择开户支行"
+                            placeholderTextColor="#CCCCCC"
+                            underlineColorAndroid={'transparent'}
+                            style={styles.textInputStyle}
+                            value={bankSubName}
+                            editable={false}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+
 
                 <Button
                     style={styles.loginButton}
