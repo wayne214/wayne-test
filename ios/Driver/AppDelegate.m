@@ -54,7 +54,7 @@
                                           categories:nil];
   }
   
-  [JPUSHService setupWithOption:launchOptions appKey:appKey
+  [JPUSHService setupWithOption:launchOptions appKeyw:appKey
                         channel:nil apsForProduction:isProduction];
   
   [RCTBaiduMapViewManager initSDK:@"YQTDK3RGAXnoGrLfFqyYLyPxcMft4LHn"];

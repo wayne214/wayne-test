@@ -321,9 +321,8 @@ export default class NavigatorBar extends React.Component {
                                             return (
                                                 <TouchableOpacity
                                                     activeOpacity={rightButtonConfig.disable ? 1 : (rightButtonConfig.activeOpacity || 0.7)}
-                                                    onPress={rightButtonConfig.disable ? () => {
-                                                        console.log('--rightButton is disabled');
-                                                    } : rightButtonConfig.onClick}
+                                                    onPress={rightButtonConfig.onClick}
+
                                                 >
                                                     <Text
                                                         style={[(rightButtonConfig.type === 'string' ? styles.rightTitleStyle : styles.rightIconFontStyle), rightButtonConfig.titleStyle, rightButtonConfig.disable ? {color: rightButtonConfig.disableColor || 'gray'} : {}]}
@@ -348,3 +347,6 @@ export default class NavigatorBar extends React.Component {
         );
     }
 }
+{/*onPress={rightButtonConfig.disable ? () => {*/}
+{/*console.log('--rightButton is disabled');*/}
+{/*} : rightButtonConfig.onClick}*/}
