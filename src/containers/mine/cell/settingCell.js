@@ -138,7 +138,7 @@ class SettingCell extends Component {
                 <View style={{flex: 1}}>
                     <View style={[styles.container, {...style}]}>
                         <View style={styles.leftPart}>
-                            <Text style={[styles.iconfont, {color: iconFontColor}]}>{leftIcon}</Text>
+                            <Text style={[styles.iconfont, iconFontColor]}>{leftIcon}</Text>
                             <Text style={styles.contentText}>{content}</Text>
                         </View>
                         {a}
