@@ -64,12 +64,13 @@
   
   [[RCTBundleURLProvider sharedSettings] setDefaults];
 #if DEBUG
-  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.120"];
+ // [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.104"];
 
 #endif
   
   //模拟器测试
-  
+
+
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   /*
