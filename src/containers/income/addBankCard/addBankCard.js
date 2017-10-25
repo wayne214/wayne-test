@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     leftTextStyle: {
         fontSize: 16,
         marginLeft: 10,
-        width: 65,
+        width: 70,
         color: '#333333'
     },
     textInputStyle: {
@@ -241,9 +241,9 @@ export default class AddBankCard extends Component {
                     backgroundColor: '#ffffff',
                     height: 46,
                 }}>
-                    <Text style={styles.leftTextStyle}>卡号</Text>
+                    <Text style={styles.leftTextStyle}>银行卡号</Text>
                     <TextInput
-                        placeholder="请填写银行卡卡号"
+                        placeholder="请填写银行卡号"
                         placeholderTextColor="#CCCCCC"
                         keyboardType="numeric"
                         underlineColorAndroid={'transparent'}

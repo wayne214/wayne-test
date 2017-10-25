@@ -52,7 +52,7 @@ export default class MyBankCard extends Component {
 
     componentDidMount() {
         this.getCurrentPosition();
-        this.bankCardList(this.bankCardBundingCallBack);
+        //this.bankCardList(this.bankCardBundingCallBack);
 
         this.listListener = DeviceEventEmitter.addListener('BankCardList', () => {
             this.bankCardList(this.bankCardBundingCallBack);
@@ -139,16 +139,13 @@ export default class MyBankCard extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-                                <Image style={{
-                                    height: 130,
-                                    width: 130,
-
-                                }} source={require('../../../assets/income/bankCardEmpty.png')}/>
+                                <Image source={require('../../../assets/income/bankCardEmpty.png')}/>
 
                                 <Text style={{
-                                    color: "#333333",
+                                    color: "#999999",
                                     fontSize: 16,
-                                }}>您还没有添加银行卡哦，赶快添加吧~</Text>
+                                    marginTop: 10
+                                }}>您还没有添加银行卡哦~</Text>
                             </View>
                             :
                             <ListView
@@ -181,17 +178,10 @@ export default class MyBankCard extends Component {
                     <View style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: 42,
-                        width,
-                        backgroundColor: '#ffffff',
+                        flexDirection: 'row'
                     }}>
-                        <Text
-                            style={{
-                                color: '#999999',
-                                fontSize: 14,
-                            }}>
-                            + 添加银行卡
-                        </Text>
+                        <Image source={require('../../../assets/income/addBankCar.png')}/>
+
                     </View>
                 </TouchableOpacity>
 
