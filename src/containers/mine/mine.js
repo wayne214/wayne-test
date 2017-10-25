@@ -795,7 +795,7 @@ class Mine extends Component {
                                     leftIcon="&#xe62e;"
                                     iconFontColor={StaticColor.RED_CHANGEPWDICON_COLOR}
                                     content={'修改密码'}
-                                    showBottomLine={false}
+                                    showBottomLine={true}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
