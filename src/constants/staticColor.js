@@ -28,7 +28,7 @@ export const LIGHT_GRAY_TEXT_COLOR = '#CCCCCC';
 
 export const PHOTO_BORDER_COLOR = '#CBCCCB';
 
-export const BLUE_TEXT_COLOR = '#008BCA';
+export const BLUE_TEXT_COLOR = '#0071FF';
 
 export const CALENDER_ICON_COLOR = '#309DED';
 
@@ -44,7 +44,7 @@ export const BLUE_SELECTED_COLOR = '#0066CC';
 
 export const MODAL_BACKGROUND_COLOR = '#383838';
 
-export const REFRESH_COLOR = '#c4c4c4';
+export const REFRESH_COLOR = '#C4C4C4';
 
 export const BLUE_CONTACT_COLOR = '#0071FF';
 

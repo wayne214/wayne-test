@@ -47,7 +47,7 @@ export default class AboutUs extends Component {
                         source={StaticImage.aboutUsImg}
                         // resizeMethod='cover'
                     >
-                        <Text style={{color: '#666666', alignSelf: 'center', fontSize: 13, marginTop: width * 140 / 375}}>版本 V{DeviceInfo.getVersion()}</Text>
+                        {/*<Text style={{color: '#666666', alignSelf: 'center', fontSize: 13, marginTop: width * 140 / 375}}>版本 V{DeviceInfo.getVersion()}</Text>*/}
                     </Image>
                 </View>
             </View>

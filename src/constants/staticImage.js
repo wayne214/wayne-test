@@ -174,6 +174,6 @@ export default {
     IncomeOpen,
     IncomeClose,
     Contact,
-    locationRedIcon
+    locationRedIcon,
 }
 

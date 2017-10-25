@@ -94,6 +94,10 @@ const styles = StyleSheet.create({
     centerImg: {
         alignSelf: 'center',
     },
+    divideLine: {
+        height: 0.5,
+        backgroundColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
+    },
 });
 
 export default class NavigatorBar extends React.Component {
@@ -339,6 +343,7 @@ export default class NavigatorBar extends React.Component {
                     </View>
 
                 </View>
+                <View style={styles.divideLine}/>
             </View>
         );
     }

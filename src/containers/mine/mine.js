@@ -34,7 +34,7 @@ import AlertSheetItem from '../../common/alertSelected';
 import ImagePicker from 'react-native-image-picker';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
-
+import DeviceInfo from 'react-native-device-info';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -823,6 +823,15 @@ class Mine extends Component {
                                             this.pushToSetting();
                                         }
                                 }}
+                                />
+
+                                <View style={styles.separateView}/>
+
+                                <SettingCell
+                                    leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
+                                }}
+                                    hideArrowIcon={true}
+                                    versionName={`V${DeviceInfo.getVersion()}`}
                                 />
                                 <View style={{
                                     height,
