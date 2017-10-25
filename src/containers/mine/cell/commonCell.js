@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
         flexDirection: 'row',
         height: 44,
         backgroundColor: 'white',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     separateLine: {
         height: 1,
         backgroundColor: '#e8e8e8',
-        marginLeft: 20,
+        marginLeft: 10,
     },
 });
 class CommonCell extends Component {

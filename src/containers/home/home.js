@@ -238,7 +238,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: COLOR_LIGHT_GRAY_TEXT,
         marginLeft: 10,
-    }
+    },
+    divideLine: {
+        height: 0.5,
+        backgroundColor: LIGHT_GRAY_TEXT_COLOR,
+    },
 });
 
 class Home extends Component {
@@ -1035,6 +1039,7 @@ class Home extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <View style={styles.divideLine}/>
             </View>;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>

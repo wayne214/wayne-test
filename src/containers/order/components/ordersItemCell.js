@@ -1,6 +1,6 @@
-/*
+/**
  * @author:  wangl
- * @description:  货源详情 运货单界面
+ * 订单列表中全部、待发运、待回单item
  */
 import React, {Component} from 'react';
 import {
@@ -13,7 +13,9 @@ import {
 } from 'react-native';
 
 import * as StaticColor from '../../../constants/staticColor';
-
+import GoodKindUtil from '../../../utils/goodKindUtil';
+import CommonLabelCell from '../../../common/commonLabelCell';
+import OrderStateNumView from './orderStateNumView';
 
 const {width} = Dimensions.get('window');
 
@@ -21,51 +23,125 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: StaticColor.WHITE_COLOR,
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: 'white',
+        borderBottomColor: '#d9d9d9'
     },
-    main: {
-        paddingLeft: 20,
+    timeText: {
+        fontSize: 14,
+        color: StaticColor.GRAY_TEXT_COLOR,
+        marginTop: 8,
     },
-    times: {
+    transCodeText: {
+        fontSize: 14,
+        color: StaticColor.GRAY_TEXT_COLOR,
+    },
+    arriveAndGoodsText: {
         fontSize: 16,
-        marginBottom: 5,
-        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        color: '#FA5741',
     },
-    times2: {
-        fontSize: 15,
-        marginBottom: 5,
-        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+    separateLine: {
+        height: 0.5,
+        backgroundColor: StaticColor.DEVIDE_LINE_COLOR,
+        marginLeft: 10,
+    },
+    cellStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rejectImg: {
+        position: 'absolute',
+        marginTop: 10,
+        marginLeft: width - 100,
+        alignItems: 'flex-end',
+    },
+    icon: {
+        fontFamily: 'iconfont',
+        fontSize: 16,
+        color: StaticColor.CALENDER_ICON_COLOR,
+    },
+    rightArrow: {
+        height: 15,
+        width: 8,
+        marginRight: 20,
+    },
+    goodsTotal: {
+        flexDirection: 'row',
+        marginBottom: 15,
+        marginTop: 8,
+    },
+    content: {
+        paddingLeft: 10,
+        paddingTop: 15,
+        paddingBottom: 5,
     },
     title: {
         flexDirection: 'row',
-        marginBottom: 10,
-        marginTop: 15,
     },
-    margin: {
-        fontSize: 15,
-        color: StaticColor.GRAY_TEXT_COLOR,
-        lineHeight: 20,
+    text: {
+        padding: 10,
     },
-    iconfont: {
-        fontFamily: 'iconfont',
-        fontSize: 16,
-        color: StaticColor.GRAY_TEXT_COLOR,
-        lineHeight: 20,
-    },
-    orderStyle: {
-        fontSize: 13,
-        color: StaticColor.GRAY_TEXT_COLOR,
+    rightContainer: {
+        paddingTop: 20,
         flex: 1,
+        marginLeft: 20
     },
-    imageStyle: {
-        marginLeft: width - 50,
+    itemFlag: {
         position: 'absolute',
-        marginTop: 5,
+        top: 0,
+        right: 10,
     },
-    bottom: {
-        height: 44,
+    itemFlagText: {
+        position: 'absolute',
+        color: StaticColor.WHITE_COLOR,
+        backgroundColor: 'transparent',
+        top: 14,
+        right: 2,
+        fontSize: 16,
+        fontWeight: 'bold',
+        transform: [{rotateZ: '45deg'}],
+    },
+    goodKindStyle: {
+        marginLeft: 10,
+        marginTop: 20,
+    },
+    dispatchLineStyle: {
+        fontSize: 17,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+    },
+    arriveTimeStyle: {
+        fontSize: 12,
+        color: StaticColor.GRAY_TEXT_COLOR,
+    },
+    stateText: {
+        fontSize: 14,
+        color: StaticColor.BLUE_TEXT_COLOR,
+        textAlign: 'right',
+    },
+    stateView: {
+        flex: 1,
+        marginRight: 10,
+        marginTop: 3,
+    },
+    orderNumView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    wrapView: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    centerView: {
+        flexDirection: 'row',
         justifyContent: 'center',
-        // fontSize: 14,
     },
+    flexDirection: {
+        flexDirection: 'row',
+    },
+    flex: {
+        flex: 1,
+    }
 });
 
 class OrdersItemCell extends Component {
@@ -74,62 +150,107 @@ class OrdersItemCell extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
         this.state = {
             showStatus: this.props.orderStatus,
         };
     }
 
     render() {
-        const {time, scheduleCode, distributionPoint, arrivalTime, weight, vol, onSelect, dispatchStatus, stateName, orderStatus} = this.props;
+        const {
+            time,
+            scheduleCode,
+            distributionPoint,
+            arrivalTime,
+            weight,
+            vol,
+            onSelect,
+            dispatchStatus,
+            stateName,
+            orderStatus,
+            dispatchLine,
+            goodKindsNames
+        } = this.props;
+        const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
 
-        const statusView = stateName && stateName == '已完成' ?
-            <Text style={[styles.times2, {marginTop: 30, marginRight: 10, color: '#999999', textAlign: 'right'}]}>{stateName}</Text> :
-            <Text style={[styles.times2, {marginTop: 30, marginRight: 10, color: '#1b82d1', textAlign: 'right'}]}>{stateName}</Text>;
+        const statusView = <Text style={styles.stateText}>{stateName}</Text>;
+        const orderNumView = <View style={styles.orderNumView}>
+            <OrderStateNumView
+                fontText={'待回'}
+                num={5}
+                unit={'单'}
+            />
+            <OrderStateNumView
+                style={{marginLeft: 5}}
+                fontText={'已回'}
+                num={1}
+                unit={'单'}
+            />
+        </View>;
 
         return (
             <View style={styles.container}>
                 <TouchableOpacity
-                    underlayColor={StaticColor.COLOR_SEPARATE_LINE}
                     onPress={() => {
                         onSelect();
                     }}
+                    underlayColor={StaticColor.COLOR_SEPARATE_LINE}
                 >
-                    <View style={styles.main}>
+                    <View>
                         <View style={styles.title}>
-                            <View style={{flex: 5}}>
-                                <Text style={styles.times}>{time}</Text>
-                                <Text style={styles.orderStyle}>{scheduleCode}</Text>
+                            <View style={styles.goodKindStyle}>
+                                {
+                                    GoodKindUtil.show(goodIcon)
+                                }
                             </View>
-
-                            <View style={{flex: 3}}>
-                                {orderStatus === 0 ? statusView : null}
+                            <View style={styles.rightContainer}>
+                                <View style={styles.flexDirection}>
+                                    <View style={styles.flex}>
+                                        <Text
+                                            style={styles.dispatchLineStyle}
+                                            numberOfLines={2}
+                                        >
+                                            {dispatchLine ? dispatchLine : '北京-天津-上海-苏州-南京-广州-海南'}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.stateView}>
+                                        {orderStatus === 0 ? statusView : null}
+                                        {orderStatus === 3 ? orderNumView : null}
+                                    </View>
+                                </View>
+                                <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arrivalTime}</Text>
+                                <View style={styles.wrapView}>
+                                    {
+                                        goodKindsNames.map((item, index) => {
+                                            return (
+                                                <CommonLabelCell content={item}/>
+                                            )
+                                        })
+                                    }
+                                    <CommonLabelCell content={'订单1单'} containerStyle={{backgroundColor: '#E6F2FF'}} textStyle={{color: '#59ABFD'}}/>
+                                    <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: '#E1F5ED'}} textStyle={{color: '#33BE85'}}/>
+                                </View>
+                                <View style={styles.goodsTotal}>
+                                    <View style={styles.flexDirection}>
+                                        <Text style={[styles.arriveAndGoodsText]}>{weight}</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>Kg</Text>
+                                    </View>
+                                    <View style={styles.centerView}>
+                                        <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
+                                        <Text style={[styles.arriveAndGoodsText, {color: '#2A2A2A', fontSize: 14, marginTop: 2}]}>方</Text>
+                                    </View>
+                                </View>
                             </View>
                         </View>
-
-                        <View style={{height: 1, backgroundColor: '#e8e8e8'}}/>
-
-                        <View style={{marginTop: 15, marginBottom: 10, flex: 5}}>
-                            <Text style={styles.times2}>配送点：{distributionPoint}个</Text>
-                            <Text style={styles.times2}>到仓时间：{arrivalTime}</Text>
-                            <Text style={styles.times2}>货品总计：{weight}Kg {vol}方</Text>
+                        <View style={styles.separateLine} />
+                        <View style={styles.text}>
+                            <Text style={styles.transCodeText}>调度单号：{scheduleCode}</Text>
+                            <Text style={styles.timeText}>调度时间：{time}</Text>
                         </View>
-
                     </View>
-
                 </TouchableOpacity>
             </View>
         );
     }
 }
-OrdersItemCell.propTypes = {
-    time: React.PropTypes.string,
-    scheduleCode: React.PropTypes.string,
-    distributionPoint: React.PropTypes.number,
-    arrivalTime: React.PropTypes.string,
-    weight: React.PropTypes.number,
-    vol: React.PropTypes.number,
-    onSelect: React.PropTypes.func,
-};
 
 export default OrdersItemCell;

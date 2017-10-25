@@ -863,6 +863,7 @@
 				ED09E128A3804359AC8398A4 /* libRCTBEEPickerManager.a */,
 				062E833C16F6450FA50A03A5 /* libimageCropPicker.a */,
 				DE6BA98A06BC45FD94546BFF /* libRNSound.a */,
+				0537408D93D648B49F95E9BF /* libspeech.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
