@@ -106,6 +106,13 @@ import IncomeOpen from '../../assets/income/incomeOpen.png';
 import IncomeClose from '../../assets/income/incomeClose.png';
 import Contact from '../../assets/good/contact.png'; // 任务信息背景图
 
+/*按钮*/
+import BlueButtonArc from '../../assets/button/blueButtonArc.png';
+import BlueButtonSmall from '../../assets/button/blueButtonSmall.png';
+import BlueButtonSquare from '../../assets/button/blueButtonSquare.png';
+import OrangeButtonArc from '../../assets/button/orangeButtonArc.png';
+import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
+
 
 export default {
     EmptyImage,
@@ -175,5 +182,10 @@ export default {
     IncomeClose,
     Contact,
     locationRedIcon,
+    BlueButtonArc,
+    BlueButtonSmall,
+    BlueButtonSquare,
+    OrangeButtonArc,
+    OrangeButtonSquare
 }
 
