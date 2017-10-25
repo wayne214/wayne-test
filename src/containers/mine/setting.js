@@ -14,6 +14,9 @@ import NavigationBar from '../../common/navigationBar/navigationBar';
 import {
     clearUser,
 } from '../../action/user';
+import {
+    voiceSpeechAction,
+} from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
 import HTTPRequest from '../../utils/httpRequest';
@@ -67,7 +70,7 @@ class setting extends Component {
         super(props);
         this.state = {
             switchIsOn: true,
-            speechSwitch: global.canSpeak,
+            speechSwitch: this.props.speechSwitchStatus,
         };
         this.loginChangeAcceptMessage = this.loginChangeAcceptMessage.bind(this);
         this.press = this.press.bind(this);
@@ -192,9 +195,7 @@ class setting extends Component {
         this.setState({
             speechSwitch: value,
         });
-        global.canSpeak = value;
-        console.log('glabal.canSpeak', value)
-        // this.loginChangeAcceptMessage( value );
+        this.props.speechSwitchAction(value);
     }
     /*通知开关状态改变*/
     valueChange(value) {
@@ -287,6 +288,7 @@ class setting extends Component {
 
 function mapStateToProps(state) {
     return {
+        speechSwitchStatus: state.app.get('speechSwitchStatus')
     };
 }
 
@@ -294,6 +296,9 @@ function mapDispatchToProps(dispatch) {
     return {
         removeUserInfoAction:()=>{
             dispatch(clearUser());
+        },
+        speechSwitchAction:(data)=>{
+            dispatch(voiceSpeechAction(data));
         },
     };
 }
