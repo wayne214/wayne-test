@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         color: '#999999',
         fontSize: 16
-    }
+    },
 });
 
 class SettingCell extends Component {
@@ -82,7 +82,7 @@ class SettingCell extends Component {
     render() {
         const {
             style, leftIcon, content, clickAction, showBottomLine, authenticationStatus,
-            rightIcon = rightArrow, hideArrowIcon, versionName
+            rightIcon = rightArrow, hideArrowIcon, versionName, iconFontColor
         } = this.props;
 
         const a =
@@ -138,7 +138,7 @@ class SettingCell extends Component {
                 <View style={{flex: 1}}>
                     <View style={[styles.container, {...style}]}>
                         <View style={styles.leftPart}>
-                            <Text style={styles.iconfont}>{leftIcon}</Text>
+                            <Text style={[styles.iconfont, {color: iconFontColor}]}>{leftIcon}</Text>
                             <Text style={styles.contentText}>{content}</Text>
                         </View>
                         {a}
