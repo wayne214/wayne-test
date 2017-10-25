@@ -21,7 +21,6 @@ import Storage from '../../utils/storage';
 import Toast from '@remobile/react-native-toast';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
-import GoodBatchCell from './components/goodBatchCell';
 import ProvinceListJson from '../../../assets/data/province.json';
 import UniqueUtil from '../../utils/unique';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -851,40 +850,23 @@ let transCodeListData3 = [];
 
     // 运输中item
     renderRowItem(dataRow) {
-        // const contactInfo = dataRow.deliveryInfo;
-        if ( dataRow.transCodeNum !== 0 && dataRow.transports.length === 1) {
+        if ( dataRow.transCodeNum !== 0) {
             return (
                 <OrderTransportCell
-                    title={dataRow.receiveContact ? dataRow.receiveContact : ''}
+                    receiveContact={dataRow.receiveContact ? dataRow.receiveContact : ''}
                     transCodeList={dataRow.transports}
                     ordersNum={dataRow.transCodeNum}
                     receiveAddress={dataRow.receiveAddress}
-                    contact={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
+                    receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
                     phoneNum={dataRow.phoneNum}
-                    onSelect={() => {
-                        this.props.navigation.navigate('WaitToSignIn', {
-                            productResult: dataRow.transports[0].transCode,
-                        })
-                    }}
-                />
-            );
-        } else if(dataRow.transCodeNum !== 0 && dataRow.transports.length > 1){
-            return (
-                <GoodBatchCell
-                    receiveContact={dataRow.receiveContact}
-                    receiveAddress={dataRow.receiveAddress}
-                    receiveContactName={dataRow.receiveContactName}
-                    ordersNum={dataRow.transCodeNum}
-                    transCodeList={dataRow.transports}
-                    phoneNum={dataRow.phoneNum}
-                    isDisabled={this.transportStatus(dataRow)}
-                    onButton={() => {
-                        this.transportBatchSign(dataRow);
-                    }}
+                    isBatchSign={dataRow.transports.length > 1}
                     onSelect={() => {
                         this.props.navigation.navigate('EntryToBeSignIn', {
                             transOrderList: this.transportsList(dataRow),
                         })
+                    }}
+                    onButton={() => {
+                        {/*this.transportBatchSign(dataRow);*/}
                     }}
                 />
             );
@@ -895,7 +877,7 @@ let transCodeListData3 = [];
 
     transportsList(dataRow) {
         let list = [];
-        for (var i = 0; i < dataRow.transports.length; i++) {
+        for (let i = 0; i < dataRow.transports.length; i++) {
             list.push(dataRow.transports[i].transCode);
         }
         return list;
@@ -945,11 +927,9 @@ let transCodeListData3 = [];
                                 scheduleCode: dataRow.scheduleCode,
                                 successCallBack: () => {
                                     // 刷新
-                                    // InteractionManager.runAfterInteractions(() => {
-                                        setTimeout(() => {
-                                            this.onRefresh();
-                                        }, 500);
-                                    // });
+                                    setTimeout(() => {
+                                        this.onRefresh();
+                                    }, 500);
                                 },
                             });
                         } else {
@@ -968,7 +948,6 @@ let transCodeListData3 = [];
                                 // 刷新
                                 // InteractionManager.runAfterInteractions(() => {
                                     //setTimeout(()=>{
-
                                      // this.onRefresh();
                                      // allListData = [];
                                      // allPage =1;
@@ -1039,11 +1018,8 @@ let transCodeListData3 = [];
                     }
                     onChangeTab={(object) => {
                         selectPage = object.i;
-
                         console.log('object:' + object.i);
-
                         console.log('selectPage:' + selectPage);
-
                         switch (selectPage) {
                             case 0 : {
                                 this.setState({
@@ -1056,10 +1032,8 @@ let transCodeListData3 = [];
                                     });
                                 }
                                 pageNum = allPage;
-
                             }
                                 break;
-
                             case 1 : {
                                 this.setState({
                                     dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
@@ -1075,7 +1049,6 @@ let transCodeListData3 = [];
                                     });
                                 }
                                 pageNum = shipPage;
-
                             }
                                 break;
                             case 2: {
@@ -1093,7 +1066,6 @@ let transCodeListData3 = [];
                                     });
                                 }
                                 pageNum = signPage;
-
                             }
                                 break;
                             case 3 : {
@@ -1111,27 +1083,20 @@ let transCodeListData3 = [];
                                     });
                                 }
                                 pageNum = receiptPage;
-
                             }
                                 break;
-
                             default :
                                 break;
                         }
-
-                             
-                            this.loadData(selectPage, pageNum);
-
+                        this.loadData(selectPage, pageNum);
                     }}
-
                 >
                     <View
                         tabLabel="全部"
                         style={styles.subContainer}
                     >
                         {
-                            this.state.allCount > 0 ? this.listView(1) :
-                                <EmptyView />
+                            this.state.allCount > 0 ? this.listView(1) : <EmptyView />
                         }
                     </View>
                     <View
@@ -1139,17 +1104,15 @@ let transCodeListData3 = [];
                         style={styles.subContainer}
                     >
                         {
-                            this.state.allCount > 0 ? this.listView(2) :
-                                <EmptyView />
+                            this.state.allCount > 0 ? this.listView(2) : <EmptyView />
                         }
                     </View>
                     <View
-                        tabLabel="运输中"
+                        tabLabel="待签收"
                         style={styles.subContainer}
                     >
                         {
-                            this.state.allCount > 0 ? this.listView(3) :
-                                <EmptyView />
+                            this.state.allCount > 0 ? this.listView(3) : <EmptyView />
                         }
                     </View>
                     <View
@@ -1157,12 +1120,10 @@ let transCodeListData3 = [];
                         style={styles.subContainer}
                     >
                         {
-                            this.state.allCount > 0 ? this.listView(4) :
-                                <EmptyView />
+                            this.state.allCount > 0 ? this.listView(4) : <EmptyView />
                         }
                     </View>
                 </ScrollableTabView>
-
             </View>
         );
     }

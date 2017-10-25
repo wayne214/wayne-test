@@ -32,7 +32,6 @@ export default class BankCardCell extends Component {
         super(props);
         // 初始状态
         this.state = {};
-
     }
 
     render() {
@@ -40,6 +39,9 @@ export default class BankCardCell extends Component {
             accountBank, bankCarType, bankAccount, isDefault, clickAction
         } = this.props;
 
+        const bgColor = Math.floor(Math.random()*10)%4 === 0 ? {backgroundColor: '#1C4BE8'} :
+            Math.floor(Math.random()*10)%4 === 1 ? {backgroundColor:'#3D8A78'} :
+                Math.floor(Math.random()*10)%4 === 2 ? {backgroundColor: '#DF5551'} :{backgroundColor: '#D99B0C'};
 
         return (
             <TouchableOpacity
@@ -47,46 +49,56 @@ export default class BankCardCell extends Component {
                     clickAction();
                 }} activeOpacity={0.6}
             >
+
                 <View>
-                    <View style={{
-                        alignItems: 'center',
+                    <View style={[{
                         flexDirection: 'row',
                         marginTop: 10,
-                        backgroundColor:'#ffffff',
-                        height:84,
-                    }}>
+                        marginHorizontal: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10
+                    },bgColor]}>
                         <View style={{
                             flex: 1,
-                            alignItems: 'center',
                             flexDirection: 'row'
                         }}>
-                            {
-                                bankIconUtil.show(accountBank)
-                            }
+                            <View style={{
+                                backgroundColor: 'white',
+                                borderRadius: 25,
+                                marginLeft: 10,
+                                marginTop: 15,
+                                width: 50,
+                                height: 50
+                            }}>
+                                {
+                                    bankIconUtil.show(accountBank)
+                                }
+                            </View>
 
-                            <View style={{marginLeft: 10}}>
+                            <View style={{marginLeft: 10, marginTop:20}}>
                                 <Text
                                     style={{
-                                        fontSize: 16,
-                                        color:'#333333'
+                                        fontSize: 17,
+                                        color:'#fff'
                                     }}>
                                     {accountBank}
                                 </Text>
 
                                 <Text
                                     style={{
-                                        marginTop: 5,
-                                        color: '#666666',
-                                        fontSize: 14
+                                        marginTop: 10,
+                                        color: '#fff',
+                                        fontSize: 13
                                     }}>
                                     {bankCarType}
                                 </Text>
 
                                 <Text
                                     style={{
-                                        marginTop: 5,
-                                        color: '#999999',
-                                        fontSize: 14
+                                        marginTop: 20,
+                                        color: '#fff',
+                                        fontSize: 13,
+                                        marginBottom: 20
                                     }}>
                                     {bankAccount}
                                 </Text>
@@ -96,23 +108,23 @@ export default class BankCardCell extends Component {
                         <View style={{flexDirection: 'row'}}>
                             {
                                 isDefault == 1 ?
-                                    <Text
-                                        style={{
-                                            color: '#999999',
-                                            fontSize: 14,
-                                            marginRight: 10
-                                        }}
-                                    >默认</Text>
+                                    <View style={{
+                                        height: 20,
+                                        width: 40,
+                                        marginTop: 10,
+                                        marginRight: 10,
+                                        justifyContent: 'center',
+                                    }}>
+
+                                        <View style={{ height: 20,
+                                        width: 40,backgroundColor: 'black', opacity: 0.3, borderRadius: 3, flex: 1, position: 'absolute'}}>
+                                        </View>
+                                        <Text style={{backgroundColor: 'transparent', fontSize: 13, textAlign: 'center', color: '#fff'}}>默认</Text>
+
+                                    </View>
                                     : null
                             }
 
-                            <Image
-                                style={{
-                                    width: 15,
-                                    height: 15,
-                                    marginRight: 10
-                                }}
-                                source={StaticImage.rightArrow}/>
                         </View>
 
 

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     bankIcon: {
         height: 30,
         width: 30,
-        margin: 15
+        margin: 10
     }
 });
 

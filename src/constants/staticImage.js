@@ -113,6 +113,8 @@ import BlueButtonSquare from '../../assets/button/blueButtonSquare.png';
 import OrangeButtonArc from '../../assets/button/orangeButtonArc.png';
 import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
 
+/*待签收箭头*/
+import upArrow from '../../assets/order/upArrow.png';
 
 export default {
     EmptyImage,
@@ -186,6 +188,7 @@ export default {
     BlueButtonSmall,
     BlueButtonSquare,
     OrangeButtonArc,
-    OrangeButtonSquare
+    OrangeButtonSquare,
+    upArrow,
 }
 
