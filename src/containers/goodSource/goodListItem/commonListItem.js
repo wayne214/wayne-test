@@ -198,13 +198,13 @@ class commonListItem extends Component {
         );
     }
 }
-commonListItem.propTypes = {
-    time: React.PropTypes.string,
-    transCode: React.PropTypes.string,
-    distributionPoint: React.PropTypes.string,
-    arriveTime: React.PropTypes.string,
-    weight: React.PropTypes.string,
-    vol: React.PropTypes.string,
-};
+// commonListItem.propTypes = {
+//     time: React.PropTypes.string,
+//     transCode: React.PropTypes.string,
+//     distributionPoint: React.PropTypes.string,
+//     arriveTime: React.PropTypes.string,
+//     weight: React.PropTypes.string,
+//     vol: React.PropTypes.string,
+// };
 
 export default commonListItem;
