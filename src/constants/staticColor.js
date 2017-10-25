@@ -44,6 +44,8 @@ export const BLUE_SELECTED_COLOR = '#0066CC';
 
 export const MODAL_BACKGROUND_COLOR = '#383838';
 
+//新版颜色
+
 export const REFRESH_COLOR = '#C4C4C4';
 
 export const BLUE_CONTACT_COLOR = '#0071FF';
@@ -56,7 +58,13 @@ export const READ_UNIT_COLOR = '#2A2A2A';
 
 export const BLUE_ORDER_NUMBER_COLOR = '#E6F2FF';
 
+export const BLUE_ORDER_TEXT_COLOR = '#59ABFD';
+
 export const GREEN_POINTER_COLOR = '#E1F5ED';
 
+export const GREEN_POINTER_TEXT_COLOR = '#33BE85';
 
+export const ORANGE_TYPE_COLOR = '#FFEDDD';
+
+export const ORANGE_TYPE_TEXT_COLOR = '#FF8E56';
 

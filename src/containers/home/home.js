@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     divideLine: {
-        height: 0.5,
+        height: 1,
         backgroundColor: LIGHT_GRAY_TEXT_COLOR,
     },
 });
@@ -959,7 +959,7 @@ class Home extends Component {
                 let result = responseData.result;
                 if(result && result !== '') {
                     this.setState({
-                        limitNumber: '限行尾号 ' + responseData.result,
+                        limitNumber: '今日限行 ' + responseData.result,
                     });
                 } else {
                     this.setState({
