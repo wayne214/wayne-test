@@ -828,7 +828,7 @@ class Mine extends Component {
                                 <View style={styles.separateView}/>
 
                                 <SettingCell
-                                    leftIcon="&#xe637;" content={'版本号'} clickAction={() => {
+                                    leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
                                 }}
                                     hideArrowIcon={true}
                                     versionName={`V${DeviceInfo.getVersion()}`}
