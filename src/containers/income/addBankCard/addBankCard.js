@@ -69,7 +69,8 @@ export default class AddBankCard extends Component {
             loading: false,
             bankName: '',
             bankCity: '',
-            bankSubName: ''
+            bankSubName: '',
+            bankCity:'',
         };
     }
 
@@ -289,14 +290,32 @@ export default class AddBankCard extends Component {
                     <Text style={styles.leftTextStyle}>开户省市</Text>
 
                     <TouchableOpacity onPress={() => {
-                        navigator.navigate('ChooseBankCity');
+                        navigator.navigate('ChooseBankCity',{
+                            selectedCityCallback: (data) => {
+                                console.log('----data',data[0].departureCityArrayName);
+                                this.setState({
+                                    bankCity:data[0].departureCityArrayName,
+                                })
+                            }
+
+                        });
                     }}>
-                        <Text
-                            style={{
-                                color: '#CCCCCC', fontSize: 16,
-                                marginLeft: 10,
-                            }}
-                        >请选择开户省市</Text>
+                        {this.state.bankCity ?
+                            <Text
+                                style={{
+                                    color: '#666666', fontSize: 16,
+                                    marginLeft: 10,
+                                }}
+                            >{this.state.bankCity}</Text>
+                        :
+                            <Text
+                                style={{
+                                    color: '#CCCCCC', fontSize: 16,
+                                    marginLeft: 10,
+                                }}
+                            >请选择开户省市</Text>
+                        }
+
                     </TouchableOpacity>
                 </View>
 
