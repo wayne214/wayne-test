@@ -106,6 +106,8 @@ import IncomeOpen from '../../assets/income/incomeOpen.png';
 import IncomeClose from '../../assets/income/incomeClose.png';
 import Contact from '../../assets/good/contact.png'; // 任务信息背景图
 
+/*待签收箭头*/
+import upArrow from '../../assets/order/upArrow.png';
 
 export default {
     EmptyImage,
@@ -175,5 +177,6 @@ export default {
     IncomeClose,
     Contact,
     locationRedIcon,
+    upArrow,
 }
 

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
     },
     numberStyle: {
-        color: '#FA5741',
+        color: StaticColor.READ_NUMBER_COLOR,
         fontSize: 14,
         alignSelf:'center',
     },
