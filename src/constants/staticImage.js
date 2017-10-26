@@ -83,9 +83,8 @@ import searchBackIcon from '../../assets/search/searchBackIcon.png';
 import closeIcon from '../../assets/search/forgetdel.png';
 
 /*订单图标*/
-import orderProductDetailItemAdd from '../../assets/order/orderProductDetailItem_add.png';
-import orderProductDetailItemSubtract from '../../assets/order/orderProductDetailItem_subtract.png';
-import orderProductDetailItemSubtractUnselect from '../../assets/order/orderProductDetailItem_subtract_unselect.png';
+import receiveAddUnselect from '../../assets/order/receive_add_unselected.png';
+import receiveDeleteUnselect from '../../assets/order/receive_delete_unselected.png';
 import receiveRightArrow from '../../assets/order/receive_right_arrow.png';
 import receiveAdd from '../../assets/order/receive_add.png';
 import receiveDelete from '../../assets/order/receive_delete.png';
@@ -171,9 +170,8 @@ export default {
     scanLine,
     searchBackIcon,
     closeIcon,
-    orderProductDetailItemAdd,
-    orderProductDetailItemSubtract,
-    orderProductDetailItemSubtractUnselect,
+    receiveAddUnselect,
+    receiveDeleteUnselect,
     receiveRightArrow,
     receiveAdd,
     receiveDelete,

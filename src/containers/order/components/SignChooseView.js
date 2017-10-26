@@ -1,12 +1,7 @@
 /**
  * Created by mymac on 2017/4/7.
+ * 签收界面拒收原因及数量组件
  */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 
 import React, {Component} from 'react';
 import {
@@ -33,19 +28,11 @@ const data = ['损坏', '解冻', '收货方拒收'];
 const style = StyleSheet.create({
     chooseNumStyle: {
         height: 33,
-        width: 116,
-        borderWidth: 1,
-        borderColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
         flexDirection: 'row', // 确保水平布局
         alignItems: 'center',
-        right: 10,
-        position: 'absolute', // 和right一起使用，绝对定位
-    },
-    sub: {
-        marginTop: 15,
-        marginLeft: 10,
-        height: 18,
-        marginRight: 10,
+        marginTop: 10,
+        marginBottom: 5,
+        marginRight: 15,
     },
     viewStyle: {
         ...Platform.select({
@@ -60,27 +47,8 @@ const style = StyleSheet.create({
         }),
         backgroundColor: StaticColor.WHITE_COLOR,
     },
-    viewTop: {
-        height: 52,
-        backgroundColor: '#f7f7f8',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    sty: {
-        height: 32,
-        width: 33,
-        marginRight: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    sty1: {
-        height: 32,
-        width: 33,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     viewSty: {
-        width: 100,
+        width: 120,
         height: 33,
         borderWidth: 1,
         borderColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
@@ -90,19 +58,18 @@ const style = StyleSheet.create({
         justifyContent: 'space-between', // 确保水平布局间距一样
     },
     viewSty1: {
-        width: 33,
-        height: 33,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
+        marginLeft: 5,
     },
-    viewSty2: {
+    refuseReasonView: {
         flexDirection: 'row',
         height: 33,
-        marginHorizontal: 8,
         marginTop: 10,
         marginBottom: 5,
         alignItems: 'center',
+        marginLeft: 8,
     },
 });
 
@@ -189,7 +156,6 @@ export default class SignChooseView extends Component {
             pickerCancelBtnText: '取消',
             pickerTitleText: '请选择拒收原因',
             onPickerConfirm: (pickedValue, pickedIndex) => {
-
                if (pickedValue){
                    this.setState({
                        selectReason: pickedValue[0],
@@ -215,97 +181,92 @@ export default class SignChooseView extends Component {
         // 接收传过来的值，
         const {componentID, indexRow, componentType, num, refuseNum, maxNum, reason} = this.props;
         return (
-            <View style={style.viewSty2}>
-
-                <TouchableOpacity
-                    style={style.viewSty1}
-                    onPress={() => {
-                        this.addComponent();
-                    }}
-                >
-                    <Image source={componentType ? StaticImage.receiveAdd : StaticImage.receiveDelete}/>
-                </TouchableOpacity>
-
-                <Text style={{fontSize: 15, color: StaticColor.LIGHT_BLACK_TEXT_COLOR}}>拒收</Text>
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                <View style={style.refuseReasonView}>
                     <TouchableOpacity
-                        style={style.viewSty}
+                        style={style.viewSty1}
                         onPress={() => {
-                            this.chooseReason();
+                            this.addComponent();
                         }}
                     >
-                        <Text style={{marginLeft: 10, fontSize: 13, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>{reason}</Text>
-                        <Image style={{marginRight:10}} source={this.state.modalVisible ? StaticImage.receiveBottomArrow : StaticImage.receiveRightArrow}/>
+                        <Image source={componentType ? StaticImage.receiveAdd : StaticImage.receiveDelete}/>
                     </TouchableOpacity>
-
+                    <Text style={{fontSize: 16, color: StaticColor.LIGHT_BLACK_TEXT_COLOR, marginLeft: 8}}>拒收</Text>
+                        <TouchableOpacity
+                            style={style.viewSty}
+                            onPress={() => {
+                                this.chooseReason();
+                            }}
+                        >
+                            <Text style={{marginLeft: 10, fontSize: 16, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>{reason}</Text>
+                            <Image style={{marginRight:10}} source={this.state.modalVisible ? StaticImage.receiveBottomArrow : StaticImage.receiveRightArrow}/>
+                        </TouchableOpacity>
+                </View>
                 <View style={style.chooseNumStyle}>
                     <TouchableOpacity
-                        style={style.sty1}
                         onPress={() => {
                             this.subtract();
                         }}
                     >
                         <Image
-                            source={num === 0 ? StaticImage.orderProductDetailItemSubtractUnselect : StaticImage.orderProductDetailItemSubtract}
+                            source={num === 0 ? StaticImage.receiveDeleteUnselect : StaticImage.receiveDelete}
                         />
                     </TouchableOpacity>
-                    <View style={{backgroundColor: StaticColor.LIGHT_GRAY_TEXT_COLOR, width: 1, height: 32}}/>
                     {/*<TextInput*/}
-                        {/*style={{width: 48, textAlign: 'center'}}*/}
-                        {/*underlineColorAndroid={'transparent'}*/}
-                        {/*value={this.state.text + ''}*/}
-                        {/*onFocus={() => {*/}
-                            {/*this.props.itemSignFocus();*/}
-                        {/*}}*/}
-                        {/*onBlur={() => {*/}
-                            {/*this.props.itemSignBlur();*/}
-                        {/*}}*/}
-                        {/*onChangeText={(value) => {*/}
+                    {/*style={{width: 48, textAlign: 'center'}}*/}
+                    {/*underlineColorAndroid={'transparent'}*/}
+                    {/*value={this.state.text + ''}*/}
+                    {/*onFocus={() => {*/}
+                    {/*this.props.itemSignFocus();*/}
+                    {/*}}*/}
+                    {/*onBlur={() => {*/}
+                    {/*this.props.itemSignBlur();*/}
+                    {/*}}*/}
+                    {/*onChangeText={(value) => {*/}
 
-                            {/*console.log('value:'+value);*/}
+                    {/*console.log('value:'+value);*/}
 
-                            {/*this.setState({*/}
-                                {/*text: value,*/}
-                            {/*});*/}
-                            {/*this.add();*/}
+                    {/*this.setState({*/}
+                    {/*text: value,*/}
+                    {/*});*/}
+                    {/*this.add();*/}
 
 
-                            {/*/**/}
-                            {/*if (value.length == 0) {*/}
-                                {/*count = 0;*/}
-                                {/*this.setState({*/}
-                                    {/*text: ''*/}
-                                {/*});*/}
-                            {/*} else {*/}
-                                {/*value >= parseInt(maxNum) ?*/}
-                                    {/*this.setState({*/}
-                                        {/*text: maxNum*/}
-                                    {/*})*/}
-                                    {/*:*/}
-                                    {/*this.setState({*/}
-                                        {/*text: value*/}
-                                    {/*});*/}
-                                {/*if (value >= parseInt(maxNum)) {*/}
-                                    {/*count = maxNum*/}
-                                {/*} else {*/}
-                                    {/*count = parseInt(value);*/}
-                                {/*}*/}
-                            {/*}*/}
-                            {/*console.log('refuseNum:'+refuseNum);*/}
+                    {/*/**/}
+                    {/*if (value.length == 0) {*/}
+                    {/*count = 0;*/}
+                    {/*this.setState({*/}
+                    {/*text: ''*/}
+                    {/*});*/}
+                    {/*} else {*/}
+                    {/*value >= parseInt(maxNum) ?*/}
+                    {/*this.setState({*/}
+                    {/*text: maxNum*/}
+                    {/*})*/}
+                    {/*:*/}
+                    {/*this.setState({*/}
+                    {/*text: value*/}
+                    {/*});*/}
+                    {/*if (value >= parseInt(maxNum)) {*/}
+                    {/*count = maxNum*/}
+                    {/*} else {*/}
+                    {/*count = parseInt(value);*/}
+                    {/*}*/}
+                    {/*}*/}
+                    {/*console.log('refuseNum:'+refuseNum);*/}
 
-                            {/*this.props.addNumCallback(this.props.componentID, this.props.indexRow, count, this.state.selectReason);*/}
+                    {/*this.props.addNumCallback(this.props.componentID, this.props.indexRow, count, this.state.selectReason);*/}
 
-                        {/*}}*/}
-                        {/*keyboardType='number-pad'*/}
+                    {/*}}*/}
+                    {/*keyboardType='number-pad'*/}
                     {/*/>*/}
-                    <Text style={{width: 44, textAlign: 'center'}}>{num}</Text>
-                    <View style={{backgroundColor: StaticColor.LIGHT_GRAY_TEXT_COLOR, width: 1, height: 32}}/>
+                    <Text style={{width: 50, textAlign: 'center', fontSize: 15}}>{num}</Text>
                     <TouchableOpacity
-                        style={style.sty}
                         onPress={() => {
                             this.add();
                         }}
                     >
-                        <Image source={StaticImage.orderProductDetailItemAdd}/>
+                        <Image source={num == maxNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd}/>
                     </TouchableOpacity>
                 </View>
             </View>

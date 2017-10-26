@@ -23,11 +23,11 @@ import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
 import * as StaticColor from '../../constants/staticColor';
 import * as ConstValue from '../../constants/constValue';
 import StaticImage from '../../constants/staticImage';
+
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
-const bottomSpace = 10;
-
+const bottomSpace = 13;
 const screenWidth = Dimensions.get('window').width - space * 2;
 const screenHeight = Dimensions.get('window').height;
 
@@ -89,7 +89,7 @@ export default class orderToBeSureDetail extends Component {
         return (
             <View
                 style={{
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
                     width: screenWidth,
                     marginLeft: space,
                     marginRight: space,
@@ -104,12 +104,12 @@ export default class orderToBeSureDetail extends Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
-                        backgroundColor: 'white',
+                        backgroundColor: StaticColor.WHITE_COLOR,
                         ...Platform.select({
                             ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - bottomSpace},
                             android:{height: screenHeight - topHeight - 73 - bottomSpace}
                         }),
-                        borderColor: 'white',
+                        borderColor: StaticColor.WHITE_COLOR,
                         borderWidth: 1,
                         borderRadius: 5,
                     }}
@@ -131,7 +131,7 @@ export default class orderToBeSureDetail extends Component {
                         </View>
                     </ImageBackground>
                     <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {

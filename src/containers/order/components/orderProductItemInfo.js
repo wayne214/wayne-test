@@ -19,6 +19,7 @@ import {
     COLOR_VIEW_BACKGROUND,
     LIGHT_GRAY_TEXT_COLOR,
     COLOR_LIGHT_GRAY_TEXT,
+    GRAY_TEXT_COLOR,
 } from '../../../constants/staticColor';
 
 const screenWidth = Dimensions.get('window').width;
@@ -38,43 +39,17 @@ const style = StyleSheet.create({
         marginLeft: 10,
         fontWeight: 'bold',
     },
-    // // 分类名称style
-    // subTitleStyle: {
-    //     fontSize: 15,
-    //     color: '#666666',
-    //     marginTop: 15,
-    // },
     // 名称style
     subTitleStyle: {
         fontSize: 15,
-        color: COLOR_LIGHT_GRAY_TEXT,
+        color: GRAY_TEXT_COLOR,
     },
-    // // 中间规格、单位、应收ViewStyle
-    // subViewStyle: {
-    //     // flexDirection: 'row', // 确保水平布局
-    //     // justifyContent: 'space-between', // 确保水平布局间距一样
-    //     marginHorizontal: 10,
-    //     // marginTop: 10,
-    // },
     chooseNumStyle: {
         height: 33,
-        marginLeft: 20,
-        width: 126,
-        borderWidth: 1,
-        borderColor: LIGHT_GRAY_TEXT_COLOR,
         flexDirection: 'row', // 确保水平布局
         alignItems: 'center',
     },
     sub: {
-        height: 32,
-        width: 33,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    sub1: {
-        height: 32,
-        width: 33,
-        marginRight: 0,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -108,19 +83,14 @@ export default class orderProductItemInfo extends Component {
     add() {
         let number = this.state.text;
         number = computationUtil.accAdd(number,1);
-
         //number++;
-
         if (number > Number(this.props.receiveNum)) {
             return;
         }
-
-
         this.setState({
             text: number.toString(),
             isCanSelect: true,
         });
-
         this.outNumber(number);
     }
 
@@ -134,16 +104,12 @@ export default class orderProductItemInfo extends Component {
             return;
         }
         number = computationUtil.accSub(number,1);
-
         //number--;
-
         this.setState({
             text: number.toString(),
         });
-
         if (number === 1) {
             // 改变减号图片
-
             this.setState({
                 isCanSelect: false,
             });
@@ -176,10 +142,8 @@ export default class orderProductItemInfo extends Component {
     chooseNumView() {
         return (
             <View style={{flexDirection: 'row', marginBottom: 10, alignItems:'center', justifyContent: 'space-between'}}>
-
-                <Text style={{fontSize: 15, color: COLOR_LIGHT_GRAY_TEXT}}>发运</Text>
+                <Text style={{fontSize: 15, color: GRAY_TEXT_COLOR}}>发运</Text>
                 <View style={style.chooseNumStyle}>
-
                     <TouchableOpacity
                         disabled={this.props.disabled}
                         style={style.sub}
@@ -187,10 +151,8 @@ export default class orderProductItemInfo extends Component {
                             this.subtract();
                         }}
                     >
-                        <Image source={StaticImage.orderProductDetailItemSubtract} />
+                        <Image source={this.state.text == 1 ? StaticImage.receiveDeleteUnselect : StaticImage.receiveDelete} />
                     </TouchableOpacity>
-
-                    <View style={{backgroundColor: LIGHT_GRAY_TEXT_COLOR, width: 1, height: 32}} />
                     <TextInput
                         editable={this.props.edit}
                         style={{
@@ -205,6 +167,8 @@ export default class orderProductItemInfo extends Component {
                                     textAlign: 'center',
                                 },
                             }),
+                            fontSize: 15,
+                            color: LIGHT_BLACK_TEXT_COLOR,
                         }}
                         underlineColorAndroid={'transparent'}
                         value={this.state.text}
@@ -252,22 +216,17 @@ export default class orderProductItemInfo extends Component {
                         keyboardType='numeric'
                     >
                     </TextInput>
-                    <View style={{backgroundColor: LIGHT_GRAY_TEXT_COLOR, width: 1, height: 32}} />
-
                     <TouchableOpacity
                         disabled={this.props.disabled}
-                        style={style.sub1}
+                        style={style.sub}
                         onPress={() => {
                             this.add();
                         }}
                     >
-                        <Image source={StaticImage.orderProductDetailItemAdd} />
+                        <Image source={this.state.text == this.props.receiveNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd} />
                     </TouchableOpacity>
-
                 </View>
-
             </View>
-
         );
     }
 
@@ -289,20 +248,15 @@ export default class orderProductItemInfo extends Component {
 
                 </View>
                 {this.chooseNumView()}
-
             </View>
-
         );
     }
 
     render() {
         const {componentID, indexRow, title, Specifications, unit, receiveNum, disabled} = this.props;
-
         return (
             <View style={{backgroundColor: 'white'}}>
-
                 {this.subComponent(title, Specifications, unit, receiveNum)}
-
             </View>
         );
     }
