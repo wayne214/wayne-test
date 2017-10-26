@@ -9,18 +9,21 @@ import {
     Text,
     Dimensions,
     TouchableOpacity,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    TextInput
 } from 'react-native';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import Button from 'apsl-react-native-button';
 import * as API from '../../constants/api';
 import bankIconUtil from '../../utils/bankIconUtil'
 import HTTPRequest from '../../utils/httpRequest';
+import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
+import StaticImage from '../../constants/staticImage';
 
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
     loginButton: {
-        backgroundColor: '#1b82d2',
+        backgroundColor: '#0083FF',
         marginLeft: 10,
         marginRight: 10,
         borderWidth: 0,
@@ -31,6 +34,17 @@ const styles = StyleSheet.create({
     loginButtonText: {
         fontSize: 18,
         color: '#FFFFFF',
+    },
+    leftTextStyle: {
+        fontSize: 16,
+        marginLeft: 10,
+        width: 70,
+        color: '#333333'
+    },
+    textInputStyle: {
+        flex: 1,
+        marginLeft: 10,
+        fontSize: 16
     },
 });
 
@@ -54,6 +68,8 @@ export default class BankCardDeatil extends Component {
             bankType: params.bankType,
             bankAccount: params.bankAccount,
             default: params.default,
+            bankCity: '',
+            bankSubName: ''
         };
         this.unBankCardBunding = this.unBankCardBunding.bind(this);
         this.bankCardSetDefault = this.bankCardSetDefault.bind(this);
@@ -149,47 +165,62 @@ export default class BankCardDeatil extends Component {
                     leftButtonHidden={false}
                 />
 
+                <BankCardCell
+                    accountBank={bank}
+                    bankCarType={bankType}
+                    bankAccount={bankAccount}
+                    clickAction={()=>{}}
+                />
+
                 <View style={{
-                    height: 86,
-                    alignItems: 'center',
                     flexDirection: 'row',
-                    backgroundColor: '#ffffff'
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    height: 46,
+                    marginTop: 10
                 }}>
-                    {
-                        bankIconUtil.show(bank)
-                    }
+                    <Text style={styles.leftTextStyle}>开户省市</Text>
+                    <TouchableOpacity onPress={()=>{
 
-                    <View style={{marginLeft: 10}}>
-                        <Text
-                            style={{
-                                fontSize: 17,
-                                color: '#333333',
-                            }}>
-                            {bank}
-                        </Text>
+                    }}>
+                        <TextInput
+                            placeholder="请选择开户省市"
+                            placeholderTextColor="#CCCCCC"
+                            underlineColorAndroid={'transparent'}
+                            style={styles.textInputStyle}
+                            value={this.state.bankCity}
+                            editable={false}
+                        />
+                    </TouchableOpacity>
+                    <Image source={StaticImage.rightArrow} style={{right: 10, position: 'absolute'}}/>
 
-                        <Text
-                            style={{
-                                marginTop: 5,
-                                color: '#666666',
-                                fontSize: 15
-                            }}>
-                            {bankType}
-                        </Text>
-
-                        <Text
-                            style={{
-                                marginTop: 5,
-                                color: '#999999',
-                                fontSize: 15
-                            }}>
-                            {bankAccount}
-                        </Text>
-                    </View>
                 </View>
 
-                <View/>
 
+                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#ffffff',
+                    height: 46,
+                }}>
+                    <Text style={styles.leftTextStyle}>开户支行</Text>
+                    <TouchableOpacity onPress={()=>{
+                        console.log('123');
+                    }}>
+                        <TextInput
+                            placeholder="请选择开户支行"
+                            placeholderTextColor="#CCCCCC"
+                            underlineColorAndroid={'transparent'}
+                            style={styles.textInputStyle}
+                            value={this.state.bankSubName}
+                            editable={false}
+                        />
+                    </TouchableOpacity>
+                    <Image source={StaticImage.rightArrow} style={{right: 10, position: 'absolute'}}/>
+
+                </View>
                 <TouchableOpacity
                     onPress={() => {
                         console.log('this.state.default', this.state.default)
@@ -215,7 +246,7 @@ export default class BankCardDeatil extends Component {
                                         fontFamily: 'iconfont',
                                         fontSize: 18,
                                         margin: 10,
-                                        color: '#18b2d1'
+                                        color: '#0083FF'
                                     }}>
                                     &#xe616;</Text>
                                 :
@@ -247,7 +278,7 @@ export default class BankCardDeatil extends Component {
                         this.unBankCardBunding(this.unBankCardBundingCallBack);
                     }}
                 >
-                    解除绑定
+                    保存
                 </Button>
 
             </View>

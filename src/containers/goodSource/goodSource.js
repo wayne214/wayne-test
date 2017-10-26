@@ -241,17 +241,21 @@ class GoodSource extends BaseContainer{
         );
     }
     renderRow(dataRow) {
-        console.log('doadfdfa=====', dataRow);
+        const pushTime = dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3);
+        const arrivalTime = dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3)
         return (
             <CommonListItem
-                time={dataRow.pushTime}
+                time={pushTime}
                 transCode={dataRow.dispatchCode}
+                dispatchLine={'北京-天津-沈阳'}
                 distributionPoint={dataRow.distributionPoint !== null ? `${dataRow.distributionPoint}个` : ''}
-                arriveTime={dataRow.arrivalTime}
-                weight={dataRow.weight !== null ? `${dataRow.totalWeight}Kg` : ''}
-                vol={dataRow.vol !== null ? `${dataRow.totalVolume}方` : ''}
+                arriveTime={arrivalTime}
+                weight={dataRow.weight !== null ? dataRow.totalWeight: ''}
+                vol={dataRow.vol !== null ? dataRow.totalVolume : ''}
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
+                goodKindsNames={['其他','乳制品','水产品']} // 货品种类
+                orderCount={1}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList,
@@ -280,8 +284,8 @@ class GoodSource extends BaseContainer{
                     style={styles.dropDown}
                     arrowImg={StaticImage.open}
                     checkImage={StaticImage.radioButton}
-                    bgColor={'#1B82D1'}
-                    tintColor={'white'}
+                    bgColor={StaticColor.WHITE_COLOR}
+                    tintColor={StaticColor.LIGHT_BLACK_TEXT_COLOR}
                     selectItemColor={'black'}
                     data={data}
                     handler={(selection, row) => {

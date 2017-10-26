@@ -11,7 +11,8 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Image
+    Image,
+    Dimensions
 } from 'react-native';
 import Toast from '@remobile/react-native-toast';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -32,6 +33,7 @@ import * as API from '../../constants/api';
 import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
+const {width, height} = Dimensions.get('window');
 
 let currentTime = 0;
 let lastTime = 0;
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     iconStyle: {
         height: 44,
         paddingLeft: 10,
-        paddingRight: 10,
+        paddingRight: 15,
         backgroundColor: WHITE_COLOR,
         alignItems: 'center',
         justifyContent: 'center',
@@ -55,7 +57,9 @@ const styles = StyleSheet.create({
         height: 16,
     },
     textInputStyle: {
+        paddingLeft: 15,
         height: 44,
+        fontSize: 16,
         backgroundColor: WHITE_COLOR,
     },
     iconfont: {
@@ -206,16 +210,17 @@ export default class forgetPWD extends Component {
                         marginTop: 10,
                     }}
                 >
-                    <View style={styles.iconStyle}>
+                    { false &&<View style={styles.iconStyle}>
                         <Text style={styles.iconfont}> &#xe62a;</Text>
                     </View>
+                    }
 
                     <View style={{flex: 1}}>
                         <TextInput
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             placeholderTextColor="#CCCCCC"
-                            placeholder="手机"
+                            placeholder="请输入手机号码"
                             value={this.state.phoneNo}
                             onChangeText={(phoneNo) => {
                                 this.setState({phoneNo});
@@ -237,18 +242,20 @@ export default class forgetPWD extends Component {
                         })()
                     }
                 </View>
-
-                <View style={{height: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>
-
+                <View style={{backgroundColor: 'white',height: 1, width: width,alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{width: width-30,height: 1, backgroundColor: '#e8e8e8'}}/>
+                </View>
                 <View
                     style={{
                         flexDirection: 'row',
+
                     }}
                 >
-                    <View style={styles.iconStyle}>
+                    { false && <View style={styles.iconStyle}>
                         <Text style={styles.iconfont}> &#xe634;</Text>
 
                     </View>
+                    }
 
                     <View style={{flex: 1}}>
                         <TextInput
@@ -256,7 +263,7 @@ export default class forgetPWD extends Component {
                             underlineColorAndroid="transparent"
                             placeholderTextColor="#CCCCCC"
                             secureTextEntry={true}
-                            placeholder="验证码"
+                            placeholder="请输入验证码"
                             value={this.state.pwdCode}
                             onChangeText={(pwdCode) => {
                                 this.setState({pwdCode});
@@ -278,11 +285,11 @@ export default class forgetPWD extends Component {
                             }
                         })()
                     }
-                    <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>
+                    { false && <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>}
                     <CountDownButton
                         enable={phoneNo.length}
-                        style={{width: 110, backgroundColor: WHITE_COLOR}}
-                        textStyle={{color: COLOR_MAIN}}
+                        style={{width: 100, backgroundColor: WHITE_COLOR, paddingRight: 15}}
+                        textStyle={{color: '#0078ff'}}
                         timerCount={60}
                         onClick={(shouldStartCountting) => {
                             if (Validator.isPhoneNumber(phoneNo)) {
@@ -296,21 +303,24 @@ export default class forgetPWD extends Component {
                 </View>
 
                 <TouchableOpacity onPress={() => this.nextStep()}>
-                    <View
+                    <Image
                         style={{
-                            backgroundColor: COLOR_MAIN,
-                            borderRadius: 5,
-                            height: 40,
-                            margin: 10,
+                            width: width - 20,
                             marginTop: 15,
-                            justifyContent: 'center',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginBottom: 0,
+                            height: 44,
+                            resizeMode: 'stretch',
                             alignItems: 'center',
+                            justifyContent:'center'
                         }}
+                        source={StaticImage.BlueButtonArc}
                     >
 
                         <Text
                             style={{
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: 'bold',
                                 color: WHITE_COLOR,
                             }}
@@ -318,7 +328,7 @@ export default class forgetPWD extends Component {
                             下一步
                         </Text>
 
-                    </View>
+                    </Image>
                 </TouchableOpacity>
 
                 {

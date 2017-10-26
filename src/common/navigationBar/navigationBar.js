@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
                 height: 50,
             },
         }),
-        backgroundColor: StaticColor.BLUE_ALL_COLOR,
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
     contentContainer: {
         flex: 1,
@@ -50,45 +50,53 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     leftImageStyle: {
-        width: 25,
-        height: 25,
         marginLeft: 10,
+        marginTop: 10,
     },
     rightImageStyle: {
         width: 21,
         height: 21,
         marginRight: 10,
+        marginTop: 10,
     },
     centerTextStyle: {
         textAlign: 'center',
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontSize: 18,
         marginTop: 10,
     },
     leftIconFontStyle: {
         marginLeft: 10,
         fontSize: 20,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
+        marginTop: 10
     },
     rightIconFontStyle: {
         marginRight: 10,
         fontSize: 20,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontFamily: 'iconfont',
+        marginTop: 10
     },
     leftTitleStyle: {
         color: 'white',
         marginLeft: 10,
         fontSize:16,
+        marginTop: 5
     },
     rightTitleStyle: {
         fontSize:16,
-        color: StaticColor.WHITE_COLOR,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         marginRight: 10,
+        marginTop: 5
     },
     centerImg: {
         alignSelf: 'center',
+    },
+    divideLine: {
+        height: 1,
+        backgroundColor: StaticColor.LIGHT_GRAY_TEXT_COLOR,
     },
 });
 
@@ -313,9 +321,8 @@ export default class NavigatorBar extends React.Component {
                                             return (
                                                 <TouchableOpacity
                                                     activeOpacity={rightButtonConfig.disable ? 1 : (rightButtonConfig.activeOpacity || 0.7)}
-                                                    onPress={rightButtonConfig.disable ? () => {
-                                                        console.log('--rightButton is disabled');
-                                                    } : rightButtonConfig.onClick}
+                                                    onPress={rightButtonConfig.onClick}
+
                                                 >
                                                     <Text
                                                         style={[(rightButtonConfig.type === 'string' ? styles.rightTitleStyle : styles.rightIconFontStyle), rightButtonConfig.titleStyle, rightButtonConfig.disable ? {color: rightButtonConfig.disableColor || 'gray'} : {}]}
@@ -333,9 +340,12 @@ export default class NavigatorBar extends React.Component {
                             })()
                         }
                     </View>
-
                 </View>
+                <View style={styles.divideLine}/>
             </View>
         );
     }
 }
+{/*onPress={rightButtonConfig.disable ? () => {*/}
+{/*console.log('--rightButton is disabled');*/}
+{/*} : rightButtonConfig.onClick}*/}

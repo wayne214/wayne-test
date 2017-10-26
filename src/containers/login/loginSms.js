@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     cellContainer: {
         flex: 1,
-        height: 48,
+        height: 44,
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomColor: '#e8e8e8',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     phoneNumView: {
         marginLeft: 10,
-        height: 48,
+        height: 44,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
     smsCodeView: {
         marginLeft: 10,
-        height: 48,
+        height: 44,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -107,14 +107,34 @@ const styles = StyleSheet.create({
         width: 125,
         borderWidth: 0,
     },
-    loginButton: {
-        marginLeft: 10,
+    loginBackground: {
+        width: width - 20,
         marginTop: 15,
+        marginLeft: 10,
         marginRight: 10,
-        borderWidth: 0,
-        backgroundColor: StaticColor.COLOR_MAIN,
-        borderRadius: 5,
+        marginBottom: 0,
+        height: 44,
+        resizeMode: 'stretch',
+        alignItems: 'center',
+        justifyContent:'center'
     },
+    loginButton: {
+        backgroundColor: '#00000000',
+        width: width - 20,
+        marginBottom: 0,
+        height: 44,
+        borderWidth: 0,
+        borderColor: '#00000000',
+    },
+    // loginButton: {
+    //     marginLeft: 10,
+    //     marginTop: 15,
+    //     marginRight: 10,
+    //     borderWidth: 0,
+    //     height: 44,
+    //     backgroundColor: '#0083ff',
+    //     borderRadius: 5,
+    // },
     clearButton: {
         width: 15,
         height: 15,
@@ -128,13 +148,30 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 30,
         width: width - 20,
-        marginTop: 20,
+        marginTop: 10,
     },
     bottomViewText: {
         fontSize: 14,
         color: '#666666',
         alignItems: 'center',
 
+    },
+    screenEndView: {
+        // position: 'absolute',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        height: 40,
+        marginBottom: 20
+    },
+    screenEndViewTextLeft: {
+        fontSize: 14,
+        color: '#999999',
+    },
+    screenEndViewText: {
+        fontSize: 14,
+        color: '#002f00',
     },
 });
 
@@ -278,130 +315,144 @@ class LoginSms extends BaseContainer {
                 
                 <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
-                    <Image
-                        source={StaticImage.LoginTopBg}/>
+                        <Image
+                            source={StaticImage.LoginTopBg}/>
                         
-                </View>
-                <View style={styles.contentView}>
-                    <View style={styles.cellContainer}>
-                        <View style={styles.leftText}>
-                            <Text style={styles.leftTextString}>
-                                手机号
-                            </Text>
-                        </View>
-                        <TextInput
-                            underlineColorAndroid={'transparent'}
-                            style={styles.textInputStyle}
-                            value={phoneNumber}
-                            onChangeText={(phoneNumber) => {
-                                this.setState({phoneNumber});
-                            }}
-                            keyboardType="numeric"
-                            placeholder="请输入手机号"
-                            placeholderTextColor="#cccccc"
-                            textAlign="left"/>
-                        {
-                            (() => {
-                                if (phoneNumber.length > 0) {
-                                    return (
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                this.clearPhoneNum();
-                                            }}
-                                            activeOpacity={0.8}
-                                        >
-                                            <Image
-                                                source={StaticImage.clearIcon}
-                                                style={styles.clearButton}
-                                            />
-                                        </TouchableOpacity>
-                                    );
-                                }
-                            })()
-                        }
                     </View>
-                    <View style={styles.cellContainer}>
-                        <View style={styles.leftText}>
-                            <Text style={styles.leftTextString}>
-                                验证码
-                            </Text>
+                    <View style={styles.contentView}>
+                        <View style={styles.cellContainer}>
+                            <View style={styles.leftText}>
+                                <Text style={styles.leftTextString}>
+                                    手机号
+                                </Text>
+                            </View>
+                            <TextInput
+                                underlineColorAndroid={'transparent'}
+                                style={styles.textInputStyle}
+                                value={phoneNumber}
+                                onChangeText={(phoneNumber) => {
+                                    this.setState({phoneNumber});
+                                }}
+                                keyboardType="numeric"
+                                placeholder="请输入手机号"
+                                placeholderTextColor="#cccccc"
+                                textAlign="left"/>
+                            {
+                                (() => {
+                                    if (phoneNumber.length > 0) {
+                                        return (
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    this.clearPhoneNum();
+                                                }}
+                                                activeOpacity={0.8}
+                                            >
+                                                <Image
+                                                    source={StaticImage.clearIcon}
+                                                    style={styles.clearButton}
+                                                />
+                                            </TouchableOpacity>
+                                        );
+                                    }
+                                })()
+                            }
                         </View>
-                        <TextInput
-                            underlineColorAndroid={'transparent'}
-                            style={styles.textInputStyle}
-                            value={this.state.smsCode}
-                            onChangeText={(smsCode) => {
-                                this.setState({smsCode});
-                            }}
-                            placeholder="请输入验证码"
-                            placeholderTextColor="#cccccc"
-                            textAlign="left"
-                            returnKeyType='done'/>
-                        {
-                            (() => {
-                                if (smsCode.length > 0) {
-                                    return (
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                this.clearSmsCodeNum();
-                                            }}
-                                            activeOpacity={0.8}
-                                        >
-                                            <Image
-                                                source={StaticImage.clearIcon}
-                                                style={styles.clearButton}
-                                            />
-                                        </TouchableOpacity>
-                                    );
-                                }
-                            })()
-                        }
+                        <View style={styles.cellContainer}>
+                            <View style={styles.leftText}>
+                                <Text style={styles.leftTextString}>
+                                    验证码
+                                </Text>
+                            </View>
+                            <TextInput
+                                underlineColorAndroid={'transparent'}
+                                style={styles.textInputStyle}
+                                value={this.state.smsCode}
+                                onChangeText={(smsCode) => {
+                                    this.setState({smsCode});
+                                }}
+                                placeholder="请输入验证码"
+                                placeholderTextColor="#cccccc"
+                                textAlign="left"
+                                returnKeyType='done'/>
+                            {
+                                (() => {
+                                    if (smsCode.length > 0) {
+                                        return (
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    this.clearSmsCodeNum();
+                                                }}
+                                                activeOpacity={0.8}
+                                            >
+                                                <Image
+                                                    source={StaticImage.clearIcon}
+                                                    style={styles.clearButton}
+                                                />
+                                            </TouchableOpacity>
+                                        );
+                                    }
+                                })()
+                            }
 
-                        <CountDownButton
-                            enable={phoneNumber.length}
-                            style={{width: 100}}
-                            textStyle={{color: '#0078ff'}}
-                            timerCount={60}
-                            onClick={(shouldStartCountting) => {
-                                if (Validator.isPhoneNumber(phoneNumber)) {
-                                    this.requestVCodeForLogin(shouldStartCountting);
-                                } else {
-                                    Toast.showShortCenter('手机号输入有误，请重新输入');
-                                    shouldStartCountting(false);
-                                }
-                            }}
-                        />
+                            <CountDownButton
+                                enable={phoneNumber.length}
+                                style={{width: 100}}
+                                textStyle={{color: '#0078ff'}}
+                                timerCount={60}
+                                onClick={(shouldStartCountting) => {
+                                    if (Validator.isPhoneNumber(phoneNumber)) {
+                                        this.requestVCodeForLogin(shouldStartCountting);
+                                    } else {
+                                        Toast.showShortCenter('手机号输入有误，请重新输入');
+                                        shouldStartCountting(false);
+                                    }
+                                }}
+                            />
+                        </View>
+                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
+                            <Button
+                                isDisabled={!(phoneNumber && smsCode)}
+                                style={styles.loginButton}
+                                textStyle={{color: 'white', fontSize: 18}}
+                                onPress={() => {
+                                    if (ClickUtil.onMultiClick()) {
+                                        this.setState({
+                                            smsCode:'',
+                                        });
+                                        this.login();
+
+                                    }
+                                }}
+                            >
+                                登录
+                            </Button>
+                        </Image>
+                        <View style={styles.bottomView}>
+                            <Text
+                                onPress={() => {
+                                    this.props.navigation.navigate('Login', {
+                                        loginPhone: this.state.phoneNumber
+                                    });
+
+                                }}
+                                style={styles.bottomViewText}
+                            >
+                                账号密码登录
+                            </Text>
+                        </View> 
                     </View>
-                </View>
-                <Button
-                    isDisabled={!(phoneNumber && smsCode)}
-                    style={styles.loginButton}
-                    textStyle={{color: 'white', fontSize: 16}}
-                    onPress={() => {
-                        if (ClickUtil.onMultiClick()) {
-                            this.setState({
-                                smsCode:'',
-                            });
-                            this.login();
-
-                        }
-                    }}
-                >
-                    登录
-                </Button>
-                <View style={styles.bottomView}>
-                    <Text
-                        onPress={() => {
-                            this.props.navigation.navigate('Login', {
-                                loginPhone: this.state.phoneNumber
-                            });
-
-                        }}
-                        style={styles.bottomViewText}
-                    >
-                        账号密码登录
-                    </Text>
-                  </View> 
+                   
+                      <View style={styles.screenEndView}>
+                            <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
+                            <Text
+                                style={styles.screenEndViewText}
+                                onPress={() => {
+                                    this.props.navigation.navigate('RegisterStepOne');
+                                }}
+                            >
+                                去注册
+                            </Text>
+                    </View>
                   </KeyboardAwareScrollView>         
                 {
                     this.state.loading ? <Loading /> : null

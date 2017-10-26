@@ -19,14 +19,15 @@ import BankCode from '../../../utils/bankCode';
 import Storage from '../../../utils/storage';
 import HTTPRequest from '../../../utils/httpRequest';
 import Loading from '../../../utils/loading';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
     leftTextStyle: {
         fontSize: 16,
         marginLeft: 10,
-        width: 65,
+        width: 70,
         color: '#333333'
     },
     textInputStyle: {
@@ -67,6 +68,10 @@ export default class AddBankCard extends Component {
             IDCardNum: '',
             bankCardNum: '',
             loading: false,
+            bankName: '',
+            bankCity: '',
+            bankSubName: '',
+            bankCity: '',
         };
     }
 
@@ -84,32 +89,32 @@ export default class AddBankCard extends Component {
     }
 
     fetchData() {
-            if (global.phone) {
-                HTTPRequest({
-                    url: API.API_AUTH_REALNAME_DETAIL + global.phone,
-                    params: {
-                        mobilePhone: global.phone,
-                    },
-                    loading: () => {
-                        this.setState({
-                            loading: true,
-                        });
-                    },
-                    success: (response) => {
-                        this.getPersonInfoSuccessCallback(response.result);
-                    },
-                    error: (err) => {
-                        this.setState({
-                            loading: false,
-                        });
-                    },
-                    finish: () => {
-                        this.setState({
-                            loading: false,
-                        });
-                    },
-                })
-            }
+        if (global.phone) {
+            HTTPRequest({
+                url: API.API_AUTH_REALNAME_DETAIL + global.phone,
+                params: {
+                    mobilePhone: global.phone,
+                },
+                loading: () => {
+                    this.setState({
+                        loading: true,
+                    });
+                },
+                success: (response) => {
+                    this.getPersonInfoSuccessCallback(response.result);
+                },
+                error: (err) => {
+                    this.setState({
+                        loading: false,
+                    });
+                },
+                finish: () => {
+                    this.setState({
+                        loading: false,
+                    });
+                },
+            })
+        }
     }
 
     getPersonInfoSuccessCallback(result) {
@@ -160,8 +165,8 @@ export default class AddBankCard extends Component {
                     holdCardName: this.state.holdCardName,
                     IDCardNum: this.state.IDCardNum,
                     bankCardNum: this.state.bankCardNum,
-                    bankName:result.bankName,
-                    cardName:result.cardName,
+                    bankName: result.bankName,
+                    cardName: result.cardName,
                 });
         }
 
@@ -170,7 +175,7 @@ export default class AddBankCard extends Component {
 
     render() {
         const navigator = this.props.navigation;
-        const {holdCardName, IDCardNum, bankCardNum} = this.state;
+        const {holdCardName, IDCardNum, bankCardNum, bankName, bankCity, bankSubName} = this.state;
         return (
 
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -179,114 +184,232 @@ export default class AddBankCard extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                 />
+                <KeyboardAwareScrollView style={{width: width, height: height}}>
 
-                <Text
-                    style={{
-                        margin: 10,
-                        lineHeight: 22,
-                        color: '#666666'
-                    }}
-                >该银行卡将用于接收您在鲜易供应链的运费。为保证您能顺利收到，请务必填写真实准确的信息。</Text>
+                    <Text
+                        style={{
+                            margin: 10,
+                            lineHeight: 22,
+                            color: '#666666'
+                        }}
+                    >该银行卡将用于接收您在鲜易供应链的运费。为保证您能顺利收到，请务必填写真实准确的信息。</Text>
 
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{
+                            flexDirection: 'row',
+                            flex: 1,
+                            alignItems: 'center',
+                            backgroundColor: '#ffffff',
+                            height: 46,
+                        }}>
+                            <Text style={styles.leftTextStyle}>持卡人</Text>
+                            <TextInput
+                                placeholder="持卡人姓名"
+                                placeholderTextColor="#CCCCCC"
+                                underlineColorAndroid={'transparent'}
+                                style={styles.textInputStyle}
+                                onChangeText={(holdCardName) => {
+                                    this.setState({holdCardName});
+                                }}
+                                value={holdCardName}
+                                editable={false}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
                     <View style={{
                         flexDirection: 'row',
-                        flex: 1,
                         alignItems: 'center',
                         backgroundColor: '#ffffff',
                         height: 46,
                     }}>
-                        <Text style={styles.leftTextStyle}>持卡人</Text>
+                        <Text style={styles.leftTextStyle}>身份证</Text>
                         <TextInput
-                            placeholder="持卡人姓名"
+                            placeholder="请填写身份证号"
                             placeholderTextColor="#CCCCCC"
                             underlineColorAndroid={'transparent'}
                             style={styles.textInputStyle}
-                            onChangeText={(holdCardName) => {
-                                this.setState({holdCardName});
+                            onChangeText={(IDCardNum) => {
+                                this.setState({IDCardNum});
                             }}
-                            value={holdCardName}
+                            value={IDCardNum}
                             editable={false}
                         />
                     </View>
-                </View>
 
-                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+                    <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
 
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundColor: '#ffffff',
-                    height: 46,
-                }}>
-                    <Text style={styles.leftTextStyle}>身份证</Text>
-                    <TextInput
-                        placeholder="请填写身份证号"
-                        placeholderTextColor="#CCCCCC"
-                        underlineColorAndroid={'transparent'}
-                        style={styles.textInputStyle}
-                        onChangeText={(IDCardNum) => {
-                            this.setState({IDCardNum});
-                        }}
-                        value={IDCardNum}
-                        editable={false}
-                    />
-                </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        height: 46,
+                    }}>
+                        <Text style={styles.leftTextStyle}>银行卡号</Text>
+                        <TextInput
+                            placeholder="请填写银行卡号"
+                            placeholderTextColor="#CCCCCC"
+                            keyboardType="numeric"
+                            underlineColorAndroid={'transparent'}
+                            style={styles.textInputStyle}
+                            onChangeText={(bankCardNum) => {
+                                this.setState({bankCardNum});
+                            }}
+                            value={bankCardNum}
+                        />
+                    </View>
+                    <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
 
-                <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
-
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundColor: '#ffffff',
-                    height: 46,
-                }}>
-                    <Text style={styles.leftTextStyle}>卡号</Text>
-                    <TextInput
-                        placeholder="请填写银行卡卡号"
-                        placeholderTextColor="#CCCCCC"
-                        keyboardType="numeric"
-                        underlineColorAndroid={'transparent'}
-                        style={styles.textInputStyle}
-                        onChangeText={(bankCardNum) => {
-                            this.setState({bankCardNum});
-                        }}
-                        value={bankCardNum}
-                    />
-                </View>
-
-                <Button
-                    style={styles.loginButton}
-                    textStyle={styles.loginButtonText}
-                    onPress={() => {
-                        if (bankCardNum == '') {
-                            Toast.showShortCenter('输入框不能为空');
-                        } else {
-                            this.getBankCardInfo();
-                        }
-                    }}
-                >
-                    下一步
-                </Button>
-
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: 42,
-                    width,
-                }}>
-                    <Text
-                        style={{
-                            color: '#999999',
-                            fontSize: 13
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        height: 46,
+                    }}>
+                        <Text style={styles.leftTextStyle}>开户行</Text>
+                        <TouchableOpacity onPress={() => {
+                            navigator.navigate('ChooseBankName');
                         }}>
-                        目前只支持储蓄卡绑定
-                    </Text>
-                </View>
+                            <Text
+                                style={{
+                                    color: '#CCCCCC', fontSize: 16,
+                                    marginLeft: 10,
+                                }}
+                            >请填写开户行</Text>
+                            {/*<TextInput*/}
+                            {/*placeholder="请填写开户行"*/}
+                            {/*placeholderTextColor="#CCCCCC"*/}
+                            {/*underlineColorAndroid={'transparent'}*/}
+                            {/*style={styles.textInputStyle}*/}
+                            {/*onChangeText={(bankName) => {*/}
+                            {/*this.setState({bankName});*/}
+                            {/*}}*/}
+                            {/*value={bankName}*/}
+                            {/*/>*/}
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
 
-                {
-                    this.state.loading ? <Loading /> : null
-                }
+
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        height: 46,
+                    }}>
+
+
+                        <Text style={styles.leftTextStyle}>开户省市</Text>
+
+                        <TouchableOpacity onPress={() => {
+                            navigator.navigate('ChooseBankCity', {
+                                selectedCityCallback: (data) => {
+                                    console.log('----data', data[0].departureCityArrayName);
+                                    this.setState({
+                                        bankCity: data[0].departureCityArrayName,
+                                    })
+                                }
+
+                            });
+                        }}>
+
+                            {this.state.bankCity ?
+                                <Text
+                                    style={{
+                                        color: '#666666', fontSize: 16,
+                                        marginLeft: 10,
+                                    }}
+                                >{this.state.bankCity}</Text>
+                                :
+                                <Text
+                                    style={{
+                                        color: '#CCCCCC', fontSize: 16,
+                                        marginLeft: 10,
+                                    }}
+                                >请选择开户省市</Text>
+                            }
+
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
+
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        height: 46,
+                    }}>
+
+                        <Text style={styles.leftTextStyle}>开户支行</Text>
+                        <TouchableOpacity onPress={() => {
+                            console.log('123');
+                        }}>
+                            <TextInput
+                                placeholder="请选择开户支行"
+                                placeholderTextColor="#CCCCCC"
+                                underlineColorAndroid={'transparent'}
+                                style={styles.textInputStyle}
+                                value={bankSubName}
+                                editable={false}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <Button
+                        style={styles.loginButton}
+                        textStyle={styles.loginButtonText}
+                        onPress={() => {
+                            navigator.navigate('AddBankCardSuccess');
+
+                            {/*if (bankCardNum == '') {*/
+                            }
+                            {/*Toast.showShortCenter('银行卡号不能为空');*/
+                            }
+                            {/*}else if (bankName == '') {*/
+                            }
+                            {/*Toast.showShortCenter('开户行不能为空');*/
+                            }
+                            {/*}else if (bankCity == '') {*/
+                            }
+                            {/*Toast.showShortCenter('开户省市不能为空');*/
+                            }
+                            {/*}else if (bankSubName == '') {*/
+                            }
+                            {/*Toast.showShortCenter('开户支行不能为空');*/
+                            }
+                            {/*}else {*/
+                            }
+                            {/*this.getBankCardInfo();*/
+                            }
+                            {/*}*/
+                            }
+
+                        }}
+                    >
+                        保存
+                    </Button>
+
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 42,
+                        width,
+                    }}>
+                        <Text
+                            style={{
+                                color: '#999999',
+                                fontSize: 13
+                            }}>
+                            目前只支持储蓄卡绑定
+                        </Text>
+                    </View>
+                    {
+                        this.state.loading ? <Loading/> : null
+                    }
+                </KeyboardAwareScrollView>
 
             </View>
 

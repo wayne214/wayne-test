@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
+    separateLine: {
+        height: 1,
+        backgroundColor: '#e8e8e8',
+    },
 });
 export default class AboutUs extends Component {
     // 构造
@@ -41,13 +45,14 @@ export default class AboutUs extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                 />
+                <View style={styles.separateLine} />
                 <View style={{justifyContent:'center', alignItems:'center'}}>
                     <Image
                         style={{width: width, height: width * 603 / 375}}
                         source={StaticImage.aboutUsImg}
                         // resizeMethod='cover'
                     >
-                        <Text style={{color: '#666666', alignSelf: 'center', fontSize: 13, marginTop: width * 140 / 375}}>版本 V{DeviceInfo.getVersion()}</Text>
+                        {/*<Text style={{color: '#666666', alignSelf: 'center', fontSize: 13, marginTop: width * 140 / 375}}>版本 V{DeviceInfo.getVersion()}</Text>*/}
                     </Image>
                 </View>
             </View>

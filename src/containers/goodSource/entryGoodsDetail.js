@@ -427,7 +427,7 @@ class entryGoodsDetail extends Component {
                 />
                 <View style={{height: 20, marginTop: 10, width: screenWidth,}}>
                     <Text style={{textAlign: 'center', fontSize: 16, color:'#666'}}>
-                        {this.state.datas.length}-{this.state.current}
+                        {this.state.datas.length}/{this.state.current}
                     </Text>
                 </View>
 

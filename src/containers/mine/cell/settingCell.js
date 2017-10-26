@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
         marginRight: 20,
         flexDirection: 'row',
     },
+    version: {
+        marginRight: 10,
+        color: '#999999',
+        fontSize: 16
+    },
 });
 
 class SettingCell extends Component {
@@ -64,6 +69,7 @@ class SettingCell extends Component {
         showBottomLine: PropTypes.bool,
         leftIcon: PropTypes.string,
         rightIcon: PropTypes.string,
+        hideArrowIcon: PropTypes.bool
     };
 
     // 构造
@@ -76,7 +82,7 @@ class SettingCell extends Component {
     render() {
         const {
             style, leftIcon, content, clickAction, showBottomLine, authenticationStatus,
-            rightIcon = rightArrow,
+            rightIcon = rightArrow, hideArrowIcon, versionName, iconFontColor
         } = this.props;
 
         const a =
@@ -132,12 +138,14 @@ class SettingCell extends Component {
                 <View style={{flex: 1}}>
                     <View style={[styles.container, {...style}]}>
                         <View style={styles.leftPart}>
-                            <Text style={styles.iconfont}>{leftIcon}</Text>
+                            <Text style={[styles.iconfont, iconFontColor]}>{leftIcon}</Text>
                             <Text style={styles.contentText}>{content}</Text>
                         </View>
                         {a}
-                        <Image style={styles.rightIcon} source={rightIcon}/>
-
+                        {
+                            hideArrowIcon ? <Text style={styles.version}>{versionName}</Text> : <Image style={styles.rightIcon} source={rightIcon}/>
+                        }
+                        {/*<Image style={styles.rightIcon} source={rightIcon}/>*/}
                     </View>
                 </View>
                 {

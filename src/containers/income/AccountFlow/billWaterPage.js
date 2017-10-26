@@ -11,8 +11,9 @@ import {
     Dimensions,
     TouchableOpacity,
     RefreshControl,
+    Platform,
+    Image,
 } from 'react-native';
-import NavigationBar from '../../../common/navigationBar/navigationBar';
 import BillWaterCell from './cell/billWaterCell';
 import * as API from '../../../constants/api';
 import EmptyView from '../../../common/emptyView/emptyView';
@@ -20,10 +21,27 @@ import StaticImage from '../../../constants/staticImage';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../../utils/httpRequest'
+import DropdownMenu from './cell/downMenu';
+import * as ConstValue from '../../../constants/constValue';
+
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
+const styles = StyleSheet.create({
+
+    dropDown: {
+        ...Platform.select({
+            ios: {
+                height: ConstValue.NavigationBar_StatusBar_Height,
+                marginTop: 20,
+            },
+            android: {
+                height: ConstValue.NavigationBar_StatusBar_Height,
+            },
+        }),
+    },
+});
 export default class BillWaterPage extends Component {
     static propTypes = {
         content: PropTypes.string,
@@ -159,16 +177,20 @@ export default class BillWaterPage extends Component {
     listView() {
         return (
             <ListView
-
                 dataSource={this.state.dataSource}
                 onEndReached={this.onEndReached.bind(this)}
                 onEndReachedThreshold={100}
                 enableEmptySections={true}
-                renderRow={(rowData) =>
+                renderRow={(rowData,section,index) =>
                     <BillWaterCell
                         billState={rowData.costType}
                         billTime={rowData.time}
                         billMoney={rowData.operateAmount}
+                        onClick={()=>{
+                            this.props.navigation.navigate('IncomeListDetail',{
+                                type: '收入', // 收入、支出
+                            });
+                        }}
                     />
                 }
                 refreshControl={
@@ -197,19 +219,35 @@ export default class BillWaterPage extends Component {
 
     render() {
         const navigator= this.props.navigation;
-        return (
+        const data = [['全部', '收入', '支出']];
 
+        const topStyle = ConstValue.is_iPhoneX ? {marginTop: 18} : {marginTop: 2};
+        return (
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
-                <NavigationBar
-                    title={'账户流水'}
-                    navigator={navigator}
-                    leftButtonHidden={false}
-                />
-                <View>
-                    {
-                        this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
-                    }
-                </View>
+                <DropdownMenu
+                    style={styles.dropDown}
+                    arrowImg={StaticImage.IncomeOpen}
+                    checkImage={StaticImage.radioButton}
+                    bgColor={'white'}
+                    tintColor={'black'}
+                    selectItemColor={'black'}
+                    data={data}
+                    handler={(selection, row) => {
+                        console.log(row);
+                        //0=全部、1=收入、2=支出
+                    }}
+                >
+                    <TouchableOpacity style={{position: 'absolute', marginTop: 30, height: 54, width: 44}} onPress={()=>{
+                        navigator.goBack();
+                    }}>
+                        <Image style={[{marginLeft: 10}, topStyle]} source={StaticImage.backIcon} />
+                    </TouchableOpacity>
+                    <View style={{marginTop: 10}}>
+                        {
+                            this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
+                        }
+                    </View>
+                </DropdownMenu>
 
             </View>
         );

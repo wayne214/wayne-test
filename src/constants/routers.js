@@ -31,6 +31,9 @@ import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
 import Registered from '../containers/register/registered';
+import RegisterStepOne from '../containers/register/registerStepOne';
+import RegisterStepTwo from '../containers/register/registerStepTwo';
+
 import RegisterSuccess from '../containers/register/registerSuccess';
 
 import ChooseCar from '../containers/home/chooseCar';
@@ -38,6 +41,8 @@ import Location from '../containers/home/location';
 
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
+import CheckPhone from '../containers/login/checkPhone';
+import CheckPhoneStepTwo from '../containers/login/checkPhoneStepTwo';
 import ChangePwd from '../containers/login/changePassword';
 import ChangeCodePwd from '../containers/login/changeCodePwd';
 import MyBankCard from '../containers/income/myBankCard';
@@ -69,6 +74,13 @@ import GoodsBiddingPage from '../containers/goodSource/bidding/goodsBidding';
 import ImageShow from '../containers/order/components/imageShow';
 import CarInfo from '../containers/mine/carInfo';
 import CarDisablePage from '../containers/mine/carDisablePage';
+import Withdrawals from '../containers/income/AccountFlow/Withdrawals';
+import DrawalsChooseCard from '../containers/income/AccountFlow/drawalsChooseCard';
+import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
+import IncomeListDetail from '../containers/income/AccountFlow/incomeListDetail';
+import AddBankCardSuccess from '../containers/income/addBankCard/addBankCardSuccess';
+import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
+import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -115,6 +127,18 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    RegisterStepOne: {
+        screen: RegisterStepOne,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RegisterStepTwo: {
+        screen: RegisterStepTwo,
+        navigationOptions: {
+            header: null
+        }
+    },
     RegisterSuccess: {
         screen: RegisterSuccess,
         navigationOptions: {
@@ -144,6 +168,18 @@ const StackRouteConfigs = {
         navigationOptions: {
             header: null
         }
+    },
+    CheckPhone: {
+        screen: CheckPhone,
+        navigationOptions:{
+            header: null
+        }
+    },
+    CheckPhoneStepTwo: {
+       screen: CheckPhoneStepTwo,
+        navigationOptions:{
+            header: null
+        } 
     },
     ChangePwd: {
         screen: ChangePwd,
@@ -256,7 +292,7 @@ const StackRouteConfigs = {
     },
     CertificationPage: {
         screen: Certification,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -274,7 +310,7 @@ const StackRouteConfigs = {
     },
     TakeCameraVEndPage: {
         screen: TakeCameraVEnd,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -304,7 +340,7 @@ const StackRouteConfigs = {
     },
     BankCardDeatil: {
         screen: BankCardDeatil,
-            navigationOptions: {
+        navigationOptions: {
             header: null
         }
     },
@@ -406,6 +442,48 @@ const StackRouteConfigs = {
     },
     UploadReceipt: {
         screen: UploadReceipt,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Withdrawals: {
+        screen: Withdrawals,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DrawalsChooseCard: {
+        screen: DrawalsChooseCard,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DrawalsDetail: {
+        screen: DrawalsDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    IncomeListDetail: {
+        screen: IncomeListDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddBankCardSuccess: {
+        screen: AddBankCardSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChooseBankCity: {
+        screen: ChooseBankCity,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChooseBankName:{
+        screen: ChooseBankName,
         navigationOptions: {
             header: null
         }

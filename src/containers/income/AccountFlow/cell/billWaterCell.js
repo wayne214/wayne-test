@@ -37,7 +37,9 @@ class BillWaterCell extends Component {
         } = this.props;
         return (
 
-            <View>
+            <TouchableOpacity onPress={()=>{
+                this.props.onClick();
+            }}>
                 <View style={{
                     alignItems: 'center',
                     flexDirection: 'row',
@@ -68,15 +70,32 @@ class BillWaterCell extends Component {
                         </Text>
 
                     </View>
-                    <Text
-                        style={{
-                            marginTop: 5,
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        right:10,
+                        position: 'absolute',
+                        height: 70
+                    }}>
+                        <Text
+                            style={{
+                            marginTop: 15,
                             marginRight:10,
                             color: '#FF6600',
                             fontSize: 18,
                         }}>
-                        {billMoney}元
-                    </Text>
+                            {billMoney}元
+                        </Text>
+                        <Text
+                            style={{
+                            marginTop: 45,
+                            right: 10,
+                            color: '#666666',
+                            position: 'absolute'
+                        }}>
+                            处理中
+                        </Text>
+                    </View>
 
                 </View>
                 <View
@@ -86,7 +105,7 @@ class BillWaterCell extends Component {
                     }}
                 />
 
-            </View>
+            </TouchableOpacity>
 
         );
     }

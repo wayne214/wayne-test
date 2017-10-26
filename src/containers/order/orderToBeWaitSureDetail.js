@@ -12,6 +12,8 @@ import {
     Dimensions,
     Platform,
     DeviceEventEmitter,
+    StyleSheet,
+    ImageBackground
 } from 'react-native';
 import DetailsCell from '../../common/source/detailsCell';
 import DetailsUserCell from '../../common/source/detailsUserCell';
@@ -27,7 +29,7 @@ import * as StaticColor from '../../constants/staticColor';
 import prventDoubleClickUtil from '../../utils/prventMultiClickUtil'
 import * as ConstValue from '../../constants/constValue';
 import StorageKey from '../../constants/storageKeys';
-
+import StaticImage from '../../constants/staticImage';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
@@ -35,6 +37,32 @@ const screenWidth = Dimensions.get('window').width - space * 2;
 const screenHeight = Dimensions.get('window').height;
 let userID = '';
 let userName = '';
+
+const styles = StyleSheet.create({
+    imageBackground: {
+        marginTop: 10,
+        alignSelf: 'center',
+        height: 130,
+        width: screenWidth - 20
+    },
+    constantStyle: {
+        flexDirection: 'row',
+        paddingTop: 15,
+        paddingBottom: 10,
+        paddingLeft: 10
+    },
+    constantIcon: {
+        fontFamily: 'iconfont',
+        color: StaticColor.COLOR_CONTACT_ICON_COLOR,
+        fontSize: 19
+    },
+    separateLine: {
+        height: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        marginLeft: 10,
+        marginRight: 10
+    }
+});
 
 class orderToBeWaitSureDetail extends Component {
 
@@ -136,20 +164,22 @@ class orderToBeWaitSureDetail extends Component {
                         borderRadius: 5,
                     }}
                 >
-                    <Text style={{fontSize: 17, marginHorizontal: 20,marginVertical: 10, fontWeight: 'bold'}}>
-                        {deliveryInfo.receiveContact}
-                    </Text>
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-                    <DetailsOrdersCell
-                        ordersPayment={taskInfo.collectMoney}
-                        ordersFreight={taskInfo.carrFee}
-                        carrFeePayer={taskInfo.carrFeePayer}
-                        paymentWay={taskInfo.paymentWay}
-                        ifReceipt={taskInfo.isReceipt}
-                        receiptStyle={taskInfo.receiptWay}
-                        arrivalTime={taskInfo.committedArrivalTime}
-                    />
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                    <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                        <View style={styles.constantStyle}>
+                            <Text style={styles.constantIcon}>&#xe66d;</Text>
+                            <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
+                                {deliveryInfo.receiveContact}
+                            </Text>
+                        </View>
+                        <View style={styles.separateLine}/>
+                        <View style={{marginHorizontal: 10}}>
+                            <DetailsOrdersCell
+                                ifReceipt={taskInfo.isReceipt}
+                                receiptStyle={taskInfo.receiptWay}
+                                arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                            />
+                        </View>
+                    </ImageBackground>
                     <TitlesCell title="配送信息" />
                     <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
                     <DetailsUserCell

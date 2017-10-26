@@ -20,6 +20,9 @@ import * as API from '../../constants/api';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import * as ConstValue from '../../constants/constValue';
+import Swipeout from 'react-native-swipeout';
+
+
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
 let currentTime = 0;
@@ -43,10 +46,12 @@ export default class MyBankCard extends Component {
         this.bankCardList = this.bankCardList.bind(this);
         this.bankCardBundingCallBack = this.bankCardBundingCallBack.bind(this);
 
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds,
-            isEmpty: true
+            isEmpty: true,
+            sectionID: null,
+            rowID: null,
         };
     }
 
@@ -117,6 +122,7 @@ export default class MyBankCard extends Component {
     render() {
         const navigator = this.props.navigation;
         const {dataSource, isEmpty} = this.state;
+
         return (
 
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -129,7 +135,7 @@ export default class MyBankCard extends Component {
 
                 <View style={{
                     width,
-                    height:height - 42 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
+                    height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                 }}>
                     {
                         isEmpty ?
@@ -139,38 +145,57 @@ export default class MyBankCard extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-                                <Image style={{
-                                    height: 130,
-                                    width: 130,
-
-                                }} source={require('../../../assets/income/bankCardEmpty.png')}/>
+                                <Image source={require('../../../assets/income/bankCardEmpty.png')}/>
 
                                 <Text style={{
-                                    color: "#333333",
+                                    color: "#999999",
                                     fontSize: 16,
-                                }}>您还没有添加银行卡哦，赶快添加吧~</Text>
+                                    marginTop: 10
+                                }}>您还没有添加银行卡哦~</Text>
                             </View>
                             :
                             <ListView
                                 dataSource={dataSource}
-                                renderRow={(rowData) =>
+                                renderRow={(rowData, sectionID, rowID) =>
+                                    <Swipeout
+                                        close={!(this.state.sectionID === sectionID && this.state.rowID === rowID)}
+                                        right={[
+                                            {
+                                                text: '删除',
+                                                onPress: ()=>{
 
-                                    <BankCardCell
-                                        accountBank={rowData.accountBank}
-                                        bankCarType={rowData.bankCarType}
-                                        bankAccount={rowData.bankAccount}
-                                        isDefault={rowData.isDefault}
-                                        clickAction={
-                                            () => {
-                                                navigator.navigate('BankCardDeatil',
-                                                    {
-                                                        bank: rowData.accountBank,
-                                                        bankType: rowData.bankCarType,
-                                                        bankAccount: rowData.bankAccount,
-                                                        default: rowData.isDefault,
-                                                    })
-                                            }}
-                                    />
+                                                },
+
+                                            }
+                                        ]}
+                                        rowID={rowID}
+                                        sectionID={sectionID}
+                                        onOpen={(sectionID, rowID) => {
+                                            this.setState({
+                                                sectionID,
+                                                rowID,
+                                            });
+                                        }}
+                                        onClose={() => console.log('===close') }
+                                        scroll={event => console.log('scroll event') }
+                                    >
+                                        <BankCardCell
+                                            accountBank={rowData.accountBank}
+                                            bankCarType={rowData.bankCarType}
+                                            bankAccount={rowData.bankAccount}
+                                            isDefault={rowData.isDefault}
+                                            clickAction={
+                                                () => {
+                                                    navigator.navigate('BankCardDeatil',
+                                                        {
+                                                            bank: rowData.accountBank,
+                                                            bankType: rowData.bankCarType,
+                                                            bankAccount: rowData.bankAccount,
+                                                            default: rowData.isDefault,
+                                                        })
+                                                }}
+                                        />
+                                    </Swipeout>
                                 }
                             />
                     }
@@ -181,17 +206,10 @@ export default class MyBankCard extends Component {
                     <View style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: 42,
-                        width,
-                        backgroundColor: '#ffffff',
+                        flexDirection: 'row'
                     }}>
-                        <Text
-                            style={{
-                                color: '#999999',
-                                fontSize: 14,
-                            }}>
-                            + 添加银行卡
-                        </Text>
+                        <Image source={require('../../../assets/income/addBankCar.png')}/>
+
                     </View>
                 </TouchableOpacity>
 

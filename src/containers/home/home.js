@@ -19,7 +19,9 @@ import {
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
-import Swiper from 'react-native-swiper';
+import Carousel from 'react-native-snap-carousel';
+import Speech from 'native-speech';
+
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
 
@@ -33,6 +35,9 @@ import {
     COLOR_SEPARATE_LINE,
     LIGHT_GRAY_TEXT_COLOR,
     LIGHT_BLACK_TEXT_COLOR,
+    COLOR_VIEW_BACKGROUND,
+    COLOR_LIGHT_GRAY_TEXT,
+    REFRESH_COLOR,
 } from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 import * as API from '../../constants/api';
@@ -57,7 +62,6 @@ import StorageKey from '../../constants/storageKeys';
 import NUmberLength from '../../utils/validator';
 import HTTPRequest from '../../utils/httpRequest'
 
-
 const {width, height} = Dimensions.get('window');
 const JpushAliasNumber = global.userId;
 
@@ -73,7 +77,7 @@ let imageHeight = 189 * width / 375;
 
 const images = [
     StaticImage.bannerImage1,
-    StaticImage.bannerImage2
+    StaticImage.bannerImage2,
 ];
 
 const styles = StyleSheet.create({
@@ -151,17 +155,14 @@ const styles = StyleSheet.create({
     container: {
         ...Platform.select({
             ios: {
-                height: 64,
+                height: ConstValue.NavigationBar_StatusBar_Height,
             },
             android: {
                 height: 50,
             },
         }),
-        backgroundColor: 'transparent',
-        position: 'absolute',
-        left: 0,
+        backgroundColor: WHITE_COLOR,
         width: width,
-        top: 0,
     },
     titleContainer: {
         flex: 1,
@@ -179,7 +180,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-start',
         justifyContent: 'center',
-        paddingLeft: 5,
     },
     centerContainer: {
         flex: 3,
@@ -191,48 +191,58 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-end',
         justifyContent: 'center',
-        paddingRight: 3
     },
     title: {
         fontSize: 18,
-        color: WHITE_COLOR,
+        color: LIGHT_BLACK_TEXT_COLOR,
     },
     icon: {
         fontFamily: 'iconfont',
-        fontSize: 16,
-        color: WHITE_COLOR,
+        fontSize: 15,
+        color: REFRESH_COLOR,
         alignSelf: 'center',
-    },
-    iconTitle: {
-        fontSize: 10,
-        color: WHITE_COLOR,
-        paddingTop: 3,
-        width: 45,
-        textAlign: 'center',
-        fontWeight: 'bold',
+        paddingRight: 15,
     },
     weather:{
         height: 50,
-        width: width - 20,
-        borderRadius: 5,
-        marginLeft: 10,
+        width: width,
         backgroundColor: WHITE_COLOR,
         alignItems: 'center',
-        justifyContent:'space-between',
         flexDirection: 'row',
+        marginTop: 10,
     },
-    date:{
-        fontSize: 13,
-        marginLeft: 10,
+    day: {
+        fontSize: 22,
         color: LIGHT_BLACK_TEXT_COLOR,
     },
-    layout: {
-        position:'absolute',
-        top: imageHeight - 9,
+    date:{
+        marginLeft: 20,
+    },
+    week:{
+        fontSize: 13,
+        color: LIGHT_BLACK_TEXT_COLOR,
     },
     containerView: {
         flex: 1,
-        backgroundColor: '#f5f5f5'
+        backgroundColor: COLOR_VIEW_BACKGROUND,
+    },
+    limitViewStyle: {
+        position: 'absolute',
+        right: 0,
+        marginRight: 20,
+    },
+    locationStyle: {
+        padding: 10,
+        flexDirection: 'row',
+    },
+    locationText: {
+        fontSize: 14,
+        color: COLOR_LIGHT_GRAY_TEXT,
+        marginLeft: 10,
+    },
+    divideLine: {
+        height: 1,
+        backgroundColor: LIGHT_GRAY_TEXT_COLOR,
     },
 });
 
@@ -267,6 +277,7 @@ class Home extends Component {
         this.pushToMsgList = this.pushToMsgList.bind(this);
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
         this.getWeather = this.getWeather.bind(this);
+        this.getCurrentWeekday = this.getCurrentWeekday.bind(this);
         this.compareVersion = this.compareVersion.bind(this);
 
         this.getQualificationsStatus = this.getQualificationsStatus.bind(this);
@@ -275,6 +286,8 @@ class Home extends Component {
         this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
         this.resetTo = this.resetTo.bind(this);
         this.popToTop = this.popToTop.bind(this);
+
+        this.speechContent = this.speechContent.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -308,6 +321,7 @@ class Home extends Component {
                 this.saveMessage(message.alertContent);
 
                 if (message.alertContent.indexOf('新货源') > -1) {
+                    this.speechContent('您有新货源，快来接单啦');
                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                         {
                             text: '确定',
@@ -321,6 +335,7 @@ class Home extends Component {
                 }
 
                 if (message.alertContent.indexOf('快来竞拍吧') > -1) {
+                    this.speechContent('您有新货源，快来抢单啦');
                     Alert.alert('提示', '您有新的货源可以竞拍', [
                         {
                             text: '确定',
@@ -416,6 +431,7 @@ class Home extends Component {
                     this.saveMessage(notification.aps.alert);
 
                     if (notification.aps.alert.indexOf('新货源') > -1) {
+                        this.speechContent('您有新货源，快来接单啦');
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
                                 text: '确定',
@@ -430,6 +446,7 @@ class Home extends Component {
                     }
 
                     if (notification.aps.alert.indexOf('快来竞拍吧') > -1) {
+                        this.speechContent('您有新货源，快来抢单啦');
                         Alert.alert('提示', '您有新的货源可以竞拍', [
                             {
                                 text: '确定',
@@ -517,8 +534,14 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
     }
+    // 语音播报内容
+    speechContent(message) {
+        if (this.props.speechSwitchStatus) {
+            Speech.speak(message, () => alert('callback'));
+        }
+    }
 
-    //
+//
     notifyCarStatus() {
         Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
     }
@@ -949,7 +972,7 @@ class Home extends Component {
                 let result = responseData.result;
                 if(result && result !== '') {
                     this.setState({
-                        limitNumber: '限行 ' + responseData.result,
+                        limitNumber: '今日限行 ' + responseData.result,
                     });
                 } else {
                     this.setState({
@@ -981,22 +1004,23 @@ class Home extends Component {
         });
     }
 
-    renderImg() {
-        const imageViews = [];
-        for (let i = 0; i < images.length; i++) {
-            imageViews.push(
-                <Image
-                    key={i}
-                    resizeMode="cover"
-                    style={{
-                        height: imageHeight,
-                        width: width
-                    }}
-                    source={images[i]}
-                />,
-            );
-        }
-        return imageViews;
+    getCurrentWeekday(day){
+        let weekday = new Array(7);
+        weekday[0]="周日";
+        weekday[1]="周一";
+        weekday[2]="周二";
+        weekday[3]="周三";
+        weekday[4]="周四";
+        weekday[5]="周五";
+        weekday[6]="周六";
+        return weekday[day];
+    }
+
+    renderImg(item, index) {
+        console.log('------item-----',item);
+        return (
+            <Image source={item.item}/>
+        );
     }
 
     render() {
@@ -1007,24 +1031,13 @@ class Home extends Component {
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
                     <View style={styles.leftContainer}>
-                        <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={() =>  {
-                                this.locate();
-                            }}
-                        >
-                            <Text style={styles.icon}>&#xe614;</Text>
-                            <Text
-                                style={styles.iconTitle}
-                                numberOfLines={1}
-                            >{this.props.location ? this.props.location : '定位中'}</Text>
-                        </TouchableOpacity>
                     </View>
                     <View style={styles.centerContainer}>
                         <Text style={styles.title}>首页</Text>
                     </View>
                     <View style={styles.rightContainer}>
                         <TouchableOpacity
+                            style={{paddingRight: 15}}
                             activeOpacity={1}
                             onPress={() => {
                                 this.props.setMessageListIcon(false);
@@ -1036,147 +1049,166 @@ class Home extends Component {
                                 source={this.props.jpushIcon === true ? StaticImage.MessageNew : StaticImage.Message}
                                 style={{alignSelf:'center'}}
                             />
-                            <Text style={styles.iconTitle}>消息</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+                <View style={styles.divideLine}/>
             </View>;
+        const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
+            <View style={styles.limitViewStyle}>
+                <Text style={{fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{this.state.limitNumber}</Text>
+            </View> : null;
         let date = new Date();
-        let limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
-            <Text style={{marginRight: 10, fontSize: 13, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{this.state.limitNumber}</Text>
-            : null;
         return (
             <View style={styles.containerView}>
-                <View style={{height: imageHeight}}>
-                    <Swiper
-                        // height={imageHeight}
-                        width={width}
-                        paginationStyle={{bottom: 5}}
-                        autoplay={true}
-                        dot={
-                            <View style={styles.dot}/>
-                        }
-                        activeDot={
-                            <View style={styles.activeDot}/>
-                        }
-                    >
-                        {this.renderImg()}
-                    </Swiper>
-                </View>
-
-
                 {TitleView}
-
-                <View style={styles.layout}>
-                    <View style={styles.weather}>
-                        <Text style={styles.date}>
-                            {date.getUTCFullYear() + '/' + (date.getUTCMonth()+1) + '/' + date.getUTCDate() + ''}
+                <View style={styles.locationStyle}>
+                    <Image source={StaticImage.locationIcon}/>
+                    <Text style={styles.locationText}>{this.props.location ? '您所在的位置：' + this.props.location : '定位失败'}</Text>
+                    <TouchableOpacity
+                        style={{
+                            position: 'absolute',
+                            top: 10,
+                            right: 0,
+                        }}
+                        onPress={() => {
+                            {/*this.locate();*/}
+                        }}
+                    >
+                        <Text style={styles.icon}>&#xe66b;</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Carousel
+                        data={images}
+                        renderItem={this.renderImg}
+                        sliderWidth={width}
+                        itemWidth={width - 40}
+                        hasParallaxImages={true}
+                        firstItem={1}
+                        inactiveSlideScale={0.94}
+                        inactiveSlideOpacity={0.8}
+                        enableMomentum={true}
+                        loop={true}
+                        loopClonesPerSide={2}
+                        autoplay={true}
+                        autoplayDelay={500}
+                        autoplayInterval={3000}
+                        removeClippedSubviews={false}
+                    />
+                </View>
+                <View style={styles.weather}>
+                    <View style={styles.date}>
+                        <Text style={styles.day}>
+                            {date.getUTCDate()}
                         </Text>
-                        <View style={{flexDirection:'row'}}>
-                            <View style={{
-                                marginLeft: 5,
-                                marginRight: 5,
-                                justifyContent: 'center',
-                            }}>
-                                <WeatherCell weatherIcon={this.state.weatherNum}/>
-                            </View>
-                            <Text style={{marginRight: 5, fontSize: 13, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}> {weather}</Text>
-                            <Text style={{marginRight: 10, fontSize: 13, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{temperatureHigh}℃/{temperatureLow}℃</Text>
-                            {limitView}
+                        <Text style={styles.week}>
+                            {this.getCurrentWeekday(date.getDay())}
+                        </Text>
+                    </View>
+                    <View style={{flexDirection:'row', marginLeft: 20}}>
+                        <View style={{
+                            marginRight: 15,
+                            justifyContent: 'center',
+                        }}>
+                            <WeatherCell weatherIcon={this.state.weatherNum}/>
                         </View>
+                        <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}> {weather}</Text>
+                        <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{temperatureHigh}℃/{temperatureLow}℃</Text>
                     </View>
-                    <View style={{margin: 10, backgroundColor: WHITE_COLOR, borderRadius: 5, width: width - 20,}}>
-                        <HomeCell
-                            title="接单"// 文字
-                            describe="方便接单，快速查看"
-                            padding={10}// 文字与文字间距
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                            badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
-                            renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
-                            clickAction={() => { // 点击事件
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        DeviceEventEmitter.emit('resetGood');
-                                        this.props.navigation.navigate('GoodsSource');
-                                        // DeviceEventEmitter.emit('resetGood');
-                                    } else {
-                                        this.notifyCarStatus();
-                                    }
+                    {limitView}
+                </View>
+                <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
+                    <HomeCell
+                        title="接单"// 文字
+                        describe="方便接单，快速查看"
+                        padding={10}// 文字与文字间距
+                        imageStyle={styles.imageView}
+                        backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
+                        badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                        renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
+                        clickAction={() => { // 点击事件
+                            if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                    DeviceEventEmitter.emit('resetGood');
+                                    this.props.navigation.navigate('GoodsSource');
                                 } else {
-                                    this.getUserCar();
+                                    this.notifyCarStatus();
                                 }
-                            }}
-                        />
-                        <View style={styles.line}/>
-                        <HomeCell
-                            title="发运"
-                            describe="一键发运，安全无忧"
-                            padding={10}
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
-                            renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
-                            clickAction={() => {
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('Order');
-                                        this.changeOrderTab(1);
-                                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                                    } else {
-                                        this.notifyCarStatus();
-                                    }
+                            } else {
+                                this.getUserCar();
+                            }
+                        }}
+                    />
+                    <View style={styles.line}/>
+                    <HomeCell
+                        title="发运"
+                        describe="一键发运，安全无忧"
+                        padding={10}
+                        imageStyle={styles.imageView}
+                        backgroundColor={{backgroundColor: WHITE_COLOR}}
+                        badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                        renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
+                        clickAction={() => {
+                            if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                    this.props.navigation.navigate('Order');
+                                    this.changeOrderTab(1);
+                                    DeviceEventEmitter.emit('changeOrderTabPage', 1);
                                 } else {
-                                    this.getUserCar();
+                                    this.notifyCarStatus();
                                 }
-                            }}
-                        />
-                        <View style={styles.line}/>
-                        <HomeCell
-                            title="签收回单"
-                            describe="签收快捷，回单无忧"
-                            padding={10}
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            badgeText={0}
-                            renderImage={() => <Image source={StaticImage.signIcon}/>}
-                            clickAction={() => {
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('Order');
-                                        this.changeOrderTab(2);
-                                        DeviceEventEmitter.emit('changeOrderTabPage', 2);
-                                    } else {
-                                        this.notifyCarStatus();
-                                    }
+                            } else {
+                                this.getUserCar();
+                            }
+                        }}
+                    />
+                    <View style={styles.line}/>
+                    <HomeCell
+                        title="签收"
+                        describe="签收快捷，免去后顾之忧"
+                        padding={10}
+                        imageStyle={styles.imageView}
+                        backgroundColor={{backgroundColor: WHITE_COLOR}}
+                        badgeText={0}
+                        renderImage={() => <Image source={StaticImage.signIcon}/>}
+                        clickAction={() => {
+                            if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                    this.props.navigation.navigate('Order');
+                                    this.changeOrderTab(2);
+                                    DeviceEventEmitter.emit('changeOrderTabPage', 2);
                                 } else {
-                                    this.getUserCar();
+                                    this.notifyCarStatus();
                                 }
-                            }}
-                        />
-                        {/*<View style={styles.line}/>*/}
-                        {/*<HomeCell*/}
-                        {/*title="回单"*/}
-                        {/*describe="接收回单，方便快捷"*/}
-                        {/*padding={8}*/}
-                        {/*imageStyle={styles.imageView}*/}
-                        {/*backgroundColor={{backgroundColor: WHITE_COLOR}}*/}
-                        {/*badgeText={0}*/}
-                        {/*renderImage={() => <Image source={receiveIcon}/>}*/}
-                        {/*clickAction={() => {*/}
-                        {/*Storage.get('plateNumber').then((value) =>{*/}
-                        {/*if(value){*/}
-                        {/*this.changeTab('order');*/}
-                        {/*this.changeOrderTab(3);*/}
-                        {/*DeviceEventEmitter.emit('changeOrderTabPage', 3);*/}
-                        {/*}else {*/}
-                        {/*Toast.showShortCenter('正在获取相关信息...');*/}
-                        {/*this.getUserCar(this.getUserCarSuccessCallBack);*/}
-                        {/*}*/}
-                        {/*});*/}
-                        {/*}}*/}
-                        {/*/>*/}
-                    </View>
+                            } else {
+                                this.getUserCar();
+                            }
+                        }}
+                    />
+                    <View style={styles.line}/>
+                    <HomeCell
+                        title="回单"
+                        describe="接收回单，方便快捷"
+                        padding={8}
+                        imageStyle={styles.imageView}
+                        backgroundColor={{backgroundColor: WHITE_COLOR}}
+                        badgeText={0}
+                        renderImage={() => <Image source={StaticImage.receiveIcon}/>}
+                        clickAction={() => {
+                            if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                    this.props.navigation.navigate('Order');
+                                    this.changeOrderTab(3);
+                                    DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                                } else {
+                                    this.notifyCarStatus();
+                                }
+                            } else {
+                                this.getUserCar();
+                            }
+                        }}
+                    />
                 </View>
             </View>
         );
@@ -1193,7 +1225,8 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
-        userCarList: state.user.get('userCarList')
+        userCarList: state.user.get('userCarList'),
+        speechSwitchStatus: state.app.get('speechSwitchStatus')
     };
 }
 

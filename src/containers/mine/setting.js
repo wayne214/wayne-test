@@ -14,6 +14,9 @@ import NavigationBar from '../../common/navigationBar/navigationBar';
 import {
     clearUser,
 } from '../../action/user';
+import {
+    voiceSpeechAction,
+} from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
 import HTTPRequest from '../../utils/httpRequest';
@@ -21,6 +24,7 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import { NavigationActions } from 'react-navigation';
 import {ImageCache} from "react-native-img-cache";
+import * as StaticColor from '../../constants/staticColor';
 
 
 let currentTime = 0;
@@ -59,6 +63,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333333',
     },
+    separateLine: {
+        height: 0.5,
+        backgroundColor: StaticColor.COLOR_SEPARATE_LINE,
+        marginLeft: 10,
+    },
 });
 
 class setting extends Component {
@@ -67,12 +76,14 @@ class setting extends Component {
         super(props);
         this.state = {
             switchIsOn: true,
+            speechSwitch: this.props.speechSwitchStatus,
         };
         this.loginChangeAcceptMessage = this.loginChangeAcceptMessage.bind(this);
         this.press = this.press.bind(this);
         this.valueChange = this.valueChange.bind(this);
         this.getPushStatusAction = this.getPushStatusAction.bind(this);
         this.loginOut = this.loginOut.bind(this);
+        this.speechValueChange = this.speechValueChange.bind(this);
     }
 
     componentDidMount() {
@@ -185,7 +196,13 @@ class setting extends Component {
 
     }
 
-
+    /*语音播报开关状态改变*/
+    speechValueChange(value) {
+        this.setState({
+            speechSwitch: value,
+        });
+        this.props.speechSwitchAction(value);
+    }
     /*通知开关状态改变*/
     valueChange(value) {
         this.setState({
@@ -248,6 +265,20 @@ class setting extends Component {
                         value={this.state.switchIsOn}
                     />
                 </View>
+                <View style={styles.separateLine}/>
+                <View style={styles.contentItemView}>
+                    <Text style={styles.contentItemText}>
+                        语音播报
+                    </Text>
+                    <Switch
+                        onTintColor={'#008BCA'}
+                        onValueChange={(value) => {
+                            this.speechValueChange(value);
+                        }}
+                        style={{marginBottom: 10, marginTop: 10}}
+                        value={this.state.speechSwitch}
+                    />
+                </View>
                 <TouchableOpacity
                     onPress={() => {
                         this.press();
@@ -264,6 +295,7 @@ class setting extends Component {
 
 function mapStateToProps(state) {
     return {
+        speechSwitchStatus: state.app.get('speechSwitchStatus')
     };
 }
 
@@ -271,6 +303,9 @@ function mapDispatchToProps(dispatch) {
     return {
         removeUserInfoAction:()=>{
             dispatch(clearUser());
+        },
+        speechSwitchAction:(data)=>{
+            dispatch(voiceSpeechAction(data));
         },
     };
 }

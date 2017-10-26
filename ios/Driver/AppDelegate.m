@@ -54,7 +54,7 @@
                                           categories:nil];
   }
   
-  [JPUSHService setupWithOption:launchOptions appKey:appKey
+  [JPUSHService setupWithOption:launchOptions appKeyw:appKey
                         channel:nil apsForProduction:isProduction];
   
   [RCTBaiduMapViewManager initSDK:@"YQTDK3RGAXnoGrLfFqyYLyPxcMft4LHn"];
@@ -64,11 +64,12 @@
   
   [[RCTBundleURLProvider sharedSettings] setDefaults];
 #if DEBUG
-  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.115"];
+  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.120"];
 #endif
   
   //模拟器测试
-  
+
+
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   /*

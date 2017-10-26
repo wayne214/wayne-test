@@ -18,11 +18,7 @@ import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
 import {PHOTOREFNO} from '../../constants/setting';
 import NavigationBar from '../../common/navigationBar/navigationBar';
-import CenterHeaderIcon from '../../../assets/mine/userCenterHeader.png';
 import SettingCell from '../../containers/mine/cell/settingCell';
-import CenterLoginAvatar from '../../../assets/mine/login_avatar.png';
-import Message from '../../../assets/mine/message.png';
-import MessageNew from '../../../assets/mine/newmessage.png';
 import Toast from '@remobile/react-native-toast';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import * as API from '../../constants/api';
@@ -32,12 +28,13 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
+import StaticImage from '../../constants/staticImage';
 
 import AlertSheetItem from '../../common/alertSelected';
 import ImagePicker from 'react-native-image-picker';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
-
+import DeviceInfo from 'react-native-device-info';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -150,7 +147,7 @@ class Mine extends Component {
         super(props);
 
         this.state = {
-            rightImageName: Message,
+            rightImageName: StaticImage.Message,
             avatarSource: '',
             loading: false,
             certificationState: '1200', // 资质认证
@@ -552,7 +549,7 @@ class Mine extends Component {
                             color: '#bbcfe8',
                         }}
                     >未认证</Text>
-                </View>
+                </View>;
 
         const changeCarView = this.props.userCarList && this.props.userCarList.length > 1 ?
             <TouchableOpacity onPress={() => {
@@ -580,7 +577,7 @@ class Mine extends Component {
                             fontSize: 13,
                             color: 'white',
                         }}
-                    >切换车辆</Text>
+                    >关联车辆</Text>
                 </View>
             </TouchableOpacity> : null;
         return (
@@ -589,12 +586,12 @@ class Mine extends Component {
                 backgroundColor: '#ffffff',
             }}>
                 <NavigationBar
-
+                    title={'我的'}
                     navigator={navigator}
                     leftButtonHidden={true}
                     rightButtonConfig={{
                         type: 'image',
-                        image: this.props.jpushIcon == true ? MessageNew : Message,
+                        image: this.props.jpushIcon == true ? StaticImage.MessageNew : StaticImage.Message,
                         onClick: () => {
                             Storage.save('newMessageFlag', '0');
                             this.pushToMsgList();
@@ -603,7 +600,7 @@ class Mine extends Component {
                 />
                 <View style={{flex: 1}}>
                     <View>
-                        <Image style={styles.headerImage} source={CenterHeaderIcon}>
+                        <Image style={styles.headerImage} source={StaticImage.CenterHeaderIcon}>
                             <View style={styles.headerView}>
                                 <TouchableOpacity onPress={() => {
                                     this.setState({
@@ -621,7 +618,7 @@ class Mine extends Component {
                                                 :
                                                 <Image
                                                     style={styles.driverIcon}
-                                                    source={CenterLoginAvatar}/>
+                                                    source={StaticImage.CenterLoginAvatar}/>
                                         }
 
                                     </View>
@@ -796,13 +793,26 @@ class Mine extends Component {
 
                                 <SettingCell
                                     leftIcon="&#xe62e;"
+                                    iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
                                     content={'修改密码'}
-                                    showBottomLine={false}
+                                    showBottomLine={true}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
                                             navigator.navigate('ChangePwd');
                                         }
+                                    }}
+                                />
+                                <SettingCell
+                                    leftIcon="&#xe62f;"
+                                    iconFontColor={{color: StaticColor.YELLOW_PAY_ICON_COLOR}}
+                                    content={'支付密码'}
+                                    showBottomLine={false}
+                                    clickAction={() => {
+                                        // ClickUtil.resetLastTime();
+                                        // if (ClickUtil.onMultiClick()) {
+                                        //     navigator.navigate('ChangePwd');
+                                        // }
                                     }}
                                 />
 
@@ -826,6 +836,15 @@ class Mine extends Component {
                                             this.pushToSetting();
                                         }
                                 }}
+                                />
+
+                                <View style={styles.separateView}/>
+
+                                <SettingCell
+                                    leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
+                                }}
+                                    hideArrowIcon={true}
+                                    versionName={`V${DeviceInfo.getVersion()}`}
                                 />
                                 <View style={{
                                     height,

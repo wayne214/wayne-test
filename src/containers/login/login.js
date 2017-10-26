@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     cellContainer: {
         flex: 1,
-        height: 48,
+        height: 44,
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomColor: '#e8e8e8',
@@ -95,19 +95,29 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    loginButton: {
-        backgroundColor: '#0083ff',
+    loginBackground: {
+        width: width - 20,
         marginTop: 15,
         marginLeft: 10,
         marginRight: 10,
-        borderWidth: 0,
-        height: 46,
-        borderRadius: 5,
         marginBottom: 0,
+        height: 44,
+        resizeMode: 'stretch',
+        alignItems: 'center',
+        justifyContent:'center'
+    },
+    loginButton: {
+        backgroundColor: '#00000000',
+        width: width - 20,
+        marginBottom: 0,
+        height: 44,
+        borderWidth: 0,
+        borderColor: '#00000000',
     },
     loginButtonText: {
         fontSize: 18,
         color: 'white',
+        textAlign: 'center'
     },
     bottomView: {
         // flex: 1,
@@ -313,21 +323,24 @@ class Login extends BaseContainer {
                             value={password}/>
                         </View>
 
-                        <Button
-                            isDisabled={!(phoneNumber && password)}
-                            onPress={() => {
-                                dismissKeyboard();
-                                if (Validator.isPhoneNumber(phoneNumber)) {
-                                    this.loginSecretCode();
-                                } else {
-                                    Toast.showShortCenter('手机号码输入有误，请重新输入');
-                                }
-                            }}
-                            style={styles.loginButton}
-                            textStyle={styles.loginButtonText}
-                        >
-                            登录
-                        </Button>
+                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
+                            <Button
+                                isDisabled={!(phoneNumber && password)}
+                                onPress={() => {
+                                    dismissKeyboard();
+                                    if (Validator.isPhoneNumber(phoneNumber)) {
+                                        this.loginSecretCode();
+                                    } else {
+                                        Toast.showShortCenter('手机号码输入有误，请重新输入');
+                                    }
+                                }}
+                                style={styles.loginButton}
+                                textStyle={styles.loginButtonText}
+                            >
+                                登录
+                            </Button>
+                        </Image>
+                        
                         <View style={styles.bottomView}>
                             <Text
                                 onPress={() => {
@@ -361,7 +374,7 @@ class Login extends BaseContainer {
                         <Text
                             style={styles.screenEndViewText}
                             onPress={() => {
-                                this.props.navigation.navigate('Registered');
+                                this.props.navigation.navigate('RegisterStepOne');
                             }}
                         >
                             去注册

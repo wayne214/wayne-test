@@ -12,6 +12,8 @@ import LoginBackground from '../../assets/login/loginbg.png';
 import LoginIcon from '../../assets/login/luckybear.png';
 /*登录头部图片*/
 import LoginTopBg from '../../assets/login/loginTop.png';
+/*登录验证手机LOGO*/
+import CheckPhoneLogo from '../../assets/login/checkPhone.png';
 /*鲜易通字体图标*/
 import LoginFont from '../../assets/login/xytfront.png';
 /*输入框清除按钮图标*/
@@ -28,13 +30,17 @@ import rightArrow from '../../assets/income/rightarrow.png';
 import noDataIcon from '../../assets/income/nodata.png';
 
 /*首页轮播图片*/
-import bannerImage1 from '../../assets/home/banner-1.png';
-import bannerImage2 from '../../assets/home/banner-2.png';
+import bannerImage1 from '../../assets/home/banner1.png';
+import bannerImage2 from '../../assets/home/banner2.png';
+
+import locationIcon from '../../assets/home/location.png';
+import locationRedIcon from '../../assets/home/locationRed.png';
 
 /*首页快捷入口图标*/
 import signIcon from '../../assets/home/sign_icon.png';
 import receiptIcon from '../../assets/home/receipt_icon.png';
 import dispatchIcon from '../../assets/home/despatch_icon.png';
+import receiveIcon from '../../assets/home/receive_icon.png';
 
 /*货源*/
 import close from '../../assets/good/close.png';
@@ -42,8 +48,8 @@ import reject from '../../assets/good/reject.png';
 import waitHandle from '../../assets/good/waithandle.png';
 import open from '../../assets/good/open.png';
 import radioButton from '../../assets/good/radiobuttonIcon.png';
-import GreenIcon from '../../assets/good/greenIcon.png';
-import OrangeIcon from '../../assets/good/orangeIcon.png';
+import DispatchIcon from '../../assets/good/dispatchIcon.png';
+import BiddingIcon from '../../assets/good/biddingIcon.png';
 import RejectIcon from '../../assets/good/reject-icon.png';
 import receiveBottomArrow from '../../assets/good/receive_bottom_arrow.png';
 import rightArrowTurn from '../../assets/good/right-turn.png';
@@ -64,7 +70,7 @@ import checkNormal from '../../assets/carList/check-normal.png';
 import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 
 /*消息图标*/
-import MessageNew from '../../assets/mine/newmessage.png';
+import MessageNew from '../../assets/mine/new_message.png';
 import Message from '../../assets/mine/message.png';
 
 /*扫描图标*/
@@ -87,6 +93,32 @@ import receiveDelete from '../../assets/order/receive_delete.png';
 /*关于我们*/
 import aboutUsImg from '../../assets/setting/aboutus.png';
 
+import OtherKind from '../../assets/good/otherKind.png'; // 其他品类
+import Livestock from '../../assets/good/livestock.png'; // 畜禽类
+import FrozenPastry from '../../assets/good/frozenPastry.png'; // 速冻面点
+import Dairy from '../../assets/good/dairy.png'; // 乳制品
+import AgricultureProduct from '../../assets/good/agricultureProduct.png'; // 农产品
+import AquaticProduct from '../../assets/good/aquaticProduct.png'; // 水产品
+
+import TaskBackground from '../../assets/good/taskBackground.png'; // 任务信息背景图
+import CenterHeaderIcon from '../../assets/mine/userCenterHeader.png';
+import CenterLoginAvatar from '../../assets/mine/login_avatar.png';
+
+/*收入*/
+import IncomeBgimage from '../../assets/income/incomeBgimage.png'; // 收入背景
+import IncomeOpen from '../../assets/income/incomeOpen.png';
+import IncomeClose from '../../assets/income/incomeClose.png';
+import Contact from '../../assets/good/contact.png'; // 任务信息背景图
+
+/*按钮*/
+import BlueButtonArc from '../../assets/button/blueButtonArc.png';
+import BlueButtonSmall from '../../assets/button/blueButtonSmall.png';
+import BlueButtonSquare from '../../assets/button/blueButtonSquare.png';
+import OrangeButtonArc from '../../assets/button/orangeButtonArc.png';
+import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
+
+/*待签收箭头*/
+import upArrow from '../../assets/order/upArrow.png';
 
 export default {
     EmptyImage,
@@ -94,6 +126,7 @@ export default {
     Img02,
     LoginBackground,
     LoginTopBg,
+    CheckPhoneLogo,
     LoginFont,
     LoginIcon,
     clearIcon,
@@ -104,8 +137,6 @@ export default {
     waitHandle,
     open,
     radioButton,
-    GreenIcon,
-    OrangeIcon,
     RejectIcon,
     rightArrow,
     noDataIcon,
@@ -114,6 +145,7 @@ export default {
     signIcon,
     receiptIcon,
     dispatchIcon,
+    receiveIcon,
     bussniessRedImg,
     bussniessGreenImg,
     bussniessGrayImg,
@@ -141,5 +173,28 @@ export default {
     receiveAdd,
     receiveDelete,
     aboutUsImg,
+    DispatchIcon,
+    BiddingIcon,
+    OtherKind,
+    Livestock,
+    FrozenPastry,
+    Dairy,
+    AgricultureProduct,
+    AquaticProduct,
+    TaskBackground,
+    CenterLoginAvatar,
+    CenterHeaderIcon,
+    locationIcon,
+    IncomeBgimage,
+    IncomeOpen,
+    IncomeClose,
+    Contact,
+    locationRedIcon,
+    BlueButtonArc,
+    BlueButtonSmall,
+    BlueButtonSquare,
+    OrangeButtonArc,
+    OrangeButtonSquare,
+    upArrow,
 }
 
