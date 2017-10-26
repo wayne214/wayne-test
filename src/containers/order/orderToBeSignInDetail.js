@@ -107,8 +107,18 @@ export default class orderToBeSignInDetail extends Component {
             });
         });
 
-        const {deliveryInfo, goodsInfoList, taskInfo, time, transCode,
-            vol, weight, index} = this.props;
+        const {
+            deliveryInfo,
+            goodsInfoList,
+            taskInfo,
+            time,
+            transCode,
+            vol,
+            weight,
+            index,
+            transOrderType,
+            transOrderStatus,
+        } = this.props;
         const bgColor = this.state.buttonBgColor;
         const buttonStyle = {
             justifyContent: 'center',
@@ -137,7 +147,6 @@ export default class orderToBeSignInDetail extends Component {
                     })
                 }}
             >
-
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
@@ -176,7 +185,6 @@ export default class orderToBeSignInDetail extends Component {
                         }}
                         isShowContactAndPhone={true}
                     />
-
                     <DetailsRedUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -198,14 +206,20 @@ export default class orderToBeSignInDetail extends Component {
                                 );
                             }) : null
                     }
-
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-
                     <TotalsItemCell totalTons={weight} totalSquare={vol} />
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-
-                    <DetailsCell transportNO_={transCode} transportTime={time} />
-
+                    <DetailsCell
+                        transportNO_={transCode}
+                        transportTime={time}
+                        customerCode={'SO171025000012'}
+                        transOrderType={transOrderType}
+                        transOrderStatus={transOrderStatus}
+                        dispatchTime={'2017-10-25 18:37'}
+                        dispatchTimeAgain={'2017-10-25 18:37:20'}
+                        shipmentTime={'2017-10-25 18:38'}
+                        shipmentTimeAgain={'2017-10-25 18:39:00'}
+                    />
                 </ScrollView>
                 {this.subBottomComponent(buttonStyle)}
 
@@ -214,15 +228,3 @@ export default class orderToBeSignInDetail extends Component {
     }
 }
 
-orderToBeSignInDetail.propTypes = {
-    signIn: React.PropTypes.func,
-    index: React.PropTypes.number,
-    deliveryInfo: React.PropTypes.object,
-    transCode: React.PropTypes.string,
-    vol: React.PropTypes.number,
-    weight: React.PropTypes.number,
-    taskInfo: React.PropTypes.object,
-    time: React.PropTypes.string,
-    goodsInfoList: React.PropTypes.array,
-    addressMapSelect: React.PropTypes.func,
-};
