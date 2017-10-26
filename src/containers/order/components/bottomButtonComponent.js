@@ -38,6 +38,7 @@ export default class BottomButton extends Component {
         text: PropTypes.string.isRequired,
         buttonStyle: View.propTypes.style,
         textStyle: Text.propTypes.style,
+        buttonDisabled: PropTypes.bool,
     };
     // 构造
     constructor(props) {
@@ -51,10 +52,12 @@ export default class BottomButton extends Component {
             onClick,
             text,
             buttonStyle,
-            textStyle
+            textStyle,
+            buttonDisabled
         } = this.props;
         return (
             <TouchableOpacity
+                disabled={buttonDisabled}
                 onPress={() => {
                     onClick();
                 }}

@@ -74,6 +74,7 @@ class orderToBeWaitSureDetail extends Component {
         this.state = {
             showGoodList: false,
             loading: false,
+            buttonDisabled: false,
         };
     }
 
@@ -116,7 +117,7 @@ class orderToBeWaitSureDetail extends Component {
         return (
             <View
                 style={{
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
                     width: screenWidth,
                     paddingLeft: space,
                     paddingRight: space,
@@ -131,12 +132,12 @@ class orderToBeWaitSureDetail extends Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
-                        backgroundColor: 'white',
+                        backgroundColor: StaticColor.WHITE_COLOR,
                         ...Platform.select({
                             ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                             android:{height: screenHeight - topHeight - 73}
                         }),
-                        borderColor: 'white',
+                        borderColor: StaticColor.WHITE_COLOR,
                         borderWidth: 1,
                         borderRadius: 5,
                     }}
@@ -158,7 +159,7 @@ class orderToBeWaitSureDetail extends Component {
                         </View>
                     </ImageBackground>
                     <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -210,6 +211,7 @@ class orderToBeWaitSureDetail extends Component {
                     onClick={() => {
                         this.uploadReceipt();
                     }}
+                    buttonDisabled={this.state.buttonDisabled}
                 />
                 {this.state.loading ? <Loading/> : null}
             </View>

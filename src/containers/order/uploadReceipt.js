@@ -25,6 +25,8 @@ import ClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 import StorageKey from '../../constants/storageKeys';
+import {Geolocation} from 'react-native-baidu-map-xzx';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
 import {
     addImage,
@@ -35,7 +37,6 @@ import Loading from '../../utils/loading';
 import Storage from '../../utils/storage';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
-
 import * as StaticColor from '../../constants/staticColor';
 
 const {width, height} = Dimensions.get('window');
@@ -45,10 +46,6 @@ let maxNum = 9;
 
 let userID = '';
 let userName = '';
-
-import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
