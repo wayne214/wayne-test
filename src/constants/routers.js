@@ -75,6 +75,7 @@ import DrawalsDetail from '../containers/income/AccountFlow/drawalsDetail';
 import IncomeListDetail from '../containers/income/AccountFlow/incomeListDetail';
 import AddBankCardSuccess from '../containers/income/addBankCard/addBankCardSuccess';
 import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
+import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -448,6 +449,12 @@ const StackRouteConfigs = {
     },
     ChooseBankCity: {
         screen: ChooseBankCity,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChooseBankName:{
+        screen: ChooseBankName,
         navigationOptions: {
             header: null
         }
