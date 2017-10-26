@@ -77,7 +77,7 @@ class DetailsUserCell extends Component {
                                         <Image source={StaticImage.Contact} resizeMode='cover'/>
                                         <Text style={{
                                             fontSize: 15,
-                                            marginLeft: 10,
+                                            marginLeft: 8,
                                             color: StaticColor.BLUE_CONTACT_COLOR,
                                         }}>联系对方</Text>
                                     </View>
@@ -93,8 +93,9 @@ class DetailsUserCell extends Component {
                             <View
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
                                     paddingRight: 40,
+                                    marginTop: 5,
+                                    marginBottom: 5,
                                 }}
                             >
                                 <Image source={StaticImage.locationIcon} style={styles.dressIconStyle}/>
@@ -103,8 +104,6 @@ class DetailsUserCell extends Component {
                                         fontSize: 15,
                                         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                                         marginLeft: 10,
-                                        marginTop: 5,
-                                        marginBottom: 5,
                                     }}
                                 >
                                     {deliveryInfo.departureAddress}

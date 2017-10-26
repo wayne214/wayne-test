@@ -161,7 +161,14 @@ export default class MyBankCard extends Component {
                                         close={!(this.state.sectionID === sectionID && this.state.rowID === rowID)}
                                         right={[
                                             {
-                                                text: '删除',
+                                                //text: '删除',
+                                                backgroundColor: 'transparent',
+                                                //color: 'white',
+                                                component: [<View style={{justifyContent: 'center', height: 130}}>
+                                                    <View style={{backgroundColor: 'white', width: 40, height: 40, justifyContent: 'center', marginLeft: 15, borderRadius: 20}}>
+                                                        <Text style={{backgroundColor: 'transparent' ,fontFamily: 'iconfont', color: '#E66D65', textAlign: 'center'}}>&#xe641;</Text>
+                                                    </View>
+                                                </View>],
                                                 onPress: ()=>{
 
                                                 },
