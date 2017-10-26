@@ -24,7 +24,7 @@ import StaticImage from '../../constants/staticImage';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
-const bottomViewHeight = 70;
+const bottomViewHeight = 58;
 const screenWidth = Dimensions.get('window').width - space * 2;
 const screenHeight = Dimensions.get('window').height;
 

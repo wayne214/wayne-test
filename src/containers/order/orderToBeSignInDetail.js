@@ -27,12 +27,12 @@ import ProductShowItem from '../../common/source/OrderDetailProShowItemCell';
 import * as StaticColor from '../../constants/staticColor';
 import * as ConstValue from '../../constants/constValue';
 import StaticImage from '../../constants/staticImage';
+import BottomButton from './components/bottomButtonComponent';
+
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
-
-
-const screenWidth = Dimensions.get('window').width - space * 2;
+const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
@@ -66,34 +66,14 @@ export default class orderToBeSignInDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonTitle: '签收',
-            buttonBgColor: '#1B82D1',
-            buttonDisabled: false,
             showGoodList: false,
         };
-        this.subBottomComponent = this.subBottomComponent.bind(this);
     }
 
     componentWillUnmount() {
         this.listener.remove();
     }
 
-    // 底部组件
-    subBottomComponent(buttonStyle) {
-        return (
-            <TouchableOpacity
-                disabled={this.state.buttonDisabled}
-                style={buttonStyle}
-                onPress={() => {
-                    this.props.signIn();
-                }}
-            >
-                <Text style={{color: StaticColor.WHITE_COLOR, fontSize: 16}}>
-                    {this.state.buttonTitle}
-                </Text>
-            </TouchableOpacity>
-        );
-    }
     showGoodInfoList(value) {
         this.setState({
             showGoodList: value,
@@ -119,26 +99,14 @@ export default class orderToBeSignInDetail extends Component {
             transOrderType,
             transOrderStatus,
         } = this.props;
-        const bgColor = this.state.buttonBgColor;
-        const buttonStyle = {
-            justifyContent: 'center',
-            backgroundColor: bgColor,
-            alignItems: 'center',
-            height: 44,
-            marginTop: 10,
-            marginBottom: 10,
-            marginRight: 5,
-            marginLeft: 5,
-            borderRadius: 5,
-        };
 
         return (
             <View
                 style={{
                     backgroundColor: '#f5f5f5',
                     width: screenWidth,
-                    marginLeft: space,
-                    marginRight: space,
+                    paddingLeft: space,
+                    paddingRight: space,
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
@@ -221,8 +189,13 @@ export default class orderToBeSignInDetail extends Component {
                         shipmentTimeAgain={'2017-10-25 18:39:00'}
                     />
                 </ScrollView>
-                {this.subBottomComponent(buttonStyle)}
-
+                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                <BottomButton
+                    text={'签收'}
+                    onClick={() => {
+                        this.props.signIn();
+                    }}
+                />
             </View>
         );
     }

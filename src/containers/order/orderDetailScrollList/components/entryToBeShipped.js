@@ -37,14 +37,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: screenWidth,
-        height: 45,
-        backgroundColor: 'transparent',
-        alignSelf: 'center'
-    },
 });
 let transOrderInfo = [];
 let userID = '';
