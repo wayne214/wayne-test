@@ -97,6 +97,8 @@ export const API_BANK_CARD_UNBUNDING = `${HOST}app/rmc/bankCard/unbunding/`;
 //司机对应企业性质
 export const API_QUERY_ENTERPRISE_NATURE = `${HOST}app/rmc/queryEnterpriseNature/`;
 
+export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
+
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
