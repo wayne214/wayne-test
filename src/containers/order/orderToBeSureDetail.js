@@ -73,8 +73,19 @@ export default class orderToBeSureDetail extends Component {
     }
 
     render() {
-        const {deliveryInfo, goodsInfoList, taskInfo, time,
-            transCode, vol, weight , signer, index} = this.props;
+        const {
+            deliveryInfo,
+            goodsInfoList,
+            taskInfo,
+            time,
+            transCode,
+            vol,
+            weight,
+            signer,
+            index,
+            transOrderType,
+            transOrderStatus,
+        } = this.props;
         return (
             <View
                 style={{
@@ -90,7 +101,6 @@ export default class orderToBeSureDetail extends Component {
                     }),
                 }}
             >
-
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
@@ -129,7 +139,6 @@ export default class orderToBeSureDetail extends Component {
                         }}
                         isShowContactAndPhone={true}
                     />
-
                     <DetailsRedUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -154,23 +163,21 @@ export default class orderToBeSureDetail extends Component {
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
                     <TotalsItemCell totalTons={weight} totalSquare={vol} />
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-
-                    <DetailsCell transportNO_={transCode} transportTime={time} />
-
+                    <DetailsCell
+                        transportNO_={transCode}
+                        transportTime={time}
+                        customerCode={'SO171025000012'}
+                        transOrderType={transOrderType}
+                        transOrderStatus={transOrderStatus}
+                        dispatchTime={'2017-10-25 18:37'}
+                        dispatchTimeAgain={'2017-10-25 18:37:20'}
+                        shipmentTime={'2017-10-25 18:38'}
+                        shipmentTimeAgain={'2017-10-25 18:39:00'}
+                        signTime={'2017-10-26 10:39:00'}
+                        receiveTime={'2017-10-26 10:50:00'}
+                    />
                 </ScrollView>
             </View>
         );
     }
 }
-
-orderToBeSureDetail.propTypes = {
-    index: React.PropTypes.number,
-    deliveryInfo: React.PropTypes.object,
-    transCode: React.PropTypes.string,
-    vol: React.PropTypes.number,
-    weight: React.PropTypes.number,
-    taskInfo: React.PropTypes.object,
-    time: React.PropTypes.string,
-    goodsInfoList: React.PropTypes.array,
-    addressMapSelect: React.PropTypes.func,
-};

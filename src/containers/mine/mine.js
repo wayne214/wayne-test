@@ -794,7 +794,7 @@ class Mine extends Component {
 
                                 <SettingCell
                                     leftIcon="&#xe62e;"
-                                    iconFontColor={{color: StaticColor.RED_CHANGEPWDICON_COLOR}}
+                                    iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
                                     content={'修改密码'}
                                     showBottomLine={true}
                                     clickAction={() => {
@@ -806,7 +806,7 @@ class Mine extends Component {
                                 />
                                 <SettingCell
                                     leftIcon="&#xe62f;"
-                                    iconFontColor={{color: StaticColor.YELLOW_PAYICON_COLOR}}
+                                    iconFontColor={{color: StaticColor.YELLOW_PAY_ICON_COLOR}}
                                     content={'支付密码'}
                                     showBottomLine={false}
                                     clickAction={() => {

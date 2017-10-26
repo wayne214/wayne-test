@@ -285,7 +285,6 @@ class entryToBeSignin extends Component {
         const navigator = this.props.navigation;
         const subOrderPage = this.state.datas.map((item, index) => {
             if (item.transOrderStatsu === '5') { // 已回单5
-                // isShowRightButton = true;
                 return (
                     <EntryToBeSure
                         key={index}
@@ -295,7 +294,8 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
-                        transOrderStatsu={item.transOrderStatsu}
+                        transOrderStatus={item.transOrderStatsu}
+                        transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         signer={item.signer}
@@ -308,7 +308,6 @@ class entryToBeSignin extends Component {
             }
 
             if (item.transOrderStatsu === '4') { // 待回单4
-                // isShowRightButton = false;
                 return (
                     <EntryToBeWaitSure
                         {...this.props}
@@ -319,7 +318,8 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
-                        transOrderStatsu={item.transOrderStatsu}
+                        transOrderStatus={item.transOrderStatsu}
+                        transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         signer={item.signer}
@@ -335,7 +335,6 @@ class entryToBeSignin extends Component {
             }
 
             if (item.transOrderStatsu === '3' || !item.transOrderStatsu) { // 待签收3
-                // isShowRightButton = false;
                 return (
                     <EntryToBeSignIn
                         key={index}
@@ -345,7 +344,8 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
-                        transOrderStatsu={item.transOrderStatsu}
+                        transOrderStatus={item.transOrderStatsu}
+                        transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         index={index}
@@ -379,7 +379,7 @@ class entryToBeSignin extends Component {
                     } : {}}
                 />
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color:'#666'}}>
-                    {this.state.datas.length}-{this.state.current}
+                    {this.state.current}/{this.state.datas.length}
                 </Text>
                 <ScrollView
                     showsHorizontalScrollIndicator={false}

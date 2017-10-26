@@ -4,10 +4,11 @@ import {
 	StyleSheet,
     Text
 } from 'react-native';
+import * as StaticColor from '../constants/staticColor';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFEDDD',
+        backgroundColor: StaticColor.ORANGE_TYPE_COLOR,
         borderRadius: 3,
         paddingTop: 2,
         paddingBottom: 2,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     },
     contentStyle: {
         fontSize: 12,
-        color: '#FF8E56'
+        color: StaticColor.ORANGE_TYPE_TEXT_COLOR,
     }
 });
 

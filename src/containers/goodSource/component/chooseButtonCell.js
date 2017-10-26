@@ -7,10 +7,24 @@ import {
     Text,
     Dimensions,
     TouchableOpacity,
+    ImageBackground,
+    StyleSheet
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
+import StaticImage from '../../../constants/staticImage';
 
 const {width} = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: width / 2,
+        height: 45,
+        backgroundColor: 'transparent',
+        alignSelf: 'center'
+    },
+});
 
 class ChooseButtonCell extends Component {
     static propTypes = {
@@ -53,21 +67,17 @@ class ChooseButtonCell extends Component {
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={{
-                            width: width / 2,
-                            backgroundColor: '#008BCA',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
                         onPress={() => {
                             getorders();
                         }}
                     >
+                        <ImageBackground source={StaticImage.BlueButtonSmall} style={styles.button} resizeMode='stretch'>
                         <Text
                             style={{fontSize: 16, color: StaticColor.WHITE_COLOR}}
                         >
                             接单
                         </Text>
+                        </ImageBackground>
                     </TouchableOpacity>
                 </View>
             </View>

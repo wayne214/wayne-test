@@ -51,7 +51,12 @@ const styles = StyleSheet.create({
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
         marginLeft: 10,
         marginRight: 10
-    }
+    },
+    divideLine: {
+        height: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+    },
+
 });
 
 export default class OrderDetails extends Component {
@@ -146,8 +151,17 @@ export default class OrderDetails extends Component {
     }
     render() {
         const {
-            deliveryInfo, goodsInfoList, taskInfo, time,
-            transCode, transOrderStatsu, vol, weight, index, chooseResult,
+            deliveryInfo,
+            goodsInfoList,
+            taskInfo,
+            time,
+            transCode,
+            transOrderStatus,
+            transOrderType,
+            vol,
+            weight,
+            index,
+            chooseResult,
         } = this.props;
 
         return (
@@ -165,7 +179,6 @@ export default class OrderDetails extends Component {
                     }),
                 }}
             >
-
                 <ScrollView
                     ref={component => this.scrollView = component}
                     showsVerticalScrollIndicator={false}
@@ -206,8 +219,6 @@ export default class OrderDetails extends Component {
                         }}
                         isShowContactAndPhone={true}
                     />
-
-
                     <DetailsRedUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -216,7 +227,6 @@ export default class OrderDetails extends Component {
                         isShowContactAndPhone={true}
                     />
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}/>
-
                     <TitlesCell title="货品信息" showArrowIcon={true} onPress={(value) => { this.showGoodInfoList(value); }}/>
                     {
                         this.state.showGoodList ? goodsInfoList.map((item, indexRow) => {
@@ -241,20 +251,25 @@ export default class OrderDetails extends Component {
                             );
                         }) : null
                     }
-                    <View style={{height: 1, backgroundColor: '#f5f5f5'}}/>
-
+                    <View style={styles.divideLine}/>
                     <TotalsItemCell totalTons={weight} totalSquare={vol}/>
-                    <View style={{height: 1, backgroundColor: '#f5f5f5'}}/>
-
-                    <DetailsCell transportNO_={transCode} transportTime={time}/>
-
+                    <View style={styles.divideLine}/>
+                    <DetailsCell
+                        transportNO_={transCode}
+                        transportTime={time}
+                        customerCode={'SO171025000012'}
+                        transOrderType={transOrderType}
+                        transOrderStatus={transOrderStatus}
+                        dispatchTime={'2017-10-25 18:37'}
+                        dispatchTimeAgain={'2017-10-25 18:37:20'}
+                    />
                 </ScrollView>
-
             </View>
 
         );
     }
 }
+
 OrderDetails.propTypes = {
     index: React.PropTypes.number,
     deliveryInfo: React.PropTypes.object,
@@ -264,9 +279,8 @@ OrderDetails.propTypes = {
     weight: React.PropTypes.number,
     taskInfo: React.PropTypes.object,
     time: React.PropTypes.string,
-    transOrderStatsu: React.PropTypes.string,
-    router: React.PropTypes.object,
-    navigator: React.PropTypes.object,
+    transOrderType: React.PropTypes.string,
+    transOrderStatus: React.PropTypes.string,
     goodsInfoList: React.PropTypes.array,
     addressMapSelect: React.PropTypes.func,
 };

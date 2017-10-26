@@ -456,7 +456,8 @@ class entryToBeShipped extends Component {
                     taskInfo={item.taskInfo}
                     time={item.time}
                     transCode={item.transCode}
-                    transOrderStatsu={item.transOrderStatsu}
+                    transOrderStatus={item.transOrderStatsu}
+                    transOrderType={item.transOrderType}
                     vol={item.vol}
                     weight={item.weight}
                     index={index}
@@ -470,9 +471,7 @@ class entryToBeShipped extends Component {
                 />
             );
         });
-
         return (
-
             <View style={styles.container}>
                 <NavigatorBar
                     title={'订单详情'}
@@ -485,9 +484,8 @@ class entryToBeShipped extends Component {
                     }}
                 />
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color:'#666'}}>
-                    {this.state.datas.length}-{this.state.current}
+                    {this.state.current}/{this.state.datas.length}
                 </Text>
-
                 <ScrollView
                     showsHorizontalScrollIndicator={false}
                     style={styles.container}
@@ -496,9 +494,7 @@ class entryToBeShipped extends Component {
                     onMomentumScrollEnd={this.onScrollEnd}
                     onScrollEndDrag={this.onScrollEnd}
                 >
-
                     {aa}
-
                 </ScrollView>
                 {this.subBottomComponent()}
                 {this.state.loading ? <Loading /> : null }
