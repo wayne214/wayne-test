@@ -15,6 +15,7 @@ import {
     Alert,
     DeviceEventEmitter,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
@@ -61,19 +62,25 @@ import Storage from '../../utils/storage';
 import StorageKey from '../../constants/storageKeys';
 import NUmberLength from '../../utils/validator';
 import HTTPRequest from '../../utils/httpRequest'
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import TimeToDoSomething from '../../utils/uploadLoggerRequest';
+import NavigatorBar from "../../common/navigationBar/navigationBar";
 
 const {width, height} = Dimensions.get('window');
+function wp (percentage) {
+    const value = (percentage * width) / 100;
+    return Math.round(value);
+}
+const slideWidth = wp(75);
+const itemHorizontalMargin = 28;
+const itemWidth = slideWidth + itemHorizontalMargin * 2;
+const itemHeight = 125 * itemWidth / 335;
+
 const JpushAliasNumber = global.userId;
-
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-
-import TimeToDoSomething from '../../utils/uploadLoggerRequest';
 
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
-
-let imageHeight = 189 * width / 375;
 
 const images = [
     StaticImage.bannerImage1,
@@ -1019,7 +1026,14 @@ class Home extends Component {
     renderImg(item, index) {
         console.log('------item-----',item);
         return (
-            <Image source={item.item}/>
+            <Image
+                style={{
+                    width: itemWidth,
+                    height:itemHeight,
+                }}
+                resizeMode='contain'
+                source={item.item}
+            />
         );
     }
 
@@ -1027,33 +1041,6 @@ class Home extends Component {
         const {homePageState,routes} = this.props;
         console.log('routes=',routes);
         const {weather, temperatureLow, temperatureHigh} = this.state;
-        const TitleView =
-            <View style={styles.container}>
-                <View style={styles.titleContainer}>
-                    <View style={styles.leftContainer}>
-                    </View>
-                    <View style={styles.centerContainer}>
-                        <Text style={styles.title}>首页</Text>
-                    </View>
-                    <View style={styles.rightContainer}>
-                        <TouchableOpacity
-                            style={{paddingRight: 15}}
-                            activeOpacity={1}
-                            onPress={() => {
-                                this.props.setMessageListIcon(false);
-                                Storage.save(StorageKey.newMessageFlag, '0');
-                                this.pushToMsgList();
-                            }}
-                        >
-                            <Image
-                                source={this.props.jpushIcon === true ? StaticImage.MessageNew : StaticImage.Message}
-                                style={{alignSelf:'center'}}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.divideLine}/>
-            </View>;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
                 <Text style={{fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{this.state.limitNumber}</Text>
@@ -1061,155 +1048,174 @@ class Home extends Component {
         let date = new Date();
         return (
             <View style={styles.containerView}>
-                {TitleView}
-                <View style={styles.locationStyle}>
-                    <Image source={StaticImage.locationIcon}/>
-                    <Text style={styles.locationText}>{this.props.location ? '您所在的位置：' + this.props.location : '定位失败'}</Text>
-                    <TouchableOpacity
-                        style={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 0,
-                        }}
-                        onPress={() => {
-                            {/*this.locate();*/}
-                        }}
-                    >
-                        <Text style={styles.icon}>&#xe66b;</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <Carousel
-                        data={images}
-                        renderItem={this.renderImg}
-                        sliderWidth={width}
-                        itemWidth={width - 40}
-                        hasParallaxImages={true}
-                        firstItem={1}
-                        inactiveSlideScale={0.94}
-                        inactiveSlideOpacity={0.8}
-                        enableMomentum={true}
-                        loop={true}
-                        loopClonesPerSide={2}
-                        autoplay={true}
-                        autoplayDelay={500}
-                        autoplayInterval={3000}
-                        removeClippedSubviews={false}
-                    />
-                </View>
-                <View style={styles.weather}>
-                    <View style={styles.date}>
-                        <Text style={styles.day}>
-                            {date.getUTCDate()}
-                        </Text>
-                        <Text style={styles.week}>
-                            {this.getCurrentWeekday(date.getDay())}
-                        </Text>
+                <NavigatorBar
+                    title={'首页'}
+                    navigator={navigator}
+                    leftButtonHidden={true}
+                    rightButtonConfig={{
+                        type: 'image',
+                        image: this.props.jpushIcon === true ? StaticImage.MessageNew : StaticImage.Message,
+                        imageStyle:{
+                            width: 17,
+                            height: 17,
+                        },
+                        onClick: () => {
+                            this.props.setMessageListIcon(false);
+                            Storage.save(StorageKey.newMessageFlag, '0');
+                            this.pushToMsgList();
+                        },
+                    }}
+                />
+                <ScrollView>
+                    <View style={styles.locationStyle}>
+                        <Image source={StaticImage.locationIcon}/>
+                        <Text style={styles.locationText}>{this.props.location ? '您所在的位置：' + this.props.location : '定位失败'}</Text>
+                        <TouchableOpacity
+                            style={{
+                                position: 'absolute',
+                                top: 10,
+                                right: 0,
+                            }}
+                            onPress={() => {
+                                this.getCurrentPosition(0);
+                            }}
+                        >
+                            <Text style={styles.icon}>&#xe66b;</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{flexDirection:'row', marginLeft: 20}}>
-                        <View style={{
-                            marginRight: 15,
-                            justifyContent: 'center',
-                        }}>
-                            <WeatherCell weatherIcon={this.state.weatherNum}/>
+                    <View>
+                        <Carousel
+                            data={images}
+                            renderItem={this.renderImg}
+                            sliderWidth={width}
+                            itemWidth={itemWidth}
+                            hasParallaxImages={true}
+                            firstItem={1}
+                            inactiveSlideScale={0.94}
+                            inactiveSlideOpacity={0.8}
+                            enableMomentum={true}
+                            loop={true}
+                            loopClonesPerSide={2}
+                            autoplay={true}
+                            autoplayDelay={500}
+                            autoplayInterval={3000}
+                            removeClippedSubviews={false}
+                        />
+                    </View>
+                    <View style={styles.weather}>
+                        <View style={styles.date}>
+                            <Text style={styles.day}>
+                                {date.getUTCDate()}
+                            </Text>
+                            <Text style={styles.week}>
+                                {this.getCurrentWeekday(date.getDay())}
+                            </Text>
                         </View>
-                        <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}> {weather}</Text>
-                        <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{temperatureHigh}℃/{temperatureLow}℃</Text>
+                        <View style={{flexDirection:'row', marginLeft: 20}}>
+                            <View style={{
+                                marginRight: 15,
+                                justifyContent: 'center',
+                            }}>
+                                <WeatherCell weatherIcon={this.state.weatherNum}/>
+                            </View>
+                            <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}> {weather}</Text>
+                            <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{temperatureHigh}℃/{temperatureLow}℃</Text>
+                        </View>
+                        {limitView}
                     </View>
-                    {limitView}
-                </View>
-                <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
-                    <HomeCell
-                        title="接单"// 文字
-                        describe="方便接单，快速查看"
-                        padding={10}// 文字与文字间距
-                        imageStyle={styles.imageView}
-                        backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                        badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
-                        renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
-                        clickAction={() => { // 点击事件
-                            if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                    DeviceEventEmitter.emit('resetGood');
-                                    this.props.navigation.navigate('GoodsSource');
+                    <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
+                        <HomeCell
+                            title="接单"// 文字
+                            describe="方便接单，快速查看"
+                            padding={10}// 文字与文字间距
+                            imageStyle={styles.imageView}
+                            backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
+                            badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                            renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
+                            clickAction={() => { // 点击事件
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        DeviceEventEmitter.emit('resetGood');
+                                        this.props.navigation.navigate('GoodsSource');
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
                                 } else {
-                                    this.notifyCarStatus();
+                                    this.getUserCar();
                                 }
-                            } else {
-                                this.getUserCar();
-                            }
-                        }}
-                    />
-                    <View style={styles.line}/>
-                    <HomeCell
-                        title="发运"
-                        describe="一键发运，安全无忧"
-                        padding={10}
-                        imageStyle={styles.imageView}
-                        backgroundColor={{backgroundColor: WHITE_COLOR}}
-                        badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
-                        renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
-                        clickAction={() => {
-                            if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                    this.props.navigation.navigate('Order');
-                                    this.changeOrderTab(1);
-                                    DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                            }}
+                        />
+                        <View style={styles.line}/>
+                        <HomeCell
+                            title="发运"
+                            describe="一键发运，安全无忧"
+                            padding={10}
+                            imageStyle={styles.imageView}
+                            backgroundColor={{backgroundColor: WHITE_COLOR}}
+                            badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                            renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
+                            clickAction={() => {
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('Order');
+                                        this.changeOrderTab(1);
+                                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
                                 } else {
-                                    this.notifyCarStatus();
+                                    this.getUserCar();
                                 }
-                            } else {
-                                this.getUserCar();
-                            }
-                        }}
-                    />
-                    <View style={styles.line}/>
-                    <HomeCell
-                        title="签收"
-                        describe="签收快捷，免去后顾之忧"
-                        padding={10}
-                        imageStyle={styles.imageView}
-                        backgroundColor={{backgroundColor: WHITE_COLOR}}
-                        badgeText={0}
-                        renderImage={() => <Image source={StaticImage.signIcon}/>}
-                        clickAction={() => {
-                            if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                    this.props.navigation.navigate('Order');
-                                    this.changeOrderTab(2);
-                                    DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                            }}
+                        />
+                        <View style={styles.line}/>
+                        <HomeCell
+                            title="签收"
+                            describe="签收快捷，免去后顾之忧"
+                            padding={10}
+                            imageStyle={styles.imageView}
+                            backgroundColor={{backgroundColor: WHITE_COLOR}}
+                            badgeText={0}
+                            renderImage={() => <Image source={StaticImage.signIcon}/>}
+                            clickAction={() => {
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('Order');
+                                        this.changeOrderTab(2);
+                                        DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
                                 } else {
-                                    this.notifyCarStatus();
+                                    this.getUserCar();
                                 }
-                            } else {
-                                this.getUserCar();
-                            }
-                        }}
-                    />
-                    <View style={styles.line}/>
-                    <HomeCell
-                        title="回单"
-                        describe="接收回单，方便快捷"
-                        padding={8}
-                        imageStyle={styles.imageView}
-                        backgroundColor={{backgroundColor: WHITE_COLOR}}
-                        badgeText={0}
-                        renderImage={() => <Image source={StaticImage.receiveIcon}/>}
-                        clickAction={() => {
-                            if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                    this.props.navigation.navigate('Order');
-                                    this.changeOrderTab(3);
-                                    DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                            }}
+                        />
+                        <View style={styles.line}/>
+                        <HomeCell
+                            title="回单"
+                            describe="接收回单，方便快捷"
+                            padding={8}
+                            imageStyle={styles.imageView}
+                            backgroundColor={{backgroundColor: WHITE_COLOR}}
+                            badgeText={0}
+                            renderImage={() => <Image source={StaticImage.receiveIcon}/>}
+                            clickAction={() => {
+                                if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                        this.props.navigation.navigate('Order');
+                                        this.changeOrderTab(3);
+                                        DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                                    } else {
+                                        this.notifyCarStatus();
+                                    }
                                 } else {
-                                    this.notifyCarStatus();
+                                    this.getUserCar();
                                 }
-                            } else {
-                                this.getUserCar();
-                            }
-                        }}
-                    />
-                </View>
+                            }}
+                        />
+                    </View>
+                </ScrollView>
             </View>
         );
     }

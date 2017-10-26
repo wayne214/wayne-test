@@ -22,7 +22,7 @@ const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
 
 
-export default class ChooseBankName extends Component {
+export default class ChooseBranch extends Component {
 
 
     constructor(props) {
