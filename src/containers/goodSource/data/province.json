@@ -6,76 +6,76 @@
       "citys": [
         {
           "departureCityArrayCode": "410100" ,
-          "departureCityArrayName": "郑州市",
+          "departureCityArrayName": "郑州市"
         },
         {
           "departureCityArrayCode": "410200" ,
-          "departureCityArrayName": "开封市",
+          "departureCityArrayName": "开封市"
         },
         {
           "departureCityArrayCode": "410300" ,
-          "departureCityArrayName": "洛阳市",
+          "departureCityArrayName": "洛阳市"
         },
         {
           "departureCityArrayCode": "410400" ,
-          "departureCityArrayName": "平顶山市",
+          "departureCityArrayName": "平顶山市"
         },
         {
           "departureCityArrayCode": "410500" ,
-          "departureCityArrayName": "安阳市",
+          "departureCityArrayName": "安阳市"
         },
         {
           "departureCityArrayCode": "410600" ,
-          "departureCityArrayName": "鹤壁市",
+          "departureCityArrayName": "鹤壁市"
         },
         {
           "departureCityArrayCode": "410700" ,
-          "departureCityArrayName": "新乡市",
+          "departureCityArrayName": "新乡市"
         },
         {
           "departureCityArrayCode": "410800" ,
-          "departureCityArrayName": "焦作市",
+          "departureCityArrayName": "焦作市"
         },
         {
           "departureCityArrayCode": "410881" ,
-          "departureCityArrayName": "济源市",
+          "departureCityArrayName": "济源市"
         },
         {
           "departureCityArrayCode": "410900" ,
-          "departureCityArrayName": "濮阳市",
+          "departureCityArrayName": "濮阳市"
         },
         {
           "departureCityArrayCode": "411000" ,
-          "departureCityArrayName": "许昌市",
+          "departureCityArrayName": "许昌市"
         },
         {
           "departureCityArrayCode": "411100" ,
-          "departureCityArrayName": "漯河市",
+          "departureCityArrayName": "漯河市"
         },
         {
           "departureCityArrayCode": "411200" ,
-          "departureCityArrayName": "三门峡市",
+          "departureCityArrayName": "三门峡市"
         },
         {
           "departureCityArrayCode": "411300" ,
-          "departureCityArrayName": "南阳市",
+          "departureCityArrayName": "南阳市"
         },
         {
           "departureCityArrayCode": "411400" ,
-          "departureCityArrayName": "商丘市",
+          "departureCityArrayName": "商丘市"
         },
         {
           "departureCityArrayCode": "411500" ,
-          "departureCityArrayName": "信阳市",
+          "departureCityArrayName": "信阳市"
         },
         {
           "departureCityArrayCode": "411600" ,
-          "departureCityArrayName": "周口市",
+          "departureCityArrayName": "周口市"
         },
         {
           "departureCityArrayCode": "411700" ,
-          "departureCityArrayName": "驻马店市",
-        },
+          "departureCityArrayName": "驻马店市"
+        }
       ]
     },
     {
@@ -149,7 +149,7 @@
         {
           "departureCityArrayCode": "429021" ,
           "departureCityArrayName": "神农架林区"
-        },
+        }
       ]
     },
     {
@@ -211,7 +211,7 @@
         {
           "departureCityArrayCode": "433100" ,
           "departureCityArrayName": "湘西土家族苗族自治州"
-        },
+        }
       ]
     },
     {
@@ -305,7 +305,7 @@
         {
           "departureCityArrayCode": "445300" ,
           "departureCityArrayName": "云浮市"
-        },
+        }
       ]
     },
     {
@@ -367,7 +367,7 @@
         {
           "departureCityArrayCode": "451400" ,
           "departureCityArrayName": "崇左市"
-        },
+        }
       ]
     },
     {
@@ -449,7 +449,7 @@
         {
           "departureCityArrayCode": "469036" ,
           "departureCityArrayName": "琼中黎族苗族自治县"
-        },
+        }
       ]
     },
     {
@@ -686,7 +686,7 @@
         {
           "departureCityArrayCode": "211400" ,
           "departureCityArrayName": "葫芦岛市"
-        },
+        }
       ]
     },
     {
@@ -786,7 +786,7 @@
         {
           "departureCityArrayCode": "232700" ,
           "departureCityArrayName": "大兴安岭地区"
-        },
+        }
       ]
     },
     {
@@ -832,7 +832,7 @@
         {
           "departureCityArrayCode": "611000" ,
           "departureCityArrayName": "商洛市"
-        },
+        }
       ]
     },
     {
@@ -894,7 +894,7 @@
         {
           "departureCityArrayCode": "623000" ,
           "departureCityArrayName": "甘南藏族自治州"
-        },
+        }
       ]
     },
     {
@@ -932,7 +932,7 @@
         {
           "departureCityArrayCode": "632800" ,
           "departureCityArrayName": "海西蒙古族藏族自治州"
-        },
+        }
       ]
     },
     {
@@ -958,7 +958,7 @@
         {
           "departureCityArrayCode": "640500" ,
           "departureCityArrayName": "中卫市"
-        },
+        }
       ]
     },
     {
@@ -1168,7 +1168,7 @@
         {
           "departureCityArrayCode": "810300" ,
           "departureCityArrayName": "新界"
-        },
+        }
       ]
     },
     {
@@ -1282,7 +1282,7 @@
         {
           "departureCityArrayCode": "321300" ,
           "departureCityArrayName": "宿迁市"
-        },
+        }
       ]
     },
     {
@@ -1332,7 +1332,7 @@
         {
           "departureCityArrayCode": "331100" ,
           "departureCityArrayName": "丽水市"
-        },
+        }
       ]
     },
     {
@@ -1402,7 +1402,7 @@
         {
           "departureCityArrayCode": "341800" ,
           "departureCityArrayName": "宣城市"
-        },
+        }
       ]
     },
     {
@@ -1494,7 +1494,7 @@
         {
           "departureCityArrayCode": "361100" ,
           "departureCityArrayName": "上饶市"
-        },
+        }
       ]
     },
     {
@@ -1568,7 +1568,7 @@
         {
           "departureCityArrayCode": "371700" ,
           "departureCityArrayName": "菏泽市"
-        },
+        }
       ]
     },
     {
@@ -1582,7 +1582,7 @@
         {
           "departureCityArrayCode": "500200" ,
           "departureCityArrayName": "重庆郊县"
-        },
+        }
       ]
     },
     {
@@ -1672,7 +1672,7 @@
         {
           "departureCityArrayCode": "513400" ,
           "departureCityArrayName": "凉山彝族自治州"
-        },
+        }
       ]
     },
     {
@@ -1714,7 +1714,7 @@
         {
           "departureCityArrayCode": "522700" ,
           "departureCityArrayName": "黔南布依族苗族自治州"
-        },
+        }
       ]
     },
     {
@@ -1784,7 +1784,7 @@
         {
           "departureCityArrayCode": "533400" ,
           "departureCityArrayName": "迪庆藏族自治州"
-        },
+        }
       ]
     },
     {
@@ -1818,7 +1818,7 @@
         {
           "departureCityArrayCode": "542600" ,
           "departureCityArrayName": "林芝市"
-        },
+        }
       ]
     }
   ]

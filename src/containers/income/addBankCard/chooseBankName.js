@@ -27,8 +27,10 @@ export default class ChooseBankName extends Component {
 
     constructor(props) {
         super(props);
+        this.onChanegeTextKeyword.bind(this)
         this.state = {
-            NumberArr: BankCode.searchCode()
+            NumberArr: BankCode.searchCode(),
+            text:''
         }
     }
 
@@ -114,6 +116,7 @@ export default class ChooseBankName extends Component {
     render() {
         const navigator = this.props.navigation;
         const {params} = this.props.navigation.state;
+        const {text} = this.state;
         console.log('params', params)
 
         return (
@@ -148,10 +151,18 @@ export default class ChooseBankName extends Component {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             placeholder={'输入城市名查询'}
-                            onChangeText={this.onChanegeTextKeyword.bind(this)}>
+                            value={text}
+                            onChangeText={(text) => {
+                                this.setState({
+                                    text:text
+                                })
+                                this.onChanegeTextKeyword(text)
+                            }}>
                         </TextInput>
                         <TouchableOpacity onPress={() => {
-
+                            this.setState({
+                                text:'',
+                            })
                         }}>
                             <Text
                                 style={{
