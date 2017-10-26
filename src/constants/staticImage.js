@@ -106,6 +106,11 @@ import IncomeOpen from '../../assets/income/incomeOpen.png';
 import IncomeClose from '../../assets/income/incomeClose.png';
 import Contact from '../../assets/good/contact.png'; // 任务信息背景图
 
+/*银行卡背景*/
+import Car_red from '../../assets/bank/car_red.png';
+import Car_yellow from '../../assets/bank/car_yellow.png';
+import Car_blue from '../../assets/bank/car_blue.png';
+import Car_green from '../../assets/bank/car_green.png';
 
 export default {
     EmptyImage,
@@ -175,5 +180,9 @@ export default {
     IncomeClose,
     Contact,
     locationRedIcon,
+    Car_blue,
+    Car_green,
+    Car_red,
+    Car_yellow,
 }
 

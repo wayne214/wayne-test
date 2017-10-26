@@ -55,9 +55,8 @@ export default class BankCardCell extends Component {
                         flexDirection: 'row',
                         marginTop: 10,
                         marginHorizontal: 10,
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10
-                    },bgColor]}>
+                    }]}>
+                        <Image style={{position: 'absolute'}} source={StaticImage.Car_yellow}/>
                         <View style={{
                             flex: 1,
                             flexDirection: 'row'
@@ -79,7 +78,8 @@ export default class BankCardCell extends Component {
                                 <Text
                                     style={{
                                         fontSize: 17,
-                                        color:'#fff'
+                                        color:'#fff',
+                                        backgroundColor: 'transparent'
                                     }}>
                                     {accountBank}
                                 </Text>
@@ -88,7 +88,8 @@ export default class BankCardCell extends Component {
                                     style={{
                                         marginTop: 10,
                                         color: '#fff',
-                                        fontSize: 13
+                                        fontSize: 13,
+                                        backgroundColor: 'transparent'
                                     }}>
                                     {bankCarType}
                                 </Text>
@@ -98,7 +99,8 @@ export default class BankCardCell extends Component {
                                         marginTop: 20,
                                         color: '#fff',
                                         fontSize: 13,
-                                        marginBottom: 20
+                                        marginBottom: 20,
+                                        backgroundColor: 'transparent'
                                     }}>
                                     {bankAccount}
                                 </Text>
