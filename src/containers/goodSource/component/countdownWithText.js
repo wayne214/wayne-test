@@ -5,10 +5,13 @@ import {
     TouchableOpacity,
     Text,
     DeviceEventEmitter,
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import CountDownReact from '../../../common/countDownReact';
-
+import StaticImage from '../../../constants/staticImage';
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -43,6 +46,15 @@ const styles = StyleSheet.create({
         marginRight: 5,
         fontWeight: 'bold',
     },
+    imageBackground: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: width,
+        height: 40,
+        backgroundColor: 'transparent',
+        alignSelf: 'center',
+        flexDirection: 'row'
+    }
 });
 
 class countdownWithText extends Component {
@@ -90,23 +102,50 @@ class countdownWithText extends Component {
                         onClick();
                     }}
                 >
-                    <View
-                        style={[{
-                            height: 40,
-                            backgroundColor: this.state.isEnd || this.state.noReach || isDisable ? '#bbbbbb' : '#ff6600',
-                            borderRadius: 5,
-                            marginRight: 20,
-                            marginLeft: 20,
-                            marginTop: 15,
-                            // padding: 12,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        },style]}
-                    >
-                        <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>
-                        {countDown}
-                    </View>
+                    {
+                        this.state.isEnd || this.state.noReach || isDisable ?
+                            <View
+                                style={[{
+                                    height: 40,
+                                    backgroundColor: '#bbbbbb',
+                                    borderRadius: 5,
+                                    marginRight: 20,
+                                    marginLeft: 20,
+                                    marginTop: 15,
+                                    // padding: 12,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                },style]}
+                            >
+                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>
+                                {countDown}
+                            </View> : <ImageBackground source={StaticImage.OrangeButtonArc} style={styles.imageBackground} resizeMode='stretch'>
+                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>
+                                {countDown}
+                            </ImageBackground>
+                    }
+                    {/*<View*/}
+                        {/*style={[{*/}
+                            {/*height: 40,*/}
+                            {/*backgroundColor: this.state.isEnd || this.state.noReach || isDisable ? '#bbbbbb' : '#ff6600',*/}
+                            {/*borderRadius: 5,*/}
+                            {/*marginRight: 20,*/}
+                            {/*marginLeft: 20,*/}
+                            {/*marginTop: 15,*/}
+                            {/*// padding: 12,*/}
+                            {/*flexDirection: 'row',*/}
+                            {/*justifyContent: 'center',*/}
+                            {/*alignItems: 'center',*/}
+                        {/*},style]}*/}
+                    {/*>*/}
+                        {/*<ImageBackground source={StaticImage.OrangeButtonArc} style={styles.imageBackground} resizeMode='stretch'>*/}
+                            {/*<Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>*/}
+                            {/*{countDown}*/}
+                        {/*</ImageBackground>*/}
+                        {/*<Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>*/}
+                        {/*{countDown}*/}
+                    {/*</View>*/}
                 </TouchableOpacity>
             </View>
         );
