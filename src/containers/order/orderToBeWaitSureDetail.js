@@ -119,8 +119,18 @@ class orderToBeWaitSureDetail extends Component {
     }
 
     render() {
-        const {deliveryInfo, goodsInfoList, taskInfo, time, transCode,
-            transOrderStatsu, vol, weight, index} = this.props;
+        const {
+            deliveryInfo,
+            goodsInfoList,
+            taskInfo,
+            time,
+            transCode,
+            transOrderStatus,
+            transOrderType,
+            vol,
+            weight,
+            index,
+        } = this.props;
 
         const bgColor = this.state.buttonBgColor;
         const buttonStyle = {
@@ -134,7 +144,6 @@ class orderToBeWaitSureDetail extends Component {
             marginLeft: 5,
             borderRadius: 5,
         };
-
         return (
             <View
                 style={{
@@ -150,7 +159,6 @@ class orderToBeWaitSureDetail extends Component {
                     })
                 }}
             >
-
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
@@ -210,11 +218,20 @@ class orderToBeWaitSureDetail extends Component {
                         }) : null
                     }
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-
                     <TotalsItemCell totalTons={weight} totalSquare={vol} />
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-
-                    <DetailsCell transportNO_={transCode} transportTime={time} />
+                    <DetailsCell
+                        transportNO_={transCode}
+                        transportTime={time}
+                        customerCode={'SO171025000012'}
+                        transOrderType={transOrderType}
+                        transOrderStatus={transOrderStatus}
+                        dispatchTime={'2017-10-25 18:37'}
+                        dispatchTimeAgain={'2017-10-25 18:37:20'}
+                        shipmentTime={'2017-10-25 18:38'}
+                        shipmentTimeAgain={'2017-10-25 18:39:00'}
+                        signTime={'2017-10-26 10:39:00'}
+                    />
 
                 </ScrollView>
                 {taskInfo.isReceipt === '是' ? this.subBottomComponent(buttonStyle) : null}
@@ -222,21 +239,7 @@ class orderToBeWaitSureDetail extends Component {
             </View>
         );
     }
-
-
 }
-orderToBeWaitSureDetail.propTypes = {
-    index: React.PropTypes.number,
-    deliveryInfo: React.PropTypes.object,
-    transCode: React.PropTypes.string,
-    vol: React.PropTypes.number,
-    weight: React.PropTypes.number,
-    taskInfo: React.PropTypes.object,
-    time: React.PropTypes.string,
-    transOrderStatsu: React.PropTypes.string,
-    goodsInfoList: React.PropTypes.array,
-    addressMapSelect: React.PropTypes.func,
-};
 
 function mapStateToProps(state) {
     return {

@@ -29,7 +29,7 @@ import HTTPRequest from '../../utils/httpRequest';
 import Loading from '../../utils/loading';
 import StorageKey from '../../constants/storageKeys';
 import StaticImage from '../../constants/staticImage';
-
+import * as ConstValue from '../../constants/constValue';
 import AlertSheetItem from '../../common/alertSelected';
 import ImagePicker from 'react-native-image-picker';
 import PermissionsManager from '../../utils/permissionManager';
@@ -56,21 +56,19 @@ const options = {
 };
 const styles = StyleSheet.create({
     headerImage: {
-        width,
         flexDirection: 'row',
-        height: 100,
         alignItems: 'center',
     },
     headerView: {
         width: width - 92,
         flexDirection: 'row',
-        height: 100,
+        height: 70,
         alignItems: 'center',
-        marginBottom: 10,
+        marginTop: 100
     },
     contentPostionView: {
         position: 'absolute',
-        top: 93,
+        top: 180,
     },
     numberView: {
         borderRadius: 10,
@@ -563,14 +561,15 @@ class Mine extends Component {
                     style={{
                         height: 28,
                         width: 85,
+                        right: 10,
                         borderRadius: 18,
                         borderWidth: 1,
-                        marginLeft: 16,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginBottom: 20,
+                        position: 'absolute',
+                        bottom: 20,
                     }}>
                     <Text
                         style={{
@@ -585,22 +584,24 @@ class Mine extends Component {
                 flex: 1,
                 backgroundColor: '#ffffff',
             }}>
-                <NavigationBar
-                    title={'我的'}
-                    navigator={navigator}
-                    leftButtonHidden={true}
-                    rightButtonConfig={{
-                        type: 'image',
-                        image: this.props.jpushIcon == true ? StaticImage.MessageNew : StaticImage.Message,
-                        onClick: () => {
-                            Storage.save('newMessageFlag', '0');
-                            this.pushToMsgList();
-                        },
-                    }}
-                />
+
                 <View style={{flex: 1}}>
                     <View>
-                        <Image style={styles.headerImage} source={StaticImage.CenterHeaderIcon}>
+                        <Image source={StaticImage.CenterHeaderIcon}>
+                            <View style={{
+                                position: 'absolute',
+                                height: ConstValue.NavigationBar_StatusBar_Height, width,
+                                justifyContent: 'center',
+                                flexDirection: 'row',
+                            }}>
+                                <Text style={{backgroundColor: 'transparent' ,textAlign: 'center', fontSize: 20, color: 'white', marginTop: ConstValue.StatusBar_Height}}>我的</Text>
+                                <TouchableOpacity onPress={()=>{
+                                    Storage.save('newMessageFlag', '0');
+                                    this.pushToMsgList();
+                                }} style={{position: 'absolute', right: 10, marginTop: ConstValue.StatusBar_Height}}>
+                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNew : StaticImage.Message}/>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.headerView}>
                                 <TouchableOpacity onPress={() => {
                                     this.setState({

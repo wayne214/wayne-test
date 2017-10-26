@@ -270,24 +270,33 @@ export default class AddBankCard extends Component {
                     }}>
                         <Text style={styles.leftTextStyle}>开户行</Text>
                         <TouchableOpacity onPress={() => {
-                            navigator.navigate('ChooseBankName');
+                            navigator.navigate('ChooseBankName', {
+                                selectedBankNameCallback: (data) => {
+                                    console.log('1111', data)
+                                    this.setState({
+                                        bankName: data
+                                    })
+                                }
+                            });
                         }}>
-                            <Text
-                                style={{
-                                    color: '#CCCCCC', fontSize: 16,
-                                    marginLeft: 10,
-                                }}
-                            >请填写开户行</Text>
-                            {/*<TextInput*/}
-                            {/*placeholder="请填写开户行"*/}
-                            {/*placeholderTextColor="#CCCCCC"*/}
-                            {/*underlineColorAndroid={'transparent'}*/}
-                            {/*style={styles.textInputStyle}*/}
-                            {/*onChangeText={(bankName) => {*/}
-                            {/*this.setState({bankName});*/}
-                            {/*}}*/}
-                            {/*value={bankName}*/}
-                            {/*/>*/}
+                            {
+                                this.state.bankName ?
+                                    <Text
+                                        style={{
+                                            color: '#666666', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >{this.state.bankName}</Text>
+                                    :
+                                    <Text
+                                        style={{
+                                            color: '#CCCCCC', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >请填写开户行</Text>
+
+                            }
+
                         </TouchableOpacity>
                     </View>
                     <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
@@ -345,74 +354,82 @@ export default class AddBankCard extends Component {
 
                         <Text style={styles.leftTextStyle}>开户支行</Text>
                         <TouchableOpacity onPress={() => {
-                            console.log('123');
+                            if(!this.state.bankName) return Toast.show('请选择开户行')
+                            if(!this.state.bankCity) return Toast.show('请选择开户省市')
+                            navigator.navigate('ChooseBranch');
                         }}>
-                            <TextInput
-                                placeholder="请选择开户支行"
-                                placeholderTextColor="#CCCCCC"
-                                underlineColorAndroid={'transparent'}
-                                style={styles.textInputStyle}
-                                value={bankSubName}
-                                editable={false}
-                            />
-                        </TouchableOpacity>
-                    </View>
-
-                    <Button
-                        style={styles.loginButton}
-                        textStyle={styles.loginButtonText}
-                        onPress={() => {
-                            navigator.navigate('AddBankCardSuccess');
-
-                            {/*if (bankCardNum == '') {*/
-                            }
-                            {/*Toast.showShortCenter('银行卡号不能为空');*/
-                            }
-                            {/*}else if (bankName == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户行不能为空');*/
-                            }
-                            {/*}else if (bankCity == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户省市不能为空');*/
-                            }
-                            {/*}else if (bankSubName == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户支行不能为空');*/
-                            }
-                            {/*}else {*/
-                            }
-                            {/*this.getBankCardInfo();*/
-                            }
-                            {/*}*/
-                            }
-
+                            <Text
+                            style={{
+                            color: '#CCCCCC', fontSize: 16,
+                            marginLeft: 10,
                         }}
-                    >
-                        保存
-                    </Button>
+                            >请选择开户支行</Text>
+                        {/*<TextInput*/}
+                        {/*placeholder="请选择开户支行"*/}
+                        {/*placeholderTextColor="#CCCCCC"*/}
+                        {/*underlineColorAndroid={'transparent'}*/}
+                        {/*style={styles.textInputStyle}*/}
+                        {/*value={bankSubName}*/}
+                        {/*editable={false}*/}
+                        {/*/>*/}
+                            </TouchableOpacity>
+                            </View>
 
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 42,
-                        width,
-                    }}>
-                        <Text
+                            <Button
+                            style={styles.loginButton}
+                            textStyle={styles.loginButtonText}
+                            onPress={() => {
+                                navigator.navigate('AddBankCardSuccess');
+
+                                {/*if (bankCardNum == '') {*/
+                                }
+                                {/*Toast.showShortCenter('银行卡号不能为空');*/
+                                }
+                                {/*}else if (bankName == '') {*/
+                                }
+                                {/*Toast.showShortCenter('开户行不能为空');*/
+                                }
+                                {/*}else if (bankCity == '') {*/
+                                }
+                                {/*Toast.showShortCenter('开户省市不能为空');*/
+                                }
+                                {/*}else if (bankSubName == '') {*/
+                                }
+                                {/*Toast.showShortCenter('开户支行不能为空');*/
+                                }
+                                {/*}else {*/
+                                }
+                                {/*this.getBankCardInfo();*/
+                                }
+                                {/*}*/
+                                }
+
+                            }}
+                            >
+                            保存
+                            </Button>
+
+                            <View style={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 42,
+                                width,
+                            }}>
+                            <Text
                             style={{
                                 color: '#999999',
                                 fontSize: 13
                             }}>
                             目前只支持储蓄卡绑定
-                        </Text>
-                    </View>
-                    {
-                        this.state.loading ? <Loading/> : null
-                    }
-                </KeyboardAwareScrollView>
+                            </Text>
+                            </View>
+                            {
+                                this.state.loading ? <Loading/> : null
+                            }
+                            </KeyboardAwareScrollView>
 
-            </View>
+                            </View>
 
-        );
-    }
-}
+                            );
+                            }
+                        }

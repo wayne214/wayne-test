@@ -212,7 +212,7 @@ export default class BillWaterPage extends Component {
         if (this.state.loadMore){
             this.setState({
                 page:this.state.page + 1,
-            })
+            });
             this.acAccountFlow(this.acAccountFlowSuccessCallBack);
         }
     }

@@ -155,7 +155,7 @@ class commonListItem extends Component {
                                     {
                                         goodKindsNames.map((item, index) => {
                                             return (
-                                                <CommonLabelCell content={item}/>
+                                                <CommonLabelCell key={index} content={item}/>
                                             )
                                         })
                                     }

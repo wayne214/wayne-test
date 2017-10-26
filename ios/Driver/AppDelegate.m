@@ -54,7 +54,7 @@
                                           categories:nil];
   }
   
-  [JPUSHService setupWithOption:launchOptions appKeyw:appKey
+  [JPUSHService setupWithOption:launchOptions appKey:appKey
                         channel:nil apsForProduction:isProduction];
   
   [RCTBaiduMapViewManager initSDK:@"YQTDK3RGAXnoGrLfFqyYLyPxcMft4LHn"];
@@ -64,7 +64,7 @@
   
   [[RCTBundleURLProvider sharedSettings] setDefaults];
 #if DEBUG
-  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.120"];
+  //[[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.24.120"];
 #endif
   
   //模拟器测试
