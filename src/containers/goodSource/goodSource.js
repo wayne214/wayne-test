@@ -241,8 +241,8 @@ class GoodSource extends BaseContainer{
         );
     }
     renderRow(dataRow) {
-        const pushTime = dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3);
-        const arrivalTime = dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3)
+        const pushTime = dataRow.pushTime ? dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3) : '';
+        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
         return (
             <CommonListItem
                 time={pushTime}

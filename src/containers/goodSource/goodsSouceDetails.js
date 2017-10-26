@@ -161,7 +161,7 @@ export default class GoodsSourceDetails extends Component {
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
                     <TotalsItemCell totalTons={weight} totalSquare={vol}/>
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
-                    <DetailsCell transportNO_={transCode} transportTime={time}/>
+                    <DetailsCell transportNO_={transCode} transportTime={time} dispatchTime={time}/>
 
                 </ScrollView>
 

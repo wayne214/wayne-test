@@ -31,6 +31,9 @@ import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
 import Registered from '../containers/register/registered';
+import RegisterStepOne from '../containers/register/registerStepOne';
+import RegisterStepTwo from '../containers/register/registerStepTwo';
+
 import RegisterSuccess from '../containers/register/registerSuccess';
 
 import ChooseCar from '../containers/home/chooseCar';
@@ -38,6 +41,8 @@ import Location from '../containers/home/location';
 
 import ForgetPwd from '../containers/login/forgetPwd';
 import LoginSms from '../containers/login/loginSms';
+import CheckPhone from '../containers/login/checkPhone';
+import CheckPhoneStepTwo from '../containers/login/checkPhoneStepTwo';
 import ChangePwd from '../containers/login/changePassword';
 import ChangeCodePwd from '../containers/login/changeCodePwd';
 import MyBankCard from '../containers/income/myBankCard';
@@ -123,6 +128,18 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    RegisterStepOne: {
+        screen: RegisterStepOne,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RegisterStepTwo: {
+        screen: RegisterStepTwo,
+        navigationOptions: {
+            header: null
+        }
+    },
     RegisterSuccess: {
         screen: RegisterSuccess,
         navigationOptions: {
@@ -152,6 +169,18 @@ const StackRouteConfigs = {
         navigationOptions: {
             header: null
         }
+    },
+    CheckPhone: {
+        screen: CheckPhone,
+        navigationOptions:{
+            header: null
+        }
+    },
+    CheckPhoneStepTwo: {
+       screen: CheckPhoneStepTwo,
+        navigationOptions:{
+            header: null
+        } 
     },
     ChangePwd: {
         screen: ChangePwd,
