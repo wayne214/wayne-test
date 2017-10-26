@@ -10,6 +10,8 @@ import Img02 from '../../assets/guide/guide_02.png';
 import LoginBackground from '../../assets/login/loginbg.png';
 /*鲜易通图片图标*/
 import LoginIcon from '../../assets/login/luckybear.png';
+/*登录头部图片*/
+import LoginTopBg from '../../assets/login/loginTop.png';
 /*鲜易通字体图标*/
 import LoginFont from '../../assets/login/xytfront.png';
 /*输入框清除按钮图标*/
@@ -91,6 +93,7 @@ export default {
     Img01,
     Img02,
     LoginBackground,
+    LoginTopBg,
     LoginFont,
     LoginIcon,
     clearIcon,

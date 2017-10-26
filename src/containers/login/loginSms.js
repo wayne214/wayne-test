@@ -19,6 +19,8 @@ import Toast from '@remobile/react-native-toast';
 import JPushModule from 'jpush-react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import { NavigationActions } from 'react-navigation';
+import BaseContainer from '../base/baseContainer';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
@@ -43,34 +45,52 @@ let locationData = '';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND
+        backgroundColor: 'white'
     },
     contentView: {
+        justifyContent: 'space-between',
         width,
-        height: 44 + 0.5 + 44,
-        backgroundColor: StaticColor.WHITE_COLOR,
-        marginTop: 10,
+        marginTop: 20,
     },
     leftText: {
-        height: 44,
-        width: 50,
+        width: 80,
+        paddingLeft: 15,
         justifyContent: 'center',
     },
     leftTextString: {
-        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         fontSize: 16,
+        alignItems: 'center',
+    },
+    cellContainer: {
+        flex: 1,
+        height: 48,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomColor: '#e8e8e8',
+        borderBottomWidth: 1,
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    textInput: {
+        flex: 1,
+        fontSize: 16,
+        color: '#333333',
+        alignItems: 'center',
+        paddingRight: 15,
     },
     phoneNumView: {
         marginLeft: 10,
-        height: 44,
+        height: 48,
         flexDirection: 'row',
         alignItems: 'center',
     },
     textInputStyle: {
         flex: 1,
-        height: 44,
         fontSize: 16,
-        marginLeft:10,
+        color: '#333333',
+        alignItems: 'center',
+        paddingRight: 15,
     },
     separateLine: {
         height: 0.5,
@@ -79,7 +99,7 @@ const styles = StyleSheet.create({
     },
     smsCodeView: {
         marginLeft: 10,
-        height: 44,
+        height: 48,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -101,10 +121,25 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 10,
     },
+    bottomView: {
+        // flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 30,
+        width: width - 20,
+        marginTop: 20,
+    },
+    bottomViewText: {
+        fontSize: 14,
+        color: '#666666',
+        alignItems: 'center',
+
+    },
 });
 
 
-class LoginSms extends Component {
+class LoginSms extends BaseContainer {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
@@ -234,13 +269,21 @@ class LoginSms extends Component {
         const {phoneNumber, smsCode} = this.state;
         return (
             <View style={styles.container}>
-                <NavigationBar
-                    title={'登录'}
-                    navigator={navigator}
-                    leftButtonHidden={false}
-                />
+               { false &&
+                    <NavigationBar
+                        title={'登录'}
+                        navigator={navigator}
+                        leftButtonHidden={false}/>
+                }
+                
+                <KeyboardAwareScrollView style={{width: width, height: height}}>
+                    <View style={{alignItems: 'center'}}>
+                    <Image
+                        source={StaticImage.LoginTopBg}/>
+                        
+                </View>
                 <View style={styles.contentView}>
-                    <View style={styles.phoneNumView}>
+                    <View style={styles.cellContainer}>
                         <View style={styles.leftText}>
                             <Text style={styles.leftTextString}>
                                 手机号
@@ -253,8 +296,10 @@ class LoginSms extends Component {
                             onChangeText={(phoneNumber) => {
                                 this.setState({phoneNumber});
                             }}
-                            placeholder="手机号"
-                        />
+                            keyboardType="numeric"
+                            placeholder="请输入手机号"
+                            placeholderTextColor="#cccccc"
+                            textAlign="left"/>
                         {
                             (() => {
                                 if (phoneNumber.length > 0) {
@@ -275,18 +320,9 @@ class LoginSms extends Component {
                             })()
                         }
                     </View>
-                    <View
-                        style={styles.separateLine}
-                    />
-                    <View
-                        style={styles.smsCodeView}
-                    >
-                        <View
-                            style={styles.leftText}
-                        >
-                            <Text
-                                style={styles.leftTextString}
-                            >
+                    <View style={styles.cellContainer}>
+                        <View style={styles.leftText}>
+                            <Text style={styles.leftTextString}>
                                 验证码
                             </Text>
                         </View>
@@ -298,8 +334,9 @@ class LoginSms extends Component {
                                 this.setState({smsCode});
                             }}
                             placeholder="请输入验证码"
-                            returnKeyType='done'
-                        />
+                            placeholderTextColor="#cccccc"
+                            textAlign="left"
+                            returnKeyType='done'/>
                         {
                             (() => {
                                 if (smsCode.length > 0) {
@@ -319,15 +356,11 @@ class LoginSms extends Component {
                                 }
                             })()
                         }
-                        <View style={{
-                            height:44,
-                            width:0.5,
-                            backgroundColor: StaticColor.COLOR_SEPARATE_LINE,
-                        }}/>
+
                         <CountDownButton
                             enable={phoneNumber.length}
-                            style={{width: 110, marginRight: 10}}
-                            textStyle={{color: StaticColor.COLOR_MAIN}}
+                            style={{width: 100}}
+                            textStyle={{color: '#0078ff'}}
                             timerCount={60}
                             onClick={(shouldStartCountting) => {
                                 if (Validator.isPhoneNumber(phoneNumber)) {
@@ -356,6 +389,20 @@ class LoginSms extends Component {
                 >
                     登录
                 </Button>
+                <View style={styles.bottomView}>
+                    <Text
+                        onPress={() => {
+                            this.props.navigation.navigate('Login', {
+                                loginPhone: this.state.phoneNumber
+                            });
+
+                        }}
+                        style={styles.bottomViewText}
+                    >
+                        账号密码登录
+                    </Text>
+                  </View> 
+                  </KeyboardAwareScrollView>         
                 {
                     this.state.loading ? <Loading /> : null
                 }

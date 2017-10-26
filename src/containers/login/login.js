@@ -47,7 +47,7 @@ const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        backgroundColor: 'white',
     },
     backgroundImageView: {
         position: 'absolute',
@@ -55,23 +55,48 @@ const styles = StyleSheet.create({
     contentView: {
         justifyContent: 'space-between',
         width,
-        height: 185,
-        marginTop: (height - 490) * 0.6,
+        marginTop: 20,
+    },
+    cellContainer: {
+        flex: 1,
+        height: 48,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomColor: '#e8e8e8',
+        borderBottomWidth: 1,
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    textLeft: {
+        width: 80,
+        fontSize: 16,
+        color: '#333333',
+        alignItems: 'center',
+        paddingLeft: 15,
+        
     },
     textInput: {
-        height: 45,
+        flex: 1,
         fontSize: 16,
-        color: 'white',
+        color: '#333333',
         alignItems: 'center',
+        paddingRight: 15,
     },
     lineUnderInput: {
-        height: 1,
-        backgroundColor: 'white',
+        height: 2,
+        backgroundColor: '#e8e8e8',
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    lineUnder: {
+        width: 1,
+        height: 14,
+        backgroundColor: '#666666',
         marginLeft: 10,
         marginRight: 10,
     },
     loginButton: {
-        backgroundColor: 'rgba(255,255,255,0.7)',
+        backgroundColor: '#0083ff',
         marginTop: 15,
         marginLeft: 10,
         marginRight: 10,
@@ -82,37 +107,39 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         fontSize: 18,
-        color: StaticColor.COLOR_MAIN,
+        color: 'white',
     },
     bottomView: {
         // flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: 30,
         width: width - 20,
-        marginLeft: 10,
-        marginTop: 15,
+        marginTop: 20,
     },
     bottomViewText: {
         fontSize: 14,
-        color: 'rgba(255,255,255,0.5)',
-        backgroundColor: 'rgba(255,255,255,0)',
+        color: '#666666',
+        alignItems: 'center',
+
     },
     screenEndView: {
-        position: 'absolute',
+        // position: 'absolute',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        height: 30,
-        width: width - 20,
-        marginLeft: 10,
-        marginTop: height - 100,
+        height: 40,
+        marginBottom: 20
+    },
+    screenEndViewTextLeft: {
+        fontSize: 14,
+        color: '#999999',
     },
     screenEndViewText: {
         fontSize: 14,
-        color: 'rgba(255,255,255,1)',
-        backgroundColor: 'rgba(255,255,255,0)',
+        color: '#002f00',
     },
 });
 
@@ -237,56 +264,55 @@ class Login extends BaseContainer {
         const {phoneNumber, password} = this.state;
         return (
             <View style={styles.container}>
-                <View style={styles.backgroundImageView}>
+                { false && 
+                    <View style={styles.backgroundImageView}>
                     <Image
                         source={StaticImage.LoginBackground}
                         style={{width, height}}
                     />
-                </View>
+                    </View>
+                }
                 <KeyboardAwareScrollView style={{width: width, height: height}}>
-                    <View style={{alignItems: 'center', paddingTop: 122}}>
+                    <View style={{alignItems: 'center'}}>
                         <Image
-                            source={StaticImage.LoginIcon}
+                            source={StaticImage.LoginTopBg}
                         />
-                        <Image
-                            style={{marginTop: 15}}
-                            source={StaticImage.LoginFont}
-                        />
+                        
                     </View>
 
                     <View style={styles.contentView}>
-                        <TextInput
+                        <View style={styles.cellContainer}>
+                            <Text style={styles.textLeft}>账号</Text>
+                            <TextInput
                             underlineColorAndroid={'transparent'}
-                            placeholder="手机号"
-                            placeholderTextColor="white"
-                            textAlign="center"
+                            placeholder="请输入手机号"
+                            placeholderTextColor="#cccccc"
+                            textAlign="left"
                             keyboardType="numeric"
                             style={styles.textInput}
                             onChangeText={(phoneNumber) => {
                                 this.setState({phoneNumber});
                             }}
-                            value={phoneNumber}
-                        />
-                        <View
-                            style={styles.lineUnderInput}
-                        />
-                        <TextInput
+                            value={phoneNumber}/>
+                        </View>
+
+                        <View style={styles.cellContainer}>
+                            <Text style={styles.textLeft}>密码</Text>
+                            <TextInput
                             underlineColorAndroid={'transparent'}
                             secureTextEntry={true}
                             placeholder="密码"
-                            placeholderTextColor="white"
-                            textAlign="center"
+                            placeholderTextColor="#cccccc"
+                            textAlign="left"
                             returnKeyLabel={'done'}
                             returnKeyType={'done'}
                             style={styles.textInput}
                             onChangeText={(password) => {
                                 this.setState({password});
                             }}
-                            value={password}
-                        />
-                        <View
-                            style={styles.lineUnderInput}
-                        />
+                            value={password}/>
+                        </View>
+
                         <Button
                             isDisabled={!(phoneNumber && password)}
                             onPress={() => {
@@ -312,8 +338,9 @@ class Login extends BaseContainer {
                                 }}
                                 style={styles.bottomViewText}
                             >
-                                短信验证登录
+                                手机快捷登录
                             </Text>
+                            <View style={styles.lineUnder}/>
                             <Text
                                 onPress={() => {
                                     this.props.navigation.navigate('ForgetPwd', {
@@ -323,25 +350,25 @@ class Login extends BaseContainer {
                                 }}
                                 style={styles.bottomViewText}
                             >
-                                忘记密码？
+                                忘记密码
                             </Text>
                         </View>
                     </View>
 
+                    
                     <View style={styles.screenEndView}>
-                        <Text style={styles.bottomViewText}>没有账号？</Text>
+                        <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
                         <Text
                             style={styles.screenEndViewText}
                             onPress={() => {
                                 this.props.navigation.navigate('Registered');
                             }}
                         >
-                            立即注册
+                            去注册
                         </Text>
                     </View>
-
                 </KeyboardAwareScrollView>
-
+                
                 {
                     this.state.loading ? <Loading/> : null
                 }
