@@ -354,7 +354,7 @@ class entryToBeSignin extends Component {
                         }}
                         signIn={() => {
                             // 跳转到具体的签收页面
-                            this.props.router.redirect(RouteType.ORDERS_SIGN_IN, {
+                            this.props.navigation.navigate('SignPage', {
                                 transCode: item.transCode,
                                 goodsInfoList: item.goodsInfo,
                                 taskInfo: item.taskInfo
