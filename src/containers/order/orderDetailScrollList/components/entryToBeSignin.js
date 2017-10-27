@@ -348,6 +348,7 @@ class entryToBeSignin extends Component {
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
+                        settlementMode={2}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
