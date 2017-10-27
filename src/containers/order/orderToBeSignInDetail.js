@@ -18,7 +18,6 @@ import {
 import DetailsCell from '../../common/source/detailsCell';
 import DetailsUserCell from '../../common/source/detailsUserCell';
 import DetailsRedUserCell from '../../common/source/detailsRedUserCell';
-// import DetailsOrdersCell from '../../components/source/detailOrderOtherTypeCell';
 import DetailsOrdersCell from '../../common/source/detailsOrdersCell';
 
 import TitlesCell from '../../common/source/titlesCell';
@@ -28,6 +27,7 @@ import * as StaticColor from '../../constants/staticColor';
 import * as ConstValue from '../../constants/constValue';
 import StaticImage from '../../constants/staticImage';
 import BottomButton from './components/bottomButtonComponent';
+import ChooseButton from '../goodSource/component/chooseButtonCell';
 
 const space = 10;
 const topSpace = 10;
@@ -98,6 +98,7 @@ export default class orderToBeSignInDetail extends Component {
             index,
             transOrderType,
             transOrderStatus,
+            settlementMode,
         } = this.props;
 
         return (
@@ -190,13 +191,26 @@ export default class orderToBeSignInDetail extends Component {
                     />
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
-                <BottomButton
-                    text={'签收'}
-                    onClick={() => {
-                        this.props.signIn();
-                    }}
-                    buttonDisabled={this.state.buttonDisabled}
-                />
+                {
+                    settlementMode === 1 ?
+                    <BottomButton
+                        text={'签收'}
+                        onClick={() => {
+                            this.props.signIn();
+                        }}
+                        buttonDisabled={this.state.buttonDisabled}
+                    /> : <ChooseButton
+                        leftContent={'收款'}
+                        rightContent={'签收'}
+                        leftClick={() => {
+                            // TODO 收款
+                            console.log('收款');
+                        }}
+                        rightClick={() => {
+                            this.props.signIn();
+                        }}
+                    />
+                }
             </View>
         );
     }

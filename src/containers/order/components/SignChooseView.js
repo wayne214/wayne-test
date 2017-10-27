@@ -181,7 +181,7 @@ export default class SignChooseView extends Component {
         // 接收传过来的值，
         const {componentID, indexRow, componentType, num, refuseNum, maxNum, reason} = this.props;
         return (
-            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',}}>
                 <View style={style.refuseReasonView}>
                     <TouchableOpacity
                         style={style.viewSty1}

@@ -28,8 +28,10 @@ const styles = StyleSheet.create({
 
 class ChooseButtonCell extends Component {
     static propTypes = {
-        toRefuse: PropTypes.func.isRequired,
-        getorders: PropTypes.func.isRequired,
+        leftClick: PropTypes.func.isRequired,
+        rightClick: PropTypes.func.isRequired,
+        leftContent: PropTypes.string,
+        rightContent: PropTypes.string,
     };
 
     // 构造
@@ -40,7 +42,7 @@ class ChooseButtonCell extends Component {
     }
 
     render() {
-        const {toRefuse, getorders, leftContent, rightContent} = this.props;
+        const {leftClick, rightClick, leftContent, rightContent} = this.props;
         return (
             <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
                 <View
@@ -57,7 +59,7 @@ class ChooseButtonCell extends Component {
                             justifyContent: 'center',
                         }}
                         onPress={() => {
-                            toRefuse();
+                            leftClick();
                         }}
                     >
                         <Text
@@ -68,7 +70,7 @@ class ChooseButtonCell extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            getorders();
+                            rightClick();
                         }}
                     >
                         <ImageBackground source={StaticImage.BlueButtonSmall} style={styles.button} resizeMode='stretch'>
