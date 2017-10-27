@@ -234,6 +234,8 @@ export default class AddBankCard extends Component {
                 branchBankCode: branchCode,
                 city: bankCityName,
                 cityCode: bankCityCode,
+                documentNum: IDCardNum,
+                documentType: 'A',
                 phoneNum: global.phone,
                 province: selectedProvinceName,
                 provinceCode: selectedProvinceCode,
@@ -246,7 +248,8 @@ export default class AddBankCard extends Component {
                 });
             },
             success: (response) => {
-                console.log('-----bindBankCard--6666666---', response)
+                this.props.navigation.navigate('AddBankCardSuccess');
+
             },
             error: (err) => {
                 this.setState({
@@ -497,7 +500,6 @@ export default class AddBankCard extends Component {
                             if (!bankCityName) return Toast.show('请选择开户省市');
                             this.bindBankCard(holdCardName, IDCardNum, bankCardNum, bankName, bankCode,branchName,branchCode,
                                 selectedProvinceName,selectedProvinceCode,bankCityName,bankCityCode);
-                            // navigator.navigate('AddBankCardSuccess');
                         }}
                     >
                         绑定
