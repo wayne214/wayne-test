@@ -49,23 +49,31 @@ class EmptyView extends Component {
 
     /*声明属性*/
     static propTypes = {
-        emptyImage : PropTypes.number,
+        emptyImage : PropTypes.object,
         content: PropTypes.string,
+        comment: PropTypes.object,
+
     };
 
     /*属性默认值*/
     static defaultProps = {
         emptyImage: StaticImage.EmptyImage,
         content: '暂无数据',
+        comment: null,
+
     };
 
     render() {
-        const {emptyImage, content} = this.props;
+        const {emptyImage, content, comment} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.subViewStyle}>
                     <Image source={emptyImage} />
                     <Text style={styles.content}>{content}</Text>
+                    {
+                        comment ? <View>{comment}</View> : null
+
+                    }
                 </View>
             </View>
         );
