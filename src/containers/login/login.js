@@ -120,28 +120,28 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     bottomView: {
-        // flex: 1,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         height: 30,
-        width: width - 20,
         marginTop: 20,
     },
     bottomViewText: {
         fontSize: 14,
         color: '#666666',
-        alignItems: 'center',
-
     },
     screenEndView: {
-        // position: 'absolute',
-        flex: 1,
+        position: 'absolute',
+        // flex: 1,
+        width,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        // alignItems: 'flex-end',
         height: 40,
-        marginBottom: 20
+        top: height-60,
+        left:0,
+        // marginBottom: 20
     },
     screenEndViewTextLeft: {
         fontSize: 14,
@@ -272,6 +272,7 @@ class Login extends BaseContainer {
 
     render() {
         const {phoneNumber, password} = this.state;
+        console.log('lqq---height-',height);
         return (
             <View style={styles.container}>
                 { false && 
@@ -342,18 +343,21 @@ class Login extends BaseContainer {
                         </Image>
                         
                         <View style={styles.bottomView}>
-                            <Text
-                                onPress={() => {
-                                    this.props.navigation.navigate('LoginSms', {
-                                        loginPhone: this.state.phoneNumber
-                                    });
+                            <View  style={styles.bottomViewText}>
+                                <Text
+                                    onPress={() => {
+                                        this.props.navigation.navigate('LoginSms', {
+                                            loginPhone: this.state.phoneNumber
+                                        });
 
-                                }}
-                                style={styles.bottomViewText}
-                            >
-                                手机快捷登录
-                            </Text>
+                                    }}
+                                    style={styles.bottomViewText}
+                                >
+                                    手机快捷登录
+                                </Text>
+                            </View>
                             <View style={styles.lineUnder}/>
+                            <View  style={styles.bottomViewText}>
                             <Text
                                 onPress={() => {
                                     this.props.navigation.navigate('ForgetPwd', {
@@ -365,11 +369,14 @@ class Login extends BaseContainer {
                             >
                                 忘记密码
                             </Text>
+                            </View>
                         </View>
                     </View>
 
                     
-                    <View style={styles.screenEndView}>
+                    
+                </KeyboardAwareScrollView>
+                <View style={styles.screenEndView}>
                         <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
                         <Text
                             style={styles.screenEndViewText}
@@ -379,9 +386,7 @@ class Login extends BaseContainer {
                         >
                             去注册
                         </Text>
-                    </View>
-                </KeyboardAwareScrollView>
-                
+                </View>
                 {
                     this.state.loading ? <Loading/> : null
                 }

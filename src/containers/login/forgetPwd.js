@@ -323,6 +323,7 @@ export default class forgetPWD extends Component {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 color: WHITE_COLOR,
+                                backgroundColor: '#00000000'
                             }}
                         >
                             下一步

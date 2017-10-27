@@ -272,6 +272,7 @@ export default class changeCodePWD extends Component {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 color: 'white',
+                                backgroundColor: '#00000000'
                             }}
                         >
                             确认
