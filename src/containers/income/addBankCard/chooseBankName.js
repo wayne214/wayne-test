@@ -52,16 +52,16 @@ export default class ChooseBankName extends Component {
                 });
                 return;
             } else {
+                this.setState({
+                    NumberArr: [],
+                });
                 for (var i = 0; i < NumberArr.length; i++) {
                     if (NumberArr[i].bankName.indexOf(text) > -1) {
                         this.setState({
-                            NumberArr: [NumberArr[i]],
+                            NumberArr: this.state.NumberArr.concat(NumberArr[i]),
                         });
-                        return;
                     } else {
-                        this.setState({
-                            NumberArr: [],
-                        });
+
                     }
                 }
             }
@@ -71,9 +71,10 @@ export default class ChooseBankName extends Component {
 
     //点击城市cell
     cityClicked(item) {
-        alert(item.bankName + item.bankCode);
+        // alert(item.bankName + item.bankCode);
         if (this.props.navigation.state.params.selectedBankNameCallback) {
             this.props.navigation.state.params.selectedBankNameCallback(item.bankName);
+            this.props.navigation.state.params.selectedBankCodeCallback(item.bankCode);
         }
         this.props.navigation.goBack();
     }
