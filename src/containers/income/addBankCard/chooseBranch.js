@@ -22,16 +22,20 @@ const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
 
 
-export default class ChooseBankName extends Component {
+export default class ChooseBranch extends Component {
 
 
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this)
         this.state = {
-            NumberArr: BankCode.searchCode(),
-            text:''
+            // NumberArr: BankCode.searchCode(),
+            NumberArr: params.branchList,
+            branchList:params.branchList,
+            text:'',
         }
+        console.log('params.branchList=',params.branchList)
     }
 
     //改变搜索的文本
@@ -71,9 +75,9 @@ export default class ChooseBankName extends Component {
 
     //点击城市cell
     cityClicked(item) {
-        alert(item.bankName + item.bankCode);
-        if (this.props.navigation.state.params.selectedBankNameCallback) {
-            this.props.navigation.state.params.selectedBankNameCallback(item.bankName);
+        alert(item.branchBank + item.branchBankCode);
+        if (this.props.navigation.state.params.BranchBankCodeCallback) {
+            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBank);
         }
         this.props.navigation.goBack();
     }
@@ -101,7 +105,7 @@ export default class ChooseBankName extends Component {
                 }}>
                     <Text
                         style={{color: '#999999', fontSize: 15}}
-                    >{item.bankName}</Text>
+                    >{item.branchBank}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -150,9 +154,9 @@ export default class ChooseBankName extends Component {
                             style={{flex: 1, marginLeft: 5, fontSize: 16, color: '#666666'}}
                             underlineColorAndroid="transparent"
                             maxLength={20}
-                            placeholder={'输入城市名查询'}
                             value={text}
-                            onChangeText={(text) => {
+                            placeholder={'输入城市名查询'}
+                            onChangeText={(text)=>{
                                 this.setState({
                                     text:text
                                 })
@@ -161,7 +165,7 @@ export default class ChooseBankName extends Component {
                         </TextInput>
                         <TouchableOpacity onPress={() => {
                             this.setState({
-                                text:'',
+                                branch:''
                             })
                         }}>
                             <Text

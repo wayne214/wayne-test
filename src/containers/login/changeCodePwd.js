@@ -10,11 +10,14 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
+    Dimensions,
+    Image
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
 import  HTTPRequest from '../../utils/httpRequest';
+import StaticImage from '../../constants/staticImage';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 
@@ -24,6 +27,7 @@ import * as StaticColor from '../../constants/staticColor';
 import XeEncrypt from '../../utils/XeEncrypt';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import Loading from '../../utils/loading';
+const {width, height} = Dimensions.get('window');
 
 let currentTime = 0;
 let lastTime = 0;
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
     iconStyle: {
         height: 44,
         paddingLeft: 10,
-        paddingRight: 10,
+        paddingRight: 15,
         backgroundColor: StaticColor.WHITE_COLOR,
         alignItems: 'center',
         justifyContent: 'center',
@@ -43,6 +47,8 @@ const styles = StyleSheet.create({
         height: 19,
     },
     textInputStyle: {
+        paddingLeft: 15,
+        fontSize: 16,
         height: 44,
         backgroundColor: StaticColor.WHITE_COLOR,
     },
@@ -187,9 +193,10 @@ export default class changeCodePWD extends Component {
                         flexDirection: 'row', marginTop: 10,
                     }}
                 >
-                    <View style={styles.iconStyle}>
+                    { false && <View style={styles.iconStyle}>
                         <Text style={styles.iconfont}> &#xe60f;</Text>
                     </View>
+                    }
 
                     <View
                         style={{flex: 1}}
@@ -199,7 +206,7 @@ export default class changeCodePWD extends Component {
                             underlineColorAndroid="transparent"
                             placeholderTextColor="#CCCCCC"
                             secureTextEntry={true}
-                            placeholder="新密码"
+                            placeholder="请输入密码"
                             value={this.state.newPWD}
                             onChangeText={(newPWD) => {
                                 this.setState({newPWD});
@@ -209,18 +216,19 @@ export default class changeCodePWD extends Component {
 
                 </View>
 
-                <View
-                    style={{height: 1, backgroundColor: '#F5F5F5'}}
-                />
+                <View style={{backgroundColor: 'white',height: 1, width: width,alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{width:width, marginLeft:15, height: 1, backgroundColor: '#e8e8e8'}}/>
+                </View>
 
                 <View
                     style={{
                         flexDirection: 'row',
                     }}
                 >
-                    <View style={styles.iconStyle}>
+                    { false && <View style={styles.iconStyle}>
                         <Text style={styles.iconfont}> &#xe60f;</Text>
                     </View>
+                    }
 
                     <View style={{flex: 1}}>
                         <TextInput
@@ -228,7 +236,7 @@ export default class changeCodePWD extends Component {
                             underlineColorAndroid="transparent"
                             placeholderTextColor="#CCCCCC"
                             secureTextEntry={true}
-                            placeholder="确认新密码"
+                            placeholder="请再次输入密码"
                             value={this.state.newPWDagain}
                             onChangeText={(newPWDagain) => {
                                 this.setState({newPWDagain});
@@ -244,28 +252,31 @@ export default class changeCodePWD extends Component {
                         this.finish();
                     }}
                 >
-                    <View
+                    <Image
                         style={{
-                            backgroundColor: StaticColor.COLOR_MAIN,
-                            borderRadius: 5,
-                            height: 40,
-                            margin: 10,
+                            width: width - 20,
                             marginTop: 15,
-                            justifyContent: 'center',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginBottom: 0,
+                            height: 44,
+                            resizeMode: 'stretch',
                             alignItems: 'center',
+                            justifyContent:'center'
                         }}
+                        source={StaticImage.BlueButtonArc}
                     >
 
                         <Text
                             style={{
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: 'bold',
                                 color: 'white',
                             }}
                         >
-                            提交
+                            确认
                         </Text>
-                    </View>
+                    </Image>
                 </TouchableOpacity>
                 {
                     this.state.loading ? <Loading /> : null

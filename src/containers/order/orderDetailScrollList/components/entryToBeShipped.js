@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
     Alert,
     DeviceEventEmitter,
-    InteractionManager,
+    ImageBackground,
 } from 'react-native';
 
 import NavigatorBar from '../../../../common/navigationBar/navigationBar';
@@ -24,6 +24,10 @@ import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import {isReSetCity} from '../../../../action/order';
 import StorageKey from '../../../../constants/storageKeys';
+import * as StaticColor from '../../../../constants/staticColor';
+import {Geolocation} from 'react-native-baidu-map-xzx';
+import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
+import BottomButton from '../../components/bottomButtonComponent';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -31,17 +35,13 @@ const screenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
 });
 let transOrderInfo = [];
 let userID = '';
 let userName = '';
 let plateNumber = '';
-
-import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
-
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
@@ -60,7 +60,6 @@ class entryToBeShipped extends Component {
         };
 
         this.onScrollEnd = this.onScrollEnd.bind(this);
-        this.subBottomComponent = this.subBottomComponent.bind(this);
 
         this.getOrderDetailInfo = this.getOrderDetailInfo.bind(this);
         this.getOrderDetailInfoFailCallBack = this.getOrderDetailInfoFailCallBack.bind(this);
@@ -231,6 +230,7 @@ class entryToBeShipped extends Component {
     sendOrder() {
         currentTime = new Date().getTime();
         const goodInfo = transOrderInfo[0].goodsInfo;
+
         for (let i = 0; i < goodInfo.length; i++){
             let obj = goodInfo[i];
             if (!obj.shipmentNums || obj.shipmentNums === '') {
@@ -354,33 +354,6 @@ class entryToBeShipped extends Component {
         this.props.navigation.goBack(key);
     }
 
-    // 底部组件
-    subBottomComponent() {
-        return (
-            <TouchableOpacity
-                style={{
-                    justifyContent: 'center',
-                    backgroundColor: '#008bca',
-                    alignItems: 'center',
-                    height: 44,
-                    marginTop: 10,
-                    marginBottom: 10,
-                    marginRight: 10,
-                    marginLeft: 10,
-                    borderRadius: 5,
-                }}
-                onPress={() => {
-                    if (prventDoubleClickUtil.onMultiClick()) {
-                        this.sendOrder();
-                    }
-                }}
-            >
-                <Text style={{color: 'white', fontSize: 16}}>发运</Text>
-
-            </TouchableOpacity>
-        );
-    }
-
     jumpAddressPage(index, type, item) {
         let typeString = '';
         if (type === 'departure') {
@@ -483,7 +456,7 @@ class entryToBeShipped extends Component {
                         onClick: this.cancelOrder,
                     }}
                 />
-                <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color:'#666'}}>
+                <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>
                     {this.state.current}/{this.state.datas.length}
                 </Text>
                 <ScrollView
@@ -496,7 +469,14 @@ class entryToBeShipped extends Component {
                 >
                     {aa}
                 </ScrollView>
-                {this.subBottomComponent()}
+                <BottomButton
+                    text={'发运'}
+                    onClick={() => {
+                        if (prventDoubleClickUtil.onMultiClick()) {
+                            this.sendOrder();
+                        }
+                    }}
+                />
                 {this.state.loading ? <Loading /> : null }
             </View>
         );

@@ -901,12 +901,14 @@ let transCodeListData3 = [];
 
 
     renderRow(dataRow, sectionID, rowID) {
+        const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
+        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
         return (
             <OrdersItemCell
-                time={dataRow.time}
+                time={pushTime}
                 scheduleCode={dataRow.scheduleCode}
                 distributionPoint={dataRow.distributionPoint}
-                arrivalTime={dataRow.arrivalTime}
+                arrivalTime={arrivalTime}
                 weight={dataRow.weight}
                 vol={dataRow.vol}
                 stateName={dataRow.stateName}

@@ -56,6 +56,12 @@ const styles = StyleSheet.create({
         width: 16,
         height: 16,
     },
+    textStyle: {
+        paddingLeft: 15,
+        height: 44,
+        fontSize: 16,
+        color: '#666666',
+    },
     textInputStyle: {
         paddingLeft: 15,
         height: 44,
@@ -77,17 +83,15 @@ export default class forgetPWD extends Component {
         const params = this.props.navigation.state.params;
 
         this.state = {
-            phoneNo: params.loginPhone,
             pwdCode: '',
             buttonForget: '获取验证码',
             loading: false,
 
         };
         this.getForgetVCode = this.getForgetVCode.bind(this);
-        this.canclePhoneNO = this.canclePhoneNO.bind(this);
-        this.canclePhonePWD = this.canclePhonePWD.bind(this);
         this.nextStep = this.nextStep.bind(this);
         this.checkCode = this.checkCode.bind(this);
+        this.phoneNo = params.loginPhone;
     }
 
     componentDidMount() {
@@ -130,18 +134,6 @@ export default class forgetPWD extends Component {
 
             }
         })
-    }
-
-    canclePhoneNO() {
-        this.setState({
-            phoneNo: '',
-        });
-    }
-
-    canclePhonePWD() {
-        this.setState({
-            pwdCode: '',
-        });
     }
 
     /*检验验证码是否正确*/
@@ -195,11 +187,10 @@ export default class forgetPWD extends Component {
 
     render() {
         const navigator = this.props.navigation;
-        const {phoneNo} = this.state;
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    title={'忘记密码'}
+                    title={'手机号码验证'}
                     navigator={navigator}
                     hiddenBackIcon={false}
                 />
@@ -210,40 +201,14 @@ export default class forgetPWD extends Component {
                         marginTop: 10,
                     }}
                 >
-                    { false &&<View style={styles.iconStyle}>
-                        <Text style={styles.iconfont}> &#xe62a;</Text>
-                    </View>
-                    }
+                    
 
                     <View style={{flex: 1}}>
-                        <TextInput
-                            style={styles.textInputStyle}
-                            underlineColorAndroid="transparent"
-                            placeholderTextColor="#CCCCCC"
-                            placeholder="请输入手机号码"
-                            value={this.state.phoneNo}
-                            onChangeText={(phoneNo) => {
-                                this.setState({phoneNo});
-                            }}
-                        />
+                        <Text
+                            style={styles.textStyle}
+                        >短信验证码已发送至({Validator.newPhone(this.phoneNo)})，请填写验证码</Text>
                     </View>
-                    {
-                        (() => {
-                            if (this.state.phoneNo.length > 0) {
-                                return (
-                                    <TouchableOpacity onPress={() => this.canclePhoneNO()}>
-
-                                        <View style={styles.iconStyle}>
-                                            <Image source={StaticImage.clearIcon} />
-                                        </View>
-                                    </TouchableOpacity>
-                                );
-                            }
-                        })()
-                    }
-                </View>
-                <View style={{backgroundColor: 'white',height: 1, width: width,alignItems: 'center', justifyContent: 'center'}}>
-                    <View style={{width: width-30,height: 1, backgroundColor: '#e8e8e8'}}/>
+                    
                 </View>
                 <View
                     style={{
@@ -287,7 +252,7 @@ export default class forgetPWD extends Component {
                     }
                     { false && <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>}
                     <CountDownButton
-                        enable={phoneNo.length}
+                        enable={this.phoneNo.length}
                         style={{width: 100, backgroundColor: WHITE_COLOR, paddingRight: 15}}
                         textStyle={{color: '#0078ff'}}
                         timerCount={60}
@@ -303,19 +268,16 @@ export default class forgetPWD extends Component {
                 </View>
 
                 <TouchableOpacity onPress={() => this.nextStep()}>
-                    <Image
+                    <View
                         style={{
-                            width: width - 20,
-                            marginTop: 15,
-                            marginLeft: 10,
-                            marginRight: 10,
-                            marginBottom: 0,
+                            backgroundColor: '#0083ff',
+                            borderRadius: 5,
                             height: 44,
-                            resizeMode: 'stretch',
+                            margin: 10,
+                            marginTop: 15,
+                            justifyContent: 'center',
                             alignItems: 'center',
-                            justifyContent:'center'
                         }}
-                        source={StaticImage.BlueButtonArc}
                     >
 
                         <Text
@@ -325,10 +287,10 @@ export default class forgetPWD extends Component {
                                 color: WHITE_COLOR,
                             }}
                         >
-                            下一步
+                            提交
                         </Text>
 
-                    </Image>
+                    </View>
                 </TouchableOpacity>
 
                 {

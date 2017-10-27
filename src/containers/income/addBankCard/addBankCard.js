@@ -61,7 +61,7 @@ export default class AddBankCard extends Component {
         this.getBankCardInfoCallBack = this.getBankCardInfoCallBack.bind(this);
         this.fetchData = this.fetchData.bind(this);
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
-
+        this.getBranchInfo = this.getBranchInfo.bind(this);
         // 初始状态
         this.state = {
             holdCardName: '',
@@ -72,6 +72,7 @@ export default class AddBankCard extends Component {
             bankCity: '',
             bankSubName: '',
             bankCity: '',
+            branch:'',
         };
     }
 
@@ -172,6 +173,45 @@ export default class AddBankCard extends Component {
 
     }
 
+    getBranchInfo() {
+        console.log('-----getBranchInfo-----')
+        HTTPRequest({
+            url: API.API_QUERY_BANK_BRANCH,
+            params: {
+                qshho2: "313290000017", //银行代码
+                youzbm: "110100" //省份代码
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (response) => {
+                console.log('-----getBranchInfo0-----', response.result)
+                this.props.navigation.navigate('ChooseBranch', {
+                        branchList: response.result,
+                        BranchBankCodeCallback: (data) => {
+                            console.log('branch==', data)
+                            this.setState({
+                                branch: data
+                            })
+                        }
+                    }
+                );
+            },
+            error: (err) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            },
+        })
+    }
+
 
     render() {
         const navigator = this.props.navigation;
@@ -270,24 +310,33 @@ export default class AddBankCard extends Component {
                     }}>
                         <Text style={styles.leftTextStyle}>开户行</Text>
                         <TouchableOpacity onPress={() => {
-                            navigator.navigate('ChooseBankName');
+                            navigator.navigate('ChooseBankName', {
+                                selectedBankNameCallback: (data) => {
+                                    console.log('1111', data)
+                                    this.setState({
+                                        bankName: data
+                                    })
+                                }
+                            });
                         }}>
-                            <Text
-                                style={{
-                                    color: '#CCCCCC', fontSize: 16,
-                                    marginLeft: 10,
-                                }}
-                            >请填写开户行</Text>
-                            {/*<TextInput*/}
-                            {/*placeholder="请填写开户行"*/}
-                            {/*placeholderTextColor="#CCCCCC"*/}
-                            {/*underlineColorAndroid={'transparent'}*/}
-                            {/*style={styles.textInputStyle}*/}
-                            {/*onChangeText={(bankName) => {*/}
-                            {/*this.setState({bankName});*/}
-                            {/*}}*/}
-                            {/*value={bankName}*/}
-                            {/*/>*/}
+                            {
+                                this.state.bankName ?
+                                    <Text
+                                        style={{
+                                            color: '#666666', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >{this.state.bankName}</Text>
+                                    :
+                                    <Text
+                                        style={{
+                                            color: '#CCCCCC', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >请填写开户行</Text>
+
+                            }
+
                         </TouchableOpacity>
                     </View>
                     <View style={{height: 1, width, backgroundColor: '#e8e8e8', marginLeft: 10}}/>
@@ -345,16 +394,27 @@ export default class AddBankCard extends Component {
 
                         <Text style={styles.leftTextStyle}>开户支行</Text>
                         <TouchableOpacity onPress={() => {
-                            console.log('123');
+                            if (!this.state.bankName) return Toast.show('请选择开户行')
+                            if (!this.state.bankCity) return Toast.show('请选择开户省市')
+                            this.getBranchInfo();
                         }}>
-                            <TextInput
-                                placeholder="请选择开户支行"
-                                placeholderTextColor="#CCCCCC"
-                                underlineColorAndroid={'transparent'}
-                                style={styles.textInputStyle}
-                                value={bankSubName}
-                                editable={false}
-                            />
+                            {
+                                this.state.branch ?
+                                    <Text
+                                        style={{
+                                            color: '#666666', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >{this.state.branch}</Text>
+                                    :
+                                    <Text
+                                        style={{
+                                            color: '#CCCCCC', fontSize: 16,
+                                            marginLeft: 10,
+                                        }}
+                                    >请选择开户支行</Text>
+                            }
+
                         </TouchableOpacity>
                     </View>
 

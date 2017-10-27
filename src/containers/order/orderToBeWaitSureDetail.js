@@ -30,10 +30,12 @@ import prventDoubleClickUtil from '../../utils/prventMultiClickUtil'
 import * as ConstValue from '../../constants/constValue';
 import StorageKey from '../../constants/storageKeys';
 import StaticImage from '../../constants/staticImage';
+import BottomButton from './components/bottomButtonComponent';
+
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
-const screenWidth = Dimensions.get('window').width - space * 2;
+const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 let userID = '';
 let userName = '';
@@ -68,14 +70,11 @@ class orderToBeWaitSureDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.subBottomComponent = this.subBottomComponent.bind(this);
         this.uploadReceipt = this.uploadReceipt.bind(this);
         this.state = {
-            buttonTitle: '回单',
-            buttonBgColor: '#1B82D1',
-            buttonDisable: false,
             showGoodList: false,
             loading: false,
+            buttonDisabled: false,
         };
     }
 
@@ -86,23 +85,6 @@ class orderToBeWaitSureDetail extends Component {
                 userName = userInfo.userName;
             }
         });
-    }
-
-    // 底部组件
-    subBottomComponent(buttonStyle) {
-        return (
-            <TouchableOpacity
-                disabled={this.state.buttonDisable}
-                style={buttonStyle}
-                onPress={() => {
-                    if (prventDoubleClickUtil.onMultiClick()) {
-                        this.uploadReceipt();
-                    }
-                }}
-            >
-                <Text style={{color: 'white', fontSize: 16}}>{this.state.buttonTitle}</Text>
-            </TouchableOpacity>
-        );
     }
 
     // 上传回单界面
@@ -132,25 +114,13 @@ class orderToBeWaitSureDetail extends Component {
             index,
         } = this.props;
 
-        const bgColor = this.state.buttonBgColor;
-        const buttonStyle = {
-            justifyContent: 'center',
-            backgroundColor: bgColor,
-            alignItems: 'center',
-            height: 44,
-            marginTop: 10,
-            marginBottom: 10,
-            marginRight: 5,
-            marginLeft: 5,
-            borderRadius: 5,
-        };
         return (
             <View
                 style={{
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
                     width: screenWidth,
-                    marginLeft: space,
-                    marginRight: space,
+                    paddingLeft: space,
+                    paddingRight: space,
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
@@ -162,12 +132,12 @@ class orderToBeWaitSureDetail extends Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
-                        backgroundColor: 'white',
+                        backgroundColor: StaticColor.WHITE_COLOR,
                         ...Platform.select({
                             ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
                             android:{height: screenHeight - topHeight - 73}
                         }),
-                        borderColor: 'white',
+                        borderColor: StaticColor.WHITE_COLOR,
                         borderWidth: 1,
                         borderRadius: 5,
                     }}
@@ -189,7 +159,7 @@ class orderToBeWaitSureDetail extends Component {
                         </View>
                     </ImageBackground>
                     <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -234,7 +204,15 @@ class orderToBeWaitSureDetail extends Component {
                     />
 
                 </ScrollView>
-                {taskInfo.isReceipt === '是' ? this.subBottomComponent(buttonStyle) : null}
+                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+
+                <BottomButton
+                    text={'回单'}
+                    onClick={() => {
+                        this.uploadReceipt();
+                    }}
+                    buttonDisabled={this.state.buttonDisabled}
+                />
                 {this.state.loading ? <Loading/> : null}
             </View>
         );

@@ -23,6 +23,7 @@ public class AnExampleReactPackage implements ReactPackage {
         return nativeModules;
     }
 
+
     // Deprecated RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();

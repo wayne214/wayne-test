@@ -186,6 +186,7 @@ export default class DropdownMenu extends Component {
                         }, heightStyle]}
                         scrollEnabled={false}
                     >
+                        <View style={{height: 0.5, marginHorizontal: 0, backgroundColor: '#0071FF'}}/>
                         {
                             currentTitles.map((title, index) =>
                                 <TouchableOpacity

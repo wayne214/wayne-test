@@ -10,6 +10,10 @@ import Img02 from '../../assets/guide/guide_02.png';
 import LoginBackground from '../../assets/login/loginbg.png';
 /*鲜易通图片图标*/
 import LoginIcon from '../../assets/login/luckybear.png';
+/*登录头部图片*/
+import LoginTopBg from '../../assets/login/loginTop.png';
+/*登录验证手机LOGO*/
+import CheckPhoneLogo from '../../assets/login/checkPhone.png';
 /*鲜易通字体图标*/
 import LoginFont from '../../assets/login/xytfront.png';
 /*输入框清除按钮图标*/
@@ -79,9 +83,8 @@ import searchBackIcon from '../../assets/search/searchBackIcon.png';
 import closeIcon from '../../assets/search/forgetdel.png';
 
 /*订单图标*/
-import orderProductDetailItemAdd from '../../assets/order/orderProductDetailItem_add.png';
-import orderProductDetailItemSubtract from '../../assets/order/orderProductDetailItem_subtract.png';
-import orderProductDetailItemSubtractUnselect from '../../assets/order/orderProductDetailItem_subtract_unselect.png';
+import receiveAddUnselect from '../../assets/order/receive_add_unselected.png';
+import receiveDeleteUnselect from '../../assets/order/receive_delete_unselected.png';
 import receiveRightArrow from '../../assets/order/receive_right_arrow.png';
 import receiveAdd from '../../assets/order/receive_add.png';
 import receiveDelete from '../../assets/order/receive_delete.png';
@@ -126,6 +129,8 @@ export default {
     Img01,
     Img02,
     LoginBackground,
+    LoginTopBg,
+    CheckPhoneLogo,
     LoginFont,
     LoginIcon,
     clearIcon,
@@ -165,9 +170,8 @@ export default {
     scanLine,
     searchBackIcon,
     closeIcon,
-    orderProductDetailItemAdd,
-    orderProductDetailItemSubtract,
-    orderProductDetailItemSubtractUnselect,
+    receiveAddUnselect,
+    receiveDeleteUnselect,
     receiveRightArrow,
     receiveAdd,
     receiveDelete,

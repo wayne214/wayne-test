@@ -40,7 +40,7 @@ class ChooseButtonCell extends Component {
     }
 
     render() {
-        const {toRefuse, getorders} = this.props;
+        const {toRefuse, getorders, leftContent, rightContent} = this.props;
         return (
             <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
                 <View
@@ -63,7 +63,7 @@ class ChooseButtonCell extends Component {
                         <Text
                             style={{fontSize: 16, color: '#333333'}}
                         >
-                            拒绝
+                            {leftContent ? leftContent : '拒绝'}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -75,7 +75,7 @@ class ChooseButtonCell extends Component {
                         <Text
                             style={{fontSize: 16, color: StaticColor.WHITE_COLOR}}
                         >
-                            接单
+                            {rightContent ? rightContent : '接单'}
                         </Text>
                         </ImageBackground>
                     </TouchableOpacity>
