@@ -52,16 +52,16 @@ export default class ChooseBankName extends Component {
                 });
                 return;
             } else {
+                this.setState({
+                    NumberArr: [],
+                });
                 for (var i = 0; i < NumberArr.length; i++) {
                     if (NumberArr[i].bankName.indexOf(text) > -1) {
                         this.setState({
-                            NumberArr: [NumberArr[i]],
+                            NumberArr: this.state.NumberArr.concat(NumberArr[i]),
                         });
-                        return;
                     } else {
-                        this.setState({
-                            NumberArr: [],
-                        });
+                        
                     }
                 }
             }
