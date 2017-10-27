@@ -112,13 +112,15 @@ export default class CheckPhone extends Component {
                 <TouchableOpacity onPress={() => this.nextStep()}>
                     <Image
                         style={{
-                            backgroundColor: '#0083ff',
-                            borderRadius: 5,
-                            height: 44,
-                            margin: 10,
                             marginTop: 70,
-                            justifyContent: 'center',
+                            width: width - 20,
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginBottom: 0,
+                            height: 44,
+                            resizeMode: 'stretch',
                             alignItems: 'center',
+                            justifyContent:'center'
                         }}
                         source={StaticImage.BlueButtonArc}
                     >
@@ -128,6 +130,7 @@ export default class CheckPhone extends Component {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 color: WHITE_COLOR,
+                                backgroundColor: '#00000000'
                             }}
                         >
                             立即验证

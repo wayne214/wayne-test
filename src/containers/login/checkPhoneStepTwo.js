@@ -270,13 +270,15 @@ export default class forgetPWD extends Component {
                 <TouchableOpacity onPress={() => this.nextStep()}>
                     <View
                         style={{
-                            backgroundColor: '#0083ff',
-                            borderRadius: 5,
-                            height: 44,
-                            margin: 10,
+                            width: width - 20,
                             marginTop: 15,
-                            justifyContent: 'center',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginBottom: 0,
+                            height: 44,
+                            resizeMode: 'stretch',
                             alignItems: 'center',
+                            justifyContent:'center'
                         }}
                     >
 
@@ -285,6 +287,7 @@ export default class forgetPWD extends Component {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 color: WHITE_COLOR,
+                                backgroundColor: '#00000000'
                             }}
                         >
                             提交
