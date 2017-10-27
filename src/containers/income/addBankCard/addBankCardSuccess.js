@@ -13,10 +13,15 @@ import finish from '../../../../assets/income/finish.png'
 class addBankCardSuccess extends Component {
     constructor(props) {
         super(props);
+        this.popToTop = this.popToTop.bind(this);
     }
 
-    componentDidMount() {
 
+    popToTop() {
+        const routes = this.props.routes;
+        let length = routes.length;
+        let key = routes[length - 2].key;
+        this.props.navigation.goBack(key);
     }
 
     render() {
@@ -33,7 +38,7 @@ class addBankCardSuccess extends Component {
                         title: '完成',
                         onClick: () => {
                             DeviceEventEmitter.emit('BankCardList');
-                            navigator.goBack();
+                            this.popToTop();
                         },
                     }}
                 />
@@ -58,7 +63,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps(dispatch) {
