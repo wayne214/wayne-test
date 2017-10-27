@@ -42,6 +42,8 @@ class ChooseBankCity extends Component {
             checkBoxSource: [],
             disable: false,
             selectedCitys: '',
+            selectedProvinceName: '',
+            selectedProvinceCode: '',
         };
 
         this.renderSeparator = this.renderSeparator.bind(this);
@@ -125,6 +127,10 @@ class ChooseBankCity extends Component {
                 <TouchableOpacity
                     onPress={() => {
                         this.selectCityList(rowData.provincesNumber);
+                        this.setState({
+                            selectedProvinceName: rowData.address,
+                            selectedProvinceCode: rowData.provincesNumber,
+                        })
                     }}
                 >
                     <Text style={{fontSize: 16, color: '#666666'}}>{rowData.address}</Text>
@@ -156,6 +162,8 @@ class ChooseBankCity extends Component {
                         onClick: () => {
                             if (this.state.selectedCitys) {
                                 this.props.navigation.state.params.selectedCityCallback(this.state.selectedCitys);
+                                this.props.navigation.state.params.selectedProvinceCallback(this.state.selectedProvinceName);
+                                this.props.navigation.state.params.selectedProvinceCodeCallback(this.state.selectedProvinceCode);
                             }
                             navigator.goBack();
                         },
@@ -178,7 +186,7 @@ class ChooseBankCity extends Component {
                             {
                                 this.state.checkBoxSource.length > 0 ?
                                     <CheckboxList
-                                        maxSelectedOptions = {1}
+                                        maxSelectedOptions={1}
                                         separatorStyle={{marginLeft: 0, backgroundColor: '#e8e8e8'}}
                                         itemTextStyle={{color: '#666666'}}
                                         options={

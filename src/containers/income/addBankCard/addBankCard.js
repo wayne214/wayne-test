@@ -62,17 +62,21 @@ export default class AddBankCard extends Component {
         this.fetchData = this.fetchData.bind(this);
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
         this.getBranchInfo = this.getBranchInfo.bind(this);
+        this.bindBankCard = this.bindBankCard.bind(this);
         // 初始状态
         this.state = {
-            holdCardName: '',
-            IDCardNum: '',
-            bankCardNum: '',
+            holdCardName: '',           // 持卡人の姓名
+            IDCardNum: '',              // 身份证の号
+            bankCardNum: '',            // 银行の卡号
+            bankName: '',               // 银行の名称
+            bankCode: '',               // 银行の代码
+            bankCityName: '',           // 选择市の名称
+            bankCityCode: '',           // 选择市の代码
+            branchName: '',             // 支行の名称
+            branchCode: '',             // 支行の代码
+            selectedProvinceName: '',   // 选择省の名称
+            selectedProvinceCode: '',   // 选择省の代码
             loading: false,
-            bankName: '',
-            bankCity: '',
-            bankSubName: '',
-            bankCity: '',
-            branch:'',
         };
     }
 
@@ -157,7 +161,6 @@ export default class AddBankCard extends Component {
     }
 
     getBankCardInfoCallBack(result) {
-
         if (BankCode.searchCode(result.bankName) == '00000') {
             Toast.showShortCenter("银行卡不适配");
         } else {
@@ -173,13 +176,12 @@ export default class AddBankCard extends Component {
 
     }
 
-    getBranchInfo() {
-        console.log('-----getBranchInfo-----')
+    getBranchInfo(bankCode, cityCode) {
         HTTPRequest({
             url: API.API_QUERY_BANK_BRANCH,
             params: {
-                qshho2: "313290000017", //银行代码
-                youzbm: "110100" //省份代码
+                qshho2: bankCode, //银行代码 313290000017
+                youzbm: cityCode //城市代码 110100
             },
             loading: () => {
                 this.setState({
@@ -190,14 +192,61 @@ export default class AddBankCard extends Component {
                 console.log('-----getBranchInfo0-----', response.result)
                 this.props.navigation.navigate('ChooseBranch', {
                         branchList: response.result,
-                        BranchBankCodeCallback: (data) => {
-                            console.log('branch==', data)
+                        BranchBankNameCallback: (data) => {
+                            console.log('branchName==', data)
                             this.setState({
-                                branch: data
+                                branchName: data
                             })
-                        }
+                        },
+                        BranchBankCodeCallback: (data) => {
+                            console.log('branchCode==', data)
+                            this.setState({
+                                branchCode: data
+                            })
+                        },
                     }
                 );
+            },
+            error: (err) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            },
+        })
+    }
+
+    // 绑定银行卡
+    bindBankCard(holdCardName, IDCardNum, bankCardNum, bankName, bankCode,branchName,branchCode,
+                 selectedProvinceName,selectedProvinceCode,bankCityName,bankCityCode) {
+        HTTPRequest({
+            url: API.API_BANK_CARD_BUNDING,
+            params: {
+                accountName: holdCardName,
+                bankCardNumber: bankCardNum,
+                bankCode: bankCode,
+                bankName: bankName,
+                branchBank: branchName,
+                branchBankCode: branchCode,
+                city: bankCityName,
+                cityCode: bankCityCode,
+                phoneNum: global.phone,
+                province: selectedProvinceName,
+                provinceCode: selectedProvinceCode,
+                userId: global.userId,
+                userName: global.userName,
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (response) => {
+                console.log('-----bindBankCard--6666666---', response)
             },
             error: (err) => {
                 this.setState({
@@ -215,7 +264,10 @@ export default class AddBankCard extends Component {
 
     render() {
         const navigator = this.props.navigation;
-        const {holdCardName, IDCardNum, bankCardNum, bankName, bankCity, bankSubName} = this.state;
+        const {
+            holdCardName, IDCardNum, bankCardNum, bankName, bankCode, selectedProvinceName,selectedProvinceCode,
+            bankCityName, bankCityCode, branchName, branchCode
+        } = this.state;
         return (
 
             <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -312,21 +364,25 @@ export default class AddBankCard extends Component {
                         <TouchableOpacity onPress={() => {
                             navigator.navigate('ChooseBankName', {
                                 selectedBankNameCallback: (data) => {
-                                    console.log('1111', data)
                                     this.setState({
                                         bankName: data
                                     })
-                                }
+                                },
+                                selectedBankCodeCallback: (data) => {
+                                    this.setState({
+                                        bankCode: data
+                                    })
+                                },
                             });
                         }}>
                             {
-                                this.state.bankName ?
+                                bankName ?
                                     <Text
                                         style={{
                                             color: '#666666', fontSize: 16,
                                             marginLeft: 10,
                                         }}
-                                    >{this.state.bankName}</Text>
+                                    >{bankName}</Text>
                                     :
                                     <Text
                                         style={{
@@ -357,20 +413,33 @@ export default class AddBankCard extends Component {
                                 selectedCityCallback: (data) => {
                                     console.log('----data', data[0].departureCityArrayName);
                                     this.setState({
-                                        bankCity: data[0].departureCityArrayName,
+                                        bankCityName: data[0].departureCityArrayName,
+                                        bankCityCode: data[0].departureCityArrayCode,
+                                    })
+                                },
+                                selectedProvinceCallback: (data) => {
+                                    console.log('--selectedProvinceName--', data)
+                                    this.setState({
+                                        selectedProvinceName: data,
+                                    })
+                                },
+                                selectedProvinceCodeCallback: (data) => {
+                                    console.log('--selectedProvinceCode--', data)
+                                    this.setState({
+                                        selectedProvinceCode: data,
                                     })
                                 }
 
                             });
                         }}>
 
-                            {this.state.bankCity ?
+                            {bankCityName ?
                                 <Text
                                     style={{
                                         color: '#666666', fontSize: 16,
                                         marginLeft: 10,
                                     }}
-                                >{this.state.bankCity}</Text>
+                                >{selectedProvinceName} {bankCityName}</Text>
                                 :
                                 <Text
                                     style={{
@@ -394,18 +463,18 @@ export default class AddBankCard extends Component {
 
                         <Text style={styles.leftTextStyle}>开户支行</Text>
                         <TouchableOpacity onPress={() => {
-                            if (!this.state.bankName) return Toast.show('请选择开户行')
-                            if (!this.state.bankCity) return Toast.show('请选择开户省市')
-                            this.getBranchInfo();
+                            if (!bankName) return Toast.show('请选择开户行')
+                            if (!bankCityName) return Toast.show('请选择开户省市')
+                            this.getBranchInfo(this.state.bankCode, this.state.bankCityCode);
                         }}>
                             {
-                                this.state.branch ?
+                                branchName ?
                                     <Text
                                         style={{
                                             color: '#666666', fontSize: 16,
                                             marginLeft: 10,
                                         }}
-                                    >{this.state.branch}</Text>
+                                    >{branchName}</Text>
                                     :
                                     <Text
                                         style={{
@@ -422,34 +491,16 @@ export default class AddBankCard extends Component {
                         style={styles.loginButton}
                         textStyle={styles.loginButtonText}
                         onPress={() => {
-                            navigator.navigate('AddBankCardSuccess');
-
-                            {/*if (bankCardNum == '') {*/
-                            }
-                            {/*Toast.showShortCenter('银行卡号不能为空');*/
-                            }
-                            {/*}else if (bankName == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户行不能为空');*/
-                            }
-                            {/*}else if (bankCity == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户省市不能为空');*/
-                            }
-                            {/*}else if (bankSubName == '') {*/
-                            }
-                            {/*Toast.showShortCenter('开户支行不能为空');*/
-                            }
-                            {/*}else {*/
-                            }
-                            {/*this.getBankCardInfo();*/
-                            }
-                            {/*}*/
-                            }
-
+                            if (!bankCardNum) return Toast.show('请填写银行卡号');
+                            if (!bankName) return Toast.show('请选择银行');
+                            if (!bankName) return Toast.show('请选择开户行');
+                            if (!bankCityName) return Toast.show('请选择开户省市');
+                            this.bindBankCard(holdCardName, IDCardNum, bankCardNum, bankName, bankCode,branchName,branchCode,
+                                selectedProvinceName,selectedProvinceCode,bankCityName,bankCityCode);
+                            // navigator.navigate('AddBankCardSuccess');
                         }}
                     >
-                        保存
+                        绑定
                     </Button>
 
                     <View style={{

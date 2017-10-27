@@ -188,7 +188,7 @@ export default class BankCardDeatil extends Component {
                             placeholderTextColor="#CCCCCC"
                             underlineColorAndroid={'transparent'}
                             style={styles.textInputStyle}
-                            value={this.state.bankCity}
+                            value={this.state.bankCityName}
                             editable={false}
                         />
                     </TouchableOpacity>

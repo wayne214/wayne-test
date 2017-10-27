@@ -74,9 +74,10 @@ export default class ChooseBranch extends Component {
 
     //点击城市cell
     cityClicked(item) {
-        alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankCodeCallback) {
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBank);
+        // alert(item.branchBank + item.branchBankCode);
+        if (this.props.navigation.state.params.BranchBankNameCallback) {
+            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
+            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
         }
         this.props.navigation.goBack();
     }
