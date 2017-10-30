@@ -124,6 +124,10 @@ import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
 /*待签收箭头*/
 import upArrow from '../../assets/order/upArrow.png';
 
+/*收款背景图片*/
+
+import PayBackground from '../../assets/order/pay/payTypeBackground.png';
+
 export default {
     EmptyImage,
     Img01,
@@ -203,5 +207,6 @@ export default {
     OrangeButtonArc,
     OrangeButtonSquare,
     upArrow,
+    PayBackground
 }
 
