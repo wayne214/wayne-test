@@ -82,6 +82,7 @@ import AddBankCardSuccess from '../containers/income/addBankCard/addBankCardSucc
 import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
 import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 import ChooseBranch from '../containers/income/addBankCard/chooseBranch';
+import PayTypesPage from '../containers/order/receivables/payTypes';// 收款页面
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -491,6 +492,12 @@ const StackRouteConfigs = {
     },
     ChooseBranch:{
         screen: ChooseBranch,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PayTypesPage:{
+        screen: PayTypesPage,
         navigationOptions: {
             header: null
         }
