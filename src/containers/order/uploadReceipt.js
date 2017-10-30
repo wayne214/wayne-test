@@ -75,14 +75,14 @@ const styles =StyleSheet.create({
         width: ImageWH,
         height: ImageWH,
         borderWidth: 1,
-        borderColor: StaticColor.PHOTO_BORDER_COLOR,
+        borderColor: StaticColor.DEVIDE_LINE_COLOR,
         alignItems: 'center',
         justifyContent: 'center',
     },
     photoText: {
         fontSize: 23,
         fontFamily: 'iconfont',
-        color: StaticColor.PHOTO_BORDER_COLOR,
+        color: StaticColor.LIGHT_GRAY_TEXT_COLOR,
         marginBottom: -5,
     },
     imageLayout: {
