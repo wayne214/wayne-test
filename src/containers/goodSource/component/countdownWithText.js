@@ -118,10 +118,10 @@ class countdownWithText extends Component {
                                     alignItems: 'center',
                                 },style]}
                             >
-                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>
+                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价已结束' : '报价'}</Text>
                                 {countDown}
                             </View> : <ImageBackground source={StaticImage.OrangeButtonArc} style={styles.imageBackground} resizeMode='stretch'>
-                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价审核中' : '报价'}</Text>
+                                <Text style={styles.text}>{this.state.noReach ? '距起拍' : showReviewText ? '报价已结束' : '报价'}</Text>
                                 {countDown}
                             </ImageBackground>
                     }
