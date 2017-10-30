@@ -77,6 +77,8 @@ export default class ImageShow extends Component {
                     onClick={() => {
                         this.props.navigation.goBack();
                     }}
+                    saveToLocalByLongPress={false}
+
                 />
             </View>
         );

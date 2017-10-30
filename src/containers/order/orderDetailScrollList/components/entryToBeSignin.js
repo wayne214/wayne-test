@@ -413,6 +413,7 @@ class entryToBeSignin extends Component {
                                     showImages : [],
                                 });
                             }}
+                            saveToLocalByLongPress={false}
                         /> : null
                 }
 

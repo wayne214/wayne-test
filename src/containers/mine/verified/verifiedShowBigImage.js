@@ -36,6 +36,7 @@ class verifiedShowBigImage extends Component{
                         console.log('234');
                         this.props.navigation.goBack();
                     }}
+                    saveToLocalByLongPress={false}
                 />
             </View>
         )
