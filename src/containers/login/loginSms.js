@@ -142,13 +142,12 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     bottomView: {
-        // flex: 1,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         height: 30,
-        width: width - 20,
-        marginTop: 10,
+        marginTop: 20,
     },
     bottomViewText: {
         fontSize: 14,
@@ -157,13 +156,16 @@ const styles = StyleSheet.create({
 
     },
     screenEndView: {
-        // position: 'absolute',
-        flex: 1,
+        position: 'absolute',
+        // flex: 1,
+        width,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        // alignItems: 'flex-end',
         height: 40,
-        marginBottom: 20
+        top: height - 60,
+        left: 0,
+        // marginBottom: 20
     },
     screenEndViewTextLeft: {
         fontSize: 14,
@@ -181,7 +183,7 @@ class LoginSms extends BaseContainer {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
-            phoneNumber: params.loginPhone,
+            phoneNumber: params?params.loginPhone:'',
             smsCode: '',
             loading: false,
         };
@@ -442,7 +444,9 @@ class LoginSms extends BaseContainer {
                         </View> 
                     </View>
                    
-                      <View style={styles.screenEndView}>
+                      
+                  </KeyboardAwareScrollView> 
+                  <View style={styles.screenEndView}>
                             <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
                             <Text
                                 style={styles.screenEndViewText}
@@ -452,8 +456,7 @@ class LoginSms extends BaseContainer {
                             >
                                 去注册
                             </Text>
-                    </View>
-                  </KeyboardAwareScrollView>         
+                    </View>        
                 {
                     this.state.loading ? <Loading /> : null
                 }

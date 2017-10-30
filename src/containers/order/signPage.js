@@ -29,7 +29,7 @@ import prventDoubleClickUtil from '../../utils/prventMultiClickUtil';
 import * as StaticColor from '../../constants/staticColor';
 import Toast from '@remobile/react-native-toast';
 import HTTPRequest from '../../utils/httpRequest';
-
+import BottomButton from './components/bottomButtonComponent';
 
 let userID = '';
 let userName = '';
@@ -207,29 +207,30 @@ class signPage extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '签收页面');
-        // Toast.showShortCenter('签收成功!');
-
-        if (this.state.isReceipt === '是'){
-
-            Alert.alert('','是否立即上传回单？', [
-                {text: '否',
-                    onPress: () => {
-                        DeviceEventEmitter.emit('changeStateReceipt');
-                        this.goBackForward();
-                    },
-                },
-                {text: '是',
-                    onPress: () => {
-                        this.props.navigation.navigate('UploadReceipt', {
-                            transCode: this.state.orderID
-                        });
-                    },
-                },
-            ], {cancelable: false});
-        } else {
-            DeviceEventEmitter.emit('changeStateReceipt');
-            this.popToTop();
-        }
+        this.props.navigation.navigate('SignSuccess',{
+            isReceipt: this.state.isReceipt,
+            orderID: this.state.orderID,
+        });
+        // if (this.state.isReceipt === '是'){
+            // Alert.alert('','是否立即上传回单？', [
+            //     {text: '否',
+            //         onPress: () => {
+            //             DeviceEventEmitter.emit('changeStateReceipt');
+            //             this.goBackForward();
+            //         },
+            //     },
+            //     {text: '是',
+            //         onPress: () => {
+            //             this.props.navigation.navigate('UploadReceipt', {
+            //                 transCode: this.state.orderID
+            //             });
+            //         },
+            //     },
+            // ], {cancelable: false});
+        // } else {
+        //     DeviceEventEmitter.emit('changeStateReceipt');
+        //     this.popToTop();
+        // }
 
     }
 
@@ -416,8 +417,8 @@ class signPage extends Component {
                 <ScrollView keyboardDismissMode="on-drag" style={{
                     marginBottom: 0,
                      ...Platform.select({
-                        ios:{height: height - ConstValue.NavigationBar_StatusBar_Height - 65},
-                        android:{height: height - 73 - 65}
+                        ios:{height: height - ConstValue.NavigationBar_StatusBar_Height - 45},
+                        android:{height: height - 73 - 45}
                      })
 
                 }}>
@@ -450,18 +451,18 @@ class signPage extends Component {
                         })
                     }
                 </ScrollView>
-                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            if (prventDoubleClickUtil.onMultiClick()) {
-                                this.getSignIn();
-                            }
-                        }}
-                        style={styles.viewSty}
-                    >
-                        <Text style={{color: StaticColor.WHITE_COLOR, fontSize: 16}}>提交</Text>
-                    </TouchableOpacity>
-                </View>
+                <BottomButton
+                    text={'提交'}
+                    onClick={() => {
+                        if (prventDoubleClickUtil.onMultiClick()) {
+                            {/*this.getSignIn();*/}
+                            this.props.navigation.navigate('SignSuccess',{
+                                isReceipt: this.state.isReceipt,
+                                orderID: this.state.orderID,
+                            });
+                        }
+                    }}
+                />
                 {this.state.loading ? <Loading /> : null}
             </View>
         );

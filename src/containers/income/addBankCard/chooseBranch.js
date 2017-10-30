@@ -30,12 +30,10 @@ export default class ChooseBranch extends Component {
         const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this)
         this.state = {
-            // NumberArr: BankCode.searchCode(),
             NumberArr: params.branchList,
             branchList:params.branchList,
             text:'',
         }
-        console.log('params.branchList=',params.branchList)
     }
 
     //改变搜索的文本
@@ -52,20 +50,21 @@ export default class ChooseBranch extends Component {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    NumberArr: NumberArr,
+                    branchList: this.state.NumberArr,
                 });
                 return;
             } else {
-                for (var i = 0; i < NumberArr.length; i++) {
-                    if (NumberArr[i].bankName.indexOf(text) > -1) {
+                this.setState({
+                    branchList: [],
+                });
+                for (var i = 0; i < this.state.NumberArr.length; i++) {
+                    if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            NumberArr: [NumberArr[i]],
+                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
                         });
-                        return;
+                        // return;
                     } else {
-                        this.setState({
-                            NumberArr: [],
-                        });
+
                     }
                 }
             }
@@ -75,9 +74,10 @@ export default class ChooseBranch extends Component {
 
     //点击城市cell
     cityClicked(item) {
-        alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankCodeCallback) {
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBank);
+        // alert(item.branchBank + item.branchBankCode);
+        if (this.props.navigation.state.params.BranchBankNameCallback) {
+            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
+            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
         }
         this.props.navigation.goBack();
     }
@@ -165,7 +165,7 @@ export default class ChooseBranch extends Component {
                         </TextInput>
                         <TouchableOpacity onPress={() => {
                             this.setState({
-                                branch:''
+                                text:''
                             })
                         }}>
                             <Text
@@ -191,7 +191,7 @@ export default class ChooseBranch extends Component {
                 </View>
                 <FlatList
                     style={{backgroundColor: 'white', flex: 1}}
-                    data={this.state.NumberArr}
+                    data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >

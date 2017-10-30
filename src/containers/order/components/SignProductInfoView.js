@@ -30,16 +30,19 @@ const style = StyleSheet.create({
     },
     // 分类名称style
     subTitleStyle: {
-        fontSize: 15,
-        color: COLOR_LIGHT_GRAY_TEXT,
+        fontSize: 16,
+        color: LIGHT_BLACK_TEXT_COLOR,
     },
     // 中间规格、单位、应收ViewStyle
     subViewStyle: {
         flexDirection: 'row', // 确保水平布局
-        justifyContent: 'space-between', // 确保水平布局间距一样
         marginTop: 10,
+        alignItems: 'center'
     },
-
+    subContentStyle: {
+        fontSize: 14,
+        color: COLOR_LIGHT_GRAY_TEXT,
+    },
 
 });
 
@@ -103,26 +106,38 @@ export default class SignProductInfoView extends Component {
 
         return (
             <View>
-                <View style={{marginHorizontal: 20}}>
+                <View style={{marginHorizontal: 20, marginBottom: 3}}>
                     <View style={style.subViewStyle}>
                         <Text style={style.subTitleStyle}>名称</Text>
-                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{title}</Text>
+                        <Text style={[style.subTitleStyle, {marginLeft: 20}]}>{title}</Text>
                     </View>
                     <View style={style.subViewStyle}>
-                        <Text style={style.subTitleStyle}>规格</Text>
-                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{Specifications}</Text>
+                        <Text style={style.subContentStyle}>规格</Text>
+                        <Text style={[style.subContentStyle, {marginLeft: 20}]}>{Specifications}</Text>
                     </View>
-                    <View style={{marginRight: 20, marginTop: 10}}>
-                        <GoodInfoCell title="应收" num={arNums} unit={goodsUnit} />
+                    <View style={{flexDirection:'row'}}>
+                        <View style={[style.subViewStyle, {flex: 1}]}>
+                            <Text style={style.subContentStyle}>应收</Text>
+                            <Text style={[style.subContentStyle, {marginLeft: 20}]}>{arNums}</Text>
+                            <Text style={style.subContentStyle}>{goodsUnit}</Text>
+                        </View>
+                        <View style={[style.subViewStyle, {flex: 1}]}>
+                            <Text style={style.subContentStyle}>发运</Text>
+                            <Text style={[style.subContentStyle, {marginLeft: 20}]}>{shipmentNum}</Text>
+                            <Text style={style.subContentStyle}>{goodsUnit}</Text>
+                        </View>
                     </View>
-                    <View style={{marginRight: 20, marginTop: 10}}>
-                        <GoodInfoCell title="发运" num={shipmentNum} unit={goodsUnit} style={{width: 127}}/>
-                    </View>
-                    <View style={{marginRight: 20, marginTop: 10}}>
-                        <GoodInfoCell title="签收" num={getNum} unit={goodsUnit} />
-                    </View>
-                    <View style={{marginRight: 20, marginTop: 10}}>
-                        <GoodInfoCell title="拒收" num={refuseNum ? refuseNum : 0} unit={goodsUnit} style={{width: 127}}/>
+                    <View style={{flexDirection:'row'}}>
+                        <View style={[style.subViewStyle, {flex: 1}]}>
+                            <Text style={style.subContentStyle}>签收</Text>
+                            <Text style={[style.subContentStyle, {marginLeft: 20}]}>{getNum}</Text>
+                            <Text style={style.subContentStyle}>{goodsUnit}</Text>
+                        </View>
+                        <View style={[style.subViewStyle, {flex: 1}]}>
+                            <Text style={style.subContentStyle}>拒收</Text>
+                            <Text style={[style.subContentStyle, {marginLeft: 20}]}>{refuseNum ? refuseNum : 0}</Text>
+                            <Text style={style.subContentStyle}>{goodsUnit}</Text>
+                        </View>
                     </View>
                 </View>
             </View>
