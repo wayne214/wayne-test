@@ -65,19 +65,6 @@ class signSuccess extends Component {
       render() {
           const navigator = this.props.navigation;
           const buttonView = <View style={{flexDirection:'row',marginTop: 50}}>
-              <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                      onPress={() => {
-                          {/*this.props.navigation.navigate('EntryToBeSignIn', {*/}
-                              {/*transOrderList: this.state.orderID,*/}
-                          {/*});*/}
-                      }}
-                  >
-                      <View style={styles.buttonView}>
-                          <Text style={styles.textSize}>订单详情</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
               {
                   this.state.isReceipt === '是' ?
                   <View style={styles.buttonContainer}>
