@@ -58,8 +58,7 @@ const styles =StyleSheet.create({
         borderWidth: 1,
         // 文字内容居中对齐
         alignItems:'center',
-        borderColor: StaticColor.PHOTO_BORDER_COLOR,
-        // backgroundColor:'red'
+        borderColor: StaticColor.DEVIDE_LINE_COLOR,
     },
     iconStyle: {
         width: cellWH,

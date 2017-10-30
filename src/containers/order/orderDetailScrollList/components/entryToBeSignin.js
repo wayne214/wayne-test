@@ -361,6 +361,9 @@ class entryToBeSignin extends Component {
                                 taskInfo: item.taskInfo
                             });
                         }}
+                        payment={() => {
+                            this.props.navigation.navigate('WeChatPayment');
+                        }}
                     />
                 );
             }
