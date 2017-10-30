@@ -300,7 +300,7 @@ class GoodSource extends BaseContainer{
                     }
                     }
                     preferences={() => {
-                        this.props.navigation.navigate('PayTypesPage');
+                        this.props.navigation.navigate('GoodsPreferencePage');
                     }}
                 >
                     <View>

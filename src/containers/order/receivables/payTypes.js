@@ -78,6 +78,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: StaticColor.WHITE_COLOR,
     },
+    moneyStyle: {
+        fontSize: 40,
+        color: StaticColor.WHITE_COLOR
+    },
+    codeStyle: {
+        fontSize: 12,
+        color: StaticColor.WHITE_COLOR
+    },
+    cashAndWeChatStyle: {
+        fontSize: 16,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR
+    }
 });
 
 class payTypes extends Component {
@@ -134,12 +146,12 @@ class payTypes extends Component {
                             <View style={styles.amountLine}/>
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
-                            <Text style={{fontSize: 40, color: StaticColor.WHITE_COLOR}}>+</Text>
-                            <Text style={{fontSize: 40, color: StaticColor.WHITE_COLOR}}>230.00</Text>
+                            <Text style={styles.moneyStyle}>+</Text>
+                            <Text style={styles.moneyStyle}>230.00</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
-                            <Text style={{fontSize: 12, color: StaticColor.WHITE_COLOR}}>订单号：SO1234567890</Text>
-                            <Text style={{fontSize: 12, color: StaticColor.WHITE_COLOR}}>客户单号：1234567890</Text>
+                            <Text style={styles.codeStyle}>订单号：SO1234567890</Text>
+                            <Text style={styles.codeStyle}>客户单号：1234567890</Text>
                         </View>
                     </ImageBackground>
                     <View style={styles.contactContainer}>
@@ -158,11 +170,11 @@ class payTypes extends Component {
                             style={{paddingLeft: 10}}
                         >
                             <RadioButton value={'现金'} imageUrl="&#xe668;" color={'#36ABFF'}>
-                                <Text style={{fontSize: 16, color: StaticColor.LIGHT_BLACK_TEXT_COLOR}}>现金</Text>
+                                <Text style={styles.cashAndWeChatStyle}>现金</Text>
                             </RadioButton>
 
                             <RadioButton value={'微信'} imageUrl="&#xe66e;" color={'#41B035'}>
-                                <Text style={{fontSize: 16, color: StaticColor.LIGHT_BLACK_TEXT_COLOR}}>微信</Text>
+                                <Text style={styles.cashAndWeChatStyle}>微信</Text>
                             </RadioButton>
                         </RadioGroup>
                         <View style={styles.separateLine} />
