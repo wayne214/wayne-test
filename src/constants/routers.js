@@ -84,6 +84,7 @@ import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 import ChooseBranch from '../containers/income/addBankCard/chooseBranch';
 import PayTypesPage from '../containers/order/receivables/payTypes';// 收款页面
 import SignSuccess from '../containers/order/signSuccess';
+import WeChatPayment from '../containers/order/receivables/weChatPayment';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -505,6 +506,12 @@ const StackRouteConfigs = {
     },
     SignSuccess:{
         screen: SignSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
+    WeChatPayment:{
+        screen: WeChatPayment,
         navigationOptions: {
             header: null
         }

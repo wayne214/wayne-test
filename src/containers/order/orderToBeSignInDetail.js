@@ -1,7 +1,7 @@
 /**
  * Created by mymac on 2017/4/13.
  */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {
     Text,
@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
 });
 
 export default class orderToBeSignInDetail extends Component {
+
+    static propTypes = {
+        signIn: PropTypes.func,
+        payment: PropTypes.func,
+    };
 
     constructor(props) {
         super(props);
@@ -205,6 +210,7 @@ export default class orderToBeSignInDetail extends Component {
                         leftClick={() => {
                             // TODO 收款
                             console.log('收款');
+                            this.props.payment();
                         }}
                         rightClick={() => {
                             this.props.signIn();
