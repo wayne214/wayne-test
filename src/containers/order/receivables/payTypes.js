@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     amountLine: {
         backgroundColor: StaticColor.WHITE_COLOR,
         height: 1,
-        width: 33
+        width: 33,
+        opacity: 0.5
     },
     amountTitle: {
         fontSize: 13,
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
     },
     codeStyle: {
         fontSize: 12,
-        color: StaticColor.WHITE_COLOR
+        color: StaticColor.WHITE_COLOR,
+        opacity: 0.8
     },
     cashAndWeChatStyle: {
         fontSize: 16,
@@ -169,7 +171,7 @@ class payTypes extends Component {
                             thickness={2}
                             style={{paddingLeft: 10}}
                         >
-                            <RadioButton value={'现金'} imageUrl="&#xe668;" color={'#36ABFF'}>
+                            <RadioButton value={'现金'} imageUrl="&#xe66f;" color={'#36ABFF'}>
                                 <Text style={styles.cashAndWeChatStyle}>现金</Text>
                             </RadioButton>
 
