@@ -14,6 +14,7 @@ import {
     DeviceEventEmitter,
     Platform,
     Alert,
+    ImageBackground,
 } from 'react-native';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
@@ -25,6 +26,7 @@ import ClickUtil from '../../utils/prventMultiClickUtil';
 import Toast from '@remobile/react-native-toast';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 import StorageKey from '../../constants/storageKeys';
+import StaticImage from '../../constants/staticImage';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 
@@ -89,16 +91,21 @@ const styles =StyleSheet.create({
     },
     uploadButton: {
         marginLeft: 10,
-        marginTop: 15,
         marginRight: 10,
         borderWidth: 0,
-        backgroundColor: StaticColor.COLOR_MAIN,
+        backgroundColor: 'transparent',
         borderRadius: 5,
     },
     container: {
         flex: 1,
         backgroundColor:StaticColor.COLOR_VIEW_BACKGROUND,
-    }
+    },
+    buttonBackground: {
+        marginTop: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 44,
+    },
 });
 
 class UploadReceipt extends Component {
@@ -137,7 +144,7 @@ class UploadReceipt extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
         dispatch(updateImages());
-        DeviceEventEmitter.emit('changeStateReceipt');
+        // DeviceEventEmitter.emit('changeStateReceipt');
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -412,34 +419,36 @@ class UploadReceipt extends Component {
                         </View>
                     </View>
                 </View>
-                <Button
-                    isDisabled={imageList.size <= 0}
-                    style={styles.uploadButton}
-                    textStyle={{color: StaticColor.WHITE_COLOR, fontSize: 16}}
-                    onPress={() => {
-                        if (ClickUtil.onMultiClick()) {
-                            let formData = new FormData();
-                            this.props.imageList.map(i => {
-                                if (Platform.OS === 'ios'){
-                                    if(i.uri.indexOf('file://') === -1){
-                                        i.uri = 'file://' + i.uri;
+                <ImageBackground style={styles.buttonBackground} source ={StaticImage.BlueButtonArc}>
+                    <Button
+                        isDisabled={imageList.size <= 0}
+                        style={styles.uploadButton}
+                        textStyle={{color: StaticColor.WHITE_COLOR, fontSize: 16}}
+                        onPress={() => {
+                            if (ClickUtil.onMultiClick()) {
+                                let formData = new FormData();
+                                this.props.imageList.map(i => {
+                                    if (Platform.OS === 'ios'){
+                                        if(i.uri.indexOf('file://') === -1){
+                                            i.uri = 'file://' + i.uri;
+                                        }
                                     }
-                                }
-                                let file = {uri: i.uri, type: 'multipart/form-data', name: i.id + '.jpg'};
-                                console.log('filePath===',file.uri);
-                                formData.append('photo', file);
-                            });
-                            formData.append('userId', userID);
-                            formData.append('userName', userName);
-                            formData.append('transCode', this.state.transCode);
-                            formData.append('receiptType', '纸质回单');
-                            const url = API.API_NEW_RETURN_TRANSPORT_ORDER_V2;
-                            this.uploadImage(url, formData);
-                        }
-                    }}
-                >
-                    提交
-                </Button>
+                                    let file = {uri: i.uri, type: 'multipart/form-data', name: i.id + '.jpg'};
+                                    console.log('filePath===',file.uri);
+                                    formData.append('photo', file);
+                                });
+                                formData.append('userId', userID);
+                                formData.append('userName', userName);
+                                formData.append('transCode', this.state.transCode);
+                                formData.append('receiptType', '纸质回单');
+                                const url = API.API_NEW_RETURN_TRANSPORT_ORDER_V2;
+                                this.uploadImage(url, formData);
+                            }
+                        }}
+                    >
+                        提交
+                    </Button>
+                </ImageBackground>
                 <DialogSelected ref={(dialog)=>{
                     this.dialog = dialog;
                 }} />

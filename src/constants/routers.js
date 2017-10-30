@@ -83,6 +83,7 @@ import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
 import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 import ChooseBranch from '../containers/income/addBankCard/chooseBranch';
 import PayTypesPage from '../containers/order/receivables/payTypes';// 收款页面
+import SignSuccess from '../containers/order/signSuccess';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -502,6 +503,13 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    SignSuccess:{
+        screen: SignSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
+
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'Splash', // 初始化哪个界面为根界面
