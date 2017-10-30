@@ -91,7 +91,7 @@ class Splash extends BaseContainer {
                     if (!ObjectUitls.isOwnEmpty(userInfo)) {
                         title = 'Main';
                     } else {
-                        title = 'Login';
+                        title = 'LoginSms';
                     }
                     if (Platform.OS === 'ios') {
                         this.timer = setTimeout(() => {

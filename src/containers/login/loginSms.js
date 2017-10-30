@@ -183,7 +183,7 @@ class LoginSms extends BaseContainer {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
-            phoneNumber: params.loginPhone,
+            phoneNumber: params?params.loginPhone:'',
             smsCode: '',
             loading: false,
         };
