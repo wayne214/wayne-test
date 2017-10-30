@@ -88,6 +88,7 @@ import receiveDeleteUnselect from '../../assets/order/receive_delete_unselected.
 import receiveRightArrow from '../../assets/order/receive_right_arrow.png';
 import receiveAdd from '../../assets/order/receive_add.png';
 import receiveDelete from '../../assets/order/receive_delete.png';
+import receiptSuccess from '../../assets/order/receipt_success.png';
 
 /*关于我们*/
 import aboutUsImg from '../../assets/setting/aboutus.png';
@@ -203,5 +204,6 @@ export default {
     OrangeButtonArc,
     OrangeButtonSquare,
     upArrow,
+    receiptSuccess,
 }
 

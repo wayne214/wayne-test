@@ -82,6 +82,8 @@ import AddBankCardSuccess from '../containers/income/addBankCard/addBankCardSucc
 import ChooseBankCity from '../containers/income/addBankCard/chooseBankCity';
 import ChooseBankName from '../containers/income/addBankCard/chooseBankName';
 import ChooseBranch from '../containers/income/addBankCard/chooseBranch';
+import ReceiptSuccess from '../containers/order/receiptSuccess';
+import SignSuccess from '../containers/order/signSuccess';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -491,6 +493,18 @@ const StackRouteConfigs = {
     },
     ChooseBranch:{
         screen: ChooseBranch,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SignSuccess:{
+        screen: SignSuccess,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ReceiptSuccess:{
+        screen: ReceiptSuccess,
         navigationOptions: {
             header: null
         }
