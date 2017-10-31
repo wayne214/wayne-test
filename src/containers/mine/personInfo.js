@@ -8,6 +8,7 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
+    ImageBackground
 } from 'react-native';
 import {CachedImage} from 'react-native-img-cache';
 import Toast from '@remobile/react-native-toast';
@@ -16,7 +17,6 @@ import CommonCell from '../../containers/mine/cell/commonCell';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as API from '../../constants/api';
 import Storage from '../../utils/storage';
-import PersonImage from '../../../assets/person/personInfo.png';
 import * as StaticColor from '../../constants/staticColor';
 import Loading from '../../utils/loading';
 import NoImage from '../../../assets/person/noiamgeShow.png';
@@ -24,6 +24,7 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../utils/httpRequest';
 import StorageKeys from '../../constants/storageKeys';
+import StaticImage from '../../constants/staticImage';
 
 
 const {width} = Dimensions.get('window');
@@ -44,8 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: StaticColor.WHITE_COLOR,
     },
     Button: {
-        backgroundColor: StaticColor.BLUE_ALL_COLOR,
-        marginTop: 55,
+        backgroundColor: 'transparent',
         marginLeft: 10,
         marginRight: 10,
         borderWidth: 0,
@@ -87,6 +87,16 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 20,
+    },
+    buttonGround: {
+        width: width - 20,
+        marginTop: 55,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 0,
+        height: 44,
+        alignItems: 'center',
+        justifyContent:'center'
     },
 });
 
@@ -265,7 +275,7 @@ class PersonInfo extends Component {
                                 style={{
                                     marginTop: 130,
                                 }}
-                                source={PersonImage}/>
+                                source={StaticImage.PersonImage}/>
                             <Text
                                 style={{
                                     marginTop: 30,
@@ -275,16 +285,18 @@ class PersonInfo extends Component {
                             >
                                 您的个人信息为空，请先去实名认证吧~
                             </Text>
-                            <Button
-                                style={styles.Button}
-                                textStyle={styles.ButtonText}
-                                onPress={() => {
-                                    // 跳转实名认证页面
-                                    this.props.navigation.navigate('VerifiedStatePage');
-                                }}
-                            >
-                                立即认证
-                            </Button>
+                            <ImageBackground source={StaticImage.BlueButtonArc} style={styles.buttonGround} resizeMode="stretch">
+                                <Button
+                                    style={styles.Button}
+                                    textStyle={styles.ButtonText}
+                                    onPress={() => {
+                                        // 跳转实名认证页面
+                                        this.props.navigation.navigate('VerifiedPage');
+                                    }}
+                                >
+                                    立即认证
+                                </Button>
+                            </ImageBackground>
                         </View>
                         :
                         <ScrollView>
