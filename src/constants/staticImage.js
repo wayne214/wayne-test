@@ -26,8 +26,6 @@ import registerBackground from '../../assets/register/registeredBackground.png';
 import backIcon from '../../assets/navigationBar/back.png';
 /*箭头*/
 import rightArrow from '../../assets/income/rightarrow.png';
-// 空界面
-import noDataIcon from '../../assets/income/nodata.png';
 
 /*首页轮播图片*/
 import bannerImage1 from '../../assets/home/banner1.png';
@@ -161,7 +159,6 @@ export default {
     radioButton,
     RejectIcon,
     rightArrow,
-    noDataIcon,
     bannerImage1,
     bannerImage2,
     signIcon,
