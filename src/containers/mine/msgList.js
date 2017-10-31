@@ -16,6 +16,7 @@ import Toast from '@remobile/react-native-toast';
 import Swipeout from 'react-native-swipeout';
 import * as StaticColor from '../../constants/staticColor';
 import * as ConstValue from '../../constants/constValue';
+import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
     row: {
@@ -234,7 +235,7 @@ export default class MsgList extends Component {
                             dataSource={this.state.dataSource}
                             renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
                             enableEmptySections={true}
-                        /> : <EmptyView content={'暂时没有消息'} />
+                        /> : <EmptyView emptyImage={StaticImage.NoMessage} content={'暂时没有消息'} />
                 }
                 </View>
             </View>

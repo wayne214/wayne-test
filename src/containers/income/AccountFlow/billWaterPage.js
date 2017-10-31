@@ -244,7 +244,7 @@ export default class BillWaterPage extends Component {
                     </TouchableOpacity>
                     <View style={{marginTop: 10}}>
                         {
-                            this.state.dataLength > 0 ? this.listView() : <EmptyView icon={StaticImage.noDataIcon} content={'暂时没有数据'}/>
+                            this.state.dataLength > 0 ? this.listView() : <EmptyView content={'暂时没有数据'}/>
                         }
                     </View>
                 </DropdownMenu>

@@ -134,9 +134,13 @@ import finishIcon from '../../assets/order/finishIcon.png';
 /*收款背景图片*/
 
 import PayBackground from '../../assets/order/pay/payTypeBackground.png';
+
 /*个人车辆信息空页面*/
 import PersonImage from '../../assets/person/personInfo.png';
 import CarImage from '../../assets/car/carInfo.png';
+
+/*消息空页面*/
+import NoMessage from '../../assets/mine/noMessage.png';
 
 export default {
     EmptyImage,
@@ -223,6 +227,7 @@ export default {
     MessageMine,
     finishIcon,
     PersonImage,
-    CarImage
+    CarImage,
+    NoMessage
 }
 
