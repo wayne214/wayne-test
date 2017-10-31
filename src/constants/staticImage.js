@@ -73,6 +73,10 @@ import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 import MessageNew from '../../assets/mine/new_message.png';
 import Message from '../../assets/mine/message.png';
 
+/*我的-消息图标*/
+import MessageNewMine from '../../assets/mine/newMessage-mine.png';
+import MessageMine from '../../assets/mine/message-mine.png';
+
 /*扫描图标*/
 import scanBackIcon from '../../assets/scan/scanBackIcon.png';
 import scanLine from '../../assets/scan/scan_line.png';
@@ -210,5 +214,7 @@ export default {
     upArrow,
     PayBackground,
     receiptSuccess,
+    MessageNewMine,
+    MessageMine
 }
 

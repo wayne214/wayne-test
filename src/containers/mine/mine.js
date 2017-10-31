@@ -599,7 +599,7 @@ class Mine extends Component {
                                     Storage.save('newMessageFlag', '0');
                                     this.pushToMsgList();
                                 }} style={{position: 'absolute', right: 10, marginTop: ConstValue.StatusBar_Height}}>
-                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNew : StaticImage.Message}/>
+                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNewMine : StaticImage.MessageMine}/>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.headerView}>
