@@ -26,8 +26,6 @@ import registerBackground from '../../assets/register/registeredBackground.png';
 import backIcon from '../../assets/navigationBar/back.png';
 /*箭头*/
 import rightArrow from '../../assets/income/rightarrow.png';
-// 空界面
-import noDataIcon from '../../assets/income/nodata.png';
 
 /*首页轮播图片*/
 import bannerImage1 from '../../assets/home/banner1.png';
@@ -72,6 +70,10 @@ import checkboxChecked from '../../assets/carList/checkbox-checked.png';
 /*消息图标*/
 import MessageNew from '../../assets/mine/new_message.png';
 import Message from '../../assets/mine/message.png';
+
+/*我的-消息图标*/
+import MessageNewMine from '../../assets/mine/newMessage-mine.png';
+import MessageMine from '../../assets/mine/message-mine.png';
 
 /*扫描图标*/
 import scanBackIcon from '../../assets/scan/scanBackIcon.png';
@@ -125,9 +127,23 @@ import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
 /*待签收箭头*/
 import upArrow from '../../assets/order/upArrow.png';
 
+import finishIcon from '../../assets/order/finishIcon.png';
+
 /*收款背景图片*/
 
 import PayBackground from '../../assets/order/pay/payTypeBackground.png';
+
+/*个人车辆信息空页面*/
+import PersonImage from '../../assets/person/personInfo.png';
+import CarImage from '../../assets/car/carInfo.png';
+
+/*消息空页面*/
+import NoMessage from '../../assets/mine/noMessage.png';
+
+/*收入空页面*/
+import NoIncome from '../../assets/emptyView/noIncome.png';
+
+
 
 export default {
     EmptyImage,
@@ -148,7 +164,6 @@ export default {
     radioButton,
     RejectIcon,
     rightArrow,
-    noDataIcon,
     bannerImage1,
     bannerImage2,
     signIcon,
@@ -210,5 +225,12 @@ export default {
     upArrow,
     PayBackground,
     receiptSuccess,
+    MessageNewMine,
+    MessageMine,
+    finishIcon,
+    PersonImage,
+    CarImage,
+    NoMessage,
+    NoIncome
 }
 

@@ -171,11 +171,11 @@ class payTypes extends Component {
                             thickness={2}
                             style={{paddingLeft: 10}}
                         >
-                            <RadioButton value={'现金'} imageUrl="&#xe66f;" color={'#36ABFF'}>
+                            <RadioButton value={'现金'} imageUrl="&#xe670;" color={'#36ABFF'}>
                                 <Text style={styles.cashAndWeChatStyle}>现金</Text>
                             </RadioButton>
 
-                            <RadioButton value={'微信'} imageUrl="&#xe66e;" color={'#41B035'}>
+                            <RadioButton value={'微信'} imageUrl="&#xe66f;" color={'#41B035'}>
                                 <Text style={styles.cashAndWeChatStyle}>微信</Text>
                             </RadioButton>
                         </RadioGroup>

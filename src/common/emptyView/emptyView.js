@@ -52,7 +52,7 @@ class EmptyView extends Component {
 
     /*声明属性*/
     static propTypes = {
-        emptyImage : PropTypes.object,
+        // emptyImage : PropTypes.object,
         content: PropTypes.string,
         comment: PropTypes.object,
         contentStyle: Text.propTypes.style,
