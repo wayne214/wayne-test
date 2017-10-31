@@ -140,6 +140,11 @@ import CarImage from '../../assets/car/carInfo.png';
 /*消息空页面*/
 import NoMessage from '../../assets/mine/noMessage.png';
 
+/*收入空页面*/
+import NoIncome from '../../assets/emptyView/noIncome.png';
+
+
+
 export default {
     EmptyImage,
     Img01,
@@ -225,6 +230,7 @@ export default {
     finishIcon,
     PersonImage,
     CarImage,
-    NoMessage
+    NoMessage,
+    NoIncome
 }
 

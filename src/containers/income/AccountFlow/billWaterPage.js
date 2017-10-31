@@ -149,7 +149,7 @@ export default class BillWaterPage extends Component {
         const datalenth = result.length;
         this.setState({
             refreshing:false,
-            dataLength: datalenth,
+            dataLength: 0,
         })
 
         if (this.state.page == 1 && datalenth < 20){
@@ -244,7 +244,7 @@ export default class BillWaterPage extends Component {
                     </TouchableOpacity>
                     <View style={{marginTop: 10}}>
                         {
-                            this.state.dataLength > 0 ? this.listView() : <EmptyView content={'暂时没有数据'}/>
+                            this.state.dataLength > 0 ? this.listView() : <EmptyView emptyImage={StaticImage.NoIncome} content={'暂无收入记录'}/>
                         }
                     </View>
                 </DropdownMenu>
