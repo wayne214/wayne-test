@@ -85,6 +85,12 @@ import ChooseBranch from '../containers/income/addBankCard/chooseBranch';
 import PayTypesPage from '../containers/order/receivables/payTypes';// 收款页面
 import SignSuccess from '../containers/order/signSuccess';
 import WeChatPayment from '../containers/order/receivables/weChatPayment';
+import PayPassword from '../containers/mine/payPassword';
+import SetPayPassword from '../containers/mine/setPayPassword';
+import ForgetPayPassword from '../containers/mine/forgetPayPassword';
+import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
+
+
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -512,6 +518,30 @@ const StackRouteConfigs = {
     },
     WeChatPayment:{
         screen: WeChatPayment,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PayPassword:{
+        screen: PayPassword,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SetPayPassword:{
+        screen: SetPayPassword,
+            navigationOptions: {
+            header: null
+        }
+    },
+    ForgetPayPassword:{
+        screen: ForgetPayPassword,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ForgetPayPasswordCode:{
+        screen: ForgetPayPasswordCode,
         navigationOptions: {
             header: null
         }

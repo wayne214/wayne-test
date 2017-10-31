@@ -810,10 +810,10 @@ class Mine extends Component {
                                     content={'支付密码'}
                                     showBottomLine={false}
                                     clickAction={() => {
-                                        // ClickUtil.resetLastTime();
-                                        // if (ClickUtil.onMultiClick()) {
-                                        //     navigator.navigate('ChangePwd');
-                                        // }
+                                         ClickUtil.resetLastTime();
+                                         if (ClickUtil.onMultiClick()) {
+                                             navigator.navigate('PayPassword');
+                                         }
                                     }}
                                 />
 

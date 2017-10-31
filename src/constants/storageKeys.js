@@ -35,6 +35,8 @@ const acceptMessage = 'acceptMessage'; //接收消息
 
 const newMessageFlag = 'newMessageFlag'; //新消息标记
 
+const payPassword = 'payPassword'; //支付密码
+
 export default {
     IS_FIRST_START_FLAG,
     USER_INFO,
@@ -52,5 +54,6 @@ export default {
     userCarList,
     acceptMessage,
     newMessageFlag,
+    payPassword,
 }
 

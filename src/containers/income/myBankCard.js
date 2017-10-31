@@ -45,7 +45,8 @@ export default class MyBankCard extends Component {
 
         this.bankCardList = this.bankCardList.bind(this);
         this.bankCardBundingCallBack = this.bankCardBundingCallBack.bind(this);
-
+        this.unBankCardBunding = this.unBankCardBunding.bind(this);
+        this.unBankCardBundingCallBack = this.unBankCardBundingCallBack.bind(this);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds,
@@ -96,9 +97,7 @@ export default class MyBankCard extends Component {
             finish: () => {
 
             },
-
         })
-
     }
 
     bankCardBundingCallBack(result) {
@@ -117,6 +116,46 @@ export default class MyBankCard extends Component {
                 dataSource: this.state.dataSource.cloneWithRows(result),
             })
         }
+    }
+
+    /*删除银行卡*/
+    unBankCardBunding(bankAccount ,unBankCardBundingCallBack) {
+
+        HTTPRequest({
+            url: API.API_BANK_CARD_UNBUNDING,
+            params: {
+                bankCardNumber: bankAccount,
+                phoneNum: global.phone,
+                userId: global.userId,
+                userName: global.userName,
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (response) => {
+                unBankCardBundingCallBack(response.result);
+            },
+            error: (err) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            },
+        })
+    }
+
+    unBankCardBundingCallBack(result) {
+        this.setState({
+            sectionID: null,
+            rowID: null,
+        });
+        this.bankCardList(this.bankCardBundingCallBack);
     }
 
     render() {
@@ -170,7 +209,7 @@ export default class MyBankCard extends Component {
                                                     </View>
                                                 </View>],
                                                 onPress: ()=>{
-
+                                                    this.unBankCardBunding(rowData.bankAccount, this.unBankCardBundingCallBack);
                                                 },
 
                                             }
