@@ -69,3 +69,6 @@ export const ORANGE_TYPE_TEXT_COLOR = '#FF8E56';
 
 export const BLUE_BACKGROUND_COLOR = '#008EFF';
 
+export const TITLE_BACKGROUND_COLOR = '#FAFAFA';
+
+
