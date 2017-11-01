@@ -7,6 +7,8 @@ export const API_USER_LOGOUT = `${HOST}app/user/logout/`;
 export const API_AC_BALANCE = `${HOST}app/ac/balance/`;
 
 export const API_AC_ACCOUNT_FLOW = `${HOST}app/ac/accountFlow`;
+// 根据单号获取结算金额
+export const API_AC_GET_SETTLE_AMOUNT = `${HOST}app/ac/getSettleAmount`;
 
 /** *****************************************************用户中心接口******************************************************/
 // 用户绑定车辆
