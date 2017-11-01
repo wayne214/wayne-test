@@ -666,8 +666,8 @@ class Mine extends Component {
                             </View>
                             {changeCarView}
                         </Image>
-
                         <View style={styles.contentPostionView}>
+                            <ScrollView>
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
@@ -853,6 +853,7 @@ class Mine extends Component {
                                 }}/>
 
                             </View>
+                            </ScrollView>
                         </View>
                     </View>
                 </View>
