@@ -6,7 +6,6 @@ import android.content.Context;
 import com.facebook.react.ReactApplication;
 import com.remobile.toast.RCTToastPackage;
 import com.react.arron.speech.speechModulePackage;
-import com.remobile.toast.RCTToastPackage;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
@@ -45,8 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new RCTToastPackage(),
-            new speechModulePackage(),
+                    new speechModulePackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),
                     new PickerViewPackage(),
