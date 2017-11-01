@@ -97,13 +97,15 @@ const styles = StyleSheet.create({
 class payTypes extends Component {
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
-            payTypes: '现金'
+            payTypes: '现金',
+            orderCode: params.orderCode,
         }
     }
 
     componentDidMount() {
-        console.log('.......000000',width, height)
+        console.log('.......orderCode',this.state.orderCode);
     }
     onSelect(index, value){
         this.setState({
@@ -121,15 +123,18 @@ class payTypes extends Component {
                     },
                 },
                 {text: '确认',
-                    onPress: () => {
-                        // this.props.navigation.navigate('UploadReceipt', {
-                        //     transCode: this.state.orderID
-                        // });
-                    },
+                    // onPress: () => {
+                    //     this.props.navigation.navigate('UploadReceipt', {
+                    //         transCode: this.state.orderID
+                    //     });
+                    // },
                 },
             ], {cancelable: false});
+        } else {
+            this.props.navigation.navigate('WeChatPayment', {
+                transCode: this.state.orderCode
+            });
         }
-        console.log('支付方式', this.state.payTypes);
     }
     render() {
         const navigator = this.props.navigation;

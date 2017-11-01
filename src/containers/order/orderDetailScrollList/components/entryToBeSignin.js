@@ -362,7 +362,9 @@ class entryToBeSignin extends Component {
                             });
                         }}
                         payment={() => {
-                            this.props.navigation.navigate('PayTypesPage');
+                            this.props.navigation.navigate('PayTypesPage', {
+                                orderCode: item.transCode,
+                            });
                         }}
                     />
                 );
