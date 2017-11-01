@@ -26,6 +26,8 @@ export const API_LOGIN_WITH_PSD = `${HOST}app/uam/login/loginWithPassword`;
 export const API_LOGIN_WITH_CODE = `${HOST}app/uam/login/loginWithVerificationCode`;
 // 根据旧密码修改密码
 export const API_CHANGE_PSD_WITH_OLD_PSD = `${HOST}app/uam/login/modifyPassword`;
+//登陆后绑定设备信息接口
+export const API_BIND_DEVICE = `${HOST}app/uam/login/bindDevice`;
 
 // 校验忘记密码的验证码是否正确
 export const API_CHECK_IDENTIFY_CODE = `${HOST}app/uam/message/checkForgetIdentifyCode`;

@@ -57,7 +57,10 @@ export default class CheckPhone extends Component {
 
         };
         this.phoneNo = this.props.navigation.state.params.loginPhone;
+        this.responseData = params.responseData;
         this.nextStep = this.nextStep.bind(this);
+        this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
+        console.log('lqq---this.phoneNo ---',this.phoneNo );
     }
 
     componentDidMount() {
@@ -76,16 +79,41 @@ export default class CheckPhone extends Component {
    
     // 下一步按钮
     nextStep() {
-        if (this.phoneNo !== '' ) {
+        if (this.phoneNo) {
             //验证手机号
-             this.props.navigation.navigate('CheckPhoneStepTwo', {
-                loginPhone: this.phoneNo
-            });
+            this.requestVCodeForLogin();
         } else {
             Toast.showShortCenter('手机号不能为空');
         }
     }
+    /*获取登录验证码*/
+    requestVCodeForLogin() {
+       HTTPRequest({
+           url: API.API_GET_LOGIN_WITH_CODE,
+           params: {
+               deviceId: global.UDID,
+               phoneNum: this.phoneNo,
+           },
+           loading: ()=>{
 
+           },
+           success: (responseData)=>{
+               // Toast.showShortCenter('验证码已发送');
+               //验证手机号
+                 this.props.navigation.navigate('CheckPhoneStepTwo', {
+                    loginPhone: this.phoneNo,
+                    responseData: this.responseData
+                });
+
+           },
+           error: (errorInfo)=>{
+
+           },
+           finish: ()=>{
+
+           }
+       })
+    }
 
     render() {
         const navigator = this.props.navigation;
