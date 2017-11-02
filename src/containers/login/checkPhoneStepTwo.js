@@ -14,6 +14,7 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import JPushModule from 'jpush-react-native';
