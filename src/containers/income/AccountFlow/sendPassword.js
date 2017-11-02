@@ -8,6 +8,7 @@ import {
     Animated,
 } from 'react-native';
 import Password from 'react-native-password-pay'
+import Toast from '@remobile/react-native-toast';
 
 const window = Dimensions.get('window');
 const downViewHeight = 500;
@@ -80,18 +81,21 @@ class ComponentTmpl extends Component{
                                         <View>
                                             <Password maxLength={6}
                                                       onChange={(value)=> {
-                                                          console.log('输入的密码：',value)
-                                                          if (value === '123456'){
-                                                              this.setState({
-                                                                  isRight: true
-                                                              })
+                                                          if (value.length === 6){
+                                                              if (value === '123456'){
+                                                                  this.setState({
+                                                                      isRight: true
+                                                                  })
+                                                              } else {
+                                                                  Toast.showShortCenter('密码输入错误，请重新输入')
+                                                              }
                                                           }
-
                                             }}
                                                       style={{width: 45*6, marginLeft:(window.width - 45 * 6) / 2}}
+                                                      isLoadValue={true}
                                             />
                                             <TouchableOpacity onPress={()=>{
-
+                                                this.props.fotgetPsd();
                                             }}>
                                                 <Text style={{color: '#0071FF', marginHorizontal: 10, marginTop: 10, textAlign:'right'}}>忘记密码?</Text>
                                             </TouchableOpacity>

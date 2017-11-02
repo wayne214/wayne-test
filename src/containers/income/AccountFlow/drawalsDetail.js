@@ -29,7 +29,9 @@ class drawalsDetail extends Component {
                         disable: true,
                         title: '完成',
                         onClick: () => {
-                            navigator.goBack();
+                            const routes = this.props.routes;
+                            let key = routes[routes.length - 2].key;
+                            this.props.navigation.goBack(key);
                         },
                     }}
                 />
@@ -67,7 +69,9 @@ const styles =StyleSheet.create({
 });
 
 function mapStateToProps(state){
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps (dispatch){

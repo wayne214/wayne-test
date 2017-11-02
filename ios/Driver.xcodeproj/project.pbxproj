@@ -85,6 +85,7 @@
 		B024C4571F8CBED100F1D0A9 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B024C45A1F8CBED700F1D0A9 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; };
 		B024C45B1F8CBED700F1D0A9 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C6DD18F41FA96EA9005EAB35 /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DD18F21FA96E61005EAB35 /* libRCTJPushModule.a */; };
 		CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */; };
 		D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E7B440B9BC4BB1AD99FCEB /* libRCTToast.a */; };
 		D4788828684B408B999B5927 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E075F0553D5B473F81735ABE /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -283,6 +284,7 @@
 			remoteGlobalIDString = 139D7E881E25C6D100323FB7;
 			remoteInfo = "double-conversion";
 		};
+
 		35BEA2131FA88BED003E62AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9DB5731BE37D434DBF35CFBD /* RCTJPushModule.xcodeproj */;
@@ -444,6 +446,13 @@
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
 		};
+		C6DD18F11FA96E61005EAB35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6DD18ED1FA96E61005EAB35 /* RCTJPushModule.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6280980A1CEDC407000D3A81;
+			remoteInfo = RCTJPushModule;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -554,6 +563,7 @@
 		B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B345F53D24B04B05BDAEB472 /* speech.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = speech.xcodeproj; path = "../node_modules/native-speech/ios/speech/speech.xcodeproj"; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
+		C6DD18ED1FA96E61005EAB35 /* RCTJPushModule.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTJPushModule.xcodeproj; path = "../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule.xcodeproj"; sourceTree = "<group>"; };
 		D8688350182D48379FF9BBD1 /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCCFCE5187D44BA097ED7BA8 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		DE6BA98A06BC45FD94546BFF /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
@@ -579,6 +589,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				351A7D391FA97604003C69B4 /* libRCTJPushModule.a in Frameworks */,
 				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
 				263FAD2C6F43480EAB06FC29 /* CoreTelephony.framework in Frameworks */,
@@ -943,6 +954,7 @@
 			path = thirdlibs;
 			sourceTree = "<group>";
 		};
+
 		35BEA2031FA88BED003E62AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +1009,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+
 				351A7D331FA975CE003C69B4 /* RCTJCoreModule.xcodeproj */,
 				35AC22B91F79F410007D53B5 /* RCTBaiduMap.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -1104,6 +1117,14 @@
 			isa = PBXGroup;
 			children = (
 				B024C4541F8CBBD600F1D0A9 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6DD18EE1FA96E61005EAB35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6DD18F21FA96E61005EAB35 /* libRCTJPushModule.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1272,6 +1293,7 @@
 					ProjectRef = 351A7D331FA975CE003C69B4 /* RCTJCoreModule.xcodeproj */;
 				},
 				{
+
 					ProductGroup = 35BEA2031FA88BED003E62AC /* Products */;
 					ProjectRef = 9DB5731BE37D434DBF35CFBD /* RCTJPushModule.xcodeproj */;
 				},
@@ -1522,6 +1544,7 @@
 			remoteRef = 35BC822C1F73AD75005CD20C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+
 		35BEA2141FA88BED003E62AC /* libRCTJPushModule.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1681,6 +1704,13 @@
 			fileType = archive.ar;
 			path = libRNSound.a;
 			remoteRef = B024C4531F8CBBD600F1D0A9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C6DD18F21FA96E61005EAB35 /* libRCTJPushModule.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTJPushModule.a;
+			remoteRef = C6DD18F11FA96E61005EAB35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
