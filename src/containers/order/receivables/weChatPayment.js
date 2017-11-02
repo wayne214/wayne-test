@@ -11,20 +11,78 @@ import {
     Platform,
     TouchableOpacity,
     Dimensions,
-    Image
+    Image,
+    WebView
 } from 'react-native';
 
 import * as StaticColor from '../../../constants/staticColor';
 import * as ConstValue from '../../../constants/constValue';
 import qrCode from '../../../../assets/order/qrcode.png';
 import StaticImage from '../../../constants/staticImage';
+import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../constants/api';
+
+
 class WeChatPayment extends Component {
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
+        this.state = {
+            orderCode: params.transCode,
+            deliveryInfo: params.deliveryInfo,
+            customCode: params.customCode,
+            url: ''
+        };
+        this.getWeChatQrCode = this.getWeChatQrCode.bind(this);
     }
     componentDidMount() {
-
+        this.getWeChatQrCode();
+        // this.qrCodePayment();
     }
+    // 获取微信二维码
+    getWeChatQrCode() {
+        HTTPRequest({
+            url: API.API_AC_GET_WECHAT_QRCODE,
+            params: {
+                transCode: this.state.orderCode,
+                userId: global.userId
+            },
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                console.log('url',responseData.result);
+                this.setState({
+                    url: responseData.result
+                })
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
+    // qrCodePayment() {
+    //     var ws = new WebSocket(API.API_AC_QRCODE_PAYMENT + this.state.orderCode);
+    //
+    //     ws.onopen = () => {
+    //
+    //     };
+    //
+    //     ws.onmessage = (e) => {
+    //         // 接收到了一个消息
+    //         console.log('===============',e.data);
+    //     };
+    //
+    //     ws.onerror = (e) => {
+    //         // 发生了一个错误
+    //         console.log(e.message);
+    //     };
+    //
+    //     ws.onclose = (e) => {
+    //         // 连接被关闭了
+    //         console.log(e.code, e.reason);
+    //     };
+    // }
     render() {
         const navigator = this.props.navigation;
         return (
@@ -33,7 +91,7 @@ class WeChatPayment extends Component {
                     <View style={styles.contentContainer}>
                         <View style={styles.leftContainer}>
                             {
-                                2 === 1 ?
+                                1 === 1 ?
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
@@ -50,7 +108,7 @@ class WeChatPayment extends Component {
                         </View>
                         <View style={styles.rightContainer}>
                             {
-                                2 === 1 ? null :
+                                1 === 1 ? null :
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
@@ -72,17 +130,27 @@ class WeChatPayment extends Component {
                        </View>
                     </View>
                         {
-                            2 === 1 ?
+                            1 === 1 ?
                             <View>
                                 <Text style={styles.amountText}>￥230.00</Text>
                                 <Text style={styles.tip}>二维码有效期是10分钟</Text>
                                 <View style={styles.imageView}>
-                                    <Image source={qrCode} style={styles.image}/>
+                                    <WebView
+                                        style={{
+                                            height: 150,
+                                            width: 150,
+                                            alignItems: 'center'
+                                        }}
+                                        source={{uri: this.state.url}}
+                                        javaScriptEnabled={true}
+                                        domStorageEnabled={true}
+                                        scalesPageToFit={true}
+                                    />
                                 </View>
                                 <View style={{alignItems:'center'}}>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            console.log('刷新二维码');
+                                            this.getWeChatQrCode();
                                         }}
                                     >
                                         <View style={styles.flexDirection}>
@@ -102,17 +170,17 @@ class WeChatPayment extends Component {
                     <View style={styles.titleView}>
                         <View style={styles.flexDirection}>
                             <Text style={styles.titleIcon}>&#xe66d;</Text>
-                            <Text style={styles.titleText}>呷哺呷哺</Text>
+                            <Text style={styles.titleText}>{this.state.deliveryInfo.receiveContact}</Text>
                         </View>
                     </View>
                     <View style={styles.divideLine} />
                     <View style={styles.titleView}>
-                        <Text style={styles.titleText}>收货人：李雷雷</Text>
+                        <Text style={styles.titleText}>收货人：{this.state.deliveryInfo.receiveContactName}</Text>
                     </View>
                     <View style={styles.divideLine} />
                     <View style={styles.orderView}>
-                        <Text style={styles.transportTime}>订单编号：{'SO17193000002'}</Text>
-                        {'SO17193000002' ? <Text style={styles.transportTime}>客户单号：{'SO17193000002'}</Text> : null}
+                        <Text style={styles.transportTime}>订单编号：{this.state.orderCode}</Text>
+                        {this.state.customCode ? <Text style={styles.transportTime}>客户单号：{this.state.customCode}</Text> : null}
                     </View>
                 </View>
             </View>
@@ -276,11 +344,12 @@ const styles =StyleSheet.create({
     imageView: {
         marginTop: 15,
         marginBottom: 15,
-    },
-    image: {
         width: 150,
         height: 150,
-        alignSelf: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        backgroundColor: 'blue'
     },
     success: {
         fontSize: 16,

@@ -8,7 +8,13 @@ export const API_AC_BALANCE = `${HOST}app/ac/balance/`;
 
 export const API_AC_ACCOUNT_FLOW = `${HOST}app/ac/accountFlow`;
 // 根据单号获取结算金额
-export const API_AC_GET_SETTLE_AMOUNT = `${HOST}app/ac/getSettleAmount`;
+export const API_AC_GET_SETTLE_AMOUNT = `${HOST}app/ac/getSettleAmount/`;
+// 确认支付--现金
+export const API_AC_COMFIRM_PAYMENT = `${HOST}app/ac/confirmPayment`;
+// 获取微信二维码
+export const API_AC_GET_WECHAT_QRCODE = `${HOST}app/ac/getWeChatQrCode`;
+// 二维码支付
+export const API_AC_QRCODE_PAYMENT = `${HOST}app/ac/qrCodePayment/`;
 
 /** *****************************************************用户中心接口******************************************************/
 // 用户绑定车辆

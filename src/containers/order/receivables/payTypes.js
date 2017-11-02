@@ -105,8 +105,10 @@ class payTypes extends Component {
             payTypes: '现金',
             orderCode: params.orderCode,
             amount: '0',
+            deliveryInfo: params.deliveryInfo,
+            customCode: params.customCode,
         };
-        // this.getSettleAmount = this.getSettleAmount.bind(this);
+        this.confirmPayment = this.confirmPayment.bind(this);
     }
 
     componentDidMount() {
@@ -116,10 +118,7 @@ class payTypes extends Component {
 
     getSettleAmount() {
         HTTPRequest({
-            url: API.API_AC_GET_SETTLE_AMOUNT,
-            params: {
-                transCode: this.state.orderCode,
-            },
+            url: API.API_AC_GET_SETTLE_AMOUNT + this.state.orderCode,
             loading: ()=>{
             },
             success: (responseData)=>{
@@ -139,27 +138,46 @@ class payTypes extends Component {
             payTypes: value
         });
     }
+    confirmPayment() {
+        console.log('---信息----', this.state.amount, this.state.orderCode, global.userId);
+        HTTPRequest({
+            url: API.API_AC_COMFIRM_PAYMENT,
+            params: {
+                amount: this.state.amount,
+                transCode: this.state.orderCode,
+                userId: global.userId,
+            },
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                alert('收款成功');
+                this.props.navigation.goBack();
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
     submit() {
         if (this.state.payTypes === '现金') {
             Alert.alert('','本次收款方式为:现金收款,确认后无' +
                 '法修改，是否确认收款?', [
                 {text: '取消',
                     onPress: () => {
-                        // DeviceEventEmitter.emit('changeStateReceipt');
-                        // this.goBackForward();
                     },
                 },
                 {text: '确认',
-                    // onPress: () => {
-                    //     this.props.navigation.navigate('UploadReceipt', {
-                    //         transCode: this.state.orderID
-                    //     });
-                    // },
+                    onPress: () => {
+                        this.confirmPayment();
+                    },
                 },
             ], {cancelable: false});
         } else {
             this.props.navigation.navigate('WeChatPayment', {
-                transCode: this.state.orderCode
+                transCode: this.state.orderCode,
+                deliveryInfo: this.state.deliveryInfo,
+                customCode: this.state.customCode,
             });
         }
     }
@@ -184,14 +202,16 @@ class payTypes extends Component {
                             <Text style={styles.moneyStyle}>{this.state.amount}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
-                            <Text style={styles.codeStyle}>订单号：SO1234567890</Text>
-                            <Text style={styles.codeStyle}>客户单号：1234567890</Text>
+                            <Text style={styles.codeStyle}>订单号：{this.state.orderCode}</Text>
+                            {
+                                this.state.customCode ? <Text style={styles.codeStyle}>客户单号：{this.state.customCode}</Text> : null
+                            }
                         </View>
                     </ImageBackground>
                     <View style={styles.contactContainer}>
                         <Text style={styles.addressIcon}>&#xe66d;</Text>
-                        <Text style={[styles.address, {flex: 1, marginLeft: 5}]}>呷哺呷哺(中关村点)</Text>
-                        <Text style={styles.address}>李雷雷</Text>
+                        <Text style={[styles.address, {flex: 1, marginLeft: 5}]}>{this.state.deliveryInfo.receiveContact}</Text>
+                        <Text style={styles.address}>{this.state.deliveryInfo.receiveContactName}</Text>
                     </View>
                     <View style={styles.separateLine} />
                     <View>

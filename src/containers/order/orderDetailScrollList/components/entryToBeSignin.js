@@ -364,6 +364,8 @@ class entryToBeSignin extends Component {
                         payment={() => {
                             this.props.navigation.navigate('PayTypesPage', {
                                 orderCode: item.transCode,
+                                deliveryInfo: item.deliveryInfo,
+                                customCode: '',
                             });
                         }}
                     />
