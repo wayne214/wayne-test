@@ -129,11 +129,11 @@ export default class Income extends Component {
 
                     <View style={{marginTop: 10}}/>
 
-                    <IncomeCell leftIcon="&#xe623;" content={'提现'}
-                                clickAction={() => {
-                                    // 先判断有没有添加银行卡，如果没有，则跳转到添加银行卡页面。
-                                    navigator.navigate('Withdrawals')
-                    }}/>
+                    {/*<IncomeCell leftIcon="&#xe623;" content={'提现'}*/}
+                                {/*clickAction={() => {*/}
+                                    {/*// 先判断有没有添加银行卡，如果没有，则跳转到添加银行卡页面。*/}
+                                    {/*navigator.navigate('Withdrawals')*/}
+                    {/*}}/>*/}
                     <View style={{marginTop: 1}}/>
 
                     <IncomeCell leftIcon="&#xe624;" content={'我的银行卡'}
