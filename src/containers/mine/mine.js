@@ -594,12 +594,12 @@ class Mine extends Component {
                                 justifyContent: 'center',
                                 flexDirection: 'row',
                             }}>
-                                <Text style={{backgroundColor: 'transparent' ,textAlign: 'center', fontSize: 20, color: 'white', marginTop: ConstValue.StatusBar_Height}}>我的</Text>
+                                <Text style={{backgroundColor: 'transparent' ,textAlign: 'center', fontSize: 18, color: 'white', marginTop: ConstValue.StatusBar_Height}}>我的</Text>
                                 <TouchableOpacity onPress={()=>{
                                     Storage.save('newMessageFlag', '0');
                                     this.pushToMsgList();
                                 }} style={{position: 'absolute', right: 10, marginTop: ConstValue.StatusBar_Height}}>
-                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNewMine : StaticImage.MessageMine}/>
+                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNewMine : StaticImage.MessageMine} style={{width: 17, height: 17}}/>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.headerView}>
