@@ -226,28 +226,40 @@ class Login extends BaseContainer {
                 this.setState({
                     loading: false,
                 }, () => {
-                    lastTime = new Date().getTime();
+                    console.log('lqq---responseData---',responseData);
 
-                    ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
-                        locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
+                    //FIXME 登录界面判断是否被其他设备绑定
+                    const isBind = responseData.result.isBind;
+                    console.log('-lqq---isBind',isBind);
+                    if(isBind){//继续登录操作
+                        lastTime = new Date().getTime();
 
-                    const loginUserId = responseData.result.userId;
-                    Storage.save(StorageKey.USER_ID, loginUserId);
-                    Storage.save(StorageKey.USER_INFO, responseData.result);
-                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+                        ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
+                            locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
 
-                    // 发送Action,全局赋值用户信息
-                    this.props.sendLoginSuccessAction(responseData.result);
+                        const loginUserId = responseData.result.userId;
+                        Storage.save(StorageKey.USER_ID, loginUserId);
+                        Storage.save(StorageKey.USER_INFO, responseData.result);
+                        Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
 
-                    const resetAction = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({routeName: 'Main'}),
-                        ]
+                        // 发送Action,全局赋值用户信息
+                        this.props.sendLoginSuccessAction(responseData.result);
+
+                        const resetAction = NavigationActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({routeName: 'Main'}),
+                            ]
+                        });
+                        this.props.navigation.dispatch(resetAction);
+
+                        JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                    }else{//跳转到绑定设备界面
+                    this.props.navigation.navigate('CheckPhone', {
+                        loginPhone: responseData.result.phone,
+                        responseData: responseData
                     });
-                    this.props.navigation.dispatch(resetAction);
-
-                    JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                }
                 });
 
             },
@@ -287,6 +299,7 @@ class Login extends BaseContainer {
                     <View style={{alignItems: 'center'}}>
                         <Image
                             source={StaticImage.LoginTopBg}
+                            resizeMode={'stretch'}
                         />
                         
                     </View>
@@ -343,7 +356,7 @@ class Login extends BaseContainer {
                         </Image>
                         
                         <View style={styles.bottomView}>
-                            <View  style={styles.bottomViewText}>
+                            <View  >
                                 <Text
                                     onPress={() => {
                                         this.props.navigation.navigate('LoginSms', {
@@ -357,7 +370,7 @@ class Login extends BaseContainer {
                                 </Text>
                             </View>
                             <View style={styles.lineUnder}/>
-                            <View  style={styles.bottomViewText}>
+                            <View >
                             <Text
                                 onPress={() => {
                                     this.props.navigation.navigate('ForgetPwd', {

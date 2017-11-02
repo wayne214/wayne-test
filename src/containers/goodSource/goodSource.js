@@ -303,6 +303,7 @@ class GoodSource extends BaseContainer{
                         this.props.navigation.navigate('GoodsPreferencePage');
                     }}
                 >
+                    <View style={{backgroundColor: StaticColor.COLOR_SEPARATE_LINE, height: 1}}/>
                     <View>
                         {
                             this.state.goodsListLength > 0 ?

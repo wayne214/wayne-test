@@ -313,6 +313,6 @@ DropdownMenu.propTypes = {
     checkImage: React.PropTypes.number.isRequired,
     selectItemColor: React.PropTypes.string.isRequired,
     arrowImg: React.PropTypes.number.isRequired,
-    children: React.PropTypes.object,
+    // children: React.PropTypes.object,
 };
 

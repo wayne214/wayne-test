@@ -238,27 +238,37 @@ class LoginSms extends BaseContainer {
             },
             success: (responseData)=>{
 
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '短信登录页面');
-                const loginUserId = responseData.result.userId;
-                Storage.save(StorageKey.USER_ID, loginUserId);
-                Storage.save(StorageKey.USER_INFO, responseData.result);
-                Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+                //FIXME 登录界面判断是否被其他设备绑定
+                const isBind = responseData.result.isBind;
+                console.log('-lqq---isBind',isBind);
+                if(isBind){//继续登录操作
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '短信登录页面');
+                    const loginUserId = responseData.result.userId;
+                    Storage.save(StorageKey.USER_ID, loginUserId);
+                    Storage.save(StorageKey.USER_INFO, responseData.result);
+                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
 
-                // 发送Action,全局赋值用户信息
-                this.props.sendLoginSuccessAction(responseData.result);
+                    // 发送Action,全局赋值用户信息
+                    this.props.sendLoginSuccessAction(responseData.result);
 
 
-                const resetAction = NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({ routeName: 'Main'}),
-                    ]
-                });
-                this.props.navigation.dispatch(resetAction);
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Main'}),
+                        ]
+                    });
+                    this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(result.phone, ()=>{}, ()=>{});
+                    JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
+                }else{//跳转到绑定设备界面
+                    this.props.navigation.navigate('CheckPhone', {
+                        loginPhone: responseData.result.phone,
+                        responseData: responseData
+                    });
+                }
             },
             error: (errorInfo)=>{
 
@@ -306,6 +316,7 @@ class LoginSms extends BaseContainer {
     render() {
         const navigator = this.props.navigation;
         const {phoneNumber, smsCode} = this.state;
+        // console.log('lqq-render--smsCode--',smsCode);
         return (
             <View style={styles.container}>
                { false &&

@@ -65,7 +65,7 @@ export default class TimerButton extends React.Component {
                 console.log('---- timer ', timer);
                 this.setState({
                     timerCount: timer,
-                    timerTitle: `重新获取(${timer}s)`,
+                    timerTitle: `(${timer}s)`,
                 });
             }
         }, 1000);

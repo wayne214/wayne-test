@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
+import * as API from '../../../constants/api';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
+import HTTPRequest from '../../../utils/httpRequest';
+
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
 const {width, height} = Dimensions.get('window');
@@ -97,14 +100,40 @@ const styles = StyleSheet.create({
 class payTypes extends Component {
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
-            payTypes: '现金'
-        }
+            payTypes: '现金',
+            orderCode: params.orderCode,
+            amount: '0',
+        };
+        // this.getSettleAmount = this.getSettleAmount.bind(this);
     }
 
     componentDidMount() {
-        console.log('.......000000',width, height)
+        this.getSettleAmount();
+        console.log('.......orderCode',this.state.orderCode);
     }
+
+    getSettleAmount() {
+        HTTPRequest({
+            url: API.API_AC_GET_SETTLE_AMOUNT,
+            params: {
+                transCode: this.state.orderCode,
+            },
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                this.setState({
+                    amount: responseData.result,
+                });
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
+
     onSelect(index, value){
         this.setState({
             payTypes: value
@@ -121,15 +150,18 @@ class payTypes extends Component {
                     },
                 },
                 {text: '确认',
-                    onPress: () => {
-                        // this.props.navigation.navigate('UploadReceipt', {
-                        //     transCode: this.state.orderID
-                        // });
-                    },
+                    // onPress: () => {
+                    //     this.props.navigation.navigate('UploadReceipt', {
+                    //         transCode: this.state.orderID
+                    //     });
+                    // },
                 },
             ], {cancelable: false});
+        } else {
+            this.props.navigation.navigate('WeChatPayment', {
+                transCode: this.state.orderCode
+            });
         }
-        console.log('支付方式', this.state.payTypes);
     }
     render() {
         const navigator = this.props.navigation;
@@ -149,7 +181,7 @@ class payTypes extends Component {
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
                             <Text style={styles.moneyStyle}>+</Text>
-                            <Text style={styles.moneyStyle}>230.00</Text>
+                            <Text style={styles.moneyStyle}>{this.state.amount}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
                             <Text style={styles.codeStyle}>订单号：SO1234567890</Text>
