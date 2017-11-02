@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
+import * as API from '../../../constants/api';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
+import HTTPRequest from '../../../utils/httpRequest';
+
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
 const {width, height} = Dimensions.get('window');
@@ -101,12 +104,36 @@ class payTypes extends Component {
         this.state = {
             payTypes: '现金',
             orderCode: params.orderCode,
-        }
+            amount: '0',
+        };
+        // this.getSettleAmount = this.getSettleAmount.bind(this);
     }
 
     componentDidMount() {
+        this.getSettleAmount();
         console.log('.......orderCode',this.state.orderCode);
     }
+
+    getSettleAmount() {
+        HTTPRequest({
+            url: API.API_AC_GET_SETTLE_AMOUNT,
+            params: {
+                transCode: this.state.orderCode,
+            },
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                this.setState({
+                    amount: responseData.result,
+                });
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
+
     onSelect(index, value){
         this.setState({
             payTypes: value
@@ -154,7 +181,7 @@ class payTypes extends Component {
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
                             <Text style={styles.moneyStyle}>+</Text>
-                            <Text style={styles.moneyStyle}>230.00</Text>
+                            <Text style={styles.moneyStyle}>{this.state.amount}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
                             <Text style={styles.codeStyle}>订单号：SO1234567890</Text>

@@ -16,12 +16,14 @@ import {
 } from 'react-native';
 import Toast from '@remobile/react-native-toast';
 import {Geolocation} from 'react-native-baidu-map-xzx';
+import JPushModule from 'jpush-react-native';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
 import Loading from '../../utils/loading';
 import  HTTPRequest from '../../utils/httpRequest';
-
+import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
 import {
     LIGHT_GRAY_TEXT_COLOR,
     WHITE_COLOR,
@@ -34,6 +36,7 @@ import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
 const {width, height} = Dimensions.get('window');
+import {loginSuccessAction, setUserNameAction} from '../../action/user';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class forgetPWD extends Component {
+class CheckPhoneStepTwo extends Component {
 
     constructor(props) {
         super(props);
@@ -88,14 +91,18 @@ export default class forgetPWD extends Component {
             loading: false,
 
         };
-        this.getForgetVCode = this.getForgetVCode.bind(this);
         this.nextStep = this.nextStep.bind(this);
-        this.checkCode = this.checkCode.bind(this);
+        this.bindDevice = this.bindDevice.bind(this);
+        this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
         this.phoneNo = params.loginPhone;
+        this.loginResponseData = params.responseData;
+        
     }
 
     componentDidMount() {
          this.getCurrentPosition();
+         console.log('lqq-countDownButton--',this.refs.countDownButton);
+         this.refs.countDownButton && this.refs.countDownButton.shouldStartCountting(true);
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -107,44 +114,17 @@ export default class forgetPWD extends Component {
         });
     }
 
-    /*获取验证码*/
-    getForgetVCode(shouldStartCountting) {
-
-        HTTPRequest({
-            url: API.API_GET_FORGET_PSD_CODE,
-            params: {
-                deviceId: global.UDID,
-                phoneNum: this.state.phoneNo,
-            },
-            loading: ()=>{
-
-            },
-            success: (responseData)=>{
-                /*开启倒计时*/
-                shouldStartCountting(true);
-                Toast.showShortCenter('验证码已发送');
-
-            },
-            error: (errorInfo)=>{
-                /*关闭倒计时*/
-                shouldStartCountting(false);
-
-            },
-            finish: ()=>{
-
-            }
-        })
-    }
-
-    /*检验验证码是否正确*/
-    checkCode(){
+    /*绑定设备*/
+    bindDevice(){
         currentTime = new Date().getTime();
 
         HTTPRequest({
-            url: API.API_CHECK_IDENTIFY_CODE,
+            url: API.API_BIND_DEVICE,
             params: {
                 identifyCode: this.state.pwdCode,
-                phoneNum: this.state.phoneNo,
+                phoneNum: this.phoneNo,
+                deviceId: global.UDID,
+                platform: global.platform,
             },
             loading: ()=>{
                 this.setState({
@@ -153,13 +133,27 @@ export default class forgetPWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '忘记密码');
+                ReadAndWriteFileUtil.appendFile('绑定设备',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '绑定设备');
                 if (responseData.result) {
-                    this.props.navigation.navigate('ChangeCodePwd', {
-                        identifyCode: this.state.pwdCode,
-                        phoneNum: this.state.phoneNo,
+                    const loginUserId = this.loginResponseData.result.userId;
+                    Storage.save(StorageKey.USER_ID, loginUserId);
+                    Storage.save(StorageKey.USER_INFO, this.loginResponseData.result);
+                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+
+                    // 发送Action,全局赋值用户信息
+                    this.props.sendLoginSuccessAction(this.loginResponseData.result);
+
+
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Main'}),
+                        ]
                     });
+                    this.props.navigation.dispatch(resetAction);
+
+                    JPushModule.setAlias(this.loginResponseData.result.phone, ()=>{}, ()=>{});
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }
@@ -177,11 +171,39 @@ export default class forgetPWD extends Component {
 
     // 下一步按钮
     nextStep() {
-        if (this.state.phoneNo !== '' && this.state.pwdCode !== '') {
-            this.checkCode();
+        if (this.phoneNo && this.state.pwdCode) {
+            this.bindDevice();
         } else {
             Toast.showShortCenter('账号或密码不能为空');
         }
+    }
+
+    /*获取登录验证码*/
+    requestVCodeForLogin(shouldStartCountting) {
+       HTTPRequest({
+           url: API.API_GET_LOGIN_WITH_CODE,
+           params: {
+               deviceId: global.UDID,
+               phoneNum: this.phoneNo,
+           },
+           loading: ()=>{
+
+           },
+           success: (responseData)=>{
+               /*开启倒计时*/
+               shouldStartCountting(true);
+               Toast.showShortCenter('验证码已发送');
+
+           },
+           error: (errorInfo)=>{
+               /*关闭倒计时*/
+               shouldStartCountting(false);
+
+           },
+           finish: ()=>{
+
+           }
+       })
     }
 
 
@@ -252,13 +274,14 @@ export default class forgetPWD extends Component {
                     }
                     { false && <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>}
                     <CountDownButton
+                        ref= 'countDownButton'
                         enable={this.phoneNo.length}
                         style={{width: 100, backgroundColor: WHITE_COLOR, paddingRight: 15}}
                         textStyle={{color: '#0078ff'}}
                         timerCount={60}
                         onClick={(shouldStartCountting) => {
-                            if (Validator.isPhoneNumber(phoneNo)) {
-                                this.getForgetVCode(shouldStartCountting);
+                            if (Validator.isPhoneNumber(this.phoneNo)) {
+                                this.requestVCodeForLogin(shouldStartCountting);
                             } else {
                                 Toast.showShortCenter('手机号码输入有误，请重新输入');
                                 shouldStartCountting(false);
@@ -268,7 +291,7 @@ export default class forgetPWD extends Component {
                 </View>
 
                 <TouchableOpacity onPress={() => this.nextStep()}>
-                    <View
+                    <Image
                         style={{
                             width: width - 20,
                             marginTop: 15,
@@ -280,6 +303,7 @@ export default class forgetPWD extends Component {
                             alignItems: 'center',
                             justifyContent:'center'
                         }}
+                        source={StaticImage.BlueButtonArc}
                     >
 
                         <Text
@@ -293,7 +317,7 @@ export default class forgetPWD extends Component {
                             提交
                         </Text>
 
-                    </View>
+                    </Image>
                 </TouchableOpacity>
 
                 {
@@ -305,3 +329,20 @@ export default class forgetPWD extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {};
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        /*登录成功发送Action，全局保存用户信息*/
+        sendLoginSuccessAction: (result) => {
+            dispatch(loginSuccessAction(result));
+            dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
+
+        },
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckPhoneStepTwo);

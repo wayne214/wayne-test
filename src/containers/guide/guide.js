@@ -42,7 +42,7 @@ export default class Guide extends BaseContainer {
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
-                    NavigationActions.navigate({ routeName: 'Login'}),
+                    NavigationActions.navigate({ routeName: 'LoginSms'}),
                 ]
             });
             this.props.navigation.dispatch(resetAction);
