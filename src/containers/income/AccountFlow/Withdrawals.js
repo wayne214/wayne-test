@@ -166,7 +166,10 @@ class Withdrawals extends Component {
                                                             console.log('跳转到详情');
                                                             navigator.navigate('DrawalsDetail');
                                                         }}
-                                                        monery="100" /> : null
+                                                        monery="100"
+                                                        fotgetPsd={()=>{
+                                                            navigator.navigate('ForgetPayPasswordCode');
+                                                        }}/> : null
                 }
             </View>
         )
