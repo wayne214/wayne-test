@@ -419,7 +419,6 @@ class entryGoodsDetail extends Component {
                 // left: 0,
                 flex: 1
             }}>
-
                 <NavigationBar
                     title={'订单详情'}
                     navigator={navigator}
@@ -430,7 +429,6 @@ class entryGoodsDetail extends Component {
                         {this.state.datas.length}/{this.state.current}
                     </Text>
                 </View>
-
                 <ScrollView
                     showsHorizontalScrollIndicator={false}
                     style={styles.container}
@@ -508,9 +506,7 @@ class entryGoodsDetail extends Component {
     }
 
     render() {
-
         const navigator = this.props.navigation;
-
         return (
             <View style={styles.container}>
                 {this.isShowEmptyView(navigator)}
