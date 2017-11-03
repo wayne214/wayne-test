@@ -19,7 +19,6 @@ import SearchResultForToBeWaitSure from '../containers/order/search/searchResult
 import SearchResultForToBeSure from '../containers/order/search/searchResultForToBeSure';
 import SearchResultForToBeShipped from '../containers/order/search/searchResultForToBeShipped';
 import SearchResultForToBeSignIn from '../containers/order/search/searchResultForToBeSignIn';
-import WaitToSignIn from '../containers/order/waitToSignIn';
 import EntryToBeShipped from '../containers/order/orderDetailScrollList/components/entryToBeShipped';
 import EntryToBeSignIn from '../containers/order/orderDetailScrollList/components/entryToBeSignin';
 import ReceiptPhotoShow from '../containers/order/imageViewer';
@@ -428,12 +427,6 @@ const StackRouteConfigs = {
     },
     EntryToBeSignIn: {
         screen: EntryToBeSignIn,
-        navigationOptions: {
-            header: null
-        }
-    },
-    WaitToSignIn: {
-        screen: WaitToSignIn,
         navigationOptions: {
             header: null
         }

@@ -114,7 +114,7 @@ class signPage extends Component {
     /*
      * 签收
      * */
-    getSignIn(getSignInSuccessCallBack, getSignInFailCallBack) {
+    getSignIn() {
         // 传递参数
        // this.changeAppLoading(true);
 
@@ -207,10 +207,15 @@ class signPage extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '签收页面');
-        this.props.navigation.navigate('SignSuccess',{
-            isReceipt: this.state.isReceipt,
-            orderID: this.state.orderID,
-        });
+        if (this.state.isReceipt === '是') {
+            this.props.navigation.navigate('SignSuccess',{
+                isReceipt: this.state.isReceipt,
+                orderID: this.state.orderID,
+            });
+        }else {
+            DeviceEventEmitter.emit('changeStateReceipt');
+            this.goBackForward();
+        }
         // if (this.state.isReceipt === '是'){
             // Alert.alert('','是否立即上传回单？', [
             //     {text: '否',

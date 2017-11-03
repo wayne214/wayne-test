@@ -52,8 +52,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10
     }
-
-
 });
 export default class GoodsSourceDetails extends Component {
 
@@ -72,9 +70,7 @@ export default class GoodsSourceDetails extends Component {
     }
     render() {
         const {deliveryInfo, goodsInfoList, taskInfo, time, transCode, vol, weight, index, isFullScreen} = this.props;
-
         return (
-
             <View
                 style={{
                     backgroundColor: '#f5f5f5',
@@ -89,7 +85,6 @@ export default class GoodsSourceDetails extends Component {
                     })
                 }}
             >
-
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{
@@ -103,22 +98,34 @@ export default class GoodsSourceDetails extends Component {
                         borderRadius: 10,
                     }}
                 >
-                    <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
-                        <View style={styles.constantStyle}>
-                            <Text style={styles.constantIcon}>&#xe66d;</Text>
-                            <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
-                                {deliveryInfo.receiveContactName}
-                            </Text>
-                        </View>
-                        <View style={styles.separateLine}/>
-                        <View style={{marginHorizontal: 10}}>
-                            <DetailsOrdersCell
-                                ifReceipt={taskInfo.isReceipt}
-                                receiptStyle={taskInfo.receiptWay}
-                                arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
-                            />
-                        </View>
-                    </ImageBackground>
+                    {
+                        taskInfo ?
+                            <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                                <View style={styles.constantStyle}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
+                                        {deliveryInfo.receiveContactName}
+                                    </Text>
+                                </View>
+                                <View style={styles.separateLine}/>
+                                <View style={{marginHorizontal: 10}}>
+                                    <DetailsOrdersCell
+                                        ifReceipt={taskInfo.isReceipt}
+                                        receiptStyle={taskInfo.receiptWay}
+                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                    />
+                                </View>
+                            </ImageBackground> :
+                            <View>
+                                <View style={[styles.constantStyle, {marginLeft: 5}]}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
+                                        {deliveryInfo.receiveContactName}
+                                    </Text>
+                                </View>
+                                <View style={styles.divideLine}/>
+                            </View>
+                        }
                     <TitlesCell title="配送信息" />
                     <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
                     <DetailsUserCell
@@ -127,17 +134,13 @@ export default class GoodsSourceDetails extends Component {
                             this.props.addressMapSelect(index, 'departure');
                         }}
                     />
-
-
                     <DetailsRedUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
                             this.props.addressMapSelect(index, 'receive');
                         }}
                     />
-
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
-
                     <TitlesCell
                         title="货品信息"
                         showArrowIcon={true}
@@ -145,7 +148,6 @@ export default class GoodsSourceDetails extends Component {
                             this.showGoodInfoList(value);
                         }}
                     />
-
                     {
                         this.state.showGoodList ? goodsInfoList.map((item, index) => {
                             return (
@@ -157,18 +159,12 @@ export default class GoodsSourceDetails extends Component {
                             );
                         }) : null
                     }
-
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
                     <TotalsItemCell totalTons={weight} totalSquare={vol}/>
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
                     <DetailsCell transportNO_={transCode} transportTime={time} dispatchTime={time}/>
-
                 </ScrollView>
-
-
             </View>
-
-
         );
     }
 }

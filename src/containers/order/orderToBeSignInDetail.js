@@ -58,7 +58,11 @@ const styles = StyleSheet.create({
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
         marginLeft: 10,
         marginRight: 10
-    }
+    },
+    divideLine: {
+        height: 1,
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+    },
 });
 
 export default class orderToBeSignInDetail extends Component {
@@ -104,6 +108,7 @@ export default class orderToBeSignInDetail extends Component {
             transOrderType,
             transOrderStatus,
             settlementMode,
+            isEndDistribution
         } = this.props;
 
         return (
@@ -134,22 +139,34 @@ export default class orderToBeSignInDetail extends Component {
                         borderRadius: 5,
                     }}
                 >
-                    <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
-                        <View style={styles.constantStyle}>
-                            <Text style={styles.constantIcon}>&#xe66d;</Text>
-                            <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
-                                {deliveryInfo.receiveContact}
-                            </Text>
-                        </View>
-                        <View style={styles.separateLine}/>
-                        <View style={{marginHorizontal: 10}}>
-                            <DetailsOrdersCell
-                                ifReceipt={taskInfo.isReceipt}
-                                receiptStyle={taskInfo.receiptWay}
-                                arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
-                            />
-                        </View>
-                    </ImageBackground>
+                    {
+                        taskInfo ?
+                            <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                                <View style={styles.constantStyle}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
+                                        {deliveryInfo.receiveContact}
+                                    </Text>
+                                </View>
+                                <View style={styles.separateLine}/>
+                                <View style={{marginHorizontal: 10}}>
+                                    <DetailsOrdersCell
+                                        ifReceipt={taskInfo.isReceipt}
+                                        receiptStyle={taskInfo.receiptWay}
+                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                    />
+                                </View>
+                            </ImageBackground> :
+                            <View>
+                                <View style={[styles.constantStyle, {marginLeft: 5}]}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
+                                        {deliveryInfo.receiveContactName}
+                                    </Text>
+                                </View>
+                                <View style={styles.divideLine}/>
+                            </View>
+                        }
                     <TitlesCell title="配送信息"/>
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
                     <DetailsUserCell
@@ -197,7 +214,7 @@ export default class orderToBeSignInDetail extends Component {
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
                 {
-                    settlementMode === 1 ?
+                    settlementMode === 1 && isEndDistribution === 'N' ?
                     <BottomButton
                         text={'签收'}
                         onClick={() => {
@@ -208,8 +225,6 @@ export default class orderToBeSignInDetail extends Component {
                         leftContent={'收款'}
                         rightContent={'签收'}
                         leftClick={() => {
-                            // TODO 收款
-                            console.log('收款');
                             this.props.payment();
                         }}
                         rightClick={() => {
