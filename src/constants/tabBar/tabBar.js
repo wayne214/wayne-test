@@ -7,23 +7,15 @@ import {
     Image,
     StyleSheet,
     DeviceEventEmitter,
+    Text,
 } from 'react-native';
 
 import {
     TabBarBottom,
 } from 'react-navigation';
 
-import HomeRenderIcon from '../../../assets/tabBar/bar_home_nomarl.png';
-import HomePressedIcon from '../../../assets/tabBar/bar_home_pressed.png';
-import CenterRenderIcon from '../../../assets/tabBar/bar_center_normal.png';
-import CenterPressedIcon from '../../../assets/tabBar/bar_center_pressed.png';
-import NearRenderIcon from '../../../assets/tabBar/bar_map_normal.png';
-import NearPressedIcon from '../../../assets/tabBar/bar_map_pressed.png';
-import OrderRenderIcon from '../../../assets/tabBar/bar_order_normal.png';
-import OrderPressedIcon from '../../../assets/tabBar/bar_order_pressed.png';
-import IncomeRenderIcon from '../../../assets/tabBar/bar_income_normal.png';
-import IncomePressedIcon from '../../../assets/tabBar/bar_income_pressed.png';
 import * as ConstValue from '../../constants/constValue';
+import * as StaticColor from '../../constants/staticColor';
 
 import Home from '../../containers/home/home';
 import Mine from '../../containers/mine/mine';
@@ -36,6 +28,18 @@ const styles = StyleSheet.create({
     tabIcon: {
         resizeMode: 'cover',
         marginTop: 10
+    },
+    pressedIcon: {
+        fontFamily: 'iconfont',
+        fontSize: 23,
+        color: StaticColor.BLUE_TAB_BAR_COLOR,
+        marginTop: 7
+    },
+    renderIcon: {
+        fontFamily: 'iconfont',
+        fontSize: 23,
+        color: StaticColor.GRAY_TEXT_COLOR,
+        marginTop: 7
     }
 });
 
@@ -43,12 +47,9 @@ const TabRouteConfigs = {
     Home: {
         screen: Home,
         navigationOptions: ({navigation, screenProps}) => ({
-            title: '首页',
+            tabBarLabel: '首页',
             tabBarIcon: ({focused, tintColor})=>(
-                <Image
-                    source={focused ? HomePressedIcon : HomeRenderIcon}
-                    style={styles.tabIcon}
-                />
+                focused ? <Text style={styles.pressedIcon}>&#xe65e;</Text> : <Text style={styles.renderIcon}>&#xe65c;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 DeviceEventEmitter.emit('refreshHome');
@@ -59,12 +60,9 @@ const TabRouteConfigs = {
     GoodsSource: {
         screen: GoodsSource,
         navigationOptions: ({navigation, screenProps}) => ({
-            title: '货源',
+            tabBarLabel: '货源',
             tabBarIcon: ({focused,tintColor})=>(
-                <Image
-                    source={focused ? NearPressedIcon : NearRenderIcon}
-                    style={styles.tabIcon}
-                />
+                focused ? <Text style={styles.pressedIcon}>&#xe65a;</Text> : <Text style={styles.renderIcon}>&#xe657;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 if (global.plateNumber && global.plateNumber !== '') {
@@ -81,12 +79,9 @@ const TabRouteConfigs = {
     Order: {
         screen: Order,
         navigationOptions: ({navigation, screenProps}) => ({
-            title: '订单',
+            tabBarLabel: '订单',
             tabBarIcon: ({focused,tintColor})=>(
-                <Image
-                    source={focused ? OrderPressedIcon : OrderRenderIcon}
-                    style={styles.tabIcon}
-                />
+                focused ? <Text style={styles.pressedIcon}>&#xe659;</Text> : <Text style={styles.renderIcon}>&#xe658;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 if (global.plateNumber && global.plateNumber !== '') {
@@ -103,12 +98,9 @@ const TabRouteConfigs = {
     Income: {
         screen: Income,
         navigationOptions: ({navigation, screenProps}) => ({
-            title: '收入',
+            tabBarLabel: '收入',
             tabBarIcon: ({focused,tintColor})=>(
-                <Image
-                    source={focused? IncomePressedIcon : IncomeRenderIcon}
-                    style={styles.tabIcon}
-                />
+                focused ? <Text style={styles.pressedIcon}>&#xe65b;</Text> : <Text style={styles.renderIcon}>&#xe65d;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 DeviceEventEmitter.emit('refreshIncome');
@@ -119,12 +111,9 @@ const TabRouteConfigs = {
     Mine: {
         screen: Mine,
         navigationOptions: ({navigation, screenProps}) => ({
-            title: '我的',
+            tabBarLabel: '我的',
             tabBarIcon: ({focused,tintColor})=>(
-                <Image
-                    source={focused? CenterPressedIcon : CenterRenderIcon}
-                    style={styles.tabIcon}
-                />
+                focused ? <Text style={styles.pressedIcon}>&#xe65f;</Text> : <Text style={styles.renderIcon}>&#xe655;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 DeviceEventEmitter.emit('refreshMine');
@@ -142,8 +131,8 @@ const TabNavigatorConfigs = {
     lazy: true,
     backBehavior: 'none', // 按 back 键是否跳转到第一个Tab(首页)， none 为不跳转
     tabBarOptions: {
-        activeTintColor: '#2562b4', // 文字和图片选中颜色
-        // inactiveTintColor: '#999999', // 文字和图片默认颜色
+        activeTintColor: StaticColor.BLUE_TAB_BAR_COLOR, // 文字和图片选中颜色
+        inactiveTintColor: StaticColor.GRAY_TEXT_COLOR, // 文字和图片默认颜色
         showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
         indicatorStyle: {
             height: 0 // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了
@@ -151,6 +140,7 @@ const TabNavigatorConfigs = {
         style: {
             backgroundColor: '#FFFFFF', // TabBar 背景色
             height:ConstValue.Tabbar_Height,
+            paddingBottom: 4,
             //marginBottom: ConstValue.Tabbar_marginBottom,
         },
         labelStyle: {
