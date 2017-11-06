@@ -11,6 +11,8 @@ import {
     DeviceEventEmitter,
     Image,
     ImageBackground,
+    Platform,
+    StyleSheet
 } from 'react-native';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
 import IncomeCell from './cell/incomeCell';
@@ -25,6 +27,23 @@ const {height, width} = Dimensions.get('window');
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+
+const styles = StyleSheet.create({
+    title: {
+        ...Platform.select({
+            ios: {
+                marginTop: 44,
+            },
+            android: {
+                marginTop: 20,
+            },
+        }),
+        textAlign: 'center',
+        color: '#ffffff',
+        fontSize: 18,
+        backgroundColor: 'transparent',
+    },
+});
 
 export default class Income extends Component {
     constructor(props) {
@@ -96,7 +115,7 @@ export default class Income extends Component {
 
                 <ImageBackground style={{height: height / 3 + 10, width}} source={StaticImage.IncomeBgimage}>
 
-                    <Text style={{ textAlign: 'center',color: '#ffffff',fontSize: 18,marginTop: 44,backgroundColor: 'transparent',}}>我的收入</Text>
+                    <Text style={styles.title}>我的收入</Text>
                     <Text style={{
                             fontSize: 18,
                             color: '#FFFFFF',
