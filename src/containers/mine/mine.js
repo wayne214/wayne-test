@@ -667,7 +667,7 @@ class Mine extends Component {
                             {changeCarView}
                         </Image>
                         <View style={styles.contentPostionView}>
-                            <ScrollView style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}>
+                            <ScrollView style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}} showsVerticalScrollIndicator={false}>
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
