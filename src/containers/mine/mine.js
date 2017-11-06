@@ -804,18 +804,18 @@ class Mine extends Component {
                                         }
                                     }}
                                 />
-                                <SettingCell
-                                    leftIcon="&#xe62f;"
-                                    iconFontColor={{color: StaticColor.YELLOW_PAY_ICON_COLOR}}
-                                    content={'支付密码'}
-                                    showBottomLine={false}
-                                    clickAction={() => {
-                                         ClickUtil.resetLastTime();
-                                         if (ClickUtil.onMultiClick()) {
-                                             navigator.navigate('PayPassword');
-                                         }
-                                    }}
-                                />
+                                {/*<SettingCell*/}
+                                    {/*leftIcon="&#xe62f;"*/}
+                                    {/*iconFontColor={{color: StaticColor.YELLOW_PAY_ICON_COLOR}}*/}
+                                    {/*content={'支付密码'}*/}
+                                    {/*showBottomLine={false}*/}
+                                    {/*clickAction={() => {*/}
+                                         {/*ClickUtil.resetLastTime();*/}
+                                         {/*if (ClickUtil.onMultiClick()) {*/}
+                                             {/*navigator.navigate('PayPassword');*/}
+                                         {/*}*/}
+                                    {/*}}*/}
+                                {/*/>*/}
 
                                 <View style={styles.separateView}/>
 

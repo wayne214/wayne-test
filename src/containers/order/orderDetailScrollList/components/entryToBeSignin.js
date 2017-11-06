@@ -21,6 +21,10 @@ import Storage from '../../../../utils/storage';
 import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import StorageKey from '../../../../constants/storageKeys';
+
+let userID = '';
+let userName = '';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -87,6 +91,12 @@ class entryToBeSignin extends Component {
 
     componentDidMount() {
         this.getOrderDetailInfo();
+        Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+            if(userInfo) {
+                userID = userInfo.userId;
+                userName = userInfo.userName;
+            }
+        });
         DeviceEventEmitter.addListener('changeStateReceipt',() => {
             this.props.navigation.goBack();
         });
@@ -125,6 +135,49 @@ class entryToBeSignin extends Component {
                 isShowRightButton: false
             });
         }
+    }
+
+    getSignIn(orderID){
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_NEW_SIGN,
+            params: {
+                userId: userID,
+                userName,
+                transCode: orderID,
+                goodsInfo: null,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.getSignInSuccessCallBack(responseData.result);
+            },
+            error: (errorInfo)=>{
+                this.getSignInFailCallBack();
+            },
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+    }
+
+    // 获取数据成功回调
+    getSignInSuccessCallBack() {
+        lastTime = new Date().getTime();
+        ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+            locationData.district, lastTime - currentTime, '签收页面');
+        DeviceEventEmitter.emit('changeStateReceipt');
+        this.props.navigation.goBack();
+    }
+
+    // 获取数据失败回调
+    getSignInFailCallBack() {
+        Toast.showShortCenter('签收失败!');
     }
 
     /*
@@ -349,17 +402,22 @@ class entryToBeSignin extends Component {
                         vol={item.vol}
                         weight={item.weight}
                         settlementMode={2}
+                        isEndDistribution={item.isEndDistribution}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
                         }}
                         signIn={() => {
-                            // 跳转到具体的签收页面
-                            this.props.navigation.navigate('SignPage', {
-                                transCode: item.transCode,
-                                goodsInfoList: item.goodsInfo,
-                                taskInfo: item.taskInfo
-                            });
+                            if(item.taskInfo) {
+                                // 跳转到具体的签收页面
+                                this.props.navigation.navigate('SignPage', {
+                                    transCode: item.transCode,
+                                    goodsInfoList: item.goodsInfo,
+                                    taskInfo: item.taskInfo,
+                                });
+                            }else {
+                                this.getSignIn(item.transCode);
+                            }
                         }}
                         payment={() => {
                             this.props.navigation.navigate('PayTypesPage', {

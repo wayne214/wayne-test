@@ -143,8 +143,6 @@ import NoMessage from '../../assets/mine/noMessage.png';
 /*收入空页面*/
 import NoIncome from '../../assets/emptyView/noIncome.png';
 
-
-
 export default {
     EmptyImage,
     Img01,

@@ -187,9 +187,9 @@ export default class BillWaterPage extends Component {
                         billTime={rowData.time}
                         billMoney={rowData.operateAmount}
                         onClick={()=>{
-                            this.props.navigation.navigate('IncomeListDetail',{
-                                type: '收入', // 收入、支出
-                            });
+                            {/*this.props.navigation.navigate('IncomeListDetail',{*/}
+                                {/*type: '收入', // 收入、支出*/}
+                            {/*});*/}
                         }}
                     />
                 }
