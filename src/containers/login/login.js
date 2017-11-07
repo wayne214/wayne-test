@@ -228,7 +228,6 @@ class Login extends BaseContainer {
                 }, () => {
                     console.log('lqq---responseData---',responseData);
 
-                    //FIXME 登录界面判断是否被其他设备绑定
                     const isBind = responseData.result.isBind;
                     console.log('-lqq---isBind',isBind);
                     if(isBind){//继续登录操作
@@ -254,7 +253,9 @@ class Login extends BaseContainer {
                         this.props.navigation.dispatch(resetAction);
 
                         JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
-                    }else{//跳转到绑定设备界面
+
+                    }else{
+                        //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
                             loginPhone: responseData.result.phone,
                             responseData: responseData
@@ -284,7 +285,6 @@ class Login extends BaseContainer {
 
     render() {
         const {phoneNumber, password} = this.state;
-        console.log('lqq---height-',height);
         return (
             <View style={styles.container}>
                 { false && 

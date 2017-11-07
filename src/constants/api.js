@@ -193,3 +193,6 @@ export const API_BANKCARD_INFO = `${HOST}app/bankcard/`;
 export const API_BANKCARD_SENDVERIFYCODE = `${HOST}app/bankcard/sendVerifyCode`;
 //效验验证码接口
 export const API_BANKCARD_CHECK_VERIFYCODE = `${HOST}app/bankcard/checkVerifyCode/`;
+
+//WebSocket
+export const API_WEBSOCKET = `ws://host.com/path`;
