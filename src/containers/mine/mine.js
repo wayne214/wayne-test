@@ -9,7 +9,6 @@ import {
     Dimensions,
     DeviceEventEmitter,
     TouchableOpacity,
-    InteractionManager,
     Platform,
     Alert,
     Modal,
@@ -17,7 +16,6 @@ import {
 import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
 import {PHOTOREFNO} from '../../constants/setting';
-import NavigationBar from '../../common/navigationBar/navigationBar';
 import SettingCell from '../../containers/mine/cell/settingCell';
 import Toast from '@remobile/react-native-toast';
 import ClickUtil from '../../utils/prventMultiClickUtil';
@@ -138,6 +136,54 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+    container: {
+        ...Platform.select({
+            ios: {
+                height: ConstValue.NavigationBar_StatusBar_Height,
+            },
+            android: {
+                height: 50,
+            },
+        }),
+        backgroundColor: 'transparent',
+        width: width,
+    },
+    titleContainer: {
+        flex: 1,
+        ...Platform.select({
+            ios: {
+                paddingTop: ConstValue.StatusBar_Height,
+            },
+            android: {
+                paddingTop: 0,
+            },
+        }),
+        flexDirection: 'row',
+    },
+    leftContainer: {
+        flex: 1,
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
+    centerContainer: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 7,
+    },
+    rightContainer: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
+    title: {
+        fontSize: 18,
+        color: StaticColor.WHITE_COLOR,
+    },
+    allContainer: {
+        flex: 1,
+        backgroundColor: StaticColor.WHITE_COLOR,
+    }
 });
 
 class Mine extends Component {
@@ -175,7 +221,6 @@ class Mine extends Component {
         Storage.get('newMessageFlag').then((value) => {
             console.log('newMessageFlag');
             if (value === '1') {
-
                 // 右上角图片改变
 
             }
@@ -183,7 +228,6 @@ class Mine extends Component {
 
         /*获取头像具体的地址，*/
         Storage.get('NewPhotoRefNo').then((value) => {
-
             if (value) {
                 this.queryUserAvatar(value)
             }
@@ -239,10 +283,8 @@ class Mine extends Component {
 
     /*点击弹出菜单*/
     showAlertSelected(){
-
         if (this.refs.choose)
             this.refs.choose.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
-
     }
 
     /*选择 拍照  相册*/
@@ -252,13 +294,10 @@ class Mine extends Component {
                 // 拍照
                 if (Platform.OS === 'ios') {
                     PermissionsManager.cameraPermission().then(data=>{
-
                         this.selectCamera();
-
                     }).catch(err=>{
                         // Toast.showShortCenter(err.message);
                         Alert.alert(null,err.message)
-
                     });
                 }else{
                     PermissionsManagerAndroid.cameraPermission().then((data) => {
@@ -273,11 +312,9 @@ class Mine extends Component {
                     // 图库
                     PermissionsManager.photoPermission().then(data=>{
                         this.selectPhoto();
-
                     }).catch(err=>{
                         // Toast.showShortCenter(err.message);
                         Alert.alert(null,err.message)
-
                     });
                 }else
                     this.selectPhoto();
@@ -465,21 +502,17 @@ class Mine extends Component {
                 name: 'image.png'
             };   //这里的key(uri和type和name)不能改变,
             console.log('response.fileName', response.fileName, 'file', file)
-
             formData.append("photo", file);   //这里的files就是后台需要的key
             formData.append('userId', global.userId);
             formData.append('userName', global.userName ? global.userName : this.state.phoneNum);
             formData.append('fileName', response.fileName);
-
             this.upLoadImage(API.API_CHANGE_USER_AVATAR, formData);
-
         }
     }
 
 
     /*上传头像*/
     upLoadImage(url, data) {
-
         upLoadImageManager(url,
             data,
             () => {
@@ -487,22 +520,16 @@ class Mine extends Component {
             },
             (respones) => {
                 console.log(respones);
-
                 if (respones.code === 200) {
-
                     Storage.save(PHOTOREFNO, respones.result);
                     global.photoRefNo = respones.result;
-
                     Storage.save('NewPhotoRefNo', respones.result);
-
                 } else {
                     Toast.showShortCenter('图片上传失败，请重新选择上传');
                 }
-
             },
             (error) => {
                 Toast.showShortCenter('图片上传失败，请重新选择上传');
-
             });
     }
 
@@ -579,28 +606,47 @@ class Mine extends Component {
                     >关联车辆</Text>
                 </View>
             </TouchableOpacity> : null;
+        // 标题布局
+        const TitleView =
+            <View style={styles.container}>
+                <View style={styles.titleContainer}>
+                    <View style={styles.leftContainer}>
+                    </View>
+                    <View style={styles.centerContainer}>
+                        <Text style={styles.title}>我的</Text>
+                    </View>
+                    <View style={styles.rightContainer}>
+                        <TouchableOpacity
+                            style={{paddingRight: 10}}
+                            activeOpacity={1}
+                            onPress={() => {
+                                this.props.setMessageListIcon(false);
+                                Storage.save(StorageKey.newMessageFlag, '0');
+                                this.pushToMsgList();
+                            }}
+                        >
+                            <Image
+                                source={this.props.jpushIcon === true ? StaticImage.MessageNewMine : StaticImage.MessageMine}
+                                style={{alignSelf: 'center', width: 17, height: 17}}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>;
         return (
-            <View style={{
-                flex: 1,
-                backgroundColor: '#ffffff',
-            }}>
-
+            <View style={styles.allContainer}>
                 <View style={{flex: 1}}>
                     <View>
                         <Image source={StaticImage.CenterHeaderIcon}>
                             <View style={{
                                 position: 'absolute',
-                                height: ConstValue.NavigationBar_StatusBar_Height, width,
+                                height: ConstValue.NavigationBar_StatusBar_Height,
+                                width,
                                 justifyContent: 'center',
                                 flexDirection: 'row',
+                                alignItems:'center'
                             }}>
-                                <Text style={{backgroundColor: 'transparent' ,textAlign: 'center', fontSize: 18, color: 'white', marginTop: ConstValue.StatusBar_Height}}>我的</Text>
-                                <TouchableOpacity onPress={()=>{
-                                    Storage.save('newMessageFlag', '0');
-                                    this.pushToMsgList();
-                                }} style={{position: 'absolute', right: 10, marginTop: ConstValue.StatusBar_Height}}>
-                                    <Image source={this.props.jpushIcon == true ? StaticImage.MessageNewMine : StaticImage.MessageMine} style={{width: 17, height: 17}}/>
-                                </TouchableOpacity>
+                                {TitleView}
                             </View>
                             <View style={styles.headerView}>
                                 <TouchableOpacity onPress={() => {
@@ -621,7 +667,6 @@ class Mine extends Component {
                                                     style={styles.driverIcon}
                                                     source={StaticImage.CenterLoginAvatar}/>
                                         }
-
                                     </View>
                                 </TouchableOpacity>
                                 <View style={styles.informView}>
@@ -639,11 +684,8 @@ class Mine extends Component {
                                                 this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
                                             }
                                         </Text>
-
                                         {statusRender}
-
                                     </View>
-
                                     <Text
                                         style={{
                                             marginTop: 5,
@@ -652,22 +694,16 @@ class Mine extends Component {
                                             color: '#FFFFFF',
                                             fontSize: 13
                                         }}>
-
-
                                         {
                                             this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                         }
-
                                     </Text>
-
                                 </View>
-
-
                             </View>
                             {changeCarView}
                         </Image>
                         <View style={styles.contentPostionView}>
-                            <ScrollView>
+                            <ScrollView style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}>
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
@@ -711,7 +747,6 @@ class Mine extends Component {
                                     }}
                                 />
                                 <View style={styles.separateView}/>
-
                                 {
                                     this.state.verifiedState != '1202' ?
                                         <SettingCell
@@ -722,10 +757,8 @@ class Mine extends Component {
                                             clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
-
                                             if (this.state.verifiedState == '1200') {
                                                 // 未认证
-
                                                 Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 
                                                     if (value){
@@ -736,8 +769,6 @@ class Mine extends Component {
                                                         this.props.navigation.navigate('VerifiedPage');
                                                     }
                                                 });
-
-
                                             } else {
                                                 // 认证中，认证驳回，认证通过
 
@@ -749,7 +780,6 @@ class Mine extends Component {
                                     }}
                                         /> : null
                                 }
-
                                 {
                                     this.state.certificationState != '1202' ?
                                         <SettingCell
@@ -786,12 +816,10 @@ class Mine extends Component {
                                             }}
                                         /> : null
                                 }
-
                                 {
                                     this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?
                                         null : <View style={styles.separateView}/>
                                 }
-
                                 <SettingCell
                                     leftIcon="&#xe62e;"
                                     iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
@@ -838,9 +866,7 @@ class Mine extends Component {
                                         }
                                 }}
                                 />
-
                                 <View style={styles.separateView}/>
-
                                 <SettingCell
                                     leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
                                 }}
@@ -851,13 +877,11 @@ class Mine extends Component {
                                     height,
                                     backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
                                 }}/>
-
                             </View>
                             </ScrollView>
                         </View>
                     </View>
                 </View>
-
                 {
                     this.state.loading ? <Loading /> : null
                 }
@@ -873,10 +897,8 @@ class Mine extends Component {
 }
 
 function mapStateToProps(state) {
-
     console.log('plateNumberObj: =', state.user.get('plateNumberObj'));
     console.log('mine:plateNumber: =', state.user.get('plateNumber'));
-
     return {
         userInfo: state.user.get('userInfo'),
         userName: state.user.get('userName'),

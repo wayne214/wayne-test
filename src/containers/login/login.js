@@ -253,7 +253,8 @@ class Login extends BaseContainer {
                         this.props.navigation.dispatch(resetAction);
 
                         JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
-                    } else{
+
+                    }else{
                         //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
                             loginPhone: responseData.result.phone,

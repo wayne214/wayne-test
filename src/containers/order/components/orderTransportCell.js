@@ -203,6 +203,7 @@ class OrdersItemCell extends Component {
             ordersNum,
             isBatchSign,
             onButton,
+            orderSignNum
         } = this.props;
         const batchSignView = <View>
                 <View style={styles.separateLine}/>
@@ -313,7 +314,7 @@ class OrdersItemCell extends Component {
                                 <OrderStateNumView
                                     style={{marginLeft: 5}}
                                     fontText={'已签'}
-                                    num={0}
+                                    num={orderSignNum}
                                     unit={'单'}
                                 />
                             </View>

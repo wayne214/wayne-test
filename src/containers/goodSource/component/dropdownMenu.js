@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
             },
             android: {
                 height: 50,
-                paddingTop: 14,
+                paddingTop: 25,
             },
         }),
         alignSelf: 'center',

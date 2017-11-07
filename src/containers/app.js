@@ -53,7 +53,7 @@ class App extends Component {
         const routers = this.props.nav.routes;
         console.log('backAndroid,routers=',routers);
         if (routers.length > 1) {
-            this.props.navigation.dispatch(NavigationActions.back());
+            this.props.dispatch(NavigationActions.back());
             return true;
         } else {
             if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {

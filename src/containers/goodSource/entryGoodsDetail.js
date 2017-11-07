@@ -60,7 +60,7 @@ class entryGoodsDetail extends Component {
         this.state = {
             datas: [],
             current: 1,
-            transOrderList: params.transOrderList,
+            transOrderList: params.transOrderList, // 运单号
             scheduleCode: params.scheduleCode,
             scheduleStatus: params.scheduleStatus,
             loading: false, // 加载框
