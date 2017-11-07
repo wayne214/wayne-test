@@ -34,10 +34,11 @@ class WeChatPayment extends Component {
             url: ''
         };
         this.getWeChatQrCode = this.getWeChatQrCode.bind(this);
+        this.qrCodePayment = this.qrCodePayment.bind(this);
     }
     componentDidMount() {
         this.getWeChatQrCode();
-        // this.qrCodePayment();
+        this.qrCodePayment();
     }
     // 获取微信二维码
     getWeChatQrCode() {
@@ -61,28 +62,28 @@ class WeChatPayment extends Component {
             }
         });
     }
-    // qrCodePayment() {
-    //     var ws = new WebSocket(API.API_AC_QRCODE_PAYMENT + this.state.orderCode);
-    //
-    //     ws.onopen = () => {
-    //
-    //     };
-    //
-    //     ws.onmessage = (e) => {
-    //         // 接收到了一个消息
-    //         console.log('===============',e.data);
-    //     };
-    //
-    //     ws.onerror = (e) => {
-    //         // 发生了一个错误
-    //         console.log(e.message);
-    //     };
-    //
-    //     ws.onclose = (e) => {
-    //         // 连接被关闭了
-    //         console.log(e.code, e.reason);
-    //     };
-    // }
+    qrCodePayment() {
+        const ws = new WebSocket(API.API_WEBSOCKET);
+
+        ws.onopen = () => {
+            ws.send('something'); // 发送一个消息
+        };
+
+        ws.onmessage = (e) => {
+            // 接收到了一个消息
+            console.log('===============',e.data);
+        };
+
+        ws.onerror = (e) => {
+            // 发生了一个错误
+            console.log(e.message);
+        };
+
+        ws.onclose = (e) => {
+            // 连接被关闭了
+            console.log(e.code, e.reason);
+        };
+    }
     render() {
         const navigator = this.props.navigation;
         return (

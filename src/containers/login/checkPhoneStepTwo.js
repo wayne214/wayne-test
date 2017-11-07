@@ -264,7 +264,7 @@ class CheckPhoneStepTwo extends Component {
                         (() => {
                             if (this.state.pwdCode.length > 0) {
                                 return (
-                                    <TouchableOpacity onPress={() => this.canclePhonePWD()}>
+                                    <TouchableOpacity onPress={() => this.canclePhonePWD.bind(this)}>
                                         <View style={styles.iconStyle}>
                                             <Image source={StaticImage.clearIcon} />
                                         </View>
