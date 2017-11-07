@@ -860,6 +860,7 @@ let transCodeListData3 = [];
                     receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
                     phoneNum={dataRow.phoneNum}
                     isBatchSign={dataRow.transports.length > 1}
+                    orderSignNum={dataRow.orderSignNum}
                     onSelect={() => {
                         this.props.navigation.navigate('EntryToBeSignIn', {
                             transOrderList: this.transportsList(dataRow),
