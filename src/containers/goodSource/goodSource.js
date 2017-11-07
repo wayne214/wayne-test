@@ -247,7 +247,7 @@ class GoodSource extends BaseContainer{
             <CommonListItem
                 time={pushTime}
                 transCode={dataRow.dispatchCode}
-                dispatchLine={'北京-天津-沈阳'}
+                dispatchLine={dataRow.scheduleRoutes ? dataRow.scheduleRoutes : ''} // 调度路线
                 distributionPoint={dataRow.distributionPoint !== null ? `${dataRow.distributionPoint}个` : ''}
                 arriveTime={arrivalTime}
                 weight={dataRow.weight !== null ? dataRow.totalWeight: ''}
@@ -255,10 +255,10 @@ class GoodSource extends BaseContainer{
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
                 goodKindsNames={['其他','乳制品','水产品']} // 货品种类
-                orderCount={1}
+                orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
-                        transOrderList: dataRow.transOrderList,
+                        transOrderList: dataRow.transOrderList, // 运单号
                         scheduleCode: dataRow.dispatchCode,
                         scheduleStatus: this.state.goodStatus,
                         allocationModel: dataRow.allocationModel,
