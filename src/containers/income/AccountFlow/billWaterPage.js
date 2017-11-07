@@ -27,6 +27,8 @@ import * as ConstValue from '../../../constants/constValue';
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+let type = 1; // 1 全部   2  收入   3  支出
+let listResult = [];
 
 const styles = StyleSheet.create({
 
@@ -58,14 +60,13 @@ export default class BillWaterPage extends Component {
         this.acAccountFlow = this.acAccountFlow.bind(this);
         this.acAccountFlowSuccessCallBack = this.acAccountFlowSuccessCallBack.bind(this);
         this.acAccountFlowFailCallBack = this.acAccountFlowFailCallBack.bind(this);
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         // 初始状态
         this.state = {
             dataSource: ds,
             refreshing:false,
             page:1,
             loadMore:false,
-            listResult:[],
             dataLength: 0,
         };
     }
@@ -87,56 +88,32 @@ export default class BillWaterPage extends Component {
         currentTime = new Date().getTime();
         this.setState({
             refreshing:true,
+        });
+
+        HTTPRequest({
+            url: API.API_AC_ACCOUNT_FLOW,
+            params: {
+                page: this.state.page,
+                pageSize: 20,
+                phoneNum: '13312345678',  //13312345678   global.phone
+                status: String(type)
+            },
+            loading: () => {
+
+            },
+            success: (response) => {
+                this.acAccountFlowSuccessCallBack(response.result);
+            },
+            error: (err) => {
+                this.acAccountFlowFailCallBack();
+            },
+            finish: () => {
+
+            },
+
         })
-        if (this.state.page == 1){
 
-            HTTPRequest({
-                url: API.API_AC_ACCOUNT_FLOW,
-                params: {
-                    page: 1,
-                    pageSize: 20,
-                    phoneNum: global.phone,
-                },
-                loading: () => {
 
-                },
-                success: (response) => {
-                    this.acAccountFlowSuccessCallBack(response.result);
-                },
-                error: (err) => {
-                    this.acAccountFlowFailCallBack();
-                },
-                finish: () => {
-
-                },
-
-            })
-
-        } else {
-
-            HTTPRequest({
-                url: API.API_AC_ACCOUNT_FLOW,
-                params: {
-                    page: this.state.page,
-                    pageSize: 20,
-                    phoneNum: global.phone,
-                },
-                loading: () => {
-
-                },
-                success: (response) => {
-                    this.acAccountFlowSuccessCallBack(response.result);
-                },
-                error: (err) => {
-                    this.acAccountFlowFailCallBack();
-                },
-                finish: () => {
-
-                },
-
-            })
-
-        }
 
 
     }
@@ -150,7 +127,7 @@ export default class BillWaterPage extends Component {
         this.setState({
             refreshing:false,
             dataLength: 0,
-        })
+        });
 
         if (this.state.page == 1 && datalenth < 20){
 
@@ -158,13 +135,10 @@ export default class BillWaterPage extends Component {
                 loadMore:false,
             })
         } else {
-
-            this.setState({
-                listResult:this.state.listResult.concat(result),
-            })
+            listResult=listResult.concat(result);
         }
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(result),
+            dataSource: this.state.dataSource.cloneWithRows(listResult),
         })
     }
 
@@ -202,18 +176,26 @@ export default class BillWaterPage extends Component {
             />
         );
     }
-    //下拉加载
+    //下拉刷新
     onRefresh(){
-        this.acAccountFlow(this.acAccountFlowSuccessCallBack);
+        listResult = [];
+        this.setState({
+            page:1,
+            dataSource: this.state.dataSource.cloneWithRows(listResult),
+        }, ()=>{
+            this.acAccountFlow(this.acAccountFlowSuccessCallBack);
+        });
     }
-    //上拉刷新
+    //上拉加载
     onEndReached(){
 
         if (this.state.loadMore){
             this.setState({
                 page:this.state.page + 1,
+            }, ()=>{
+                this.acAccountFlow(this.acAccountFlowSuccessCallBack);
             });
-            this.acAccountFlow(this.acAccountFlowSuccessCallBack);
+
         }
     }
 
@@ -235,6 +217,10 @@ export default class BillWaterPage extends Component {
                     handler={(selection, row) => {
                         console.log(row);
                         //0=全部、1=收入、2=支出
+
+                        type = row + 1;
+
+
                     }}
                 >
                     <TouchableOpacity style={{position: 'absolute', marginTop: 30, height: 54, width: 44}} onPress={()=>{
