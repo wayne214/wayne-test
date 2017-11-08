@@ -128,7 +128,7 @@ const TabNavigatorConfigs = {
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     animationEnabled: false,
-    lazy: true,
+    lazy: false,
     backBehavior: 'none', // 按 back 键是否跳转到第一个Tab(首页)， none 为不跳转
     tabBarOptions: {
         activeTintColor: StaticColor.BLUE_TAB_BAR_COLOR, // 文字和图片选中颜色

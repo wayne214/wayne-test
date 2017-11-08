@@ -396,7 +396,8 @@ class entryGoodsDetail extends Component {
                     taskInfo={item.taskInfo}
                     time={item.time}
                     transCode={item.transCode}
-                    transOrderStatsu={item.transOrderStatsu}
+                    transOrderStatus={item.transOrderStatsu}
+                    customerOrderCode={item.customerOrderCode}
                     vol={item.vol}
                     weight={item.weight}
                     index={index}

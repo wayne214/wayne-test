@@ -112,6 +112,12 @@ class orderToBeWaitSureDetail extends Component {
             vol,
             weight,
             index,
+            signTime,
+            scheduleTime,
+            dispatchTime,
+            customerCode,
+            dispatchTimeAgain,
+            scheduleTimeAgain,
         } = this.props;
 
         return (
@@ -142,22 +148,34 @@ class orderToBeWaitSureDetail extends Component {
                         borderRadius: 5,
                     }}
                 >
-                    <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
-                        <View style={styles.constantStyle}>
-                            <Text style={styles.constantIcon}>&#xe66d;</Text>
-                            <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
-                                {deliveryInfo.receiveContact}
-                            </Text>
-                        </View>
-                        <View style={styles.separateLine}/>
-                        <View style={{marginHorizontal: 10}}>
-                            <DetailsOrdersCell
-                                ifReceipt={taskInfo.isReceipt}
-                                receiptStyle={taskInfo.receiptWay}
-                                arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
-                            />
-                        </View>
-                    </ImageBackground>
+                    {
+                        taskInfo ?
+                            <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                                <View style={styles.constantStyle}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
+                                        {deliveryInfo.receiveContact}
+                                    </Text>
+                                </View>
+                                <View style={styles.separateLine}/>
+                                <View style={{marginHorizontal: 10}}>
+                                    <DetailsOrdersCell
+                                        ifReceipt={taskInfo.isReceipt?taskInfo.isReceipt:''}
+                                        receiptStyle={taskInfo.receiptWay}
+                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
+                                    />
+                                </View>
+                            </ImageBackground> :
+                            <View>
+                                <View style={[styles.constantStyle, {marginLeft: 5}]}>
+                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
+                                        {deliveryInfo.receiveContactName}
+                                    </Text>
+                                </View>
+                                <View style={styles.divideLine}/>
+                            </View>
+                    }
                     <TitlesCell title="配送信息" />
                     <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
                     <DetailsUserCell
@@ -193,14 +211,14 @@ class orderToBeWaitSureDetail extends Component {
                     <DetailsCell
                         transportNO_={transCode}
                         transportTime={time}
-                        customerCode={'SO171025000012'}
+                        customerCode={customerCode}
                         transOrderType={transOrderType}
                         transOrderStatus={transOrderStatus}
-                        dispatchTime={'2017-10-25 18:37'}
-                        dispatchTimeAgain={'2017-10-25 18:37:20'}
-                        shipmentTime={'2017-10-25 18:38'}
-                        shipmentTimeAgain={'2017-10-25 18:39:00'}
-                        signTime={'2017-10-26 10:39:00'}
+                        scheduleTime={scheduleTime}
+                        scheduleTimeAgain={scheduleTimeAgain}
+                        dispatchTime={dispatchTime}
+                        dispatchTimeAgain={dispatchTimeAgain}
+                        signTime={signTime}
                     />
 
                 </ScrollView>
