@@ -60,8 +60,6 @@ export const API_NEW_DRIVER_CANCEL_ORDER = `${HOST}app/dpc/driverAppCancelOrder`
 export const API_NEW_DRIVER_RECEIVE_ORDER = `${HOST}app/dpc/driverAppReceiveOrder`;
 // 拒单
 export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`;
-// 订单列表（全部，待发运）分页查询调度单
-export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/dpc/queryAppDispatchDocWithPage`;
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
 // 根据时间获取获取货源列表
@@ -114,9 +112,8 @@ export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
 export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
-// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.125:8018/app/transport/goodsSource`;
-// 订单列表（已回单）
-export const API_NEW_GET_ORDER_LIST_V2 = `${HOST}app/transport/queryAlreadCompleteTransportListV2_1`;
+// 订单列表（待回单）
+export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPage`;
 // 运输中
 export const API_NEW_GET_ORDER_LIST_TRANSPORT = `${HOST}app/transport/queryTransportList`;
 // 回单接口
@@ -127,6 +124,8 @@ export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 export const API_NEW_SIGN = `${HOST}app/transport/sign`;
 // 批量签收接口
 export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign`;
+// 订单列表（全部，待发运）分页查询调度单
+export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPage`;
 
 /** *****************************************************获取图片信息******************************************************/
 // 身份证正面

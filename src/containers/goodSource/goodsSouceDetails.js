@@ -69,7 +69,7 @@ export default class GoodsSourceDetails extends Component {
         });
     }
     render() {
-        const {deliveryInfo, goodsInfoList, taskInfo, time, transCode, vol, weight, index, isFullScreen} = this.props;
+        const {deliveryInfo, goodsInfoList, taskInfo, time, transCode, vol, weight, index, isFullScreen, customerOrderCode} = this.props;
         return (
             <View
                 style={{
@@ -112,7 +112,7 @@ export default class GoodsSourceDetails extends Component {
                                     <DetailsOrdersCell
                                         ifReceipt={taskInfo.isReceipt}
                                         receiptStyle={taskInfo.receiptWay}
-                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
                                     />
                                 </View>
                             </ImageBackground> :
@@ -162,7 +162,11 @@ export default class GoodsSourceDetails extends Component {
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
                     <TotalsItemCell totalTons={weight} totalSquare={vol}/>
                     <View style={{height: 1, backgroundColor: '#F5F5F5'}}/>
-                    <DetailsCell transportNO_={transCode} transportTime={time} dispatchTime={time}/>
+                    <DetailsCell
+                        transportNO_={transCode}
+                        customerCode={customerOrderCode}
+                        transportTime={time}
+                    />
                 </ScrollView>
             </View>
         );
