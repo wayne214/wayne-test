@@ -315,6 +315,7 @@ class GoodSource extends BaseContainer{
                                     onEndReached={this.toEnd.bind(this)}
                                     onEndReachedThreshold={100}
                                     enableEmptySections={true}
+                                    removeClippedSubviews={false}
                                     showsVerticalScrollIndicator={false}
                                     refreshControl={
                                         <RefreshControl
