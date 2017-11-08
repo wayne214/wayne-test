@@ -69,12 +69,39 @@ class detailsPage extends Component {
         this.renderRow = this.renderRow.bind(this);
         this.getData = this.getData.bind(this);
         this.chooseType = this.chooseType.bind(this);
+        this.qrCodePayment = this.qrCodePayment.bind(this);
     }
 
+    qrCodePayment() {
+        const ws = new WebSocket(API.API_WEBSOCKET);
+
+
+        ws.onopen = () => {
+            console.log('===============onopen');
+            ws.send('something'); // 发送一个消息
+        };
+
+        ws.onmessage = (e) => {
+            // 接收到了一个消息
+            console.log('onmessage===============',e.data);
+        };
+
+        ws.onerror = (e) => {
+            // 发生了一个错误
+            console.log('onerror', e.message);
+        };
+
+        ws.onclose = (e) => {
+            // 连接被关闭了
+            console.log('onclose', e.code, e.reason);
+        };
+    }
     componentDidMount() {
         this.getCurrentPosition();
 
         this.onRefresh();
+
+        this.qrCodePayment();
     }
 // 获取当前位置
     getCurrentPosition() {
@@ -156,9 +183,11 @@ class detailsPage extends Component {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(list),
             isRefresh: true,
+        }, ()=>{
+            // 请求刷新接口
+            this.getData();
         });
-        // 请求刷新接口
-        this.getData();
+
     }
 
     // 加载更多

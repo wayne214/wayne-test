@@ -110,12 +110,7 @@ export default class BillWaterPage extends Component {
             finish: () => {
 
             },
-
         })
-
-
-
-
     }
     acAccountFlowSuccessCallBack(result){
         console.log('result',result, result.length)
@@ -126,14 +121,15 @@ export default class BillWaterPage extends Component {
         const datalenth = result.length;
         this.setState({
             refreshing:false,
-            dataLength: 0,
+            dataLength: datalenth,
         });
 
         if (this.state.page == 1 && datalenth < 20){
 
             this.setState({
                 loadMore:false,
-            })
+            });
+            listResult = result;
         } else {
             listResult=listResult.concat(result);
         }
@@ -160,6 +156,7 @@ export default class BillWaterPage extends Component {
                         billState={rowData.costType}
                         billTime={rowData.time}
                         billMoney={rowData.operateAmount}
+                        billStatus={rowData.status}
                         onClick={()=>{
                             {/*this.props.navigation.navigate('IncomeListDetail',{*/}
                                 {/*type: '收入', // 收入、支出*/}
@@ -220,6 +217,7 @@ export default class BillWaterPage extends Component {
 
                         type = row + 1;
 
+                        this.onRefresh();
 
                     }}
                 >
@@ -230,7 +228,10 @@ export default class BillWaterPage extends Component {
                     </TouchableOpacity>
                     <View style={{marginTop: 10}}>
                         {
-                            this.state.dataLength > 0 ? this.listView() : <EmptyView emptyImage={StaticImage.NoIncome} content={'暂无收入记录'}/>
+                            this.state.dataLength == 0 && this.state.page == 1 ?  <EmptyView
+                                    emptyImage={StaticImage.NoIncome}
+                                    content={'暂无收入记录'}
+                                /> : this.listView()
                         }
                     </View>
                 </DropdownMenu>

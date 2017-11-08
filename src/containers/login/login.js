@@ -228,7 +228,8 @@ class Login extends BaseContainer {
                 }, () => {
                     console.log('lqq---responseData---',responseData);
 
-                    const isBind = responseData.result.isBind;
+                    let isBind = responseData.result.isBind;
+                    isBind = true;
                     console.log('-lqq---isBind',isBind);
                     if(isBind){//继续登录操作
                         lastTime = new Date().getTime();

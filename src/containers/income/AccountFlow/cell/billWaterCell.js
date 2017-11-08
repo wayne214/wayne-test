@@ -33,7 +33,7 @@ class BillWaterCell extends Component {
 
     render() {
         const {
-            billState, billTime, billMoney
+            billState, billTime, billMoney, billStatus
         } = this.props;
         return (
 
@@ -93,7 +93,7 @@ class BillWaterCell extends Component {
                             color: '#666666',
                             position: 'absolute'
                         }}>
-                            处理中
+                            {billStatus}
                         </Text>
                     </View>
 

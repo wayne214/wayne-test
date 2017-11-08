@@ -195,4 +195,4 @@ export const API_BANKCARD_SENDVERIFYCODE = `${HOST}app/bankcard/sendVerifyCode`;
 export const API_BANKCARD_CHECK_VERIFYCODE = `${HOST}app/bankcard/checkVerifyCode/`;
 
 //WebSocket
-export const API_WEBSOCKET = `ws://host.com/path`;
+export const API_WEBSOCKET = `ws://192.168.33.11:9500/webSocket`;
