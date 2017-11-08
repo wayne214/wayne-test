@@ -161,6 +161,10 @@ export default class OrderDetails extends Component {
             weight,
             index,
             chooseResult,
+            scheduleTime,
+            customerOrderCode,
+            isEndDistribution,
+            scheduleTimeAgain
         } = this.props;
 
         return (
@@ -207,7 +211,7 @@ export default class OrderDetails extends Component {
                                     <DetailsOrdersCell
                                         ifReceipt={taskInfo.isReceipt}
                                         receiptStyle={taskInfo.receiptWay}
-                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
                                     />
                                 </View>
                             </ImageBackground> :
@@ -268,11 +272,11 @@ export default class OrderDetails extends Component {
                     <DetailsCell
                         transportNO_={transCode}
                         transportTime={time}
-                        customerCode={'SO171025000012'}
+                        customerCode={customerOrderCode}
                         transOrderType={transOrderType}
                         transOrderStatus={transOrderStatus}
-                        dispatchTime={'2017-10-25 18:37'}
-                        dispatchTimeAgain={'2017-10-25 18:37:20'}
+                        scheduleTime={scheduleTime}
+                        scheduleTimeAgain={scheduleTimeAgain}
                     />
                 </ScrollView>
             </View>

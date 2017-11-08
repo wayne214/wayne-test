@@ -108,7 +108,12 @@ export default class orderToBeSignInDetail extends Component {
             transOrderType,
             transOrderStatus,
             settlementMode,
-            isEndDistribution
+            isEndDistribution,
+            customerOrderCode,
+            dispatchTime,
+            scheduleTime,
+            dispatchTimeAgain,
+            scheduleTimeAgain,
         } = this.props;
 
         return (
@@ -153,7 +158,7 @@ export default class orderToBeSignInDetail extends Component {
                                     <DetailsOrdersCell
                                         ifReceipt={taskInfo.isReceipt}
                                         receiptStyle={taskInfo.receiptWay}
-                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
                                     />
                                 </View>
                             </ImageBackground> :
@@ -203,13 +208,13 @@ export default class orderToBeSignInDetail extends Component {
                     <DetailsCell
                         transportNO_={transCode}
                         transportTime={time}
-                        customerCode={'SO171025000012'}
+                        customerCode={customerOrderCode}
                         transOrderType={transOrderType}
                         transOrderStatus={transOrderStatus}
-                        dispatchTime={'2017-10-25 18:37'}
-                        dispatchTimeAgain={'2017-10-25 18:37:20'}
-                        shipmentTime={'2017-10-25 18:38'}
-                        shipmentTimeAgain={'2017-10-25 18:39:00'}
+                        scheduleTime={scheduleTime}
+                        scheduleTimeAgain={scheduleTimeAgain}
+                        dispatchTime={dispatchTime}
+                        dispatchTimeAgain={dispatchTimeAgain}
                     />
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />

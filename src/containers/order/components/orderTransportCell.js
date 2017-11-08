@@ -234,7 +234,7 @@ class OrdersItemCell extends Component {
         const transOrderView = <View style={styles.orderDeatailAll}>
             <View style={styles.orderDetailText}>
                 <View style={styles.orderDetailCell}>
-                    <Text style={styles.textSizeNum}>单号：{transCodeList[0].customerOrderCode ? transCodeList[0].customerOrderCode : transCodeList[0].transCode}</Text>
+                    <Text style={styles.textSizeNum}>单号：{transCodeList[0] && transCodeList[0].customerOrderCode ? transCodeList[0].customerOrderCode : transCodeList[0].transCode}</Text>
                     {
                         transCodeList[0].weight ?
                             <Text style={styles.textSizeWeight}>{transCodeList[0].weight}Kg</Text> :
@@ -326,7 +326,7 @@ class OrdersItemCell extends Component {
                                 {receiveAddress}
                             </Text>
                         </View>
-                        {transCodeList.length > 1 ? transOrderViews : transOrderView}
+                        {ordersNum > 1 ? transOrderViews : transOrderView}
                         <View style={styles.subContainer}>
                             <Text style={styles.contactView}>联系人: {receiveContactName}</Text>
                             <TouchableOpacity

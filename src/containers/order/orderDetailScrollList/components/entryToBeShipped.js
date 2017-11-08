@@ -135,6 +135,7 @@ class entryToBeShipped extends Component {
             url: API.API_NEW_GET_GOODS_SOURCE,
             params: {
                 transCodeList: this.state.transOrderList,
+                plateNumber: this.props.plateNumber
             },
             loading: ()=>{
                 this.setState({
@@ -428,9 +429,13 @@ class entryToBeShipped extends Component {
                     goodsInfoList={item.goodsInfo}
                     taskInfo={item.taskInfo}
                     time={item.time}
+                    dispatchTime={item.dispatchTime}
                     transCode={item.transCode}
+                    customerOrderCode={item.customerOrderCode}
                     transOrderStatus={item.transOrderStatsu}
                     transOrderType={item.transOrderType}
+                    scheduleTime={item.scheduleTime}
+                    scheduleTimeAgain={item.twoScheduleTime}
                     vol={item.vol}
                     weight={item.weight}
                     index={index}
@@ -439,7 +444,6 @@ class entryToBeShipped extends Component {
                     }}
                     chooseResult={(indexRow, obj) => {
                         transOrderInfo[indexRow] = obj;
-
                     }}
                 />
             );
@@ -499,6 +503,7 @@ class entryToBeShipped extends Component {
 function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
+        plateNumber: state.user.get('plateNumber'),
     };
 }
 

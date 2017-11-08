@@ -89,6 +89,13 @@ export default class orderToBeSureDetail extends Component {
             index,
             transOrderType,
             transOrderStatus,
+            receiveTime,
+            signTime,
+            dispatchTime,
+            scheduleTime,
+            dispatchTimeAgain,
+            scheduleTimeAgain,
+            customerOrderCode,
         } = this.props;
         return (
             <View
@@ -132,7 +139,7 @@ export default class orderToBeSureDetail extends Component {
                                     <DetailsOrdersCell
                                         ifReceipt={taskInfo.isReceipt}
                                         receiptStyle={taskInfo.receiptWay}
-                                        arrivalTime={taskInfo.committedArrivalTime.replace(/-/g, '/')}
+                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
                                     />
                                 </View>
                             </ImageBackground> :
@@ -182,15 +189,15 @@ export default class orderToBeSureDetail extends Component {
                     <DetailsCell
                         transportNO_={transCode}
                         transportTime={time}
-                        customerCode={'SO171025000012'}
+                        customerCode={customerOrderCode}
                         transOrderType={transOrderType}
                         transOrderStatus={transOrderStatus}
-                        dispatchTime={'2017-10-25 18:37'}
-                        dispatchTimeAgain={'2017-10-25 18:37:20'}
-                        shipmentTime={'2017-10-25 18:38'}
-                        shipmentTimeAgain={'2017-10-25 18:39:00'}
-                        signTime={'2017-10-26 10:39:00'}
-                        receiveTime={'2017-10-26 10:50:00'}
+                        scheduleTime={scheduleTime}
+                        scheduleTimeAgain={scheduleTimeAgain}
+                        dispatchTime={dispatchTime}
+                        dispatchTimeAgain={dispatchTimeAgain}
+                        signTime={signTime}
+                        receiveTime={receiveTime}
                     />
                 </ScrollView>
             </View>

@@ -126,7 +126,10 @@ class entryToBeSignin extends Component {
     }
 
     renderTitle (index, array) {
-        if (array[index].transOrderStatsu === '5') {
+        if (array[index].transOrderStatsu === '5'
+            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '34')
+            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '38')
+            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '40')) {
             this.setState({
                 isShowRightButton: true
             });
@@ -192,6 +195,7 @@ class entryToBeSignin extends Component {
             url: API.API_NEW_GET_GOODS_SOURCE,
             params: {
                 transCodeList: this.state.transOrderList,
+                plateNumber: this.props.plateNumber
             },
             loading: ()=>{
                 this.setState({
@@ -336,8 +340,12 @@ class entryToBeSignin extends Component {
 
     render() {
         const navigator = this.props.navigation;
+        console.log('this.state.datas=====',this.state.datas);
         const subOrderPage = this.state.datas.map((item, index) => {
-            if (item.transOrderStatsu === '5') { // 已回单5
+            if (item.transOrderStatsu === '5'
+                || (item.isEndDistribution === 'N' && item.statusCode === '34')
+                || (item.isEndDistribution === 'N' && item.statusCode === '38')
+                || (item.isEndDistribution === 'N' && item.statusCode === '40')) { // 已回单5
                 return (
                     <EntryToBeSure
                         key={index}
@@ -347,11 +355,19 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
+                        customerOrderCode={item.customerOrderCode}
                         transOrderStatus={item.transOrderStatsu}
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         signer={item.signer}
+                        signTime={item.signTime}
+                        scheduleTime={item.scheduleTime}
+                        scheduleTimeAgain={item.twoScheduleTime}
+                        dispatchTime={item.dispatchTime}
+                        dispatchTimeAgain={item.twoDispatchTime}
+                        receiveTime={item.receiveTime}
+                        isEndDistribution={item.isEndDistribution}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
@@ -371,11 +387,18 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
+                        customerOrderCode={item.customerOrderCode}
                         transOrderStatus={item.transOrderStatsu}
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         signer={item.signer}
+                        signTime={item.signTime}
+                        scheduleTime={item.scheduleTime}
+                        scheduleTimeAgain={item.twoScheduleTime}
+                        dispatchTime={item.dispatchTime}
+                        dispatchTimeAgain={item.twoDispatchTime}
+                        isEndDistribution={item.isEndDistribution}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
@@ -387,7 +410,7 @@ class entryToBeSignin extends Component {
                 );
             }
 
-            if (item.transOrderStatsu === '3' || !item.transOrderStatsu) { // 待签收3
+            if (item.transOrderStatsu === '3') { // 待签收3
                 return (
                     <EntryToBeSignIn
                         key={index}
@@ -397,11 +420,16 @@ class entryToBeSignin extends Component {
                         taskInfo={item.taskInfo}
                         time={item.time}
                         transCode={item.transCode}
+                        customerOrderCode={item.customerOrderCode}
                         transOrderStatus={item.transOrderStatsu}
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
                         settlementMode={2}
+                        scheduleTime={item.scheduleTime}
+                        scheduleTimeAgain={item.twoScheduleTime}
+                        dispatchTime={item.dispatchTime}
+                        dispatchTimeAgain={item.twoDispatchTime}
                         isEndDistribution={item.isEndDistribution}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
@@ -489,6 +517,7 @@ class entryToBeSignin extends Component {
 }
 function mapStateToProps(state) {
     return {
+        plateNumber: state.user.get('plateNumber'),
     };
 }
 
