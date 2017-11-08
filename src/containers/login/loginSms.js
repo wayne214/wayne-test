@@ -452,7 +452,7 @@ class LoginSms extends BaseContainer {
                             >
                                 账号密码登录
                             </Text>
-                        </View> 
+                        </View>
                     </View>
                    
                       
