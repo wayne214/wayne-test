@@ -97,7 +97,7 @@ class CheckPhoneStepTwo extends Component {
         this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
         this.phoneNo = params.loginPhone;
         this.loginResponseData = params.responseData;
-        
+        this.clearPhoneCode = this.clearPhoneCode.bind(this);
     }
 
     componentDidMount() {
@@ -206,7 +206,12 @@ class CheckPhoneStepTwo extends Component {
            }
        })
     }
-
+    clearPhoneCode(){
+        if (this.state.pwdCode.length > 0) {this.setState({
+            pwdCode: '',
+        });
+        }
+    }
 
     render() {
         const navigator = this.props.navigation;
@@ -264,7 +269,7 @@ class CheckPhoneStepTwo extends Component {
                         (() => {
                             if (this.state.pwdCode.length > 0) {
                                 return (
-                                    <TouchableOpacity onPress={() => this.canclePhonePWD.bind(this)}>
+                                    <TouchableOpacity onPress={() => {this.clearPhoneCode()}}>
                                         <View style={styles.iconStyle}>
                                             <Image source={StaticImage.clearIcon} />
                                         </View>

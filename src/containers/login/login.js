@@ -286,7 +286,6 @@ class Login extends BaseContainer {
 
     render() {
         const {phoneNumber, password} = this.state;
-        console.log('lqq---height-',height);
         return (
             <View style={styles.container}>
                 { false && 
