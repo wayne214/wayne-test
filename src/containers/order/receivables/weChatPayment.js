@@ -66,22 +66,24 @@ class WeChatPayment extends Component {
         const ws = new WebSocket(API.API_WEBSOCKET);
 
         ws.onopen = () => {
-            ws.send('something'); // 发送一个消息
+            console.log('===============onopen');
+
+            //ws.send('something'); // 发送一个消息
         };
 
         ws.onmessage = (e) => {
             // 接收到了一个消息
-            console.log('===============',e.data);
+            console.log('onmessage===============',e.data);
         };
 
         ws.onerror = (e) => {
             // 发生了一个错误
-            console.log(e.message);
+            console.log('onerror', e.message);
         };
 
         ws.onclose = (e) => {
             // 连接被关闭了
-            console.log(e.code, e.reason);
+            console.log('onclose', e.code, e.reason);
         };
     }
     render() {
