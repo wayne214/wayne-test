@@ -245,16 +245,20 @@ class GoodSource extends BaseContainer{
     renderRow(dataRow) {
         const pushTime = dataRow.pushTime ? dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3) : '';
         const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        // 货品类型
         const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
         let goodTepesTemp = [];
         let goodTypesName = [];
-        if(dataRow.ofcOrderDetailTypeDtoList.length > 0) {
+        if(orderDetaiTypeList.length > 0) {
             let good = '';
             for (let i = 0; i < orderDetaiTypeList.length; i++) {
                 good = orderDetaiTypeList[i];
                 goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
             }
+            // 去重
             goodTypesName = UniqueUtil.unique(goodTepesTemp);
+        } else {
+            goodTypesName.push('其他');
         }
         return (
             <CommonListItem
