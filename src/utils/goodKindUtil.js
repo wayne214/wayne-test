@@ -29,10 +29,10 @@ class goodKindUtil {
             case '乳制品':
                 return <Image style={styles.goodKindIconStyle} source={StaticImage.Dairy}/>;
                 break;
-            case '农产品':
+            case '农产品类':
                 return <Image style={styles.goodKindIconStyle} source={StaticImage.AgricultureProduct}/>;
                 break;
-            case '水产品':
+            case '水产品类':
                 return <Image style={styles.goodKindIconStyle} source={StaticImage.AquaticProduct}/>;
                 break;
             default:
@@ -40,8 +40,6 @@ class goodKindUtil {
                 break;
         }
     }
-
-
 }
 
 const instance = new goodKindUtil();
