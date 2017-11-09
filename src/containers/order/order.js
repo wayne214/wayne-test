@@ -901,6 +901,21 @@ let transCodeListData3 = [];
     renderRow(dataRow, sectionID, rowID) {
         const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
         const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        // 货品类型
+        const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
+        let goodTepesTemp = [];
+        let goodTypesName = [];
+        if(orderDetaiTypeList.length > 0) {
+            let good = '';
+            for (let i = 0; i < orderDetaiTypeList.length; i++) {
+                good = orderDetaiTypeList[i];
+                goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
+            }
+            // 去重
+            goodTypesName = UniqueUtil.unique(goodTepesTemp);
+        } else {
+            goodTypesName.push('其他');
+        }
         return (
             <OrdersItemCell
                 time={pushTime}
@@ -913,7 +928,7 @@ let transCodeListData3 = [];
                 stateName={dataRow.stateName}
                 dispatchStatus={dataRow.dispatchStatus}
                 orderStatus={selectPage}
-                goodKindsNames={['其他']} // 货品种类
+                goodKindsNames={goodTypesName} // 货品种类
                 waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
                 beSureOrderNum={dataRow.beSureOrderNum}
                 transCodeNum={dataRow.transCodeNum}

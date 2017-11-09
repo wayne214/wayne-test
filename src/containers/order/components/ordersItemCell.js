@@ -174,7 +174,6 @@ class OrdersItemCell extends Component {
             transCodeNum
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
-
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
         const orderNumView = <View style={styles.orderNumView}>
             <OrderStateNumView
