@@ -127,7 +127,7 @@ class UploadReceipt extends Component {
         this.uploadOrderFailCallBack = this.uploadOrderFailCallBack.bind(this);
         this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
-        // this.popToTop = this.popToTop.bind(this);
+        this.popToTop = this.popToTop.bind(this);
         this.goBackForward = this.goBackForward.bind(this);
 
     }
@@ -180,7 +180,7 @@ class UploadReceipt extends Component {
             locationData.district, lastTime - currentTime, '上传回单页面');
         Toast.showShortCenter('上传回单成功');
         DeviceEventEmitter.emit('changeStateReceipt');
-        this.goBackForward();
+        this.popToTop();
     }
 
     // 获取数据失败回调
@@ -328,12 +328,12 @@ class UploadReceipt extends Component {
             });
     }
 
-    // 返回到根界面
-    // popToTop() {
-    //     const routes = this.props.routes;
-    //     let key = routes[1].key;
-    //     this.props.navigation.goBack(key);
-    // }
+    返回到根界面
+    popToTop() {
+        const routes = this.props.routes;
+        let rootKey = routes[0].key;
+        this.props.navigation.goBack(rootKey);
+    }
 
     goBackForward() {
         const routes = this.props.routes;
@@ -392,7 +392,7 @@ class UploadReceipt extends Component {
                         const forward = routes[routes.length - 2];
                         if (navigator && routes.length > 1) {
                             if (forward.routeName === 'SignPage') {
-                                {/*this.popToTop();*/}
+                                this.popToTop();
                             }else {
                                 navigator.goBack();
                             }

@@ -87,6 +87,11 @@ class signSuccess extends Component {
                   <NavigationBar
                       title={'签收'}
                       navigator={navigator}
+                      backIconClick={() => {
+                          let routes = this.props.routes;
+                          let rootKey = routes[0].key;
+                          navigator.goBack(rootKey);
+                      }}
                   />
                   <View>
                       <EmptyView

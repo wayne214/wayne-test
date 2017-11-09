@@ -81,7 +81,6 @@ class signPage extends Component {
         this.getSignInSuccessCallBack = this.getSignInSuccessCallBack.bind(this);
         this.getSignInFailCallBack = this.getSignInFailCallBack.bind(this);
         this.deleteComponent = this.deleteComponent.bind(this);
-        this.popToTop = this.popToTop.bind(this);
         this.goBackForward = this.goBackForward.bind(this);
 
     }
@@ -213,7 +212,7 @@ class signPage extends Component {
                 orderID: this.state.orderID,
             });
         }else {
-            DeviceEventEmitter.emit('changeStateReceipt');
+            DeviceEventEmitter.emit('changeToWaitSign');
             this.goBackForward();
         }
         // if (this.state.isReceipt === '是'){
@@ -239,12 +238,6 @@ class signPage extends Component {
 
     }
 
-    // 返回到根界面
-    popToTop() {
-        const routes = this.props.routes;
-        let key = routes[1].key;
-        this.props.navigation.goBack(key);
-    }
     //返回前两个界面
     goBackForward() {
         const routes = this.props.routes;

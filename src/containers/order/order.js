@@ -34,14 +34,14 @@ import {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
     subContainer: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
     tabBarUnderLine: {
-        backgroundColor: StaticColor.COLOR_MAIN,
+        backgroundColor: StaticColor.BLUE_CONTACT_COLOR,
         height: 2,
     },
     tab: {
@@ -1026,11 +1026,11 @@ let transCodeListData3 = [];
                     // prerenderingSiblingsNumber={0}
                     renderTabBar={() =>
                         <ScrollableTabBar
-                            activeTextColor="#008dcf"
-                            inactiveTextColor="#333333"
+                            activeTextColor={StaticColor.BLUE_CONTACT_COLOR}
+                            inactiveTextColor={StaticColor.LIGHT_BLACK_TEXT_COLOR}
                             underlineHeight={0}
                             textStyle={{fontSize: 14}}
-                            backgroundColor="#ffffff"
+                            backgroundColor={StaticColor.WHITE_COLOR}
                             tabStyle={styles.tab}
                         />
                     }
