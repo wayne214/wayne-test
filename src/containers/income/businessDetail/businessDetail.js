@@ -73,17 +73,20 @@ class detailsPage extends Component {
     }
 
     qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET);
+        const ws = new WebSocket(API.API_WEBSOCKET+'/id');
 
 
         ws.onopen = () => {
             console.log('===============onopen');
-            ws.send('something'); // 发送一个消息
+            ws.send('我是A'); // 发送一个消息
         };
 
         ws.onmessage = (e) => {
             // 接收到了一个消息
             console.log('onmessage===============',e.data);
+
+            // 如果返回结果  主动断开链接
+            // WebSocket.onclose = (e) => {};
         };
 
         ws.onerror = (e) => {

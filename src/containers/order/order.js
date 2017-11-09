@@ -125,7 +125,7 @@ let transCodeListData3 = [];
         };
     }
 
-// 获取当前位置
+    // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
             console.log('position =', JSON.stringify(data));
