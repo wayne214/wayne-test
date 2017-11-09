@@ -26,6 +26,7 @@ import HTTPRequest from '../../utils/httpRequest';
 import CommonListItem from './goodListItem/commonListItem';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import * as ConstValue from '../../constants/constValue';
+import UniqueUtil from '../../utils/unique';
 
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
@@ -36,6 +37,7 @@ const screenHeight = Dimensions.get('window').height;
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+
 
 const styles = StyleSheet.create({
     container:{
@@ -241,8 +243,23 @@ class GoodSource extends BaseContainer{
         );
     }
     renderRow(dataRow) {
-        const pushTime = dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3);
-        const arrivalTime = dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3)
+        const pushTime = dataRow.pushTime ? dataRow.pushTime.replace(/-/g,'/').substring(0, dataRow.pushTime.length - 3) : '';
+        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        // 货品类型
+        const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
+        let goodTepesTemp = [];
+        let goodTypesName = [];
+        if(orderDetaiTypeList.length > 0) {
+            let good = '';
+            for (let i = 0; i < orderDetaiTypeList.length; i++) {
+                good = orderDetaiTypeList[i];
+                goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
+            }
+            // 去重
+            goodTypesName = UniqueUtil.unique(goodTepesTemp);
+        } else {
+            goodTypesName.push('其他');
+        }
         return (
             <CommonListItem
                 time={pushTime}
@@ -254,7 +271,7 @@ class GoodSource extends BaseContainer{
                 vol={dataRow.vol !== null ? dataRow.totalVolume : ''}
                 showRejectIcon={this.state.goodStatus !== '1'}
                 allocationModel={dataRow.allocationModel}
-                goodKindsNames={['其他','乳制品','水产品']} // 货品种类
+                goodKindsNames={goodTypesName} // 货品种类
                 orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
@@ -315,6 +332,7 @@ class GoodSource extends BaseContainer{
                                     onEndReached={this.toEnd.bind(this)}
                                     onEndReachedThreshold={100}
                                     enableEmptySections={true}
+                                    removeClippedSubviews={false}
                                     showsVerticalScrollIndicator={false}
                                     refreshControl={
                                         <RefreshControl

@@ -460,11 +460,11 @@ class signPage extends Component {
                     text={'提交'}
                     onClick={() => {
                         if (prventDoubleClickUtil.onMultiClick()) {
-                            {/*this.getSignIn();*/}
-                            this.props.navigation.navigate('SignSuccess',{
-                                isReceipt: this.state.isReceipt,
-                                orderID: this.state.orderID,
-                            });
+                            this.getSignIn();
+                            {/*this.props.navigation.navigate('SignSuccess',{*/}
+                                {/*isReceipt: this.state.isReceipt,*/}
+                                {/*orderID: this.state.orderID,*/}
+                            {/*});*/}
                         }
                     }}
                 />

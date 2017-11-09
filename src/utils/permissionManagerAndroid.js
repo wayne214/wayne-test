@@ -18,9 +18,14 @@ function phonePermission() {
     return NativeModules.PermissionManager.phonePermission();
 }
 
+function externalPermission() {
+    return NativeModules.PermissionManager.externalPermission();
+}
+
 export default {
     cameraPermission,
     photoPermission,
     locationPermission,
-    phonePermission
+    phonePermission,
+    externalPermission
 };

@@ -85,7 +85,7 @@ let transCodeListData3 = [];
         super(props);
         this.search = this.search.bind(this);
         this.scan = this.scan.bind(this);
-        this.getFinishedOrderDetailAction = this.getFinishedOrderDetailAction.bind(this);
+        this.getReceiveOrderDetailAction = this.getReceiveOrderDetailAction.bind(this);
         this.getOrderDetailAction = this.getOrderDetailAction.bind(this);
         this.getOrderTransportDetail = this.getOrderTransportDetail.bind(this);
         this.loadData = this.loadData.bind(this);
@@ -408,19 +408,19 @@ let transCodeListData3 = [];
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
-                this.getOrderDetailAction( '1', pageNum, pageSize);
+                this.getOrderDetailAction( 'AAA', pageNum, pageSize);
                 break;
             case 1:
                 console.log('订单待发运界面', pageIndex);
-                this.getOrderDetailAction( '2', pageNum, pageSize);
+                this.getOrderDetailAction( 'BBB', pageNum, pageSize);
                 break;
             case 2:
                 console.log('订单运输中界面', pageIndex);
                 this.getTransPorting();
                 break;
             case 3:
-                console.log('订单已完成界面', pageIndex);
-                this.getFinishedOrderDetailAction( ['5'], pageNum, pageSize);
+                console.log('订单待回单界面', pageIndex);
+                this.getReceiveOrderDetailAction('CCC', pageNum, pageSize);
                 break;
             default:
                 break;
@@ -428,8 +428,8 @@ let transCodeListData3 = [];
 
     }
 
-    // 获取已完成订单列表
-    getFinishedOrderDetailAction(queryType, pageNum, pageSize) {
+    // 获取待回单订单列表
+    getReceiveOrderDetailAction(queryType, pageNum, pageSize) {
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
@@ -438,10 +438,11 @@ let transCodeListData3 = [];
         }
 
         HTTPRequest({
-            url: API.API_NEW_GET_ORDER_LIST_V2,
+            url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
             params: {
                 page: pageNum,
                 pageSize,
+                phone: global.phone,
                 plateNumber: this.props.plateNumber,
                 queryType,
             },
@@ -450,7 +451,7 @@ let transCodeListData3 = [];
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取已完成订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                ReadAndWriteFileUtil.appendFile('获取待回单订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '订单页面');
                 if (!responseData.result.list) {
 
@@ -487,19 +488,18 @@ let transCodeListData3 = [];
 
     // 获取全部、待发运订单列表
     getOrderDetailAction( queryType, pageNum, pageSize) {
-
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
                 isRefresh: true,
             })
         }
-
         HTTPRequest({
             url: API_URL,
             params: {
                 page: pageNum,
                 pageSize,
+                phone: global.phone,
                 plateNumber: this.props.plateNumber,
                 queryType,
             },
@@ -514,8 +514,8 @@ let transCodeListData3 = [];
 
                     return;
                 }
-                switch (responseData.result.orderBy) {
-                    case '1' : {
+                switch (queryType) {
+                    case 'AAA' : {
                         if (pageNum === 1) {
                             allListData = [];
                         }
@@ -533,7 +533,7 @@ let transCodeListData3 = [];
 
                         break;
                     }
-                    case '2' : {
+                    case 'BBB' : {
                         if (pageNum === 1) {
                             shipListData = [];
                         }
@@ -548,7 +548,6 @@ let transCodeListData3 = [];
                         this.setState({
                             dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
                         });
-
                         break;
                     }
                     default :
@@ -570,7 +569,6 @@ let transCodeListData3 = [];
 
     getOrderTransportDetail(transCodeList) {
         currentTime = new Date().getTime();
-
         HTTPRequest({
             url: API.API_NEW_GET_GOODS_SOURCE,
             params: {
@@ -823,7 +821,6 @@ let transCodeListData3 = [];
     }
 
     listView(number) {
-
         return (
             <ListView
                 dataSource={number === 1 ? this.state.dataSourceAll : number === 2 ? this.state.dataSourceShip :
@@ -904,10 +901,26 @@ let transCodeListData3 = [];
     renderRow(dataRow, sectionID, rowID) {
         const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
         const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        // 货品类型
+        const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
+        let goodTepesTemp = [];
+        let goodTypesName = [];
+        if(orderDetaiTypeList.length > 0) {
+            let good = '';
+            for (let i = 0; i < orderDetaiTypeList.length; i++) {
+                good = orderDetaiTypeList[i];
+                goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
+            }
+            // 去重
+            goodTypesName = UniqueUtil.unique(goodTepesTemp);
+        } else {
+            goodTypesName.push('其他');
+        }
         return (
             <OrdersItemCell
                 time={pushTime}
                 scheduleCode={dataRow.scheduleCode}
+                scheduleRoutes={dataRow.scheduleRoutes}
                 distributionPoint={dataRow.distributionPoint}
                 arrivalTime={arrivalTime}
                 weight={dataRow.weight}
@@ -915,15 +928,17 @@ let transCodeListData3 = [];
                 stateName={dataRow.stateName}
                 dispatchStatus={dataRow.dispatchStatus}
                 orderStatus={selectPage}
-                goodKindsNames={['其他']} // 货品种类
+                goodKindsNames={goodTypesName} // 货品种类
+                waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
+                beSureOrderNum={dataRow.beSureOrderNum}
+                transCodeNum={dataRow.transCodeNum}
                 onSelect={() => {
-
                     if (dataRow.distributionPoint === 0) {
                         Toast.showShortCenter('暂无详情');
                         return;
                     }
                     if (selectPage === 0) {
-                        if (dataRow.dispatchStatus === '1') {
+                        if (dataRow.stateName === '待发运') {
                             // 待发运
                             this.props.navigation.navigate('EntryToBeShipped', {
                                 transOrderList: dataRow.transOrderList,
@@ -936,7 +951,7 @@ let transCodeListData3 = [];
                                 },
                             });
                         } else {
-                            // 待签收、待回单、已回单
+                            // 待签收、待回单、已完成
                             this.props.navigation.navigate('EntryToBeSignIn', {
                                 transOrderList: dataRow.transOrderList,
                             });

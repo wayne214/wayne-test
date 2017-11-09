@@ -127,7 +127,7 @@ class UploadReceipt extends Component {
         this.uploadOrderFailCallBack = this.uploadOrderFailCallBack.bind(this);
         this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
-        this.popToTop = this.popToTop.bind(this);
+        // this.popToTop = this.popToTop.bind(this);
         this.goBackForward = this.goBackForward.bind(this);
 
     }
@@ -329,16 +329,16 @@ class UploadReceipt extends Component {
     }
 
     // 返回到根界面
-    popToTop() {
-        const routes = this.props.routes;
-        let key = routes[1].key;
-        this.props.navigation.goBack(key);
-    }
+    // popToTop() {
+    //     const routes = this.props.routes;
+    //     let key = routes[1].key;
+    //     this.props.navigation.goBack(key);
+    // }
 
     goBackForward() {
         const routes = this.props.routes;
-        let key = routes[routes.length - 2].key;
-        this.props.navigation.goBack(key);
+        let routeKey = routes[routes.length - 2].key;
+        this.props.navigation.goBack(routeKey);
     }
 
     render() {
@@ -392,7 +392,7 @@ class UploadReceipt extends Component {
                         const forward = routes[routes.length - 2];
                         if (navigator && routes.length > 1) {
                             if (forward.routeName === 'SignPage') {
-                                this.popToTop();
+                                {/*this.popToTop();*/}
                             }else {
                                 navigator.goBack();
                             }

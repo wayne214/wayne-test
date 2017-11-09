@@ -167,22 +167,24 @@ class OrdersItemCell extends Component {
             dispatchStatus,
             stateName,
             orderStatus,
-            dispatchLine,
-            goodKindsNames
+            goodKindsNames,
+            scheduleRoutes,
+            waitBeSureOrderNum,
+            beSureOrderNum,
+            transCodeNum
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
-
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
         const orderNumView = <View style={styles.orderNumView}>
             <OrderStateNumView
                 fontText={'待回'}
-                num={5}
+                num={waitBeSureOrderNum}
                 unit={'单'}
             />
             <OrderStateNumView
                 style={{marginLeft: 5}}
                 fontText={'已回'}
-                num={1}
+                num={beSureOrderNum}
                 unit={'单'}
             />
         </View>;
@@ -209,7 +211,7 @@ class OrdersItemCell extends Component {
                                             style={styles.dispatchLineStyle}
                                             numberOfLines={2}
                                         >
-                                            {dispatchLine ? dispatchLine : '北京-天津-上海-苏州-南京-广州-海南'}
+                                            {scheduleRoutes ? scheduleRoutes : ''}
                                         </Text>
                                     </View>
                                     <View style={styles.stateView}>
@@ -230,7 +232,7 @@ class OrdersItemCell extends Component {
                                         })
                                     }
                                     <CommonLabelCell
-                                        content={'订单1单'}
+                                        content={`订单${transCodeNum}单`}
                                         containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}}
                                         textStyle={{color: StaticColor.BLUE_ORDER_TEXT_COLOR}}
                                     />

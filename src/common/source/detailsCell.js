@@ -32,8 +32,8 @@ class DetailsCell extends Component {
         dispatchTimeAgain: PropTypes.string,
         signTime: PropTypes.string,
         receiveTime: PropTypes.string,
-        shipmentTime: PropTypes.string,
-        shipmentTimeAgain: PropTypes.string,
+        scheduleTime: PropTypes.string,
+        scheduleTimeAgain: PropTypes.string,
         transOrderType: PropTypes.string,
         transOrderStatus: PropTypes.string,
     };
@@ -53,8 +53,8 @@ class DetailsCell extends Component {
             transportNO_,
             transportTime,
             customerCode,
-            shipmentTime,
-            shipmentTimeAgain,
+            scheduleTime,
+            scheduleTimeAgain,
             dispatchTime,
             dispatchTimeAgain,
             signTime,
@@ -72,11 +72,11 @@ class DetailsCell extends Component {
             >
                 <Text style={styles.transportTime}>订单编号：{transportNO_}</Text>
                 {customerCode ? <Text style={styles.transportTime}>客户单号：{customerCode}</Text> : null}
-                <Text style={styles.transportTime}>创建时间：{transportTime.replace(/-/g,'/')}</Text>
-                <Text style={styles.transportTime}>调度时间：{dispatchTime.replace(/-/g,'/')}</Text>
-                {transOrderType === '606' && dispatchTimeAgain ? <Text style={styles.transportTime}>二次调度时间：{dispatchTimeAgain.replace(/-/g,'/')}</Text> : null}
-                {parseInt(transOrderStatus) > 2 && shipmentTime? <Text style={styles.transportTime}>发运时间：{shipmentTime.replace(/-/g,'/')}</Text> : null}
-                {transOrderType === '606' && shipmentTimeAgain ? <Text style={styles.transportTime}>二次发运时间：{shipmentTimeAgain.replace(/-/g,'/')}</Text> : null}
+                <Text style={styles.transportTime}>创建时间：{transportTime ? transportTime.replace(/-/g,'/'):''}</Text>
+                {scheduleTime ? <Text style={styles.transportTime}>调度时间：{scheduleTime.replace(/-/g,'/')}</Text>:null}
+                {transOrderType === '606' && scheduleTimeAgain ? <Text style={styles.transportTime}>二次调度时间：{scheduleTimeAgain.replace(/-/g,'/')}</Text> : null}
+                {parseInt(transOrderStatus) > 2 && dispatchTime? <Text style={styles.transportTime}>发运时间：{dispatchTime.replace(/-/g,'/')}</Text> : null}
+                {transOrderType === '606' && dispatchTimeAgain ? <Text style={styles.transportTime}>二次发运时间：{dispatchTimeAgain.replace(/-/g,'/')}</Text> : null}
                 {parseInt(transOrderStatus) > 3 && signTime? <Text style={styles.transportTime}>签收时间：{signTime.replace(/-/g,'/')}</Text> : null}
                 {parseInt(transOrderStatus) > 4 && receiveTime ? <Text style={styles.transportTime}>回单时间：{receiveTime.replace(/-/g,'/')}</Text> : null}
             </View>

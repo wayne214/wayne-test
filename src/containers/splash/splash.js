@@ -9,7 +9,8 @@ import {
     Dimensions,
     Platform,
     InteractionManager,
-    NativeModules
+    NativeModules,
+    Alert
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -22,6 +23,7 @@ import StorageKey from '../../constants/storageKeys';
 import Storage from '../../utils/storage';
 import UUID from '../../utils/uuid';
 import ObjectUitls from '../../utils/objectUitls';
+import PermissionManagerAndroid from '../../utils/permissionManagerAndroid';
 
 const {width, height} = Dimensions.get('window');
 
@@ -34,6 +36,13 @@ class Splash extends BaseContainer {
     }
 
     componentDidMount() {
+        if (Platform.OS === 'android') {
+            PermissionManagerAndroid.externalPermission().then((data) => {
+                console.log("存储权限申请", data);
+            }).catch((err) => {
+
+            })
+        }
         this.getInfoForGlobal();
         this.skip();
     }
