@@ -1157,9 +1157,9 @@ class Home extends Component {
                             clickAction={() => {
                                 if (this.props.plateNumber && this.props.plateNumber !== '') {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('Order');
                                         this.changeOrderTab(1);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                        this.props.navigation.navigate('Order');
                                     } else {
                                         this.notifyCarStatus();
                                     }
@@ -1180,9 +1180,9 @@ class Home extends Component {
                             clickAction={() => {
                                 if (this.props.plateNumber && this.props.plateNumber !== '') {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('Order');
                                         this.changeOrderTab(2);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                                        this.props.navigation.navigate('Order');
                                     } else {
                                         this.notifyCarStatus();
                                     }
@@ -1203,9 +1203,9 @@ class Home extends Component {
                             clickAction={() => {
                                 if (this.props.plateNumber && this.props.plateNumber !== '') {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.props.navigation.navigate('Order');
                                         this.changeOrderTab(3);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                                        this.props.navigation.navigate('Order');
                                     } else {
                                         this.notifyCarStatus();
                                     }
