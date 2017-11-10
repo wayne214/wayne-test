@@ -219,7 +219,7 @@ export default class orderToBeSignInDetail extends Component {
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
                 {
-                    settlementMode === 1 && isEndDistribution === 'N' ?
+                    settlementMode === 1 || (isEndDistribution === 'N' && transOrderType === '606') ?
                     <BottomButton
                         text={'签收'}
                         onClick={() => {

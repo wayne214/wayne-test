@@ -16,6 +16,7 @@ import {
 } from '../../action/user';
 import {
     voiceSpeechAction,
+    getHomePageCountAction
 } from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
@@ -165,6 +166,7 @@ class setting extends Component {
     press() {
         this.loginOut();
         this.props.removeUserInfoAction();
+        this.props.reloadHomePageNum();
         ImageCache.get().clear();
         DeviceEventEmitter.emit('updateOrderList');
 
@@ -307,6 +309,9 @@ function mapDispatchToProps(dispatch) {
         speechSwitchAction:(data)=>{
             dispatch(voiceSpeechAction(data));
         },
+        reloadHomePageNum:()=>{
+            dispatch(getHomePageCountAction(null));
+        }
     };
 }
 

@@ -183,6 +183,9 @@ class entryToBeShipped extends Component {
                 if (oo.shipmentNum === '0' || !oo.shipmentNum || oo.shipmentNum === 0) {
                     oo.shipmentNum = oo.arNums;
                 }
+                if (!oo.arNums || oo.arNums === '0' || oo.arNums === '') {
+                    oo.shipmentNum = oo.weight;
+                }
                 goodsInfo.push(oo);
             }
             obj.goodsInfo = goodsInfo;
@@ -193,7 +196,7 @@ class entryToBeShipped extends Component {
                 const goods = obj.goodsInfo[j];
                 goodsInfoList.push({
                     goodsId: goods.goodsId,
-                    shipmentNums: goods.arNums === '' ? goods.weight : goods.arNums,
+                    shipmentNums: goods.arNums === '' || goods.arNums === '0' ? goods.weight : goods.arNums,
                     refuseDetail: [
                         {
                             detailNum: goods.refuseNum,
