@@ -68,11 +68,12 @@ const TabRouteConfigs = {
                 if (global.plateNumber && global.plateNumber !== '') {
                     if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
                         DeviceEventEmitter.emit('notifyCarStatus');
+                    }else {
+                        jumpToIndex(scene.index)
                     }
                 } else {
                     DeviceEventEmitter.emit('getUserCar');
                 }
-                jumpToIndex(scene.index)
             }
         }),
     },
@@ -87,11 +88,12 @@ const TabRouteConfigs = {
                 if (global.plateNumber && global.plateNumber !== '') {
                     if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
                         DeviceEventEmitter.emit('notifyCarStatus');
+                    }else {
+                        jumpToIndex(scene.index)
                     }
                 } else {
                     DeviceEventEmitter.emit('getUserCar');
                 }
-                jumpToIndex(scene.index)
             },
         }),
     },

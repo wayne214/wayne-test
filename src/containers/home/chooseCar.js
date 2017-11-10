@@ -16,8 +16,12 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import {NavigationActions} from 'react-navigation';
 
 import {
-    setUserCarAction
+    setUserCarAction,
 } from '../../action/user';
+
+import {
+    getHomePageCountAction,
+} from '../../action/app';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CommonButton from '../../common/commonButton';
@@ -90,6 +94,7 @@ class chooseCar extends Component {
         this.setUserCar = this.setUserCar.bind(this);
         this.saveUserCarInfo = this.saveUserCarInfo.bind(this);
         this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
+        this.clearHomePageCount = this.clearHomePageCount.bind(this);
     }
     componentDidMount() {
         this.getCurrentPosition();
@@ -184,6 +189,9 @@ class chooseCar extends Component {
         this.props.saveUserSetCarSuccess(plateNumberObj);
     }
 
+    clearHomePageCount() {
+        this.props.reloadHomePageNum();
+    }
     render() {
         const navigator = this.props.navigation;
         const {dataSource} = this.state;
@@ -210,6 +218,7 @@ class chooseCar extends Component {
                 <View style={{paddingBottom: 20}}>
                     <CommonButton
                         onClick={() => {
+                            this.clearHomePageCount();
                             console.log('this.select',this.select);
                             if (JSON.stringify(this.select) == '{}') {
                                 Alert.alert('提示', '请选择车辆');
@@ -241,6 +250,9 @@ function mapDispatchToProps(dispatch) {
         saveUserSetCarSuccess: (plateNumberObj) => {
             dispatch(setUserCarAction(plateNumberObj));
         },
+        reloadHomePageNum:()=>{
+            dispatch(getHomePageCountAction(null));
+        }
     };
 }
 
