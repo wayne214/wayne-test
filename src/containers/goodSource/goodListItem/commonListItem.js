@@ -149,7 +149,7 @@ class commonListItem extends Component {
                                 }
                             </View>
                             <View style={styles.rightContainer}>
-                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司河南鲜易供应链有限公司'}</Text>
+                                <Text style={styles.dispatchLineStyle}>{dispatchLine ? dispatchLine : '河南鲜易供应链有限公司'}</Text>
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arriveTime}</Text>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>
                                     {
