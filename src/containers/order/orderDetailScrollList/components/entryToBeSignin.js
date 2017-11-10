@@ -8,7 +8,7 @@ import {
     ScrollView,
     Dimensions,
     DeviceEventEmitter,
-    InteractionManager,
+    Alert,
 } from 'react-native';
 
 import NavigationBar from '../../../../common/navigationBar/navigationBar';
@@ -100,6 +100,10 @@ class entryToBeSignin extends Component {
         DeviceEventEmitter.addListener('changeStateReceipt',() => {
             this.props.navigation.goBack();
         });
+        this.listener = DeviceEventEmitter.addListener('refreshDetails',() => {
+            debugger
+            this.getOrderDetailInfo();
+        });
         // // 返回上一级
         // this.listener1 = DeviceEventEmitter.addListener('changeStateReceipt', () => {
         //     this.props.navigator.pop();
@@ -108,6 +112,7 @@ class entryToBeSignin extends Component {
 
     componentWillUnmount() {
         this.timeout && clearTimeout(this.timeout);
+        this.listener.remove();
     }
 
     onScrollEnd(event) {
@@ -425,31 +430,36 @@ class entryToBeSignin extends Component {
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
-                        settlementMode={2}
+                        settlementMode={item.settleType}
                         scheduleTime={item.scheduleTime}
                         scheduleTimeAgain={item.twoScheduleTime}
                         dispatchTime={item.dispatchTime}
                         dispatchTimeAgain={item.twoDispatchTime}
                         isEndDistribution={item.isEndDistribution}
+                        payState={item.payState}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
                         }}
                         signIn={() => {
                             if(item.taskInfo) {
-                                // 跳转到具体的签收页面
-                                this.props.navigation.navigate('SignPage', {
-                                    transCode: item.transCode,
-                                    goodsInfoList: item.goodsInfo,
-                                    taskInfo: item.taskInfo,
-                                });
+                                if(item.payState === '0') {
+                                    Alert.alert('请先完成收款，才可以签收');
+                                }else {
+                                    // 跳转到具体的签收页面
+                                    this.props.navigation.navigate('SignPage', {
+                                        transCode: item.transCode,
+                                        goodsInfoList: item.goodsInfo,
+                                        taskInfo: item.taskInfo,
+                                    });
+                                }
                             }else {
                                 this.getSignIn(item.transCode);
                             }
                         }}
                         payment={() => {
                             this.props.navigation.navigate('PayTypesPage', {
-                                orderCode: item.transCode,
+                                orderCode: item.orderCode,
                                 deliveryInfo: item.deliveryInfo,
                                 customCode: '',
                             });

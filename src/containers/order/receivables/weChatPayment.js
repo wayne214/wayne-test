@@ -32,7 +32,9 @@ class WeChatPayment extends Component {
             orderCode: params.transCode,
             deliveryInfo: params.deliveryInfo,
             customCode: params.customCode,
-            url: ''
+            accountMoney: params.accountMoney,
+            url: '',
+            successFlag: false,
         };
         this.getWeChatQrCode = this.getWeChatQrCode.bind(this);
         this.qrCodePayment = this.qrCodePayment.bind(this);
@@ -74,7 +76,7 @@ class WeChatPayment extends Component {
 
 
     qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET+'/123');
+        const ws = new WebSocket(API.API_WEBSOCKET + '/' + this.state.orderCode);
 
 
         ws.onopen = () => {
@@ -85,7 +87,9 @@ class WeChatPayment extends Component {
         ws.onmessage = (e) => {
             // 接收到了一个消息
             console.log('onmessage===============',e.data);
-
+            this.setState({
+                successFlag: e.data
+            });
             // 如果返回结果  主动断开链接
             // WebSocket.onclose = (e) => {};
         };
@@ -108,7 +112,7 @@ class WeChatPayment extends Component {
                     <View style={styles.contentContainer}>
                         <View style={styles.leftContainer}>
                             {
-                                1 === 1 ?
+                                this.state.successFlag ? null :
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
@@ -117,7 +121,7 @@ class WeChatPayment extends Component {
                                         >
                                             <Text style={styles.leftTextStyle}>&#xe662;</Text>
                                         </TouchableOpacity>
-                                    </View> : null
+                                    </View>
                             }
                         </View>
                         <View style={styles.centerContainer}>
@@ -125,7 +129,7 @@ class WeChatPayment extends Component {
                         </View>
                         <View style={styles.rightContainer}>
                             {
-                                1 === 1 ? null :
+                                this.state.successFlag ?
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
@@ -134,7 +138,7 @@ class WeChatPayment extends Component {
                                         >
                                             <Text style={styles.buttonText}>完成</Text>
                                         </TouchableOpacity>
-                                    </View>
+                                    </View> : null
                             }
                         </View>
                     </View>
@@ -147,9 +151,13 @@ class WeChatPayment extends Component {
                        </View>
                     </View>
                         {
-                            1 === 1 ?
+                            this.state.successFlag ?
+                            <View style={styles.content}>
+                                <Image source={StaticImage.finishIcon} />
+                                <Text style={styles.success}>支付成功</Text>
+                            </View> :
                             <View>
-                                <Text style={styles.amountText}>￥230.00</Text>
+                                <Text style={styles.amountText}>{`￥${this.state.accountMoney}`}</Text>
                                 <Text style={styles.tip}>二维码有效期是10分钟</Text>
                                 <View style={styles.imageView}>
                                     <WebView
@@ -176,10 +184,6 @@ class WeChatPayment extends Component {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                            </View> :
-                            <View style={styles.content}>
-                                <Image source={StaticImage.finishIcon} />
-                                <Text style={styles.success}>支付成功</Text>
                             </View>
                         }
                 </View>
