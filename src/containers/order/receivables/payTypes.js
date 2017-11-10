@@ -7,14 +7,15 @@ import {
     ImageBackground,
     Dimensions,
     TouchableOpacity,
-    Alert
+    Alert,
+    DeviceEventEmitter,
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
 import * as API from '../../../constants/api';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
 import HTTPRequest from '../../../utils/httpRequest';
-
+import Toast from '@remobile/react-native-toast';
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
 const {width, height} = Dimensions.get('window');
@@ -150,7 +151,8 @@ class payTypes extends Component {
             loading: ()=>{
             },
             success: (responseData)=>{
-                alert('收款成功');
+                Toast.showShortCenter('收款成功');
+                DeviceEventEmitter.emit('refreshDetails');
                 this.props.navigation.goBack();
             },
             error: (errorInfo)=>{
@@ -178,6 +180,7 @@ class payTypes extends Component {
                 transCode: this.state.orderCode,
                 deliveryInfo: this.state.deliveryInfo,
                 customCode: this.state.customCode,
+                accountMoney: this.state.amount,
             });
         }
     }

@@ -328,10 +328,10 @@ class UploadReceipt extends Component {
             });
     }
 
-    返回到根界面
+    // 返回到根界面
     popToTop() {
         const routes = this.props.routes;
-        let rootKey = routes[0].key;
+        let rootKey = routes[1].key;
         this.props.navigation.goBack(rootKey);
     }
 
@@ -391,11 +391,7 @@ class UploadReceipt extends Component {
                         const routes = this.props.routes;
                         const forward = routes[routes.length - 2];
                         if (navigator && routes.length > 1) {
-                            if (forward.routeName === 'SignPage') {
-                                this.popToTop();
-                            }else {
-                                navigator.goBack();
-                            }
+                            navigator.goBack();
                         }
                     }}
                 />
