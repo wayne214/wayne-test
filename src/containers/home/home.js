@@ -326,9 +326,8 @@ class Home extends Component {
 
                 this.props.setMessageListIcon(true);
                 this.saveMessage(message.alertContent);
-
+                this.speechContent(message.alertContent);
                 if (message.alertContent.indexOf('新货源') > -1) {
-                    this.speechContent('您有新货源，快来接单啦');
                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                         {
                             text: '确定',
@@ -342,7 +341,6 @@ class Home extends Component {
                 }
 
                 if (message.alertContent.indexOf('快来竞拍吧') > -1) {
-                    this.speechContent('您有新货源，快来抢单啦');
                     Alert.alert('提示', '您有新的货源可以竞拍', [
                         {
                             text: '确定',
@@ -436,9 +434,8 @@ class Home extends Component {
 
                     this.props.setMessageListIcon(true);
                     this.saveMessage(notification.aps.alert);
-
+                    this.speechContent(notification.aps.alert);
                     if (notification.aps.alert.indexOf('新货源') > -1) {
-                        this.speechContent('您有新货源，快来接单啦');
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
                                 text: '确定',
@@ -453,7 +450,6 @@ class Home extends Component {
                     }
 
                     if (notification.aps.alert.indexOf('快来竞拍吧') > -1) {
-                        this.speechContent('您有新货源，快来抢单啦');
                         Alert.alert('提示', '您有新的货源可以竞拍', [
                             {
                                 text: '确定',
@@ -544,7 +540,7 @@ class Home extends Component {
     // 语音播报内容
     speechContent(message) {
         if (this.props.speechSwitchStatus) {
-            Speech.speak(message, () => alert('callback'));
+            Speech.speak(message);
         }
     }
 
