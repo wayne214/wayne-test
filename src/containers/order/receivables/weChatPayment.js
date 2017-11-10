@@ -23,6 +23,7 @@ import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 
 
+
 class WeChatPayment extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +40,14 @@ class WeChatPayment extends Component {
     componentDidMount() {
         this.getWeChatQrCode();
         this.qrCodePayment();
+
+        setTimeout(()=>{
+            //WebSocket.onclose = (e) => {};
+        }, 1000 * 600);
+    }
+
+    componentWillUnmount() {
+        //WebSocket.onclose = (e) => {};
     }
     // 获取微信二维码
     getWeChatQrCode() {
@@ -62,18 +71,23 @@ class WeChatPayment extends Component {
             }
         });
     }
+
+
     qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET);
+        const ws = new WebSocket(API.API_WEBSOCKET+'/123');
+
 
         ws.onopen = () => {
             console.log('===============onopen');
-
-            //ws.send('something'); // 发送一个消息
+            ws.send('我是A'); // 发送一个消息
         };
 
         ws.onmessage = (e) => {
             // 接收到了一个消息
             console.log('onmessage===============',e.data);
+
+            // 如果返回结果  主动断开链接
+            // WebSocket.onclose = (e) => {};
         };
 
         ws.onerror = (e) => {
