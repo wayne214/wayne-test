@@ -22,7 +22,6 @@ import StaticImage from '../../../constants/staticImage';
 import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 
-const WebSocket = new WebSocket(API.API_WEBSOCKET+'/id');
 
 
 class WeChatPayment extends Component {
@@ -43,12 +42,12 @@ class WeChatPayment extends Component {
         this.qrCodePayment();
 
         setTimeout(()=>{
-            WebSocket.onclose = (e) => {};
+            //WebSocket.onclose = (e) => {};
         }, 1000 * 600);
     }
 
     componentWillUnmount() {
-        WebSocket.onclose = (e) => {};
+        //WebSocket.onclose = (e) => {};
     }
     // 获取微信二维码
     getWeChatQrCode() {
@@ -73,16 +72,17 @@ class WeChatPayment extends Component {
         });
     }
 
-    /*链接WebSocket*/
+
     qrCodePayment() {
+        const ws = new WebSocket(API.API_WEBSOCKET+'/123');
 
-        WebSocket.onopen = () => {
+
+        ws.onopen = () => {
             console.log('===============onopen');
-
-            //ws.send('something'); // 发送一个消息
+            ws.send('我是A'); // 发送一个消息
         };
 
-        WebSocket.onmessage = (e) => {
+        ws.onmessage = (e) => {
             // 接收到了一个消息
             console.log('onmessage===============',e.data);
 
@@ -90,12 +90,12 @@ class WeChatPayment extends Component {
             // WebSocket.onclose = (e) => {};
         };
 
-        WebSocket.onerror = (e) => {
+        ws.onerror = (e) => {
             // 发生了一个错误
             console.log('onerror', e.message);
         };
 
-        WebSocket.onclose = (e) => {
+        ws.onclose = (e) => {
             // 连接被关闭了
             console.log('onclose', e.code, e.reason);
         };

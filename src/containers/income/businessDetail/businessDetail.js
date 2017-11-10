@@ -73,7 +73,7 @@ class detailsPage extends Component {
     }
 
     qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET+'/id');
+        const ws = new WebSocket(API.API_WEBSOCKET+'/123');
 
 
         ws.onopen = () => {
