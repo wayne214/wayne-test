@@ -621,7 +621,6 @@ class Mine extends Component {
                             style={{paddingRight: 10}}
                             activeOpacity={1}
                             onPress={() => {
-                                this.props.setMessageListIcon(false);
                                 Storage.save(StorageKey.newMessageFlag, '0');
                                 this.pushToMsgList();
                             }}

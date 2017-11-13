@@ -89,8 +89,9 @@ class signSuccess extends Component {
                       navigator={navigator}
                       backIconClick={() => {
                           let routes = this.props.routes;
-                          let rootKey = routes[0].key;
+                          let rootKey = routes[1].key;
                           navigator.goBack(rootKey);
+                          DeviceEventEmitter.emit('changeToWaitSign');
                       }}
                   />
                   <View>

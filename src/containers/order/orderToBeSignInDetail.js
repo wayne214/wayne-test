@@ -114,6 +114,7 @@ export default class orderToBeSignInDetail extends Component {
             scheduleTime,
             dispatchTimeAgain,
             scheduleTimeAgain,
+            payState,
         } = this.props;
 
         return (
@@ -219,7 +220,7 @@ export default class orderToBeSignInDetail extends Component {
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
                 {
-                    settlementMode === 1 || (isEndDistribution === 'N' && transOrderType === '606') ?
+                    settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1'?
                     <BottomButton
                         text={'签收'}
                         onClick={() => {

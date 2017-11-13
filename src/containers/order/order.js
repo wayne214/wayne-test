@@ -150,13 +150,10 @@ let transCodeListData3 = [];
         });
 
 
-        // 签收成功，删除全部、待签收、待回单数据，刷新数据
+        // 刷新待回单列表数据
         this.listener1 = DeviceEventEmitter.addListener('changeStateReceipt', () => {
-
             this.refs.ScrollableTabView.goToPage(3);
-
             setTimeout(() => {
-
                 allListData = [];
                 allPage = 1;
 
@@ -175,14 +172,13 @@ let transCodeListData3 = [];
                 pageNum = signPage;
 
                 selectPage = 3;
-                  
+
                 this.loadData(3, pageNum);
             }, 1000);
 
         });
 
-
-        // 发运成功，删除全部、待发运、待签收数据。跳转到待签收，加载待签收数据
+        // 刷新待签收列表数据
         this.listener3 = DeviceEventEmitter.addListener('changeToWaitSign', () => {
             this.refs.ScrollableTabView.goToPage(2);
 
@@ -201,6 +197,9 @@ let transCodeListData3 = [];
                     isLoadsignMore: true,
                     isLoadallMore: true,
                     isLoadshipMore: true,
+                    dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                    dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                    dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
                 });
 
                 selectPage = 2;
@@ -210,7 +209,7 @@ let transCodeListData3 = [];
 
         });
 
-        // 接单成功，删除全部、待发运数据，跳转到到发运
+        // 刷新待发运列表数据
         this.listener2 = DeviceEventEmitter.addListener('reloadOrderAllAnShippt', () => {
             this.refs.ScrollableTabView.goToPage(1);
 
@@ -233,6 +232,7 @@ let transCodeListData3 = [];
             }, 1000);
 
         });
+
         //切换车辆后清空数据
         this.updateOrderListListener = DeviceEventEmitter.addListener('updateOrderList', () => {
             allListData = []; // 全部数据
@@ -415,7 +415,7 @@ let transCodeListData3 = [];
                 this.getOrderDetailAction( 'BBB', pageNum, pageSize);
                 break;
             case 2:
-                console.log('订单运输中界面', pageIndex);
+                console.log('订单待签收界面', pageIndex);
                 this.getTransPorting();
                 break;
             case 3:
@@ -759,8 +759,12 @@ let transCodeListData3 = [];
                 } else {
                     if (pageNum === 1) {
                         signListData = [];
+                        this.setState({
+                            dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
+                        });
                     }
                     signListData = signListData.concat(result.list);
+                    console.log('result=======',result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,

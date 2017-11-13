@@ -177,6 +177,8 @@ class OrdersItemCell extends Component {
     }
 
     renderItem(item, i) {
+        console.log('item.customerOrderCode',item.customerOrderCode);
+        console.log('item.transCode',item.transCode);
         return (
             <View key={i}>
                 <View style={styles.orderDetailCell}>
@@ -205,6 +207,17 @@ class OrdersItemCell extends Component {
             onButton,
             orderSignNum
         } = this.props;
+        let transport = transCodeList[0];
+        let transport1;
+        if(ordersNum > 1){
+            transport1 = transCodeList[1];
+            console.log('transport1',transport1);
+            console.log('transport1.customerOrderCode',transport1.customerOrderCode);
+            console.log('transport1.transCode',transport1.transCode);
+        }
+        console.log('transport',transport);
+        console.log('transport.customerOrderCode',transport.customerOrderCode);
+        console.log('transport.transCode',transport.transCode);
         const batchSignView = <View>
                 <View style={styles.separateLine}/>
                 <View style={styles.batchSignContainer}>
@@ -234,11 +247,11 @@ class OrdersItemCell extends Component {
         const transOrderView = <View style={styles.orderDeatailAll}>
             <View style={styles.orderDetailText}>
                 <View style={styles.orderDetailCell}>
-                    <Text style={styles.textSizeNum}>单号：{transCodeList[0] && transCodeList[0].customerOrderCode ? transCodeList[0].customerOrderCode : transCodeList[0].transCode}</Text>
+                    <Text style={styles.textSizeNum}>单号：{transport.customerOrderCode ? transport.customerOrderCode : transport.transCode}</Text>
                     {
-                        transCodeList[0].weight ?
-                            <Text style={styles.textSizeWeight}>{transCodeList[0].weight}Kg</Text> :
-                            <Text style={styles.textSizeWeight}>{transCodeList[0].weight}</Text>
+                        transport.weight ?
+                            <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
+                            <Text style={styles.textSizeWeight}>{transport.weight}</Text>
 
                     }
                 </View>
@@ -248,20 +261,20 @@ class OrdersItemCell extends Component {
             <View style={styles.orderDeatailAll}>
                 <View style={styles.orderDetailText}>
                     <View style={styles.orderDetailCell}>
-                        <Text style={styles.textSizeNum}>单号：{transCodeList[0].customerOrderCode ? transCodeList[0].customerOrderCode : transCodeList[0].transCode}</Text>
+                        <Text style={styles.textSizeNum}>单号：{transport.customerOrderCode ? transport.customerOrderCode : transport.transCode}</Text>
                         {
-                            transCodeList[0].weight ?
-                                <Text style={styles.textSizeWeight}>{transCodeList[0].weight}Kg</Text> :
-                                <Text style={styles.textSizeWeight}>{transCodeList[0].weight}</Text>
+                            transport.weight ?
+                                <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
+                                <Text style={styles.textSizeWeight}>{transport.weight}</Text>
 
                         }
                     </View>
                     <View style={styles.orderDetailCell}>
-                        <Text style={styles.textSizeNum}>单号：{transCodeList[1].customerOrderCode ? transCodeList[1].customerOrderCode : transCodeList[1].transCode}</Text>
+                        <Text style={styles.textSizeNum}>单号：{transport1.customerOrderCode ? transport1.customerOrderCode : transport1.transCode}</Text>
                         {
-                            transCodeList[1].weight ?
-                                <Text style={styles.textSizeWeight}>{transCodeList[1].weight}Kg</Text> :
-                                <Text style={styles.textSizeWeight}>{transCodeList[1].weight}</Text>
+                            transport1.weight ?
+                                <Text style={styles.textSizeWeight}>{transport1.weight}Kg</Text> :
+                                <Text style={styles.textSizeWeight}>{transport1.weight}</Text>
                         }
                     </View>
                 </View>

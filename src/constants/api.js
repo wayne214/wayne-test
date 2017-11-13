@@ -188,10 +188,14 @@ export const API_BUSSNESS_DETAIL = `${HOST}app/ac/businessDetail`;
 /** *****************************************************银行卡信息接口******************************************************/
 //查询银行卡信息接口
 export const API_BANKCARD_INFO = `${HOST}app/bankcard/`;
+
+//修改银行卡信息接口
+export const API_CHANGE_BANKCARD_INFO = `${HOST}app/rmc/bankCard/updateCompanyAccountByBankAccount`;
+
 //发送验证码接口
 export const API_BANKCARD_SENDVERIFYCODE = `${HOST}app/bankcard/sendVerifyCode`;
 //效验验证码接口
 export const API_BANKCARD_CHECK_VERIFYCODE = `${HOST}app/bankcard/checkVerifyCode/`;
 
 //WebSocket
-export const API_WEBSOCKET = `ws://192.168.32.83:8899/webSocket`;
+export const API_WEBSOCKET = `ws://mproxy-test.xianyiscm.com/webSocket`;
