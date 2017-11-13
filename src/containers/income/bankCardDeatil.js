@@ -19,6 +19,9 @@ import bankIconUtil from '../../utils/bankIconUtil'
 import HTTPRequest from '../../utils/httpRequest';
 import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import StaticImage from '../../constants/staticImage';
+import Toast from '@remobile/react-native-toast';
+import BankCode from '../../utils/bankCode';
+import Loading from '../../utils/loading';
 
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -42,9 +45,10 @@ const styles = StyleSheet.create({
         color: '#333333'
     },
     textInputStyle: {
-        flex: 1,
         marginLeft: 10,
-        fontSize: 16
+        fontSize: 16,
+        color: 'black',
+        textAlign: 'center'
     },
 });
 
@@ -64,54 +68,25 @@ export default class BankCardDeatil extends Component {
         const params = this.props.navigation.state.params;
         // 初始状态
         this.state = {
+            loading: false,
             bank: params.bank,
             bankType: params.bankType,
             bankAccount: params.bankAccount,
             default: params.default,
             bankCity: '',
-            bankSubName: ''
+            bankSubName: '',
+            bankCityName: params.bankCityName,
+            bankCityCode: params.bankCityCode,
+            selectedProvinceName: params.bankProvinceName,
+            selectedProvinceCode: params.bankProvinceCode,
+            branchName: params.bankBranchName,
+            branchCode: params.bankBranchCode
         };
-        this.unBankCardBunding = this.unBankCardBunding.bind(this);
+
         this.bankCardSetDefault = this.bankCardSetDefault.bind(this);
-        this.unBankCardBundingCallBack = this.unBankCardBundingCallBack.bind(this);
         this.bankCardSetDefaultCallBack = this.bankCardSetDefaultCallBack.bind(this);
-    }
-
-    unBankCardBunding(unBankCardBundingCallBack) {
-
-        HTTPRequest({
-            url: API.API_BANK_CARD_UNBUNDING,
-            params: {
-                bankCardNumber: this.state.bankAccount,
-                phoneNum: global.phone,
-                userId: global.userId,
-                userName: global.userName,
-            },
-            loading: () => {
-                this.setState({
-                    loading: true,
-                });
-            },
-            success: (response) => {
-                unBankCardBundingCallBack(response.result);
-            },
-            error: (err) => {
-                this.setState({
-                    loading: false,
-                });
-            },
-            finish: () => {
-                this.setState({
-                    loading: false,
-                });
-            },
-        })
-    }
-
-    unBankCardBundingCallBack(result) {
-        console.log('result', result);
-        DeviceEventEmitter.emit('BankCardList');
-        this.props.navigation.goBack();
+        this.getBranchInfo = this.getBranchInfo.bind(this);
+        this.changeInfo = this.changeInfo.bind(this);
     }
 
     bankCardSetDefault(bankCardSetDefaultCallBack) {
@@ -133,9 +108,6 @@ export default class BankCardDeatil extends Component {
                 bankCardSetDefaultCallBack(response.result);
             },
             error: (err) => {
-                this.setState({
-                    loading: false,
-                });
             },
             finish: () => {
                 this.setState({
@@ -150,6 +122,84 @@ export default class BankCardDeatil extends Component {
         DeviceEventEmitter.emit('BankCardList');
         this.setState({
             default: 1
+        })
+    }
+
+    /*获取支行信息*/
+    getBranchInfo(bankCode, cityCode) {
+        HTTPRequest({
+            url: API.API_QUERY_BANK_BRANCH,
+            params: {
+                qshho2: '313290000017', //银行代码 313290000017   bankCode
+                youzbm: '110100' //城市代码 110100          cityCode
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (response) => {
+                console.log('-----getBranchInfo0-----', response.result)
+                this.props.navigation.navigate('ChooseBranch', {
+                        branchList: response.result,
+                        BranchBankNameCallback: (data) => {
+                            console.log('branchName==', data)
+                            this.setState({
+                                branchName: data
+                            })
+                        },
+                        BranchBankCodeCallback: (data) => {
+                            console.log('branchCode==', data)
+                            this.setState({
+                                branchCode: data
+                            })
+                        },
+                    }
+                );
+            },
+            error: (err) => {
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            },
+        })
+    }
+
+    /*修改银行卡信息*/
+    changeInfo (){
+        HTTPRequest({
+            url: API.API_CHANGE_BANKCARD_INFO,
+            params: {
+                accountBank: this.state.bank,
+                bankAccount: this.state.bankAccount,
+                branchBank: this.state.branchName,
+                branchBankCode: this.state.branchCode,
+                city: this.state.bankCityName,
+                cityCode: this.state.bankCityCode,
+                province: this.state.selectedProvinceName,
+                provinceCode: this.state.selectedProvinceCode
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (response) => {
+               if (response.result){
+                   DeviceEventEmitter.emit('BankCardList');
+                   this.props.navigation.goBack();
+               }else
+                   Toast.showShortCenter('修改失败，请重试')
+            },
+            error: (err) => {
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            },
         })
     }
 
@@ -181,16 +231,35 @@ export default class BankCardDeatil extends Component {
                 }}>
                     <Text style={styles.leftTextStyle}>开户省市</Text>
                     <TouchableOpacity onPress={()=>{
+                            navigator.navigate('ChooseBankCity', {
+                                selectedCityCallback: (data) => {
+                                    console.log('----data', data[0].departureCityArrayName);
+                                    this.setState({
+                                        bankCityName: data[0].departureCityArrayName,
+                                        bankCityCode: data[0].departureCityArrayCode,
+                                    })
+                                },
+                                selectedProvinceCallback: (data) => {
+                                    console.log('--selectedProvinceName--', data)
+                                    this.setState({
+                                        selectedProvinceName: data,
+                                    })
+                                },
+                                selectedProvinceCodeCallback: (data) => {
+                                    console.log('--selectedProvinceCode--', data)
+                                    this.setState({
+                                        selectedProvinceCode: data,
+                                    })
+                                }
 
+                            });
                     }}>
-                        <TextInput
-                            placeholder="请选择开户省市"
-                            placeholderTextColor="#CCCCCC"
-                            underlineColorAndroid={'transparent'}
-                            style={styles.textInputStyle}
-                            value={this.state.bankCityName}
-                            editable={false}
-                        />
+                        <Text style={styles.textInputStyle}>
+                            {
+                                this.state.selectedProvinceName + '  ' + this.state.bankCityName
+                            }
+                        </Text>
+
                     </TouchableOpacity>
                     <Image source={StaticImage.rightArrow} style={{right: 10, position: 'absolute'}}/>
 
@@ -207,16 +276,16 @@ export default class BankCardDeatil extends Component {
                 }}>
                     <Text style={styles.leftTextStyle}>开户支行</Text>
                     <TouchableOpacity onPress={()=>{
-                        console.log('123');
+                            if (!this.state.bankCityName) return Toast.showShortCenter('请选择开户省市');
+                            this.getBranchInfo(BankCode.searchCode(this.state.bank), this.state.bankCityCode);
                     }}>
-                        <TextInput
-                            placeholder="请选择开户支行"
-                            placeholderTextColor="#CCCCCC"
-                            underlineColorAndroid={'transparent'}
-                            style={styles.textInputStyle}
-                            value={this.state.bankSubName}
-                            editable={false}
-                        />
+
+                        <Text style={styles.textInputStyle}>
+                            {
+                                this.state.branchName
+                            }
+                        </Text>
+
                     </TouchableOpacity>
                     <Image source={StaticImage.rightArrow} style={{right: 10, position: 'absolute'}}/>
 
@@ -275,50 +344,16 @@ export default class BankCardDeatil extends Component {
                     style={styles.loginButton}
                     textStyle={styles.loginButtonText}
                     onPress={() => {
-                        this.unBankCardBunding(this.unBankCardBundingCallBack);
+                        this.changeInfo();
                     }}
                 >
                     保存
                 </Button>
 
+                {
+                    this.state.loading ? <Loading /> : null
+                }
             </View>
         );
     }
 }
-
-// function mapStateToProps(state) {
-//     return {};
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         unBankCardBunding: (params, unBankCardBundingCallBack) => {
-//             dispatch(unBankCardbundingAction({
-//                 url: API.API_BANK_CARD_UNBUNDING,
-//                 successMsg: '解除绑定成功',
-//                 successCallBack: (response) => {
-//                     unBankCardBundingCallBack(response.result);
-//                 },
-//                 failCallBack: (err) => {
-//
-//                 },
-//                 ...params,
-//             }));
-//         },
-//         bankCardSetDefault: (params, bankCardSetDefaultCallBack) => {
-//             dispatch(bankCardSetDefaultAction({
-//                 url: API.API_BANK_CARD_SETDEFAULT,
-//                 successMsg: '设置默认成功',
-//                 successCallBack: (response) => {
-//                     bankCardSetDefaultCallBack(response.result);
-//                 },
-//                 failCallBack: (err) => {
-//
-//                 },
-//                 ...params,
-//             }));
-//         },
-//     };
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(BankCardDeatil);

@@ -39,9 +39,9 @@ export default class BankCardCell extends Component {
             accountBank, bankCarType, bankAccount, isDefault, clickAction
         } = this.props;
 
-        const bgColor = Math.floor(Math.random()*10)%4 === 0 ? {backgroundColor: '#1C4BE8'} :
-            Math.floor(Math.random()*10)%4 === 1 ? {backgroundColor:'#3D8A78'} :
-                Math.floor(Math.random()*10)%4 === 2 ? {backgroundColor: '#DF5551'} :{backgroundColor: '#D99B0C'};
+        const bgImage = Math.floor(Math.random()*10)%4 === 0 ? StaticImage.Car_yellow :
+            Math.floor(Math.random()*10)%4 === 1 ? StaticImage.Car_blue :
+                Math.floor(Math.random()*10)%4 === 2 ? StaticImage.Car_green : StaticImage.Car_red;
 
         return (
             <TouchableOpacity
@@ -56,7 +56,7 @@ export default class BankCardCell extends Component {
                         marginTop: 10,
                         marginHorizontal: 10,
                     }]}>
-                        <Image style={{position: 'absolute'}} source={StaticImage.Car_yellow}/>
+                        <Image style={{position: 'absolute'}} source={bgImage}/>
                         <View style={{
                             flex: 1,
                             flexDirection: 'row'
