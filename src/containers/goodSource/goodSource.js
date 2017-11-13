@@ -46,8 +46,15 @@ const styles = StyleSheet.create({
     },
     listView: {
         backgroundColor: '#F5F5F5',
-        paddingTop: 10,
         height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height,
+        ...Platform.select({
+            ios: {
+                paddingTop: 10,
+            },
+            android: {
+                marginTop: 10,
+            }
+        }),
     },
     dropDown: {
         ...Platform.select({
