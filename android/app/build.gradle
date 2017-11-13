@@ -103,8 +103,8 @@ android {
         applicationId "com.xescm.driver"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 4
-        versionName "2.1.0"
+        versionCode 5
+        versionName "3.0.0"
         vectorDrawables.useSupportLibrary = true
         ndk {
             abiFilters "armeabi-v7a", "x86"
