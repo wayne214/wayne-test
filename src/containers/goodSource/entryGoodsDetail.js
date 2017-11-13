@@ -94,17 +94,12 @@ class entryGoodsDetail extends Component {
         this.isShowEmptyView = this.isShowEmptyView.bind(this);
         this.emptyView = this.emptyView.bind(this);
         this.contentView = this.contentView.bind(this);
-        this.changeTab = this.changeTab.bind(this);
         this.changeOrderTab = this.changeOrderTab.bind(this);
 
     }
 
     componentWillUnmount() {
         transOrderInfo = [];
-    }
-
-    changeTab(tab) {
-        this.props.changeTab(tab);
     }
 
     // 切换订单tab
@@ -282,8 +277,11 @@ class entryGoodsDetail extends Component {
             this.props.navigation.state.params.getOrderSuccess();
         }
         DeviceEventEmitter.emit('reloadOrderAllAnShippt');
+        this.props.navigation.goBack();
         this.props.navigation.navigate('Order');
         this.changeOrderTab(1);
+        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+
     }
 
     // 获取数据失败回调
