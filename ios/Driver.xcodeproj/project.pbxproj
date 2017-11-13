@@ -85,6 +85,13 @@
 		B024C4571F8CBED100F1D0A9 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B024C45A1F8CBED700F1D0A9 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; };
 		B024C45B1F8CBED700F1D0A9 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C696D0981FB9B360005B02F4 /* launch4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8193C1F7520680031BB24 /* launch4.png */; };
+		C696D0991FB9B360005B02F4 /* launch5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8193E1F7520680031BB24 /* launch5.png */; };
+		C696D09A1FB9B360005B02F4 /* launch6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8193F1F7520680031BB24 /* launch6.png */; };
+		C696D09B1FB9B360005B02F4 /* launch7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8193D1F7520680031BB24 /* launch7.png */; };
+		C696D09C1FB9B360005B02F4 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F811F73AD12004DF4C6 /* Default-568.png */; };
+		C696D09D1FB9B360005B02F4 /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F821F73AD12004DF4C6 /* Default-568@2x.png */; };
+		C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F551F73ACD1004DF4C6 /* ding.mp3 */; };
 		CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */; };
 		D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E7B440B9BC4BB1AD99FCEB /* libRCTToast.a */; };
 		D4788828684B408B999B5927 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E075F0553D5B473F81735ABE /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1697,6 +1704,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */,
+				C696D0981FB9B360005B02F4 /* launch4.png in Resources */,
+				C696D0991FB9B360005B02F4 /* launch5.png in Resources */,
+				C696D09A1FB9B360005B02F4 /* launch6.png in Resources */,
+				C696D09B1FB9B360005B02F4 /* launch7.png in Resources */,
+				C696D09C1FB9B360005B02F4 /* Default-568.png in Resources */,
+				C696D09D1FB9B360005B02F4 /* Default-568@2x.png in Resources */,
 				35AC22A71F78B462007D53B5 /* fonts in Resources */,
 				35AC22FA1F79F4BA007D53B5 /* mapapi.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -2047,7 +2061,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2091,6 +2108,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
@@ -2106,8 +2124,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2150,6 +2171,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
