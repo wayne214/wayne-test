@@ -23,7 +23,6 @@ import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 
 
-
 class WeChatPayment extends Component {
     constructor(props) {
         super(props);
@@ -38,6 +37,7 @@ class WeChatPayment extends Component {
         };
         this.getWeChatQrCode = this.getWeChatQrCode.bind(this);
         this.qrCodePayment = this.qrCodePayment.bind(this);
+        this.goBackForward = this.goBackForward.bind(this);
     }
     componentDidMount() {
         this.getWeChatQrCode();
@@ -74,10 +74,14 @@ class WeChatPayment extends Component {
         });
     }
 
+    goBackForward() {
+        const routes = this.props.routes;
+        let routeKey = routes[routes.length - 2].key;
+        this.props.navigation.goBack(routeKey);
+    }
 
     qrCodePayment() {
         const ws = new WebSocket(API.API_WEBSOCKET + '/' + this.state.orderCode);
-
 
         ws.onopen = () => {
             console.log('===============onopen');
@@ -87,11 +91,13 @@ class WeChatPayment extends Component {
         ws.onmessage = (e) => {
             // 接收到了一个消息
             console.log('onmessage===============',e.data);
-            this.setState({
-                successFlag: e.data
-            });
-            // 如果返回结果  主动断开链接
-            // WebSocket.onclose = (e) => {};
+            if(e.data === true) {
+                this.setState({
+                    successFlag: true
+                });
+                // 如果返回结果  主动断开链接
+                WebSocket.onclose = (e) => {};
+            }
         };
 
         ws.onerror = (e) => {
@@ -133,7 +139,7 @@ class WeChatPayment extends Component {
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
-                                                console.log('完成按钮点击事件');
+                                                this.goBackForward();
                                             }}
                                         >
                                             <Text style={styles.buttonText}>完成</Text>
@@ -164,12 +170,15 @@ class WeChatPayment extends Component {
                                         style={{
                                             height: 150,
                                             width: 150,
-                                            alignItems: 'center'
+                                            alignItems: 'center',
+                                            paddingRight:10
                                         }}
-                                        source={{uri: this.state.url}}
+                                        source={{url: this.state.url}}
                                         javaScriptEnabled={true}
                                         domStorageEnabled={true}
-                                        scalesPageToFit={true}
+                                        scalesPageToFit={false}
+                                        injectedJavaScript="var img = document.getElementsByTagName('img')[0];
+                                        img.style.cssText = 'width: 130px; height:130px;'"
                                     />
                                 </View>
                                 <View style={{alignItems:'center'}}>
@@ -363,14 +372,13 @@ const styles =StyleSheet.create({
         alignSelf: 'center',
     },
     imageView: {
-        marginTop: 15,
-        marginBottom: 15,
+        marginTop: 10,
+        marginBottom: 10,
         width: 150,
         height: 150,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: 'blue'
     },
     success: {
         fontSize: 16,
@@ -393,7 +401,9 @@ const styles =StyleSheet.create({
 });
 
 function mapStateToProps(state){
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps (dispatch){
