@@ -176,7 +176,7 @@ class setting extends Component {
         Storage.remove('userCarList');
         Storage.remove('personInfoResult');
         Storage.remove('carInfoResult');
-        Storage.remove('NewPhotoRefNo');
+        Storage.remove('PHOTO_REF_NO');
         Storage.remove('changePersonInfoResult');
         Storage.remove('changeCarInfoResult');
         Storage.remove('acceptMessage');
