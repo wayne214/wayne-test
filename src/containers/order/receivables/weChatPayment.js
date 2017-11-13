@@ -81,11 +81,11 @@ class WeChatPayment extends Component {
     }
 
     qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET + '/' + this.state.orderCode);
+        const ws = new WebSocket(API.API_WEBSOCKET + this.state.orderCode);
 
         ws.onopen = () => {
             console.log('===============onopen');
-            ws.send('我是A'); // 发送一个消息
+            // ws.send('我是A'); // 发送一个消息
         };
 
         ws.onmessage = (e) => {

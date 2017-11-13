@@ -261,10 +261,8 @@ export default class MyBankCard extends Component {
                         flexDirection: 'row'
                     }}>
                         <Image source={require('../../../assets/income/addBankCar.png')}/>
-
                     </View>
                 </TouchableOpacity>
-
 
             </View>
         );

@@ -198,4 +198,4 @@ export const API_BANKCARD_SENDVERIFYCODE = `${HOST}app/bankcard/sendVerifyCode`;
 export const API_BANKCARD_CHECK_VERIFYCODE = `${HOST}app/bankcard/checkVerifyCode/`;
 
 //WebSocket
-export const API_WEBSOCKET = `ws://mproxy-test.xianyiscm.com/webSocket`;
+export const API_WEBSOCKET = `ws://mproxy-test.xianyiscm.com/webSocket/`;

@@ -26,7 +26,12 @@ import TypeItem from './comment/typeItem';
 import Toast from '@remobile/react-native-toast';
 import EmptyView from '../../../common/emptyView/emptyView';
 import * as ConstValue from '../../../constants/constValue';
+import {Geolocation} from 'react-native-baidu-map-xzx';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 
+let currentTime = 0;
+let lastTime = 0;
+let locationData = '';
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
 let list = [];
@@ -34,12 +39,6 @@ let searchType = [];
 let isLoadMore = false;
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
-import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
-let currentTime = 0;
-let lastTime = 0;
-let locationData = '';
 
 
 const styles = StyleSheet.create({
@@ -69,44 +68,14 @@ class detailsPage extends Component {
         this.renderRow = this.renderRow.bind(this);
         this.getData = this.getData.bind(this);
         this.chooseType = this.chooseType.bind(this);
-        this.qrCodePayment = this.qrCodePayment.bind(this);
     }
 
-    qrCodePayment() {
-        const ws = new WebSocket(API.API_WEBSOCKET+'/123');
-
-
-        ws.onopen = () => {
-            console.log('===============onopen');
-            ws.send('我是A'); // 发送一个消息
-        };
-
-        ws.onmessage = (e) => {
-            // 接收到了一个消息
-            console.log('onmessage===============',e.data);
-
-            // 如果返回结果  主动断开链接
-            // WebSocket.onclose = (e) => {};
-        };
-
-        ws.onerror = (e) => {
-            // 发生了一个错误
-            console.log('onerror', e.message);
-        };
-
-        ws.onclose = (e) => {
-            // 连接被关闭了
-            console.log('onclose', e.code, e.reason);
-        };
-    }
     componentDidMount() {
         this.getCurrentPosition();
 
         this.onRefresh();
-
-        this.qrCodePayment();
     }
-// 获取当前位置
+    // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
             console.log('position =', JSON.stringify(data));
