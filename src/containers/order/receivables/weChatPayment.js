@@ -21,6 +21,10 @@ import qrCode from '../../../../assets/order/qrcode.png';
 import StaticImage from '../../../constants/staticImage';
 import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+let currentTime = 0;
+let lastTime = 0;
+let locationData = '';
 
 
 class WeChatPayment extends Component {
@@ -40,6 +44,7 @@ class WeChatPayment extends Component {
         this.goBackForward = this.goBackForward.bind(this);
     }
     componentDidMount() {
+        this.getCurrentPosition();
         this.getWeChatQrCode();
         this.qrCodePayment();
 
@@ -51,8 +56,18 @@ class WeChatPayment extends Component {
     componentWillUnmount() {
         //WebSocket.onclose = (e) => {};
     }
+    // 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
+    }
     // 获取微信二维码
     getWeChatQrCode() {
+        currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AC_GET_WECHAT_QRCODE,
             params: {
@@ -62,6 +77,9 @@ class WeChatPayment extends Component {
             loading: ()=>{
             },
             success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取二维码图片', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '二维码付款页面');
                 console.log('url',responseData.result);
                 this.setState({
                     url: responseData.result
