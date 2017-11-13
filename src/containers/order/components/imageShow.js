@@ -59,11 +59,11 @@ export default class ImageShow extends Component {
         const navigator = this.props.navigation;
         return (
             <View style={simpleStyle.container}>
-                <NavigatorBar
-                title={'回单'}
-                navigator={navigator}
-                leftButtonHidden={false}
-            />
+                {/*<NavigatorBar*/}
+                {/*title={'回单'}*/}
+                {/*navigator={navigator}*/}
+                {/*leftButtonHidden={false}*/}
+            {/*/>*/}
                 <ImageViewer
                     imageUrls={this.state.images}
                     enableImageZoom={true}
