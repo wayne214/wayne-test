@@ -238,6 +238,12 @@ export default class MyBankCard extends Component {
                                                             bankType: rowData.bankCarType,
                                                             bankAccount: rowData.bankAccount,
                                                             default: rowData.isDefault,
+                                                            bankCityName: rowData.city,
+                                                            bankCityCode: rowData.cityCode,
+                                                            bankProvinceName: rowData.province,
+                                                            bankProvinceCode: rowData.provinceCode,
+                                                            bankBranchName: rowData.branchBank,
+                                                            bankBranchCode: rowData.branchBankCode
                                                         })
                                                 }}
                                         />
