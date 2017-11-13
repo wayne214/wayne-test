@@ -227,7 +227,7 @@ class Mine extends Component {
         });
 
         /*获取头像具体的地址，*/
-        Storage.get('NewPhotoRefNo').then((value) => {
+        Storage.get(StorageKey.PHOTO_REF_NO).then((value) => {
             if (value) {
                 this.queryUserAvatar(value)
             }
@@ -457,6 +457,7 @@ class Mine extends Component {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('查询头像', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '我的页面');
+                const result = responseData.result;
                 console.log("成功的路径", result);
                 if (result == null) {
 

@@ -16,9 +16,14 @@ import * as API from '../../../constants/api';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
 import HTTPRequest from '../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
 const {width, height} = Dimensions.get('window');
+
+let currentTime = 0;
+let lastTime = 0;
+let locationData = '';
 
 const styles = StyleSheet.create({
     container: {
@@ -113,16 +118,29 @@ class payTypes extends Component {
     }
 
     componentDidMount() {
+        this.getCurrentPosition();
         this.getSettleAmount();
         console.log('.......orderCode',this.state.orderCode);
     }
-
+    // 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
+    }
     getSettleAmount() {
+        currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AC_GET_SETTLE_AMOUNT + this.state.orderCode,
             loading: ()=>{
             },
             success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('付款方式', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '付款方式选择页面');
                 this.setState({
                     amount: responseData.result,
                 });
@@ -141,6 +159,7 @@ class payTypes extends Component {
     }
     confirmPayment() {
         console.log('---信息----', this.state.amount, this.state.orderCode, global.userId);
+        currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AC_COMFIRM_PAYMENT,
             params: {
@@ -151,6 +170,9 @@ class payTypes extends Component {
             loading: ()=>{
             },
             success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('现金确认支付', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '付款方式选择页面');
                 Toast.showShortCenter('收款成功');
                 DeviceEventEmitter.emit('refreshDetails');
                 this.props.navigation.goBack();
