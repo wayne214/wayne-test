@@ -637,7 +637,7 @@ class Mine extends Component {
             <View style={styles.allContainer}>
                 <View style={{flex: 1}}>
                     <View>
-                        <Image source={StaticImage.CenterHeaderIcon}>
+                        <Image source={StaticImage.CenterHeaderIcon} style={{width: width}} resizeMode={'stretch'}>
                             <View style={{
                                 position: 'absolute',
                                 height: ConstValue.NavigationBar_StatusBar_Height,
@@ -750,7 +750,7 @@ class Mine extends Component {
                                 {
                                     this.state.verifiedState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe636;"
+                                            leftIcon="&#xe673;"
                                             content={'实名认证'}
                                             authenticationStatus={this.state.verifiedState}
                                             showBottomLine={true}
@@ -783,7 +783,7 @@ class Mine extends Component {
                                 {
                                     this.state.certificationState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe635;"
+                                            leftIcon="&#xe672;"
                                             content={'资质认证'}
                                             authenticationStatus={this.state.certificationState}
                                             showBottomLine={false}

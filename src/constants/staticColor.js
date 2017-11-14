@@ -73,4 +73,6 @@ export const BLUE_TAB_BAR_COLOR = '#008AFF';
 
 export const TITLE_BACKGROUND_COLOR = '#FAFAFA';
 
+export const MINE_ICON_COLOR = '#36B1FF';
+
 
