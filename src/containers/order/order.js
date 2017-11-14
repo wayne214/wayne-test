@@ -904,7 +904,7 @@ let transCodeListData3 = [];
 
     renderRow(dataRow, sectionID, rowID) {
         const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
-        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 5) : '';
         // 货品类型
         const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
         let goodTepesTemp = [];
