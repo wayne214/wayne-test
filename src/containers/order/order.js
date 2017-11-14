@@ -443,7 +443,7 @@ let transCodeListData3 = [];
                 page: pageNum,
                 pageSize,
                 phone: global.phone,
-                plateNumber: this.props.plateNumber,
+                plateNumber: global.plateNumber,
                 queryType,
             },
             loading: () => {
@@ -494,76 +494,148 @@ let transCodeListData3 = [];
                 isRefresh: true,
             })
         }
-        HTTPRequest({
-            url: API_URL,
-            params: {
-                page: pageNum,
-                pageSize,
-                phone: global.phone,
-                plateNumber: this.props.plateNumber,
-                queryType,
-            },
-            loading: () => {
+        if (global.plateNumber) {
+            HTTPRequest({
+                url: API_URL,
+                params: {
+                    page: pageNum,
+                    pageSize,
+                    phone: global.phone,
+                    plateNumber: global.plateNumber,
+                    queryType,
+                },
+                loading: () => {
 
-            },
-            success: (responseData) => {
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '订单页面');
-                if (!responseData.result.list) {
+                },
+                success: (responseData) => {
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '订单页面');
+                    if (!responseData.result.list) {
 
-                    return;
-                }
-                switch (queryType) {
-                    case 'AAA' : {
-                        if (pageNum === 1) {
-                            allListData = [];
-                        }
-                        allListData = allListData.concat(responseData.result.list);
-                        if (allListData.length === responseData.result.total) {
+                        return;
+                    }
+                    switch (queryType) {
+                        case 'AAA' : {
+                            if (pageNum === 1) {
+                                allListData = [];
+                            }
+                            allListData = allListData.concat(responseData.result.list);
+                            if (allListData.length === responseData.result.total) {
+                                this.setState({
+                                    isLoadallMore: false,
+                                    allCount: allListData.length,
+                                });
+                            }
+
                             this.setState({
-                                isLoadallMore: false,
-                                allCount: allListData.length,
+                                dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
                             });
+
+                            break;
                         }
+                        case 'BBB' : {
+                            if (pageNum === 1) {
+                                shipListData = [];
+                            }
+                            shipListData = shipListData.concat(responseData.result.list);
 
-                        this.setState({
-                            dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
-                        });
-
-                        break;
-                    }
-                    case 'BBB' : {
-                        if (pageNum === 1) {
-                            shipListData = [];
-                        }
-                        shipListData = shipListData.concat(responseData.result.list);
-
-                        if (shipListData.length === responseData.result.total) {
+                            if (shipListData.length === responseData.result.total) {
+                                this.setState({
+                                    isLoadshipMore: false,
+                                    allCount: shipListData.length,
+                                })
+                            }
                             this.setState({
-                                isLoadshipMore: false,
-                                allCount: shipListData.length,
-                            })
+                                dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                            });
+                            break;
                         }
-                        this.setState({
-                            dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
-                        });
-                        break;
+                        default :
+                            break;
                     }
-                    default :
-                        break;
+
+                },
+                error: (errorInfo) => {
+
+                },
+                finish: () => {
+                    this.setState({
+                        isRefresh: false,
+                    });
                 }
-
-            },
-            error: (errorInfo) => {
-
-            },
-            finish: () => {
-                this.setState({
-                    isRefresh: false,
-                });
-            }
-        });
+            });
+        }
+        // HTTPRequest({
+        //     url: API_URL,
+        //     params: {
+        //         page: pageNum,
+        //         pageSize,
+        //         phone: global.phone,
+        //         plateNumber: this.props.plateNumber,
+        //         queryType,
+        //     },
+        //     loading: () => {
+        //
+        //     },
+        //     success: (responseData) => {
+        //         lastTime = new Date().getTime();
+        //         ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+        //             locationData.district, lastTime - currentTime, '订单页面');
+        //         if (!responseData.result.list) {
+        //
+        //             return;
+        //         }
+        //         switch (queryType) {
+        //             case 'AAA' : {
+        //                 if (pageNum === 1) {
+        //                     allListData = [];
+        //                 }
+        //                 allListData = allListData.concat(responseData.result.list);
+        //                 if (allListData.length === responseData.result.total) {
+        //                     this.setState({
+        //                         isLoadallMore: false,
+        //                         allCount: allListData.length,
+        //                     });
+        //                 }
+        //
+        //                 this.setState({
+        //                     dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+        //                 });
+        //
+        //                 break;
+        //             }
+        //             case 'BBB' : {
+        //                 if (pageNum === 1) {
+        //                     shipListData = [];
+        //                 }
+        //                 shipListData = shipListData.concat(responseData.result.list);
+        //
+        //                 if (shipListData.length === responseData.result.total) {
+        //                     this.setState({
+        //                         isLoadshipMore: false,
+        //                         allCount: shipListData.length,
+        //                     })
+        //                 }
+        //                 this.setState({
+        //                     dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+        //                 });
+        //                 break;
+        //             }
+        //             default :
+        //                 break;
+        //         }
+        //
+        //     },
+        //     error: (errorInfo) => {
+        //
+        //     },
+        //     finish: () => {
+        //         this.setState({
+        //             isRefresh: false,
+        //         });
+        //     }
+        // });
     }
 
 

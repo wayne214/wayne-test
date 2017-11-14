@@ -123,32 +123,35 @@ class GoodSource extends BaseContainer{
     getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
-        const plateNumber = this.props.userPlateNumber;
-        console.log('global phone',global.phone);
-        HTTPRequest({
-            url: API.API_NEW_GET_SOURCE_BY_DATE,
-            params: {
-                beginTime: '2017-06-01 00:00:00',
-                endTime: beginTime,
-                pageNum: pageNo,
-                pageSize,
-                driverPhone: global.phone,
-                status,
-                plateNumber: plateNumber,
-            },
-            loading: ()=>{
+        // const plateNumber = this.props.userPlateNumber;
+        if (global.plateNumber) {
+            HTTPRequest({
+                url: API.API_NEW_GET_SOURCE_BY_DATE,
+                params: {
+                    beginTime: '2017-06-01 00:00:00',
+                    endTime: beginTime,
+                    pageNum: pageNo,
+                    pageSize,
+                    driverPhone: global.phone,
+                    status,
+                    plateNumber: global.plateNumber,
+                },
+                loading: ()=>{
 
-            },
-            success: (responseData)=>{
-                console.log('success',responseData);
-                getDataSuccessCallBack(responseData.result);
-            },
-            error: (errorInfo)=>{
-                getDataFailCallBack();
-            },
-            finish: ()=>{
-            }
-        });
+                },
+                success: (responseData)=>{
+                    console.log('success',responseData);
+                    getDataSuccessCallBack(responseData.result);
+                },
+                error: (errorInfo)=>{
+                    getDataFailCallBack();
+                },
+                finish: ()=>{
+                }
+            });
+        }
+        console.log('global phone',global.phone);
+
     }
     // 成功回调
     getDataSuccessCallBack(result) {

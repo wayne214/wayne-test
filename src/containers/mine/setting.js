@@ -164,11 +164,11 @@ class setting extends Component {
 
     /*退出登录*/
     press() {
+        DeviceEventEmitter.emit('updateOrderList');
         this.loginOut();
         this.props.removeUserInfoAction();
         this.props.reloadHomePageNum();
         ImageCache.get().clear();
-        DeviceEventEmitter.emit('updateOrderList');
 
         Storage.remove('userInfo');
         Storage.remove('setCarSuccessFlag');
