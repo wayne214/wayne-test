@@ -61,7 +61,13 @@ export default class Guide extends BaseContainer {
                     <Image style={styles.image} source={StaticImage.Img01} resizeMode="stretch" />
                 </View>
                 <View style={styles.slide}>
-                    <Image style={styles.image} source={StaticImage.Img02} resizeMode="stretch">
+                    <Image style={styles.image} source={StaticImage.Img02} resizeMode="stretch" />
+                </View>
+                <View style={styles.slide}>
+                    <Image style={styles.image} source={StaticImage.Img03} resizeMode="stretch" />
+                </View>
+                <View style={styles.slide}>
+                    <Image style={styles.image} source={StaticImage.Img04} resizeMode="stretch">
                         <Text
                             style={{flex: 1, marginTop: height - height / 5}}
                             onPress={this.toMain.bind(this)}
