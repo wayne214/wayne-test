@@ -637,7 +637,7 @@ class Mine extends Component {
             <View style={styles.allContainer}>
                 <View style={{flex: 1}}>
                     <View>
-                        <Image source={StaticImage.CenterHeaderIcon}>
+                        <Image source={StaticImage.CenterHeaderIcon} style={{width: width}} resizeMode={'stretch'}>
                             <View style={{
                                 position: 'absolute',
                                 height: ConstValue.NavigationBar_StatusBar_Height,

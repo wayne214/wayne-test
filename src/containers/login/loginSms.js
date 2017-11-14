@@ -329,7 +329,10 @@ class LoginSms extends BaseContainer {
                 <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
                         <Image
-                            source={StaticImage.LoginTopBg}/>
+                            source={StaticImage.LoginTopBg}
+                            resizeMode={'stretch'}
+                            style={{width: width}}
+                        />
                         
                     </View>
                     <View style={styles.contentView}>

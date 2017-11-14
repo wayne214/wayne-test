@@ -160,6 +160,7 @@ class Login extends BaseContainer {
         this.state = {
             phoneNumber: __DEV__ ? '13120382724' : '',
             password: __DEV__ ? 'asd123' : ''
+
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
@@ -229,7 +230,6 @@ class Login extends BaseContainer {
                     console.log('lqq---responseData---',responseData);
 
                     let isBind = responseData.result.isBind;
-                    isBind = true;
                     console.log('-lqq---isBind',isBind);
                     if(isBind){//继续登录操作
                         lastTime = new Date().getTime();
@@ -301,6 +301,7 @@ class Login extends BaseContainer {
                         <Image
                             source={StaticImage.LoginTopBg}
                             resizeMode={'stretch'}
+                            style={{width: width}}
                         />
                         
                     </View>
