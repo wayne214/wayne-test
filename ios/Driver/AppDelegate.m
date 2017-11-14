@@ -70,7 +70,7 @@
   //模拟器测试
 
 
-//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   /*
    
@@ -79,7 +79,7 @@
    */
   //打包手机测试
   
-  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
+  //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
 
   
   NSLog(@"jsCodeLocation=========%@", jsCodeLocation);
@@ -118,6 +118,8 @@
     [splashImage setImage:[UIImage imageNamed:@"launch6"]];
   }else if (IPHONESCREEN5p5){
     [splashImage setImage:[UIImage imageNamed:@"launch7"]];
+  }else if (IPHONESCREEN5p8){
+    [splashImage setImage:[UIImage imageNamed:@"launchX"]];
   }
   [self.window addSubview:splashImage];
 }
