@@ -398,13 +398,6 @@ let transCodeListData3 = [];
 
     // 获取网络数据 对页面进行填充
     loadData(pageIndex, pageNum) {
-        if (pageIndex === 0 || pageIndex === 1) {
-            API_URL = API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE;
-        } else if (pageIndex === 2) {
-            API_URL = API.API_NEW_GET_ORDER_LIST_TRANSPORT;// 代签收、待回单
-        } else {
-            API_URL = API.API_NEW_GET_ORDER_LIST_V2;// 已回单
-        }
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
@@ -487,7 +480,7 @@ let transCodeListData3 = [];
 
 
     // 获取全部、待发运订单列表
-    getOrderDetailAction( queryType, pageNum, pageSize) {
+    getOrderDetailAction(queryType, pageNum, pageSize) {
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
@@ -512,7 +505,6 @@ let transCodeListData3 = [];
                     ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                         locationData.district, lastTime - currentTime, '订单页面');
                     if (!responseData.result.list) {
-
                         return;
                     }
                     switch (queryType) {
@@ -566,76 +558,6 @@ let transCodeListData3 = [];
                 }
             });
         }
-        // HTTPRequest({
-        //     url: API_URL,
-        //     params: {
-        //         page: pageNum,
-        //         pageSize,
-        //         phone: global.phone,
-        //         plateNumber: this.props.plateNumber,
-        //         queryType,
-        //     },
-        //     loading: () => {
-        //
-        //     },
-        //     success: (responseData) => {
-        //         lastTime = new Date().getTime();
-        //         ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-        //             locationData.district, lastTime - currentTime, '订单页面');
-        //         if (!responseData.result.list) {
-        //
-        //             return;
-        //         }
-        //         switch (queryType) {
-        //             case 'AAA' : {
-        //                 if (pageNum === 1) {
-        //                     allListData = [];
-        //                 }
-        //                 allListData = allListData.concat(responseData.result.list);
-        //                 if (allListData.length === responseData.result.total) {
-        //                     this.setState({
-        //                         isLoadallMore: false,
-        //                         allCount: allListData.length,
-        //                     });
-        //                 }
-        //
-        //                 this.setState({
-        //                     dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
-        //                 });
-        //
-        //                 break;
-        //             }
-        //             case 'BBB' : {
-        //                 if (pageNum === 1) {
-        //                     shipListData = [];
-        //                 }
-        //                 shipListData = shipListData.concat(responseData.result.list);
-        //
-        //                 if (shipListData.length === responseData.result.total) {
-        //                     this.setState({
-        //                         isLoadshipMore: false,
-        //                         allCount: shipListData.length,
-        //                     })
-        //                 }
-        //                 this.setState({
-        //                     dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
-        //                 });
-        //                 break;
-        //             }
-        //             default :
-        //                 break;
-        //         }
-        //
-        //     },
-        //     error: (errorInfo) => {
-        //
-        //     },
-        //     finish: () => {
-        //         this.setState({
-        //             isRefresh: false,
-        //         });
-        //     }
-        // });
     }
 
 

@@ -222,7 +222,6 @@ class UploadReceipt extends Component {
                 break;
         }
     }
-
     // 选择照片
     pickMultiple() {
         ImagePicker.openPicker({
@@ -233,6 +232,7 @@ class UploadReceipt extends Component {
             maxFiles: this.props.maxNum,
             compressImageMaxWidth: 500,
             compressImageMaxHeight: 500,
+            mediaType: 'photo',
         }).then(images => {
             let totalLen = this.props.imageList.size + images.length;
             let arr = images;

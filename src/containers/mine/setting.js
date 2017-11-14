@@ -166,8 +166,8 @@ class setting extends Component {
     press() {
         DeviceEventEmitter.emit('updateOrderList');
         this.loginOut();
-        this.props.removeUserInfoAction();
         this.props.reloadHomePageNum();
+        this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
         Storage.remove('userInfo');
