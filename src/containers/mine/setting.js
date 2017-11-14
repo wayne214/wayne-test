@@ -259,7 +259,7 @@ class setting extends Component {
                         接收新消息通知
                     </Text>
                     <Switch
-                        onTintColor={'#008BCA'}
+                        onTintColor={'#0083FF'}
                         onValueChange={(value) => {
                             this.valueChange(value);
                         }}
@@ -273,7 +273,7 @@ class setting extends Component {
                         语音播报
                     </Text>
                     <Switch
-                        onTintColor={'#008BCA'}
+                        onTintColor={'#0083FF'}
                         onValueChange={(value) => {
                             this.speechValueChange(value);
                         }}
