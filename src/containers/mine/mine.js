@@ -750,7 +750,7 @@ class Mine extends Component {
                                 {
                                     this.state.verifiedState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe636;"
+                                            leftIcon="&#xe673;"
                                             content={'实名认证'}
                                             authenticationStatus={this.state.verifiedState}
                                             showBottomLine={true}
@@ -783,7 +783,7 @@ class Mine extends Component {
                                 {
                                     this.state.certificationState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe635;"
+                                            leftIcon="&#xe672;"
                                             content={'资质认证'}
                                             authenticationStatus={this.state.certificationState}
                                             showBottomLine={false}
