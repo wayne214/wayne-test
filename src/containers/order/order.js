@@ -398,13 +398,6 @@ let transCodeListData3 = [];
 
     // 获取网络数据 对页面进行填充
     loadData(pageIndex, pageNum) {
-        if (pageIndex === 0 || pageIndex === 1) {
-            API_URL = API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE;
-        } else if (pageIndex === 2) {
-            API_URL = API.API_NEW_GET_ORDER_LIST_TRANSPORT;// 代签收、待回单
-        } else {
-            API_URL = API.API_NEW_GET_ORDER_LIST_V2;// 已回单
-        }
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
@@ -487,7 +480,7 @@ let transCodeListData3 = [];
 
 
     // 获取全部、待发运订单列表
-    getOrderDetailAction( queryType, pageNum, pageSize) {
+    getOrderDetailAction(queryType, pageNum, pageSize) {
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
@@ -495,7 +488,7 @@ let transCodeListData3 = [];
             })
         }
         HTTPRequest({
-            url: API_URL,
+            url: API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE,
             params: {
                 page: pageNum,
                 pageSize,
