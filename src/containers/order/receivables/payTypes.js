@@ -10,6 +10,7 @@ import {
     Alert,
     DeviceEventEmitter,
 } from 'react-native';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
 import * as API from '../../../constants/api';

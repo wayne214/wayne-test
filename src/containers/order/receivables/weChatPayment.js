@@ -14,7 +14,7 @@ import {
     Image,
     WebView
 } from 'react-native';
-
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
 import * as ConstValue from '../../../constants/constValue';
 import qrCode from '../../../../assets/order/qrcode.png';
