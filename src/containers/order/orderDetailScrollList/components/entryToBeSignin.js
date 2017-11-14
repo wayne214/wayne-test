@@ -101,7 +101,6 @@ class entryToBeSignin extends Component {
             this.props.navigation.goBack();
         });
         this.listener = DeviceEventEmitter.addListener('refreshDetails',() => {
-            debugger
             this.getOrderDetailInfo();
         });
         // // 返回上一级

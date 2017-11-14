@@ -203,7 +203,6 @@ class signPage extends Component {
 
     // 获取数据成功回调
     getSignInSuccessCallBack() {
-        debugger
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '签收页面');
