@@ -92,6 +92,7 @@
 		C696D09C1FB9B360005B02F4 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F811F73AD12004DF4C6 /* Default-568.png */; };
 		C696D09D1FB9B360005B02F4 /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F821F73AD12004DF4C6 /* Default-568@2x.png */; };
 		C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F551F73ACD1004DF4C6 /* ding.mp3 */; };
+		C696D0BB1FBA8727005B02F4 /* launchX.png in Resources */ = {isa = PBXBuildFile; fileRef = C696D0BA1FBA8713005B02F4 /* launchX.png */; };
 		CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */; };
 		D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E7B440B9BC4BB1AD99FCEB /* libRCTToast.a */; };
 		D4788828684B408B999B5927 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E075F0553D5B473F81735ABE /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -561,6 +562,7 @@
 		B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B345F53D24B04B05BDAEB472 /* speech.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = speech.xcodeproj; path = "../node_modules/native-speech/ios/speech/speech.xcodeproj"; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
+		C696D0BA1FBA8713005B02F4 /* launchX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchX.png; sourceTree = "<group>"; };
 		D8688350182D48379FF9BBD1 /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCCFCE5187D44BA097ED7BA8 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		DE6BA98A06BC45FD94546BFF /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 				1FB8193E1F7520680031BB24 /* launch5.png */,
 				1FB8193F1F7520680031BB24 /* launch6.png */,
 				1FB8193D1F7520680031BB24 /* launch7.png */,
+				C696D0BA1FBA8713005B02F4 /* launchX.png */,
 				1FAC2F811F73AD12004DF4C6 /* Default-568.png */,
 				1FAC2F821F73AD12004DF4C6 /* Default-568@2x.png */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1704,6 +1707,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C696D0BB1FBA8727005B02F4 /* launchX.png in Resources */,
 				C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */,
 				C696D0981FB9B360005B02F4 /* launch4.png in Resources */,
 				C696D0991FB9B360005B02F4 /* launch5.png in Resources */,

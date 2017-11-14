@@ -117,6 +117,8 @@
     [splashImage setImage:[UIImage imageNamed:@"launch6"]];
   }else if (IPHONESCREEN5p5){
     [splashImage setImage:[UIImage imageNamed:@"launch7"]];
+  }else if (IPHONESCREEN5p8){
+    [splashImage setImage:[UIImage imageNamed:@"launchX"]];
   }
   [self.window addSubview:splashImage];
 }
