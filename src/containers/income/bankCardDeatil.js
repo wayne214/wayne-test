@@ -169,6 +169,17 @@ export default class BankCardDeatil extends Component {
 
     /*修改银行卡信息*/
     changeInfo (){
+
+        if (!this.state.selectedProvinceName) {
+            Toast.showShortCenter('请选择开户省市');
+            return
+        }
+        if (!this.state.branchName) {
+            Toast.showShortCenter('请选择开户支行');
+            return
+        }
+
+
         HTTPRequest({
             url: API.API_CHANGE_BANKCARD_INFO,
             params: {
@@ -230,7 +241,7 @@ export default class BankCardDeatil extends Component {
                     marginTop: 10
                 }}>
                     <Text style={styles.leftTextStyle}>开户省市</Text>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={{paddingVertical: 10}} onPress={()=>{
                             navigator.navigate('ChooseBankCity', {
                                 selectedCityCallback: (data) => {
                                     console.log('----data', data[0].departureCityArrayName);
@@ -275,7 +286,7 @@ export default class BankCardDeatil extends Component {
                     height: 46,
                 }}>
                     <Text style={styles.leftTextStyle}>开户支行</Text>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={[this.state.branchName === '' ? {width: 200} : {}, {paddingVertical: 10}]} onPress={()=>{
                             if (!this.state.bankCityName) return Toast.showShortCenter('请选择开户省市');
                             this.getBranchInfo(BankCode.searchCode(this.state.bank), this.state.bankCityCode);
                     }}>

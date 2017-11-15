@@ -17,6 +17,10 @@ import bankIconUtil from '../../../../utils/bankIconUtil';
 
 const {height,width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
+// 355*110
+
+const imageWidth = width - 20;
+const imageHeight = imageWidth * 110 / 355;
 
 export default class BankCardCell extends Component {
     static propTypes = {
@@ -56,7 +60,7 @@ export default class BankCardCell extends Component {
                         marginTop: 10,
                         marginHorizontal: 10,
                     }]}>
-                        <Image style={{position: 'absolute'}} source={bgImage}/>
+                        <Image style={{position: 'absolute', width: imageWidth, height: imageHeight}} source={bgImage}/>
                         <View style={{
                             flex: 1,
                             flexDirection: 'row'
