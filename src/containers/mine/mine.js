@@ -208,6 +208,7 @@ class Mine extends Component {
         this.selectPhoto = this.selectPhoto.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
         this.callbackSelected = this.callbackSelected.bind(this);
+        this.contentViewScroll = this.contentViewScroll.bind(this);
     }
 
 
@@ -533,7 +534,16 @@ class Mine extends Component {
                 Toast.showShortCenter('图片上传失败，请重新选择上传');
             });
     }
-
+    // 判断ScrollView滑动到底部
+    contentViewScroll(e: Object){
+        var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+        var contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
+        var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+        if (offsetY + oriageScrollHeight >= contentSizeHeight){
+            console.log('scrollView', 'scrollView滑动到底部事件');
+            this.scrollView.scrollTo({x: 0, y: 0, animated: true})
+        }
+    }
     render() {
         const navigator = this.props.navigation;
         const statusRender =
@@ -703,7 +713,12 @@ class Mine extends Component {
                             {changeCarView}
                         </Image>
                         <View style={styles.contentPostionView}>
-                            <ScrollView style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}>
+                            <ScrollView onMomentumScrollEnd={
+                                this.contentViewScroll
+                                // this.scrollView.scrollTo({x: 0, y: 0, animated: true})
+                            } style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}
+                                ref={(scroll)=>{this.scrollView = scroll}}
+                            >
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
