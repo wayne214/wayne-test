@@ -179,7 +179,7 @@ let transCodeListData3 = [];
         });
 
         // 刷新待签收列表数据
-        this.listener3 = DeviceEventEmitter.addListener('changeToWaitSign', () => {
+        this.listener3 = DeviceEventEmitter.addListener('', () => {
             this.refs.ScrollableTabView.goToPage(2);
 
             setTimeout(() => {
@@ -970,8 +970,6 @@ let transCodeListData3 = [];
                                      // this.setState({
                                      // isLoadallMore: true,
                                      // });
-
-
                                     delete shipListData[rowID];
                                     this.setState({
                                         dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData)

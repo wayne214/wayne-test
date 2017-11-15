@@ -232,6 +232,7 @@ class entryToBeShipped extends Component {
      * */
 
     sendOrder() {
+
         currentTime = new Date().getTime();
         const goodInfo = transOrderInfo[0].goodsInfo;
 
