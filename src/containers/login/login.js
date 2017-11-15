@@ -231,7 +231,8 @@ class Login extends BaseContainer {
 
                     let isBind = responseData.result.isBind;
                     console.log('-lqq---isBind',isBind);
-                    if(isBind){//继续登录操作
+                    // TODO 暂时关掉登录验证
+                    if(!isBind){//继续登录操作
                         lastTime = new Date().getTime();
 
                         ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,

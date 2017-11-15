@@ -284,10 +284,15 @@ class entryToBeSignin extends Component {
 
     getOrderPictureList() {
         currentTime = new Date().getTime();
+        let transCode = this.state.datas[this.state.current-1].transCode;
+        if(transCode.indexOf('-') > -1){
+            transCode = transCode.split('-')[0];
+        }
+        console.log('transCode==',transCode);
         HTTPRequest({
             url: API.API_ORDER_PICTURE_SHOW,
             params: {
-                refNo: this.state.datas[this.state.current-1].transCode,
+                refNo: transCode,
             },
             loading: ()=>{
                 this.setState({
