@@ -158,7 +158,7 @@ class Login extends BaseContainer {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: '15801461058',
+            phoneNumber: '',
             password: ''
 
         };
