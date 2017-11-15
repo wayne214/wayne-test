@@ -862,7 +862,7 @@ let transCodeListData3 = [];
                         })
                     }}
                     onButton={() => {
-                        {/*this.transportBatchSign(dataRow);*/}
+                        this.transportBatchSign(dataRow);
                     }}
                 />
             );
