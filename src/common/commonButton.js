@@ -7,9 +7,13 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
+    ImageBackground,
+    Dimensions,
 } from 'react-native';
 
 import * as StaticColor from '../constants/staticColor';
+import StaticImage from '../constants/staticImage';
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -29,6 +33,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: StaticColor.WHITE_COLOR,
         fontWeight: 'bold',
+    },
+    buttonBackground: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: width - 40,
+        height: 40,
+        backgroundColor: 'transparent',
+        alignSelf: 'center'
     },
 });
 
@@ -51,7 +63,9 @@ class commonButton extends Component {
                 activeOpacity={0.6}
             >
                 <View style={styles.button}>
-                    <Text style={styles.buttonText}>{buttonText}</Text>
+                    <ImageBackground source={StaticImage.BlueButtonArc} style={styles.buttonBackground} resizeMode='stretch'>
+                        <Text style={styles.buttonText}>{buttonText}</Text>
+                    </ImageBackground>
                 </View>
             </TouchableOpacity>
         );

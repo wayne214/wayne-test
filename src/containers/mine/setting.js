@@ -164,9 +164,9 @@ class setting extends Component {
 
     /*退出登录*/
     press() {
-        this.props.reloadHomePageNum();
         DeviceEventEmitter.emit('updateOrderList');
         this.loginOut();
+        this.props.reloadHomePageNum();
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
