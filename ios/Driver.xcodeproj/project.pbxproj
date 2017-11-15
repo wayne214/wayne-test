@@ -85,13 +85,6 @@
 		B024C45B1F8CBED700F1D0A9 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F551F73ACD1004DF4C6 /* ding.mp3 */; };
 		C6F224B51FBAE34600D2B164 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F224B41FBADD3100D2B164 /* libRCTBaiduMap.a */; };
-		C6F225091FBC0E5900D2B164 /* launch4.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225041FBC0E4600D2B164 /* launch4.png */; };
-		C6F2250A1FBC0E5900D2B164 /* launch5.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225051FBC0E4600D2B164 /* launch5.png */; };
-		C6F2250B1FBC0E5900D2B164 /* launch6.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225061FBC0E4600D2B164 /* launch6.png */; };
-		C6F2250C1FBC0E5900D2B164 /* launch7.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225071FBC0E4600D2B164 /* launch7.png */; };
-		C6F2250D1FBC0E5900D2B164 /* launchX.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225081FBC0E4600D2B164 /* launchX.png */; };
-		C6F2250E1FBC0E5F00D2B164 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225021FBC0E4600D2B164 /* Default-568.png */; };
-		C6F2250F1FBC0E5F00D2B164 /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F225031FBC0E4600D2B164 /* Default-568@2x.png */; };
 		C6F225131FBC381900D2B164 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C6F225121FBC379800D2B164 /* mapapi.bundle */; };
 		CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */; };
 		D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E7B440B9BC4BB1AD99FCEB /* libRCTToast.a */; };
@@ -555,13 +548,6 @@
 		B345F53D24B04B05BDAEB472 /* speech.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = speech.xcodeproj; path = "../node_modules/native-speech/ios/speech/speech.xcodeproj"; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		C6F224AF1FBADD3000D2B164 /* RCTBaiduMap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBaiduMap.xcodeproj; path = "../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap.xcodeproj"; sourceTree = "<group>"; };
-		C6F225021FBC0E4600D2B164 /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
-		C6F225031FBC0E4600D2B164 /* Default-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568@2x.png"; sourceTree = "<group>"; };
-		C6F225041FBC0E4600D2B164 /* launch4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch4.png; sourceTree = "<group>"; };
-		C6F225051FBC0E4600D2B164 /* launch5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch5.png; sourceTree = "<group>"; };
-		C6F225061FBC0E4600D2B164 /* launch6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch6.png; sourceTree = "<group>"; };
-		C6F225071FBC0E4600D2B164 /* launch7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch7.png; sourceTree = "<group>"; };
-		C6F225081FBC0E4600D2B164 /* launchX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchX.png; sourceTree = "<group>"; };
 		C6F225121FBC379800D2B164 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		D8688350182D48379FF9BBD1 /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCCFCE5187D44BA097ED7BA8 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
@@ -766,7 +752,6 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
-				C6F225011FBC0E4600D2B164 /* launchImgs */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Driver;
@@ -1110,20 +1095,6 @@
 				C6F224B41FBADD3100D2B164 /* libRCTBaiduMap.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C6F225011FBC0E4600D2B164 /* launchImgs */ = {
-			isa = PBXGroup;
-			children = (
-				C6F225021FBC0E4600D2B164 /* Default-568.png */,
-				C6F225031FBC0E4600D2B164 /* Default-568@2x.png */,
-				C6F225041FBC0E4600D2B164 /* launch4.png */,
-				C6F225051FBC0E4600D2B164 /* launch5.png */,
-				C6F225061FBC0E4600D2B164 /* launch6.png */,
-				C6F225071FBC0E4600D2B164 /* launch7.png */,
-				C6F225081FBC0E4600D2B164 /* launchX.png */,
-			);
-			path = launchImgs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1716,13 +1687,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6F225131FBC381900D2B164 /* mapapi.bundle in Resources */,
-				C6F2250E1FBC0E5F00D2B164 /* Default-568.png in Resources */,
-				C6F2250F1FBC0E5F00D2B164 /* Default-568@2x.png in Resources */,
-				C6F225091FBC0E5900D2B164 /* launch4.png in Resources */,
-				C6F2250A1FBC0E5900D2B164 /* launch5.png in Resources */,
-				C6F2250B1FBC0E5900D2B164 /* launch6.png in Resources */,
-				C6F2250C1FBC0E5900D2B164 /* launch7.png in Resources */,
-				C6F2250D1FBC0E5900D2B164 /* launchX.png in Resources */,
 				C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */,
 				35AC22A71F78B462007D53B5 /* fonts in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
