@@ -165,7 +165,7 @@ class Login extends BaseContainer {
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
-
+        this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
         this.success = this.success.bind(this);
         this.fail = this.fail.bind(this);
@@ -173,18 +173,23 @@ class Login extends BaseContainer {
 
 
     componentDidMount() {
-        PermissionsAndroid.locationPermission().then((data) => {
-            Geolocation.getCurrentPosition().then(data => {
-                console.log('position..........', JSON.stringify(data));
-                locationData = data;
-            }).catch(e => {
-                console.log(e, 'error');
+        if(Platform.OS === 'ios'){
+            this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
             });
-        }, (err) => {
-            Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+        }
+    }
+    getCurrentPosition(){
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position..........', JSON.stringify(data));
+            locationData = data;
+        }).catch(e => {
+            console.log(e, 'error');
         });
-
-
     }
 
     /*获取加密秘钥*/
