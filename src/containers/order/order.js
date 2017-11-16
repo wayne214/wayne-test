@@ -179,7 +179,7 @@ let transCodeListData3 = [];
         });
 
         // 刷新待签收列表数据
-        this.listener3 = DeviceEventEmitter.addListener('', () => {
+        this.listener3 = DeviceEventEmitter.addListener('changeToWaitSign', () => {
             this.refs.ScrollableTabView.goToPage(2);
 
             setTimeout(() => {
