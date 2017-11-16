@@ -285,7 +285,7 @@ class goodsBidding extends Component {
                             {
                                 this.state.showDeleteButton ? <TouchableOpacity onPress={() => this.clearInput()}>
                                     <View style={styles.iconStyle}>
-                                        <Text style={styles.iconFont}> &#xe61e;</Text>
+                                        <Text style={styles.iconFont}> &#xe66a;</Text>
                                     </View>
                                 </TouchableOpacity> : null
                             }
