@@ -19,10 +19,10 @@ import {
     GetDistance,
 } from 'react-native-baidu-map-xzx';
 
-import NavigatorBar from './navigationBar/navigationBar';
+import NavigatorBar from '../../common/navigationBar/navigationBar';
 import Toast from '@remobile/react-native-toast';
-import * as StaticColor from '../constants/staticColor';
-import * as ConstValue from '../constants/constValue';
+import * as StaticColor from '../../constants/staticColor';
+import * as ConstValue from '../../constants/constValue';
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({

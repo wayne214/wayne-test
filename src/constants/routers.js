@@ -11,7 +11,7 @@ import {
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 import Scan from '../containers/order/scan';
-import BaiduMap from '../common/baiduMap';
+import BaiduMap from '../containers/map/baiduMap';
 
 import Search from '../containers/order/search/search';
 import SearchResultForSchedule from '../containers/order/search/searchResultForSchedule';
