@@ -108,11 +108,11 @@ export default class OrderDetails extends Component {
 
         const item = array[index];
         array[index] = {
-            arNums: item.arNums,
+            arNums: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight,
             goodsId: item.goodsId,
             goodsName: item.goodsName,
             goodsSpce: item.goodsSpce,
-            goodsUnit: item.goodsUnit,
+            goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
             // refuseDetailDtoList:item.refuseDetailDtoList,没有可不填
             refuseNum: '0',
             refuseReason: '',

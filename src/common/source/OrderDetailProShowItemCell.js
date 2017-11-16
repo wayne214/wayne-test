@@ -84,9 +84,13 @@ class OrderDetailProShowItemCell extends Component {
 
         const showReason = isSign ? this.showLine(orderInfo) : this.showReason(orderInfo);
         const signView = isSign ? null :
-            <GoodInfoCell title="签收" num={orderInfo.signNum} unit={orderInfo.goodsUnit} />;
+            <GoodInfoCell title="签收" num={orderInfo.signNum} unit={orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0' ? orderInfo.goodsUnit : 'Kg'} />;
         const notSignView = isSign ? null :
-            <GoodInfoCell title="拒收" num={orderInfo.refuseNum} unit={orderInfo.goodsUnit} style={{width: 127}} />;
+            <GoodInfoCell
+                title="拒收" num={orderInfo.refuseNum}
+                unit={orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0' ? orderInfo.goodsUnit : 'Kg'}
+                style={{width: 127}}
+            />;
         const showSignView = isSign ? null : <View>
             <View style={{marginTop: 10}}>
                 {signView}
@@ -115,7 +119,11 @@ class OrderDetailProShowItemCell extends Component {
                         }
                     </View>
                     <View style={{marginTop: 10}}>
-                        <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={orderInfo.goodsUnit} style={{width: 127}}/>
+                        {
+                            orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0'?
+                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
+                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={'Kg'} style={{width: 127}}/>
+                        }
                     </View>
                     {showSignView}
                     {showReason}
