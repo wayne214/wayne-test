@@ -3,6 +3,10 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+
+import cn.reactnative.modules.update.UpdateContext;
+import cn.reactnative.modules.update.UpdatePackage;
+
 import com.remobile.toast.RCTToastPackage;
 import com.react.arron.speech.speechModulePackage;
 import com.zmxv.RNSound.RNSoundPackage;
@@ -26,6 +30,8 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class MainApplication extends Application implements ReactApplication {
     private boolean SHUTDOWN_TOAST = false;
     private boolean SHUTDOWN_LOG = false;
@@ -40,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new UpdatePackage(),
                     new speechModulePackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),
@@ -55,6 +62,12 @@ public class MainApplication extends Application implements ReactApplication {
                     new BaiduMapPackage(getApplicationContext()),
                     new PermissionManagerPackage()
             );
+        }
+
+        @Nullable
+        @Override
+        protected String getJSBundleFile() {
+            return UpdateContext.getBundleUrl(MainApplication.this);
         }
     };
 

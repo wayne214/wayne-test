@@ -54,4 +54,5 @@ SophixPatchTool.app
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
-SophixPatchTool.app/
+
+.update
