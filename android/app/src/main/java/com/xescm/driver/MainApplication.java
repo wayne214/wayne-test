@@ -30,8 +30,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 public class MainApplication extends Application implements ReactApplication {
     private boolean SHUTDOWN_TOAST = false;
     private boolean SHUTDOWN_LOG = false;
@@ -64,7 +62,6 @@ public class MainApplication extends Application implements ReactApplication {
             );
         }
 
-        @Nullable
         @Override
         protected String getJSBundleFile() {
             return UpdateContext.getBundleUrl(MainApplication.this);

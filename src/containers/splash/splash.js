@@ -10,8 +10,7 @@ import {
     Platform,
     InteractionManager,
     NativeModules,
-    Alert,
-    Linking
+    Alert
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -26,21 +25,6 @@ import UUID from '../../utils/uuid';
 import ObjectUitls from '../../utils/objectUitls';
 import PermissionManagerAndroid from '../../utils/permissionManagerAndroid';
 
-// 热更新
-import {
-    isFirstTime,
-    isRolledBack,
-    packageVersion,
-    currentVersion,
-    checkUpdate,
-    downloadUpdate,
-    switchVersion,
-    switchVersionLater,
-    markSuccess,
-} from 'react-native-update';
-import updateConfig from '../../../update.json';
-const {appKey} = updateConfig[Platform.OS];
-
 const {width, height} = Dimensions.get('window');
 
 class Splash extends BaseContainer {
@@ -50,13 +34,7 @@ class Splash extends BaseContainer {
         this.skip = this.skip.bind(this);
         this.resetTo = this.resetTo.bind(this);
     }
-    componentWillMount() {
-        if (isFirstTime) {
-            markSuccess();
-        } else if (isRolledBack) {
-            Alert.alert('提示', '刚刚更新失败了,版本被回滚.')
-        }
-    }
+
     componentDidMount() {
         if (Platform.OS === 'android') {
             PermissionManagerAndroid.externalPermission().then((data) => {
@@ -65,41 +43,10 @@ class Splash extends BaseContainer {
 
             })
         }
-        this.checkUpdate();
         this.getInfoForGlobal();
         this.skip();
     }
-    // 下载更新
-    doUpdate = info => {
-        downloadUpdate(info).then(hash => {
-            Alert.alert('提示', '下载完毕,是否重启应用?', [
-                {text: '是', onPress: ()=>{switchVersion(hash);}},
-                {text: '否',},
-                {text: '下次启动时', onPress: ()=>{switchVersionLater(hash);}},
-            ]);
-        }).catch(err => {
-            Alert.alert('提示', '更新失败.');
-        });
-    };
-    // 检查更新
-    checkUpdate = () => {
-        checkUpdate(appKey).then(info => {
-            if (info.expired) { // 应用包(原生部分)已过期
-                Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
-                    {text: '确定', onPress: ()=>{info.downloadUrl && Linking.openURL(info.downloadUrl)}},
-                ]);
-            } else if (info.upToDate) { // 当前已经更新到最新，无需进行更新
-                Alert.alert('提示', '您的应用版本已是最新.');
-            } else {
-                Alert.alert('提示', '检查到新的版本'+info.name+',是否下载?\n'+ info.description, [
-                    {text: '是', onPress: ()=>{this.doUpdate(info)}},
-                    {text: '否',},
-                ]);
-            }
-        }).catch(err => {
-            Alert.alert('提示', '更新失败.');
-        });
-    };
+
     //global赋值
     getInfoForGlobal() {
 
