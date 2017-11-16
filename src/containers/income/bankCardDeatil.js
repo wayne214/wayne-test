@@ -265,7 +265,7 @@ export default class BankCardDeatil extends Component {
 
                             });
                     }}>
-                        <Text style={{marginLeft: 10}}>
+                        <Text style={{marginLeft: 10, fontSize: 16, color: 'black',}}>
                             {
                                 this.state.selectedProvinceName + '  ' + this.state.bankCityName
                             }
@@ -291,7 +291,7 @@ export default class BankCardDeatil extends Component {
                             this.getBranchInfo(BankCode.searchCode(this.state.bank), this.state.bankCityCode);
                     }}>
 
-                        <Text style={{marginLeft: 10}}>
+                        <Text style={{marginLeft: 10, fontSize: 16, color: 'black',}}>
                             {
                                 this.state.branchName
                             }
