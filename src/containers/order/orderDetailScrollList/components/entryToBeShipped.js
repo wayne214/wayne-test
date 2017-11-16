@@ -309,7 +309,7 @@ class entryToBeShipped extends Component {
                 userId: userID,
                 userName,
                 plateNumber,
-                scheduleCode: this.state.scheduleCode,
+                dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
                 this.setState({
