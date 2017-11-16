@@ -66,6 +66,7 @@
 		354F4AC01FBD88020035F679 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AB71FBD88020035F679 /* libssl.a */; };
 		354F4B161FBD8A890035F679 /* libRCTHotUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AF01FBD8A3F0035F679 /* libRCTHotUpdate.a */; };
 		354F4B181FBD8AD20035F679 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4B171FBD8AD20035F679 /* libbz2.1.0.tbd */; };
+		354F4B191FBD8E8A0035F679 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 354F4AC11FBD885E0035F679 /* mapapi.bundle */; };
 		35AC22A71F78B462007D53B5 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 35AC22A61F78B462007D53B5 /* fonts */; };
 		35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */; };
 		35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FD1F79F506007D53B5 /* QuartzCore.framework */; };
@@ -1773,6 +1774,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				354F4B191FBD8E8A0035F679 /* mapapi.bundle in Resources */,
 				C679B91B1FBD2F95004BFCC0 /* Default-568.png in Resources */,
 				C679B91C1FBD2F95004BFCC0 /* Default-568@2x.png in Resources */,
 				C679B9161FBD2F8F004BFCC0 /* launch4.png in Resources */,
