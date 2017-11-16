@@ -53,11 +53,11 @@
 		2DCD954D1E0B4F2C00145EB5 /* DriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DriverTests.m */; };
 		34F6E74EEBE7465883BA7A9F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */; };
 		351A7D391FA97604003C69B4 /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BEA2141FA88BED003E62AC /* libRCTJPushModule.a */; };
+		354F491A1FBD2AA50035F679 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F49191FBD2A990035F679 /* libRCTBaiduMap.a */; };
 		35AC22A71F78B462007D53B5 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 35AC22A61F78B462007D53B5 /* fonts */; };
 		35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */; };
 		35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FD1F79F506007D53B5 /* QuartzCore.framework */; };
 		35AC23001F79F512007D53B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FF1F79F512007D53B5 /* OpenGLES.framework */; };
-		35DB39F81FBC2E6C008BED79 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DB39F71FBC2E5C008BED79 /* libRCTBaiduMap.a */; };
 		35DB3A041FBC2FEA008BED79 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DB39FA1FBC2FC2008BED79 /* BaiduMapAPI_Base.framework */; };
 		35DB3A051FBC2FEA008BED79 /* BaiduMapAPI_Cloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DB39FB1FBC2FC2008BED79 /* BaiduMapAPI_Cloud.framework */; };
 		35DB3A061FBC2FEA008BED79 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DB39FC1FBC2FC2008BED79 /* BaiduMapAPI_Location.framework */; };
@@ -84,6 +84,13 @@
 		B024C4571F8CBED100F1D0A9 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B024C45A1F8CBED700F1D0A9 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; };
 		B024C45B1F8CBED700F1D0A9 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C679B9161FBD2F8F004BFCC0 /* launch4.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A611FBC3CDF008BED79 /* launch4.png */; };
+		C679B9171FBD2F8F004BFCC0 /* launch5.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A621FBC3CDF008BED79 /* launch5.png */; };
+		C679B9181FBD2F8F004BFCC0 /* launch6.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A631FBC3CDF008BED79 /* launch6.png */; };
+		C679B9191FBD2F8F004BFCC0 /* launch7.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A641FBC3CDF008BED79 /* launch7.png */; };
+		C679B91A1FBD2F8F004BFCC0 /* launchX.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A651FBC3CDF008BED79 /* launchX.png */; };
+		C679B91B1FBD2F95004BFCC0 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A5F1FBC3CDF008BED79 /* Default-568.png */; };
+		C679B91C1FBD2F95004BFCC0 /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35DB3A601FBC3CDF008BED79 /* Default-568@2x.png */; };
 		C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1FAC2F551F73ACD1004DF4C6 /* ding.mp3 */; };
 		CA6ACBD40B434085949A633E /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */; };
 		D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E7B440B9BC4BB1AD99FCEB /* libRCTToast.a */; };
@@ -263,6 +270,13 @@
 			remoteGlobalIDString = 6212E9B41F3990DC00BDF51A;
 			remoteInfo = RCTJCoreModule;
 		};
+		354F49181FBD2A990035F679 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 354F49141FBD2A990035F679 /* RCTBaiduMap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EF3C22561CC2C30D0099E9B6;
+			remoteInfo = RCTBaiduMap;
+		};
 		35BC82281F73AD75005CD20C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -297,13 +311,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
-		};
-		35DB39F61FBC2E5C008BED79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 35DB39F21FBC2E5C008BED79 /* RCTBaiduMap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EF3C22561CC2C30D0099E9B6;
-			remoteInfo = RCTBaiduMap;
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -508,6 +515,7 @@
 		327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		3435735946DF462E8035CEE1 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		351A7D331FA975CE003C69B4 /* RCTJCoreModule.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTJCoreModule.xcodeproj; path = "../node_modules/jcore-react-native/ios/RCTJCoreModule.xcodeproj"; sourceTree = "<group>"; };
+		354F49141FBD2A990035F679 /* RCTBaiduMap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBaiduMap.xcodeproj; path = "../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap.xcodeproj"; sourceTree = "<group>"; };
 		35AC22A61F78B462007D53B5 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35AC22FD1F79F506007D53B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -525,7 +533,6 @@
 		35DB39E41FBC2C75008BED79 /* BaiduMapAPI_Utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Utils.framework; path = "../node_modules/react-native-baidu-map-xzx/ios/lib/BaiduMapAPI_Utils.framework"; sourceTree = "<group>"; };
 		35DB39EC1FBC2D25008BED79 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../node_modules/react-native-baidu-map-xzx/ios/lib/thirdlibs/libcrypto.a"; sourceTree = "<group>"; };
 		35DB39ED1FBC2D25008BED79 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../node_modules/react-native-baidu-map-xzx/ios/lib/thirdlibs/libssl.a"; sourceTree = "<group>"; };
-		35DB39F21FBC2E5C008BED79 /* RCTBaiduMap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBaiduMap.xcodeproj; path = "../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap.xcodeproj"; sourceTree = "<group>"; };
 		35DB39FA1FBC2FC2008BED79 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		35DB39FB1FBC2FC2008BED79 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
 		35DB39FC1FBC2FC2008BED79 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
@@ -592,6 +599,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				354F491A1FBD2AA50035F679 /* libRCTBaiduMap.a in Frameworks */,
 				35DB3A0B1FBC2FFA008BED79 /* libcrypto.a in Frameworks */,
 				35DB3A0C1FBC2FFA008BED79 /* libssl.a in Frameworks */,
 				35DB3A041FBC2FEA008BED79 /* BaiduMapAPI_Base.framework in Frameworks */,
@@ -601,7 +609,6 @@
 				35DB3A081FBC2FEA008BED79 /* BaiduMapAPI_Radar.framework in Frameworks */,
 				35DB3A091FBC2FEA008BED79 /* BaiduMapAPI_Search.framework in Frameworks */,
 				35DB3A0A1FBC2FEA008BED79 /* BaiduMapAPI_Utils.framework in Frameworks */,
-				35DB39F81FBC2E6C008BED79 /* libRCTBaiduMap.a in Frameworks */,
 				1FAC30391F73BB20004DF4C6 /* libsqlite3.0.tbd in Frameworks */,
 				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
 				263FAD2C6F43480EAB06FC29 /* CoreTelephony.framework in Frameworks */,
@@ -929,6 +936,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		354F49151FBD2A990035F679 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				354F49191FBD2A990035F679 /* libRCTBaiduMap.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		35BEA2031FA88BED003E62AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,14 +973,6 @@
 			isa = PBXGroup;
 			children = (
 				35CEC8151F8CC3B000EB8A7B /* libRNSound.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		35DB39F31FBC2E5C008BED79 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				35DB39F71FBC2E5C008BED79 /* libRCTBaiduMap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1029,7 +1036,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				35DB39F21FBC2E5C008BED79 /* RCTBaiduMap.xcodeproj */,
+				354F49141FBD2A990035F679 /* RCTBaiduMap.xcodeproj */,
 				351A7D331FA975CE003C69B4 /* RCTJCoreModule.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -1277,8 +1284,8 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
-					ProductGroup = 35DB39F31FBC2E5C008BED79 /* Products */;
-					ProjectRef = 35DB39F21FBC2E5C008BED79 /* RCTBaiduMap.xcodeproj */;
+					ProductGroup = 354F49151FBD2A990035F679 /* Products */;
+					ProjectRef = 354F49141FBD2A990035F679 /* RCTBaiduMap.xcodeproj */;
 				},
 				{
 					ProductGroup = 1F9176271F7B925400F68EFB /* Products */;
@@ -1534,6 +1541,13 @@
 			remoteRef = 351A7D371FA975CE003C69B4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		354F49191FBD2A990035F679 /* libRCTBaiduMap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBaiduMap.a;
+			remoteRef = 354F49181FBD2A990035F679 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		35BC82291F73AD75005CD20C /* libthird-party.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1567,13 +1581,6 @@
 			fileType = archive.ar;
 			path = libRNSound.a;
 			remoteRef = 35CEC8141F8CC3B000EB8A7B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		35DB39F71FBC2E5C008BED79 /* libRCTBaiduMap.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTBaiduMap.a;
-			remoteRef = 35DB39F61FBC2E5C008BED79 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1730,6 +1737,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C679B91B1FBD2F95004BFCC0 /* Default-568.png in Resources */,
+				C679B91C1FBD2F95004BFCC0 /* Default-568@2x.png in Resources */,
+				C679B9161FBD2F8F004BFCC0 /* launch4.png in Resources */,
+				C679B9171FBD2F8F004BFCC0 /* launch5.png in Resources */,
+				C679B9181FBD2F8F004BFCC0 /* launch6.png in Resources */,
+				C679B9191FBD2F8F004BFCC0 /* launch7.png in Resources */,
+				C679B91A1FBD2F8F004BFCC0 /* launchX.png in Resources */,
 				35DB3A121FBC32F7008BED79 /* mapapi.bundle in Resources */,
 				C696D09E1FB9B370005B02F4 /* ding.mp3 in Resources */,
 				35AC22A71F78B462007D53B5 /* fonts in Resources */,
