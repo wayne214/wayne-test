@@ -37,6 +37,7 @@ import Loading from '../../utils/loading';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import JPushModule from 'jpush-react-native';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -172,12 +173,17 @@ class Login extends BaseContainer {
 
 
     componentDidMount() {
-        Geolocation.getCurrentPosition().then(data => {
-            console.log('position..........', JSON.stringify(data));
-            locationData = data;
-        }).catch(e => {
-            console.log(e, 'error');
+        PermissionsAndroid.locationPermission().then((data) => {
+            Geolocation.getCurrentPosition().then(data => {
+                console.log('position..........', JSON.stringify(data));
+                locationData = data;
+            }).catch(e => {
+                console.log(e, 'error');
+            });
+        }, (err) => {
+            Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
         });
+
 
     }
 
