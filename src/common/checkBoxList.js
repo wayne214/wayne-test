@@ -234,7 +234,7 @@ class CheckboxList extends Component {
         }
         if (this.isSelected(option)) {
             if (!option.hasOwnProperty('carStatus')) {
-                return (<Text style={[styles.itemText, {color: StaticColor.COLOR_MAIN}]}>{option.departureCityArrayName}</Text>);
+                return (<Text style={[styles.itemText, {color: StaticColor.BLUE_CONTACT_COLOR}]}>{option.departureCityArrayName}</Text>);
             } else {
                 return (<Text style={styles.itemText}>{option.carNum}</Text>);
             }
