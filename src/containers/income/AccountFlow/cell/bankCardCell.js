@@ -59,8 +59,9 @@ export default class BankCardCell extends Component {
                         flexDirection: 'row',
                         marginHorizontal: 10,
                         height: imageHeight,
-                        marginTop: 10
-                    }]}>
+                        marginTop: 10,
+                        backgroundColor: 'transparent',
+                     }]}>
                         <Image style={{position: 'absolute', width: imageWidth, height: imageHeight}} source={bgImage}/>
                         <View style={{
                             flex: 1,
@@ -101,11 +102,11 @@ export default class BankCardCell extends Component {
 
                                 <Text
                                     style={{
-                                        marginTop: 20,
                                         color: '#fff',
                                         fontSize: 13,
-                                        marginBottom: 20,
-                                        backgroundColor: 'transparent'
+                                        backgroundColor: 'transparent',
+                                        bottom: 10,
+                                        position: 'absolute'
                                     }}>
                                     {bankAccount}
                                 </Text>
