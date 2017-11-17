@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     stateText: {
         fontSize: 14,
-        color: StaticColor.BLUE_TEXT_COLOR,
+        color: StaticColor.BLUE_CONTACT_COLOR,
         textAlign: 'right',
     },
     stateView: {

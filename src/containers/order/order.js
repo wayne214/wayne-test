@@ -1020,6 +1020,7 @@ let transCodeListData3 = [];
                     //page={this.props.orderTab}
                     tabBarUnderlineStyle={styles.tabBarUnderLine}
                     // prerenderingSiblingsNumber={0}
+                    locked={true}
                     renderTabBar={() =>
                         <ScrollableTabBar
                             activeTextColor={StaticColor.BLUE_CONTACT_COLOR}
