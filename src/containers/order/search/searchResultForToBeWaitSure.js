@@ -70,7 +70,7 @@ class searchResultForToBeWaitSure extends Component {
         this.state = {
             data: params,
             buttonTitle: '回单',
-            buttonBgColor: StaticColor.COLOR_MAIN,
+            buttonBgColor: StaticColor.BLUE_CONTACT_COLOR,
             buttonDisable: false,
             showGoodList: false,
             loading: false,

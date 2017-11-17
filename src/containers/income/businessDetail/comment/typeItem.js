@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import StaticImages from '../../../../constants/staticImage';
+import * as StaticColor from '../../../../constants/staticColor';
 
 const {width, height} = Dimensions.get('window');
 
@@ -153,13 +154,13 @@ class typeItem extends Component {
                         <TouchableOpacity onPress={()=>{
                             this.cancel();
                         }}>
-                            <Text style={{color: '#999999'}}>取消</Text>
+                            <Text style={{color: StaticColor.COLOR_LIGHT_GRAY_TEXT, fontSize: 18}}>取消</Text>
                         </TouchableOpacity>
-                        <Text style={{color: '#333333', fontWeight: 'bold', fontSize: 17}}>请选择业务类型</Text>
+                        <Text style={{color: StaticColor.LIGHT_BLACK_TEXT_COLOR, fontWeight: 'bold', fontSize: 18}}>请选择业务类型</Text>
                         <TouchableOpacity onPress={()=>{
                             this.sure();
                         }}>
-                            <Text style={{color: '#309ded'}}>确定</Text>
+                            <Text style={{color: StaticColor.BLUE_CONTACT_COLOR, fontSize: 18}}>确定</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -167,27 +168,37 @@ class typeItem extends Component {
                     <View style={styles.downSubViewStyle}>
 
                         <View>
-                            <TouchableOpacity style={[styles.subViewStyle, {borderColor: this.state.isChooseWaitPay ? '#309ded' : '#DCDDDC'}]} onPress={()=>{
-                                this.waitPay();
-                            }}>
+                            <TouchableOpacity
+                                style={[
+                                    styles.subViewStyle, {borderColor: this.state.isChooseWaitPay ? StaticColor.BLUE_BORDER_COLOR : StaticColor.LIGHT_GRAY_TEXT_COLOR}]}
+                                onPress={()=>{
+                                    this.waitPay();
+                                }}
+                            >
                                 <Text>待付款</Text>
                             </TouchableOpacity>
                             {chooseWaitPayImg}
                         </View>
 
                         <View>
-                            <TouchableOpacity style={[styles.subViewStyle, {borderColor: this.state.isChooseSurePay ? '#309ded' : '#DCDDDC'}]} onPress={()=>{
-                                this.surePay();
-                            }}>
+                            <TouchableOpacity
+                                style={[styles.subViewStyle, {borderColor: this.state.isChooseSurePay ? StaticColor.BLUE_BORDER_COLOR : StaticColor.LIGHT_GRAY_TEXT_COLOR}]}
+                                onPress={()=>{
+                                    this.surePay();
+                                }}
+                            >
                                 <Text>已付款</Text>
                             </TouchableOpacity>
                             {chooseSurePayImg}
                         </View>
 
                         <View>
-                            <TouchableOpacity style={[styles.subViewStyle, {borderColor: this.state.isChooseWaitCheck ? '#309ded' : '#DCDDDC'}]} onPress={()=>{
-                                this.waitCheck();
-                            }}>
+                            <TouchableOpacity
+                                style={[styles.subViewStyle, {borderColor: this.state.isChooseWaitCheck ? StaticColor.BLUE_BORDER_COLOR : StaticColor.LIGHT_GRAY_TEXT_COLOR}]}
+                                onPress={()=>{
+                                    this.waitCheck();
+                                }}
+                            >
                                 <Text>待核实发票</Text>
                             </TouchableOpacity>
                             {chooseWaitCheckImg}

@@ -29,7 +29,6 @@ import {
     LIGHT_GRAY_TEXT_COLOR,
     WHITE_COLOR,
     COLOR_VIEW_BACKGROUND,
-    COLOR_MAIN,
 } from '../../constants/staticColor';
 import * as API from '../../constants/api';
 

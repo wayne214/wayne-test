@@ -7,10 +7,11 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import StaticImage from '../../../constants/staticImage';
+import * as StaticColor from '../../../constants/staticColor';
 const styles = StyleSheet.create({
     container: {
         // flex: 1
-        borderColor: '#1b82d1',
+        borderColor: StaticColor.BLUE_CONTACT_COLOR,
         backgroundColor: '#f3f8f8',
         borderWidth: 1,
         borderRadius: 90,
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        color: '#1b82d1',
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 

@@ -1,18 +1,12 @@
 /**
  * 颜色以及屏幕尺寸配置文件
  */
-// 主色调
-export const COLOR_MAIN = '#1B82D1';
 // 分割线
 export const COLOR_SEPARATE_LINE = '#d9d9d9';
 
 export const COLOR_SEPARATE_GRAY_LINE = '#DCDCDC';
 
 export const GRAY_TITLE_COLOR = '#E3E4E6';
-
-export const BLUE_TEXT_COLOR = '#0071FF';
-
-export const CALENDER_ICON_COLOR = '#309DED';
 
 export const RED_TEXT_COLOR = '#FF3333';
 
@@ -57,8 +51,6 @@ export const BLUE_ORDER_TEXT_COLOR = '#59ABFD';
 
 export const GREEN_POINTER_COLOR = '#E1F5ED';
 
-export const YELLOW_PAY_ICON_COLOR = '#FF9E51';
-
 export const RED_CHANGE_PWD_ICON_COLOR = '#FF7856';
 
 export const GREEN_POINTER_TEXT_COLOR = '#33BE85';
@@ -74,5 +66,9 @@ export const BLUE_TAB_BAR_COLOR = '#008AFF';
 export const TITLE_BACKGROUND_COLOR = '#FAFAFA';
 
 export const MINE_ICON_COLOR = '#36B1FF';
+
+export const BLUE_BORDER_COLOR = '#0083FF';
+
+export const CALENDER_ICON_COLOR = '#309DED';
 
 

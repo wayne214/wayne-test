@@ -29,7 +29,6 @@ import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
-import Registered from '../containers/register/registered';
 import RegisterStepOne from '../containers/register/registerStepOne';
 import RegisterStepTwo from '../containers/register/registerStepTwo';
 
@@ -126,12 +125,6 @@ const StackRouteConfigs = {
     },
     Protocol: {
         screen: Protocol,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Registered: {
-        screen: Registered,
         navigationOptions: {
             header: null
         }

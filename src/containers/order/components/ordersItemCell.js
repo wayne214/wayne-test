@@ -56,11 +56,6 @@ const styles = StyleSheet.create({
         marginLeft: width - 100,
         alignItems: 'flex-end',
     },
-    icon: {
-        fontFamily: 'iconfont',
-        fontSize: 16,
-        color: StaticColor.CALENDER_ICON_COLOR,
-    },
     rightArrow: {
         height: 15,
         width: 8,
