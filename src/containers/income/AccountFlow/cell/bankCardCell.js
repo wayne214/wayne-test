@@ -57,8 +57,9 @@ export default class BankCardCell extends Component {
                 <View>
                     <View style={[{
                         flexDirection: 'row',
-                        marginTop: 10,
                         marginHorizontal: 10,
+                        height: imageHeight,
+                        marginTop: 10
                     }]}>
                         <Image style={{position: 'absolute', width: imageWidth, height: imageHeight}} source={bgImage}/>
                         <View style={{
