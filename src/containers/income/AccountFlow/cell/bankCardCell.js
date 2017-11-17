@@ -104,9 +104,10 @@ export default class BankCardCell extends Component {
                                     style={{
                                         color: '#fff',
                                         fontSize: 13,
-                                        backgroundColor: 'transparent',
+                                        backgroundColor: 'red',
                                         bottom: 10,
-                                        position: 'absolute'
+                                        position: 'absolute',
+                                        width: 200
                                     }}>
                                     {bankAccount}
                                 </Text>
