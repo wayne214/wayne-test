@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 import BankCode from '../../../utils/ZJBankCode'
 import NavigationBar from '../../../common/navigationBar/navigationBar';
+import * as ConstValue from '../../../constants/constValue';
+
 
 const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
@@ -129,7 +131,7 @@ export default class ChooseBranch extends Component {
                 <View
                     style={{
                         flexDirection: 'row',
-                        marginTop: 7,
+                        marginTop: ConstValue.StatusBar_Height,
                         marginBottom: 7,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -212,6 +214,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        marginTop: 20,
     },
 });

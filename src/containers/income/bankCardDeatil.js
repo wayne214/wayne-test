@@ -20,7 +20,7 @@ import HTTPRequest from '../../utils/httpRequest';
 import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import StaticImage from '../../constants/staticImage';
 import Toast from '@remobile/react-native-toast';
-import BankCode from '../../utils/bankCode';
+import BankCode from '../../utils/ZJBankCode';
 import Loading from '../../utils/loading';
 
 const {width} = Dimensions.get('window');
@@ -288,7 +288,14 @@ export default class BankCardDeatil extends Component {
                     <Text style={styles.leftTextStyle}>开户支行</Text>
                     <TouchableOpacity style={{width: width - 100, paddingVertical: 10}} onPress={()=>{
                             if (!this.state.bankCityName) return Toast.showShortCenter('请选择开户省市');
-                            this.getBranchInfo(BankCode.searchCode(this.state.bank), this.state.bankCityCode);
+
+                            const NumberArr = BankCode.searchCode();
+                            for (let i = 0; i < NumberArr.length; i++) {
+                                if (NumberArr[i].bankName.indexOf(this.state.bank) > -1) {
+                                    const bankObj = NumberArr[i];
+                                    this.getBranchInfo(bankObj.bankCode, this.state.bankCityCode);
+                                }
+                            }
                     }}>
 
                         <Text style={{marginLeft: 10, fontSize: 16, color: 'black',}}>
