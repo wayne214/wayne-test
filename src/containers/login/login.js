@@ -16,6 +16,7 @@ import {
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager,
+    TouchableOpacity
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -338,23 +339,30 @@ class Login extends BaseContainer {
                             value={password}/>
                         </View>
 
-                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
-                            <Button
-                                isDisabled={!(phoneNumber && password)}
-                                onPress={() => {
+                        <TouchableOpacity 
+                        disabled={!(phoneNumber && password)}
+                        onPress={() => {
                                     dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
                                         this.loginSecretCode();
                                     } else {
                                         Toast.showShortCenter('手机号码输入有误，请重新输入');
                                     }
-                                }}
-                                style={styles.loginButton}
-                                textStyle={styles.loginButtonText}
+                                }}>
+                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
+                            
+                            <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: StaticColor.WHITE_COLOR,
+                                backgroundColor: '#00000000'
+                            }}
                             >
-                                登录
-                            </Button>
+                            登录
+                        </Text>
                         </Image>
+                        </TouchableOpacity>
                         
                         <View style={styles.bottomView}>
                             <View  >
