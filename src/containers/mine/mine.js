@@ -183,6 +183,16 @@ const styles = StyleSheet.create({
     allContainer: {
         flex: 1,
         backgroundColor: StaticColor.WHITE_COLOR,
+    },
+    scrollViewHeight: {
+        ...Platform.select({
+            ios: {
+                height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height,
+            },
+            android: {
+                height: height - 170,
+            },
+        }),
     }
 });
 
@@ -537,8 +547,10 @@ class Mine extends Component {
     // 判断ScrollView滑动到底部
     contentViewScroll(e: Object){
         var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
-        var contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
+        var contentSizeHeight = e.nativeEvent.contentSize.height - 300; //scrollView contentSize高度
         var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+        console.log('fjafd===',ConstValue.NavigationBar_StatusBar_Height,ConstValue.Tabbar_Height,);
+        console.log('滑动距离', offsetY, contentSizeHeight, oriageScrollHeight, height);
         if (offsetY + oriageScrollHeight >= contentSizeHeight){
             console.log('scrollView', 'scrollView滑动到底部事件');
             this.scrollView.scrollTo({x: 0, y: 0, animated: true})
@@ -599,15 +611,15 @@ class Mine extends Component {
                     style={{
                         height: 28,
                         width: 85,
-                        right: 10,
+                        // right: 10,
                         borderRadius: 18,
                         borderWidth: 1,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        position: 'absolute',
-                        bottom: 20,
+                        // position: 'absolute',
+                        // bottom: 20,
                     }}>
                     <Text
                         style={{
@@ -679,44 +691,48 @@ class Mine extends Component {
                                         }
                                     </View>
                                 </TouchableOpacity>
-                                <View style={styles.informView}>
-                                    <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={styles.informView}>
+                                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                            <Text
+                                                style={{
+                                                    fontWeight: 'bold',
+                                                    color: '#FFFFFF',
+                                                    fontSize: 14,
+                                                    backgroundColor: 'transparent',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                {
+                                                    this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                }
+                                            </Text>
+                                            {statusRender}
+                                        </View>
                                         <Text
                                             style={{
-                                                fontWeight: 'bold',
-                                                color: '#FFFFFF',
-                                                fontSize: 14,
+                                                marginTop: 5,
+                                                marginBottom: 10,
                                                 backgroundColor: 'transparent',
-                                                alignItems: 'center',
-                                            }}
-                                        >
+                                                color: '#FFFFFF',
+                                                fontSize: 13
+                                            }}>
                                             {
-                                                this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                             }
                                         </Text>
-                                        {statusRender}
                                     </View>
-                                    <Text
-                                        style={{
-                                            marginTop: 5,
-                                            marginBottom: 10,
-                                            backgroundColor: 'transparent',
-                                            color: '#FFFFFF',
-                                            fontSize: 13
-                                        }}>
-                                        {
-                                            this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
-                                        }
-                                    </Text>
+                                    <View style={{flex: 1}}/>
+                                    {changeCarView}
                                 </View>
                             </View>
-                            {changeCarView}
+                            {/*{changeCarView}*/}
                         </Image>
                         <View style={styles.contentPostionView}>
                             <ScrollView onMomentumScrollEnd={
                                 this.contentViewScroll
                                 // this.scrollView.scrollTo({x: 0, y: 0, animated: true})
-                            } style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}
+                            } style={styles.scrollViewHeight}
                                 ref={(scroll)=>{this.scrollView = scroll}}
                             >
                             <View style={styles.numberView}/>
