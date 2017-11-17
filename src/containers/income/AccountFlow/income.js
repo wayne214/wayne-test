@@ -29,6 +29,7 @@ const {height, width} = Dimensions.get('window');
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+let imageHeight = width *255 / 375;
 
 const styles = StyleSheet.create({
     allContainer: {
@@ -154,14 +155,15 @@ export default class Income extends Component {
             </View>;
         return (
             <View style={styles.allContainer}>
-                <ImageBackground style={{height: height / 3 + 10, width}} source={StaticImage.IncomeBgimage}>
+                <ImageBackground style={{height: imageHeight, width}} source={StaticImage.IncomeBgimage}>
                     {TitleView}
                     <Text style={{
                             fontSize: 18,
                             color: StaticColor.WHITE_COLOR,
                             marginLeft: 10,
                             backgroundColor: 'transparent',
-                            marginTop: 70,
+                            marginTop: imageHeight - ConstValue.NavigationBar_StatusBar_Height - 100,
+                            height: 20
                         }}>账户余额(元)</Text>
                     <Text style={{
                             fontSize: 58,
@@ -169,6 +171,7 @@ export default class Income extends Component {
                             marginLeft: 10,
                             marginTop: 10,
                             backgroundColor: 'transparent',
+                            height: 70
                         }}>{accountMoney}</Text>
                 </ImageBackground>
                 <View style={styles.allContainer}>
