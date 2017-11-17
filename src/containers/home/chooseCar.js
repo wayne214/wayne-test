@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17,
-        color: StaticColor.BLUE_TEXT_COLOR,
+        color: StaticColor.BLUE_CONTACT_COLOR,
         textAlign: 'center',
     },
 });

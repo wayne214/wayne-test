@@ -71,7 +71,7 @@ class searchResultForToBeSignIn extends Component {
         this.state = {
             data: params,
             buttonTitle: '签收',
-            buttonBgColor: StaticColor.COLOR_MAIN,
+            buttonBgColor: StaticColor.BLUE_CONTACT_COLOR,
             buttonDisabled: false,
             showGoodList: false,
             loading: false,

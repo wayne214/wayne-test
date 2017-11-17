@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND
     },
     itemHeaderText: {
-        color: StaticColor.COLOR_MAIN,
+        color: StaticColor.BLUE_CONTACT_COLOR,
         fontWeight: 'bold'
     }
 

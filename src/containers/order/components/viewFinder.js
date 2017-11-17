@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import {
-    COLOR_MAIN,
+    BLUE_CONTACT_COLOR,
 } from '../../../constants/staticColor';
 
 const styles = StyleSheet.create({
@@ -168,7 +168,7 @@ Viewfinder.defaultProps = {
     backgroundColor: 'transparent',
     borderWidth: 3,
     borderLength: 20,
-    color: COLOR_MAIN,
+    color: BLUE_CONTACT_COLOR,
     height: 150,
     isLoading: false,
     width: 300,

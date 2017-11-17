@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     bottomViewText: {
-        fontSize: 14,
-        color: '#666666',
+        fontSize: 15,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
     },
     screenEndView: {
         position: 'absolute',
@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 
