@@ -72,8 +72,10 @@ export default class BankCardCell extends Component {
                                 borderRadius: 25,
                                 marginLeft: 10,
                                 marginTop: 15,
-                                width: 50,
-                                height: 50
+                                width: 44,
+                                height: 44,
+                                alignItems: 'center',
+                                justifyContent: 'center'
                             }}>
                                 {
                                     bankIconUtil.show(accountBank)
