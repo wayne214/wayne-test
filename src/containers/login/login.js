@@ -171,8 +171,23 @@ class Login extends BaseContainer {
 
         this.success = this.success.bind(this);
         this.fail = this.fail.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+
     }
 
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        super.componentWillUnmount();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.password && this.refs.password.blur();
+    }
 
     componentDidMount() {
         if(Platform.OS === 'ios'){
@@ -310,7 +325,7 @@ class Login extends BaseContainer {
                     />
                     </View>
                 }
-                <ScrollView style={{width: width, height: height}}>
+                <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
                         <Image
                             source={StaticImage.LoginTopBg}
@@ -324,6 +339,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>账号</Text>
                             <TextInput
+                            ref='phoneNumber'
                             underlineColorAndroid={'transparent'}
                             placeholder="请输入手机号"
                             placeholderTextColor="#cccccc"
@@ -339,6 +355,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>密码</Text>
                             <TextInput
+                            ref='password'
                             underlineColorAndroid={'transparent'}
                             secureTextEntry={true}
                             placeholder="密码"
@@ -355,11 +372,12 @@ class Login extends BaseContainer {
 
                         <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
                             <Button
-                                isDisabled={!(phoneNumber && smsCode)}
+                                ref='button'
+                                isDisabled={!(phoneNumber && password)}
                                 style={styles.loginButton}
                                 textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
-                                    dismissKeyboard();
+                                    // dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
                                         this.loginSecretCode();
                                     } else {
@@ -403,7 +421,7 @@ class Login extends BaseContainer {
 
                     
                     
-                </ScrollView>
+                </KeyboardAwareScrollView>
                 <View style={styles.screenEndView}>
                         <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
                         <Text
