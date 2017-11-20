@@ -200,7 +200,6 @@ class LoginSms extends BaseContainer {
     }
 
     componentWillUnmount () {
-        super.componentWillUnmount();
         this.keyboardDidHideListener.remove();
     }
 
