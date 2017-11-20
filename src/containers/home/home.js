@@ -29,6 +29,8 @@ import { NavigationActions } from 'react-navigation';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 import * as ConstValue from '../../constants/constValue';
+import Speeker from '../../utils/BDSpeech';
+
 import {
     WHITE_COLOR,
     BLUE_CONTACT_COLOR,
@@ -540,7 +542,11 @@ class Home extends Component {
     // 语音播报内容
     speechContent(message, voiceType) {
         if (this.props.speechSwitchStatus) {
-            Speech.speak(message, voiceType);
+
+            if (Platform.OS === 'ios') {
+                Speeker.speek(message);
+            }else
+                Speech.speak(message, voiceType);
         }
     }
 
@@ -1058,6 +1064,8 @@ class Home extends Component {
                             height: 17,
                         },
                         onClick: () => {
+
+
                             this.props.setMessageListIcon(false);
                             Storage.save(StorageKey.newMessageFlag, '0');
                             this.pushToMsgList();
