@@ -876,7 +876,7 @@ class Mine extends Component {
                                     {/*}}*/}
                                 {/*/>*/}
 
-                                <View style={styles.separateView}/>
+                                {/*<View style={styles.separateView}/>*/}
 
                                 <SettingCell
                                     leftIcon="&#xe630;"

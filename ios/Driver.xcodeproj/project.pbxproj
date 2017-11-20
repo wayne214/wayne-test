@@ -73,6 +73,7 @@
 		9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FCABD8063846A783E608E8 /* libRNFS.a */; };
 		A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BA98A06BC45FD94546BFF /* libRNSound.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B0227CE91FC2C0B2002D684A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */; };
 		B024C4561F8CBED100F1D0A9 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; };
 		B024C4571F8CBED100F1D0A9 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B024C45A1F8CBED700F1D0A9 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; };
@@ -82,7 +83,6 @@
 		C630DB871FC2B669004FBBA2 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB861FC2B669004FBBA2 /* libz.1.2.5.tbd */; };
 		C630DB891FC2B67B004FBBA2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB881FC2B67B004FBBA2 /* libc++.tbd */; };
 		C630DB8B1FC2B680004FBBA2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB8A1FC2B680004FBBA2 /* AVFoundation.framework */; };
-		C630DB8C1FC2B68C004FBBA2 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB2E1FC2B630004FBBA2 /* libBaiduSpeechSDK.a */; };
 		C630DB8D1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Female.dat in Resources */ = {isa = PBXBuildFile; fileRef = C630DB4F1FC2B630004FBBA2 /* Chinese_And_English_Speech_Female.dat */; };
 		C630DB8E1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Male.dat in Resources */ = {isa = PBXBuildFile; fileRef = C630DB501FC2B630004FBBA2 /* Chinese_And_English_Speech_Male.dat */; };
 		C630DB8F1FC2B6A2004FBBA2 /* Chinese_And_English_Text.dat in Resources */ = {isa = PBXBuildFile; fileRef = C630DB511FC2B630004FBBA2 /* Chinese_And_English_Text.dat */; };
@@ -581,6 +581,7 @@
 		A04586FBBBAD4E47BF5BD5AF /* CoreGraphics.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A436F46E678742D1B529CF67 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B345F53D24B04B05BDAEB472 /* speech.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = speech.xcodeproj; path = "../node_modules/native-speech/ios/speech/speech.xcodeproj"; sourceTree = "<group>"; };
@@ -607,7 +608,6 @@
 		C630DB2A1FC2B630004FBBA2 /* BDSSynthesizerLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDSSynthesizerLogLevel.h; sourceTree = "<group>"; };
 		C630DB2B1FC2B630004FBBA2 /* BDSTTSEventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDSTTSEventManager.h; sourceTree = "<group>"; };
 		C630DB2D1FC2B630004FBBA2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		C630DB2E1FC2B630004FBBA2 /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		C630DB321FC2B630004FBBA2 /* 810_selfDef_ios.easr_com.baidu.lbs.CarLifetest.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = 810_selfDef_ios.easr_com.baidu.lbs.CarLifetest.dat; sourceTree = "<group>"; };
 		C630DB331FC2B630004FBBA2 /* bds_easr_basic_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_basic_model.dat; sourceTree = "<group>"; };
 		C630DB341FC2B630004FBBA2 /* bds_easr_dnn_wakeup_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_dnn_wakeup_model.dat; sourceTree = "<group>"; };
@@ -678,7 +678,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C630DB8C1FC2B68C004FBBA2 /* libBaiduSpeechSDK.a in Frameworks */,
+				B0227CE91FC2C0B2002D684A /* libBaiduSpeechSDK.a in Frameworks */,
 				C630DB8B1FC2B680004FBBA2 /* AVFoundation.framework in Frameworks */,
 				C630DB891FC2B67B004FBBA2 /* libc++.tbd in Frameworks */,
 				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -1295,8 +1295,8 @@
 		C630DB2C1FC2B630004FBBA2 /* BDSClientLib */ = {
 			isa = PBXGroup;
 			children = (
+				B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */,
 				C630DB2D1FC2B630004FBBA2 /* .gitignore */,
-				C630DB2E1FC2B630004FBBA2 /* libBaiduSpeechSDK.a */,
 			);
 			path = BDSClientLib;
 			sourceTree = "<group>";
