@@ -180,7 +180,7 @@ export default class MyBankCard extends Component {
                             height:height - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                         },
                         android: {
-                            height:height - 50 - 20,
+                            height:height - 50 - 20 - 58
                         },
                     }),
                 }}>
@@ -267,11 +267,18 @@ export default class MyBankCard extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        height: 58,
+                        height: 60,
                         backgroundColor: 'transparent',
-                        position: 'absolute',
-                        bottom: 10,
-                        alignSelf: 'center'
+                        ...Platform.select({
+                            ios: {
+                                position: 'absolute',
+                                bottom: 20,
+                                alignSelf: 'center',
+                            },
+                            android: {
+
+                            }
+                        })
                     }}>
                         <Image source={require('../../../assets/income/addBankCar.png')}/>
                     </View>
