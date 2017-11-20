@@ -29,6 +29,8 @@ import { NavigationActions } from 'react-navigation';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 import * as ConstValue from '../../constants/constValue';
+import Speeker from '../../utils/BDSpeech';
+
 import {
     WHITE_COLOR,
     BLUE_CONTACT_COLOR,
@@ -541,6 +543,7 @@ class Home extends Component {
     speechContent(message) {
         if (this.props.speechSwitchStatus) {
             Speech.speak(message);
+            Speeker.speek('您有新的货源，请注意查收');
         }
     }
 
@@ -1058,6 +1061,8 @@ class Home extends Component {
                             height: 17,
                         },
                         onClick: () => {
+
+
                             this.props.setMessageListIcon(false);
                             Storage.save(StorageKey.newMessageFlag, '0');
                             this.pushToMsgList();
