@@ -71,4 +71,6 @@ export const BLUE_BORDER_COLOR = '#0083FF';
 
 export const CALENDER_ICON_COLOR = '#309DED';
 
+export const BLACK_DETAIL_TEXT_COLOR = '#151515';
+
 

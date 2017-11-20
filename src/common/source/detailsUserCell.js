@@ -16,7 +16,7 @@ import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
     dressIconStyle: {
-        marginLeft: 20,
+        marginLeft: 10,
     }
 });
 
@@ -49,7 +49,7 @@ class DetailsUserCell extends Component {
                             isShowContactAndPhone ? <View
                                 style={{
                                     flexDirection: 'row',
-                                    paddingLeft: 40,
+                                    paddingLeft: 35,
                                     marginBottom: 10,
                                     justifyContent: 'space-between',
                                 }}
@@ -57,7 +57,7 @@ class DetailsUserCell extends Component {
                                 <Text
                                     style={{
                                         fontSize: 15,
-                                        paddingLeft: 10,
+                                        // paddingLeft: 10,
                                         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                                     }}
                                 >
