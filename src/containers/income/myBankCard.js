@@ -213,7 +213,7 @@ export default class MyBankCard extends Component {
                                                 //color: 'white',
                                                 component: [<View style={{justifyContent: 'center', height: 130}}>
                                                     <View style={{backgroundColor: 'white', width: 40, height: 40, justifyContent: 'center', marginLeft: 15, borderRadius: 20}}>
-                                                        <Text style={{backgroundColor: 'transparent' ,fontFamily: 'iconfont', color: '#E66D65', textAlign: 'center'}}>&#xe641;</Text>
+                                                        <Text style={{backgroundColor: 'transparent' ,fontFamily: 'iconfont', color: '#E66D65', textAlign: 'center', fontSize: 20}}>&#xe641;</Text>
                                                     </View>
                                                 </View>],
                                                 onPress: ()=>{
