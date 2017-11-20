@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: 'center',
         height: 130,
-        width: screenWidth - 20
+        width: screenWidth - 40
     },
     constantStyle: {
         flexDirection: 'row',
