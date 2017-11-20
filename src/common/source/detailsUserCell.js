@@ -108,7 +108,7 @@ class DetailsUserCell extends Component {
                     </View>
                 </View>
                 <View
-                    style={{height: 1, backgroundColor: '#f5f5f5', marginLeft: 20, marginTop: 5}}
+                    style={{height: 1, backgroundColor: '#f5f5f5', marginLeft: 10, marginTop: 5}}
                 />
             </View>
         );
