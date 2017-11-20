@@ -130,10 +130,11 @@ class entryToBeSignin extends Component {
     }
 
     renderTitle (index, array) {
-        if (array[index].transOrderStatsu === '5'
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '34')
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '38')
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '40')) {
+        if (array[index].transOrderStatsu === '5' && array[index].isEndDistribution === 'Y'){
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '32')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '34')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '38')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '40')) {
             this.setState({
                 isShowRightButton: true
             });
@@ -351,10 +352,8 @@ class entryToBeSignin extends Component {
         const navigator = this.props.navigation;
         console.log('this.state.datas=====',this.state.datas);
         const subOrderPage = this.state.datas.map((item, index) => {
-            if (item.transOrderStatsu === '5'
-                || (item.isEndDistribution === 'N' && item.statusCode === '34')
-                || (item.isEndDistribution === 'N' && item.statusCode === '38')
-                || (item.isEndDistribution === 'N' && item.statusCode === '40')) { // 已回单5
+            if (item.transOrderStatsu === '5' && item.isEndDistribution === 'Y'
+                || (item.isEndDistribution === 'N' && item.arriveFlag === true)) { // 已回单5
                 return (
                     <EntryToBeSure
                         key={index}
@@ -385,7 +384,7 @@ class entryToBeSignin extends Component {
                 );
             }
 
-            if (item.transOrderStatsu === '4') { // 待回单4
+            if (item.transOrderStatsu === '4' && item.isEndDistribution === 'Y') { // 待回单4
                 return (
                     <EntryToBeWaitSure
                         {...this.props}
@@ -419,7 +418,8 @@ class entryToBeSignin extends Component {
                 );
             }
 
-            if (item.transOrderStatsu === '3') { // 待签收3
+            if (item.transOrderStatsu === '3' && item.isEndDistribution === 'Y'
+            || (item.isEndDistribution === 'N' && item.arriveFlag === false)) { // 待签收3
                 return (
                     <EntryToBeSignIn
                         key={index}
