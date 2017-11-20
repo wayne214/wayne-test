@@ -16,6 +16,8 @@ import {
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -308,7 +310,7 @@ class Login extends BaseContainer {
                     />
                     </View>
                 }
-                <KeyboardAwareScrollView style={{width: width, height: height}}>
+                <ScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
                         <Image
                             source={StaticImage.LoginTopBg}
@@ -353,7 +355,9 @@ class Login extends BaseContainer {
 
                         <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
                             <Button
-                                isDisabled={!(phoneNumber && password)}
+                                isDisabled={!(phoneNumber && smsCode)}
+                                style={styles.loginButton}
+                                textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
                                     dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
@@ -362,13 +366,10 @@ class Login extends BaseContainer {
                                         Toast.showShortCenter('手机号码输入有误，请重新输入');
                                     }
                                 }}
-                                style={styles.loginButton}
-                                textStyle={styles.loginButtonText}
                             >
                                 登录
                             </Button>
                         </Image>
-                        
                         <View style={styles.bottomView}>
                             <View  >
                                 <Text
@@ -402,7 +403,7 @@ class Login extends BaseContainer {
 
                     
                     
-                </KeyboardAwareScrollView>
+                </ScrollView>
                 <View style={styles.screenEndView}>
                         <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
                         <Text
