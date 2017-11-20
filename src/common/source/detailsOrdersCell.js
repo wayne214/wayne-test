@@ -79,7 +79,7 @@ class DetailsOrdersCell extends Component {
 
                 {/*<Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>*/}
 
-                <View style={styles.separateLineStyle} />
+                {/*<View style={styles.separateLineStyle} />*/}
 
                 <View style={{paddingTop: 15}}>
                     {/*{goodsView}*/}

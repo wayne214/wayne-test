@@ -16,6 +16,8 @@ import {
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -169,8 +171,22 @@ class Login extends BaseContainer {
 
         this.success = this.success.bind(this);
         this.fail = this.fail.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+
     }
 
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.password && this.refs.password.blur();
+    }
 
     componentDidMount() {
         if(Platform.OS === 'ios'){
@@ -322,6 +338,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>账号</Text>
                             <TextInput
+                            ref='phoneNumber'
                             underlineColorAndroid={'transparent'}
                             placeholder="请输入手机号"
                             placeholderTextColor="#cccccc"
@@ -337,6 +354,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>密码</Text>
                             <TextInput
+                            ref='password'
                             underlineColorAndroid={'transparent'}
                             secureTextEntry={true}
                             placeholder="密码"
@@ -353,22 +371,22 @@ class Login extends BaseContainer {
 
                         <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
                             <Button
+                                ref='button'
                                 isDisabled={!(phoneNumber && password)}
+                                style={styles.loginButton}
+                                textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
-                                    dismissKeyboard();
+                                    // dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
                                         this.loginSecretCode();
                                     } else {
                                         Toast.showShortCenter('手机号码输入有误，请重新输入');
                                     }
                                 }}
-                                style={styles.loginButton}
-                                textStyle={styles.loginButtonText}
                             >
                                 登录
                             </Button>
                         </Image>
-                        
                         <View style={styles.bottomView}>
                             <View  >
                                 <Text
