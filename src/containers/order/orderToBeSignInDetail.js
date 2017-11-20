@@ -125,6 +125,12 @@ export default class orderToBeSignInDetail extends Component {
         } = this.props;
 
         return (
+            <View style={{
+                ...Platform.select({
+                    ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
+                    android:{height: screenHeight - topHeight - 73}
+                })
+            }}>
             <View
                 style={{
                     backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
@@ -134,8 +140,8 @@ export default class orderToBeSignInDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
-                            android:{height: screenHeight - topHeight - 73}
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - 45},
+                            android:{height: screenHeight - topHeight - 73 - 45}
                     })
                 }}
             >
@@ -225,16 +231,17 @@ export default class orderToBeSignInDetail extends Component {
                         dispatchTimeAgain={dispatchTimeAgain}
                     />
                 </ScrollView>
-                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13,}} />
+            </View>
                 {
                     settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1'?
-                    <BottomButton
-                        text={'签收'}
-                        onClick={() => {
-                            this.props.signIn();
-                        }}
-                        buttonDisabled={this.state.buttonDisabled}
-                    /> : <ChooseButton
+                        <BottomButton
+                            text={'签收'}
+                            onClick={() => {
+                                this.props.signIn();
+                            }}
+                            buttonDisabled={this.state.buttonDisabled}
+                        /> : <ChooseButton
                         leftContent={'收款'}
                         rightContent={'签收'}
                         leftClick={() => {
