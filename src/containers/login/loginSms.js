@@ -11,6 +11,7 @@ import {
     TextInput,
     Image,
     Dimensions,
+    Keyboard,
     TouchableOpacity,
 } from 'react-native';
 
@@ -150,8 +151,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     bottomViewText: {
-        fontSize: 14,
-        color: '#666666',
+        fontSize: 15,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
         alignItems: 'center',
 
     },
@@ -168,12 +169,12 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 
@@ -191,6 +192,21 @@ class LoginSms extends BaseContainer {
         this.clearSmsCodeNum = this.clearSmsCodeNum.bind(this);
         this.login = this.login.bind(this);
         this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+    }
+
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        super.componentWillUnmount();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.smsCode && this.refs.smsCode.blur();
     }
 
     componentDidMount() {
@@ -343,6 +359,7 @@ class LoginSms extends BaseContainer {
                                 </Text>
                             </View>
                             <TextInput
+                                ref='phoneNumber'
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInputStyle}
                                 value={phoneNumber}
@@ -380,6 +397,7 @@ class LoginSms extends BaseContainer {
                                 </Text>
                             </View>
                             <TextInput
+                                ref='smsCode'
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInputStyle}
                                 value={this.state.smsCode}
@@ -387,6 +405,7 @@ class LoginSms extends BaseContainer {
                                     this.setState({smsCode});
                                 }}
                                 placeholder="请输入验证码"
+                                keyboardType="numeric"
                                 placeholderTextColor="#cccccc"
                                 textAlign="left"
                                 returnKeyType='done'/>

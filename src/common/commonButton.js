@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginLeft: 20,
         marginRight: 20,
-        backgroundColor: StaticColor.COLOR_MAIN,
+        backgroundColor: StaticColor.BLUE_CONTACT_COLOR,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,

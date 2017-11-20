@@ -11,7 +11,8 @@ import {
     Dimensions,
     TouchableOpacity,
     ListView,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Platform
 } from 'react-native';
 import HTTPRequest from '../../utils/httpRequest';
 import NavigationBar from '../../common/navigationBar/navigationBar';
@@ -174,7 +175,14 @@ export default class MyBankCard extends Component {
 
                 <View style={{
                     width,
-                    height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
+                     ...Platform.select({
+                        ios: {
+                            height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
+                        },
+                        android: {
+                            height:height - 50 - 20 -58
+                        },
+                    }),
                 }}>
                     {
                         isEmpty ?
@@ -258,7 +266,8 @@ export default class MyBankCard extends Component {
                     <View style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        flexDirection: 'row'
+                        flexDirection: 'row',
+                        height: 58
                     }}>
                         <Image source={require('../../../assets/income/addBankCar.png')}/>
                     </View>

@@ -45,7 +45,7 @@ export default class RadioButton extends Component {
     isSelected() {
         if (this.props.isSelected) {
             // return <View style={this.getRadioDotStyle()}/>
-            return <Text style={{fontSize: 15, fontFamily: 'iconfont', color: StaticColor.COLOR_MAIN, marginRight: 20}}>&#xe616;</Text>
+            return <Text style={{fontSize: 15, fontFamily: 'iconfont', color: StaticColor.BLUE_CONTACT_COLOR, marginRight: 20}}>&#xe616;</Text>
         } else {
             return <View />
         }

@@ -16,6 +16,8 @@ import {
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -129,8 +131,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     bottomViewText: {
-        fontSize: 14,
-        color: '#666666',
+        fontSize: 15,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
     },
     screenEndView: {
         position: 'absolute',
@@ -145,12 +147,12 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 
@@ -169,8 +171,23 @@ class Login extends BaseContainer {
 
         this.success = this.success.bind(this);
         this.fail = this.fail.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+
     }
 
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        super.componentWillUnmount();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.password && this.refs.password.blur();
+    }
 
     componentDidMount() {
         if(Platform.OS === 'ios'){
@@ -243,7 +260,7 @@ class Login extends BaseContainer {
                     let isBind = responseData.result.isBind;
                     console.log('-lqq---isBind',isBind);
                     // TODO 暂时关掉登录验证
-                    if(!isBind){//继续登录操作
+                    if(true){//继续登录操作
                         lastTime = new Date().getTime();
 
                         ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
@@ -322,6 +339,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>账号</Text>
                             <TextInput
+                            ref='phoneNumber'
                             underlineColorAndroid={'transparent'}
                             placeholder="请输入手机号"
                             placeholderTextColor="#cccccc"
@@ -337,6 +355,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>密码</Text>
                             <TextInput
+                            ref='password'
                             underlineColorAndroid={'transparent'}
                             secureTextEntry={true}
                             placeholder="密码"
@@ -353,22 +372,22 @@ class Login extends BaseContainer {
 
                         <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
                             <Button
+                                ref='button'
                                 isDisabled={!(phoneNumber && password)}
+                                style={styles.loginButton}
+                                textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
-                                    dismissKeyboard();
+                                    // dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
                                         this.loginSecretCode();
                                     } else {
                                         Toast.showShortCenter('手机号码输入有误，请重新输入');
                                     }
                                 }}
-                                style={styles.loginButton}
-                                textStyle={styles.loginButtonText}
                             >
                                 登录
                             </Button>
                         </Image>
-                        
                         <View style={styles.bottomView}>
                             <View  >
                                 <Text

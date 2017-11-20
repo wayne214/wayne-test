@@ -15,11 +15,6 @@ import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
-    iconFont: {
-        fontFamily: 'iconfont',
-        color: StaticColor.CALENDER_ICON_COLOR,
-        fontSize: 18,
-    },
     dressIconStyle: {
         marginLeft: 20,
     }

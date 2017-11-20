@@ -31,7 +31,7 @@ import WeatherCell from './components/weatherCell';
 import * as ConstValue from '../../constants/constValue';
 import {
     WHITE_COLOR,
-    BLUE_TEXT_COLOR,
+    BLUE_CONTACT_COLOR,
     DEVIDE_LINE_COLOR,
     COLOR_SEPARATE_LINE,
     LIGHT_GRAY_TEXT_COLOR,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17,
-        color: BLUE_TEXT_COLOR,
+        color: BLUE_CONTACT_COLOR,
         textAlign: 'center',
     },
     dot: {
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     activeDot: {
         width: 6,
         height: 6,
-        backgroundColor: BLUE_TEXT_COLOR,
+        backgroundColor: BLUE_CONTACT_COLOR,
         borderRadius: 3,
         marginLeft: 3,
         marginRight: 3,

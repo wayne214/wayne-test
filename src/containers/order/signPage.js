@@ -44,25 +44,6 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
-const styles = StyleSheet.create({
-    viewSty: {
-        marginLeft: 10,
-        marginTop: 15,
-        marginRight: 10,
-        marginBottom: 10,
-        height: 40,
-        backgroundColor: StaticColor.COLOR_MAIN,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    viewSty1: {
-        flexDirection: 'row',
-        height: 44,
-        paddingLeft: 20,
-        alignItems: 'center',
-    },
-});
 class signPage extends Component {
     constructor(props) {
         super(props);

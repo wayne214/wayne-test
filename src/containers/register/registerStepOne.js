@@ -112,17 +112,12 @@ const styles = StyleSheet.create({
         top: height-120
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
-    },
-    bottomViewText: {
-        fontSize: 14,
-        color: StaticColor.LIGHT_GRAY_TEXT_COLOR,
-        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
     separateLine: {
         height: 1,

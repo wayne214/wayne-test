@@ -15,6 +15,7 @@ import {
 
 import NavigatorBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';
+import StaticImage from '../../constants/staticImage';
 
 
 const {width, height} = Dimensions.get('window'); // 获取屏幕宽高尺寸
@@ -29,13 +30,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textStyle: {
-        fontFamily: 'iconfont',
-        color: StaticColor.COLOR_MAIN,
-        fontSize: 60,
         marginTop: 80
     },
     tip: {
-        color: StaticColor.COLOR_MAIN,
+        color: StaticColor.BLUE_CONTACT_COLOR,
         fontSize: 18,
         marginTop: 10
     }
@@ -75,7 +73,7 @@ class RegisterSuccess extends Component {
                     }}
                 />
                 <View style={styles.content}>
-                    <Text style={styles.textStyle}>&#xe616;</Text>
+                    <Image style={styles.textStyle} source={StaticImage.finishIcon} />
                     <Text style={styles.tip}>注册成功</Text>
                 </View>
             </View>
