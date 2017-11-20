@@ -180,7 +180,7 @@ export default class MyBankCard extends Component {
                             height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                         },
                         android: {
-                            height:height - 58 - 50
+                            height:height - 50 - 20 -58
                         },
                     }),
                 }}>
@@ -266,7 +266,8 @@ export default class MyBankCard extends Component {
                     <View style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        flexDirection: 'row'
+                        flexDirection: 'row',
+                        height: 58
                     }}>
                         <Image source={require('../../../assets/income/addBankCar.png')}/>
                     </View>
