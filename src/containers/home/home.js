@@ -21,7 +21,7 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
 import Carousel from 'react-native-snap-carousel';
-import Speech from 'native-speech';
+import Speech from '../../utils/VoiceUtils';
 
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
@@ -326,7 +326,7 @@ class Home extends Component {
 
                 this.props.setMessageListIcon(true);
                 this.saveMessage(message.alertContent);
-                this.speechContent(message.alertContent);
+                this.speechContent(message.alertContent, 0);
                 if (message.alertContent.indexOf('新货源') > -1) {
                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                         {
@@ -434,7 +434,7 @@ class Home extends Component {
 
                     this.props.setMessageListIcon(true);
                     this.saveMessage(notification.aps.alert);
-                    this.speechContent(notification.aps.alert);
+                    this.speechContent(notification.aps.alert, 0);
                     if (notification.aps.alert.indexOf('新货源') > -1) {
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
@@ -538,9 +538,9 @@ class Home extends Component {
         });
     }
     // 语音播报内容
-    speechContent(message) {
+    speechContent(message, voiceType) {
         if (this.props.speechSwitchStatus) {
-            Speech.speak(message);
+            Speech.speak(message, voiceType);
         }
     }
 
