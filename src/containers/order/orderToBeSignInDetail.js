@@ -39,8 +39,15 @@ const styles = StyleSheet.create({
     imageBackground: {
         marginTop: 10,
         alignSelf: 'center',
-        height: 130,
-        width: screenWidth - 20
+        width: screenWidth - 40,
+        ...Platform.select({
+            ios: {
+                height: 130,
+            },
+            android: {
+                height: 140,
+            }
+        }),
     },
     constantStyle: {
         flexDirection: 'row',
@@ -174,7 +181,7 @@ export default class orderToBeSignInDetail extends Component {
                             </View>
                         }
                     <TitlesCell title="配送信息"/>
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 10}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {

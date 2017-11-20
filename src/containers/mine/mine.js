@@ -122,9 +122,9 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255,255,255,0.2)',
     },
     driverIcon: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 71,
+        height: 71,
+        borderRadius: 35.5,
     },
     informView: {
         marginLeft: 15,
@@ -612,7 +612,9 @@ class Mine extends Component {
                         height: 28,
                         width: 85,
                         // right: 10,
-                        borderRadius: 18,
+                        // borderRadius: 18,
+                        borderTopLeftRadius: 18,
+                        borderBottomLeftRadius: 18,
                         borderWidth: 1,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
@@ -620,6 +622,7 @@ class Mine extends Component {
                         justifyContent: 'center',
                         // position: 'absolute',
                         // bottom: 20,
+                        marginRight: -5
                     }}>
                     <Text
                         style={{
@@ -698,7 +701,7 @@ class Mine extends Component {
                                                 style={{
                                                     fontWeight: 'bold',
                                                     color: '#FFFFFF',
-                                                    fontSize: 14,
+                                                    fontSize: 18,
                                                     backgroundColor: 'transparent',
                                                     alignItems: 'center',
                                                 }}
@@ -715,7 +718,7 @@ class Mine extends Component {
                                                 marginBottom: 10,
                                                 backgroundColor: 'transparent',
                                                 color: '#FFFFFF',
-                                                fontSize: 13
+                                                fontSize: 14
                                             }}>
                                             {
                                                 this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
@@ -738,6 +741,7 @@ class Mine extends Component {
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
+                                    style={{height: 36}}
                                     leftIcon="&#xe62a;"
                                     content={'个人信息'}
                                     showBottomLine={true}
@@ -876,7 +880,7 @@ class Mine extends Component {
                                     {/*}}*/}
                                 {/*/>*/}
 
-                                <View style={styles.separateView}/>
+                                {/*<View style={styles.separateView}/>*/}
 
                                 <SettingCell
                                     leftIcon="&#xe630;"

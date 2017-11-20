@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     Alert,
     DeviceEventEmitter,
+    Platform
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
@@ -37,9 +38,17 @@ const styles = StyleSheet.create({
     },
     backgroundImg: {
         width: width,
-        height: width * 300 / 710,
         marginTop: 10,
         backgroundColor: 'transparent',
+        ...Platform.select({
+            ios: {
+                height: width * 300 / 710,
+            },
+            android : {
+                height: width * 300 / 650,
+
+            }
+        })
     },
     contactContainer: {
         flexDirection: 'row',
