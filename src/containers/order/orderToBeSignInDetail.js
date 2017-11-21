@@ -39,8 +39,15 @@ const styles = StyleSheet.create({
     imageBackground: {
         marginTop: 10,
         alignSelf: 'center',
-        height: 130,
-        width: screenWidth - 20
+        width: screenWidth - 40,
+        ...Platform.select({
+            ios: {
+                height: 130,
+            },
+            android: {
+                height: 140,
+            }
+        }),
     },
     constantStyle: {
         flexDirection: 'row',
@@ -118,6 +125,12 @@ export default class orderToBeSignInDetail extends Component {
         } = this.props;
 
         return (
+            <View style={{
+                ...Platform.select({
+                    ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
+                    android:{height: screenHeight - topHeight - 73}
+                })
+            }}>
             <View
                 style={{
                     backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
@@ -127,8 +140,8 @@ export default class orderToBeSignInDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
-                            android:{height: screenHeight - topHeight - 73}
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - 45},
+                            android:{height: screenHeight - topHeight - 73 - 45}
                     })
                 }}
             >
@@ -174,7 +187,7 @@ export default class orderToBeSignInDetail extends Component {
                             </View>
                         }
                     <TitlesCell title="配送信息"/>
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 10}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {
@@ -218,16 +231,17 @@ export default class orderToBeSignInDetail extends Component {
                         dispatchTimeAgain={dispatchTimeAgain}
                     />
                 </ScrollView>
-                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13,}} />
+            </View>
                 {
                     settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1'?
-                    <BottomButton
-                        text={'签收'}
-                        onClick={() => {
-                            this.props.signIn();
-                        }}
-                        buttonDisabled={this.state.buttonDisabled}
-                    /> : <ChooseButton
+                        <BottomButton
+                            text={'签收'}
+                            onClick={() => {
+                                this.props.signIn();
+                            }}
+                            buttonDisabled={this.state.buttonDisabled}
+                        /> : <ChooseButton
                         leftContent={'收款'}
                         rightContent={'签收'}
                         leftClick={() => {

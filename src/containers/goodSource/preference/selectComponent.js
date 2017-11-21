@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     textStyle: {
-        color: '#999999',
+        color: '#333333',
         fontSize: 13,
     },
     numberStyle: {

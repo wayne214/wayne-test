@@ -54,7 +54,7 @@ class commonButton extends Component {
     }
 
     render() {
-        const {onClick, buttonText} = this.props;
+        const {onClick, buttonText, buttonStyle, containerStyle, backgroundImg} = this.props;
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -62,8 +62,8 @@ class commonButton extends Component {
                 }}
                 activeOpacity={0.6}
             >
-                <View style={styles.button}>
-                    <ImageBackground source={StaticImage.BlueButtonArc} style={styles.buttonBackground} resizeMode='stretch'>
+                <View style={[styles.button, containerStyle]}>
+                    <ImageBackground source={backgroundImg ? backgroundImg : StaticImage.BlueButtonArc} style={[styles.buttonBackground, buttonStyle]} resizeMode='stretch'>
                         <Text style={styles.buttonText}>{buttonText}</Text>
                     </ImageBackground>
                 </View>

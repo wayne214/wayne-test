@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     Alert,
     DeviceEventEmitter,
+    Platform
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
@@ -37,9 +38,17 @@ const styles = StyleSheet.create({
     },
     backgroundImg: {
         width: width,
-        height: width * 300 / 710,
         marginTop: 10,
         backgroundColor: 'transparent',
+        ...Platform.select({
+            ios: {
+                height: width * 300 / 710,
+            },
+            android : {
+                height: width * 300 / 650,
+
+            }
+        })
     },
     contactContainer: {
         flexDirection: 'row',
@@ -207,6 +216,7 @@ class payTypes extends Component {
             });
         }
     }
+    //this.state.amount  Math.floor(parseFloat(this.state.amount) * 100) / 100
     render() {
         const navigator = this.props.navigation;
         return (
@@ -225,7 +235,7 @@ class payTypes extends Component {
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
                             <Text style={styles.moneyStyle}>+</Text>
-                            <Text style={styles.moneyStyle}>{this.state.amount}</Text>
+                            <Text style={styles.moneyStyle}>{parseFloat(this.state.amount).toFixed(2)}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
                             <Text style={styles.codeStyle}>订单号：{this.state.orderCode}</Text>
