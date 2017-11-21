@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
         height: 2,
     },
     tab: {
-        paddingLeft: 12,
-        paddingRight: 12,
+        paddingLeft: 5,
+        paddingRight: 5,
         paddingBottom: 0,
     },
 });

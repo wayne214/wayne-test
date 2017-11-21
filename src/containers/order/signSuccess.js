@@ -94,7 +94,7 @@ class signSuccess extends Component {
                           DeviceEventEmitter.emit('changeToWaitSign');
                       }}
                   />
-                  <View>
+                  <View style={{flex:1}}>
                       <EmptyView
                           emptyImage={StaticImage.receiptSuccess}
                           content={'签收成功'}

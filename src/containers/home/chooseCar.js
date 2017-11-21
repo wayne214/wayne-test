@@ -34,8 +34,10 @@ import HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StorageKeys from '../../constants/storageKeys';
+import StaticImage from '../../constants/staticImage';
 
 const screenHeight = Dimensions.get('window').height;
+const {width} = Dimensions.get('window');
 
 let currentTime = 0;
 let lastTime = 0;
@@ -215,8 +217,11 @@ class chooseCar extends Component {
                     />
                 </View>
                 <View style={{flex: 1}} />
-                <View style={{paddingBottom: 20}}>
+                <View>
                     <CommonButton
+                        backgroundImg={StaticImage.BlueButtonSquare}
+                        containerStyle={{borderRadius: 10}}
+                        buttonStyle={{width: width}}
                         onClick={() => {
                             this.clearHomePageCount();
                             console.log('this.select',this.select);

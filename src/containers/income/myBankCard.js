@@ -177,10 +177,10 @@ export default class MyBankCard extends Component {
                     width,
                      ...Platform.select({
                         ios: {
-                            height:height - 58 - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
+                            height:height - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_marginBottom
                         },
                         android: {
-                            height:height - 50 - 20 -58
+                            height:height - 50 - 20 - 58
                         },
                     }),
                 }}>
@@ -213,7 +213,7 @@ export default class MyBankCard extends Component {
                                                 //color: 'white',
                                                 component: [<View style={{justifyContent: 'center', height: 130}}>
                                                     <View style={{backgroundColor: 'white', width: 40, height: 40, justifyContent: 'center', marginLeft: 15, borderRadius: 20}}>
-                                                        <Text style={{backgroundColor: 'transparent' ,fontFamily: 'iconfont', color: '#E66D65', textAlign: 'center'}}>&#xe641;</Text>
+                                                        <Text style={{backgroundColor: 'transparent' ,fontFamily: 'iconfont', color: '#E66D65', textAlign: 'center', fontSize: 20}}>&#xe641;</Text>
                                                     </View>
                                                 </View>],
                                                 onPress: ()=>{
@@ -267,7 +267,18 @@ export default class MyBankCard extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        height: 58
+                        height: 60,
+                        backgroundColor: 'transparent',
+                        ...Platform.select({
+                            ios: {
+                                position: 'absolute',
+                                bottom: 20,
+                                alignSelf: 'center',
+                            },
+                            android: {
+
+                            }
+                        })
                     }}>
                         <Image source={require('../../../assets/income/addBankCar.png')}/>
                     </View>

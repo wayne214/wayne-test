@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
         color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
         marginLeft: 10,
         marginRight: 15,
+        lineHeight: 21,
     },
     divideLine: {
         height: 10,

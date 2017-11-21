@@ -127,7 +127,7 @@ export default class GoodsSourceDetails extends Component {
                             </View>
                         }
                     <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 10}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {

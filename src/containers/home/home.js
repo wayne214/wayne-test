@@ -436,7 +436,7 @@ class Home extends Component {
 
                     this.props.setMessageListIcon(true);
                     this.saveMessage(notification.aps.alert);
-                    // this.speechContent(notification.aps.alert, 0);
+                    this.speechContent(notification.aps.alert, 0);
                     if (notification.aps.alert.indexOf('新货源') > -1) {
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
@@ -542,7 +542,6 @@ class Home extends Component {
     // 语音播报内容
     speechContent(message, voiceType) {
         if (this.props.speechSwitchStatus) {
-
             if (Platform.OS === 'ios') {
                 Speeker.speek(message);
             }else

@@ -183,7 +183,7 @@ class CheckPhoneStepTwo extends Component {
        HTTPRequest({
            url: API.API_GET_LOGIN_WITH_CODE,
            params: {
-               deviceId: global.UDID,
+               deviceId: global.UDID+'_1',
                phoneNum: this.phoneNo,
            },
            loading: ()=>{

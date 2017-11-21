@@ -240,7 +240,7 @@ export default class orderProductItemInfo extends Component {
                 </View>
                 <View style={style.subViewStyle}>
                     <Text style={style.subTitleStyle}>规格</Text>
-                    <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{Specifications}</Text>
+                    <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{Specifications ? Specifications : '/'}</Text>
                 </View>
                 <View style={style.subViewStyle}>
                     <Text style={style.subTitleStyle}>应收</Text>
