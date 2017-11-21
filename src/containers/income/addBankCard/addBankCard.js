@@ -378,7 +378,7 @@ export default class AddBankCard extends Component {
                         height: 46,
                     }}>
                         <Text style={styles.leftTextStyle}>开户行</Text>
-                        <TouchableOpacity onPress={() => {
+                        <TouchableOpacity style={{width: width - 90, paddingVertical: 10}} onPress={() => {
                             navigator.navigate('ChooseBankName', {
                                 selectedBankNameCallback: (data) => {
                                     this.setState({
@@ -425,7 +425,7 @@ export default class AddBankCard extends Component {
 
                         <Text style={styles.leftTextStyle}>开户省市</Text>
 
-                        <TouchableOpacity onPress={() => {
+                        <TouchableOpacity style={{width: width - 90, paddingVertical: 10}} onPress={() => {
                             navigator.navigate('ChooseBankCity', {
                                 selectedCityCallback: (data) => {
                                     console.log('----data', data[0].departureCityArrayName);
@@ -479,7 +479,7 @@ export default class AddBankCard extends Component {
                     }}>
 
                         <Text style={styles.leftTextStyle}>开户支行</Text>
-                        <TouchableOpacity onPress={() => {
+                        <TouchableOpacity style={{width: width - 90, paddingVertical: 10}} onPress={() => {
                             if (!bankName) return Toast.show('请选择开户行')
                             if (!bankCityName) return Toast.show('请选择开户省市')
                             this.getBranchInfo(this.state.bankCode, this.state.bankCityCode);
@@ -504,9 +504,7 @@ export default class AddBankCard extends Component {
                         </TouchableOpacity>
                     </View>
 
-
-                    <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
-                        <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity onPress={()=>{
                             if (!bankCardNum) return Toast.show('请填写银行卡号');
                             if (!bankName) return Toast.show('请选择银行');
                             if (!bankName) return Toast.show('请选择开户行');
@@ -516,9 +514,11 @@ export default class AddBankCard extends Component {
                             this.bindBankCard(holdCardName, IDCardNum, bankCardNum, bankName, bankCode,branchName,branchCode,
                                 selectedProvinceName,selectedProvinceCode,bankCityName,bankCityCode);
                         }}>
-                            <Text style={styles.buttonText}>保存</Text>
-                        </TouchableOpacity>
-                    </ImageBackground>
+                        <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
+
+                                <Text style={styles.buttonText}>保存</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
 
                     <View style={{
                         justifyContent: 'center',
