@@ -19,6 +19,7 @@ import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 import cn.jpush.reactnativejpush.JPushPackage;
+import voice.VoiceReactPackage;
 
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 
@@ -58,7 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
                     new RCTToastPackage(),
                     new BaiduMapPackage(getApplicationContext()),
-                    new PermissionManagerPackage()
+                    new PermissionManagerPackage(),
+                    new VoiceReactPackage()
             );
         }
 

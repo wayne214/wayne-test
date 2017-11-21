@@ -61,7 +61,7 @@ export default class BankCardCell extends Component {
                         height: imageHeight,
                         marginTop: 10,
                         backgroundColor: 'transparent',
-                     }]}>
+                    }]}>
                         <Image style={{position: 'absolute', width: imageWidth, height: imageHeight}} source={bgImage}/>
                         <View style={{
                             flex: 1,
@@ -72,8 +72,10 @@ export default class BankCardCell extends Component {
                                 borderRadius: 25,
                                 marginLeft: 10,
                                 marginTop: 15,
-                                width: 50,
-                                height: 50
+                                width: 44,
+                                height: 44,
+                                alignItems: 'center',
+                                justifyContent: 'center'
                             }}>
                                 {
                                     bankIconUtil.show(accountBank)
@@ -104,7 +106,7 @@ export default class BankCardCell extends Component {
                                     style={{
                                         color: '#fff',
                                         fontSize: 13,
-                                        backgroundColor: 'red',
+                                        backgroundColor: 'transparent',
                                         bottom: 10,
                                         position: 'absolute',
                                         width: 200
