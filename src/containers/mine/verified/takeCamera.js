@@ -244,10 +244,6 @@ export default class takeCamera extends Component {
      * 点击拍照
      * */
     takePicture() {
-        // this.props.navigation.navigate('TakeCameraEndPage', {
-        //     imagePath: data.path,
-        //     verifiedType: this.props.navigation.state.params.verifiedType,
-        // });
 
         //jpegQuality 1-100, 压缩图片
         const options = {jpegQuality: 50};
