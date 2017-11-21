@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import {
     Dimensions,
     StyleSheet,
@@ -254,7 +256,6 @@ function mapStateToProps(state){
 
 function mapDispatchToProps (dispatch){
     return {
-        dispatch,
     };
 }
 

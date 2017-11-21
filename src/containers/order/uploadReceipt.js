@@ -425,9 +425,7 @@ class UploadReceipt extends Component {
             </View>
         );
     }
-}
-
-function mapStateToProps(state){
+}function mapStateToProps(state){
     return {
         imageList: state.order.get('imageList'),
         maxNum: state.order.get('maxNum'),
@@ -443,4 +441,6 @@ function mapDispatchToProps (dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadReceipt);
+
+
 
