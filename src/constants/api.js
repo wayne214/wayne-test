@@ -63,7 +63,6 @@ export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
 // 根据时间获取获取货源列表
-// export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate`;
 export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v1.1`;
 // 接单拒单数量
 // export const API_NEW_GET_STATUS_NUMBER = `${HOST}app/dpc/queryDispatchDocStatusNum`;
