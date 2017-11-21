@@ -190,6 +190,10 @@ class PersonInfo extends Component {
             if (result.oppositeCard && result.oppositeCard !== '') {
                 imgListTemp.push(result.oppositeCard);
             }
+        } else {
+            this.setState({
+                personInfo: '',
+            });
         }
     }
     fetchData(getPersonInfoSuccessCallback,getPersonInfoFailCallback) {
