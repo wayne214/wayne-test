@@ -89,7 +89,7 @@ export default class CheckPhone extends Component {
        HTTPRequest({
            url: API.API_GET_LOGIN_WITH_CODE,
            params: {
-               deviceId: global.UDID+'_1',
+               deviceId: global.UDID+'-1',
                phoneNum: this.phoneNo,
            },
            loading: ()=>{

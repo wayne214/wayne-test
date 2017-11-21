@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import {
     Dimensions,
     StyleSheet,
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
 
 });
 
-export default class takeCameraVerticalEnd extends Component {
+class takeCameraVerticalEnd extends Component {
 
     constructor(props){
         super(props);
@@ -174,8 +176,9 @@ export default class takeCameraVerticalEnd extends Component {
         });
         this.props.navigation.dispatch(resetAction);
         */
-        this.props.navigation.goBack();
-
+        const routes = this.props.routes;
+        let routeKey = routes[routes.length - 2].key;
+        this.props.navigation.goBack(routeKey);
     }
 
     render() {
@@ -231,3 +234,16 @@ export default class takeCameraVerticalEnd extends Component {
 
 
 }
+function mapStateToProps(state){
+    return {
+        routes: state.nav.routes,
+    };
+}
+
+function mapDispatchToProps (dispatch){
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(takeCameraVerticalEnd);
+
