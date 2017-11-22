@@ -94,22 +94,22 @@ class goodsBidding extends Component {
         console.log('==',Date.parse(new Date), Date.parse('2017-07-12 18:40:28'.replace(/-/g,"/")), this.props.userPlateNumber, this.props.userInfo.phone);
         this.state = {
             price: '',
-            // scheduleCode: params.bidScheduleCode,
-            scheduleCode: '',
-            // bidEndTime: params.endTime,
-            bidEndTime: '2017-11-22 18:40:28',
+            scheduleCode: params.bidScheduleCode,
+            // scheduleCode: '',
+            bidEndTime: params.endTime,
+            // bidEndTime: '2017-11-22 18:40:28',
             isProvideInvoice: true,
             lastOffer: '', // 上次报价
             lastRank: '', // 上次排名
             referencePrice: '', // 参考价
             isClicked: true,
-            // plateNumber: this.props.userPlateNumber,
-            plateNumber: '京LPL001',
-            // phone: global.phone,
-            phone: '15801461058',
+            plateNumber: this.props.userPlateNumber,
+            // plateNumber: '京LPL001',
+            phone: global.phone,
+            // phone: '15801461058',
             showDeleteButton: false,
-            // refPrice: params.refPrices,
-            refPrice: 111,
+            refPrice: params.refPrices,
+            // refPrice: 111,
         };
         this.isProvideInvoice = this.isProvideInvoice.bind(this);
         this.clearInput = this.clearInput.bind(this);

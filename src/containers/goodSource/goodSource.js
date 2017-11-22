@@ -320,7 +320,7 @@ class GoodSource extends BaseContainer{
                     }
                     }
                     preferences={() => {
-                        this.props.navigation.navigate('GoodsBiddingPage');
+                        this.props.navigation.navigate('GoodsPreferencePage');
                     }}
                 >
                     <View style={{backgroundColor: StaticColor.COLOR_SEPARATE_LINE, height: 1}}/>
