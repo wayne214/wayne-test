@@ -105,7 +105,7 @@ class PersonInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            personInfo: '',
+            personInfo: null,
             loading: false,
         };
         this.fetchData = this.fetchData.bind(this);
@@ -138,11 +138,11 @@ class PersonInfo extends Component {
             } else {
                 if (verifiedState === 1200) {
                     this.setState({
-                        personInfo: '',
+                        personInfo: null,
                     });
                 } else {
                     this.setState({
-                        personInfo: {},
+                        personInfo: null,
                     });
                     this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
                 }
@@ -161,11 +161,11 @@ class PersonInfo extends Component {
         const {verifiedState} = this.props;
         if (verifiedState === '1200') {
             this.setState({
-                personInfo: '',
+                personInfo: null,
             });
         } else {
             this.setState({
-                personInfo: {},
+                personInfo: null,
             });
         }
     }
@@ -192,7 +192,7 @@ class PersonInfo extends Component {
             }
         } else {
             this.setState({
-                personInfo: '',
+                personInfo: null,
             });
         }
     }
@@ -254,6 +254,7 @@ class PersonInfo extends Component {
     render() {
         const navigator = this.props.navigation;
         const person = this.state.personInfo !== null && this.state.personInfo !== '' ? this.state.personInfo : '';
+
         const showDrivingLicenceHomePage = person.drivingLicenseHomepageThumbnailAddress !== null && person.drivingLicenseHomepageThumbnailAddress !== '' ||
             person.drivingLicenceHomePage && person.drivingLicenceHomePage !== '';
         const showDrivingLicenceSubPage = person.drivingLicenseVicePageThumbnailAddress !== null && person.drivingLicenseVicePageThumbnailAddress !== '' ||
@@ -401,6 +402,7 @@ class PersonInfo extends Component {
 
 function mapStateToProps(state) {
     return {
+        verifiedState: state.jpush.get('verifiedState'),
     };
 }
 

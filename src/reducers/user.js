@@ -60,6 +60,8 @@ export default (state = initState, action) => {
             global.photoRefNo = '';
             global.phone = '';
             global.userInfo = {};
+            global.plateNumber = '';
+            global.userInfo = {carNum: '', carStatus: 0};
 
             Storage.remove(StorageKey.USER_INFO);
             Storage.remove(StorageKey.TOKEN);

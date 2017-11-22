@@ -281,6 +281,10 @@ class CarInfo extends Component {
                     });
                 },
             })
+        } else {
+            this.setState({
+                aCar: '',
+            });
         }
     }
     onClickImage(imgIndex) {

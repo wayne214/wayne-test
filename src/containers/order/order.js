@@ -95,6 +95,7 @@ let transCodeListData3 = [];
         this.transportBatchSign = this.transportBatchSign.bind(this);
 
         this.transportsList = this.transportsList.bind(this);
+        this.orderCodeList = this.orderCodeList.bind(this);
         this.transportStatus = this.transportStatus.bind(this);
 
         this.submit = this.submit.bind(this);
@@ -786,6 +787,7 @@ let transCodeListData3 = [];
                 phoneNum: global.phone,
                 plateNumber: this.props.plateNumber,
                 transCodeList: this.transportsList(dataRow),
+                // orderCodeList: this.orderCodeList(dataRow),
             },
             loading: () => {
 
@@ -870,14 +872,23 @@ let transCodeListData3 = [];
             return null;
         }
     }
-
-    transportsList(dataRow) {
-        let list = [];
-        for (let i = 0; i < dataRow.transports.length; i++) {
+     // 运单号集合
+     transportsList(dataRow) {
+         let list = [];
+         for (let i = 0; i < dataRow.transports.length; i++) {
             list.push(dataRow.transports[i].transCode);
-        }
-        return list;
-    }
+         }
+         return list;
+     }
+
+     // 订单号集合
+     orderCodeList(dataRow) {
+         let list = [];
+         for (let i = 0; i < dataRow.transports.length; i++) {
+             list.push(dataRow.transports[i].orderCode);
+         }
+         return list;
+     }
 
     // 根据返回的状态码判断批量签收按钮状态
     transportStatus(dataRow) {

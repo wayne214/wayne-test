@@ -26,6 +26,7 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import { NavigationActions } from 'react-navigation';
 import {ImageCache} from "react-native-img-cache";
 import * as StaticColor from '../../constants/staticColor';
+import StorageKey from '../../constants/storageKeys';
 
 
 let currentTime = 0;
@@ -170,18 +171,17 @@ class setting extends Component {
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
-        Storage.remove('userInfo');
-        Storage.remove('setCarSuccessFlag');
-        Storage.remove('plateNumber');
-        Storage.remove('userCarList');
-        Storage.remove('personInfoResult');
-        Storage.remove('carInfoResult');
-        Storage.remove('PHOTO_REF_NO');
-        Storage.remove('changePersonInfoResult');
-        Storage.remove('changeCarInfoResult');
-        Storage.remove('acceptMessage');
-        Storage.remove('setCityFlag');
-        Storage.remove('plateNumberObj');
+        Storage.remove(StorageKey.USER_INFO);
+        Storage.remove(StorageKey.CarSuccessFlag);
+        Storage.remove(StorageKey.PlateNumber);
+        Storage.remove(StorageKey.userCarList);
+        Storage.remove(StorageKey.personInfoResult);
+        Storage.remove(StorageKey.carInfoResult);
+        Storage.remove(StorageKey.PHOTO_REF_NO );
+        Storage.remove(StorageKey.changePersonInfoResult);
+        Storage.remove(StorageKey.changeCarInfoResult);
+        Storage.remove(StorageKey.acceptMessage);
+        Storage.remove(StorageKey.PlateNumberObj);
 
 
         // 清空存储数据
