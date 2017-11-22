@@ -3,12 +3,11 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.remobile.toast.RCTToastPackage;
 
 import cn.reactnative.modules.update.UpdateContext;
 import cn.reactnative.modules.update.UpdatePackage;
 
-import com.remobile.toast.RCTToastPackage;
-import com.react.arron.speech.speechModulePackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.beefe.picker.PickerViewPackage;
@@ -46,7 +45,6 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new UpdatePackage(),
-                    new speechModulePackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),
                     new PickerViewPackage(),
