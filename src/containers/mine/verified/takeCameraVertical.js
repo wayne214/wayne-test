@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 
 });
 
-export default class takeCamera extends Component {
+export default class takeCameraV extends Component {
 
     constructor(props){
         super(props);
@@ -148,7 +148,7 @@ export default class takeCamera extends Component {
          * */
 
         let showTitle='';
-        switch (this.props.router.navigation.state.params.cameraType){
+        switch (this.props.navigation.state.params.cameraType){
 
             case 2 :
                 showTitle='请放正车辆强制保险，并调整好光线';
@@ -159,7 +159,7 @@ export default class takeCamera extends Component {
         }
 
         this.state={
-            cameraType: this.props.router.navigation.state.params.cameraType,
+            cameraType: this.props.navigation.state.params.cameraType,
             showTitle: showTitle,
         }
 
@@ -262,6 +262,4 @@ export default class takeCamera extends Component {
             </View>
         );
     }
-
-
 }
