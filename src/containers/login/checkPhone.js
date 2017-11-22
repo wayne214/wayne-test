@@ -93,7 +93,9 @@ export default class CheckPhone extends Component {
                phoneNum: this.phoneNo,
            },
            loading: ()=>{
-
+             this.setState({
+                    loading: true,
+                });
            },
            success: (responseData)=>{
                // Toast.showShortCenter('验证码已发送');
@@ -108,7 +110,9 @@ export default class CheckPhone extends Component {
 
            },
            finish: ()=>{
-
+             this.setState({
+                    loading: false,
+                });
            }
        })
     }
