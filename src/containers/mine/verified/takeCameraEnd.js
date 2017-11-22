@@ -163,9 +163,7 @@ class takeCameraEnd extends Component {
      * 确定图片
      * */
     next() {
-
-        DeviceEventEmitter.emit('endSureCameraPhoto',this.props.navigation.state.params.imagePath);
-
+        DeviceEventEmitter.emit('endSureCameraPhotoEnd',this.props.navigation.state.params.imagePath);
         /*
         if (this.props.navigation.state.params.verifiedType === 1){
             // 实名认证页面

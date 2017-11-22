@@ -190,7 +190,8 @@ export default class BankCardDeatil extends Component {
                 city: this.state.bankCityName,
                 cityCode: this.state.bankCityCode,
                 province: this.state.selectedProvinceName,
-                provinceCode: this.state.selectedProvinceCode
+                provinceCode: this.state.selectedProvinceCode,
+                phone:global.phone,
             },
             loading: () => {
                 this.setState({

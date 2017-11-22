@@ -191,8 +191,7 @@ class certification extends Component {
         userPhone = global.phone;
 
 
-        this.listener = DeviceEventEmitter.addListener('endSureCameraPhoto', (imagePath) => {
-
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
             imagePath = 'file://' + imagePath;
 
             let source = {uri: imagePath};
@@ -251,8 +250,8 @@ class certification extends Component {
     }
 
     componentWillUnmount() {
-        if (this.listener)
-            this.listener.remove();
+        // if (this.listener)
+        //     this.listener.remove();
     }
 
     // 获取当前位置

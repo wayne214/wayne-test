@@ -77,8 +77,9 @@
    
    */
   //打包手机测试
-  
-  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
+
+
+   //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
 
   
   NSLog(@"jsCodeLocation=========%@", jsCodeLocation);

@@ -164,7 +164,7 @@ class takeCameraVerticalEnd extends Component {
     next() {
 
 
-        DeviceEventEmitter.emit('endSureCameraPhoto',this.props.navigation.state.params.imagePath);
+        DeviceEventEmitter.emit('endSureCameraPhotoEnd',this.props.navigation.state.params.imagePath);
 
         /*
         const resetAction = NavigationActions.reset({
