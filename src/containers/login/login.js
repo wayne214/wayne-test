@@ -1,5 +1,4 @@
 /**
- * Created by xizhixin on 2017/9/22.
  * 登录界面
  */
 import React, {Component} from 'react';

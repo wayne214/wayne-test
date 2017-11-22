@@ -3,11 +3,11 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.remobile.toast.RCTToastPackage;
 
 import cn.reactnative.modules.update.UpdateContext;
 import cn.reactnative.modules.update.UpdatePackage;
 
-import com.remobile.toast.RCTToastPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.beefe.picker.PickerViewPackage;
