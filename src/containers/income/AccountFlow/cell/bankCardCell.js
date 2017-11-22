@@ -14,8 +14,9 @@ import {
 } from 'react-native';
 import StaticImage from '../../../../constants/staticImage';
 import bankIconUtil from '../../../../utils/bankIconUtil';
+import ZJBankColor from '../../../../utils/ZJBankColor';
 
-const {height,width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
 // 355*110
 
@@ -43,9 +44,10 @@ export default class BankCardCell extends Component {
             accountBank, bankCarType, bankAccount, isDefault, clickAction
         } = this.props;
 
-        const bgImage = Math.floor(Math.random()*10)%4 === 0 ? StaticImage.Car_yellow :
-            Math.floor(Math.random()*10)%4 === 1 ? StaticImage.Car_blue :
-                Math.floor(Math.random()*10)%4 === 2 ? StaticImage.Car_green : StaticImage.Car_red;
+        const bgImage = ZJBankColor.color(accountBank) == 'yellow' ? StaticImage.Car_yellow :
+            ZJBankColor.color(accountBank) == 'blue' ? StaticImage.Car_blue :
+                ZJBankColor.color(accountBank) == 'red' ? StaticImage.Car_red : StaticImage.Car_green;
+
 
         return (
             <TouchableOpacity
@@ -82,11 +84,11 @@ export default class BankCardCell extends Component {
                                 }
                             </View>
 
-                            <View style={{marginLeft: 10, marginTop:20}}>
+                            <View style={{marginLeft: 10, marginTop: 20}}>
                                 <Text
                                     style={{
                                         fontSize: 17,
-                                        color:'#fff',
+                                        color: '#fff',
                                         backgroundColor: 'transparent'
                                     }}>
                                     {accountBank}
@@ -127,10 +129,22 @@ export default class BankCardCell extends Component {
                                         justifyContent: 'center',
                                     }}>
 
-                                        <View style={{ height: 20,
-                                        width: 40,backgroundColor: 'black', opacity: 0.3, borderRadius: 3, flex: 1, position: 'absolute'}}>
+                                        <View style={{
+                                            height: 20,
+                                            width: 40,
+                                            backgroundColor: 'black',
+                                            opacity: 0.3,
+                                            borderRadius: 3,
+                                            flex: 1,
+                                            position: 'absolute'
+                                        }}>
                                         </View>
-                                        <Text style={{backgroundColor: 'transparent', fontSize: 13, textAlign: 'center', color: '#fff'}}>默认</Text>
+                                        <Text style={{
+                                            backgroundColor: 'transparent',
+                                            fontSize: 13,
+                                            textAlign: 'center',
+                                            color: '#fff'
+                                        }}>默认</Text>
 
                                     </View>
                                     : null
