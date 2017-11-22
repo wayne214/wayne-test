@@ -200,7 +200,6 @@ class Verified extends Component {
 
     componentDidMount() {
         this.getCurrentPosition();
-        InteractionManager.runAfterInteractions(() => {
 
             userID = global.userId;
             userName = global.userName;
@@ -208,7 +207,8 @@ class Verified extends Component {
 
 
             /*相机拍照*/
-            this.listener = DeviceEventEmitter.addListener('endSureCameraPhoto', (imagePath) => {
+            this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
+
                 console.log('DeviceEventEmitter:', imagePath);
 
                 if (Platform.OS === 'ios') {
@@ -281,7 +281,6 @@ class Verified extends Component {
                 });
             });
 
-        });
 
 
     }
