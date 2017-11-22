@@ -17,14 +17,22 @@ public class VoiceModule extends ReactContextBaseJavaModule {
     }
 
     @Override
+    public void initialize() {
+        super.initialize();
+        utils = new VoiceUtils();
+        utils.init(getReactApplicationContext(), 0);
+        mSpeechSynthesizer = utils.getSyntheszer();
+    }
+
+    @Override
     public String getName() {
         return "VoiceModule";
     }
     @ReactMethod
     public void speak(String msg, int speaker) {
-        utils = new VoiceUtils();
-        utils.init(getReactApplicationContext(), speaker);
-        mSpeechSynthesizer = utils.getSyntheszer();
+//        utils = new VoiceUtils();
+//        utils.init(getReactApplicationContext(), speaker);
+//        mSpeechSynthesizer = utils.getSyntheszer();
         this.mSpeechSynthesizer.speak(msg);
     }
 
