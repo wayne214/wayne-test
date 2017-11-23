@@ -786,9 +786,23 @@ class Home extends Component {
                 {
                     text: '好的',
                     onPress: () => {
-                        this.props.navigation.navigate('CertificationPage', {
-                            qualifications: result,
-                        })
+
+                        Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+
+                            if (value){
+                                this.props.navigation.navigate('CertificationPage', {
+                                    resultInfo: value,
+                                });
+                            }else {
+                                this.props.navigation.navigate('CertificationPage', {
+                                    resultInfo: this.state.resultInfo,
+                                });
+                            }
+                        });
+
+                        // this.props.navigation.navigate('CertificationPage', {
+                        //     qualifications: result,
+                        // })
                     },
                 },
             ],{cancelable: true});
