@@ -66,6 +66,7 @@ class GoodSource extends BaseContainer{
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const initLength = Platform.OS === 'ios' ? 1 : 0;
         this.state = {
             date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
             goodStatus: '1',
@@ -73,7 +74,7 @@ class GoodSource extends BaseContainer{
             isLoadMore: true,
 
             isRefresh: false,
-            goodsListLength: 1,
+            goodsListLength: initLength,
         };
 
         this.resetParams = this.resetParams.bind(this);
@@ -324,7 +325,6 @@ class GoodSource extends BaseContainer{
                     }}
                 >
                     <View style={{backgroundColor: StaticColor.COLOR_SEPARATE_LINE, height: 1}}/>
-                    <View>
                         {
                             this.state.goodsListLength > 0 ?
                                 <ListView
@@ -347,9 +347,8 @@ class GoodSource extends BaseContainer{
                                         />
                                     }
                                 />
-                                : <EmptyView />
+                                : <View style={{flex: 1}}><EmptyView /></View>
                         }
-                    </View>
                 </DropdownMenu>
             </View>
         )
