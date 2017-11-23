@@ -181,7 +181,7 @@ class WeChatPayment extends Component {
                                 <Text style={styles.success}>支付成功</Text>
                             </View> :
                             <View>
-                                <Text style={styles.amountText}>{`￥${this.state.accountMoney}`}</Text>
+                                <Text style={styles.amountText}>{`￥${parseFloat(this.state.accountMoney).toFixed(2)}`}</Text>
                                 <Text style={styles.tip}>二维码有效期是10分钟</Text>
                                 <View style={styles.imageView}>
                                     <WebView

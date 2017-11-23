@@ -238,7 +238,7 @@ class payTypes extends Component {
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
                             <Text style={styles.moneyStyle}>+</Text>
-                            <Text style={styles.moneyStyle}>{this.state.amount}</Text>
+                            <Text style={styles.moneyStyle}>{parseFloat(this.state.amount).toFixed(2)}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
                             <Text style={styles.codeStyle}>订单号：{this.state.orderCode}</Text>
