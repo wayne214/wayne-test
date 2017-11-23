@@ -787,13 +787,11 @@ let transCodeListData3 = [];
                 phoneNum: global.phone,
                 plateNumber: this.props.plateNumber,
                 transCodeList: this.transportsList(dataRow),
-                // orderCodeList: this.orderCodeList(dataRow),
+                orderCodeList: this.orderCodeList(dataRow),
             },
             loading: () => {
-
             },
             success: (responseData) => {
-
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('批量签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '订单页面');
@@ -801,7 +799,10 @@ let transCodeListData3 = [];
                 this.onRefresh();
             },
             error: (errorInfo) => {
-
+                console.log('errorInfo=', errorInfo);
+                if(errorInfo.code === 800){
+                    Alert.alert('批量签收前请先完成收款');
+                }
             },
             finish: () => {
             }

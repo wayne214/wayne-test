@@ -24,12 +24,8 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     textInputStyle:{
-        ...Platform.select({
-            ios: {
-                marginTop: 15,
-                marginBottom: 15,
-            }
-        }),
+        marginTop: 15,
+        marginBottom: 15,
         marginRight: 10,
         fontSize: 15,
         color: '#333333',

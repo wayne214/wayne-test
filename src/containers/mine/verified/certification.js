@@ -777,7 +777,7 @@ class certification extends Component {
                 ReadAndWriteFileUtil.appendFile('提交资质认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '资质认证页面');
 
-                this.props.saveUserSetCarSuccess({carNum: this.state.carNumber, carStatus: 20});
+                this.props.saveUserSetCarSuccess({carNum: this.state.carNumber, carStatus: 0});
 
                 Toast.showShortCenter('资质认证提交成功');
                 Storage.remove(StorageKey.changeCarInfoResult);
@@ -844,6 +844,7 @@ class certification extends Component {
                                                 this.refs.scrollView.scrollTo({x: 0, y: 360, animated: true});
                                              }
                                              selectDatePickerType = 3;
+
                                              this.showDatePick(false, VerifiedDateSources.createCarLengthDate(carWeightDataSource), 'carLength');
                                          }}
                                         textOnFocus={(value)=>{

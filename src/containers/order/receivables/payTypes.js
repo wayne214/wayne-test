@@ -11,6 +11,7 @@ import {
     DeviceEventEmitter,
     Platform
 } from 'react-native';
+import moment from 'moment';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
@@ -170,12 +171,14 @@ class payTypes extends Component {
     confirmPayment() {
         console.log('---信息----', this.state.amount, this.state.orderCode, global.userId);
         currentTime = new Date().getTime();
+
         HTTPRequest({
             url: API.API_AC_COMFIRM_PAYMENT,
             params: {
                 amount: this.state.amount,
                 transCode: this.state.orderCode,
                 userId: global.userId,
+                paymentTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
             },
             loading: ()=>{
             },

@@ -66,10 +66,12 @@ const TabRouteConfigs = {
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 if (global.plateNumber && global.plateNumber !== '') {
-                    if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
+                    if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                        jumpToIndex(scene.index)
+                    }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
                         DeviceEventEmitter.emit('notifyCarStatus');
                     }else {
-                        jumpToIndex(scene.index)
+                        DeviceEventEmitter.emit('getUserCar');
                     }
                 } else {
                     DeviceEventEmitter.emit('getUserCar');
@@ -86,10 +88,12 @@ const TabRouteConfigs = {
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 if (global.plateNumber && global.plateNumber !== '') {
-                    if (!(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20)) {
+                    if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                        jumpToIndex(scene.index)
+                    }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
                         DeviceEventEmitter.emit('notifyCarStatus');
                     }else {
-                        jumpToIndex(scene.index)
+                        DeviceEventEmitter.emit('getUserCar');
                     }
                 } else {
                     DeviceEventEmitter.emit('getUserCar');

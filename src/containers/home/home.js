@@ -651,8 +651,6 @@ class Home extends Component {
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
-
-
                 this.certificationState();
             } else {
                 this.certificationState();
@@ -1142,8 +1140,10 @@ class Home extends Component {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
                                         DeviceEventEmitter.emit('resetGood');
                                         this.props.navigation.navigate('GoodsSource');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1165,8 +1165,10 @@ class Home extends Component {
                                         this.changeOrderTab(1);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 1);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1188,8 +1190,10 @@ class Home extends Component {
                                         this.changeOrderTab(2);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 2);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1211,8 +1215,10 @@ class Home extends Component {
                                         this.changeOrderTab(3);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 3);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();

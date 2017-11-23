@@ -26,12 +26,15 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     textInputStyle:{
-        ...Platform.select({
-            ios: {
-                marginTop: 15,
-                marginBottom: 15,
-            }
-        }),
+        marginRight: 10,
+        fontSize: 15,
+        color: '#333333',
+        flex: 2,
+        textAlign: 'right',
+    },
+    textStyle:{
+        marginTop: 15,
+        marginBottom: 15,
         marginRight: 10,
         fontSize: 15,
         color: '#333333',
@@ -113,11 +116,6 @@ class verifiedTravelInfoItem extends Component{
             carLengthColor = {color: '#333333'}
         }
 
-
-        console.log('carType: ', carType);
-        console.log('carWeight: ', carWeight);
-        console.log('carLength: ', carLength);
-
         return (
             <View style={styles.container}>
 
@@ -173,7 +171,7 @@ class verifiedTravelInfoItem extends Component{
                                       onPress={()=>{
                                           this.clickCarType();
                                       }}>
-                        <Text style={[styles.textInputStyle, carColor]}>
+                        <Text style={[styles.textStyle, carColor]}>
                             {catString}
                         </Text>
 
@@ -189,8 +187,8 @@ class verifiedTravelInfoItem extends Component{
                                           this.clickCarLength();
                                       }}>
 
-                        <Text style={[styles.textInputStyle, carWeightColor]}>
-                            {carWeightString}
+                        <Text style={[styles.textStyle, carWeightColor]}>
+                            {carLengthString}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -203,8 +201,8 @@ class verifiedTravelInfoItem extends Component{
                                       onPress={()=>{
                                       }}>
 
-                        <Text style={[styles.textInputStyle, carLengthColor]}>
-                            {carLengthString}
+                        <Text style={[styles.textStyle, carLengthColor]}>
+                            {carWeightString}吨
                         </Text>
                     </TouchableOpacity>
                 </View>

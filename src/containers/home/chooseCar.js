@@ -220,7 +220,7 @@ class chooseCar extends Component {
                 <View>
                     <CommonButton
                         backgroundImg={StaticImage.BlueButtonSquare}
-                        containerStyle={{borderRadius: 10}}
+                        containerStyle={{marginRight:0, marginLeft:0}}
                         buttonStyle={{width: width}}
                         onClick={() => {
                             this.clearHomePageCount();

@@ -4,7 +4,12 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    ImageBackground,
+    Dimensions,
 } from 'react-native';
+
+import StaticImage from '../../../../constants/staticImage';
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container:{
@@ -14,9 +19,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         marginHorizontal: 10,
-        backgroundColor: '#1b82d1',
+        backgroundColor: 'transparent',
         height: 40,
-        borderRadius: 5,
     },
     textStyle:{
         textAlign: 'center',
@@ -44,9 +48,17 @@ class verifiedBottomItem extends Component{
                 <TouchableOpacity style={styles.bottomStyle} onPress={()=>{
                     this.click();
                 }}>
-                    <Text style={styles.textStyle}>
-                        提交
-                    </Text>
+                    <ImageBackground
+                        resizeMode='stretch'
+                        style={{
+                            width: width - 20,
+                            height: 40,
+                        }}
+                        source={StaticImage.BlueButtonArc}>
+                        <Text style={styles.textStyle}>
+                            提交
+                        </Text>
+                    </ImageBackground>
                 </TouchableOpacity>
 
             </View>

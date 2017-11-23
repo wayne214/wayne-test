@@ -435,6 +435,7 @@ class entryToBeSignin extends Component {
                         vol={item.vol}
                         weight={item.weight}
                         settlementMode={item.settleType}
+                        settleMethod={item.settleMethod}
                         scheduleTime={item.scheduleTime}
                         scheduleTimeAgain={item.twoScheduleTime}
                         dispatchTime={item.dispatchTime}

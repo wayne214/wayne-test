@@ -181,7 +181,7 @@ class WeChatPayment extends Component {
                                 <Text style={styles.success}>支付成功</Text>
                             </View> :
                             <View>
-                                <Text style={styles.amountText}>{`￥${this.state.accountMoney}`}</Text>
+                                <Text style={styles.amountText}>{`￥${parseFloat(this.state.accountMoney).toFixed(2)}`}</Text>
                                 <Text style={styles.tip}>二维码有效期是10分钟</Text>
                                 <View style={styles.imageView}>
                                     <WebView
@@ -189,12 +189,15 @@ class WeChatPayment extends Component {
                                             height: 150,
                                             width: 150,
                                             alignItems: 'center',
-                                            paddingRight:10
+                                            paddingRight: 10
                                         }}
-                                        source={{url: this.state.url}}
+                                        source={{uri: this.state.url}}
                                         javaScriptEnabled={true}
                                         domStorageEnabled={true}
                                         scalesPageToFit={false}
+                                        bounces={false}
+                                        mixedContentMode={'always'}
+                                        automaticallyAdjustContentInsets={false}
                                         injectedJavaScript="var img = document.getElementsByTagName('img')[0];
                                         img.style.cssText = 'width: 130px; height:130px;'"
                                     />
@@ -296,9 +299,17 @@ const styles =StyleSheet.create({
         backgroundColor: StaticColor.WHITE_COLOR,
         marginLeft: 25,
         marginRight: 25,
-        flex: 2,
-        marginTop: 30,
         borderRadius: 5,
+        ...Platform.select({
+            ios: {
+                flex: 2,
+                marginTop: 30,
+            },
+            android: {
+                flex: 3,
+                marginTop: 20,
+            }
+        })
     },
     bottomView: {
         backgroundColor: StaticColor.WHITE_COLOR,
@@ -306,8 +317,16 @@ const styles =StyleSheet.create({
         marginLeft: 25,
         marginRight: 25,
         borderRadius: 5,
-        marginBottom: 53,
-        height: 148,
+        ...Platform.select({
+            ios: {
+                marginBottom: 53,
+                height: 138,
+            },
+            android:{
+                height: 143,
+                marginBottom: 43,
+            }
+        }),
     },
     titleView: {
         flexDirection: 'row',
