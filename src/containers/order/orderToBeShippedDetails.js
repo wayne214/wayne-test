@@ -115,7 +115,7 @@ export default class OrderDetails extends Component {
 
         const item = array[index];
         array[index] = {
-            arNums: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight,
+            arNums: number,
             goodsId: item.goodsId,
             goodsName: item.goodsName,
             goodsSpce: item.goodsSpce,
@@ -258,8 +258,9 @@ export default class OrderDetails extends Component {
                                     componentID={item.goodsId}
                                     title={item.goodsName}
                                     Specifications={item.goodsSpce}
-                                    unit={item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg'}
-                                    receiveNum={item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight }
+                                    unit={item.arNums && item.arNums !== '' && item.arNums !== '0' ? item.goodsUnit : 'Kg'}
+                                    receiveNum={item.arNums && item.arNums !== '' && item.arNums !== '0' ? item.arNums : item.weight }
+                                    arNum={item.arNums && item.arNums !== '' && item.arNums !== '0' ? item.arNums : item.weight}
                                     indexRow={indexRow}
                                     receiveAllNum={(componentID, number, _index) => {
                                         this.receiveAllNumInfo(componentID, number, _index);
