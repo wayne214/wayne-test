@@ -32,7 +32,14 @@ const styles = StyleSheet.create({
     imageBackground: {
         marginTop: 10,
         alignSelf: 'center',
-        height: 130,
+        ...Platform.select({
+            ios: {
+                height: 130,
+            },
+            android: {
+                height: 140,
+            }
+        }),
         width: screenWidth - 20
     },
     constantStyle: {

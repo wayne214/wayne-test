@@ -54,7 +54,7 @@ import AboutUs from '../containers/mine/aboutUs';
 import BusinessDetail from '../containers/income/businessDetail/businessDetail';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import TakeCamear from '../containers/mine/verified/takeCamera';
-import TakeCamearV from '../containers/mine/verified/takeCameraVertical';
+import TakeCamearPageV from '../containers/mine/verified/takeCameraVertical';
 import Certification from '../containers/mine/verified/certification';
 import TakeCameraEnd from '../containers/mine/verified/takeCameraEnd';
 import TakeCameraVEnd from '../containers/mine/verified/takeCameraVerticalEnd';
@@ -276,12 +276,6 @@ const StackRouteConfigs = {
     },
     ChoiceCityPage: {
         screen: ChoiceCityPage,
-        navigationOptions: {
-            header: null
-        }
-    },
-    TakeCamearVPage: {
-        screen: TakeCamearV,
         navigationOptions: {
             header: null
         }
@@ -528,6 +522,12 @@ const StackRouteConfigs = {
     },
     ForgetPayPasswordCode:{
         screen: ForgetPayPasswordCode,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakeCameraVer: {
+        screen: TakeCamearPageV,
         navigationOptions: {
             header: null
         }

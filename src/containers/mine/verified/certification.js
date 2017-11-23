@@ -92,10 +92,15 @@ class certification extends Component {
     constructor(props) {
         super(props);
         /*从认证驳回跳转到此页面，传递过来详细的信息*/
-        if (this.props.navigation.state.params) {
+        if (this.props.navigation.state.params.resultInfo) {
 
             const result = this.props.navigation.state.params.resultInfo;
-            isFirst = result.carNum ? false : true;
+
+            debugger
+            if (result.carNum){
+                isFirst =false
+            } else
+                isFirst = true;
 
             this.state = {
                 appLoading: false,
@@ -191,8 +196,7 @@ class certification extends Component {
         userPhone = global.phone;
 
 
-        this.listener = DeviceEventEmitter.addListener('endSureCameraPhoto', (imagePath) => {
-
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
             imagePath = 'file://' + imagePath;
 
             let source = {uri: imagePath};
@@ -251,8 +255,8 @@ class certification extends Component {
     }
 
     componentWillUnmount() {
-        if (this.listener)
-            this.listener.remove();
+        // if (this.listener)
+        //     this.listener.remove();
     }
 
     // 获取当前位置
@@ -343,13 +347,14 @@ class certification extends Component {
 
     /*选择相机*/
     selectCamera() {
+
         if (selectType < 2) {
             this.props.navigation.navigate('TakeCamearPage', {
                 cameraType: selectType + 5,
                 verifiedType: 2,
             });
         } else {
-            this.props.navigation.navigate('TakeCamearPageV', {
+            this.props.navigation.navigate('TakeCameraVer', {
                 cameraType: selectType,
             });
         }
@@ -971,8 +976,8 @@ class certification extends Component {
                                              leftImage={qiangxianLeftImage}
                                              rightImage={this.state.qiangxianRightImage}
                                              click={()=> {
-                                            selectType=2;
-                                            this.showAlertSelected();
+                                                selectType=2;
+                                                this.showAlertSelected();
                                         }}
                     />
 

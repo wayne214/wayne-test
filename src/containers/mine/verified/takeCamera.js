@@ -201,8 +201,8 @@ export default class takeCamera extends Component {
         let showTitle='';
         switch (this.props.navigation.state.params.cameraType){
             case 0 :
-                showTitle='请将人像面放到框内，并调整好光线';
-                break;
+            showTitle='请将人像面放到框内，并调整好光线';
+            break;
             case 1 :
                 showTitle='请将国徽面放到框内，并调整好光线';
                 break;

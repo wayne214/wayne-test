@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
         width: 71,
         height: 71,
         borderRadius: 35.5,
+        resizeMode:'stretch'
     },
     informView: {
         marginLeft: 15,
