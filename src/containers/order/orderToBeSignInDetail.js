@@ -122,7 +122,8 @@ export default class orderToBeSignInDetail extends Component {
             dispatchTimeAgain,
             scheduleTimeAgain,
             payState,
-            settleMethod
+            settleMethod,
+            amount
         } = this.props;
 
         return (
@@ -181,7 +182,7 @@ export default class orderToBeSignInDetail extends Component {
                                 <View style={[styles.constantStyle, {marginLeft: 5}]}>
                                     <Text style={styles.constantIcon}>&#xe66d;</Text>
                                     <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
-                                        {deliveryInfo.receiveContactName}
+                                        {deliveryInfo.receiveContact}
                                     </Text>
                                 </View>
                                 <View style={styles.divideLine}/>
@@ -235,7 +236,7 @@ export default class orderToBeSignInDetail extends Component {
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13,}} />
             </View>
                 {
-                    settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1' || settleMethod !== '20' ?
+                    settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1' || settleMethod !== '20' || amount === '0.00' ?
                         <BottomButton
                             text={'签收'}
                             onClick={() => {

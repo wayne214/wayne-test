@@ -442,13 +442,14 @@ class entryToBeSignin extends Component {
                         dispatchTimeAgain={item.twoDispatchTime}
                         isEndDistribution={item.isEndDistribution}
                         payState={item.payState}
+                        amount={item.amount}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
                         }}
                         signIn={() => {
                             if(item.taskInfo) {
-                                if(item.payState === '0') {
+                                if(item.payState === '0' && item.settleMethod === '20' && item.settleType === '10' && item.amount !== '0.00') {
                                     Alert.alert('请先完成收款，才可以签收');
                                 }else {
                                     // 跳转到具体的签收页面
@@ -466,7 +467,7 @@ class entryToBeSignin extends Component {
                             this.props.navigation.navigate('PayTypesPage', {
                                 orderCode: item.orderCode,
                                 deliveryInfo: item.deliveryInfo,
-                                customCode: '',
+                                customCode: item.customerOrderCode,
                             });
                         }}
                     />

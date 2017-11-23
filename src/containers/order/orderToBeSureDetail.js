@@ -154,7 +154,7 @@ export default class orderToBeSureDetail extends Component {
                                 <View style={[styles.constantStyle, {marginLeft: 5}]}>
                                     <Text style={styles.constantIcon}>&#xe66d;</Text>
                                     <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
-                                        {deliveryInfo.receiveContactName}
+                                        {deliveryInfo.receiveContact}
                                     </Text>
                                 </View>
                                 <View style={styles.divideLine}/>

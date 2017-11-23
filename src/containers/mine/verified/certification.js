@@ -96,7 +96,6 @@ class certification extends Component {
 
             const result = this.props.navigation.state.params.resultInfo;
 
-            debugger
             if (result.carNum){
                 isFirst =false
             } else
