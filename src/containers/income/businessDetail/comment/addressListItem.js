@@ -36,7 +36,7 @@ class addressListItem extends Component{
             //             item.length === 5 ? {fontSize: 13} : {fontSize: 12};
 
 
-            const fontSize = 15;
+            const fontSize = {fontSize: 15};
             if (i === 0){
                 // 绿色图片
                 return(

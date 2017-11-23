@@ -1115,7 +1115,6 @@
 				3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */,
 				DCCFCE5187D44BA097ED7BA8 /* imageCropPicker.xcodeproj */,
 				E059CE651A4145938FCA441F /* RNSound.xcodeproj */,
-				9DB5731BE37D434DBF35CFBD /* RCTJPushModule.xcodeproj */,
 				2A379914C443439FA8B4A613 /* RCTHotUpdate.xcodeproj */,
 			);
 			name = Libraries;
