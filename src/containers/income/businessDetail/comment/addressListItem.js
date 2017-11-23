@@ -30,16 +30,18 @@ class addressListItem extends Component{
                                   item.length === 4 ? 8 :
                                       item.length === 5 ? 7.5 : 6.5;
 
-            const fontSize = item.length === 2 ? {fontSize: 15} :
-                item.length === 3 ? {fontSize: 15} :
-                    item.length === 4 ? {fontSize: 14} :
-                        item.length === 5 ? {fontSize: 13} : {fontSize: 12};
+            // const fontSize = item.length === 2 ? {fontSize: 15} :
+            //     item.length === 3 ? {fontSize: 15} :
+            //         item.length === 4 ? {fontSize: 14} :
+            //             item.length === 5 ? {fontSize: 13} : {fontSize: 12};
 
+
+            const fontSize = 15;
             if (i === 0){
                 // 绿色图片
                 return(
                     <View key={i}>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
                             <Image source={StaticImages.bussniessGreenImg}/>
                             <Image source={StaticImages.bussniessLineImg} style={{marginLeft: 10, marginRight: 10, marginTop: 2}}/>
                         </View>
@@ -51,32 +53,29 @@ class addressListItem extends Component{
                 // 红色图片
                 return(
                     <View key={i}>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
                             <Image source={StaticImages.bussniessRedImg}/>
                         </View>
-                        <Text style={[{marginTop:5, marginLeft: (item.length - 1) * (-space)}, fontSize]}>{item}</Text>
+                        <Text style={[{marginTop:5, marginLeft: (item.length - 1) * (-space) + 5}, fontSize]}>{item}</Text>
                     </View>
                 )
             }
             // 灰色图片
             return(
                 <View key={i}>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', marginTop: 10}}>
                         <Image source={StaticImages.bussniessGrayImg}/>
                         <Image source={StaticImages.bussniessLineImg} style={{marginLeft: 10, marginRight: 10, marginTop: 2}}/>
                     </View>
                     <Text style={[{marginTop:5, marginLeft: (item.length - 1) * (-space)}, fontSize]}>{item}</Text>
                 </View>
-
             )
-
-
         });
 
         return (
             <View style={styles.container}>
 
-                <View style={{flexDirection: 'row', marginLeft: 25, marginTop: 17}}>
+                <View style={{flexDirection: 'row', marginLeft: 30, marginTop: 17, flexWrap: 'wrap'}}>
                     {lines}
                 </View>
 

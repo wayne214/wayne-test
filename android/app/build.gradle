@@ -159,9 +159,7 @@ android {
 }
 
 dependencies {
-    compile project(':@remobile/react-native-toast')
     compile project(':react-native-update')
-    compile project(':native-speech')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile project(':react-native-sound')
     compile project(':react-native-image-crop-picker')
