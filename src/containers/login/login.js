@@ -159,8 +159,9 @@ class Login extends BaseContainer {
 
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
-            phoneNumber: '',
+            phoneNumber: params ? params.loginPhone : '',
             password: ''
 
         };
