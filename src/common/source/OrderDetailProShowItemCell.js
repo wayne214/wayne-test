@@ -80,19 +80,19 @@ class OrderDetailProShowItemCell extends Component {
         );
     }
     // 子组件
-    subComponent(orderInfo, isSign, isLast) {
+    subComponent(orderInfo, isSign, isLast, transOrderType, isEndDistribution) {
 
         const showReason = isSign ? this.showLine(orderInfo) : this.showReason(orderInfo);
         const signView = isSign ? null :
-            <GoodInfoCell title="签收" num={orderInfo.signNum} unit={orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0' ? orderInfo.goodsUnit : 'Kg'} />;
+            <GoodInfoCell title="签收" num={orderInfo.signNum ? orderInfo.signNum : '0'} unit={orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0' ? orderInfo.goodsUnit : 'Kg'} />;
         const notSignView = isSign ? null :
             <GoodInfoCell
-                title="拒收" num={orderInfo.refuseNum}
+                title="拒收" num={orderInfo.refuseNum ? orderInfo.refuseNum : '0'}
                 unit={orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0' ? orderInfo.goodsUnit : 'Kg'}
                 style={{width: 127}}
             />;
         const showSignView = isSign ? null : <View>
-            <View style={{marginTop: 10}}>
+            <View>
                 {signView}
             </View>
             <View style={{marginTop: 10}}>
@@ -115,18 +115,17 @@ class OrderDetailProShowItemCell extends Component {
                             orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0'?
                                 <GoodInfoCell title="应收" num={orderInfo.arNums} unit={orderInfo.goodsUnit} /> :
                                 <GoodInfoCell title="应收" num={orderInfo.weight} unit={'Kg'} />
-
                         }
                     </View>
-                    <View style={{marginTop: 10}}>
+                    <View style={{marginTop: 10, marginBottom: 10}}>
                         {
                             orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0'?
                                 <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
                                 <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={'Kg'} style={{width: 127}}/>
                         }
                     </View>
-                    {showSignView}
-                    {showReason}
+                    {transOrderType === '606' && isEndDistribution === 'N' ? null : showSignView}
+                    {transOrderType === '606' && isEndDistribution === 'N' ? null : showReason}
                 </View>
                 {isLast ? null : <View style={style.view}/>}
             </View>
@@ -134,10 +133,10 @@ class OrderDetailProShowItemCell extends Component {
     }
 
     render() {
-        const {orderInfo, isSign, isLast} = this.props;
+        const {orderInfo, isSign, isLast, transOrderType, isEndDistribution} = this.props;
         return (
             <View>
-                {this.subComponent(orderInfo, isSign, isLast)}
+                {this.subComponent(orderInfo, isSign, isLast, transOrderType, isEndDistribution)}
             </View>
         );
     }

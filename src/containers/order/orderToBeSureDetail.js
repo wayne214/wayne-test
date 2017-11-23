@@ -103,6 +103,7 @@ export default class orderToBeSureDetail extends Component {
             dispatchTimeAgain,
             scheduleTimeAgain,
             customerOrderCode,
+            isEndDistribution
         } = this.props;
         return (
             <View
@@ -186,6 +187,8 @@ export default class orderToBeSureDetail extends Component {
                                     key={indexRow}
                                     orderInfo={item}
                                     isLast={indexRow === goodsInfoList.length - 1}
+                                    transOrderType={transOrderType}
+                                    isEndDistribution={isEndDistribution}
                                 />
                             );
                         }) : null
