@@ -1115,11 +1115,7 @@
 				3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */,
 				DCCFCE5187D44BA097ED7BA8 /* imageCropPicker.xcodeproj */,
 				E059CE651A4145938FCA441F /* RNSound.xcodeproj */,
-<<<<<<< HEAD
-				9DB5731BE37D434DBF35CFBD /* RCTJPushModule.xcodeproj */,
-=======
 				B345F53D24B04B05BDAEB472 /* speech.xcodeproj */,
->>>>>>> ca5fc4d45b439d080fa2b5768b1c25d57f1b7f61
 				2A379914C443439FA8B4A613 /* RCTHotUpdate.xcodeproj */,
 			);
 			name = Libraries;
@@ -2266,11 +2262,7 @@
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
-<<<<<<< HEAD
-					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
-=======
 					"$(SRCROOT)/../node_modules/native-speech/ios/speech/**",
->>>>>>> ca5fc4d45b439d080fa2b5768b1c25d57f1b7f61
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
@@ -2328,11 +2320,7 @@
 					"$(SRCROOT)/../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
-<<<<<<< HEAD
-					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
-=======
 					"$(SRCROOT)/../node_modules/native-speech/ios/speech/**",
->>>>>>> ca5fc4d45b439d080fa2b5768b1c25d57f1b7f61
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
