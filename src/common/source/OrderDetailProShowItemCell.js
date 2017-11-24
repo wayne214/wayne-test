@@ -120,8 +120,8 @@ class OrderDetailProShowItemCell extends Component {
                     <View style={{marginTop: 10, marginBottom: 10}}>
                         {
                             orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0'?
-                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
-                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={'Kg'} style={{width: 127}}/>
+                                <GoodInfoCell title="发运" num={parseFloat(orderInfo.shipmentNum).toFixed(2)} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
+                                <GoodInfoCell title="发运" num={parseFloat(orderInfo.shipmentNum).toFixed(2)} unit={'Kg'} style={{width: 127}}/>
                         }
                     </View>
                     {transOrderType === '606' && isEndDistribution === 'N' ? null : showSignView}
