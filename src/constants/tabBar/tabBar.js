@@ -109,8 +109,12 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65b;</Text> : <Text style={styles.renderIcon}>&#xe65d;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                DeviceEventEmitter.emit('refreshIncome');
-                jumpToIndex(scene.index)
+                if(global.verifiedState && global.verifiedState == '1202') {
+                    DeviceEventEmitter.emit('refreshIncome');
+                    jumpToIndex(scene.index)
+                }else {
+                    DeviceEventEmitter.emit('notifyIncome');
+                }
             },
         }),
     },

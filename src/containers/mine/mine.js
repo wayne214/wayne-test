@@ -386,7 +386,8 @@ class Mine extends Component {
 
                         this.setState({
                             verifiedState: responseData.result,
-                        })
+                        });
+                        global.verifiedState = responseData.result;
                     },
                     error: (errorInfo) => {
 

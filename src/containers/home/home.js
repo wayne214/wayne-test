@@ -297,6 +297,7 @@ class Home extends Component {
         this.popToTop = this.popToTop.bind(this);
 
         this.speechContent = this.speechContent.bind(this);
+        this.notifyIncome = this.notifyIncome.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -525,6 +526,10 @@ class Home extends Component {
             this.notifyCarStatus();
         });
 
+        this.notifyIncomeListener = DeviceEventEmitter.addListener('notifyIncome', () => {
+            this.notifyIncome();
+        });
+
         this.Listener = DeviceEventEmitter.addListener('restToLoginPage', (message) => {
             Toast.showShortCenter(message);
             this.resetTo(0, 'Login');
@@ -553,7 +558,40 @@ class Home extends Component {
         }
     }
 
-//
+    notifyIncome(){
+        if (global.verifiedState && global.verifiedState == '1201') {
+            Alert.alert('提示', '认证资料正在审核中');
+        } else if (global.verifiedState && global.verifiedState == '1203'){
+            Alert.alert('提示', '认证资料已驳回，请重新上传资料',[
+                {
+                    text: '好的',
+                    onPress: () => {
+                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+
+                            if (value){
+                                this.props.navigation.navigate('VerifiedPage', {
+                                    resultInfo: value,
+                                });
+                            }else {
+                                this.props.navigation.navigate('VerifiedPage');
+                            }
+                        });
+                    },
+                },
+            ],{cancelable: true});
+        } else {
+            Alert.alert('提示','您的账号未实名认证，请进行实名认证',[
+                {
+                    text: '好的',
+                    onPress: () => {
+                        this.props.navigation.navigate('Mine');
+                    },
+                },
+            ], {cancelable: false});
+        }
+    }
+
+
     notifyCarStatus() {
         Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
     }
@@ -564,6 +602,7 @@ class Home extends Component {
         this.Listener.remove();
         this.bindCarListener.remove();
         this.notifyCarStatusListener.remove();
+        this.notifyIncomeListener.remove();
         this.logListener.remove();
     }
 
