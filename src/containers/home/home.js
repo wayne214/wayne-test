@@ -562,23 +562,7 @@ class Home extends Component {
         if (global.verifiedState && global.verifiedState == '1201') {
             Alert.alert('提示', '认证资料正在审核中');
         } else if (global.verifiedState && global.verifiedState == '1203'){
-            Alert.alert('提示', '认证资料已驳回，请重新上传资料',[
-                {
-                    text: '好的',
-                    onPress: () => {
-                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-
-                            if (value){
-                                this.props.navigation.navigate('VerifiedPage', {
-                                    resultInfo: value,
-                                });
-                            }else {
-                                this.props.navigation.navigate('VerifiedPage');
-                            }
-                        });
-                    },
-                },
-            ],{cancelable: true});
+            Alert.alert('提示', '认证资料已驳回，请重新上传资料');
         } else {
             Alert.alert('提示','您的账号未实名认证，请进行实名认证',[
                 {
