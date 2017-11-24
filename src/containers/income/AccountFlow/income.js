@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class Income extends Component {
+class Income extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -190,17 +190,31 @@ export default class Income extends Component {
                                     {/*navigator.navigate('Withdrawals')*/}
                     {/*}}/>*/}
                     {/*<View style={{marginTop: 1}}/>*/}
-                    <IncomeCell leftIcon="&#xe624;" content={'我的银行卡'}
-                    iconColor="rgb(250,128,10)"
-                    clickAction={() => {
-                        navigator.navigate('MyBankCard')
-                    }}/>
+                    {
+                        this.props.queryEnterPrise == '个人' ?
+                            <IncomeCell leftIcon="&#xe624;" content={'我的银行卡'}
+                                        iconColor="rgb(250,128,10)"
+                                        clickAction={() => {
+                                            navigator.navigate('MyBankCard')
+                                        }}/> : null
+                    }
                 </View>
             </View>
         );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        queryEnterPrise: state.user.get('queryEnterPrise'),
+    };
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Income);
 
 
