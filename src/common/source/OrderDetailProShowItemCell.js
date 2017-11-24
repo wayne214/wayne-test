@@ -108,7 +108,7 @@ class OrderDetailProShowItemCell extends Component {
                     </View>
                     <View style={style.subViewStyle}>
                         <Text style={style.subTitleStyle}>规格</Text>
-                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{orderInfo.goodsSpce}</Text>
+                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{orderInfo.goodsSpce ? orderInfo.goodsSpce : '/'}</Text>
                     </View>
                     <View style={{marginTop: 10}}>
                         {
