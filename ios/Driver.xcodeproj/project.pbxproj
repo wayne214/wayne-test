@@ -56,6 +56,7 @@
 		354F4AAC1FBD87BF0035F679 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AAB1FBD87A80035F679 /* libRCTBaiduMap.a */; };
 		354F4B161FBD8A890035F679 /* libRCTHotUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AF01FBD8A3F0035F679 /* libRCTHotUpdate.a */; };
 		354F4B181FBD8AD20035F679 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4B171FBD8AD20035F679 /* libbz2.1.0.tbd */; };
+		35985C4B1FC81AE8000CCA6A /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35985C4A1FC81979000CCA6A /* mapapi.bundle */; };
 		35AC22A71F78B462007D53B5 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 35AC22A61F78B462007D53B5 /* fonts */; };
 		35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */; };
 		35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FD1F79F506007D53B5 /* QuartzCore.framework */; };
@@ -530,6 +531,7 @@
 		354F4AC21FBD88820035F679 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = lib/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
 		354F4AC31FBD88820035F679 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = lib/thirdlibs/libssl.a; sourceTree = "<group>"; };
 		354F4B171FBD8AD20035F679 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
+		35985C4A1FC81979000CCA6A /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		35AC22A61F78B462007D53B5 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35AC22FD1F79F506007D53B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -634,7 +636,6 @@
 		C630DB8A1FC2B680004FBBA2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C630DB901FC2B749004FBBA2 /* BDSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDSpeech.h; sourceTree = "<group>"; };
 		C630DB911FC2B749004FBBA2 /* BDSpeech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDSpeech.m; sourceTree = "<group>"; };
-		C679B9701FBD9CE9004BFCC0 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		C679B9761FBD9D66004BFCC0 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		C679B9771FBD9D66004BFCC0 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
 		C679B9781FBD9D66004BFCC0 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
@@ -1132,9 +1133,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				35985C4A1FC81979000CCA6A /* mapapi.bundle */,
 				C630DB121FC2B630004FBBA2 /* BDSource */,
 				C679B9751FBD9D66004BFCC0 /* lib */,
-				C679B9701FBD9CE9004BFCC0 /* mapapi.bundle */,
 				B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */,
 				B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */,
 				35CEC7C01F8C71D400EB8A7B /* ImageCropPickerSDK */,
@@ -1979,6 +1980,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35985C4B1FC81AE8000CCA6A /* mapapi.bundle in Resources */,
 				C630DB8D1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Female.dat in Resources */,
 				C630DB8E1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Male.dat in Resources */,
 				C630DB8F1FC2B6A2004FBBA2 /* Chinese_And_English_Text.dat in Resources */,
