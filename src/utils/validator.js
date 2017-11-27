@@ -56,7 +56,7 @@ const leadingZeros = (num, length = null) => {
 const newPhone = (phone)=>{
     if(phone && phone.length === 11){
         let temp = phone;
-        return phone.substr(0,4)+'****'+temp.substr(7,11);
+        return phone.substr(0,3)+'****'+temp.substr(7,11);
     }
     return '';
 };
