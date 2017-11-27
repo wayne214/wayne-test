@@ -162,8 +162,8 @@ class Login extends BaseContainer {
         const params = this.props.navigation.state.params;
         this.state = {
             phoneNumber: params ? params.loginPhone : '',
-            password: ''
-
+            password: '',
+            loading: false,
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
@@ -248,7 +248,9 @@ class Login extends BaseContainer {
                 platform: global.platform,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.setState({
@@ -287,7 +289,8 @@ class Login extends BaseContainer {
                         //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
                             loginPhone: responseData.result.phone,
-                            responseData: responseData
+                            responseData: responseData,
+                            sourcePage: -1,
                         });
                     }
                 });
@@ -299,6 +302,9 @@ class Login extends BaseContainer {
                 });
             },
             finish: () => {
+                this.setState({
+                    loading: false,
+                });
             }
         });
 

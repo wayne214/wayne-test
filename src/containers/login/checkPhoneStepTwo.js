@@ -125,6 +125,7 @@ class CheckPhoneStepTwo extends Component {
                 phoneNum: this.phoneNo,
                 deviceId: global.UDID,
                 platform: global.platform,
+                loginSite: 1
             },
             loading: ()=>{
                 this.setState({
@@ -174,7 +175,7 @@ class CheckPhoneStepTwo extends Component {
         if (this.phoneNo && this.state.pwdCode) {
             this.bindDevice();
         } else {
-            Toast.showShortCenter('账号或密码不能为空');
+            Toast.showShortCenter('账号或验证码不能为空');
         }
     }
 

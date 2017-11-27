@@ -253,7 +253,7 @@ class LoginSms extends BaseContainer {
             },
             success: (responseData)=>{
 
-                //FIXME 登录界面判断是否被其他设备绑定
+                //FIXME 登录界面判断是否已经绑定
                 const isBind = responseData.result.isBind;
                 console.log('-lqq---isBind',isBind);
                 if(isBind){//继续登录操作
@@ -281,7 +281,8 @@ class LoginSms extends BaseContainer {
                 }else{//跳转到绑定设备界面
                     this.props.navigation.navigate('CheckPhone', {
                         loginPhone: responseData.result.phone,
-                        responseData: responseData
+                        responseData: responseData,
+                        sourcePage: 1,
                     });
                 }
             },
