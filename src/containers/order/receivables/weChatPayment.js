@@ -320,11 +320,11 @@ const styles =StyleSheet.create({
         ...Platform.select({
             ios: {
                 marginBottom: 53,
-                height: 138,
+                height: 148,
             },
             android:{
-                height: 143,
-                marginBottom: 43,
+                height: 153,
+                marginBottom: 38,
             }
         }),
     },
