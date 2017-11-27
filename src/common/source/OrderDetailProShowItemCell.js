@@ -108,7 +108,7 @@ class OrderDetailProShowItemCell extends Component {
                     </View>
                     <View style={style.subViewStyle}>
                         <Text style={style.subTitleStyle}>规格</Text>
-                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{orderInfo.goodsSpce}</Text>
+                        <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{orderInfo.goodsSpce ? orderInfo.goodsSpce : '/'}</Text>
                     </View>
                     <View style={{marginTop: 10}}>
                         {
@@ -120,8 +120,8 @@ class OrderDetailProShowItemCell extends Component {
                     <View style={{marginTop: 10, marginBottom: 10}}>
                         {
                             orderInfo.arNums && orderInfo.arNums !== '' &&  orderInfo.arNums !== '0'?
-                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
-                                <GoodInfoCell title="发运" num={orderInfo.shipmentNum} unit={'Kg'} style={{width: 127}}/>
+                                <GoodInfoCell title="发运" num={parseFloat(orderInfo.shipmentNum).toFixed(2)} unit={orderInfo.goodsUnit} style={{width: 127}}/> :
+                                <GoodInfoCell title="发运" num={parseFloat(orderInfo.shipmentNum).toFixed(2)} unit={'Kg'} style={{width: 127}}/>
                         }
                     </View>
                     {transOrderType === '606' && isEndDistribution === 'N' ? null : showSignView}

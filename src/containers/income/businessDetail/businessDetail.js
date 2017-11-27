@@ -40,11 +40,9 @@ let isLoadMore = false;
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-
 const styles = StyleSheet.create({
     listView: {
         backgroundColor: '#F5F5F5',
-        height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height,
     },
 
 });
@@ -60,6 +58,7 @@ class detailsPage extends Component {
             isShowType: false,
             loading: false,
             dataLength: 1,
+            topHeight: 0,
         };
 
         this.onRefresh = this.onRefresh.bind(this);
@@ -201,8 +200,14 @@ class detailsPage extends Component {
 
         if (this.state.isShowType){
             // 隐藏
+            this.setState({
+                topHeight: 0
+            })
         }else{
             // 显示
+            this.setState({
+                topHeight: 55
+            })
         }
 
         this.setState({
@@ -318,7 +323,7 @@ class detailsPage extends Component {
                     this.state.dataLength > 0 ? <ListView
                             dataSource={this.state.dataSource}
                             renderRow={this.renderRow}
-                            style={styles.listView}
+                            style={[styles.listView, {height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - ConstValue.Tabbar_Height - this.state.topHeight}]}
                             renderSeparator={this.renderSeparator}
                             onEndReached={this.loadMoreData}
                             onEndReachedThreshold={100}
