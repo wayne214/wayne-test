@@ -63,8 +63,8 @@ export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
 // 根据时间获取获取货源列表
-export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v1.1`;
-// export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v3.0`; // 3.0版本
+// export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v1.1`;
+export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v3.0`; // 3.0版本
 // 接单拒单数量
 // export const API_NEW_GET_STATUS_NUMBER = `${HOST}app/dpc/queryDispatchDocStatusNum`;
 // // 调度单发车数量接口
@@ -111,8 +111,8 @@ export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
 // 发运接口
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
-export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
-// export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource/v3.0`; // 3.0版本
+// export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
+export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource/v3.0`; // 3.0版本
 // 订单列表（待回单）
 export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPage`;
 // 运输中
@@ -124,8 +124,8 @@ export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 // 签收接口
 export const API_NEW_SIGN = `${HOST}app/transport/sign`;
 // 批量签收接口
-export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign`;
-// export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign/v3.0`; // 3.0版本
+// export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign`;
+export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign/v3.0`; // 3.0版本
 // 订单列表（全部，待发运）分页查询调度单
 export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPage`;
 
