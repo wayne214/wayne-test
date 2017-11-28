@@ -202,7 +202,7 @@ class WeChatPayment extends Component {
                                         img.style.cssText = 'width: 130px; height:130px;'"
                                     />
                                 </View>
-                                <View style={{alignItems:'center'}}>
+                                <View style={{alignItems:'center',paddingBottom: 15}}>
                                     <TouchableOpacity
                                         onPress={() => {
                                             this.getWeChatQrCode();
@@ -302,12 +302,10 @@ const styles =StyleSheet.create({
         borderRadius: 5,
         ...Platform.select({
             ios: {
-                flex: 2,
                 marginTop: 30,
             },
             android: {
-                flex: 3,
-                marginTop: 20,
+                marginTop: 15,
             }
         })
     },
@@ -324,7 +322,6 @@ const styles =StyleSheet.create({
             },
             android:{
                 height: 153,
-                marginBottom: 38,
             }
         }),
     },
