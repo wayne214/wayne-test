@@ -230,14 +230,17 @@ class orderToBeWaitSureDetail extends Component {
 
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                {
+                    taskInfo && taskInfo.isReceipt === '是' ?
+                        <BottomButton
+                            text={'回单'}
+                            onClick={() => {
+                                this.uploadReceipt();
+                            }}
+                            buttonDisabled={this.state.buttonDisabled}
+                        /> : null
+                }
 
-                <BottomButton
-                    text={'回单'}
-                    onClick={() => {
-                        this.uploadReceipt();
-                    }}
-                    buttonDisabled={this.state.buttonDisabled}
-                />
                 {this.state.loading ? <Loading/> : null}
             </View>
         );
