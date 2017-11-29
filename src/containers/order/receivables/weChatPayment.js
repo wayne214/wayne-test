@@ -12,7 +12,8 @@ import {
     TouchableOpacity,
     Dimensions,
     Image,
-    WebView
+    WebView,
+    DeviceEventEmitter
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
@@ -140,6 +141,7 @@ class WeChatPayment extends Component {
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {
+                                                DeviceEventEmitter.emit('refreshSettleState');
                                                 navigator.goBack();
                                             }}
                                         >

@@ -22,6 +22,8 @@ import Toast from '@remobile/react-native-toast';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
+import Button from 'apsl-react-native-button';
+
 const {width, height} = Dimensions.get('window');
 
 let currentTime = 0;
@@ -124,14 +126,46 @@ class payTypes extends Component {
             amount: '0',
             deliveryInfo: params.deliveryInfo,
             customCode: params.customCode,
+            disable: true,
         };
         this.confirmPayment = this.confirmPayment.bind(this);
+        this.getSettleState = this.getSettleState.bind(this);
     }
 
     componentDidMount() {
+        this.getSettleState();
         this.getCurrentPosition();
         this.getSettleAmount();
         console.log('.......orderCode',this.state.orderCode);
+        DeviceEventEmitter.addListener('refreshSettleState', () => {
+            this.getSettleState();
+        })
+    }
+    // 获取支付状态
+    getSettleState() {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_AC_GET_SETTLE_STATE + this.state.orderCode,
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取付款状态', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '获取付款状态');
+                // if(responseData.message){
+                    this.updateStatus(true);
+                // }
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
+    updateStatus(value){
+        this.setState({
+            disable: value,
+        });
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -273,15 +307,19 @@ class payTypes extends Component {
                         <View style={styles.separateLine} />
                     </View>
                     <View style={{marginTop: 10}}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                this.submit();
-                            }}
-                        >
-                            <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
-                                <Text style={styles.buttonText}>确认支付</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
+                        <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
+                            <Button
+                                ref='button'
+                                isDisabled={!this.state.disable}
+                                style={{borderWidth: 0, marginBottom: 0,}}
+                                textStyle={styles.buttonText}
+                                onPress={() => {
+                                    this.submit();
+                                }}
+                            >
+                                确认支付
+                            </Button>
+                        </ImageBackground>
                     </View>
                 </View>
             </View>
