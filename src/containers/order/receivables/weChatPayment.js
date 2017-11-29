@@ -305,7 +305,7 @@ const styles =StyleSheet.create({
                 marginTop: 30,
             },
             android: {
-                marginTop: 15,
+                marginTop: 10,
             }
         })
     },
@@ -393,7 +393,7 @@ const styles =StyleSheet.create({
         fontSize: 25,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         alignSelf: 'center',
-        padding: 20,
+        padding: 15,
     },
     tipText: {
         fontSize: 14,
