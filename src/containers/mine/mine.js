@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
         width: 71,
         height: 71,
         borderRadius: 35.5,
-        resizeMode:'stretch'
     },
     informView: {
         marginLeft: 15,
@@ -688,10 +687,12 @@ class Mine extends Component {
                                         {
                                             this.state.avatarSource != '' ?
                                                 <Image
+                                                    resizeMode='stretch'
                                                     style={styles.driverIcon}
                                                     source={this.state.avatarSource}/>
                                                 :
                                                 <Image
+                                                    resizeMode='stretch'
                                                     style={styles.driverIcon}
                                                     source={StaticImage.CenterLoginAvatar}/>
                                         }
