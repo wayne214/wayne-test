@@ -210,8 +210,8 @@ class OrdersItemCell extends Component {
                                         </Text>
                                     </View>
                                     <View style={styles.stateView}>
-                                        {orderStatus === 0 ? statusView : null}
-                                        {orderStatus === 3 ? orderNumView : null}
+                                        {this.state.showStatus === 0 ? statusView : null}
+                                        {this.state.showStatus === 3 ? orderNumView : null}
                                     </View>
                                 </View>
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arrivalTime}</Text>
