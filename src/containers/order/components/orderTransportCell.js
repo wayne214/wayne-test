@@ -188,7 +188,7 @@ class OrdersItemCell extends Component {
                     {
                         item.weight ?
                             <Text style={styles.textSizeWeight}>{item.weight}Kg</Text> :
-                            <Text style={styles.textSizeWeight}>{item.weight}</Text>
+                            <Text style={styles.textSizeWeight}>0Kg</Text>
                     }
                 </View>
             </View>
@@ -252,7 +252,7 @@ class OrdersItemCell extends Component {
                     {
                         transport.weight ?
                             <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
-                            <Text style={styles.textSizeWeight}>{transport.weight}</Text>
+                            <Text style={styles.textSizeWeight}>0Kg</Text>
 
                     }
                 </View>
@@ -266,7 +266,7 @@ class OrdersItemCell extends Component {
                         {
                             transport.weight ?
                                 <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
-                                <Text style={styles.textSizeWeight}>{transport.weight}</Text>
+                                <Text style={styles.textSizeWeight}>0Kg</Text>
 
                         }
                     </View>
@@ -275,7 +275,7 @@ class OrdersItemCell extends Component {
                         {
                             transport1.weight ?
                                 <Text style={styles.textSizeWeight}>{transport1.weight}Kg</Text> :
-                                <Text style={styles.textSizeWeight}>{transport1.weight}</Text>
+                                <Text style={styles.textSizeWeight}>0Kg</Text>
                         }
                     </View>
                 </View>
