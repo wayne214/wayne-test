@@ -429,6 +429,7 @@ class Mine extends Component {
                         /*资质认证成功，绑定当前车牌号*/
                         DeviceEventEmitter.emit('bindUserCar', this.props.plateNumber);
                     }
+                    global.certificationState = responseData.result;
                 },
                 error: (errorInfo) => {
 

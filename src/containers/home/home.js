@@ -16,12 +16,15 @@ import {
     DeviceEventEmitter,
     TouchableOpacity,
     ScrollView,
+    Modal
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
 import Carousel from 'react-native-snap-carousel';
 import Speech from '../../utils/VoiceUtils';
+import Communications from 'react-native-communications';
+import Dialog from './components/dialog';
 
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
@@ -270,6 +273,7 @@ class Home extends Component {
             weatherNum: '',
             limitNumber: '',
             plateNumberObj: {},
+            modalVisible: false,
         };
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
@@ -548,6 +552,12 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
     }
+
+    // componentDidUpdate() {
+    //     if (this.props.versionUrl !== '') {
+    //         this.refs.dialog.show('提示', '版本过低，需要升级到最新版本，否则可能影响使用');
+    //     }
+    // }
     // 语音播报内容
     speechContent(message, voiceType) {
         if (this.props.speechSwitchStatus) {
@@ -556,6 +566,11 @@ class Home extends Component {
             }else
                 Speech.speak(message, voiceType);
         }
+    }
+
+    // 版本升级方法
+    dialogOkCallBack(){
+        Communications.web(this.props.versionUrl);
     }
 
     notifyIncome(){
@@ -605,7 +620,15 @@ class Home extends Component {
                 ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
                 if (responseData.result) {
-                    this.props.updateVersion(responseData.result);
+                    if (responseData.result !== '') {
+                        this.props.updateVersion(responseData.result);
+                        this.setState({
+                            modalVisible: true,
+                        });
+                        if (this.refs.updateDialog){
+                            this.refs.updateDialog.show('提示', '版本过低，需要升级到最新版本，否则可能影响使用');
+                        }
+                    }
                 }else {
                     this.setData();
                 }
@@ -1081,7 +1104,6 @@ class Home extends Component {
 
     render() {
         const {homePageState,routes} = this.props;
-        console.log('routes=',routes);
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
@@ -1102,8 +1124,6 @@ class Home extends Component {
                             height: 17,
                         },
                         onClick: () => {
-
-
                             this.props.setMessageListIcon(false);
                             Storage.save(StorageKey.newMessageFlag, '0');
                             this.pushToMsgList();
@@ -1268,6 +1288,14 @@ class Home extends Component {
                         />
                     </View>
                 </ScrollView>
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={this.state.modalVisible}>
+                    <Dialog
+                        ref="updateDialog"
+                        callback={this.dialogOkCallBack.bind(this)} />
+                </Modal>
             </View>
         );
     }
@@ -1284,7 +1312,8 @@ function mapStateToProps(state) {
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
         userCarList: state.user.get('userCarList'),
-        speechSwitchStatus: state.app.get('speechSwitchStatus')
+        speechSwitchStatus: state.app.get('speechSwitchStatus'),
+        versionUrl: state.app.get('versionUrl'),
     };
 }
 
