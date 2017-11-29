@@ -92,7 +92,7 @@ class certification extends Component {
     constructor(props) {
         super(props);
         /*从认证驳回跳转到此页面，传递过来详细的信息*/
-        if (this.props.navigation.state.params.resultInfo) {
+        if (this.props.navigation.state.params) {
 
             const result = this.props.navigation.state.params.resultInfo;
 
