@@ -152,9 +152,9 @@ class payTypes extends Component {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取付款状态', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '获取付款状态');
-                // if(responseData.message){
-                    this.updateStatus(true);
-                // }
+                if(responseData.result){
+                    this.updateStatus(responseData.result);
+                }
             },
             error: (errorInfo)=>{
             },
