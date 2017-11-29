@@ -122,8 +122,11 @@ const postRequest = (
                         Storage.remove(StorageKey.PlateNumber);
                         resetToLoginEmit.restToLogin(responseData.message);
                         JPushModule.setAlias('', ()=>{}, ()=>{});
+                        Toast.showShortCenter(responseData.message);
+                    } else if (responseData.code == '800'){} else {
+                        Toast.showShortCenter(responseData.message);
                     }
-                    Toast.showShortCenter(responseData.message);
+
 
                     if (failCallBack)
                         failCallBack(responseData);
