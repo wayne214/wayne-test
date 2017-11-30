@@ -434,14 +434,14 @@ class entryToBeSignin extends Component {
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
-                        settlementMode={item.settleType}
-                        settleMethod={item.settleMethod}
+                        settlementMode={item.settleType} // 结算方式：10 按单结费 20 按车结费
+                        settleMethod={item.settleMethod} // 结费方式；10 现金 20 到付 30 回付 40 月付
                         scheduleTime={item.scheduleTime}
                         scheduleTimeAgain={item.twoScheduleTime}
                         dispatchTime={item.dispatchTime}
                         dispatchTimeAgain={item.twoDispatchTime}
                         isEndDistribution={item.isEndDistribution}
-                        payState={item.payState}
+                        payState={item.payState} // 付款状态：0 未付款 1 已付款
                         amount={item.amount}
                         index={index}
                         addressMapSelect={(indexRow, type) => {

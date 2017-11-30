@@ -52,9 +52,9 @@ class Root extends Component {
     checkUpdateForNewVersion = () => {
         checkUpdate(appKey).then(info => {
             if (info.expired) { // 应用包过期
-                Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
-                    {text: '确定', onPress: ()=>{info.downloadUrl && Linking.openURL(info.downloadUrl)}},
-                ]);
+                // Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
+                //     {text: '确定', onPress: ()=>{info.downloadUrl && Linking.openURL(info.downloadUrl)}},
+                // ]);
             } else if (info.upToDate) { // 应用是最新版本
                 // Alert.alert('提示', '您的应用版本已是最新.');
             } else {
