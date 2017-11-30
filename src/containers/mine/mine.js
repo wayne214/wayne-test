@@ -12,6 +12,7 @@ import {
     Platform,
     Alert,
     Modal,
+
 } from 'react-native';
 import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
@@ -117,15 +118,17 @@ const styles = StyleSheet.create({
     iconOutView: {
         marginBottom: 10,
         marginLeft: 15,
-        borderRadius: 100,
+        borderRadius: 5,
         borderWidth: 3,
         borderColor: 'rgba(255,255,255,0.2)',
+        overflow: 'visible'
+
     },
     driverIcon: {
-        width: 71,
-        height: 71,
-        borderRadius: 35.5,
-        resizeMode:'stretch'
+        width: 60,
+        height: 60,
+        resizeMode:'stretch',
+        borderRadius: 40,
     },
     informView: {
         marginLeft: 15,
@@ -612,7 +615,7 @@ class Mine extends Component {
                 <View
                     style={{
                         height: 28,
-                        width: 85,
+                        width: 87,
                         // right: 10,
                         // borderRadius: 18,
                         borderTopLeftRadius: 18,
@@ -624,7 +627,6 @@ class Mine extends Component {
                         justifyContent: 'center',
                         // position: 'absolute',
                         // bottom: 20,
-                        marginRight: -5
                     }}>
                     <Text
                         style={{
@@ -688,11 +690,14 @@ class Mine extends Component {
                                             this.state.avatarSource != '' ?
                                                 <Image
                                                     style={styles.driverIcon}
-                                                    source={this.state.avatarSource}/>
+                                                    // resizeMethod="resize"
+                                                     source={this.state.avatarSource}
+                                                />
                                                 :
                                                 <Image
                                                     style={styles.driverIcon}
-                                                    source={StaticImage.CenterLoginAvatar}/>
+                                                    source={StaticImage.CenterLoginAvatar}
+                                                />
                                         }
                                     </View>
                                 </TouchableOpacity>
