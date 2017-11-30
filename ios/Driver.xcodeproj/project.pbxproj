@@ -53,9 +53,6 @@
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* DriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DriverTests.m */; };
 		34F6E74EEBE7465883BA7A9F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BCCE44DC544554835F38F5 /* libRNDeviceInfo.a */; };
-		3547B9C21FCEE5F6002304C0 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 3547B9BF1FCEE5C7002304C0 /* assets */; };
-		3547B9C31FCEE5F6002304C0 /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 3547B9C01FCEE5C7002304C0 /* index.ios.jsbundle */; };
-		3547B9C41FCEE5F6002304C0 /* index.ios.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = 3547B9C11FCEE5C8002304C0 /* index.ios.jsbundle.meta */; };
 		354F4AAC1FBD87BF0035F679 /* libRCTBaiduMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AAB1FBD87A80035F679 /* libRCTBaiduMap.a */; };
 		354F4B161FBD8A890035F679 /* libRCTHotUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4AF01FBD8A3F0035F679 /* libRCTHotUpdate.a */; };
 		354F4B181FBD8AD20035F679 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 354F4B171FBD8AD20035F679 /* libbz2.1.0.tbd */; };
@@ -530,9 +527,6 @@
 		327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		3435735946DF462E8035CEE1 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3507D9E4745749409A6120C0 /* libRCTHotUpdate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTHotUpdate.a; sourceTree = "<group>"; };
-		3547B9BF1FCEE5C7002304C0 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
-		3547B9C01FCEE5C7002304C0 /* index.ios.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; name = index.ios.jsbundle; path = bundle/index.ios.jsbundle; sourceTree = "<group>"; };
-		3547B9C11FCEE5C8002304C0 /* index.ios.jsbundle.meta */ = {isa = PBXFileReference; lastKnownFileType = file; name = index.ios.jsbundle.meta; path = bundle/index.ios.jsbundle.meta; sourceTree = "<group>"; };
 		354F4AA61FBD87A70035F679 /* RCTBaiduMap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBaiduMap.xcodeproj; path = "../node_modules/react-native-baidu-map-xzx/ios/RCTBaiduMap.xcodeproj"; sourceTree = "<group>"; };
 		354F4AC21FBD88820035F679 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = lib/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
 		354F4AC31FBD88820035F679 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = lib/thirdlibs/libssl.a; sourceTree = "<group>"; };
@@ -1139,9 +1133,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				3547B9BF1FCEE5C7002304C0 /* assets */,
-				3547B9C01FCEE5C7002304C0 /* index.ios.jsbundle */,
-				3547B9C11FCEE5C8002304C0 /* index.ios.jsbundle.meta */,
 				35985C4A1FC81979000CCA6A /* mapapi.bundle */,
 				C630DB121FC2B630004FBBA2 /* BDSource */,
 				C679B9751FBD9D66004BFCC0 /* lib */,
@@ -1989,9 +1980,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3547B9C21FCEE5F6002304C0 /* assets in Resources */,
-				3547B9C31FCEE5F6002304C0 /* index.ios.jsbundle in Resources */,
-				3547B9C41FCEE5F6002304C0 /* index.ios.jsbundle.meta in Resources */,
 				35985C4B1FC81AE8000CCA6A /* mapapi.bundle in Resources */,
 				C630DB8D1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Female.dat in Resources */,
 				C630DB8E1FC2B6A2004FBBA2 /* Chinese_And_English_Speech_Male.dat in Resources */,
