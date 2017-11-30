@@ -733,13 +733,13 @@ let transCodeListData3 = [];
                         signListData = [];
                     }
                     signListData = signListData.concat(result.list);
+                    console.log('result123=======',result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
                         allCount: signListData.length,
                         dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
                     });
-
                     transCodeListData = [];
                     transCodeListData2 = [];
                     transCodeListData3 = [];
@@ -759,7 +759,7 @@ let transCodeListData3 = [];
                         });
                     }
                     signListData = signListData.concat(result.list);
-                    console.log('result=======',result.list);
+                    console.log('result456=======',result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
