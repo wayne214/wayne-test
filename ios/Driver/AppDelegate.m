@@ -18,6 +18,7 @@
 #import <React/RCTRootView.h>
 #import "RCTBaiduMapViewManager.h"
 #import <React/RCTLinkingManager.h>
+#import <UIKit/UIKit.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 {
@@ -82,7 +83,14 @@
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
 
   
-  NSLog(@"jsCodeLocation=========%@", jsCodeLocation);
+   NSLog(@"jsCodeLocation=========%@", jsCodeLocation);
+  
+  if (jsCodeLocation == nil) {
+    exit(0);
+    return YES;
+  }
+  
+ 
 
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -98,6 +106,8 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [self autoSplashScreen];//写在 return YES 之前，其他代码之后
+
+  
   return YES;
   
   //$(SRCROOT)/../node_modules/react-native/Libraries
