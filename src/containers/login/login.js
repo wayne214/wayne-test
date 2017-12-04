@@ -265,8 +265,8 @@ class Login extends BaseContainer {
                     if(isBind){//继续登录操作
                         lastTime = new Date().getTime();
 
-                        ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
-                            locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
+                        // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
+                        //     locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
 
                         const loginUserId = responseData.result.userId;
                         Storage.save(StorageKey.USER_ID, loginUserId);

@@ -171,8 +171,8 @@ export default class forgetPWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '忘记密码');
+                // ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '忘记密码');
                 if (responseData.result) {
                     this.props.navigation.navigate('ChangeCodePwd', {
                         identifyCode: this.state.pwdCode,

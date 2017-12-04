@@ -269,8 +269,8 @@ class LoginSms extends BaseContainer {
                 console.log('-lqq---isBind',isBind);
                 if(isBind){//继续登录操作
                     lastTime = new Date().getTime();
-                    ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                        locationData.district, lastTime - currentTime, '短信登录页面');
+                    // ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    //     locationData.district, lastTime - currentTime, '短信登录页面');
                     const loginUserId = responseData.result.userId;
                     Storage.save(StorageKey.USER_ID, loginUserId);
                     Storage.save(StorageKey.USER_INFO, responseData.result);
