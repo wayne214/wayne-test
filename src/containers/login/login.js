@@ -16,7 +16,8 @@ import {
     NativeAppEventEmitter,
     InteractionManager,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -190,7 +191,7 @@ class Login extends BaseContainer {
 
     componentDidMount() {
         if(Platform.OS === 'ios'){
-            this.getCurrentPosition();
+            // this.getCurrentPosition();
         }else {
             PermissionsAndroid.locationPermission().then((data) => {
                 this.getCurrentPosition();

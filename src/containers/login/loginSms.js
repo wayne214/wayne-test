@@ -13,6 +13,8 @@ import {
     Dimensions,
     Keyboard,
     TouchableOpacity,
+    Platform,
+    Alert
 } from 'react-native';
 
 import Button from 'apsl-react-native-button';
@@ -36,6 +38,7 @@ import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 const {width, height} = Dimensions.get('window');
 
@@ -209,7 +212,15 @@ class LoginSms extends BaseContainer {
     }
 
     componentDidMount() {
-        this.getCurrentPosition();
+        if(Platform.OS === 'ios'){
+            // this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+            });
+        }
     }
 
     // 获取当前位置
