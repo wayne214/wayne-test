@@ -13,8 +13,10 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
 import {Geolocation} from 'react-native-baidu-map-xzx';
+import JPushModule from 'jpush-react-native';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
@@ -22,17 +24,18 @@ import Loading from '../../utils/loading';
 import  HTTPRequest from '../../utils/httpRequest';
 
 import {
-    LIGHT_GRAY_TEXT_COLOR,
     WHITE_COLOR,
     COLOR_VIEW_BACKGROUND,
-    COLOR_MAIN,
 } from '../../constants/staticColor';
 import * as API from '../../constants/api';
 
 import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
+import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
 const {width, height} = Dimensions.get('window');
+import {loginSuccessAction, setUserNameAction} from '../../action/user';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -45,8 +48,7 @@ const styles = StyleSheet.create({
     },
 
 });
-
-export default class CheckPhone extends Component {
+class CheckPhone extends Component {
 
     constructor(props) {
         super(props);
@@ -57,13 +59,16 @@ export default class CheckPhone extends Component {
 
         };
         this.phoneNo = this.props.navigation.state.params.loginPhone;
-        this.responseData = params.responseData;
+        this.sourcePage = this.props.navigation.state.params.sourcePage;
+        this.loginData = params.responseData;
         this.nextStep = this.nextStep.bind(this);
         this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
+        this.bindDevice = this.bindDevice.bind(this);
         console.log('lqq---this.phoneNo ---',this.phoneNo );
     }
 
     componentDidMount() {
+        
          this.getCurrentPosition();
     }
     // 获取当前位置
@@ -80,29 +85,92 @@ export default class CheckPhone extends Component {
     // 下一步按钮
     nextStep() {
         if (this.phoneNo) {
-            //验证手机号
-            this.requestVCodeForLogin();
+            console.log('lqq--sourcePage---',this.sourcePage);
+            if(this.sourcePage === 1){//手机号、验证码登录界面
+                //绑定设备
+                this.bindDevice();
+            }else if(this.sourcePage === -1){//账号密码登录界面
+                //验证手机号
+                this.requestVCodeForLogin();
+            }
         } else {
             Toast.showShortCenter('手机号不能为空');
         }
     }
+     /*绑定设备*/
+    bindDevice(){
+        currentTime = new Date().getTime();
+
+        HTTPRequest({
+            url: API.API_BIND_DEVICE,
+            params: {
+                phoneNum: this.phoneNo,
+                deviceId: global.UDID,
+                platform: global.platform,
+                loginSite: 2
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('绑定设备',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '绑定设备');
+                if (responseData.result) {
+                    const loginUserId = this.loginData.result.userId;
+                    Storage.save(StorageKey.USER_ID, loginUserId);
+                    Storage.save(StorageKey.USER_INFO, this.loginData.result);
+                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+
+                    // 发送Action,全局赋值用户信息
+                    this.props.sendLoginSuccessAction(this.loginData.result);
+
+
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Main'}),
+                        ]
+                    });
+                    this.props.navigation.dispatch(resetAction);
+
+                    JPushModule.setAlias(this.loginData.result.phone, ()=>{}, ()=>{});
+                } else {
+                    Toast.showShortCenter('输入的验证码不正确');
+                }
+            },
+            error: (errorInfo)=>{
+
+            },
+            finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        })
+    }
+
     /*获取登录验证码*/
     requestVCodeForLogin() {
        HTTPRequest({
            url: API.API_GET_LOGIN_WITH_CODE,
            params: {
-               deviceId: global.UDID,
+               deviceId: global.UDID+'-1',
                phoneNum: this.phoneNo,
            },
            loading: ()=>{
-
+             this.setState({
+                    loading: true,
+                });
            },
            success: (responseData)=>{
                // Toast.showShortCenter('验证码已发送');
                //验证手机号
                  this.props.navigation.navigate('CheckPhoneStepTwo', {
                     loginPhone: this.phoneNo,
-                    responseData: this.responseData
+                    responseData: this.loginData
                 });
 
            },
@@ -110,13 +178,39 @@ export default class CheckPhone extends Component {
 
            },
            finish: ()=>{
-
+             this.setState({
+                    loading: false,
+                });
            }
        })
     }
 
     render() {
         const navigator = this.props.navigation;
+        let text = null;
+        if(this.sourcePage === 1){//手机号、验证码登录界面
+            text = (<Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: WHITE_COLOR,
+                                backgroundColor: '#00000000'
+                            }}
+                        >
+                            立即绑定
+                        </Text> );
+        }else if(this.sourcePage === -1){//账号密码登录界面
+            text = (<Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: WHITE_COLOR,
+                                backgroundColor: '#00000000'
+                            }}
+                        >
+                            立即验证
+                        </Text> );
+        }
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -152,17 +246,7 @@ export default class CheckPhone extends Component {
                         }}
                         source={StaticImage.BlueButtonArc}
                     >
-
-                        <Text
-                            style={{
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                color: WHITE_COLOR,
-                                backgroundColor: '#00000000'
-                            }}
-                        >
-                            立即验证
-                        </Text>
+                    {text}    
 
                     </Image>
                 </TouchableOpacity>
@@ -176,3 +260,21 @@ export default class CheckPhone extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {};
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        /*登录成功发送Action，全局保存用户信息*/
+        sendLoginSuccessAction: (result) => {
+            dispatch(loginSuccessAction(result));
+            dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
+
+        },
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CheckPhone);
+

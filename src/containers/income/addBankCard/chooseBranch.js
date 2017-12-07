@@ -13,14 +13,16 @@ import {
     Dimensions,
     TextInput,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import BankCode from '../../../utils/ZJBankCode'
 import NavigationBar from '../../../common/navigationBar/navigationBar';
+import * as ConstValue from '../../../constants/constValue';
+
 
 const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
-
 
 export default class ChooseBranch extends Component {
 
@@ -129,7 +131,7 @@ export default class ChooseBranch extends Component {
                 <View
                     style={{
                         flexDirection: 'row',
-                        marginTop: 7,
+                        marginTop: ConstValue.StatusBar_Height,
                         marginBottom: 7,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -151,7 +153,7 @@ export default class ChooseBranch extends Component {
                             }}>&#xe619;
                         </Text>
                         <TextInput
-                            style={{flex: 1, marginLeft: 5, fontSize: 16, color: '#666666'}}
+                            style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
@@ -212,6 +214,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        marginTop: 20,
+    },
+    textInputStyle: {
+        flex: 1,
+        marginLeft: 5,
+        fontSize: 16,
+        color: '#666666',
+        ...Platform.select({
+            ios: {},
+            android: {
+                padding: 0,
+            },
+        }),
     },
 });

@@ -8,6 +8,7 @@ import {
     Image,
     TouchableOpacity,
     DeviceEventEmitter,
+    Dimensions
 } from 'react-native';
 
 import NavigatorBar from '../../../common/navigationBar/navigationBar';
@@ -21,6 +22,8 @@ import LoadingView from '../../../utils/loading';
 import Toast from '@remobile/react-native-toast';
 import StorageKey from '../../../constants/storageKeys';
 import HTTPRequest from '../../../utils/httpRequest';
+import StaticImage from '../../../constants/staticImage';
+import Button from 'apsl-react-native-button';
 
 
 const headerImageFail = require('./images/verifiedFail.png');
@@ -34,6 +37,7 @@ import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container:{
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     headStyle:{
-        backgroundColor: '#1b82d1',
+        //backgroundColor: '#1b82d1',
         height: 190,
         alignItems: 'center',
     },
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         marginHorizontal: 0,
         backgroundColor: '#1b82d1',
+        width
     },
     bottomTextStyle: {
         fontSize: 17,
@@ -62,7 +67,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 10,
     },
-
+    loginButton: {
+        backgroundColor: '#00000000',
+        width: width,
+        marginBottom: 0,
+        height: 44,
+        borderWidth: 0,
+        borderColor: '#00000000',
+    },
 
 });
 
@@ -220,13 +232,19 @@ export default class certificationState extends Component{
 
 
         let bottomReloadView = this.state.qualifications == '1203' ?
-            <TouchableOpacity style={styles.bottomViewStyle} onPress={()=>{
-                // 重新认证
-                this.reloadVerified();
-
-            }}>
-                <Text style={styles.bottomTextStyle}>重新上传</Text>
-            </TouchableOpacity> : null;
+            <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
+                <Button
+                    ref='button'
+                    isDisabled={false}
+                    style={styles.loginButton}
+                    textStyle={{color: 'white', fontSize: 18}}
+                    onPress={() => {
+                        this.reloadVerified();
+                    }}
+                >
+                    重新上传
+                </Button>
+            </Image>: null;
         return (
             <View style={styles.container}>
                 <NavigatorBar

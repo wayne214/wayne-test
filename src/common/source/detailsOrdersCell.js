@@ -71,7 +71,7 @@ class DetailsOrdersCell extends Component {
                 <TaskInfoCell itemName="是否签单返回：" content={ifReceipt} />
                 <TaskInfoCell itemName="回单方式：" content={receiptStyle} />
             </View> : <View>
-                <TaskInfoCell itemName="签单返回: " content={ifReceipt} />
+                <TaskInfoCell itemName="是否签单返回: " content={ifReceipt} />
             </View>;
 
         return (
@@ -79,7 +79,7 @@ class DetailsOrdersCell extends Component {
 
                 {/*<Text style={{fontSize: 16, color:'#333', marginBottom: 15, marginTop: 15}}>任务信息</Text>*/}
 
-                <View style={styles.separateLineStyle} />
+                {/*<View style={styles.separateLineStyle} />*/}
 
                 <View style={{paddingTop: 15}}>
                     {/*{goodsView}*/}

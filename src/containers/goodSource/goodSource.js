@@ -66,6 +66,7 @@ class GoodSource extends BaseContainer{
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const initLength = Platform.OS === 'ios' ? 1 : 0;
         this.state = {
             date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
             goodStatus: '1',
@@ -73,7 +74,7 @@ class GoodSource extends BaseContainer{
             isLoadMore: true,
 
             isRefresh: false,
-            goodsListLength: 1,
+            goodsListLength: initLength,
         };
 
         this.resetParams = this.resetParams.bind(this);
@@ -123,32 +124,35 @@ class GoodSource extends BaseContainer{
     getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
-        const plateNumber = this.props.userPlateNumber;
-        console.log('global phone',global.phone);
-        HTTPRequest({
-            url: API.API_NEW_GET_SOURCE_BY_DATE,
-            params: {
-                beginTime: '2017-06-01 00:00:00',
-                endTime: beginTime,
-                pageNum: pageNo,
-                pageSize,
-                driverPhone: global.phone,
-                status,
-                plateNumber: plateNumber,
-            },
-            loading: ()=>{
+        // const plateNumber = this.props.userPlateNumber;
+        if (global.plateNumber) {
+            HTTPRequest({
+                url: API.API_NEW_GET_SOURCE_BY_DATE,
+                params: {
+                    beginTime: '2017-06-01 00:00:00',
+                    endTime: beginTime,
+                    pageNum: pageNo,
+                    pageSize,
+                    driverPhone: global.phone,
+                    status,
+                    plateNumber: global.plateNumber,
+                },
+                loading: ()=>{
 
-            },
-            success: (responseData)=>{
-                console.log('success',responseData);
-                getDataSuccessCallBack(responseData.result);
-            },
-            error: (errorInfo)=>{
-                getDataFailCallBack();
-            },
-            finish: ()=>{
-            }
-        });
+                },
+                success: (responseData)=>{
+                    console.log('success',responseData);
+                    getDataSuccessCallBack(responseData.result);
+                },
+                error: (errorInfo)=>{
+                    getDataFailCallBack();
+                },
+                finish: ()=>{
+                }
+            });
+        }
+        console.log('global phone',global.phone);
+
     }
     // 成功回调
     getDataSuccessCallBack(result) {
@@ -321,7 +325,6 @@ class GoodSource extends BaseContainer{
                     }}
                 >
                     <View style={{backgroundColor: StaticColor.COLOR_SEPARATE_LINE, height: 1}}/>
-                    <View>
                         {
                             this.state.goodsListLength > 0 ?
                                 <ListView
@@ -344,9 +347,8 @@ class GoodSource extends BaseContainer{
                                         />
                                     }
                                 />
-                                : <EmptyView />
+                                : <View style={{flex: 1}}><EmptyView /></View>
                         }
-                    </View>
                 </DropdownMenu>
             </View>
         )

@@ -13,7 +13,8 @@ import {
     Dimensions,
     TextInput,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import BankCode from '../../../utils/ZJBankCode'
 import NavigationBar from '../../../common/navigationBar/navigationBar';
@@ -148,7 +149,7 @@ export default class ChooseBankName extends Component {
                             }}>&#xe619;
                         </Text>
                         <TextInput
-                            style={{flex: 1, marginLeft: 5, fontSize: 16, color: '#666666'}}
+                            style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             placeholder={'输入城市名查询'}
@@ -210,5 +211,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
         marginTop: 20,
+    },
+    textInputStyle: {
+        flex: 1,
+        marginLeft: 5,
+        fontSize: 16,
+        color: '#666666',
+        ...Platform.select({
+            ios: {},
+            android: {
+                padding: 0,
+            },
+        }),
     },
 });

@@ -9,7 +9,9 @@ import {
     Text,
     Image,
     TextInput,
-    Dimensions
+    Dimensions,
+    Platform,
+    Alert
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Toast from '@remobile/react-native-toast';
@@ -19,7 +21,8 @@ import  HTTPRequest from '../../utils/httpRequest';
 
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 import StaticImage from '../../constants/staticImage';
 import * as StaticColor from '../../constants/staticColor';
@@ -112,17 +115,12 @@ const styles = StyleSheet.create({
         top: height-120
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
-    },
-    bottomViewText: {
-        fontSize: 14,
-        color: StaticColor.LIGHT_GRAY_TEXT_COLOR,
-        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
     separateLine: {
         height: 1,
@@ -147,7 +145,15 @@ export default class RegisterStepOne extends Component {
     }
 
     componentDidMount() {
-        this.getCurrentPosition();
+        if(Platform.OS === 'ios'){
+            // this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+            });
+        }
     }
 
     // 获取当前位置

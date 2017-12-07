@@ -48,7 +48,7 @@ class switchItem extends Component {
                         {itemTitle}
                     </Text>
                     <Switch
-                        onTintColor={'#008BCA'}
+                        onTintColor={'#0083FF'}
                         onValueChange={(value) => {
                             onValueChange(value);
                         }}

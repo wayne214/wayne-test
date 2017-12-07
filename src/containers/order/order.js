@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
         height: 2,
     },
     tab: {
-        paddingLeft: 12,
-        paddingRight: 12,
+        paddingLeft: 5,
+        paddingRight: 5,
         paddingBottom: 0,
     },
 });
@@ -95,6 +95,7 @@ let transCodeListData3 = [];
         this.transportBatchSign = this.transportBatchSign.bind(this);
 
         this.transportsList = this.transportsList.bind(this);
+        this.orderCodeList = this.orderCodeList.bind(this);
         this.transportStatus = this.transportStatus.bind(this);
 
         this.submit = this.submit.bind(this);
@@ -398,13 +399,6 @@ let transCodeListData3 = [];
 
     // 获取网络数据 对页面进行填充
     loadData(pageIndex, pageNum) {
-        if (pageIndex === 0 || pageIndex === 1) {
-            API_URL = API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE;
-        } else if (pageIndex === 2) {
-            API_URL = API.API_NEW_GET_ORDER_LIST_TRANSPORT;// 代签收、待回单
-        } else {
-            API_URL = API.API_NEW_GET_ORDER_LIST_V2;// 已回单
-        }
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
@@ -443,7 +437,7 @@ let transCodeListData3 = [];
                 page: pageNum,
                 pageSize,
                 phone: global.phone,
-                plateNumber: this.props.plateNumber,
+                plateNumber: global.plateNumber,
                 queryType,
             },
             loading: () => {
@@ -487,83 +481,84 @@ let transCodeListData3 = [];
 
 
     // 获取全部、待发运订单列表
-    getOrderDetailAction( queryType, pageNum, pageSize) {
+    getOrderDetailAction(queryType, pageNum, pageSize) {
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
                 isRefresh: true,
             })
         }
-        HTTPRequest({
-            url: API_URL,
-            params: {
-                page: pageNum,
-                pageSize,
-                phone: global.phone,
-                plateNumber: this.props.plateNumber,
-                queryType,
-            },
-            loading: () => {
+        if (global.plateNumber) {
+            HTTPRequest({
+                url: API_URL,
+                params: {
+                    page: pageNum,
+                    pageSize,
+                    phone: global.phone,
+                    plateNumber: global.plateNumber,
+                    queryType,
+                },
+                loading: () => {
 
-            },
-            success: (responseData) => {
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '订单页面');
-                if (!responseData.result.list) {
+                },
+                success: (responseData) => {
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '订单页面');
+                    if (!responseData.result.list) {
+                        return;
+                    }
+                    switch (queryType) {
+                        case 'AAA' : {
+                            if (pageNum === 1) {
+                                allListData = [];
+                            }
+                            allListData = allListData.concat(responseData.result.list);
+                            if (allListData.length === responseData.result.total) {
+                                this.setState({
+                                    isLoadallMore: false,
+                                    allCount: allListData.length,
+                                });
+                            }
 
-                    return;
-                }
-                switch (queryType) {
-                    case 'AAA' : {
-                        if (pageNum === 1) {
-                            allListData = [];
-                        }
-                        allListData = allListData.concat(responseData.result.list);
-                        if (allListData.length === responseData.result.total) {
                             this.setState({
-                                isLoadallMore: false,
-                                allCount: allListData.length,
+                                dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
                             });
+
+                            break;
                         }
+                        case 'BBB' : {
+                            if (pageNum === 1) {
+                                shipListData = [];
+                            }
+                            shipListData = shipListData.concat(responseData.result.list);
 
-                        this.setState({
-                            dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
-                        });
-
-                        break;
-                    }
-                    case 'BBB' : {
-                        if (pageNum === 1) {
-                            shipListData = [];
-                        }
-                        shipListData = shipListData.concat(responseData.result.list);
-
-                        if (shipListData.length === responseData.result.total) {
+                            if (shipListData.length === responseData.result.total) {
+                                this.setState({
+                                    isLoadshipMore: false,
+                                    allCount: shipListData.length,
+                                })
+                            }
                             this.setState({
-                                isLoadshipMore: false,
-                                allCount: shipListData.length,
-                            })
+                                dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                            });
+                            break;
                         }
-                        this.setState({
-                            dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
-                        });
-                        break;
+                        default :
+                            break;
                     }
-                    default :
-                        break;
+
+                },
+                error: (errorInfo) => {
+
+                },
+                finish: () => {
+                    this.setState({
+                        isRefresh: false,
+                    });
                 }
-
-            },
-            error: (errorInfo) => {
-
-            },
-            finish: () => {
-                this.setState({
-                    isRefresh: false,
-                });
-            }
-        });
+            });
+        }
     }
 
 
@@ -738,13 +733,13 @@ let transCodeListData3 = [];
                         signListData = [];
                     }
                     signListData = signListData.concat(result.list);
+                    console.log('result123=======',result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
                         allCount: signListData.length,
                         dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
                     });
-
                     transCodeListData = [];
                     transCodeListData2 = [];
                     transCodeListData3 = [];
@@ -764,7 +759,7 @@ let transCodeListData3 = [];
                         });
                     }
                     signListData = signListData.concat(result.list);
-                    console.log('result=======',result.list);
+                    console.log('result456=======',result.list);
                     this.setState({
                         isRefresh: false,
                         isLoadsignMore: false,
@@ -792,12 +787,11 @@ let transCodeListData3 = [];
                 phoneNum: global.phone,
                 plateNumber: this.props.plateNumber,
                 transCodeList: this.transportsList(dataRow),
+                orderCodeList: this.orderCodeList(dataRow),
             },
             loading: () => {
-
             },
             success: (responseData) => {
-
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('批量签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '订单页面');
@@ -805,7 +799,10 @@ let transCodeListData3 = [];
                 this.onRefresh();
             },
             error: (errorInfo) => {
-
+                console.log('errorInfo=', errorInfo);
+                if(errorInfo.code === 800){
+                    Alert.alert('批量签收前请先完成收款');
+                }
             },
             finish: () => {
             }
@@ -868,7 +865,7 @@ let transCodeListData3 = [];
                         })
                     }}
                     onButton={() => {
-                        {/*this.transportBatchSign(dataRow);*/}
+                        this.transportBatchSign(dataRow);
                     }}
                 />
             );
@@ -876,14 +873,23 @@ let transCodeListData3 = [];
             return null;
         }
     }
-
-    transportsList(dataRow) {
-        let list = [];
-        for (let i = 0; i < dataRow.transports.length; i++) {
+     // 运单号集合
+     transportsList(dataRow) {
+         let list = [];
+         for (let i = 0; i < dataRow.transports.length; i++) {
             list.push(dataRow.transports[i].transCode);
-        }
-        return list;
-    }
+         }
+         return list;
+     }
+
+     // 订单号集合
+     orderCodeList(dataRow) {
+         let list = [];
+         for (let i = 0; i < dataRow.transports.length; i++) {
+             list.push(dataRow.transports[i].orderCode);
+         }
+         return list;
+     }
 
     // 根据返回的状态码判断批量签收按钮状态
     transportStatus(dataRow) {
@@ -904,7 +910,7 @@ let transCodeListData3 = [];
 
     renderRow(dataRow, sectionID, rowID) {
         const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
-        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 3) : '';
+        const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 5) : '';
         // 货品类型
         const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
         let goodTepesTemp = [];
@@ -976,8 +982,6 @@ let transCodeListData3 = [];
                                      // this.setState({
                                      // isLoadallMore: true,
                                      // });
-
-
                                     delete shipListData[rowID];
                                     this.setState({
                                         dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData)
@@ -1028,6 +1032,7 @@ let transCodeListData3 = [];
                     //page={this.props.orderTab}
                     tabBarUnderlineStyle={styles.tabBarUnderLine}
                     // prerenderingSiblingsNumber={0}
+                    locked={true}
                     renderTabBar={() =>
                         <ScrollableTabBar
                             activeTextColor={StaticColor.BLUE_CONTACT_COLOR}

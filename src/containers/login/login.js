@@ -1,5 +1,4 @@
 /**
- * Created by xizhixin on 2017/9/22.
  * 登录界面
  */
 import React, {Component} from 'react';
@@ -16,7 +15,9 @@ import {
     Keyboard,
     NativeAppEventEmitter,
     InteractionManager,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    Alert
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Toast from '@remobile/react-native-toast';
@@ -38,6 +39,7 @@ import Loading from '../../utils/loading';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import JPushModule from 'jpush-react-native';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -129,8 +131,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     bottomViewText: {
-        fontSize: 14,
-        color: '#666666',
+        fontSize: 15,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
     },
     screenEndView: {
         position: 'absolute',
@@ -145,12 +147,12 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 
@@ -158,27 +160,53 @@ class Login extends BaseContainer {
 
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
-            phoneNumber: __DEV__ ? '13120382724' : '',
-            password: __DEV__ ? 'asd123' : ''
+            phoneNumber: params ? params.loginPhone : '',
+            password: '',
+            loading: false,
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
-
+        this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
         this.success = this.success.bind(this);
         this.fail = this.fail.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+
     }
 
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.password && this.refs.password.blur();
+    }
 
     componentDidMount() {
+        if(Platform.OS === 'ios'){
+            // this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+            });
+        }
+    }
+    getCurrentPosition(){
         Geolocation.getCurrentPosition().then(data => {
             console.log('position..........', JSON.stringify(data));
             locationData = data;
         }).catch(e => {
             console.log(e, 'error');
         });
-
     }
 
     /*获取加密秘钥*/
@@ -221,7 +249,9 @@ class Login extends BaseContainer {
                 platform: global.platform,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.setState({
@@ -230,13 +260,13 @@ class Login extends BaseContainer {
                     console.log('lqq---responseData---',responseData);
 
                     let isBind = responseData.result.isBind;
-                    isBind = true;
                     console.log('-lqq---isBind',isBind);
+                    // TODO 暂时关掉登录验证
                     if(isBind){//继续登录操作
                         lastTime = new Date().getTime();
 
-                        ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
-                            locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
+                        // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
+                        //     locationData.district, lastTime - currentTime, responseData.result.userId, responseData.result.userName, '登录页面');
 
                         const loginUserId = responseData.result.userId;
                         Storage.save(StorageKey.USER_ID, loginUserId);
@@ -260,7 +290,8 @@ class Login extends BaseContainer {
                         //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
                             loginPhone: responseData.result.phone,
-                            responseData: responseData
+                            responseData: responseData,
+                            sourcePage: -1,
                         });
                     }
                 });
@@ -272,6 +303,9 @@ class Login extends BaseContainer {
                 });
             },
             finish: () => {
+                this.setState({
+                    loading: false,
+                });
             }
         });
 
@@ -302,6 +336,7 @@ class Login extends BaseContainer {
                         <Image
                             source={StaticImage.LoginTopBg}
                             resizeMode={'stretch'}
+                            style={{width: width}}
                         />
                         
                     </View>
@@ -310,6 +345,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>账号</Text>
                             <TextInput
+                            ref='phoneNumber'
                             underlineColorAndroid={'transparent'}
                             placeholder="请输入手机号"
                             placeholderTextColor="#cccccc"
@@ -325,6 +361,7 @@ class Login extends BaseContainer {
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>密码</Text>
                             <TextInput
+                            ref='password'
                             underlineColorAndroid={'transparent'}
                             secureTextEntry={true}
                             placeholder="密码"
@@ -339,31 +376,24 @@ class Login extends BaseContainer {
                             value={password}/>
                         </View>
 
-                        <TouchableOpacity 
-                        disabled={!(phoneNumber && password)}
-                        onPress={() => {
-                                    dismissKeyboard();
+                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
+                            <Button
+                                ref='button'
+                                isDisabled={!(phoneNumber && password)}
+                                style={styles.loginButton}
+                                textStyle={{color: 'white', fontSize: 18}}
+                                onPress={() => {
+                                    // dismissKeyboard();
                                     if (Validator.isPhoneNumber(phoneNumber)) {
                                         this.loginSecretCode();
                                     } else {
                                         Toast.showShortCenter('手机号码输入有误，请重新输入');
                                     }
-                                }}>
-                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
-                            
-                            <Text
-                            style={{
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                color: StaticColor.WHITE_COLOR,
-                                backgroundColor: '#00000000'
-                            }}
+                                }}
                             >
-                            登录
-                        </Text>
+                                登录
+                            </Button>
                         </Image>
-                        </TouchableOpacity>
-                        
                         <View style={styles.bottomView}>
                             <View  >
                                 <Text

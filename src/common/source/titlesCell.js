@@ -19,7 +19,7 @@ import StaticImage from '../../constants/staticImage';
 const styles = StyleSheet.create({
     container: {
         backgroundColor: StaticColor.WHITE_COLOR,
-        paddingLeft: 20,
+        paddingLeft: 10,
     },
     text: {
         fontSize: 16,

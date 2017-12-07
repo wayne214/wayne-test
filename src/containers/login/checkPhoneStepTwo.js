@@ -29,7 +29,6 @@ import {
     LIGHT_GRAY_TEXT_COLOR,
     WHITE_COLOR,
     COLOR_VIEW_BACKGROUND,
-    COLOR_MAIN,
 } from '../../constants/staticColor';
 import * as API from '../../constants/api';
 
@@ -126,6 +125,7 @@ class CheckPhoneStepTwo extends Component {
                 phoneNum: this.phoneNo,
                 deviceId: global.UDID,
                 platform: global.platform,
+                loginSite: 1
             },
             loading: ()=>{
                 this.setState({
@@ -175,7 +175,7 @@ class CheckPhoneStepTwo extends Component {
         if (this.phoneNo && this.state.pwdCode) {
             this.bindDevice();
         } else {
-            Toast.showShortCenter('账号或密码不能为空');
+            Toast.showShortCenter('账号或验证码不能为空');
         }
     }
 
@@ -184,7 +184,7 @@ class CheckPhoneStepTwo extends Component {
        HTTPRequest({
            url: API.API_GET_LOGIN_WITH_CODE,
            params: {
-               deviceId: global.UDID,
+               deviceId: global.UDID+'-1',
                phoneNum: this.phoneNo,
            },
            loading: ()=>{

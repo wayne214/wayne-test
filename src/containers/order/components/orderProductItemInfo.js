@@ -60,13 +60,21 @@ const style = StyleSheet.create({
         marginTop: 7,
     },
 });
-
+let arNum = '';
 
 export default class orderProductItemInfo extends Component {
     static defaultProps = {
         disabled: false,
         edit: true,
     };
+
+    componentDidMount() {
+        arNum = this.props.receiveNum;
+    }
+
+    componentWillUnmount() {
+        arNum = '';
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -84,7 +92,7 @@ export default class orderProductItemInfo extends Component {
         let number = this.state.text;
         number = computationUtil.accAdd(number,1);
         //number++;
-        if (number > Number(this.props.receiveNum)) {
+        if (number > Number(arNum)) {
             return;
         }
         this.setState({
@@ -192,10 +200,10 @@ export default class orderProductItemInfo extends Component {
                                 text: value,
                                 length: value.length
                             });
-                            parseFloat(value) > parseFloat(this.props.receiveNum) ?
+                            parseFloat(value) > parseFloat(arNum) ?
                                 this.setState({
-                                text: this.props.receiveNum,
-                                length: this.props.receiveNum.length
+                                text: arNum,
+                                length: arNum.length
                             }) : this.setState({
                                 text: value,
                                 length: value.length
@@ -203,8 +211,8 @@ export default class orderProductItemInfo extends Component {
                             if(value.endsWith('.')){
                                 value = value.replace('.','');
                             }
-                            if(parseFloat(value) > parseFloat(this.props.receiveNum)){
-                                value = this.props.receiveNum;
+                            if(parseFloat(value) > parseFloat(arNum)){
+                                value = arNum;
                             }
                             this.outNumber(value);
                         }}
@@ -223,7 +231,7 @@ export default class orderProductItemInfo extends Component {
                             this.add();
                         }}
                     >
-                        <Image source={this.state.text == this.props.receiveNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd} />
+                        <Image source={this.state.text == arNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -231,7 +239,7 @@ export default class orderProductItemInfo extends Component {
     }
 
     // 子组件
-    subComponent(title, Specifications, unit, receiveNum) {
+    subComponent(title, Specifications, unit, receiveNum, arNum) {
         return (
             <View style={{marginHorizontal: 20}}>
                 <View style={style.subViewStyle}>
@@ -240,7 +248,7 @@ export default class orderProductItemInfo extends Component {
                 </View>
                 <View style={style.subViewStyle}>
                     <Text style={style.subTitleStyle}>规格</Text>
-                    <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{Specifications}</Text>
+                    <Text style={{fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginLeft: 20}}>{Specifications ? Specifications : '/'}</Text>
                 </View>
                 <View style={style.subViewStyle}>
                     <Text style={style.subTitleStyle}>应收</Text>
@@ -253,10 +261,10 @@ export default class orderProductItemInfo extends Component {
     }
 
     render() {
-        const {componentID, indexRow, title, Specifications, unit, receiveNum, disabled} = this.props;
+        const {componentID, indexRow, title, Specifications, unit, receiveNum, disabled, arNum} = this.props;
         return (
             <View style={{backgroundColor: 'white'}}>
-                {this.subComponent(title, Specifications, unit, receiveNum)}
+                {this.subComponent(title, Specifications, unit, receiveNum, arNum)}
             </View>
         );
     }

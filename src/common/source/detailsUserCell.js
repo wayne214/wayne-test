@@ -15,13 +15,8 @@ import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 
 const styles = StyleSheet.create({
-    iconFont: {
-        fontFamily: 'iconfont',
-        color: StaticColor.CALENDER_ICON_COLOR,
-        fontSize: 18,
-    },
     dressIconStyle: {
-        marginLeft: 20,
+        marginLeft: 10,
     }
 });
 
@@ -54,7 +49,7 @@ class DetailsUserCell extends Component {
                             isShowContactAndPhone ? <View
                                 style={{
                                     flexDirection: 'row',
-                                    paddingLeft: 40,
+                                    paddingLeft: 35,
                                     marginBottom: 10,
                                     justifyContent: 'space-between',
                                 }}
@@ -62,7 +57,7 @@ class DetailsUserCell extends Component {
                                 <Text
                                     style={{
                                         fontSize: 15,
-                                        paddingLeft: 10,
+                                        // paddingLeft: 10,
                                         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
                                     }}
                                 >
@@ -113,7 +108,7 @@ class DetailsUserCell extends Component {
                     </View>
                 </View>
                 <View
-                    style={{height: 1, backgroundColor: '#f5f5f5', marginLeft: 20, marginTop: 5}}
+                    style={{height: 1, backgroundColor: '#f5f5f5', marginLeft: 10, marginTop: 5}}
                 />
             </View>
         );

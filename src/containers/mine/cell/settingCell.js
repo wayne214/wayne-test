@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        height: 40,
+        height: 44,
         width,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     iconfont: {
         fontFamily: 'iconfont',
-        color: StaticColor.CALENDER_ICON_COLOR,
+        color: StaticColor.MINE_ICON_COLOR,
         paddingTop: 3,
         fontSize: 18,
         marginLeft: 20,

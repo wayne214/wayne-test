@@ -14,9 +14,14 @@ import {
 } from 'react-native';
 import StaticImage from '../../../../constants/staticImage';
 import bankIconUtil from '../../../../utils/bankIconUtil';
+import ZJBankColor from '../../../../utils/ZJBankColor';
 
-const {height,width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({});
+// 355*110
+
+const imageWidth = width - 20;
+const imageHeight = imageWidth * 110 / 355;
 
 export default class BankCardCell extends Component {
     static propTypes = {
@@ -39,9 +44,10 @@ export default class BankCardCell extends Component {
             accountBank, bankCarType, bankAccount, isDefault, clickAction
         } = this.props;
 
-        const bgImage = Math.floor(Math.random()*10)%4 === 0 ? StaticImage.Car_yellow :
-            Math.floor(Math.random()*10)%4 === 1 ? StaticImage.Car_blue :
-                Math.floor(Math.random()*10)%4 === 2 ? StaticImage.Car_green : StaticImage.Car_red;
+        const bgImage = ZJBankColor.color(accountBank) == 'yellow' ? StaticImage.Car_yellow :
+            ZJBankColor.color(accountBank) == 'blue' ? StaticImage.Car_blue :
+                ZJBankColor.color(accountBank) == 'red' ? StaticImage.Car_red : StaticImage.Car_green;
+
 
         return (
             <TouchableOpacity
@@ -53,10 +59,12 @@ export default class BankCardCell extends Component {
                 <View>
                     <View style={[{
                         flexDirection: 'row',
-                        marginTop: 10,
                         marginHorizontal: 10,
+                        height: imageHeight,
+                        marginTop: 10,
+                        backgroundColor: 'transparent',
                     }]}>
-                        <Image style={{position: 'absolute'}} source={bgImage}/>
+                        <Image style={{position: 'absolute', width: imageWidth, height: imageHeight}} source={bgImage}/>
                         <View style={{
                             flex: 1,
                             flexDirection: 'row'
@@ -66,19 +74,21 @@ export default class BankCardCell extends Component {
                                 borderRadius: 25,
                                 marginLeft: 10,
                                 marginTop: 15,
-                                width: 50,
-                                height: 50
+                                width: 44,
+                                height: 44,
+                                alignItems: 'center',
+                                justifyContent: 'center'
                             }}>
                                 {
                                     bankIconUtil.show(accountBank)
                                 }
                             </View>
 
-                            <View style={{marginLeft: 10, marginTop:20}}>
+                            <View style={{marginLeft: 10, marginTop: 20}}>
                                 <Text
                                     style={{
                                         fontSize: 17,
-                                        color:'#fff',
+                                        color: '#fff',
                                         backgroundColor: 'transparent'
                                     }}>
                                     {accountBank}
@@ -96,11 +106,12 @@ export default class BankCardCell extends Component {
 
                                 <Text
                                     style={{
-                                        marginTop: 20,
                                         color: '#fff',
                                         fontSize: 13,
-                                        marginBottom: 20,
-                                        backgroundColor: 'transparent'
+                                        backgroundColor: 'transparent',
+                                        bottom: 10,
+                                        position: 'absolute',
+                                        width: 200
                                     }}>
                                     {bankAccount}
                                 </Text>
@@ -118,10 +129,22 @@ export default class BankCardCell extends Component {
                                         justifyContent: 'center',
                                     }}>
 
-                                        <View style={{ height: 20,
-                                        width: 40,backgroundColor: 'black', opacity: 0.3, borderRadius: 3, flex: 1, position: 'absolute'}}>
+                                        <View style={{
+                                            height: 20,
+                                            width: 40,
+                                            backgroundColor: 'black',
+                                            opacity: 0.3,
+                                            borderRadius: 3,
+                                            flex: 1,
+                                            position: 'absolute'
+                                        }}>
                                         </View>
-                                        <Text style={{backgroundColor: 'transparent', fontSize: 13, textAlign: 'center', color: '#fff'}}>默认</Text>
+                                        <Text style={{
+                                            backgroundColor: 'transparent',
+                                            fontSize: 13,
+                                            textAlign: 'center',
+                                            color: '#fff'
+                                        }}>默认</Text>
 
                                     </View>
                                     : null

@@ -69,7 +69,7 @@ class goodsDetailInfo extends Component {
                     <View style={style.subViewStyle}>
                         <Text style={[style.subTitleStyle]}>规格</Text>
                         <Text style={{ fontSize: 15, color: LIGHT_BLACK_TEXT_COLOR, marginRight: -20}}>
-                            {orderInfo.goodsSpce}
+                            {orderInfo.goodsSpce ? orderInfo.goodsSpce : '/'}
                         </Text>
                     </View>
                     <View style={style.subViewStyle}>

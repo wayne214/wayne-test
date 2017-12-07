@@ -123,9 +123,6 @@ class UploadReceipt extends Component {
         this.pickMultiple = this.pickMultiple.bind(this);
         this.takePhoto = this.takePhoto.bind(this);
         this.clickImage = this.clickImage.bind(this);
-        // this.uploadRecript = this.uploadRecript.bind(this);
-        this.uploadOrderFailCallBack = this.uploadOrderFailCallBack.bind(this);
-        this.uploadOrderSuccessCallBack = this.uploadOrderSuccessCallBack.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.popToTop = this.popToTop.bind(this);
         this.goBackForward = this.goBackForward.bind(this);
@@ -154,38 +151,6 @@ class UploadReceipt extends Component {
         }).catch(e =>{
             console.log(e, 'error');
         });
-    }
-    /**
-     * 点击上传回单
-     */
-
-    // 点击调用订单详情接口
-    // uploadRecript(uploadOrderSuccessCallBack, uploadOrderFailCallBack) {
-    //     currentTime = new Date().getTime();
-    //     // 传递参数
-    //     this.changeAppLoading(true);
-    //     this.props.getOrderDetailWaitingSureToUpLoadAction({
-    //         userId: userID,
-    //         userName,
-    //         transCode: this.state.transCode,
-    //         receiptType: '',
-    //         // imageList:
-    //     }, uploadOrderSuccessCallBack, uploadOrderFailCallBack);
-    // }
-
-    // 获取数据成功回调
-    uploadOrderSuccessCallBack(result) {
-        lastTime = new Date().getTime();
-        ReadAndWriteFileUtil.appendFile('上传回单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-            locationData.district, lastTime - currentTime, '上传回单页面');
-        Toast.showShortCenter('上传回单成功');
-        DeviceEventEmitter.emit('changeStateReceipt');
-        this.popToTop();
-    }
-
-    // 获取数据失败回调
-    uploadOrderFailCallBack(err) {
-        Toast.showShortCenter('上传回单失败');
     }
 
     callbackSelected(i){
@@ -222,7 +187,6 @@ class UploadReceipt extends Component {
                 break;
         }
     }
-
     // 选择照片
     pickMultiple() {
         ImagePicker.openPicker({
@@ -233,6 +197,7 @@ class UploadReceipt extends Component {
             maxFiles: this.props.maxNum,
             compressImageMaxWidth: 500,
             compressImageMaxHeight: 500,
+            mediaType: 'photo',
         }).then(images => {
             let totalLen = this.props.imageList.size + images.length;
             let arr = images;
@@ -309,12 +274,20 @@ class UploadReceipt extends Component {
                 });
             },
             (response)=>{
+                console.log('uploadCode===',response.code);
                 console.log('uploadResult===',response.result);
                 this.setState({
                     loading: false,
                 });
                 if (response.code === 200){
-                    this.uploadOrderSuccessCallBack(response.result);
+
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('上传回单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '上传回单页面');
+                    Toast.showShortCenter('上传回单成功');
+                    DeviceEventEmitter.emit('changeStateReceipt');
+                    this.goBackForward();
+
                 }else {
                     Toast.showShortCenter('图片上传失败，请重新上传');
                 }
@@ -324,7 +297,7 @@ class UploadReceipt extends Component {
                 this.setState({
                     loading: false,
                 });
-                this.uploadOrderFailCallBack(error);
+                // Toast.showShortCenter('上传回单失败');
             });
     }
 
@@ -452,9 +425,7 @@ class UploadReceipt extends Component {
             </View>
         );
     }
-}
-
-function mapStateToProps(state){
+}function mapStateToProps(state){
     return {
         imageList: state.order.get('imageList'),
         maxNum: state.order.get('maxNum'),
@@ -470,4 +441,6 @@ function mapDispatchToProps (dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadReceipt);
+
+
 

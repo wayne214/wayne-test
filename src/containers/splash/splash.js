@@ -60,7 +60,6 @@ class Splash extends BaseContainer {
         Storage.get(StorageKey.PlateNumberObj).then((result) => {
             if (result && !ObjectUitls.isOwnEmpty(result)){
                 // 发送Action,全局赋值车辆信息
-
                 this.props.sendUserPlateNumberAction(result);
             }
         });

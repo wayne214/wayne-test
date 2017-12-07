@@ -32,7 +32,14 @@ const styles = StyleSheet.create({
     imageBackground: {
         marginTop: 10,
         alignSelf: 'center',
-        height: 130,
+        ...Platform.select({
+            ios: {
+                height: 130,
+            },
+            android: {
+                height: 140,
+            }
+        }),
         width: screenWidth - 20
     },
     constantStyle: {
@@ -104,7 +111,7 @@ export default class GoodsSourceDetails extends Component {
                                 <View style={styles.constantStyle}>
                                     <Text style={styles.constantIcon}>&#xe66d;</Text>
                                     <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
-                                        {deliveryInfo.receiveContactName}
+                                        {deliveryInfo.receiveContact}
                                     </Text>
                                 </View>
                                 <View style={styles.separateLine}/>
@@ -120,14 +127,14 @@ export default class GoodsSourceDetails extends Component {
                                 <View style={[styles.constantStyle, {marginLeft: 5}]}>
                                     <Text style={styles.constantIcon}>&#xe66d;</Text>
                                     <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
-                                        {deliveryInfo.receiveContactName}
+                                        {deliveryInfo.receiveContact}
                                     </Text>
                                 </View>
                                 <View style={styles.divideLine}/>
                             </View>
                         }
                     <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 20}}/>
+                    <View style={{height: 1, backgroundColor: '#F5F5F5', marginLeft: 10}}/>
                     <DetailsUserCell
                         deliveryInfo={deliveryInfo}
                         onSelectAddr={() => {

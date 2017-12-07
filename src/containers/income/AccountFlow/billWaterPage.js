@@ -24,6 +24,7 @@ import HTTPRequest from '../../../utils/httpRequest'
 import DropdownMenu from './cell/downMenu';
 import * as ConstValue from '../../../constants/constValue';
 
+let screenHeight = Dimensions.get('window').height;
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
@@ -57,23 +58,31 @@ export default class BillWaterPage extends Component {
     constructor(props) {
         super(props);
 
-        this.acAccountFlow = this.acAccountFlow.bind(this);
-        this.acAccountFlowSuccessCallBack = this.acAccountFlowSuccessCallBack.bind(this);
-        this.acAccountFlowFailCallBack = this.acAccountFlowFailCallBack.bind(this);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         // 初始状态
         this.state = {
             dataSource: ds,
-            refreshing:false,
+            //isRefresh:false,
             page:1,
             loadMore:false,
             dataLength: 0,
         };
+
+        this.acAccountFlow = this.acAccountFlow.bind(this);
+        this.acAccountFlowSuccessCallBack = this.acAccountFlowSuccessCallBack.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
+        this.onEndReached = this.onEndReached.bind(this);
+
     }
 
     componentDidMount() {
         this.getCurrentPosition();
-        this.acAccountFlow();
+        this.onRefresh();
+    }
+
+    componentWillUnmount() {
+        listResult = [];
+        type = 1
     }
 // 获取当前位置
     getCurrentPosition() {
@@ -86,16 +95,13 @@ export default class BillWaterPage extends Component {
     }
     acAccountFlow() {
         currentTime = new Date().getTime();
-        this.setState({
-            refreshing:true,
-        });
 
         HTTPRequest({
             url: API.API_AC_ACCOUNT_FLOW,
             params: {
                 page: this.state.page,
                 pageSize: 20,
-                phoneNum: '13312345678',  //13312345678   global.phone
+                phoneNum: global.phone,  //13312345678
                 status: String(type)
             },
             loading: () => {
@@ -105,22 +111,22 @@ export default class BillWaterPage extends Component {
                 this.acAccountFlowSuccessCallBack(response.result);
             },
             error: (err) => {
-                this.acAccountFlowFailCallBack();
             },
             finish: () => {
-
+                // this.setState({
+                //     isRefresh:false,
+                // })
             },
         })
     }
     acAccountFlowSuccessCallBack(result){
-        console.log('result',result, result.length)
+
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('获取账户流水', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '账户流水页面');
         console.log('acAccountFlowSuccessCallBack',result)
         const datalenth = result.length;
         this.setState({
-            refreshing:false,
             dataLength: datalenth,
         });
 
@@ -138,15 +144,10 @@ export default class BillWaterPage extends Component {
         })
     }
 
-    acAccountFlowFailCallBack(){
-        this.setState({
-            refreshing:false,
-        })
-    }
 
     listView() {
         return (
-            <ListView
+            <ListView style={{height: screenHeight - ConstValue.NavigationBar_StatusBar_Height - 20}}
                 dataSource={this.state.dataSource}
                 onEndReached={this.onEndReached.bind(this)}
                 onEndReachedThreshold={100}
@@ -161,13 +162,8 @@ export default class BillWaterPage extends Component {
                             {/*this.props.navigation.navigate('IncomeListDetail',{*/}
                                 {/*type: '收入', // 收入、支出*/}
                             {/*});*/}
+
                         }}
-                    />
-                }
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh.bind(this)}
                     />
                 }
             />
@@ -179,8 +175,9 @@ export default class BillWaterPage extends Component {
         this.setState({
             page:1,
             dataSource: this.state.dataSource.cloneWithRows(listResult),
+            //isRefresh:true
         }, ()=>{
-            this.acAccountFlow(this.acAccountFlowSuccessCallBack);
+            this.acAccountFlow();
         });
     }
     //上拉加载
@@ -190,7 +187,7 @@ export default class BillWaterPage extends Component {
             this.setState({
                 page:this.state.page + 1,
             }, ()=>{
-                this.acAccountFlow(this.acAccountFlowSuccessCallBack);
+                this.acAccountFlow();
             });
 
         }

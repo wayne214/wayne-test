@@ -20,7 +20,7 @@ import HTTPRequest from '../../utils/httpRequest';
 import BankCardCell from '../../containers/income/AccountFlow/cell/bankCardCell'
 import StaticImage from '../../constants/staticImage';
 import Toast from '@remobile/react-native-toast';
-import BankCode from '../../utils/bankCode';
+import BankCode from '../../utils/ZJBankCode';
 import Loading from '../../utils/loading';
 
 const {width} = Dimensions.get('window');
@@ -130,8 +130,8 @@ export default class BankCardDeatil extends Component {
         HTTPRequest({
             url: API.API_QUERY_BANK_BRANCH,
             params: {
-                qshho2: '313290000017', //银行代码 313290000017   bankCode
-                youzbm: '110100' //城市代码 110100          cityCode
+                qshho2: bankCode, //银行代码 313290000017   bankCode
+                youzbm: cityCode //城市代码 110100          cityCode
             },
             loading: () => {
                 this.setState({
@@ -169,6 +169,17 @@ export default class BankCardDeatil extends Component {
 
     /*修改银行卡信息*/
     changeInfo (){
+
+        if (!this.state.selectedProvinceName) {
+            Toast.showShortCenter('请选择开户省市');
+            return
+        }
+        if (!this.state.branchName) {
+            Toast.showShortCenter('请选择开户支行');
+            return
+        }
+
+
         HTTPRequest({
             url: API.API_CHANGE_BANKCARD_INFO,
             params: {
@@ -179,7 +190,8 @@ export default class BankCardDeatil extends Component {
                 city: this.state.bankCityName,
                 cityCode: this.state.bankCityCode,
                 province: this.state.selectedProvinceName,
-                provinceCode: this.state.selectedProvinceCode
+                provinceCode: this.state.selectedProvinceCode,
+                phone:global.phone,
             },
             loading: () => {
                 this.setState({
@@ -230,7 +242,7 @@ export default class BankCardDeatil extends Component {
                     marginTop: 10
                 }}>
                     <Text style={styles.leftTextStyle}>开户省市</Text>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={{width: width - 100, paddingVertical: 10}} onPress={()=>{
                             navigator.navigate('ChooseBankCity', {
                                 selectedCityCallback: (data) => {
                                     console.log('----data', data[0].departureCityArrayName);
@@ -254,7 +266,7 @@ export default class BankCardDeatil extends Component {
 
                             });
                     }}>
-                        <Text style={styles.textInputStyle}>
+                        <Text style={{marginLeft: 10, fontSize: 16, color: 'black',}}>
                             {
                                 this.state.selectedProvinceName + '  ' + this.state.bankCityName
                             }
@@ -275,16 +287,24 @@ export default class BankCardDeatil extends Component {
                     height: 46,
                 }}>
                     <Text style={styles.leftTextStyle}>开户支行</Text>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={{width: width - 100, paddingVertical: 10}} onPress={()=>{
                             if (!this.state.bankCityName) return Toast.showShortCenter('请选择开户省市');
-                            this.getBranchInfo(BankCode.searchCode(this.state.bank), this.state.bankCityCode);
+
+                            const NumberArr = BankCode.searchCode();
+                            for (let i = 0; i < NumberArr.length; i++) {
+                                if (NumberArr[i].bankName.indexOf(this.state.bank) > -1) {
+                                    const bankObj = NumberArr[i];
+                                    this.getBranchInfo(bankObj.bankCode, this.state.bankCityCode);
+                                }
+                            }
                     }}>
 
-                        <Text style={styles.textInputStyle}>
+                        <Text style={{marginLeft: 10, fontSize: 16, color: 'black',}}>
                             {
                                 this.state.branchName
                             }
                         </Text>
+
 
                     </TouchableOpacity>
                     <Image source={StaticImage.rightArrow} style={{right: 10, position: 'absolute'}}/>

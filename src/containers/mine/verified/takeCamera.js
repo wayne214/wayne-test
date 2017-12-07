@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         transform:[{translate:[0,100,0]}, {rotateZ: '90deg'}],
+        backgroundColor: 'transparent'
     },
     topLeftImageStyle: {
         position: 'absolute',
@@ -200,8 +201,8 @@ export default class takeCamera extends Component {
         let showTitle='';
         switch (this.props.navigation.state.params.cameraType){
             case 0 :
-                showTitle='请将人像面放到框内，并调整好光线';
-                break;
+            showTitle='请将人像面放到框内，并调整好光线';
+            break;
             case 1 :
                 showTitle='请将国徽面放到框内，并调整好光线';
                 break;
@@ -243,6 +244,7 @@ export default class takeCamera extends Component {
      * 点击拍照
      * */
     takePicture() {
+
         //jpegQuality 1-100, 压缩图片
         const options = {jpegQuality: 50};
 

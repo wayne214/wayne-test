@@ -101,7 +101,6 @@ class entryToBeSignin extends Component {
             this.props.navigation.goBack();
         });
         this.listener = DeviceEventEmitter.addListener('refreshDetails',() => {
-            debugger
             this.getOrderDetailInfo();
         });
         // // 返回上一级
@@ -131,10 +130,11 @@ class entryToBeSignin extends Component {
     }
 
     renderTitle (index, array) {
-        if (array[index].transOrderStatsu === '5'
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '34')
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '38')
-            || (array[index].isEndDistribution === 'N' && array[index].statusCode === '40')) {
+        if (array[index].transOrderStatsu === '5' && array[index].isEndDistribution === 'Y'){
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '32')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '34')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '38')
+            // || (array[index].isEndDistribution === 'N' && array[index].statusCode === '40')) {
             this.setState({
                 isShowRightButton: true
             });
@@ -285,10 +285,15 @@ class entryToBeSignin extends Component {
 
     getOrderPictureList() {
         currentTime = new Date().getTime();
+        let transCode = this.state.datas[this.state.current-1].transCode;
+        if(transCode.indexOf('-') > -1){
+            transCode = transCode.split('-')[0];
+        }
+        console.log('transCode==',transCode);
         HTTPRequest({
             url: API.API_ORDER_PICTURE_SHOW,
             params: {
-                refNo: this.state.datas[this.state.current-1].transCode,
+                refNo: transCode,
             },
             loading: ()=>{
                 this.setState({
@@ -347,10 +352,8 @@ class entryToBeSignin extends Component {
         const navigator = this.props.navigation;
         console.log('this.state.datas=====',this.state.datas);
         const subOrderPage = this.state.datas.map((item, index) => {
-            if (item.transOrderStatsu === '5'
-                || (item.isEndDistribution === 'N' && item.statusCode === '34')
-                || (item.isEndDistribution === 'N' && item.statusCode === '38')
-                || (item.isEndDistribution === 'N' && item.statusCode === '40')) { // 已回单5
+            if (item.transOrderStatsu === '5' && item.isEndDistribution === 'Y'
+                || (item.isEndDistribution === 'N' && item.arriveFlag === true)) { // 已回单5
                 return (
                     <EntryToBeSure
                         key={index}
@@ -381,7 +384,7 @@ class entryToBeSignin extends Component {
                 );
             }
 
-            if (item.transOrderStatsu === '4') { // 待回单4
+            if (item.transOrderStatsu === '4' && item.isEndDistribution === 'Y') { // 待回单4
                 return (
                     <EntryToBeWaitSure
                         {...this.props}
@@ -415,7 +418,8 @@ class entryToBeSignin extends Component {
                 );
             }
 
-            if (item.transOrderStatsu === '3') { // 待签收3
+            if (item.transOrderStatsu === '3' && item.isEndDistribution === 'Y'
+            || (item.isEndDistribution === 'N' && item.arriveFlag === false)) { // 待签收3
                 return (
                     <EntryToBeSignIn
                         key={index}
@@ -430,20 +434,22 @@ class entryToBeSignin extends Component {
                         transOrderType={item.transOrderType}
                         vol={item.vol}
                         weight={item.weight}
-                        settlementMode={item.settleType}
+                        settlementMode={item.settleType} // 结算方式：10 按单结费 20 按车结费
+                        settleMethod={item.settleMethod} // 结费方式；10 现金 20 到付 30 回付 40 月付
                         scheduleTime={item.scheduleTime}
                         scheduleTimeAgain={item.twoScheduleTime}
                         dispatchTime={item.dispatchTime}
                         dispatchTimeAgain={item.twoDispatchTime}
                         isEndDistribution={item.isEndDistribution}
-                        payState={item.payState}
+                        payState={item.payState} // 付款状态：0 未付款 1 已付款
+                        amount={item.amount}
                         index={index}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
                         }}
                         signIn={() => {
                             if(item.taskInfo) {
-                                if(item.payState === '0') {
+                                if(item.payState === '0' && item.settleMethod === '20' && item.settleType === '10' && item.amount !== '0.00') {
                                     Alert.alert('请先完成收款，才可以签收');
                                 }else {
                                     // 跳转到具体的签收页面
@@ -461,7 +467,7 @@ class entryToBeSignin extends Component {
                             this.props.navigation.navigate('PayTypesPage', {
                                 orderCode: item.orderCode,
                                 deliveryInfo: item.deliveryInfo,
-                                customCode: '',
+                                customCode: item.customerOrderCode,
                             });
                         }}
                     />

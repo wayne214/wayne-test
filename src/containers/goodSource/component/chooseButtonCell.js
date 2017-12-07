@@ -44,19 +44,20 @@ class ChooseButtonCell extends Component {
     render() {
         const {leftClick, rightClick, leftContent, rightContent} = this.props;
         return (
-            <View style={{backgroundColor: StaticColor.WHITE_COLOR}}>
+            <View style={{backgroundColor: StaticColor.WHITE_COLOR, width}}>
                 <View
                     style={{
                         flexDirection: 'row',
                         height: 45,
+                        width: width,
                     }}
                 >
                     <TouchableOpacity
                         style={{
-                            width: width / 2,
                             backgroundColor: 'white',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            width: width / 2,
                         }}
                         onPress={() => {
                             leftClick();

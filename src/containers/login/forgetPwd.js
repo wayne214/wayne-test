@@ -12,7 +12,9 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Dimensions
+    Dimensions,
+    Platform,
+    Alert
 } from 'react-native';
 import Toast from '@remobile/react-native-toast';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -26,7 +28,6 @@ import {
     LIGHT_GRAY_TEXT_COLOR,
     WHITE_COLOR,
     COLOR_VIEW_BACKGROUND,
-    COLOR_MAIN,
 } from '../../constants/staticColor';
 import * as API from '../../constants/api';
 
@@ -34,6 +35,7 @@ import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
 const {width, height} = Dimensions.get('window');
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -91,7 +93,15 @@ export default class forgetPWD extends Component {
     }
 
     componentDidMount() {
-         this.getCurrentPosition();
+        if(Platform.OS === 'ios'){
+            // this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+            });
+        }
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -161,8 +171,8 @@ export default class forgetPWD extends Component {
             },
             success: (responseData)=>{
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '忘记密码');
+                // ReadAndWriteFileUtil.appendFile('校验忘记密码的验证码是否正确',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                //     locationData.district, lastTime - currentTime, '忘记密码');
                 if (responseData.result) {
                     this.props.navigation.navigate('ChangeCodePwd', {
                         identifyCode: this.state.pwdCode,

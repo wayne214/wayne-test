@@ -16,12 +16,15 @@ import {
     DeviceEventEmitter,
     TouchableOpacity,
     ScrollView,
+    Modal
 } from 'react-native';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import DeviceInfo from 'react-native-device-info';
 import JPushModule from 'jpush-react-native';
 import Carousel from 'react-native-snap-carousel';
-import Speech from 'native-speech';
+import Speech from '../../utils/VoiceUtils';
+import Communications from 'react-native-communications';
+import Dialog from './components/dialog';
 
 import Toast from '@remobile/react-native-toast';
 import { NavigationActions } from 'react-navigation';
@@ -29,9 +32,11 @@ import { NavigationActions } from 'react-navigation';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 import * as ConstValue from '../../constants/constValue';
+import Speeker from '../../utils/BDSpeech';
+
 import {
     WHITE_COLOR,
-    BLUE_TEXT_COLOR,
+    BLUE_CONTACT_COLOR,
     DEVIDE_LINE_COLOR,
     COLOR_SEPARATE_LINE,
     LIGHT_GRAY_TEXT_COLOR,
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17,
-        color: BLUE_TEXT_COLOR,
+        color: BLUE_CONTACT_COLOR,
         textAlign: 'center',
     },
     dot: {
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
     activeDot: {
         width: 6,
         height: 6,
-        backgroundColor: BLUE_TEXT_COLOR,
+        backgroundColor: BLUE_CONTACT_COLOR,
         borderRadius: 3,
         marginLeft: 3,
         marginRight: 3,
@@ -268,6 +273,7 @@ class Home extends Component {
             weatherNum: '',
             limitNumber: '',
             plateNumberObj: {},
+            modalVisible: false,
         };
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
@@ -295,6 +301,7 @@ class Home extends Component {
         this.popToTop = this.popToTop.bind(this);
 
         this.speechContent = this.speechContent.bind(this);
+        this.notifyIncome = this.notifyIncome.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -326,7 +333,9 @@ class Home extends Component {
 
                 this.props.setMessageListIcon(true);
                 this.saveMessage(message.alertContent);
-                this.speechContent(message.alertContent);
+                if (message.alertContent.indexOf('认证') < 0) {
+                    this.speechContent(message.alertContent, 0);
+                }
                 if (message.alertContent.indexOf('新货源') > -1) {
                     Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                         {
@@ -434,7 +443,9 @@ class Home extends Component {
 
                     this.props.setMessageListIcon(true);
                     this.saveMessage(notification.aps.alert);
-                    this.speechContent(notification.aps.alert);
+                    if (notification.aps.alert.indexOf('认证') < 0) {
+                        this.speechContent(notification.aps.alert, 0);
+                    }
                     if (notification.aps.alert.indexOf('新货源') > -1) {
                         Alert.alert('提示', '您有新的订单，是否进入货源界面', [
                             {
@@ -519,6 +530,10 @@ class Home extends Component {
             this.notifyCarStatus();
         });
 
+        this.notifyIncomeListener = DeviceEventEmitter.addListener('notifyIncome', () => {
+            this.notifyIncome();
+        });
+
         this.Listener = DeviceEventEmitter.addListener('restToLoginPage', (message) => {
             Toast.showShortCenter(message);
             this.resetTo(0, 'Login');
@@ -537,14 +552,45 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
     }
+
+    // componentDidUpdate() {
+    //     if (this.props.versionUrl !== '') {
+    //         this.refs.dialog.show('提示', '版本过低，需要升级到最新版本，否则可能影响使用');
+    //     }
+    // }
     // 语音播报内容
-    speechContent(message) {
+    speechContent(message, voiceType) {
         if (this.props.speechSwitchStatus) {
-            Speech.speak(message);
+            if (Platform.OS === 'ios') {
+                Speeker.speek(message);
+            }else
+                Speech.speak(message, voiceType);
         }
     }
 
-//
+    // 版本升级方法
+    dialogOkCallBack(){
+        Communications.web(this.props.versionUrl);
+    }
+
+    notifyIncome(){
+        if (global.verifiedState && global.verifiedState == '1201') {
+            Alert.alert('提示', '认证资料正在审核中');
+        } else if (global.verifiedState && global.verifiedState == '1203'){
+            Alert.alert('提示', '认证资料已驳回，请重新上传资料');
+        } else {
+            Alert.alert('提示','您的账号未实名认证，请进行实名认证',[
+                {
+                    text: '好的',
+                    onPress: () => {
+                        this.props.navigation.navigate('Mine');
+                    },
+                },
+            ], {cancelable: false});
+        }
+    }
+
+
     notifyCarStatus() {
         Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
     }
@@ -555,6 +601,7 @@ class Home extends Component {
         this.Listener.remove();
         this.bindCarListener.remove();
         this.notifyCarStatusListener.remove();
+        this.notifyIncomeListener.remove();
         this.logListener.remove();
     }
 
@@ -573,7 +620,15 @@ class Home extends Component {
                 ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
                 if (responseData.result) {
-                    this.props.updateVersion(responseData.result);
+                    if (responseData.result !== '') {
+                        this.props.updateVersion(responseData.result);
+                        this.setState({
+                            modalVisible: true,
+                        });
+                        if (this.refs.updateDialog){
+                            this.refs.updateDialog.show('提示', '版本过低，需要升级到最新版本，否则可能影响使用');
+                        }
+                    }
                 }else {
                     this.setData();
                 }
@@ -646,8 +701,6 @@ class Home extends Component {
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
-
-
                 this.certificationState();
             } else {
                 this.certificationState();
@@ -697,6 +750,8 @@ class Home extends Component {
         this.getHomePageCount(this.props.plateNumber, userInfo.phone);
         this.saveUserCarInfo(this.props.plateNumberObj);
         Storage.save('setCarSuccessFlag', '2');
+        DeviceEventEmitter.emit('updateOrderList');
+        DeviceEventEmitter.emit('resetGood');
     }
 
     // 保存车辆列表
@@ -777,9 +832,23 @@ class Home extends Component {
                 {
                     text: '好的',
                     onPress: () => {
-                        this.props.navigation.navigate('CertificationPage', {
-                            qualifications: result,
-                        })
+
+                        Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+
+                            if (value){
+                                this.props.navigation.navigate('CertificationPage', {
+                                    resultInfo: value,
+                                });
+                            }else {
+                                this.props.navigation.navigate('CertificationPage', {
+                                    resultInfo: this.state.resultInfo,
+                                });
+                            }
+                        });
+
+                        // this.props.navigation.navigate('CertificationPage', {
+                        //     qualifications: result,
+                        // })
                     },
                 },
             ],{cancelable: true});
@@ -1035,7 +1104,6 @@ class Home extends Component {
 
     render() {
         const {homePageState,routes} = this.props;
-        console.log('routes=',routes);
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
@@ -1133,8 +1201,10 @@ class Home extends Component {
                                     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
                                         DeviceEventEmitter.emit('resetGood');
                                         this.props.navigation.navigate('GoodsSource');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1156,8 +1226,10 @@ class Home extends Component {
                                         this.changeOrderTab(1);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 1);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1179,8 +1251,10 @@ class Home extends Component {
                                         this.changeOrderTab(2);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 2);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1202,8 +1276,10 @@ class Home extends Component {
                                         this.changeOrderTab(3);
                                         DeviceEventEmitter.emit('changeOrderTabPage', 3);
                                         this.props.navigation.navigate('Order');
-                                    } else {
+                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
                                         this.notifyCarStatus();
+                                    } else {
+                                        this.getUserCar();
                                     }
                                 } else {
                                     this.getUserCar();
@@ -1212,6 +1288,14 @@ class Home extends Component {
                         />
                     </View>
                 </ScrollView>
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={this.state.modalVisible}>
+                    <Dialog
+                        ref="updateDialog"
+                        callback={this.dialogOkCallBack.bind(this)} />
+                </Modal>
             </View>
         );
     }
@@ -1228,7 +1312,8 @@ function mapStateToProps(state) {
         plateNumberObj: state.user.get('plateNumberObj'),
         routes: state.nav.routes,
         userCarList: state.user.get('userCarList'),
-        speechSwitchStatus: state.app.get('speechSwitchStatus')
+        speechSwitchStatus: state.app.get('speechSwitchStatus'),
+        versionUrl: state.app.get('versionUrl'),
     };
 }
 

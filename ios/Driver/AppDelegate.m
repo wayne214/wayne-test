@@ -18,6 +18,7 @@
 #import <React/RCTRootView.h>
 #import "RCTBaiduMapViewManager.h"
 #import <React/RCTLinkingManager.h>
+#import <UIKit/UIKit.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 {
@@ -69,8 +70,7 @@
   
   //模拟器测试
 
-
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   /*
    
@@ -78,11 +78,20 @@
    
    */
   //打包手机测试
+
+
+//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
+
   
-  //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
+   NSLog(@"jsCodeLocation=========%@", jsCodeLocation);
   
+  if (jsCodeLocation == nil) {
+    exit(0);
+    return YES;
+  }
   
-  
+ 
+
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Driver"
@@ -97,6 +106,8 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [self autoSplashScreen];//写在 return YES 之前，其他代码之后
+
+  
   return YES;
   
   //$(SRCROOT)/../node_modules/react-native/Libraries
@@ -117,6 +128,8 @@
     [splashImage setImage:[UIImage imageNamed:@"launch6"]];
   }else if (IPHONESCREEN5p5){
     [splashImage setImage:[UIImage imageNamed:@"launch7"]];
+  }else if (IPHONESCREEN5p8){
+    [splashImage setImage:[UIImage imageNamed:@"launchX"]];
   }
   [self.window addSubview:splashImage];
 }

@@ -13,6 +13,7 @@ import {
     TouchableOpacity,
     Platform,
     DeviceEventEmitter,
+    Keyboard
 } from 'react-native';
 import Toast from '@remobile/react-native-toast';
 import NavigationBar from '../../../common/navigationBar/navigationBar';
@@ -94,16 +95,21 @@ class goodsBidding extends Component {
         this.state = {
             price: '',
             scheduleCode: params.bidScheduleCode,
+            // scheduleCode: '',
             bidEndTime: params.endTime,
+            // bidEndTime: '2017-11-22 18:40:28',
             isProvideInvoice: true,
             lastOffer: '', // 上次报价
             lastRank: '', // 上次排名
             referencePrice: '', // 参考价
             isClicked: true,
             plateNumber: this.props.userPlateNumber,
+            // plateNumber: '京LPL001',
             phone: global.phone,
+            // phone: '15801461058',
             showDeleteButton: false,
             refPrice: params.refPrices,
+            // refPrice: 111,
         };
         this.isProvideInvoice = this.isProvideInvoice.bind(this);
         this.clearInput = this.clearInput.bind(this);
@@ -113,11 +119,23 @@ class goodsBidding extends Component {
         this.queryRankSuccessCallBack = this.queryRankSuccessCallBack.bind(this);
         this.queryRankFailCallBack = this.queryRankFailCallBack.bind(this);
         this.queryRankPrice = this.queryRankPrice.bind(this);
+
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
     }
 
     componentDidMount() {
         this.getCurrentPosition();
         this.queryRankPrice(this.queryRankSuccessCallBack, this.queryRankFailCallBack);
+    }
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        this.keyboardDidHideListener.remove();
+    }
+    _keyboardDidHide(){
+        this.refs.biddingPrice && this.refs.biddingPrice.blur();
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -266,6 +284,7 @@ class goodsBidding extends Component {
                             <View style={{flex: 1, marginLeft: 1}}>
                                 <TextInput
                                     // autoFocus={true}
+                                    ref='biddingPrice'
                                     style={styles.textInputStyle}
                                     underlineColorAndroid="transparent"
                                     placeholderTextColor="#CCCCCC"
@@ -285,7 +304,7 @@ class goodsBidding extends Component {
                             {
                                 this.state.showDeleteButton ? <TouchableOpacity onPress={() => this.clearInput()}>
                                     <View style={styles.iconStyle}>
-                                        <Text style={styles.iconFont}> &#xe61e;</Text>
+                                        <Text style={styles.iconFont}> &#xe66a;</Text>
                                     </View>
                                 </TouchableOpacity> : null
                             }

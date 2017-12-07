@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
     },
     itemName: {
         fontSize: 15,
-        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     contentText: {
         fontSize: 15,
-        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        color: StaticColor.BLACK_DETAIL_TEXT_COLOR,
     },
 });
 class taskInfoCell extends Component {

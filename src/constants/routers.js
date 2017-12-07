@@ -11,7 +11,7 @@ import {
 import {TabRouteConfigs, TabNavigatorConfigs} from './tabBar/tabBar';
 
 import Scan from '../containers/order/scan';
-import BaiduMap from '../common/baiduMap';
+import BaiduMap from '../containers/map/baiduMap';
 
 import Search from '../containers/order/search/search';
 import SearchResultForSchedule from '../containers/order/search/searchResultForSchedule';
@@ -29,7 +29,6 @@ import Splash from '../containers/splash/splash';
 import Login from '../containers/login/login';
 import Guide from '../containers/guide/guide';
 import Protocol from '../containers/register/protocol';
-import Registered from '../containers/register/registered';
 import RegisterStepOne from '../containers/register/registerStepOne';
 import RegisterStepTwo from '../containers/register/registerStepTwo';
 
@@ -55,7 +54,7 @@ import AboutUs from '../containers/mine/aboutUs';
 import BusinessDetail from '../containers/income/businessDetail/businessDetail';
 import GoodsDetailPage from '../containers/goodSource/entryGoodsDetail';
 import TakeCamear from '../containers/mine/verified/takeCamera';
-import TakeCamearV from '../containers/mine/verified/takeCameraVertical';
+import TakeCamearPageV from '../containers/mine/verified/takeCameraVertical';
 import Certification from '../containers/mine/verified/certification';
 import TakeCameraEnd from '../containers/mine/verified/takeCameraEnd';
 import TakeCameraVEnd from '../containers/mine/verified/takeCameraVerticalEnd';
@@ -126,12 +125,6 @@ const StackRouteConfigs = {
     },
     Protocol: {
         screen: Protocol,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Registered: {
-        screen: Registered,
         navigationOptions: {
             header: null
         }
@@ -283,12 +276,6 @@ const StackRouteConfigs = {
     },
     ChoiceCityPage: {
         screen: ChoiceCityPage,
-        navigationOptions: {
-            header: null
-        }
-    },
-    TakeCamearVPage: {
-        screen: TakeCamearV,
         navigationOptions: {
             header: null
         }
@@ -535,6 +522,12 @@ const StackRouteConfigs = {
     },
     ForgetPayPasswordCode:{
         screen: ForgetPayPasswordCode,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakeCameraVer: {
+        screen: TakeCamearPageV,
         navigationOptions: {
             header: null
         }

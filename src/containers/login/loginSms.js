@@ -11,7 +11,10 @@ import {
     TextInput,
     Image,
     Dimensions,
+    Keyboard,
     TouchableOpacity,
+    Platform,
+    Alert
 } from 'react-native';
 
 import Button from 'apsl-react-native-button';
@@ -35,6 +38,7 @@ import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 const {width, height} = Dimensions.get('window');
 
@@ -150,8 +154,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     bottomViewText: {
-        fontSize: 14,
-        color: '#666666',
+        fontSize: 15,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
         alignItems: 'center',
 
     },
@@ -168,12 +172,12 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
-        fontSize: 14,
-        color: '#999999',
+        fontSize: 15,
+        color: StaticColor.GRAY_TEXT_COLOR,
     },
     screenEndViewText: {
-        fontSize: 14,
-        color: '#002f00',
+        fontSize: 15,
+        color: StaticColor.BLUE_CONTACT_COLOR,
     },
 });
 
@@ -183,7 +187,7 @@ class LoginSms extends BaseContainer {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
-            phoneNumber: params?params.loginPhone:'',
+            phoneNumber: params ? params.loginPhone : '',
             smsCode: '',
             loading: false,
         };
@@ -191,10 +195,32 @@ class LoginSms extends BaseContainer {
         this.clearSmsCodeNum = this.clearSmsCodeNum.bind(this);
         this.login = this.login.bind(this);
         this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
+        this._keyboardDidHide = this._keyboardDidHide.bind(this);
+    }
+
+    componentWillMount () {
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidHide(){
+        this.refs.phoneNumber && this.refs.phoneNumber.blur();
+        this.refs.smsCode && this.refs.smsCode.blur();
     }
 
     componentDidMount() {
-        this.getCurrentPosition();
+        if(Platform.OS === 'ios'){
+            // this.getCurrentPosition();
+        }else {
+            PermissionsAndroid.locationPermission().then((data) => {
+                this.getCurrentPosition();
+            }, (err) => {
+                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+            });
+        }
     }
 
     // 获取当前位置
@@ -238,13 +264,13 @@ class LoginSms extends BaseContainer {
             },
             success: (responseData)=>{
 
-                //FIXME 登录界面判断是否被其他设备绑定
+                //FIXME 登录界面判断是否已经绑定
                 const isBind = responseData.result.isBind;
                 console.log('-lqq---isBind',isBind);
                 if(isBind){//继续登录操作
                     lastTime = new Date().getTime();
-                    ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                        locationData.district, lastTime - currentTime, '短信登录页面');
+                    // ReadAndWriteFileUtil.appendFile('通过验证码登录接口', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    //     locationData.district, lastTime - currentTime, '短信登录页面');
                     const loginUserId = responseData.result.userId;
                     Storage.save(StorageKey.USER_ID, loginUserId);
                     Storage.save(StorageKey.USER_INFO, responseData.result);
@@ -266,7 +292,8 @@ class LoginSms extends BaseContainer {
                 }else{//跳转到绑定设备界面
                     this.props.navigation.navigate('CheckPhone', {
                         loginPhone: responseData.result.phone,
-                        responseData: responseData
+                        responseData: responseData,
+                        sourcePage: 1,
                     });
                 }
             },
@@ -329,7 +356,10 @@ class LoginSms extends BaseContainer {
                 <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
                         <Image
-                            source={StaticImage.LoginTopBg}/>
+                            source={StaticImage.LoginTopBg}
+                            resizeMode={'stretch'}
+                            style={{width: width}}
+                        />
                         
                     </View>
                     <View style={styles.contentView}>
@@ -340,6 +370,7 @@ class LoginSms extends BaseContainer {
                                 </Text>
                             </View>
                             <TextInput
+                                ref='phoneNumber'
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInputStyle}
                                 value={phoneNumber}
@@ -377,6 +408,7 @@ class LoginSms extends BaseContainer {
                                 </Text>
                             </View>
                             <TextInput
+                                ref='smsCode'
                                 underlineColorAndroid={'transparent'}
                                 style={styles.textInputStyle}
                                 value={this.state.smsCode}
@@ -384,6 +416,7 @@ class LoginSms extends BaseContainer {
                                     this.setState({smsCode});
                                 }}
                                 placeholder="请输入验证码"
+                                keyboardType="numeric"
                                 placeholderTextColor="#cccccc"
                                 textAlign="left"
                                 returnKeyType='done'/>

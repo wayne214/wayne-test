@@ -44,25 +44,6 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
-const styles = StyleSheet.create({
-    viewSty: {
-        marginLeft: 10,
-        marginTop: 15,
-        marginRight: 10,
-        marginBottom: 10,
-        height: 40,
-        backgroundColor: StaticColor.COLOR_MAIN,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    viewSty1: {
-        flexDirection: 'row',
-        height: 44,
-        paddingLeft: 20,
-        alignItems: 'center',
-    },
-});
 class signPage extends Component {
     constructor(props) {
         super(props);
@@ -158,14 +139,14 @@ class signPage extends Component {
             if (productInfo.refuseDetailDtoList) {
                 goodsInfo.push({
                     goodsId: productInfo.goodsId,
-                    signNum: productInfo.signNum?productInfo.signNum:productInfo.shipmentNum,
+                    signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
                     refuseDetail: productInfo.refuseDetailDtoList,
                 });
             } else {
                 goodsInfo.push({
                     goodsId: productInfo.goodsId,
-                    signNum: productInfo.signNum?productInfo.signNum:productInfo.shipmentNum,
+                    signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
                 });
             }
@@ -203,7 +184,6 @@ class signPage extends Component {
 
     // 获取数据成功回调
     getSignInSuccessCallBack() {
-        debugger
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('签收', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '签收页面');
@@ -358,12 +338,12 @@ class signPage extends Component {
                 goodsId: item.goodsId,
                 goodsName: item.goodsName,
                 goodsSpce: item.goodsSpce,
-                arNums: item.arNums,
+                arNums: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight,
                 signNum: '0',
                 shipmentNum: item.shipmentNum,
                 refuseNum: item.shipmentNum, // 等于0为全部发运的拒收
                 refuseDetailDtoList,
-                goodsUnit: item.goodsUnit,
+                goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
                 refuseReason: item.refuseReason,
             };
         }else if (refuseNumber === 0) {
@@ -371,11 +351,11 @@ class signPage extends Component {
                 goodsId: item.goodsId,
                 goodsName: item.goodsName,
                 goodsSpce: item.goodsSpce,
-                arNums: item.arNums,
+                arNums: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight,
                 signNum: item.shipmentNum,
                 shipmentNum: item.shipmentNum,
                 refuseNum: '0',
-                goodsUnit: item.goodsUnit,
+                goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
                 refuseReason: item.refuseReason,
             };
         }
@@ -386,12 +366,12 @@ class signPage extends Component {
                 goodsId: item.goodsId,
                 goodsName: item.goodsName,
                 goodsSpce: item.goodsSpce,
-                arNums: item.arNums,
+                arNums: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight,
                 signNum: getnumber.toString(),
                 shipmentNum: item.shipmentNum,
                 refuseNum: refuseNumber.toString(),
                 refuseDetailDtoList,
-                goodsUnit: item.goodsUnit,
+                goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
                 refuseReason: item.refuseReason,
             };
         }
@@ -432,11 +412,11 @@ class signPage extends Component {
                                         productID={item.goodsId}
                                         title={item.goodsName}
                                         Specifications={item.goodsSpce}
-                                        arNums={item.arNums} // 应收
+                                        arNums={item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.arNums : item.weight} // 应收
                                         shipmentNum={item.shipmentNum} // 发运
                                         getNum={!item.refuseNum || item.refuseNum == 0 ? item.shipmentNum : item.signNum} // 默认等于发运 item.signNum
                                         refuseNum={item.refuseNum ? item.refuseNum : 0} // 拒收
-                                        goodsUnit={item.goodsUnit} // 单位
+                                        goodsUnit={item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg'} // 单位
                                         sendValueCallBack={(proID, _index, number) => {
                                             this.productInfo(proID, _index, number);
                                         }}
@@ -455,10 +435,6 @@ class signPage extends Component {
                     onClick={() => {
                         if (prventDoubleClickUtil.onMultiClick()) {
                             this.getSignIn();
-                            {/*this.props.navigation.navigate('SignSuccess',{*/}
-                                {/*isReceipt: this.state.isReceipt,*/}
-                                {/*orderID: this.state.orderID,*/}
-                            {/*});*/}
                         }
                     }}
                 />

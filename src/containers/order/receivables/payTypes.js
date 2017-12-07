@@ -9,7 +9,10 @@ import {
     TouchableOpacity,
     Alert,
     DeviceEventEmitter,
+    Platform
 } from 'react-native';
+import moment from 'moment';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 import * as StaticColor from '../../../constants/staticColor';
 import StaticImage from '../../../constants/staticImage';
 import * as API from '../../../constants/api';
@@ -19,6 +22,8 @@ import Toast from '@remobile/react-native-toast';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import RadioGroup from './radioGroup';
 import RadioButton from './radioButton';
+import Button from 'apsl-react-native-button';
+
 const {width, height} = Dimensions.get('window');
 
 let currentTime = 0;
@@ -36,9 +41,17 @@ const styles = StyleSheet.create({
     },
     backgroundImg: {
         width: width,
-        height: width * 300 / 710,
         marginTop: 10,
         backgroundColor: 'transparent',
+        ...Platform.select({
+            ios: {
+                height: width * 300 / 710,
+            },
+            android : {
+                height: width * 300 / 650,
+
+            }
+        })
     },
     contactContainer: {
         flexDirection: 'row',
@@ -113,14 +126,47 @@ class payTypes extends Component {
             amount: '0',
             deliveryInfo: params.deliveryInfo,
             customCode: params.customCode,
+            disable: true,
         };
         this.confirmPayment = this.confirmPayment.bind(this);
+        this.getSettleState = this.getSettleState.bind(this);
     }
 
     componentDidMount() {
+        this.getSettleState();
         this.getCurrentPosition();
         this.getSettleAmount();
         console.log('.......orderCode',this.state.orderCode);
+        DeviceEventEmitter.addListener('refreshSettleState', () => {
+            this.getSettleState();
+        })
+    }
+    // 获取支付状态
+    getSettleState() {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_AC_GET_SETTLE_STATE + this.state.orderCode,
+            loading: ()=>{
+            },
+            success: (responseData)=>{
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取付款状态', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '获取付款状态');
+                if(responseData.result){
+                    let flag = responseData.result === 'true';
+                    this.updateStatus(flag);
+                }
+            },
+            error: (errorInfo)=>{
+            },
+            finish:()=>{
+            }
+        });
+    }
+    updateStatus(value){
+        this.setState({
+            disable: value,
+        });
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -160,12 +206,14 @@ class payTypes extends Component {
     confirmPayment() {
         console.log('---信息----', this.state.amount, this.state.orderCode, global.userId);
         currentTime = new Date().getTime();
+
         HTTPRequest({
             url: API.API_AC_COMFIRM_PAYMENT,
             params: {
                 amount: this.state.amount,
                 transCode: this.state.orderCode,
                 userId: global.userId,
+                paymentTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
             },
             loading: ()=>{
             },
@@ -206,6 +254,7 @@ class payTypes extends Component {
             });
         }
     }
+    //this.state.amount  Math.floor(parseFloat(this.state.amount) * 100) / 100
     render() {
         const navigator = this.props.navigation;
         return (
@@ -224,7 +273,7 @@ class payTypes extends Component {
                         </View>
                         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 20}}>
                             <Text style={styles.moneyStyle}>+</Text>
-                            <Text style={styles.moneyStyle}>{this.state.amount}</Text>
+                            <Text style={styles.moneyStyle}>{parseFloat(this.state.amount).toFixed(2)}</Text>
                         </View>
                         <View style={{justifyContent: 'space-between', flexDirection: 'row', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>
                             <Text style={styles.codeStyle}>订单号：{this.state.orderCode}</Text>
@@ -259,15 +308,19 @@ class payTypes extends Component {
                         <View style={styles.separateLine} />
                     </View>
                     <View style={{marginTop: 10}}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                this.submit();
-                            }}
-                        >
-                            <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
-                                <Text style={styles.buttonText}>确认支付</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
+                        <ImageBackground source={StaticImage.BlueButtonArc} style={styles.button} resizeMode='stretch'>
+                            <Button
+                                ref='button'
+                                isDisabled={!this.state.disable}
+                                style={{borderWidth: 0, marginBottom: 0,}}
+                                textStyle={styles.buttonText}
+                                onPress={() => {
+                                    this.submit();
+                                }}
+                            >
+                                确认支付
+                            </Button>
+                        </ImageBackground>
                     </View>
                 </View>
             </View>

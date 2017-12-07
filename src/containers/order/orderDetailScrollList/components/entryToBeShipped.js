@@ -232,6 +232,7 @@ class entryToBeShipped extends Component {
      * */
 
     sendOrder() {
+
         currentTime = new Date().getTime();
         const goodInfo = transOrderInfo[0].goodsInfo;
 
@@ -308,7 +309,7 @@ class entryToBeShipped extends Component {
                 userId: userID,
                 userName,
                 plateNumber,
-                scheduleCode: this.state.scheduleCode,
+                dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
                 this.setState({
@@ -340,6 +341,8 @@ class entryToBeShipped extends Component {
             this.props.navigation.state.params.successCallBack();
         }
         // 返回top
+        // 取消接单后，刷新货源列表
+        DeviceEventEmitter.emit('resetGood');
         this.props.navigation.goBack();
     }
 

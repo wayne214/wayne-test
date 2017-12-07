@@ -7,11 +7,12 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import StaticImage from '../../../constants/staticImage';
+import * as StaticColor from '../../../constants/staticColor';
 const styles = StyleSheet.create({
     container: {
         // flex: 1
-        borderColor: '#1b82d1',
-        backgroundColor: '#f3f8f8',
+        borderColor: '#dddddd',
+        backgroundColor: '#f5f5f5',
         borderWidth: 1,
         borderRadius: 90,
         height: 30,
@@ -22,11 +23,14 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     imgStyle: {
-        marginLeft: 10,
+        // marginLeft: 5,
+        fontFamily: 'iconfont',
+        fontSize: 22,
+        color: '#c5c5c5'
     },
     text: {
         fontSize: 14,
-        color: '#1b82d1',
+        color: '#333333',
     },
 });
 
@@ -49,7 +53,7 @@ class cityCell extends Component {
             <View style={styles.container}>
                 <Text style={styles.text}>{content}</Text>
                 <TouchableOpacity onPress={() => onClick()}>
-                    <Image style={styles.imgStyle} source={StaticImage.deleteIcon}/>
+                    <Text style={styles.imgStyle}>&#xe66c;</Text>
                 </TouchableOpacity>
             </View>
         );

@@ -17,6 +17,8 @@
 #define IPHONESCREEN4p7     IPHONEHEIGHT == 667.00
 #define IPHONESCREEN4       IPHONEHEIGHT == 568.00
 #define IPHONESCREEN3p5     IPHONEHEIGHT == 480.00
+#define IPHONESCREEN5p8     IPHONEHEIGHT == 813.00
+
 #define IOS8_OR_LATER       ([UIDevice currentDevice].systemVersion.floatValue>=8.0)
 #define IOS9_OR_LATER       ([UIDevice currentDevice].systemVersion.floatValue>=9.0)
 #define IOS10_OR_LATER       ([UIDevice currentDevice].systemVersion.floatValue>=10.0)

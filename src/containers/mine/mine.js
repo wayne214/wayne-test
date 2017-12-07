@@ -12,6 +12,7 @@ import {
     Platform,
     Alert,
     Modal,
+
 } from 'react-native';
 import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
@@ -117,14 +118,17 @@ const styles = StyleSheet.create({
     iconOutView: {
         marginBottom: 10,
         marginLeft: 15,
-        borderRadius: 100,
+        borderRadius: 5,
         borderWidth: 3,
         borderColor: 'rgba(255,255,255,0.2)',
+        overflow: 'visible'
+
     },
     driverIcon: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 60,
+        height: 60,
+        resizeMode:'stretch',
+        borderRadius: 5,
     },
     informView: {
         marginLeft: 15,
@@ -183,6 +187,16 @@ const styles = StyleSheet.create({
     allContainer: {
         flex: 1,
         backgroundColor: StaticColor.WHITE_COLOR,
+    },
+    scrollViewHeight: {
+        ...Platform.select({
+            ios: {
+                height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height,
+            },
+            android: {
+                height: height - 170,
+            },
+        }),
     }
 });
 
@@ -208,6 +222,7 @@ class Mine extends Component {
         this.selectPhoto = this.selectPhoto.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
         this.callbackSelected = this.callbackSelected.bind(this);
+        this.contentViewScroll = this.contentViewScroll.bind(this);
     }
 
 
@@ -374,7 +389,8 @@ class Mine extends Component {
 
                         this.setState({
                             verifiedState: responseData.result,
-                        })
+                        });
+                        global.verifiedState = responseData.result;
                     },
                     error: (errorInfo) => {
 
@@ -416,6 +432,7 @@ class Mine extends Component {
                         /*资质认证成功，绑定当前车牌号*/
                         DeviceEventEmitter.emit('bindUserCar', this.props.plateNumber);
                     }
+                    global.certificationState = responseData.result;
                 },
                 error: (errorInfo) => {
 
@@ -533,7 +550,18 @@ class Mine extends Component {
                 Toast.showShortCenter('图片上传失败，请重新选择上传');
             });
     }
-
+    // 判断ScrollView滑动到底部
+    contentViewScroll(e: Object){
+        var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+        var contentSizeHeight = e.nativeEvent.contentSize.height - 300; //scrollView contentSize高度
+        var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+        console.log('fjafd===',ConstValue.NavigationBar_StatusBar_Height,ConstValue.Tabbar_Height,);
+        console.log('滑动距离', offsetY, contentSizeHeight, oriageScrollHeight, height);
+        if (offsetY + oriageScrollHeight >= contentSizeHeight){
+            console.log('scrollView', 'scrollView滑动到底部事件');
+            this.scrollView.scrollTo({x: 0, y: 0, animated: true})
+        }
+    }
     render() {
         const navigator = this.props.navigation;
         const statusRender =
@@ -588,16 +616,18 @@ class Mine extends Component {
                 <View
                     style={{
                         height: 28,
-                        width: 85,
-                        right: 10,
-                        borderRadius: 18,
+                        width: 87,
+                        // right: 10,
+                        // borderRadius: 18,
+                        borderTopLeftRadius: 18,
+                        borderBottomLeftRadius: 18,
                         borderWidth: 1,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        position: 'absolute',
-                        bottom: 20,
+                        // position: 'absolute',
+                        // bottom: 20,
                     }}>
                     <Text
                         style={{
@@ -637,7 +667,7 @@ class Mine extends Component {
             <View style={styles.allContainer}>
                 <View style={{flex: 1}}>
                     <View>
-                        <Image source={StaticImage.CenterHeaderIcon}>
+                        <Image source={StaticImage.CenterHeaderIcon} style={{width: width}} resizeMode={'stretch'}>
                             <View style={{
                                 position: 'absolute',
                                 height: ConstValue.NavigationBar_StatusBar_Height,
@@ -660,53 +690,67 @@ class Mine extends Component {
                                         {
                                             this.state.avatarSource != '' ?
                                                 <Image
+                                                    resizeMode='stretch'
                                                     style={styles.driverIcon}
-                                                    source={this.state.avatarSource}/>
+                                                    source={this.state.avatarSource}
+                                                />
                                                 :
                                                 <Image
+                                                    resizeMode='stretch'
                                                     style={styles.driverIcon}
-                                                    source={StaticImage.CenterLoginAvatar}/>
+                                                    source={StaticImage.CenterLoginAvatar}
+                                                />
                                         }
                                     </View>
                                 </TouchableOpacity>
-                                <View style={styles.informView}>
-                                    <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={styles.informView}>
+                                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                            <Text
+                                                style={{
+                                                    fontWeight: 'bold',
+                                                    color: '#FFFFFF',
+                                                    fontSize: 18,
+                                                    backgroundColor: 'transparent',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                {
+                                                    this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                }
+                                            </Text>
+                                            {statusRender}
+                                        </View>
                                         <Text
                                             style={{
-                                                fontWeight: 'bold',
-                                                color: '#FFFFFF',
-                                                fontSize: 14,
+                                                marginTop: 5,
+                                                marginBottom: 10,
                                                 backgroundColor: 'transparent',
-                                                alignItems: 'center',
-                                            }}
-                                        >
+                                                color: '#FFFFFF',
+                                                fontSize: 14
+                                            }}>
                                             {
-                                                this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                             }
                                         </Text>
-                                        {statusRender}
                                     </View>
-                                    <Text
-                                        style={{
-                                            marginTop: 5,
-                                            marginBottom: 10,
-                                            backgroundColor: 'transparent',
-                                            color: '#FFFFFF',
-                                            fontSize: 13
-                                        }}>
-                                        {
-                                            this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
-                                        }
-                                    </Text>
+                                    <View style={{flex: 1}}/>
+                                    {changeCarView}
                                 </View>
                             </View>
-                            {changeCarView}
+                            {/*{changeCarView}*/}
                         </Image>
                         <View style={styles.contentPostionView}>
-                            <ScrollView style={{height: height - ConstValue.NavigationBar_StatusBar_Height - 70 - ConstValue.Tabbar_Height}}>
+                            <ScrollView onMomentumScrollEnd={
+                                this.contentViewScroll
+                                // this.scrollView.scrollTo({x: 0, y: 0, animated: true})
+                            } style={styles.scrollViewHeight}
+                                ref={(scroll)=>{this.scrollView = scroll}}
+                            >
                             <View style={styles.numberView}/>
                             <View style={styles.contentView}>
                                 <SettingCell
+                                    style={{height: 36}}
                                     leftIcon="&#xe62a;"
                                     content={'个人信息'}
                                     showBottomLine={true}
@@ -732,7 +776,7 @@ class Mine extends Component {
                                         if (ClickUtil.onMultiClick()) {
                                             if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
                                                 if (this.props.plateNumberObj) {
-                                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                                    if (this.props.plateNumberObj.size === 0 || this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20 || this.props.plateNumberObj.carStatus === 0) {
                                                         navigator.navigate('CarInfo');
                                                     } else {
                                                         navigator.navigate('CarDisablePage');
@@ -750,7 +794,7 @@ class Mine extends Component {
                                 {
                                     this.state.verifiedState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe636;"
+                                            leftIcon="&#xe673;"
                                             content={'实名认证'}
                                             authenticationStatus={this.state.verifiedState}
                                             showBottomLine={true}
@@ -783,7 +827,7 @@ class Mine extends Component {
                                 {
                                     this.state.certificationState != '1202' ?
                                         <SettingCell
-                                            leftIcon="&#xe635;"
+                                            leftIcon="&#xe672;"
                                             content={'资质认证'}
                                             authenticationStatus={this.state.certificationState}
                                             showBottomLine={false}
@@ -845,7 +889,7 @@ class Mine extends Component {
                                     {/*}}*/}
                                 {/*/>*/}
 
-                                <View style={styles.separateView}/>
+                                {/*<View style={styles.separateView}/>*/}
 
                                 <SettingCell
                                     leftIcon="&#xe630;"
