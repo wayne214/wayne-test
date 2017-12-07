@@ -1,0 +1,1825 @@
+{
+  "provinces": [
+    {
+      "address": "河南省",
+      "provincesNumber": "410000",
+      "citys": [
+        {
+          "departureCityArrayCode": "410100" ,
+          "departureCityArrayName": "郑州市"
+        },
+        {
+          "departureCityArrayCode": "410200" ,
+          "departureCityArrayName": "开封市"
+        },
+        {
+          "departureCityArrayCode": "410300" ,
+          "departureCityArrayName": "洛阳市"
+        },
+        {
+          "departureCityArrayCode": "410400" ,
+          "departureCityArrayName": "平顶山市"
+        },
+        {
+          "departureCityArrayCode": "410500" ,
+          "departureCityArrayName": "安阳市"
+        },
+        {
+          "departureCityArrayCode": "410600" ,
+          "departureCityArrayName": "鹤壁市"
+        },
+        {
+          "departureCityArrayCode": "410700" ,
+          "departureCityArrayName": "新乡市"
+        },
+        {
+          "departureCityArrayCode": "410800" ,
+          "departureCityArrayName": "焦作市"
+        },
+        {
+          "departureCityArrayCode": "410881" ,
+          "departureCityArrayName": "济源市"
+        },
+        {
+          "departureCityArrayCode": "410900" ,
+          "departureCityArrayName": "濮阳市"
+        },
+        {
+          "departureCityArrayCode": "411000" ,
+          "departureCityArrayName": "许昌市"
+        },
+        {
+          "departureCityArrayCode": "411100" ,
+          "departureCityArrayName": "漯河市"
+        },
+        {
+          "departureCityArrayCode": "411200" ,
+          "departureCityArrayName": "三门峡市"
+        },
+        {
+          "departureCityArrayCode": "411300" ,
+          "departureCityArrayName": "南阳市"
+        },
+        {
+          "departureCityArrayCode": "411400" ,
+          "departureCityArrayName": "商丘市"
+        },
+        {
+          "departureCityArrayCode": "411500" ,
+          "departureCityArrayName": "信阳市"
+        },
+        {
+          "departureCityArrayCode": "411600" ,
+          "departureCityArrayName": "周口市"
+        },
+        {
+          "departureCityArrayCode": "411700" ,
+          "departureCityArrayName": "驻马店市"
+        }
+      ]
+    },
+    {
+      "address": "湖北省",
+      "provincesNumber": "420000",
+      "citys": [
+        {
+          "departureCityArrayCode": "420100" ,
+          "departureCityArrayName": "武汉市"
+        },
+        {
+          "departureCityArrayCode": "420200" ,
+          "departureCityArrayName": "黄石市"
+        },
+        {
+          "departureCityArrayCode": "420300" ,
+          "departureCityArrayName": "十堰市"
+        },
+        {
+          "departureCityArrayCode": "420500" ,
+          "departureCityArrayName": "宜昌市"
+        },
+        {
+          "departureCityArrayCode": "420600" ,
+          "departureCityArrayName": "襄阳市"
+        },
+        {
+          "departureCityArrayCode": "420700" ,
+          "departureCityArrayName": "鄂州市"
+        },
+        {
+          "departureCityArrayCode": "420800" ,
+          "departureCityArrayName": "荆门市"
+        },
+        {
+          "departureCityArrayCode": "420900" ,
+          "departureCityArrayName": "孝感市"
+        },
+        {
+          "departureCityArrayCode": "421000" ,
+          "departureCityArrayName": "荆州市"
+        },
+        {
+          "departureCityArrayCode": "421100" ,
+          "departureCityArrayName": "黄冈市"
+        },
+        {
+          "departureCityArrayCode": "421200" ,
+          "departureCityArrayName": "咸宁市"
+        },
+        {
+          "departureCityArrayCode": "421300" ,
+          "departureCityArrayName": "随州市"
+        },
+        {
+          "departureCityArrayCode": "422800" ,
+          "departureCityArrayName": "恩施土家族苗族自治州"
+        },
+        {
+          "departureCityArrayCode": "429004" ,
+          "departureCityArrayName": "仙桃市"
+        },
+        {
+          "departureCityArrayCode": "429005" ,
+          "departureCityArrayName": "潜江市"
+        },
+        {
+          "departureCityArrayCode": "429006" ,
+          "departureCityArrayName": "天门市"
+        },
+        {
+          "departureCityArrayCode": "429021" ,
+          "departureCityArrayName": "神农架林区"
+        }
+      ]
+    },
+    {
+      "address": "湖南省",
+      "provincesNumber": "430000",
+      "citys": [
+        {
+          "departureCityArrayCode": "430100" ,
+          "departureCityArrayName": "长沙市"
+        },
+        {
+          "departureCityArrayCode": "430200" ,
+          "departureCityArrayName": "株洲市"
+        },
+        {
+          "departureCityArrayCode": "430300" ,
+          "departureCityArrayName": "湘潭市"
+        },
+        {
+          "departureCityArrayCode": "430400" ,
+          "departureCityArrayName": "衡阳市"
+        },
+        {
+          "departureCityArrayCode": "430500" ,
+          "departureCityArrayName": "邵阳市"
+        },
+        {
+          "departureCityArrayCode": "430600" ,
+          "departureCityArrayName": "岳阳市"
+        },
+        {
+          "departureCityArrayCode": "430700" ,
+          "departureCityArrayName": "常德市"
+        },
+        {
+          "departureCityArrayCode": "430800" ,
+          "departureCityArrayName": "张家界市"
+        },
+        {
+          "departureCityArrayCode": "430900" ,
+          "departureCityArrayName": "益阳市"
+        },
+        {
+          "departureCityArrayCode": "431000" ,
+          "departureCityArrayName": "郴州市"
+        },
+        {
+          "departureCityArrayCode": "431100" ,
+          "departureCityArrayName": "永州市"
+        },
+        {
+          "departureCityArrayCode": "431200" ,
+          "departureCityArrayName": "怀化市"
+        },
+        {
+          "departureCityArrayCode": "431300" ,
+          "departureCityArrayName": "娄底市"
+        },
+        {
+          "departureCityArrayCode": "433100" ,
+          "departureCityArrayName": "湘西土家族苗族自治州"
+        }
+      ]
+    },
+    {
+      "address": "广东省",
+      "provincesNumber": "440000",
+      "citys": [
+        {
+          "departureCityArrayCode": "440100" ,
+          "departureCityArrayName": "广州市"
+        },
+        {
+          "departureCityArrayCode": "440200" ,
+          "departureCityArrayName": "韶关市"
+        },
+        {
+          "departureCityArrayCode": "440300" ,
+          "departureCityArrayName": "深圳市"
+        },
+        {
+          "departureCityArrayCode": "440400" ,
+          "departureCityArrayName": "珠海市"
+        },
+        {
+          "departureCityArrayCode": "440500" ,
+          "departureCityArrayName": "汕头市"
+        },
+        {
+          "departureCityArrayCode": "440600" ,
+          "departureCityArrayName": "佛山市"
+        },
+        {
+          "departureCityArrayCode": "440700" ,
+          "departureCityArrayName": "江门市"
+        },
+        {
+          "departureCityArrayCode": "440800" ,
+          "departureCityArrayName": "湛江市"
+        },
+        {
+          "departureCityArrayCode": "440900" ,
+          "departureCityArrayName": "茂名市"
+        },
+        {
+          "departureCityArrayCode": "441200" ,
+          "departureCityArrayName": "肇庆市"
+        },
+        {
+          "departureCityArrayCode": "441300" ,
+          "departureCityArrayName": "惠州市"
+        },
+        {
+          "departureCityArrayCode": "441400" ,
+          "departureCityArrayName": "梅州市"
+        },
+        {
+          "departureCityArrayCode": "441500" ,
+          "departureCityArrayName": "汕尾市"
+        },
+        {
+          "departureCityArrayCode": "441600" ,
+          "departureCityArrayName": "河源市"
+        },
+        {
+          "departureCityArrayCode": "441700" ,
+          "departureCityArrayName": "阳江市"
+        },
+        {
+          "departureCityArrayCode": "441800" ,
+          "departureCityArrayName": "清远市"
+        },
+        {
+          "departureCityArrayCode": "441900" ,
+          "departureCityArrayName": "东莞市"
+        },
+        {
+          "departureCityArrayCode": "442000" ,
+          "departureCityArrayName": "中山市"
+        },
+        {
+          "departureCityArrayCode": "442101" ,
+          "departureCityArrayName": "东沙群岛"
+        },
+        {
+          "departureCityArrayCode": "445100" ,
+          "departureCityArrayName": "潮州市"
+        },
+        {
+          "departureCityArrayCode": "445200" ,
+          "departureCityArrayName": "揭阳市"
+        },
+        {
+          "departureCityArrayCode": "445300" ,
+          "departureCityArrayName": "云浮市"
+        }
+      ]
+    },
+    {
+      "address": "广西壮族自治区",
+      "provincesNumber": "450000",
+      "citys": [
+        {
+          "departureCityArrayCode": "450100" ,
+          "departureCityArrayName": "南宁市"
+        },
+        {
+          "departureCityArrayCode": "450200" ,
+          "departureCityArrayName": "柳州市"
+        },
+        {
+          "departureCityArrayCode": "450300" ,
+          "departureCityArrayName": "桂林市"
+        },
+        {
+          "departureCityArrayCode": "450400" ,
+          "departureCityArrayName": "梧州市"
+        },
+        {
+          "departureCityArrayCode": "450500" ,
+          "departureCityArrayName": "北海市"
+        },
+        {
+          "departureCityArrayCode": "450600" ,
+          "departureCityArrayName": "防城港市"
+        },
+        {
+          "departureCityArrayCode": "450700" ,
+          "departureCityArrayName": "钦州市"
+        },
+        {
+          "departureCityArrayCode": "450800" ,
+          "departureCityArrayName": "贵港市"
+        },
+        {
+          "departureCityArrayCode": "450900" ,
+          "departureCityArrayName": "玉林市"
+        },
+        {
+          "departureCityArrayCode": "451000" ,
+          "departureCityArrayName": "百色市"
+        },
+        {
+          "departureCityArrayCode": "451100" ,
+          "departureCityArrayName": "贺州市"
+        },
+        {
+          "departureCityArrayCode": "451200" ,
+          "departureCityArrayName": "河池市"
+        },
+        {
+          "departureCityArrayCode": "451300" ,
+          "departureCityArrayName": "来宾市"
+        },
+        {
+          "departureCityArrayCode": "451400" ,
+          "departureCityArrayName": "崇左市"
+        }
+      ]
+    },
+    {
+      "address": "海南省",
+      "provincesNumber": "460000",
+      "citys": [
+        {
+          "departureCityArrayCode": "460100" ,
+          "departureCityArrayName": "海口市"
+        },
+        {
+          "departureCityArrayCode": "460200" ,
+          "departureCityArrayName": "三亚市"
+        },
+        {
+          "departureCityArrayCode": "460300" ,
+          "departureCityArrayName": "三沙市"
+        },
+        {
+          "departureCityArrayCode": "469001" ,
+          "departureCityArrayName": "五指山市"
+        },
+        {
+          "departureCityArrayCode": "469002" ,
+          "departureCityArrayName": "渭南市"
+        },
+        {
+          "departureCityArrayCode": "469003" ,
+          "departureCityArrayName": "儋州市"
+        },
+        {
+          "departureCityArrayCode": "469005" ,
+          "departureCityArrayName": "文昌市"
+        },
+        {
+          "departureCityArrayCode": "469006" ,
+          "departureCityArrayName": "万宁市"
+        },
+        {
+          "departureCityArrayCode": "469007" ,
+          "departureCityArrayName": "东方市"
+        },
+        {
+          "departureCityArrayCode": "469025" ,
+          "departureCityArrayName": "定安县"
+        },
+        {
+          "departureCityArrayCode": "469026" ,
+          "departureCityArrayName": "屯昌县"
+        },
+        {
+          "departureCityArrayCode": "469027" ,
+          "departureCityArrayName": "澄迈县"
+        },
+        {
+          "departureCityArrayCode": "469028" ,
+          "departureCityArrayName": "临高县"
+        },
+        {
+          "departureCityArrayCode": "469030" ,
+          "departureCityArrayName": "白沙黎族自治县"
+        },
+        {
+          "departureCityArrayCode": "469031" ,
+          "departureCityArrayName": "昌江黎族自治县"
+        },
+        {
+          "departureCityArrayCode": "469033" ,
+          "departureCityArrayName": "乐东黎族自治县"
+        },
+        {
+          "departureCityArrayCode": "469034" ,
+          "departureCityArrayName": "陵水黎族自治县"
+        },
+        {
+          "departureCityArrayCode": "469035" ,
+          "departureCityArrayName": "保亭黎族苗族自治县"
+        },
+        {
+          "departureCityArrayCode": "469036" ,
+          "departureCityArrayName": "琼中黎族苗族自治县"
+        }
+      ]
+    },
+    {
+      "address": "北京市",
+      "provincesNumber": "110000",
+      "citys": [
+        {
+          "departureCityArrayCode": "110100" ,
+          "departureCityArrayName": "北京市"
+        }
+      ]
+    },
+    {
+      "address": "天津市",
+      "provincesNumber": "120000",
+      "citys": [
+        {
+          "departureCityArrayCode": "120100" ,
+          "departureCityArrayName": "天津市"
+        }
+      ]
+    },
+    {
+      "address": "河北省",
+      "provincesNumber": "130000",
+      "citys": [
+        {
+          "departureCityArrayCode": "130100" ,
+          "departureCityArrayName": "石家庄市"
+        },
+        {
+          "departureCityArrayCode": "130200" ,
+          "departureCityArrayName": "唐山市"
+        },
+        {
+          "departureCityArrayCode": "130300" ,
+          "departureCityArrayName": "秦皇岛市"
+        },
+        {
+          "departureCityArrayCode": "130400" ,
+          "departureCityArrayName": "邯郸市"
+        },
+        {
+          "departureCityArrayCode": "130500" ,
+          "departureCityArrayName": "邢台市"
+        },
+        {
+          "departureCityArrayCode": "130600" ,
+          "departureCityArrayName": "保定市"
+        },
+        {
+          "departureCityArrayCode": "130700" ,
+          "departureCityArrayName": "张家口市"
+        },
+        {
+          "departureCityArrayCode": "130800" ,
+          "departureCityArrayName": "承德市"
+        },
+        {
+          "departureCityArrayCode": "130900" ,
+          "departureCityArrayName": "沧州市"
+        },
+        {
+          "departureCityArrayCode": "131000" ,
+          "departureCityArrayName": "廊坊市"
+        },
+        {
+          "departureCityArrayCode": "131100" ,
+          "departureCityArrayName": "衡水市"
+        }
+      ]
+    },
+    {
+      "address": "山西省",
+      "provincesNumber": "140000",
+      "citys": [
+        {
+          "departureCityArrayCode": "140100" ,
+          "departureCityArrayName": "太原市"
+        },
+        {
+          "departureCityArrayCode": "140200" ,
+          "departureCityArrayName": "大同市"
+        },
+        {
+          "departureCityArrayCode": "140300" ,
+          "departureCityArrayName": "阳泉市"
+        },
+        {
+          "departureCityArrayCode": "140400" ,
+          "departureCityArrayName": "长治市"
+        },
+        {
+          "departureCityArrayCode": "140500" ,
+          "departureCityArrayName": "晋城市"
+        },
+        {
+          "departureCityArrayCode": "140600" ,
+          "departureCityArrayName": "朔州市"
+        },
+        {
+          "departureCityArrayCode": "140700" ,
+          "departureCityArrayName": "晋中市"
+        },
+        {
+          "departureCityArrayCode": "140800" ,
+          "departureCityArrayName": "运城市"
+        },
+        {
+          "departureCityArrayCode": "140900" ,
+          "departureCityArrayName": "忻州市"
+        },
+        {
+          "departureCityArrayCode": "141000" ,
+          "departureCityArrayName": "临汾市"
+        },
+        {
+          "departureCityArrayCode": "141100" ,
+          "departureCityArrayName": "吕梁市"
+        }
+
+      ]
+    },
+    {
+      "address": "内蒙古自治区",
+      "provincesNumber": "150000",
+      "citys": [
+        {
+          "departureCityArrayCode": "150100" ,
+          "departureCityArrayName": "呼和浩特市"
+        },
+        {
+          "departureCityArrayCode": "150200" ,
+          "departureCityArrayName": "包头市"
+        },
+        {
+          "departureCityArrayCode": "150300" ,
+          "departureCityArrayName": "乌海市"
+        },
+        {
+          "departureCityArrayCode": "150400" ,
+          "departureCityArrayName": "赤峰市"
+        },
+        {
+          "departureCityArrayCode": "150500" ,
+          "departureCityArrayName": "通辽市"
+        },
+        {
+          "departureCityArrayCode": "150600" ,
+          "departureCityArrayName": "鄂尔多斯市"
+        },
+        {
+          "departureCityArrayCode": "150700" ,
+          "departureCityArrayName": "呼伦贝尔市"
+        },
+        {
+          "departureCityArrayCode": "150800" ,
+          "departureCityArrayName": "巴彦淖尔市"
+        },
+        {
+          "departureCityArrayCode": "150900" ,
+          "departureCityArrayName": "乌兰察布市"
+        },
+        {
+          "departureCityArrayCode": "152200" ,
+          "departureCityArrayName": "兴安盟"
+        },
+        {
+          "departureCityArrayCode": "152500" ,
+          "departureCityArrayName": "锡林郭勒盟"
+        },
+        {
+          "departureCityArrayCode": "152900" ,
+          "departureCityArrayName": "阿拉善盟"
+        }
+      ]
+    },
+    {
+      "address": "辽宁省",
+      "provincesNumber": "210000",
+      "citys": [
+        {
+          "departureCityArrayCode": "210100" ,
+          "departureCityArrayName": "沈阳市"
+        },
+        {
+          "departureCityArrayCode": "210200" ,
+          "departureCityArrayName": "大连市"
+        },
+        {
+          "departureCityArrayCode": "210300" ,
+          "departureCityArrayName": "鞍山市"
+        },
+        {
+          "departureCityArrayCode": "210400" ,
+          "departureCityArrayName": "抚顺市"
+        },
+        {
+          "departureCityArrayCode": "210500" ,
+          "departureCityArrayName": "本溪市"
+        },
+        {
+          "departureCityArrayCode": "210600" ,
+          "departureCityArrayName": "丹东市"
+        },
+        {
+          "departureCityArrayCode": "210700" ,
+          "departureCityArrayName": "锦州市"
+        },
+        {
+          "departureCityArrayCode": "210800" ,
+          "departureCityArrayName": "营口市"
+        },
+        {
+          "departureCityArrayCode": "210900" ,
+          "departureCityArrayName": "阜新市"
+        },
+        {
+          "departureCityArrayCode": "211000" ,
+          "departureCityArrayName": "辽阳市"
+        },
+        {
+          "departureCityArrayCode": "211100" ,
+          "departureCityArrayName": "盘锦市"
+        },
+        {
+          "departureCityArrayCode": "211200" ,
+          "departureCityArrayName": "铁岭市"
+        },
+        {
+          "departureCityArrayCode": "211300" ,
+          "departureCityArrayName": "朝阳市"
+        },
+        {
+          "departureCityArrayCode": "211400" ,
+          "departureCityArrayName": "葫芦岛市"
+        }
+      ]
+    },
+    {
+      "address": "吉林省",
+      "provincesNumber": "220000",
+      "citys": [
+        {
+          "departureCityArrayCode": "220100" ,
+          "departureCityArrayName": "长春市"
+        },
+        {
+          "departureCityArrayCode": "220200" ,
+          "departureCityArrayName": "吉林市"
+        },
+        {
+          "departureCityArrayCode": "220300" ,
+          "departureCityArrayName": "四平市"
+        },
+        {
+          "departureCityArrayCode": "220400" ,
+          "departureCityArrayName": "辽源市"
+        },
+        {
+          "departureCityArrayCode": "220500" ,
+          "departureCityArrayName": "通化市"
+        },
+        {
+          "departureCityArrayCode": "220600" ,
+          "departureCityArrayName": "白山市"
+        },
+        {
+          "departureCityArrayCode": "220700" ,
+          "departureCityArrayName": "松原市"
+        },
+        {
+          "departureCityArrayCode": "220800" ,
+          "departureCityArrayName": "白城市"
+        },
+        {
+          "departureCityArrayCode": "222400" ,
+          "departureCityArrayName": "延边朝鲜族自治州"
+        }
+      ]
+    },
+    {
+      "address": "黑龙江省",
+      "provincesNumber": "230000",
+      "citys": [
+        {
+          "departureCityArrayCode": "230100" ,
+          "departureCityArrayName": "哈尔滨市"
+        },
+        {
+          "departureCityArrayCode": "230200" ,
+          "departureCityArrayName": "齐齐哈尔市"
+        },
+        {
+          "departureCityArrayCode": "230300" ,
+          "departureCityArrayName": "鸡西市"
+        },
+        {
+          "departureCityArrayCode": "230400" ,
+          "departureCityArrayName": "鹤岗市"
+        },
+        {
+          "departureCityArrayCode": "230500" ,
+          "departureCityArrayName": "双鸭山市"
+        },
+        {
+          "departureCityArrayCode": "230600" ,
+          "departureCityArrayName": "大庆市"
+        },
+        {
+          "departureCityArrayCode": "230700" ,
+          "departureCityArrayName": "伊春市"
+        },
+        {
+          "departureCityArrayCode": "230800" ,
+          "departureCityArrayName": "佳木斯市"
+        },
+        {
+          "departureCityArrayCode": "230900" ,
+          "departureCityArrayName": "七台河市"
+        },
+        {
+          "departureCityArrayCode": "231000" ,
+          "departureCityArrayName": "牡丹江市"
+        },
+        {
+          "departureCityArrayCode": "231100" ,
+          "departureCityArrayName": "黑河市"
+        },
+        {
+          "departureCityArrayCode": "231200" ,
+          "departureCityArrayName": "绥化市"
+        },
+        {
+          "departureCityArrayCode": "232700" ,
+          "departureCityArrayName": "大兴安岭地区"
+        }
+      ]
+    },
+    {
+      "address": "陕西省",
+      "provincesNumber": "610000",
+      "citys": [
+        {
+          "departureCityArrayCode": "610100" ,
+          "departureCityArrayName": "西安市"
+        },
+        {
+          "departureCityArrayCode": "610200" ,
+          "departureCityArrayName": "铜川市"
+        },
+        {
+          "departureCityArrayCode": "610300" ,
+          "departureCityArrayName": "宝鸡市"
+        },
+        {
+          "departureCityArrayCode": "610400" ,
+          "departureCityArrayName": "咸阳市"
+        },
+        {
+          "departureCityArrayCode": "610500" ,
+          "departureCityArrayName": "渭南市"
+        },
+        {
+          "departureCityArrayCode": "610600" ,
+          "departureCityArrayName": "延安市"
+        },
+        {
+          "departureCityArrayCode": "610700" ,
+          "departureCityArrayName": "汉中市"
+        },
+        {
+          "departureCityArrayCode": "610800" ,
+          "departureCityArrayName": "榆林市"
+        },
+        {
+          "departureCityArrayCode": "610900" ,
+          "departureCityArrayName": "安康市"
+        },
+        {
+          "departureCityArrayCode": "611000" ,
+          "departureCityArrayName": "商洛市"
+        }
+      ]
+    },
+    {
+      "address": "甘肃省",
+      "provincesNumber": "620000",
+      "citys": [
+        {
+          "departureCityArrayCode": "620100" ,
+          "departureCityArrayName": "兰州市"
+        },
+        {
+          "departureCityArrayCode": "620200" ,
+          "departureCityArrayName": "嘉峪关市"
+        },
+        {
+          "departureCityArrayCode": "620300" ,
+          "departureCityArrayName": "金昌市"
+        },
+        {
+          "departureCityArrayCode": "620400" ,
+          "departureCityArrayName": "白银市"
+        },
+        {
+          "departureCityArrayCode": "620500" ,
+          "departureCityArrayName": "天水市"
+        },
+        {
+          "departureCityArrayCode": "620600" ,
+          "departureCityArrayName": "武威市"
+        },
+        {
+          "departureCityArrayCode": "620700" ,
+          "departureCityArrayName": "张掖市"
+        },
+        {
+          "departureCityArrayCode": "620800" ,
+          "departureCityArrayName": "平凉市"
+        },
+        {
+          "departureCityArrayCode": "620900" ,
+          "departureCityArrayName": "酒泉市"
+        },
+        {
+          "departureCityArrayCode": "621000" ,
+          "departureCityArrayName": "庆阳市"
+        },
+        {
+          "departureCityArrayCode": "621100" ,
+          "departureCityArrayName": "定西市"
+        },
+        {
+          "departureCityArrayCode": "621200" ,
+          "departureCityArrayName": "陇南市"
+        },
+        {
+          "departureCityArrayCode": "622900" ,
+          "departureCityArrayName": "临夏回族自治州"
+        },
+        {
+          "departureCityArrayCode": "623000" ,
+          "departureCityArrayName": "甘南藏族自治州"
+        }
+      ]
+    },
+    {
+      "address": "青海省",
+      "provincesNumber": "630000",
+      "citys": [
+        {
+          "departureCityArrayCode": "630100" ,
+          "departureCityArrayName": "西宁市"
+        },
+        {
+          "departureCityArrayCode": "632100" ,
+          "departureCityArrayName": "海东市"
+        },
+        {
+          "departureCityArrayCode": "632200" ,
+          "departureCityArrayName": "海北藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "632300" ,
+          "departureCityArrayName": "黄南藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "632500" ,
+          "departureCityArrayName": "海南藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "632600" ,
+          "departureCityArrayName": "果洛藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "632700" ,
+          "departureCityArrayName": "玉树藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "632800" ,
+          "departureCityArrayName": "海西蒙古族藏族自治州"
+        }
+      ]
+    },
+    {
+      "address": "宁夏回族自治区",
+      "provincesNumber": "640000",
+      "citys": [
+        {
+          "departureCityArrayCode": "640100" ,
+          "departureCityArrayName": "银川市"
+        },
+        {
+          "departureCityArrayCode": "640200" ,
+          "departureCityArrayName": "石嘴山市"
+        },
+        {
+          "departureCityArrayCode": "640300" ,
+          "departureCityArrayName": "吴忠市"
+        },
+        {
+          "departureCityArrayCode": "640400" ,
+          "departureCityArrayName": "固原市"
+        },
+        {
+          "departureCityArrayCode": "640500" ,
+          "departureCityArrayName": "中卫市"
+        }
+      ]
+    },
+    {
+      "address": "新疆维吾尔自治区",
+      "provincesNumber": "650000",
+      "citys": [
+        {
+          "departureCityArrayCode": "650100" ,
+          "departureCityArrayName": "乌鲁木齐市"
+        },
+        {
+          "departureCityArrayCode": "650200" ,
+          "departureCityArrayName": "克拉玛依市"
+        },
+        {
+          "departureCityArrayCode": "652100" ,
+          "departureCityArrayName": "吐鲁番地区"
+        },
+        {
+          "departureCityArrayCode": "652200" ,
+          "departureCityArrayName": "哈密地区"
+        },
+        {
+          "departureCityArrayCode": "652300" ,
+          "departureCityArrayName": "昌吉回族自治州"
+        },
+        {
+          "departureCityArrayCode": "652700" ,
+          "departureCityArrayName": "博尔塔拉蒙古自治州"
+        },
+        {
+          "departureCityArrayCode": "652800" ,
+          "departureCityArrayName": "巴音郭楞蒙古自治州"
+        },
+        {
+          "departureCityArrayCode": "652900" ,
+          "departureCityArrayName": "阿克苏地区"
+        },
+        {
+          "departureCityArrayCode": "653000" ,
+          "departureCityArrayName": "克孜勒苏柯尔克孜自治州"
+        },
+        {
+          "departureCityArrayCode": "653100" ,
+          "departureCityArrayName": "喀什地区"
+        },
+        {
+          "departureCityArrayCode": "653200" ,
+          "departureCityArrayName": "和田地区"
+        },
+        {
+          "departureCityArrayCode": "654000" ,
+          "departureCityArrayName": "伊犁哈萨克自治州"
+        },
+        {
+          "departureCityArrayCode": "654200" ,
+          "departureCityArrayName": "塔城地区"
+        },
+        {
+          "departureCityArrayCode": "654300" ,
+          "departureCityArrayName": "阿勒泰地区"
+        },
+        {
+          "departureCityArrayCode": "659001" ,
+          "departureCityArrayName": "石河子市"
+        },
+        {
+          "departureCityArrayCode": "659002" ,
+          "departureCityArrayName": "阿拉尔市"
+        },
+        {
+          "departureCityArrayCode": "659003" ,
+          "departureCityArrayName": "图木舒克市"
+        },
+        {
+          "departureCityArrayCode": "659004" ,
+          "departureCityArrayName": "五家渠市"
+        },
+        {
+          "departureCityArrayCode": "659006" ,
+          "departureCityArrayName": "铁门关市"
+        },
+        {
+          "departureCityArrayCode": "659007" ,
+          "departureCityArrayName": "双河市"
+        },
+        {
+          "departureCityArrayCode": "659008" ,
+          "departureCityArrayName": "可克达拉市"
+        },
+        {
+          "departureCityArrayCode": "659009" ,
+          "departureCityArrayName": "昆玉市"
+        }
+      ]
+    },
+    {
+      "address": "台湾省",
+      "provincesNumber": "710000",
+      "citys": [
+        {
+          "departureCityArrayCode": "710100" ,
+          "departureCityArrayName": "台北市"
+        },
+        {
+          "departureCityArrayCode": "710200" ,
+          "departureCityArrayName": "高雄市"
+        },
+        {
+          "departureCityArrayCode": "710300" ,
+          "departureCityArrayName": "台南市"
+        },
+        {
+          "departureCityArrayCode": "710400" ,
+          "departureCityArrayName": "台中市"
+        },
+        {
+          "departureCityArrayCode": "710500" ,
+          "departureCityArrayName": "金门县"
+        },
+        {
+          "departureCityArrayCode": "710600" ,
+          "departureCityArrayName": "南投县"
+        },
+        {
+          "departureCityArrayCode": "710700" ,
+          "departureCityArrayName": "基隆市"
+        },
+        {
+          "departureCityArrayCode": "710800" ,
+          "departureCityArrayName": "新竹市"
+        },
+        {
+          "departureCityArrayCode": "710900" ,
+          "departureCityArrayName": "嘉义市"
+        },
+        {
+          "departureCityArrayCode": "711100" ,
+          "departureCityArrayName": "新北市"
+        },
+        {
+          "departureCityArrayCode": "711200" ,
+          "departureCityArrayName": "宜兰县"
+        },
+        {
+          "departureCityArrayCode": "711300" ,
+          "departureCityArrayName": "新竹县"
+        },
+        {
+          "departureCityArrayCode": "711400" ,
+          "departureCityArrayName": "桃园县"
+        },
+        {
+          "departureCityArrayCode": "711500" ,
+          "departureCityArrayName": "苗栗县"
+        },
+        {
+          "departureCityArrayCode": "711700" ,
+          "departureCityArrayName": "彰化县"
+        },
+        {
+          "departureCityArrayCode": "711900" ,
+          "departureCityArrayName": "嘉义县"
+        },
+        {
+          "departureCityArrayCode": "712100" ,
+          "departureCityArrayName": "云林县"
+        },
+        {
+          "departureCityArrayCode": "712400" ,
+          "departureCityArrayName": "屏东县"
+        },
+        {
+          "departureCityArrayCode": "712500" ,
+          "departureCityArrayName": "台东县"
+        },
+        {
+          "departureCityArrayCode": "712600" ,
+          "departureCityArrayName": "花莲县"
+        },
+        {
+          "departureCityArrayCode": "712700" ,
+          "departureCityArrayName": "澎湖县"
+        },
+        {
+          "departureCityArrayCode": "712800" ,
+          "departureCityArrayName": "连江县"
+        }
+      ]
+    },
+    {
+      "address": "香港特别行政区",
+      "provincesNumber": "810000",
+      "citys": [
+        {
+          "departureCityArrayCode": "810002" ,
+          "departureCityArrayName": "湾仔区"
+        },
+        {
+          "departureCityArrayCode": "810100" ,
+          "departureCityArrayName": "香港岛"
+        },
+        {
+          "departureCityArrayCode": "810200" ,
+          "departureCityArrayName": "九龙"
+        },
+        {
+          "departureCityArrayCode": "810300" ,
+          "departureCityArrayName": "新界"
+        }
+      ]
+    },
+    {
+      "address": "澳门特别行政区",
+      "provincesNumber": "820000",
+      "citys": [
+        {
+          "departureCityArrayCode": "820001" ,
+          "departureCityArrayName": "花地玛堂区"
+        },
+        {
+          "departureCityArrayCode": "820002" ,
+          "departureCityArrayName": "花王堂区"
+        },
+        {
+          "departureCityArrayCode": "820003" ,
+          "departureCityArrayName": "望德堂区"
+        },
+        {
+          "departureCityArrayCode": "820004" ,
+          "departureCityArrayName": "大堂区"
+        },
+        {
+          "departureCityArrayCode": "820005" ,
+          "departureCityArrayName": "风顺堂区"
+        },
+        {
+          "departureCityArrayCode": "820006" ,
+          "departureCityArrayName": "嘉模堂区"
+        },
+        {
+          "departureCityArrayCode": "820007" ,
+          "departureCityArrayName": "路凼填海区"
+        },
+        {
+          "departureCityArrayCode": "820008" ,
+          "departureCityArrayName": "风顺堂区"
+        },
+        {
+          "departureCityArrayCode": "820100" ,
+          "departureCityArrayName": "澳门半岛"
+        },
+        {
+          "departureCityArrayCode": "820200" ,
+          "departureCityArrayName": "离岛"
+        }
+      ]
+    },
+    {
+      "address": "上海市",
+      "provincesNumber": "310000",
+      "citys": [
+        {
+          "departureCityArrayCode": "310100" ,
+          "departureCityArrayName": "上海市"
+        }
+      ]
+    },
+    {
+      "address": "江苏省",
+      "provincesNumber": "320000",
+      "citys": [
+        {
+          "departureCityArrayCode": "320100" ,
+          "departureCityArrayName": "南京市"
+        },
+        {
+          "departureCityArrayCode": "320200" ,
+          "departureCityArrayName": "无锡市"
+        },
+        {
+          "departureCityArrayCode": "320300" ,
+          "departureCityArrayName": "徐州市"
+        },
+        {
+          "departureCityArrayCode": "320400" ,
+          "departureCityArrayName": "常州市"
+        },
+        {
+          "departureCityArrayCode": "320500" ,
+          "departureCityArrayName": "苏州市"
+        },
+        {
+          "departureCityArrayCode": "320600" ,
+          "departureCityArrayName": "南通市"
+        },
+        {
+          "departureCityArrayCode": "320700" ,
+          "departureCityArrayName": "连云港市"
+        },
+        {
+          "departureCityArrayCode": "320800" ,
+          "departureCityArrayName": "淮安市"
+        },
+        {
+          "departureCityArrayCode": "320900" ,
+          "departureCityArrayName": "盐城市"
+        },
+        {
+          "departureCityArrayCode": "321000" ,
+          "departureCityArrayName": "扬州市"
+        },
+        {
+          "departureCityArrayCode": "321100" ,
+          "departureCityArrayName": "镇江市"
+        },
+        {
+          "departureCityArrayCode": "321200" ,
+          "departureCityArrayName": "泰州市"
+        },
+        {
+          "departureCityArrayCode": "321300" ,
+          "departureCityArrayName": "宿迁市"
+        }
+      ]
+    },
+    {
+      "address": "浙江省",
+      "provincesNumber": "330000",
+      "citys": [
+        {
+          "departureCityArrayCode": "330100" ,
+          "departureCityArrayName": "杭州市"
+        },
+        {
+          "departureCityArrayCode": "330200" ,
+          "departureCityArrayName": "宁波市"
+        },
+        {
+          "departureCityArrayCode": "330300" ,
+          "departureCityArrayName": "温州市"
+        },
+        {
+          "departureCityArrayCode": "330400" ,
+          "departureCityArrayName": "嘉兴市"
+        },
+        {
+          "departureCityArrayCode": "330500" ,
+          "departureCityArrayName": "湖州市"
+        },
+        {
+          "departureCityArrayCode": "330600" ,
+          "departureCityArrayName": "绍兴市"
+        },
+        {
+          "departureCityArrayCode": "330700" ,
+          "departureCityArrayName": "金华市"
+        },
+        {
+          "departureCityArrayCode": "330800" ,
+          "departureCityArrayName": "衢州市"
+        },
+        {
+          "departureCityArrayCode": "330900" ,
+          "departureCityArrayName": "舟山市"
+        },
+        {
+          "departureCityArrayCode": "331000" ,
+          "departureCityArrayName": "台州市"
+        },
+        {
+          "departureCityArrayCode": "331100" ,
+          "departureCityArrayName": "丽水市"
+        }
+      ]
+    },
+    {
+      "address": "安徽省",
+      "provincesNumber": "340000",
+      "citys": [
+        {
+          "departureCityArrayCode": "340100" ,
+          "departureCityArrayName": "合肥市"
+        },
+        {
+          "departureCityArrayCode": "340200" ,
+          "departureCityArrayName": "芜湖市"
+        },
+        {
+          "departureCityArrayCode": "340300" ,
+          "departureCityArrayName": "蚌埠市"
+        },
+        {
+          "departureCityArrayCode": "340400" ,
+          "departureCityArrayName": "淮南市"
+        },
+        {
+          "departureCityArrayCode": "340500" ,
+          "departureCityArrayName": "马鞍山市"
+        },
+        {
+          "departureCityArrayCode": "340600" ,
+          "departureCityArrayName": "淮北市"
+        },
+        {
+          "departureCityArrayCode": "340700" ,
+          "departureCityArrayName": "铜陵市"
+        },
+        {
+          "departureCityArrayCode": "340800" ,
+          "departureCityArrayName": "安庆市"
+        },
+        {
+          "departureCityArrayCode": "341000" ,
+          "departureCityArrayName": "黄山市"
+        },
+        {
+          "departureCityArrayCode": "341100" ,
+          "departureCityArrayName": "滁州市"
+        },
+        {
+          "departureCityArrayCode": "341200" ,
+          "departureCityArrayName": "阜阳市"
+        },
+        {
+          "departureCityArrayCode": "341300" ,
+          "departureCityArrayName": "宿州市"
+        },
+        {
+          "departureCityArrayCode": "341500" ,
+          "departureCityArrayName": "六安市"
+        },
+        {
+          "departureCityArrayCode": "341600" ,
+          "departureCityArrayName": "亳州市"
+        },
+        {
+          "departureCityArrayCode": "341700" ,
+          "departureCityArrayName": "池州市"
+        },
+        {
+          "departureCityArrayCode": "341800" ,
+          "departureCityArrayName": "宣城市"
+        }
+      ]
+    },
+    {
+      "address": "福建省",
+      "provincesNumber": "350000",
+      "citys": [
+        {
+          "departureCityArrayCode": "350100" ,
+          "departureCityArrayName": "福州市"
+        },
+        {
+          "departureCityArrayCode": "350200" ,
+          "departureCityArrayName": "厦门市"
+        },
+        {
+          "departureCityArrayCode": "350300" ,
+          "departureCityArrayName": "莆田市"
+        },
+        {
+          "departureCityArrayCode": "350400" ,
+          "departureCityArrayName": "三明市"
+        },
+        {
+          "departureCityArrayCode": "350500" ,
+          "departureCityArrayName": "泉州市"
+        },
+        {
+          "departureCityArrayCode": "350600" ,
+          "departureCityArrayName": "漳州市"
+        },
+        {
+          "departureCityArrayCode": "350700" ,
+          "departureCityArrayName": "南平市"
+        },
+        {
+          "departureCityArrayCode": "350800" ,
+          "departureCityArrayName": "龙岩市"
+        },
+        {
+          "departureCityArrayCode": "350900" ,
+          "departureCityArrayName": "宁德市"
+        }
+      ]
+    },
+    {
+      "address": "江西省",
+      "provincesNumber": "360000",
+      "citys": [
+        {
+          "departureCityArrayCode": "360100" ,
+          "departureCityArrayName": "南昌市"
+        },
+        {
+          "departureCityArrayCode": "360200" ,
+          "departureCityArrayName": "景德镇市"
+        },
+        {
+          "departureCityArrayCode": "360300" ,
+          "departureCityArrayName": "萍乡市"
+        },
+        {
+          "departureCityArrayCode": "360400" ,
+          "departureCityArrayName": "九江市"
+        },
+        {
+          "departureCityArrayCode": "360500" ,
+          "departureCityArrayName": "新余市"
+        },
+        {
+          "departureCityArrayCode": "360600" ,
+          "departureCityArrayName": "鹰潭市"
+        },
+        {
+          "departureCityArrayCode": "360700" ,
+          "departureCityArrayName": "赣州市"
+        },
+        {
+          "departureCityArrayCode": "360800" ,
+          "departureCityArrayName": "吉安市"
+        },
+        {
+          "departureCityArrayCode": "360900" ,
+          "departureCityArrayName": "宜春市"
+        },
+        {
+          "departureCityArrayCode": "361000" ,
+          "departureCityArrayName": "抚州市"
+        },
+        {
+          "departureCityArrayCode": "361100" ,
+          "departureCityArrayName": "上饶市"
+        }
+      ]
+    },
+    {
+      "address": "山东省",
+      "provincesNumber": "370000",
+      "citys": [
+        {
+          "departureCityArrayCode": "370100" ,
+          "departureCityArrayName": "济南市"
+        },
+        {
+          "departureCityArrayCode": "370200" ,
+          "departureCityArrayName": "青岛市"
+        },
+        {
+          "departureCityArrayCode": "370300" ,
+          "departureCityArrayName": "淄博市"
+        },
+        {
+          "departureCityArrayCode": "370400" ,
+          "departureCityArrayName": "枣庄市"
+        },
+        {
+          "departureCityArrayCode": "370500" ,
+          "departureCityArrayName": "东营市"
+        },
+        {
+          "departureCityArrayCode": "370600" ,
+          "departureCityArrayName": "烟台市"
+        },
+        {
+          "departureCityArrayCode": "370700" ,
+          "departureCityArrayName": "潍坊市"
+        },
+        {
+          "departureCityArrayCode": "370800" ,
+          "departureCityArrayName": "济宁市"
+        },
+        {
+          "departureCityArrayCode": "370900" ,
+          "departureCityArrayName": "泰安市"
+        },
+        {
+          "departureCityArrayCode": "371000" ,
+          "departureCityArrayName": "威海市"
+        },
+        {
+          "departureCityArrayCode": "371100" ,
+          "departureCityArrayName": "日照市"
+        },
+        {
+          "departureCityArrayCode": "371200" ,
+          "departureCityArrayName": "莱芜市"
+        },
+        {
+          "departureCityArrayCode": "371300" ,
+          "departureCityArrayName": "临沂市"
+        },
+        {
+          "departureCityArrayCode": "371400" ,
+          "departureCityArrayName": "德州市"
+        },
+        {
+          "departureCityArrayCode": "371500" ,
+          "departureCityArrayName": "聊城市"
+        },
+        {
+          "departureCityArrayCode": "371600" ,
+          "departureCityArrayName": "滨州市"
+        },
+        {
+          "departureCityArrayCode": "371700" ,
+          "departureCityArrayName": "菏泽市"
+        }
+      ]
+    },
+    {
+      "address": "重庆市",
+      "provincesNumber": "500000",
+      "citys": [
+        {
+          "departureCityArrayCode": "500100" ,
+          "departureCityArrayName": "重庆市"
+        },
+        {
+          "departureCityArrayCode": "500200" ,
+          "departureCityArrayName": "重庆郊县"
+        }
+      ]
+    },
+    {
+      "address": "四川省",
+      "provincesNumber": "510000",
+      "citys": [
+        {
+          "departureCityArrayCode": "510100" ,
+          "departureCityArrayName": "成都市"
+        },
+        {
+          "departureCityArrayCode": "510300" ,
+          "departureCityArrayName": "自贡市"
+        },
+        {
+          "departureCityArrayCode": "510400" ,
+          "departureCityArrayName": "攀枝花市"
+        },
+        {
+          "departureCityArrayCode": "510500" ,
+          "departureCityArrayName": "泸州市"
+        },
+        {
+          "departureCityArrayCode": "510600" ,
+          "departureCityArrayName": "德阳市"
+        },
+        {
+          "departureCityArrayCode": "510700" ,
+          "departureCityArrayName": "绵阳市"
+        },
+        {
+          "departureCityArrayCode": "510800" ,
+          "departureCityArrayName": "广元市"
+        },
+        {
+          "departureCityArrayCode": "510900" ,
+          "departureCityArrayName": "遂宁市"
+        },
+        {
+          "departureCityArrayCode": "511000" ,
+          "departureCityArrayName": "内江市"
+        },
+        {
+          "departureCityArrayCode": "511100" ,
+          "departureCityArrayName": "乐山市"
+        },
+        {
+          "departureCityArrayCode": "511300" ,
+          "departureCityArrayName": "南充市"
+        },
+        {
+          "departureCityArrayCode": "511400" ,
+          "departureCityArrayName": "眉山市"
+        },
+        {
+          "departureCityArrayCode": "511500" ,
+          "departureCityArrayName": "宜宾市"
+        },
+        {
+          "departureCityArrayCode": "511600" ,
+          "departureCityArrayName": "广安市"
+        },
+        {
+          "departureCityArrayCode": "511700" ,
+          "departureCityArrayName": "达州市"
+        },
+        {
+          "departureCityArrayCode": "511800" ,
+          "departureCityArrayName": "雅安市"
+        },
+        {
+          "departureCityArrayCode": "511900" ,
+          "departureCityArrayName": "巴中市"
+        },
+        {
+          "departureCityArrayCode": "512000" ,
+          "departureCityArrayName": "资阳市"
+        },
+        {
+          "departureCityArrayCode": "513200" ,
+          "departureCityArrayName": "阿坝藏族羌族自治州"
+        },
+        {
+          "departureCityArrayCode": "513300" ,
+          "departureCityArrayName": "甘孜藏族自治州"
+        },
+        {
+          "departureCityArrayCode": "513400" ,
+          "departureCityArrayName": "凉山彝族自治州"
+        }
+      ]
+    },
+    {
+      "address": "贵州省",
+      "provincesNumber": "520000",
+      "citys": [
+        {
+          "departureCityArrayCode": "520100" ,
+          "departureCityArrayName": "贵阳市"
+        },
+        {
+          "departureCityArrayCode": "520200" ,
+          "departureCityArrayName": "六盘水市"
+        },
+        {
+          "departureCityArrayCode": "520300" ,
+          "departureCityArrayName": "遵义市"
+        },
+        {
+          "departureCityArrayCode": "520400" ,
+          "departureCityArrayName": "安顺市"
+        },
+        {
+          "departureCityArrayCode": "522200" ,
+          "departureCityArrayName": "铜仁市"
+        },
+        {
+          "departureCityArrayCode": "522300" ,
+          "departureCityArrayName": "黔西南布依族苗族自治州"
+        },
+        {
+          "departureCityArrayCode": "522400" ,
+          "departureCityArrayName": "毕节市"
+        },
+        {
+          "departureCityArrayCode": "522600" ,
+          "departureCityArrayName": "黔东南苗族侗族自治州"
+        },
+        {
+          "departureCityArrayCode": "522700" ,
+          "departureCityArrayName": "黔南布依族苗族自治州"
+        }
+      ]
+    },
+    {
+      "address": "云南省",
+      "provincesNumber": "530000",
+      "citys": [
+        {
+          "departureCityArrayCode": "530100" ,
+          "departureCityArrayName": "昆明市"
+        },
+        {
+          "departureCityArrayCode": "530300" ,
+          "departureCityArrayName": "曲靖市"
+        },
+        {
+          "departureCityArrayCode": "530400" ,
+          "departureCityArrayName": "玉溪市"
+        },
+        {
+          "departureCityArrayCode": "530500" ,
+          "departureCityArrayName": "保山市"
+        },
+        {
+          "departureCityArrayCode": "530600" ,
+          "departureCityArrayName": "昭通市"
+        },
+        {
+          "departureCityArrayCode": "530700" ,
+          "departureCityArrayName": "丽江市"
+        },
+        {
+          "departureCityArrayCode": "530800" ,
+          "departureCityArrayName": "普洱市"
+        },
+        {
+          "departureCityArrayCode": "530900" ,
+          "departureCityArrayName": "临沧市"
+        },
+        {
+          "departureCityArrayCode": "532300" ,
+          "departureCityArrayName": "楚雄彝族自治州"
+        },
+        {
+          "departureCityArrayCode": "532500" ,
+          "departureCityArrayName": "红河哈尼族彝族自治州"
+        },
+        {
+          "departureCityArrayCode": "532600" ,
+          "departureCityArrayName": "文山壮族苗族自治州"
+        },
+        {
+          "departureCityArrayCode": "532800" ,
+          "departureCityArrayName": "西双版纳傣族自治州"
+        },
+        {
+          "departureCityArrayCode": "532900" ,
+          "departureCityArrayName": "大理白族自治州"
+        },
+        {
+          "departureCityArrayCode": "533100" ,
+          "departureCityArrayName": "德宏傣族景颇族自治州"
+        },
+        {
+          "departureCityArrayCode": "533300" ,
+          "departureCityArrayName": "怒江傈僳族自治州"
+        },
+        {
+          "departureCityArrayCode": "533400" ,
+          "departureCityArrayName": "迪庆藏族自治州"
+        }
+      ]
+    },
+    {
+      "address": "西藏自治区",
+      "provincesNumber": "540000",
+      "citys": [
+        {
+          "departureCityArrayCode": "540100" ,
+          "departureCityArrayName": "拉萨市"
+        },
+        {
+          "departureCityArrayCode": "542100" ,
+          "departureCityArrayName": "昌都市"
+        },
+        {
+          "departureCityArrayCode": "542200" ,
+          "departureCityArrayName": "山南市"
+        },
+        {
+          "departureCityArrayCode": "542300" ,
+          "departureCityArrayName": "日喀则地区"
+        },
+        {
+          "departureCityArrayCode": "542400" ,
+          "departureCityArrayName": "那曲地区"
+        },
+        {
+          "departureCityArrayCode": "542500" ,
+          "departureCityArrayName": "阿里地区"
+        },
+        {
+          "departureCityArrayCode": "542600" ,
+          "departureCityArrayName": "林芝市"
+        }
+      ]
+    }
+  ]
+}
