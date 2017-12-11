@@ -87,7 +87,8 @@ import PayPassword from '../containers/mine/payPassword';
 import SetPayPassword from '../containers/mine/setPayPassword';
 import ForgetPayPassword from '../containers/mine/forgetPayPassword';
 import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
-import CharacterList from '../containers/login/characterList';
+import CharacterList from '../containers/login/character/characterList';
+import CharacterOwner from '../containers/login/character/characterOwner';
 
 
 
@@ -535,6 +536,12 @@ const StackRouteConfigs = {
     },
     CharacterList: {
         screen: CharacterList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CharacterOwner: {
+        screen: CharacterOwner,
         navigationOptions: {
             header: null
         }

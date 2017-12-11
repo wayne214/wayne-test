@@ -13,15 +13,15 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import BaseContainer from '../base/baseContainer';
-import {loginSuccessAction, setUserNameAction} from '../../action/user';
-import StaticImage from '../../constants/staticImage';
-import * as API from '../../constants/api';
-import HTTPRequest from '../../utils/httpRequest';
-import Storage from '../../utils/storage';
-import StorageKey from '../../constants/storageKeys';
-import NavigatorBar from '../../common/navigationBar/navigationBar';
-import CharacterCell from '../../containers/login/components/characterCell';
+import BaseContainer from '../../base/baseContainer';
+import {loginSuccessAction, setUserNameAction} from '../../../action/user';
+import StaticImage from '../../../constants/staticImage';
+import * as API from '../../../constants/api';
+import HTTPRequest from '../../../utils/httpRequest';
+import Storage from '../../../utils/storage';
+import StorageKey from '../../../constants/storageKeys';
+import NavigatorBar from '../../../common/navigationBar/navigationBar';
+import CharacterCell from '../components/characterCell';
 
 const {width, height} = Dimensions.get('window');
 
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class CharacterList extends BaseContainer {
+class CharacterOwner extends BaseContainer {
 
     constructor(props) {
         super(props);
@@ -56,14 +56,6 @@ class CharacterList extends BaseContainer {
                             onClick: () => {
 
                             },
-                        }}
-                    />
-
-                    <CharacterCell
-                        textAbout={'司机'}
-                        imageAbout={StaticImage.Drivericon}
-                        onClick={() => {
-                            console.log('选择司机')
                         }}
                     />
 
@@ -102,4 +94,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterOwner);
