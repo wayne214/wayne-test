@@ -73,11 +73,11 @@
 		9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FCABD8063846A783E608E8 /* libRNFS.a */; };
 		A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BA98A06BC45FD94546BFF /* libRNSound.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		B0227CE91FC2C0B2002D684A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */; };
 		B024C4561F8CBED100F1D0A9 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; };
 		B024C4571F8CBED100F1D0A9 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B024C45A1F8CBED700F1D0A9 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; };
 		B024C45B1F8CBED700F1D0A9 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0626A5A1FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */; };
 		C630DB831FC2B659004FBBA2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB821FC2B658004FBBA2 /* AudioToolbox.framework */; };
 		C630DB851FC2B664004FBBA2 /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB841FC2B664004FBBA2 /* libiconv.2.4.0.tbd */; };
 		C630DB871FC2B669004FBBA2 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB861FC2B669004FBBA2 /* libz.1.2.5.tbd */; };
@@ -575,9 +575,9 @@
 		A04586FBBBAD4E47BF5BD5AF /* CoreGraphics.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A436F46E678742D1B529CF67 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		B024C4551F8CBED100F1D0A9 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B024C4591F8CBED700F1D0A9 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		C630DB151FC2B630004FBBA2 /* .gitIgnore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitIgnore; sourceTree = "<group>"; };
 		C630DB161FC2B630004FBBA2 /* BDSASRDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDSASRDefines.h; sourceTree = "<group>"; };
@@ -671,7 +671,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				916559CD1FC430A700E9CDE2 /* libRCTJPushModule.a in Frameworks */,
-				B0227CE91FC2C0B2002D684A /* libBaiduSpeechSDK.a in Frameworks */,
 				C630DB8B1FC2B680004FBBA2 /* AVFoundation.framework in Frameworks */,
 				C630DB891FC2B67B004FBBA2 /* libc++.tbd in Frameworks */,
 				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -724,6 +723,7 @@
 				11B4292660194C4A864D77ED /* CoreFoundation.framework in Frameworks */,
 				212FDB5EDAFB4FDA879D2354 /* Foundation.framework in Frameworks */,
 				DD7E18AC16E8476E9F226B7F /* UIKit.framework in Frameworks */,
+				B0626A5A1FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a in Frameworks */,
 				9EFCBF0AEA264BEA8472DB8A /* libresolv.tbd in Frameworks */,
 				D04B43E9B9D54BBD85BCA3F4 /* libRCTToast.a in Frameworks */,
 				34F6E74EEBE7465883BA7A9F /* libRNDeviceInfo.a in Frameworks */,
@@ -1277,7 +1277,7 @@
 		C630DB2C1FC2B630004FBBA2 /* BDSClientLib */ = {
 			isa = PBXGroup;
 			children = (
-				B0227CE81FC2C0B2002D684A /* libBaiduSpeechSDK.a */,
+				B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */,
 				C630DB2D1FC2B630004FBBA2 /* .gitignore */,
 			);
 			path = BDSClientLib;
@@ -2286,6 +2286,7 @@
 				PRODUCT_NAME = Driver;
 				PROVISIONING_PROFILE = "ba52035c-d634-4f1e-b8b2-3ec04b3ba61e";
 				PROVISIONING_PROFILE_SPECIFIER = "driverAPP-dev-profile";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2344,6 +2345,7 @@
 				PRODUCT_NAME = Driver;
 				PROVISIONING_PROFILE = "3d0b03cb-5c2e-41fb-bf80-4728894e50d9";
 				PROVISIONING_PROFILE_SPECIFIER = "driverAPP-dev-profile";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
