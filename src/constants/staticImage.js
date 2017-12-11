@@ -145,6 +145,14 @@ import NoMessage from '../../assets/mine/noMessage.png';
 /*收入空页面*/
 import NoIncome from '../../assets/emptyView/noIncome.png';
 
+/*角色-司机*/
+import Drivericon from '../../assets/character/drivericon.png';
+/*角色-个人车主*/
+import PersonalOwner from '../../assets/character/personalOwner.png';
+/*角色-企业车主*/
+import BusinessOwners from '../../assets/character/businessOwners.png';
+
+
 export default {
     EmptyImage,
     Img01,
@@ -233,6 +241,9 @@ export default {
     PersonImage,
     CarImage,
     NoMessage,
-    NoIncome
+    NoIncome,
+    Drivericon,
+    PersonalOwner,
+    BusinessOwners,
 }
 

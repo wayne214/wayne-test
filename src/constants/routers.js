@@ -87,6 +87,7 @@ import PayPassword from '../containers/mine/payPassword';
 import SetPayPassword from '../containers/mine/setPayPassword';
 import ForgetPayPassword from '../containers/mine/forgetPayPassword';
 import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
+import CharacterList from '../containers/login/characterList';
 
 
 
@@ -528,6 +529,12 @@ const StackRouteConfigs = {
     },
     TakeCameraVer: {
         screen: TakeCamearPageV,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CharacterList: {
+        screen: CharacterList,
         navigationOptions: {
             header: null
         }

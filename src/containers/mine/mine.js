@@ -913,6 +913,8 @@ class Mine extends Component {
                                 <View style={styles.separateView}/>
                                 <SettingCell
                                     leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
+                                    this.props.navigation.navigate('CharacterList');
+
                                 }}
                                     hideArrowIcon={true}
                                     versionName={`V${DeviceInfo.getVersion()}`}
