@@ -39,7 +39,7 @@ const upLoadLogger = () => {
         formData.append('logFile', file);
         const url = API.API_COLLECT_LOG;
         // ReadAndWriteFileUtil.readFile((result) => {
-        //     console.log('fileContent',result);
+        //     console.log('fileContent',result, result.length);
         // }, (err) => { console.log('文件不存在', err); });
         // ReadAndWriteFileUtil.isFilePathExists((value) => {
         //     console.log('destPathFile IS exists', value);
