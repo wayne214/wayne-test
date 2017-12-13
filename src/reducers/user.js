@@ -9,11 +9,11 @@ const initState = Immutable.fromJS({
     plateNumber: '', // 用户绑定的车辆
     plateNumberObj: {}, // 用户绑定的车辆信息
     userCarList: [], // 用户车辆列表
+    character:{driver:'',owner:''}, // 账户-角色
 });
 
 export default (state = initState, action) => {
-    console.log('initState:',state.get('userInfo'));
-
+    // console.log('initState:',state.get('userInfo'));
     let globalState = state;
     switch (action.type) {
         case ActionTypes.ACTION_LOGIN_SUCCESS:
@@ -85,7 +85,9 @@ export default (state = initState, action) => {
             Storage.save('userCarList', action.payload);
             globalState = globalState.set('userCarList', action.payload);
             return globalState;
-
+        case ActionTypes.ACTION_SET_CHARACTER:
+            globalState = globalState.set('character', action.payload);
+            return globalState;
         default:
             return state;
     }

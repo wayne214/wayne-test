@@ -913,6 +913,8 @@ class Mine extends Component {
                                 <View style={styles.separateView}/>
                                 <SettingCell
                                     leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
+                                    this.props.navigation.navigate('CharacterList');
+
                                 }}
                                     hideArrowIcon={true}
                                     versionName={`V${DeviceInfo.getVersion()}`}
@@ -941,8 +943,6 @@ class Mine extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('plateNumberObj: =', state.user.get('plateNumberObj'));
-    console.log('mine:plateNumber: =', state.user.get('plateNumber'));
     return {
         userInfo: state.user.get('userInfo'),
         userName: state.user.get('userName'),
