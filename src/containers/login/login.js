@@ -262,6 +262,7 @@ class Login extends BaseContainer {
                     let isBind = responseData.result.isBind;
                     console.log('-lqq---isBind',isBind);
                     // TODO 暂时关掉登录验证
+                    isBind = true;
                     if(isBind){//继续登录操作
                         lastTime = new Date().getTime();
 

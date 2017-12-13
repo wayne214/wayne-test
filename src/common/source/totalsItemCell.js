@@ -13,7 +13,7 @@ import * as StaticColor from '../../constants/staticColor';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: StaticColor.WHITE_COLOR,
         paddingLeft: 20,
         flexDirection: 'row',
         paddingBottom: 15,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     redStyle: {
         fontSize: 16,
-        color: '#ff6600',
+        color: StaticColor.GOODS_TOTAL_TEXT_COLOR,
         marginRight:20,
     },
 });
