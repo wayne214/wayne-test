@@ -25,15 +25,21 @@ import Carousel from 'react-native-snap-carousel';
 import Speech from '../../utils/VoiceUtils';
 import Communications from 'react-native-communications';
 import Dialog from './components/dialog';
-
 import Toast from '@remobile/react-native-toast';
-import { NavigationActions } from 'react-navigation';
-
+import {NavigationActions} from 'react-navigation';
 import HomeCell from './components/homeCell';
 import WeatherCell from './components/weatherCell';
 import * as ConstValue from '../../constants/constValue';
 import Speeker from '../../utils/BDSpeech';
-
+import StaticImage from '../../constants/staticImage';
+import * as API from '../../constants/api';
+import Storage from '../../utils/storage';
+import StorageKey from '../../constants/storageKeys';
+import NUmberLength from '../../utils/validator';
+import HTTPRequest from '../../utils/httpRequest'
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import TimeToDoSomething from '../../utils/uploadLoggerRequest';
+import NavigatorBar from "../../common/navigationBar/navigationBar";
 import {
     WHITE_COLOR,
     BLUE_CONTACT_COLOR,
@@ -45,37 +51,28 @@ import {
     COLOR_LIGHT_GRAY_TEXT,
     REFRESH_COLOR,
 } from '../../constants/staticColor';
-import StaticImage from '../../constants/staticImage';
-import * as API from '../../constants/api';
-
 import {
     locationAction,
     getHomePageCountAction,
     mainPressAction,
     updateVersionAction,
 } from '../../action/app';
-
 import {
     setUserCarAction,
     queryEnterpriseNatureSuccessAction,
     saveUserCarList,
 } from '../../action/user';
-
 import {setMessageListIconAction} from '../../action/jpush';
+import CharacterChooseCell from '../login/components/characterChooseCell';
 
-import Storage from '../../utils/storage';
-import StorageKey from '../../constants/storageKeys';
-import NUmberLength from '../../utils/validator';
-import HTTPRequest from '../../utils/httpRequest'
-import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import TimeToDoSomething from '../../utils/uploadLoggerRequest';
-import NavigatorBar from "../../common/navigationBar/navigationBar";
 
 const {width, height} = Dimensions.get('window');
-function wp (percentage) {
+
+function wp(percentage) {
     const value = (percentage * width) / 100;
     return Math.round(value);
 }
+
 const slideWidth = wp(75);
 const itemHorizontalMargin = 28;
 const itemWidth = slideWidth + itemHorizontalMargin * 2;
@@ -98,7 +95,7 @@ const styles = StyleSheet.create({
         height: 0.5,
         marginLeft: 50,
     },
-    imageView:{
+    imageView: {
         paddingRight: 15,
         paddingLeft: 5,
     },
@@ -215,7 +212,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingRight: 15,
     },
-    weather:{
+    weather: {
         height: 50,
         width: width,
         backgroundColor: WHITE_COLOR,
@@ -227,10 +224,10 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: LIGHT_BLACK_TEXT_COLOR,
     },
-    date:{
+    date: {
         marginLeft: 20,
     },
-    week:{
+    week: {
         fontSize: 13,
         color: LIGHT_BLACK_TEXT_COLOR,
     },
@@ -274,6 +271,9 @@ class Home extends Component {
             limitNumber: '',
             plateNumberObj: {},
             modalVisible: false,
+            character: '司机',
+            bubbleSwitch: false,
+            show: false,
         };
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
@@ -305,12 +305,13 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.location !== nextProps.location){
+        if (this.props.location !== nextProps.location) {
             this.getWeather(nextProps.location);
             this.vehicleLimit(nextProps.location);
         }
 
     }
+
     componentDidMount() {
 
         this.compareVersion();
@@ -563,23 +564,23 @@ class Home extends Component {
         if (this.props.speechSwitchStatus) {
             if (Platform.OS === 'ios') {
                 Speeker.speek(message);
-            }else
+            } else
                 Speech.speak(message, voiceType);
         }
     }
 
     // 版本升级方法
-    dialogOkCallBack(){
+    dialogOkCallBack() {
         Communications.web(this.props.versionUrl);
     }
 
-    notifyIncome(){
+    notifyIncome() {
         if (global.verifiedState && global.verifiedState == '1201') {
             Alert.alert('提示', '认证资料正在审核中');
-        } else if (global.verifiedState && global.verifiedState == '1203'){
+        } else if (global.verifiedState && global.verifiedState == '1203') {
             Alert.alert('提示', '认证资料已驳回，请重新上传资料');
         } else {
-            Alert.alert('提示','您的账号未实名认证，请进行实名认证',[
+            Alert.alert('提示', '您的账号未实名认证，请进行实名认证', [
                 {
                     text: '好的',
                     onPress: () => {
@@ -612,10 +613,11 @@ class Home extends Component {
             url: API.API_COMPARE_VERSION,
             params: {
                 version: DeviceInfo.getVersion(),
-                platform: Platform.OS === 'ios' ? '1': '2',
+                platform: Platform.OS === 'ios' ? '1' : '2',
             },
-            loading: ()=>{},
-            success: (responseData)=>{
+            loading: () => {
+            },
+            success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('版本对比', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
@@ -625,18 +627,19 @@ class Home extends Component {
                         this.setState({
                             modalVisible: true,
                         });
-                        if (this.refs.updateDialog){
+                        if (this.refs.updateDialog) {
                             this.refs.updateDialog.show('提示', '版本过低，需要升级到最新版本，否则可能影响使用');
                         }
                     }
-                }else {
+                } else {
                     this.setData();
                 }
             },
-            error: (errorInfo)=>{
+            error: (errorInfo) => {
                 this.setData();
             },
-            finish:()=>{}
+            finish: () => {
+            }
         });
     }
 
@@ -645,7 +648,7 @@ class Home extends Component {
         const resetAction = NavigationActions.reset({
             index: index,
             actions: [
-                NavigationActions.navigate({ routeName: routeName}),
+                NavigationActions.navigate({routeName: routeName}),
             ]
         });
         this.props.navigation.dispatch(resetAction);
@@ -662,19 +665,22 @@ class Home extends Component {
     getUserCar() {
         Storage.get(StorageKey.USER_INFO).then((value) => {
             currentTime = new Date().getTime();
-            if(value) {
-                console.log('value',value);
+            if (value) {
+                console.log('value', value);
                 HTTPRequest({
                     url: API.API_QUERY_ALL_BIND_CAR_BY_PHONE,
                     params: {
                         phoneNum: value.phone,
                     },
-                    loading: ()=>{},
-                    success: (responseData)=>{
+                    loading: () => {
+                    },
+                    success: (responseData) => {
                         this.getUserCarSuccessCallBack(responseData.result);
                     },
-                    error: (errorInfo)=>{},
-                    finish:()=>{}
+                    error: (errorInfo) => {
+                    },
+                    finish: () => {
+                    }
                 });
             }
         });
@@ -685,12 +691,12 @@ class Home extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('获取绑定车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '首页');
-        console.log('carList=',result);
+        console.log('carList=', result);
 
         if (result) {
-            if(result.length > 1) {
+            if (result.length > 1) {
                 this.saveUserCarList(result);
-                this.props.navigation.navigate('ChooseCar',{
+                this.props.navigation.navigate('ChooseCar', {
                     carList: result,
                     currentCar: '',
                     flag: true,
@@ -706,7 +712,7 @@ class Home extends Component {
                 this.certificationState();
             }
         } else {
-            Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',
+            Alert.alert('提示', '您的账号未绑定车辆，请进行资质认证',
                 [
                     {
                         text: '好的',
@@ -717,23 +723,27 @@ class Home extends Component {
                 ], {cancelable: false});
         }
     }
+
     // 设置车辆
     setUserCar(plateNumber) {
         currentTime = new Date().getTime();
         Storage.get(StorageKey.USER_INFO).then((value) => {
-            if(value) {
+            if (value) {
                 HTTPRequest({
                     url: API.API_SET_USER_CAR,
                     params: {
                         plateNumber: plateNumber,
                         phoneNum: value.phone,
                     },
-                    loading: ()=>{},
-                    success: (responseData)=>{
+                    loading: () => {
+                    },
+                    success: (responseData) => {
                         this.setUserCarSuccessCallBack(responseData.result);
                     },
-                    error: (errorInfo)=>{},
-                    finish:()=>{}
+                    error: (errorInfo) => {
+                    },
+                    finish: () => {
+                    }
                 });
             }
         });
@@ -769,8 +779,9 @@ class Home extends Component {
                 plateNumber,
                 driverPhone: phone,
             },
-            loading: ()=>{},
-            success: (responseData)=>{
+            loading: () => {
+            },
+            success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '首页');
@@ -778,8 +789,10 @@ class Home extends Component {
                     this.props.getHomoPageCountAction(responseData.result);
                 }
             },
-            error: ()=>{},
-            finish: ()=>{},
+            error: () => {
+            },
+            finish: () => {
+            },
         });
     }
 
@@ -788,7 +801,7 @@ class Home extends Component {
     certificationState() {
         setTimeout(() => {
             Storage.get(StorageKey.PlateNumber).then((plate) => {
-                if(plate){
+                if (plate) {
                     this.getQualificationsStatus(plate);
                 } else {
                     this.getQualificationsStatus(this.state.plateNumber);
@@ -812,12 +825,15 @@ class Home extends Component {
             HTTPRequest({
                 url: API.API_AUTH_QUALIFICATIONS_STATUS,
                 params: obj,
-                loading: () => {},
+                loading: () => {
+                },
                 success: (responseData) => {
                     this.getQualificationsStatusSuccessCallBack(responseData.result);
                 },
-                error: (errorInfo) => {},
-                finish: () => {}
+                error: (errorInfo) => {
+                },
+                finish: () => {
+                }
             });
         }
     }
@@ -828,18 +844,18 @@ class Home extends Component {
         if (result === '1201') {
             Alert.alert('提示', '认证资料正在审核中');
         } else if (result === '1203') {
-            Alert.alert('提示', '认证资料已驳回，请重新上传资料',[
+            Alert.alert('提示', '认证资料已驳回，请重新上传资料', [
                 {
                     text: '好的',
                     onPress: () => {
 
                         Storage.get(StorageKey.changeCarInfoResult).then((value) => {
 
-                            if (value){
+                            if (value) {
                                 this.props.navigation.navigate('CertificationPage', {
                                     resultInfo: value,
                                 });
-                            }else {
+                            } else {
                                 this.props.navigation.navigate('CertificationPage', {
                                     resultInfo: this.state.resultInfo,
                                 });
@@ -851,12 +867,12 @@ class Home extends Component {
                         // })
                     },
                 },
-            ],{cancelable: true});
+            ], {cancelable: true});
         } else if (result === '1202') {
             this.saveUserCarInfo(this.state.plateNumberObj);
             this.setUserCar(this.state.plateNumber, this.setUserCarSuccessCallBack);
-        } else{
-            Alert.alert('提示','您的账号未绑定车辆，请进行资质认证',[
+        } else {
+            Alert.alert('提示', '您的账号未绑定车辆，请进行资质认证', [
                 {
                     text: '好的',
                     onPress: () => {
@@ -867,7 +883,7 @@ class Home extends Component {
         }
     };
 
-    setData(){
+    setData() {
         Storage.get(StorageKey.CarSuccessFlag).then((value) => {
             console.log('---value', value);
             if (value && value * 1 === 1) {
@@ -879,7 +895,7 @@ class Home extends Component {
                         this.saveUserCarList(carList);
                     });
                     Storage.get(StorageKey.PlateNumberObj).then((plateNumObj) => {
-                        if(plateNumObj) {
+                        if (plateNumObj) {
                             const plateNumber = plateNumObj.carNum;
                             console.log('home_plateNumber=', plateNumber);
                             if (plateNumber !== null) {
@@ -922,12 +938,12 @@ class Home extends Component {
         console.log('-- save SearchList From Storage --', Message);
         Storage.get(StorageKey.acceptMessage).then((value) => {
             const date = new Date();
-            let mouth = parseInt(date.getMonth())+1;
+            let mouth = parseInt(date.getMonth()) + 1;
 
-            const timer = date.getFullYear()+'/'+NUmberLength.leadingZeros(mouth, 2)+'/'+
-                NUmberLength.leadingZeros(date.getDate(), 2)+ ' '+
-                NUmberLength.leadingZeros(date.getHours(), 2)+':'+
-                NUmberLength.leadingZeros(date.getMinutes(), 2)+':'+
+            const timer = date.getFullYear() + '/' + NUmberLength.leadingZeros(mouth, 2) + '/' +
+                NUmberLength.leadingZeros(date.getDate(), 2) + ' ' +
+                NUmberLength.leadingZeros(date.getHours(), 2) + ':' +
+                NUmberLength.leadingZeros(date.getMinutes(), 2) + ':' +
                 NUmberLength.leadingZeros(date.getSeconds(), 2);
 
             if (value) {
@@ -953,9 +969,9 @@ class Home extends Component {
     }
 
     // 获取当前位置
-    getCurrentPosition(type){
+    getCurrentPosition(type) {
         Geolocation.getCurrentPosition().then(data => {
-            console.log('position =',JSON.stringify(data));
+            console.log('position =', JSON.stringify(data));
             this.props.getLocationAction(data.city);
             locationData = data;
             if (type === 1) {
@@ -966,16 +982,16 @@ class Home extends Component {
                 this.getWeather(data.city);
                 this.vehicleLimit(data.city);
             }
-        }).catch(e =>{
+        }).catch(e => {
             console.log(e, 'error');
         });
     }
 
     // 定位城市选择
-    locate(){
+    locate() {
         this.props.navigation.navigate('Location', {
             changeCity: (cityName) => {
-                console.log('city =',cityName);
+                console.log('city =', cityName);
                 this.props.getLocationAction(cityName);
                 this.getWeather(cityName);
                 this.vehicleLimit(cityName);
@@ -993,56 +1009,59 @@ class Home extends Component {
         HTTPRequest({
             url: API.API_GET_WEATHER + '?city=' + city,
             params: {},
-            loading: ()=>{},
-            success: (responseData)=>{
+            loading: () => {
+            },
+            success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取天气', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                        locationData.district, lastTime - currentTime, '首页');
+                    locationData.district, lastTime - currentTime, '首页');
                 const result = responseData.result;
-                if (result.weather){
+                if (result.weather) {
                     this.setState({
                         weather: result.weather,
                         weatherNum: result.weather,
                         temperatureLow: result.temperatureLow,
                         temperatureHigh: result.temperatureHigh,
                     });
-                }else {
+                } else {
                     this.setState({
                         weather: '天气',
                         temperatureLow: '--',
                         temperatureHigh: '--',
-                        weatherNum:'',
+                        weatherNum: '',
                     });
                     setTimeout(() => {
                         this.getWeather(this.state.city);
                     }, 600000);
                 }
             },
-            error: (errorInfo)=>{
+            error: (errorInfo) => {
                 this.setState({
                     weather: '天气',
                     temperatureLow: '--',
                     temperatureHigh: '--',
-                    weatherNum:'',
+                    weatherNum: '',
                 });
             },
-            finish: ()=>{}
+            finish: () => {
+            }
         });
 
     }
 
     //获取限行尾号方法
-    vehicleLimit(cityName){
+    vehicleLimit(cityName) {
         HTTPRequest({
             url: API.API_VEHICLE_LIMIT,
             params: {
                 cityName
             },
-            loading: ()=>{},
-            success: (responseData)=> {
-                console.log('---------------',responseData.result);
+            loading: () => {
+            },
+            success: (responseData) => {
+                console.log('---------------', responseData.result);
                 let result = responseData.result;
-                if(result && result !== '') {
+                if (result && result !== '') {
                     this.setState({
                         limitNumber: '今日限行 ' + responseData.result,
                     });
@@ -1052,49 +1071,53 @@ class Home extends Component {
                     });
                 }
             },
-            error: (error)=>{
+            error: (error) => {
                 console.log('获取限行尾号失败');
             },
-            finish: ()=>{}
+            finish: () => {
+            }
         });
     }
 
     // 查询司机对应企业性质
-    queryEnterpriseNature(){
+    queryEnterpriseNature() {
         HTTPRequest({
             url: API.API_QUERY_ENTERPRISE_NATURE + global.phone,
             params: {},
-            loading: ()=>{},
-            success: (responseData)=>{
+            loading: () => {
+            },
+            success: (responseData) => {
                 global.enterpriseNature = responseData.result;
                 if (responseData.result) {
                     this.props.queryEnterpriseNatureAction(responseData.result);
                 }
             },
-            error: (errorInfo)=>{},
-            finish:()=>{}
+            error: (errorInfo) => {
+            },
+            finish: () => {
+            }
         });
     }
 
-    getCurrentWeekday(day){
+    getCurrentWeekday(day) {
         let weekday = new Array(7);
-        weekday[0]="周日";
-        weekday[1]="周一";
-        weekday[2]="周二";
-        weekday[3]="周三";
-        weekday[4]="周四";
-        weekday[5]="周五";
-        weekday[6]="周六";
+        weekday[0] = "周日";
+        weekday[1] = "周一";
+        weekday[2] = "周二";
+        weekday[3] = "周三";
+        weekday[4] = "周四";
+        weekday[5] = "周五";
+        weekday[6] = "周六";
         return weekday[day];
     }
 
     renderImg(item, index) {
-        console.log('------item-----',item);
+        console.log('------item-----', item);
         return (
             <Image
                 style={{
                     width: itemWidth,
-                    height:itemHeight,
+                    height: itemHeight,
                 }}
                 resizeMode='contain'
                 source={item.item}
@@ -1103,11 +1126,15 @@ class Home extends Component {
     }
 
     render() {
-        const {homePageState,routes} = this.props;
+        const {homePageState, routes} = this.props;
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
-                <Text style={{fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{this.state.limitNumber}</Text>
+                <Text style={{
+                    fontSize: 14,
+                    color: LIGHT_BLACK_TEXT_COLOR,
+                    alignSelf: 'center'
+                }}>{this.state.limitNumber}</Text>
             </View> : null;
         let date = new Date();
         return (
@@ -1115,11 +1142,26 @@ class Home extends Component {
                 <NavigatorBar
                     title={'首页'}
                     navigator={navigator}
-                    leftButtonHidden={true}
+                    leftButtonHidden={false}
+                    leftButtonConfig={{
+                        type: 'image',
+                        image: this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown,
+                        // disableImage: StaticImage.DriverUp,
+                        leftImageStyle: {
+                            width: 17,
+                            height: 17,
+                        },
+                        onClick: () => {
+                            this.setState({
+                                bubbleSwitch: !this.state.bubbleSwitch,
+                                show: !this.state.show,
+                            })
+                        },
+                    }}
                     rightButtonConfig={{
                         type: 'image',
                         image: this.props.jpushIcon === true ? StaticImage.MessageNew : StaticImage.Message,
-                        imageStyle:{
+                        imageStyle: {
                             width: 17,
                             height: 17,
                         },
@@ -1133,7 +1175,8 @@ class Home extends Component {
                 <ScrollView>
                     <View style={styles.locationStyle}>
                         <Image source={StaticImage.locationIcon}/>
-                        <Text style={styles.locationText}>{this.props.location ? '您所在的位置：' + this.props.location : '定位失败'}</Text>
+                        <Text
+                            style={styles.locationText}>{this.props.location ? '您所在的位置：' + this.props.location : '定位失败'}</Text>
                         <TouchableOpacity
                             style={{
                                 position: 'absolute',
@@ -1175,15 +1218,25 @@ class Home extends Component {
                                 {this.getCurrentWeekday(date.getDay())}
                             </Text>
                         </View>
-                        <View style={{flexDirection:'row', marginLeft: 20}}>
+                        <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <View style={{
                                 marginRight: 15,
                                 justifyContent: 'center',
                             }}>
                                 <WeatherCell weatherIcon={this.state.weatherNum}/>
                             </View>
-                            <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}> {weather}</Text>
-                            <Text style={{marginRight: 10, fontSize: 14, color: LIGHT_BLACK_TEXT_COLOR, alignSelf:'center'}}>{temperatureHigh}℃/{temperatureLow}℃</Text>
+                            <Text style={{
+                                marginRight: 10,
+                                fontSize: 14,
+                                color: LIGHT_BLACK_TEXT_COLOR,
+                                alignSelf: 'center'
+                            }}> {weather}</Text>
+                            <Text style={{
+                                marginRight: 10,
+                                fontSize: 14,
+                                color: LIGHT_BLACK_TEXT_COLOR,
+                                alignSelf: 'center'
+                            }}>{temperatureHigh}℃/{temperatureLow}℃</Text>
                         </View>
                         {limitView}
                     </View>
@@ -1294,8 +1347,26 @@ class Home extends Component {
                     visible={this.state.modalVisible}>
                     <Dialog
                         ref="updateDialog"
-                        callback={this.dialogOkCallBack.bind(this)} />
+                        callback={this.dialogOkCallBack.bind(this)}/>
                 </Modal>
+
+                {this.state.show ?
+                    <CharacterChooseCell
+                        carClick={() => {
+                            this.props.navigation.navigate('CharacterOwner');
+                            this.setState({
+                                bubbleSwitch: false,
+                                show : false,
+                            })
+                        }}
+                        driverClick={() => {
+                            this.setState({
+                                bubbleSwitch: false,
+                                show : false,
+                            })
+                        }}
+                    /> : null}
+
             </View>
         );
     }
@@ -1349,4 +1420,5 @@ function mapDispatchToProps(dispatch) {
         },
     };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
