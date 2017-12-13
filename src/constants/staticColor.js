@@ -75,6 +75,8 @@ export const BLACK_DETAIL_TEXT_COLOR = '#151515';
 
 export const PINK_TEMPER_COLOR = '#FFDDDD';
 
+export const PINK_TEMPER_TEXT_COLOR = '#FF7A7A';
+
 export const RED_GOODS_TOTAL_TEXT_COLOR = '#FA5741'; // 订单详情总计文字颜色
 
 

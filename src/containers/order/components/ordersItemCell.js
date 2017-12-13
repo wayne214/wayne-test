@@ -166,7 +166,8 @@ class OrdersItemCell extends Component {
             scheduleRoutes,
             waitBeSureOrderNum,
             beSureOrderNum,
-            transCodeNum
+            transCodeNum,
+            temperature
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
@@ -235,6 +236,11 @@ class OrdersItemCell extends Component {
                                         content={`配送点${distributionPoint}`}
                                         containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}}
                                         textStyle={{color: StaticColor.GREEN_POINTER_TEXT_COLOR}}
+                                    />
+                                    <CommonLabelCell
+                                        content={`车厢温度${temperature}`}
+                                        containerStyle={{backgroundColor: StaticColor.PINK_TEMPER_COLOR}}
+                                        textStyle={{color: StaticColor.PINK_TEMPER_TEXT_COLOR}}
                                     />
                                 </View>
                                 <View style={styles.goodsTotal}>
