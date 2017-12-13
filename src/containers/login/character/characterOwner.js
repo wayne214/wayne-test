@@ -54,7 +54,7 @@ class CharacterOwner extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
-
+                                this.props.navigation.goBack();
                             },
                         }}
                     />

@@ -151,6 +151,16 @@ import Drivericon from '../../assets/character/drivericon.png';
 import PersonalOwner from '../../assets/character/personalOwner.png';
 /*角色-企业车主*/
 import BusinessOwners from '../../assets/character/businessOwners.png';
+/*角色-首页气泡*/
+import CombinedShape from '../../assets/character/CombinedShape.png';
+/*角色-首页气泡*/
+import DriverUp from '../../assets/character/driverUp.png';
+/*角色-首页气泡*/
+import DriverDown from '../../assets/character/driverDown.png';
+/*角色-首页气泡*/
+import OwnerUp from '../../assets/character/ownerUp.png';
+/*角色-首页气泡*/
+import OwnerDown from '../../assets/character/ownerDown.png';
 
 
 export default {
@@ -245,5 +255,10 @@ export default {
     Drivericon,
     PersonalOwner,
     BusinessOwners,
+    CombinedShape,
+    DriverUp,
+    DriverDown,
+    OwnerUp,
+    OwnerDown,
 }
 

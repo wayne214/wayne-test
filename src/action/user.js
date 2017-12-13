@@ -46,3 +46,11 @@ export const saveUserCarList = (data) => {
         payload: data,
     };
 };
+
+/*账户-角色*/
+export const setCharacterAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_SET_CHARACTER,
+        payload: data,
+    };
+};

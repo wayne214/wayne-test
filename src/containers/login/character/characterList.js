@@ -1,6 +1,9 @@
 /**
  * 角色选择界面
  * by：wl
+ * OUTSIDEDRIVER  外部司机
+ * Personalowner  个人车主
+ * Enterpriseowner  企业车主
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -23,6 +26,8 @@ import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import NavigatorBar from '../../../common/navigationBar/navigationBar';
 import CharacterCell from '../components/characterCell';
+import CharacterChooseCell from '../components/characterChooseCell';
+import {setCharacterAction} from '../../../action/user';
 
 const {width, height} = Dimensions.get('window');
 
@@ -46,7 +51,7 @@ class CharacterList extends BaseContainer {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{flex:1,backgroundColor: '#f5f5f5'}}>
+                <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
                     <NavigatorBar
                         title={'选择身份'}
                         navigator={navigator}
@@ -55,7 +60,7 @@ class CharacterList extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
-
+                                this.props.navigation.goBack();
                             },
                         }}
                     />
@@ -68,12 +73,16 @@ class CharacterList extends BaseContainer {
                                 '司机',
                                 '\n司机可在鲜易通接物流订单，同时接收与其有挂靠关系的个人车主或企业车主分配的运输订单，请确认您的选择无误！',
                                 [
-                                    {text: '再看看', onPress: () => {
+                                    {
+                                        text: '再看看', onPress: () => {
 
-                                    }},
-                                    {text: '确认', onPress: () => {
+                                    }
+                                    },
+                                    {
+                                        text: '确认', onPress: () => {
 
-                                    }},
+                                    }
+                                    },
                                 ]
                             )
                         }}
@@ -87,12 +96,17 @@ class CharacterList extends BaseContainer {
                                 '个人车主',
                                 '\n个人车主可在鲜易通接物流订单，同时转发给司机运输，但必须车辆所有人为注册本人，请确认您的选择误！',
                                 [
-                                    {text: '再看看', onPress: () => {
-
-                                    }},
-                                    {text: '确认', onPress: () => {
-
-                                    }},
+                                    {
+                                        text: '再看看', onPress: () => {
+                                        console.log('character', this.props.character);
+                                        console.log('characterSize', this.props.character.driver);
+                                    }
+                                    },
+                                    {
+                                        text: '确认', onPress: () => {
+                                        this.props.setCharacter({driver:'OUTSIDEDRIVER',owner:'Personalowner'});
+                                    }
+                                    },
                                 ]
                             )
                         }}
@@ -106,16 +120,21 @@ class CharacterList extends BaseContainer {
                                 '企业车主',
                                 '\n企业车主可在鲜易通接物流订单，同时转发给司机运输，但必须具有企业资质，请确认您的选择无误！',
                                 [
-                                    {text: '再看看', onPress: () => {
+                                    {
+                                        text: '再看看', onPress: () => {
 
-                                    }},
-                                    {text: '确认', onPress: () => {
-
-                                    }},
+                                    }
+                                    },
+                                    {
+                                        text: '确认', onPress: () => {
+                                        this.props.setCharacter('Enterpriseowner');
+                                    }
+                                    },
                                 ]
                             )
                         }}
                     />
+
 
                 </View>
 
@@ -125,13 +144,15 @@ class CharacterList extends BaseContainer {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        character: state.user.get('character')
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        sendLoginSuccessAction: (result) => {
-            dispatch()
+        setCharacter: (data) => {
+            dispatch(setCharacterAction(data));
         },
     };
 }

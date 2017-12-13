@@ -943,8 +943,6 @@ class Mine extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('plateNumberObj: =', state.user.get('plateNumberObj'));
-    console.log('mine:plateNumber: =', state.user.get('plateNumber'));
     return {
         userInfo: state.user.get('userInfo'),
         userName: state.user.get('userName'),
