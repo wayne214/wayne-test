@@ -358,7 +358,7 @@ class LoginSms extends BaseContainer {
                         <Image
                             source={StaticImage.LoginTopBg}
                             resizeMode={'stretch'}
-                            style={{width: width}}
+                            style={{width: width, height: width * 224 / 375}}
                         />
                         
                     </View>

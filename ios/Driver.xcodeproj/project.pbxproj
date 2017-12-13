@@ -2293,7 +2293,7 @@
 				PRODUCT_NAME = Driver;
 				PROVISIONING_PROFILE = "c4f1a418-1915-4562-adf9-4f877b026914";
 				PROVISIONING_PROFILE_SPECIFIER = "driverAPP-dev-profile";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2352,7 +2352,7 @@
 				PRODUCT_NAME = Driver;
 				PROVISIONING_PROFILE = "26e3f611-ccbb-404f-b585-6e725c0ea874";
 				PROVISIONING_PROFILE_SPECIFIER = "driverAPP-pro-profile";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
