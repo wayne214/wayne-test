@@ -167,7 +167,8 @@ class OrdersItemCell extends Component {
             waitBeSureOrderNum,
             beSureOrderNum,
             transCodeNum,
-            temperature
+            temperature,
+            goodsCount
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
@@ -252,6 +253,7 @@ class OrdersItemCell extends Component {
                                         <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
                                         <Text style={[styles.arriveAndGoodsText, {color: StaticColor.READ_UNIT_COLOR, fontSize: 14, marginTop: 2}]}>方</Text>
                                     </View>
+                                    <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{goodsCount}</Text>
                                 </View>
                             </View>
                         </View>
