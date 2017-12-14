@@ -770,7 +770,7 @@ class Mine extends Component {
                                 <SettingCell
                                     leftIcon="&#xe62b;"
                                     content={'车辆信息'}
-                                    showBottomLine={false}
+                                    showBottomLine={true}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
@@ -790,85 +790,105 @@ class Mine extends Component {
                                         }
                                     }}
                                 />
-                                <View style={styles.separateView}/>
-                                {
-                                    this.state.verifiedState != '1202' ?
-                                        <SettingCell
-                                            leftIcon="&#xe673;"
-                                            content={'实名认证'}
-                                            authenticationStatus={this.state.verifiedState}
-                                            showBottomLine={true}
-                                            clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.onMultiClick()) {
-                                            if (this.state.verifiedState == '1200') {
-                                                // 未认证
-                                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                <SettingCell
+                                    leftIcon="&#xe676;"
+                                    iconFontColor={{color: '#32C7AA',fontSize:17}}
+                                    content={'伙伴信息'}
+                                    showBottomLine={true}
+                                    clickAction={() => {
 
-                                                    if (value){
-                                                         this.props.navigation.navigate('VerifiedPage', {
-                                                             resultInfo: value,
-                                                         });
-                                                    }else {
-                                                        this.props.navigation.navigate('VerifiedPage');
-                                                    }
-                                                });
-                                            } else {
-                                                // 认证中，认证驳回，认证通过
-
-                                                 this.props.navigation.navigate('VerifiedStatePage', {
-                                                     qualifications: this.state.verifiedState,
-                                                 });
-                                            }
-                                        }
                                     }}
-                                        /> : null
-                                }
-                                {
-                                    this.state.certificationState != '1202' ?
-                                        <SettingCell
-                                            leftIcon="&#xe672;"
-                                            content={'资质认证'}
-                                            authenticationStatus={this.state.certificationState}
-                                            showBottomLine={false}
-                                            clickAction={() => {
-                                                ClickUtil.resetLastTime();
-                                                if (ClickUtil.onMultiClick()) {
-                                                    if (this.state.certificationState) {
-                                                        if (this.state.certificationState == '1200') {
-                                                            // 未认证
+                                />
 
-                                                            Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                                <SettingCell
+                                    leftIcon="&#xe672;"
+                                    iconFontColor={{color: '#F6BD0E'}}
+                                    content={'认证信息'}
+                                    showBottomLine={false}
+                                    clickAction={() => {
 
-                                                            if (value){
-                                                                this.props.navigation.navigate('CertificationPage', {
-                                                                    resultInfo: value,
-                                                                 });
+                                    }}
+                                />
 
-                                                            }else {
-                                                                this.props.navigation.navigate('CertificationPage');                                                    }
-                                                            });
-                                                        } else {
-                                                            // 认证中，认证驳回，认证通过
-                                                                this.props.navigation.navigate('CerifiedStatePage', {
-                                                                qualifications: this.state.certificationState,
-                                                            });
-                                                        }
-                                                    }
+                                <View style={styles.separateView}/>
+                                {/*{*/}
+                                    {/*this.state.verifiedState != '1202' ?*/}
+                                        {/*<SettingCell*/}
+                                            {/*leftIcon="&#xe673;"*/}
+                                            {/*content={'实名认证'}*/}
+                                            {/*authenticationStatus={this.state.verifiedState}*/}
+                                            {/*showBottomLine={true}*/}
+                                            {/*clickAction={() => {*/}
+                                        {/*ClickUtil.resetLastTime();*/}
+                                        {/*if (ClickUtil.onMultiClick()) {*/}
+                                            {/*if (this.state.verifiedState == '1200') {*/}
+                                                {/*// 未认证*/}
+                                                {/*Storage.get(StorageKey.changePersonInfoResult).then((value) => {*/}
 
-                                                }
-                                            }}
-                                        /> : null
-                                }
-                                {
-                                    this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?
-                                        null : <View style={styles.separateView}/>
-                                }
+                                                    {/*if (value){*/}
+                                                         {/*this.props.navigation.navigate('VerifiedPage', {*/}
+                                                             {/*resultInfo: value,*/}
+                                                         {/*});*/}
+                                                    {/*}else {*/}
+                                                        {/*this.props.navigation.navigate('VerifiedPage');*/}
+                                                    {/*}*/}
+                                                {/*});*/}
+                                            {/*} else {*/}
+                                                {/*// 认证中，认证驳回，认证通过*/}
+
+                                                 {/*this.props.navigation.navigate('VerifiedStatePage', {*/}
+                                                     {/*qualifications: this.state.verifiedState,*/}
+                                                 {/*});*/}
+                                            {/*}*/}
+                                        {/*}*/}
+                                    {/*}}*/}
+                                        {/*/> : null*/}
+                                {/*}*/}
+                                {/*{*/}
+                                    {/*this.state.certificationState != '1202' ?*/}
+                                        {/*<SettingCell*/}
+                                            {/*leftIcon="&#xe672;"*/}
+                                            {/*content={'资质认证'}*/}
+                                            {/*authenticationStatus={this.state.certificationState}*/}
+                                            {/*showBottomLine={false}*/}
+                                            {/*clickAction={() => {*/}
+                                                {/*ClickUtil.resetLastTime();*/}
+                                                {/*if (ClickUtil.onMultiClick()) {*/}
+                                                    {/*if (this.state.certificationState) {*/}
+                                                        {/*if (this.state.certificationState == '1200') {*/}
+                                                            {/*// 未认证*/}
+
+                                                            {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
+
+                                                            {/*if (value){*/}
+                                                                {/*this.props.navigation.navigate('CertificationPage', {*/}
+                                                                    {/*resultInfo: value,*/}
+                                                                 {/*});*/}
+
+                                                            {/*}else {*/}
+                                                                {/*this.props.navigation.navigate('CertificationPage');                                                    }*/}
+                                                            {/*});*/}
+                                                        {/*} else {*/}
+                                                            {/*// 认证中，认证驳回，认证通过*/}
+                                                                {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
+                                                                {/*qualifications: this.state.certificationState,*/}
+                                                            {/*});*/}
+                                                        {/*}*/}
+                                                    {/*}*/}
+
+                                                {/*}*/}
+                                            {/*}}*/}
+                                        {/*/> : null*/}
+                                {/*}*/}
+                                {/*{*/}
+                                    {/*this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?*/}
+                                        {/*null : <View style={styles.separateView}/>*/}
+                                {/*}*/}
                                 <SettingCell
                                     leftIcon="&#xe62e;"
                                     iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
-                                    content={'修改密码'}
-                                    showBottomLine={true}
+                                    content={'登录密码'}
+                                    showBottomLine={false}
                                     clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
@@ -890,7 +910,7 @@ class Mine extends Component {
                                 {/*/>*/}
 
                                 {/*<View style={styles.separateView}/>*/}
-
+                                <View style={styles.separateView}/>
                                 <SettingCell
                                     leftIcon="&#xe630;"
                                     content={'关于我们'}
