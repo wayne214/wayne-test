@@ -317,9 +317,20 @@ class CarInfo extends Component {
         return (
             <View style={styles.allContainer}>
                 <NavigationBar
-                    title={'车辆信息'}
+                    title={'车辆详情'}
                     navigator={navigator}
                     leftButtonHidden={false}
+                    rightButtonConfig={{
+                        type: 'string',
+                        title: '添加车辆',
+                        disable:'false',
+                        rightTitleStyle: {
+
+                        },
+                        onClick: () => {
+                            this.props.navigation.navigate('AddCarDriver');
+                        },
+                    }}
                 />
                 {
                     aCar === '' ?
@@ -346,10 +357,11 @@ class CarInfo extends Component {
                                     style={styles.Button}
                                     textStyle={styles.ButtonText}
                                     onPress={() => {
-                                        this.props.navigation.navigate('CertificationPage')
+                                        // this.props.navigation.navigate('CertificationPage')
+                                        this.props.navigation.navigate('AddCarDriver');
                                     }}
                                 >
-                                    立即认证
+                                    添加车辆
                                 </Button>
                             </ImageBackground>
                         </View> :
