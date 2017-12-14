@@ -125,7 +125,9 @@ class commonListItem extends Component {
             allocationModel,
             dispatchLine,
             goodKindsNames,
-            orderCount
+            orderCount,
+            goodsCount,
+            temperature
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         return (
@@ -154,8 +156,9 @@ class commonListItem extends Component {
                                             )
                                         })
                                     }
-                                    <CommonLabelCell content={`订单${orderCount}单`} containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}} textStyle={{color: '#59ABFD'}}/>
-                                    <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}} textStyle={{color: '#33BE85'}}/>
+                                    <CommonLabelCell content={`订单${orderCount}单`} containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}} textStyle={{color: StaticColor.BLUE_ORDER_TEXT_COLOR}}/>
+                                    <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}} textStyle={{color: StaticColor.GREEN_POINTER_TEXT_COLOR}}/>
+                                    <CommonLabelCell content={`车厢温度${temperature}℃`} containerStyle={{backgroundColor: StaticColor.PINK_TEMPER_COLOR}} textStyle={{color: StaticColor.PINK_TEMPER_TEXT_COLOR}}/>
                                 </View>
                                 <View style={styles.goodsTotal}>
                                     <View style={{flexDirection: 'row'}}>
@@ -166,6 +169,7 @@ class commonListItem extends Component {
                                         <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{vol}</Text>
                                         <Text style={[styles.arriveAndGoodsText, {color: StaticColor.READ_UNIT_COLOR, fontSize: 14, marginTop: 2}]}>方</Text>
                                     </View>
+                                    <Text style={[styles.arriveAndGoodsText, {marginLeft: 10}]}>{goodsCount}</Text>
                                 </View>
                             </View>
                             {

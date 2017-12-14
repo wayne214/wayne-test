@@ -942,6 +942,8 @@ let transCodeListData3 = [];
                 waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
                 beSureOrderNum={dataRow.beSureOrderNum}
                 transCodeNum={dataRow.transCodeNum}
+                goodsCount={200}
+                temperature={2}
                 onSelect={() => {
                     if (dataRow.distributionPoint === 0) {
                         Toast.showShortCenter('暂无详情');
