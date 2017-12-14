@@ -41,6 +41,7 @@ import signIcon from '../../assets/home/sign_icon.png';
 import receiptIcon from '../../assets/home/receipt_icon.png';
 import dispatchIcon from '../../assets/home/despatch_icon.png';
 import receiveIcon from '../../assets/home/receive_icon.png';
+import roadIcon from '../../assets/home/road_abnormality.png';
 
 /*货源*/
 import close from '../../assets/good/close.png';
@@ -260,5 +261,6 @@ export default {
     DriverDown,
     OwnerUp,
     OwnerDown,
+    roadIcon,
 }
 

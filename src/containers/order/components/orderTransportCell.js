@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
     contactText: {
         fontSize: 14,
-        color: StaticColor.BLUE_TEXT_COLOR,
+        color: StaticColor.BLUE_CONTACT_COLOR,
         alignSelf: 'center',
         marginLeft: 3,
     },
