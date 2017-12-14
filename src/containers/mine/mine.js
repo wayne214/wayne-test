@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     driverIcon: {
         width: 60,
         height: 60,
-        resizeMode:'stretch',
+        resizeMode: 'stretch',
         borderRadius: 5,
     },
     informView: {
@@ -227,7 +227,7 @@ class Mine extends Component {
 
 
     componentDidMount() {
-        this.choosePhotoListener = DeviceEventEmitter.addListener('choosePhoto',() => {
+        this.choosePhotoListener = DeviceEventEmitter.addListener('choosePhoto', () => {
             this.showAlertSelected();
         });
         this.getCurrentPosition();
@@ -297,61 +297,63 @@ class Mine extends Component {
     }
 
     /*点击弹出菜单*/
-    showAlertSelected(){
+    showAlertSelected() {
         if (this.refs.choose)
             this.refs.choose.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
     }
 
     /*选择 拍照  相册*/
-    callbackSelected(i){
+    callbackSelected(i) {
         switch (i) {
             case 0:
                 // 拍照
                 if (Platform.OS === 'ios') {
-                    PermissionsManager.cameraPermission().then(data=>{
+                    PermissionsManager.cameraPermission().then(data => {
                         this.selectCamera();
-                    }).catch(err=>{
+                    }).catch(err => {
                         // Toast.showShortCenter(err.message);
-                        Alert.alert(null,err.message)
+                        Alert.alert(null, err.message)
                     });
-                }else{
+                } else {
                     PermissionsManagerAndroid.cameraPermission().then((data) => {
                         this.selectCamera();
                     }, (err) => {
-                        Alert.alert('提示','请到设置-应用-授权管理设置相机权限');
+                        Alert.alert('提示', '请到设置-应用-授权管理设置相机权限');
                     });
                 }
                 break;
             case 1:
                 if (Platform.OS === 'ios') {
                     // 图库
-                    PermissionsManager.photoPermission().then(data=>{
+                    PermissionsManager.photoPermission().then(data => {
                         this.selectPhoto();
-                    }).catch(err=>{
+                    }).catch(err => {
                         // Toast.showShortCenter(err.message);
-                        Alert.alert(null,err.message)
+                        Alert.alert(null, err.message)
                     });
-                }else
+                } else
                     this.selectPhoto();
                 break;
         }
     }
-    selectCamera(){
-        ImagePicker.launchCamera(options, (response)=>{
+
+    selectCamera() {
+        ImagePicker.launchCamera(options, (response) => {
             // this.imageProcess(response);
             this.setState({
                 modalVisible: false,
             });
-            DeviceEventEmitter.emit('imageCallBack',response);
+            DeviceEventEmitter.emit('imageCallBack', response);
         })
     }
-    selectPhoto(){
-        ImagePicker.launchImageLibrary(options, (response) =>{
+
+    selectPhoto() {
+        ImagePicker.launchImageLibrary(options, (response) => {
             // this.imageProcess(response);
             this.setState({
                 modalVisible: false,
             });
-            DeviceEventEmitter.emit('imageCallBack',response);
+            DeviceEventEmitter.emit('imageCallBack', response);
         })
     }
 
@@ -550,18 +552,20 @@ class Mine extends Component {
                 Toast.showShortCenter('图片上传失败，请重新选择上传');
             });
     }
+
     // 判断ScrollView滑动到底部
-    contentViewScroll(e: Object){
+    contentViewScroll(e: Object) {
         var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
         var contentSizeHeight = e.nativeEvent.contentSize.height - 300; //scrollView contentSize高度
         var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
-        console.log('fjafd===',ConstValue.NavigationBar_StatusBar_Height,ConstValue.Tabbar_Height,);
+        console.log('fjafd===', ConstValue.NavigationBar_StatusBar_Height, ConstValue.Tabbar_Height,);
         console.log('滑动距离', offsetY, contentSizeHeight, oriageScrollHeight, height);
-        if (offsetY + oriageScrollHeight >= contentSizeHeight){
+        if (offsetY + oriageScrollHeight >= contentSizeHeight) {
             console.log('scrollView', 'scrollView滑动到底部事件');
             this.scrollView.scrollTo({x: 0, y: 0, animated: true})
         }
     }
+
     render() {
         const navigator = this.props.navigation;
         const statusRender =
@@ -607,7 +611,7 @@ class Mine extends Component {
 
         const changeCarView = this.props.userCarList && this.props.userCarList.length > 1 ?
             <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('ChooseCar',{
+                this.props.navigation.navigate('ChooseCar', {
                     carList: this.props.userCarList,
                     currentCar: this.props.plateNumber,
                     flag: false,
@@ -674,7 +678,7 @@ class Mine extends Component {
                                 width,
                                 justifyContent: 'center',
                                 flexDirection: 'row',
-                                alignItems:'center'
+                                alignItems: 'center'
                             }}>
                                 {TitleView}
                             </View>
@@ -745,217 +749,242 @@ class Mine extends Component {
                                 this.contentViewScroll
                                 // this.scrollView.scrollTo({x: 0, y: 0, animated: true})
                             } style={styles.scrollViewHeight}
-                                ref={(scroll)=>{this.scrollView = scroll}}
+                                        ref={(scroll) => {
+                                            this.scrollView = scroll
+                                        }}
                             >
-                            <View style={styles.numberView}/>
-                            <View style={styles.contentView}>
-                                <SettingCell
-                                    style={{height: 36}}
-                                    leftIcon="&#xe62a;"
-                                    content={'个人信息'}
-                                    showBottomLine={true}
-                                    clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.onMultiClick()) {
-                                            if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
-                                                navigator.navigate('PersonInfo');
-                                            } else if (this.state.verifiedState == '1201') {
-                                                Alert.alert('提示', '实名认证中');
-                                            } else if (this.state.verifiedState == '1203') {
-                                                Alert.alert('提示', '实名认证被驳回');
-                                            }
-                                        }
-                                    }}
-                                />
-                                <SettingCell
-                                    leftIcon="&#xe62b;"
-                                    content={'车辆信息'}
-                                    showBottomLine={true}
-                                    clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.onMultiClick()) {
-                                            if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
-                                                if (this.props.plateNumberObj) {
-                                                    if (this.props.plateNumberObj.size === 0 || this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20 || this.props.plateNumberObj.carStatus === 0) {
-                                                        navigator.navigate('CarInfo');
-                                                    } else {
-                                                        navigator.navigate('CarDisablePage');
+                                <View style={styles.numberView}/>
+                                <View style={styles.contentView}>
+                                    {this.props.driverStatus == '1' || this.props.driverStatus == '2' ?
+                                        <View>
+                                            <SettingCell
+                                                style={{height: 36}}
+                                                leftIcon="&#xe62a;"
+                                                content={'个人信息'}
+                                                showBottomLine={true}
+                                                clickAction={() => {
+                                                    ClickUtil.resetLastTime();
+                                                    if (ClickUtil.onMultiClick()) {
+                                                        if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
+                                                            navigator.navigate('PersonInfo');
+                                                        } else if (this.state.verifiedState == '1201') {
+                                                            Alert.alert('提示', '实名认证中');
+                                                        } else if (this.state.verifiedState == '1203') {
+                                                            Alert.alert('提示', '实名认证被驳回');
+                                                        }
                                                     }
-                                                }
-                                            } else if (this.state.certificationState === '1201') {
-                                                Alert.alert('提示', '资质认证中');
-                                            } else if (this.state.certificationState === '1203') {
-                                                Alert.alert('提示', '资质认证被驳回');
-                                            }
-                                        }
-                                    }}
-                                />
-                                <SettingCell
-                                    leftIcon="&#xe676;"
-                                    iconFontColor={{color: '#32C7AA',fontSize:17}}
-                                    content={'伙伴信息'}
-                                    showBottomLine={true}
-                                    clickAction={() => {
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe62b;"
+                                                content={'车辆信息'}
+                                                showBottomLine={true}
+                                                clickAction={() => {
+                                                    ClickUtil.resetLastTime();
+                                                    if (ClickUtil.onMultiClick()) {
+                                                        if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
+                                                            if (this.props.plateNumberObj) {
+                                                                if (this.props.plateNumberObj.size === 0 || this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20 || this.props.plateNumberObj.carStatus === 0) {
+                                                                    navigator.navigate('CarInfo');
+                                                                } else {
+                                                                    navigator.navigate('CarDisablePage');
+                                                                }
+                                                            }
+                                                        } else if (this.state.certificationState === '1201') {
+                                                            Alert.alert('提示', '资质认证中');
+                                                        } else if (this.state.certificationState === '1203') {
+                                                            Alert.alert('提示', '资质认证被驳回');
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe672;"
+                                                iconFontColor={{color: '#F6BD0E'}}
+                                                content={'认证信息'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
 
-                                    }}
-                                />
+                                                }}
+                                            />
+                                        </View>
+                                        :
+                                        <View>
+                                            <SettingCell
+                                                leftIcon="&#xe62a;"
+                                                content={'司机管理'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
 
-                                <SettingCell
-                                    leftIcon="&#xe672;"
-                                    iconFontColor={{color: '#F6BD0E'}}
-                                    content={'认证信息'}
-                                    showBottomLine={false}
-                                    clickAction={() => {
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe62b;"
+                                                content={'车辆管理'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
 
-                                    }}
-                                />
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe672;"
+                                                iconFontColor={{color: '#F6BD0E'}}
+                                                content={'认证信息'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
 
-                                <View style={styles.separateView}/>
-                                {/*{*/}
+                                                }}
+                                            />
+                                        </View>
+
+                                    }
+
+                                    <View style={styles.separateView}/>
+                                    {/*{*/}
                                     {/*this.state.verifiedState != '1202' ?*/}
-                                        {/*<SettingCell*/}
-                                            {/*leftIcon="&#xe673;"*/}
-                                            {/*content={'实名认证'}*/}
-                                            {/*authenticationStatus={this.state.verifiedState}*/}
-                                            {/*showBottomLine={true}*/}
-                                            {/*clickAction={() => {*/}
-                                        {/*ClickUtil.resetLastTime();*/}
-                                        {/*if (ClickUtil.onMultiClick()) {*/}
-                                            {/*if (this.state.verifiedState == '1200') {*/}
-                                                {/*// 未认证*/}
-                                                {/*Storage.get(StorageKey.changePersonInfoResult).then((value) => {*/}
+                                    {/*<SettingCell*/}
+                                    {/*leftIcon="&#xe673;"*/}
+                                    {/*content={'实名认证'}*/}
+                                    {/*authenticationStatus={this.state.verifiedState}*/}
+                                    {/*showBottomLine={true}*/}
+                                    {/*clickAction={() => {*/}
+                                    {/*ClickUtil.resetLastTime();*/}
+                                    {/*if (ClickUtil.onMultiClick()) {*/}
+                                    {/*if (this.state.verifiedState == '1200') {*/}
+                                    {/*// 未认证*/}
+                                    {/*Storage.get(StorageKey.changePersonInfoResult).then((value) => {*/}
 
-                                                    {/*if (value){*/}
-                                                         {/*this.props.navigation.navigate('VerifiedPage', {*/}
-                                                             {/*resultInfo: value,*/}
-                                                         {/*});*/}
-                                                    {/*}else {*/}
-                                                        {/*this.props.navigation.navigate('VerifiedPage');*/}
-                                                    {/*}*/}
-                                                {/*});*/}
-                                            {/*} else {*/}
-                                                {/*// 认证中，认证驳回，认证通过*/}
+                                    {/*if (value){*/}
+                                    {/*this.props.navigation.navigate('VerifiedPage', {*/}
+                                    {/*resultInfo: value,*/}
+                                    {/*});*/}
+                                    {/*}else {*/}
+                                    {/*this.props.navigation.navigate('VerifiedPage');*/}
+                                    {/*}*/}
+                                    {/*});*/}
+                                    {/*} else {*/}
+                                    {/*// 认证中，认证驳回，认证通过*/}
 
-                                                 {/*this.props.navigation.navigate('VerifiedStatePage', {*/}
-                                                     {/*qualifications: this.state.verifiedState,*/}
-                                                 {/*});*/}
-                                            {/*}*/}
-                                        {/*}*/}
+                                    {/*this.props.navigation.navigate('VerifiedStatePage', {*/}
+                                    {/*qualifications: this.state.verifiedState,*/}
+                                    {/*});*/}
+                                    {/*}*/}
+                                    {/*}*/}
                                     {/*}}*/}
-                                        {/*/> : null*/}
-                                {/*}*/}
-                                {/*{*/}
+                                    {/*/> : null*/}
+                                    {/*}*/}
+                                    {/*{*/}
                                     {/*this.state.certificationState != '1202' ?*/}
-                                        {/*<SettingCell*/}
-                                            {/*leftIcon="&#xe672;"*/}
-                                            {/*content={'资质认证'}*/}
-                                            {/*authenticationStatus={this.state.certificationState}*/}
-                                            {/*showBottomLine={false}*/}
-                                            {/*clickAction={() => {*/}
-                                                {/*ClickUtil.resetLastTime();*/}
-                                                {/*if (ClickUtil.onMultiClick()) {*/}
-                                                    {/*if (this.state.certificationState) {*/}
-                                                        {/*if (this.state.certificationState == '1200') {*/}
-                                                            {/*// 未认证*/}
+                                    {/*<SettingCell*/}
+                                    {/*leftIcon="&#xe672;"*/}
+                                    {/*content={'资质认证'}*/}
+                                    {/*authenticationStatus={this.state.certificationState}*/}
+                                    {/*showBottomLine={false}*/}
+                                    {/*clickAction={() => {*/}
+                                    {/*ClickUtil.resetLastTime();*/}
+                                    {/*if (ClickUtil.onMultiClick()) {*/}
+                                    {/*if (this.state.certificationState) {*/}
+                                    {/*if (this.state.certificationState == '1200') {*/}
+                                    {/*// 未认证*/}
 
-                                                            {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
+                                    {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
 
-                                                            {/*if (value){*/}
-                                                                {/*this.props.navigation.navigate('CertificationPage', {*/}
-                                                                    {/*resultInfo: value,*/}
-                                                                 {/*});*/}
+                                    {/*if (value){*/}
+                                    {/*this.props.navigation.navigate('CertificationPage', {*/}
+                                    {/*resultInfo: value,*/}
+                                    {/*});*/}
 
-                                                            {/*}else {*/}
-                                                                {/*this.props.navigation.navigate('CertificationPage');                                                    }*/}
-                                                            {/*});*/}
-                                                        {/*} else {*/}
-                                                            {/*// 认证中，认证驳回，认证通过*/}
-                                                                {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
-                                                                {/*qualifications: this.state.certificationState,*/}
-                                                            {/*});*/}
-                                                        {/*}*/}
-                                                    {/*}*/}
+                                    {/*}else {*/}
+                                    {/*this.props.navigation.navigate('CertificationPage');                                                    }*/}
+                                    {/*});*/}
+                                    {/*} else {*/}
+                                    {/*// 认证中，认证驳回，认证通过*/}
+                                    {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
+                                    {/*qualifications: this.state.certificationState,*/}
+                                    {/*});*/}
+                                    {/*}*/}
+                                    {/*}*/}
 
-                                                {/*}*/}
-                                            {/*}}*/}
-                                        {/*/> : null*/}
-                                {/*}*/}
-                                {/*{*/}
+                                    {/*}*/}
+                                    {/*}}*/}
+                                    {/*/> : null*/}
+                                    {/*}*/}
+                                    {/*{*/}
                                     {/*this.state.verifiedState == '1202' && this.state.certificationState == '1202' ?*/}
-                                        {/*null : <View style={styles.separateView}/>*/}
-                                {/*}*/}
-                                <SettingCell
-                                    leftIcon="&#xe62e;"
-                                    iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
-                                    content={'登录密码'}
-                                    showBottomLine={false}
-                                    clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.onMultiClick()) {
-                                            navigator.navigate('ChangePwd');
-                                        }
-                                    }}
-                                />
-                                {/*<SettingCell*/}
+                                    {/*null : <View style={styles.separateView}/>*/}
+                                    {/*}*/}
+                                    <SettingCell
+                                        leftIcon="&#xe62e;"
+                                        iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
+                                        content={'登录密码'}
+                                        showBottomLine={false}
+                                        clickAction={() => {
+                                            ClickUtil.resetLastTime();
+                                            if (ClickUtil.onMultiClick()) {
+                                                navigator.navigate('ChangePwd');
+                                            }
+                                        }}
+                                    />
+                                    {/*<SettingCell*/}
                                     {/*leftIcon="&#xe62f;"*/}
                                     {/*iconFontColor={{color: StaticColor.YELLOW_PAY_ICON_COLOR}}*/}
                                     {/*content={'支付密码'}*/}
                                     {/*showBottomLine={false}*/}
                                     {/*clickAction={() => {*/}
-                                         {/*ClickUtil.resetLastTime();*/}
-                                         {/*if (ClickUtil.onMultiClick()) {*/}
-                                             {/*navigator.navigate('PayPassword');*/}
-                                         {/*}*/}
+                                    {/*ClickUtil.resetLastTime();*/}
+                                    {/*if (ClickUtil.onMultiClick()) {*/}
+                                    {/*navigator.navigate('PayPassword');*/}
+                                    {/*}*/}
                                     {/*}}*/}
-                                {/*/>*/}
+                                    {/*/>*/}
 
-                                {/*<View style={styles.separateView}/>*/}
-                                <View style={styles.separateView}/>
-                                <SettingCell
-                                    leftIcon="&#xe630;"
-                                    content={'关于我们'}
-                                    showBottomLine={true}
-                                    clickAction={() => {
-                                        ClickUtil.resetLastTime();
-                                        if (ClickUtil.onMultiClick()) {
-                                            navigator.navigate('AboutUs');
-                                        }
-                                    }}
-                                />
-                                <SettingCell
-                                    leftIcon="&#xe637;" content={'设置'} clickAction={() => {
+                                    {/*<View style={styles.separateView}/>*/}
+                                    <View style={styles.separateView}/>
+                                    <SettingCell
+                                        leftIcon="&#xe630;"
+                                        content={'关于我们'}
+                                        showBottomLine={true}
+                                        clickAction={() => {
+                                            ClickUtil.resetLastTime();
+                                            if (ClickUtil.onMultiClick()) {
+                                                navigator.navigate('AboutUs');
+                                            }
+                                        }}
+                                    />
+                                    <SettingCell
+                                        leftIcon="&#xe637;" content={'设置'} clickAction={() => {
                                         ClickUtil.resetLastTime();
                                         if (ClickUtil.onMultiClick()) {
                                             this.pushToSetting();
                                         }
-                                }}
-                                />
-                                <View style={styles.separateView}/>
-                                <SettingCell
-                                    leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
-                                    this.props.navigation.navigate('CharacterList');
+                                    }}
+                                    />
+                                    <View style={styles.separateView}/>
+                                    <SettingCell
+                                        leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
+                                        this.props.navigation.navigate('CharacterList');
 
-                                }}
-                                    hideArrowIcon={true}
-                                    versionName={`V${DeviceInfo.getVersion()}`}
-                                />
-                                <View style={{
-                                    height,
-                                    backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
-                                }}/>
-                            </View>
+                                    }}
+                                        hideArrowIcon={true}
+                                        versionName={`V${DeviceInfo.getVersion()}`}
+                                    />
+                                    <View style={{
+                                        height,
+                                        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+                                    }}/>
+                                </View>
                             </ScrollView>
                         </View>
                     </View>
                 </View>
                 {
-                    this.state.loading ? <Loading /> : null
+                    this.state.loading ? <Loading/> : null
                 }
                 <Modal
                     animationType={"slide"}
                     transparent={true}
                     visible={this.state.modalVisible}>
-                        <AlertSheetItem ref="choose" />
+                    <AlertSheetItem ref="choose"/>
                 </Modal>
             </View>
         );
@@ -973,8 +1002,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-    };
+    return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);
