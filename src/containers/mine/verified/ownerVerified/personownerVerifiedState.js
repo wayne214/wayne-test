@@ -164,7 +164,7 @@ class personownerVerifiedState extends Component{
                     });
 
                     if (responseData.result.certificationStatus == '1202'){
-                        Storage.save(StorageKey.personInfoResult, responseData.result);
+                        Storage.save(StorageKey.personownerInfoResult, responseData.result);
                     }
                     DeviceEventEmitter.emit('verifiedSuccess');
 
