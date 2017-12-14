@@ -80,7 +80,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driverStatus:'1'});
+                                        this.props.setCharacter({driverStatus:'1',ownerStatus:'0'});
                                         // this.props.navigation.navigate('Main');
                                     }
                                     },
@@ -105,7 +105,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({ownerStatus:'1'});
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'1'});
                                     }
                                     },
                                 ]
@@ -128,7 +128,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({ownerStatus:'3'});
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'3'});
                                     }
                                     },
                                 ]
