@@ -849,18 +849,18 @@ class Home extends Component {
                     text: '好的',
                     onPress: () => {
 
-                        Storage.get(StorageKey.changeCarInfoResult).then((value) => {
-
-                            if (value) {
-                                this.props.navigation.navigate('CertificationPage', {
-                                    resultInfo: value,
-                                });
-                            } else {
-                                this.props.navigation.navigate('CertificationPage', {
-                                    resultInfo: this.state.resultInfo,
-                                });
-                            }
-                        });
+                        // Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                        //
+                        //     if (value) {
+                        //         this.props.navigation.navigate('CertificationPage', {
+                        //             resultInfo: value,
+                        //         });
+                        //     } else {
+                        //         this.props.navigation.navigate('CertificationPage', {
+                        //             resultInfo: this.state.resultInfo,
+                        //         });
+                        //     }
+                        // });
 
                         // this.props.navigation.navigate('CertificationPage', {
                         //     qualifications: result,
@@ -876,7 +876,7 @@ class Home extends Component {
                 {
                     text: '好的',
                     onPress: () => {
-                        this.props.navigation.navigate('Mine');
+                        // this.props.navigation.navigate('Mine');
                     },
                 },
             ], {cancelable: false});
@@ -1145,7 +1145,9 @@ class Home extends Component {
                     leftButtonHidden={false}
                     leftButtonConfig={{
                         type: 'image',
-                        image: this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown,
+                        image: this.props.driverStatus == '1' ||  this.props.driverStatus == '2'?
+                            this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown
+                            : this.state.bubbleSwitch ? StaticImage.OwnerUp : StaticImage.OwnerDown,
                         // disableImage: StaticImage.DriverUp,
                         leftImageStyle: {
                             width: 17,
@@ -1385,6 +1387,8 @@ function mapStateToProps(state) {
         userCarList: state.user.get('userCarList'),
         speechSwitchStatus: state.app.get('speechSwitchStatus'),
         versionUrl: state.app.get('versionUrl'),
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

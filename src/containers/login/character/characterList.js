@@ -62,7 +62,7 @@ class CharacterList extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
-                                this.props.navigation.goBack();
+                                this.props.navigation.navigate('Login');
                             },
                         }}
                     />
@@ -77,12 +77,13 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-
+                                        this.props.navigation.navigate('Main');
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-
+                                        this.props.setCharacter({driverStatus:'1',ownerStatus:'0'});
+                                        // this.props.navigation.navigate('Main');
                                     }
                                     },
                                 ]
@@ -100,13 +101,13 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-                                        console.log('character', this.props.character);
-                                        console.log('characterSize', this.props.character.driver);
+                                        console.log('driverStatus', this.props.driverStatus);
+                                        console.log('ownerStatus', this.props.ownerStatus);
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driver:'OUTSIDEDRIVER',owner:'Personalowner'});
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'1'});
                                     }
                                     },
                                 ]
@@ -129,7 +130,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter('Enterpriseowner');
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'3'});
                                     }
                                     },
                                 ]
@@ -223,7 +224,10 @@ class CharacterList extends BaseContainer {
 
 function mapStateToProps(state) {
     return {
-        character: state.user.get('character')
+        // driver: state.user.get('driver'),
+        // owner: state.user.get('owner'),
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

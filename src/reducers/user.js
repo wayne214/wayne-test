@@ -1,3 +1,10 @@
+/**
+ * OUTSIDEDRIVER  外部司机
+ * Personalowner  个人车主
+ * Enterpriseowner  企业车主
+ * driverStatus ： 0 未认证 1 认证中 2 认证驳回
+ * ownerStatus ： 0 未认证 1 个人车主认证中 2 个人车主认证驳回 3 企业车主认证中 4 企业车主认证驳回
+ */
 import Immutable from 'immutable';
 import * as ActionTypes from '../constants/actionType';
 import Storage from '../utils/storage';
@@ -9,7 +16,9 @@ const initState = Immutable.fromJS({
     plateNumber: '', // 用户绑定的车辆
     plateNumberObj: {}, // 用户绑定的车辆信息
     userCarList: [], // 用户车辆列表
-    character:{driver:'',owner:''}, // 账户-角色
+    driverStatus: '0',
+    ownerStatus: '0',
+
 });
 
 export default (state = initState, action) => {
@@ -86,7 +95,10 @@ export default (state = initState, action) => {
             globalState = globalState.set('userCarList', action.payload);
             return globalState;
         case ActionTypes.ACTION_SET_CHARACTER:
-            globalState = globalState.set('character', action.payload);
+            // globalState = globalState.set('driver', action.payload.driver);
+            // globalState = globalState.set('owner', action.payload.owner);
+            globalState = globalState.set('driverStatus', action.payload.driverStatus);
+            globalState = globalState.set('ownerStatus', action.payload.ownerStatus);
             return globalState;
         default:
             return state;
