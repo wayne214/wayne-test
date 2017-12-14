@@ -7,13 +7,13 @@ import {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ffffff',
     },
     titleStyle:{
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
-        fontSize: 17,
+        fontSize: 16,
         color: '#333333',
 
     }

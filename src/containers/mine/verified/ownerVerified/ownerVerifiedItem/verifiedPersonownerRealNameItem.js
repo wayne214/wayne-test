@@ -5,8 +5,8 @@ import {
     StyleSheet,
 } from 'react-native';
 
-import Line from './verifiedLineItem';
-import ImagesItem from './verifiedImagesItem';
+import Line from './../../verifiedIDItem/verifiedLineItem';
+import ImagesItem from './../../verifiedIDItem/verifiedImagesItem';
 
 const styles = StyleSheet.create({
     container:{
@@ -38,21 +38,10 @@ class verifiedRealNameItem extends Component{
     constructor(props) {
         super(props);
 
-        this.nameValueChange = this.nameValueChange.bind(this);
-        this.cardValueChange = this.cardValueChange.bind(this);
         this.imageClick = this.imageClick.bind(this);
     }
 
     componentDidMount() {
-    }
-
-    /*输入姓名*/
-    nameValueChange(text){
-        this.props.nameChange(text);
-    }
-    /*输入身份证号*/
-    cardValueChange(text){
-        this.props.cardChange(text);
     }
 
     imageClick(index){
@@ -105,16 +94,16 @@ class verifiedRealNameItem extends Component{
 
                 <ImagesItem firstName ="身份证正面"
                             secondName="身份证反面"
-                            thirdName="半身照"
+                            // thirdName="半身照"
                             firstImagePath={resultInfo.idFaceSideThumbnailAddress ?
                             resultInfo.idFaceSideThumbnailAddress : resultInfo.positiveCard ?
                             resultInfo.positiveCard : ''}
                             secondImagePath={resultInfo.idBackSideThumbnailAddress ?
                             resultInfo.idBackSideThumbnailAddress : resultInfo.oppositeCard ?
                             resultInfo.oppositeCard : ''}
-                            thirdImagePath={resultInfo.handleIdThumbnailAddress ?
-                            resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
-                            resultInfo.headPortrait : ''}
+                            // thirdImagePath={resultInfo.handleIdThumbnailAddress ?
+                            // resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
+                            // resultInfo.headPortrait : ''}
                             imageClick={(index)=>{
                                 this.imageClick(index);
                             }}

@@ -27,6 +27,10 @@ const changePersonInfoResult = 'changePersonInfoResult'; // 实名认证提交�
 
 const personInfoResult = 'personInfoResult'; // 个人信息
 
+const enterpriseownerInfoResult = 'enterpriseownerInfoResult'; // 企业车主认证信息
+
+const personownerInfoResult = 'personownerInfoResult'; // 个人车主认证信息
+
 const PlateNumberObj = 'PlateNumberObj'; // 绑定车辆的具体信息
 
 const userCarList = 'userCarList'; // 车辆列表
@@ -55,5 +59,7 @@ export default {
     acceptMessage,
     newMessageFlag,
     payPassword,
+    enterpriseownerInfoResult,
+    personownerInfoResult
 }
 
