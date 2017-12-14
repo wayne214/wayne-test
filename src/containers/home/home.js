@@ -1154,10 +1154,6 @@ class Home extends Component {
                             height: 17,
                         },
                         onClick: () => {
-                            debugger
-                            this.props.driverStatus == '1' ||  this.props.driverStatus == '2' ?
-                                console.log('yes'):
-                                console.log('no')
                             this.setState({
                                 bubbleSwitch: !this.state.bubbleSwitch,
                                 show: !this.state.show,
