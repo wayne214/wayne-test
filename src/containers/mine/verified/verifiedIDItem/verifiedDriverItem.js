@@ -69,7 +69,7 @@ class verifiedDriverItem extends Component{
 
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.titleStyle}>
-                        真实姓名
+                        姓名
                     </Text>
                     <Text style={styles.textInputStyle}>
                         {resultInfo.drivingLicenceName}

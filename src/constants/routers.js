@@ -90,6 +90,8 @@ import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
 import CharacterList from '../containers/login/character/characterList';
 import CharacterOwner from '../containers/login/character/characterOwner';
 import AddCarDriver from '../containers/mine/driver/addCarDriver';
+import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/enterpriseownerVerifiedState';
+import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
 
 
 
@@ -549,6 +551,18 @@ const StackRouteConfigs = {
     },
     AddCarDriver: {
         screen: AddCarDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EnterpriseownerVerifiedStatePage: {
+        screen: EnterpriseownerVerifiedStatePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonownerVerifiedStatePage: {
+        screen: PersonownerVerifiedStatePage,
         navigationOptions: {
             header: null
         }
