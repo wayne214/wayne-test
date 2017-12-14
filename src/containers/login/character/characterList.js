@@ -49,6 +49,8 @@ class CharacterList extends BaseContainer {
     }
 
     render() {
+        const navigator = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -138,6 +140,82 @@ class CharacterList extends BaseContainer {
 
                 </View>
 
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                            if (value){
+                                navigator.navigate('VerifiedPage', {
+                                    resultInfo: value,
+                                    });
+                            }else {
+                                navigator.navigate('VerifiedPage');
+                            }
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机认证</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+                        this.props.navigation.navigate('VerifiedStatePage', {
+                            qualifications: '1200',
+                            });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机认证详情</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机增加车辆</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>个人车主认证</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>个人车主认证详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>企业车主认证</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>企业车主认证详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加司机</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加司机详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加车辆</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
