@@ -98,6 +98,9 @@ import CompanyCarOwnerAuth from '../containers/mine/verified/companyCarOwnerAuth
 import AddCarDriver from '../containers/mine/driver/addCarDriver';
 import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/enterpriseownerVerifiedState';
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
+import DriverManagement from '../containers/mine/owner/driverManagement';
+import CarManagement from '../containers/mine/owner/carManagement';
+
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -565,8 +568,15 @@ const StackRouteConfigs = {
             header: null
         }
     },
+
     CarOwnerAddDriverDetail: {
         screen: CarOwnerAddDriverDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarManagement: {
+        screen: CarManagement,
         navigationOptions: {
             header: null
         }
@@ -607,6 +617,13 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    DriverManagement: {
+        screen: DriverManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'Splash', // 初始化哪个界面为根界面
