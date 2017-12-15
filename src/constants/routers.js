@@ -95,6 +95,9 @@ import CarOwnerAddCar from '../containers/mine/verified/carOwnerAddCar';
 import CarOwnerAddCarDetail from '../containers/mine/verified/carOwnerAddCarDetail';
 import PersonCarOwnerAuth from '../containers/mine/verified/personCarOwnerAuth';
 import CompanyCarOwnerAuth from '../containers/mine/verified/companyCarOwnerAuth';
+import AddCarDriver from '../containers/mine/driver/addCarDriver';
+import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/enterpriseownerVerifiedState';
+import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -556,8 +559,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    AddCarDriver: {
+        screen: AddCarDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
     CarOwnerAddDriverDetail: {
         screen: CarOwnerAddDriverDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EnterpriseownerVerifiedStatePage: {
+        screen: EnterpriseownerVerifiedStatePage,
         navigationOptions: {
             header: null
         }
@@ -582,6 +597,12 @@ const StackRouteConfigs = {
     },
     CompanyCarOwnerAuth: {
         screen: CompanyCarOwnerAuth,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonownerVerifiedStatePage: {
+        screen: PersonownerVerifiedStatePage,
         navigationOptions: {
             header: null
         }
