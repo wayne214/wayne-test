@@ -90,7 +90,7 @@ class verifiedIDInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.IDName}
-                               placeholder={'请手动输入姓名'}
+                               placeholder={'请输入姓名'}
 
                     />
                 </View>
@@ -112,7 +112,7 @@ class verifiedIDInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.IDCard}
-                               placeholder={'请手动输入身份证号'}
+                               placeholder={'请输入身份证号'}
 
                     />
 

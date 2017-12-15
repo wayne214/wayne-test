@@ -131,7 +131,8 @@ class CheckPhone extends Component {
                     const resetAction = NavigationActions.reset({
                         index: 0,
                         actions: [
-                            NavigationActions.navigate({ routeName: 'Main'}),
+                            // NavigationActions.navigate({ routeName: 'Main'}),
+                            NavigationActions.navigate({ routeName: 'CharacterList'}),
                         ]
                     });
                     this.props.navigation.dispatch(resetAction);

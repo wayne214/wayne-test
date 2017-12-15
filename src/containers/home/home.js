@@ -632,11 +632,11 @@ class Home extends Component {
                         }
                     }
                 } else {
-                    this.setData();
+                    // this.setData();
                 }
             },
             error: (errorInfo) => {
-                this.setData();
+                // this.setData();
             },
             finish: () => {
             }
@@ -849,18 +849,18 @@ class Home extends Component {
                     text: '好的',
                     onPress: () => {
 
-                        Storage.get(StorageKey.changeCarInfoResult).then((value) => {
-
-                            if (value) {
-                                this.props.navigation.navigate('CertificationPage', {
-                                    resultInfo: value,
-                                });
-                            } else {
-                                this.props.navigation.navigate('CertificationPage', {
-                                    resultInfo: this.state.resultInfo,
-                                });
-                            }
-                        });
+                        // Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                        //
+                        //     if (value) {
+                        //         this.props.navigation.navigate('CertificationPage', {
+                        //             resultInfo: value,
+                        //         });
+                        //     } else {
+                        //         this.props.navigation.navigate('CertificationPage', {
+                        //             resultInfo: this.state.resultInfo,
+                        //         });
+                        //     }
+                        // });
 
                         // this.props.navigation.navigate('CertificationPage', {
                         //     qualifications: result,
@@ -876,7 +876,7 @@ class Home extends Component {
                 {
                     text: '好的',
                     onPress: () => {
-                        this.props.navigation.navigate('Mine');
+                        // this.props.navigation.navigate('Mine');
                     },
                 },
             ], {cancelable: false});
@@ -1145,7 +1145,9 @@ class Home extends Component {
                     leftButtonHidden={false}
                     leftButtonConfig={{
                         type: 'image',
-                        image: this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown,
+                        image: this.props.driverStatus == '1' ||  this.props.driverStatus == '2'?
+                            this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown
+                            : this.state.bubbleSwitch ? StaticImage.OwnerUp : StaticImage.OwnerDown,
                         // disableImage: StaticImage.DriverUp,
                         leftImageStyle: {
                             width: 17,
@@ -1250,18 +1252,18 @@ class Home extends Component {
                             badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
                             renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                             clickAction={() => { // 点击事件
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        DeviceEventEmitter.emit('resetGood');
-                                        this.props.navigation.navigate('GoodsSource');
-                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                        this.notifyCarStatus();
-                                    } else {
-                                        this.getUserCar();
-                                    }
-                                } else {
-                                    this.getUserCar();
-                                }
+                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                //         DeviceEventEmitter.emit('resetGood');
+                                //         this.props.navigation.navigate('GoodsSource');
+                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                //         this.notifyCarStatus();
+                                //     } else {
+                                //         this.getUserCar();
+                                //     }
+                                // } else {
+                                //     this.getUserCar();
+                                // }
                             }}
                         />
                         <View style={styles.line}/>
@@ -1274,19 +1276,19 @@ class Home extends Component {
                             badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
                             renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                             clickAction={() => {
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.changeOrderTab(1);
-                                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                                        this.props.navigation.navigate('Order');
-                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                        this.notifyCarStatus();
-                                    } else {
-                                        this.getUserCar();
-                                    }
-                                } else {
-                                    this.getUserCar();
-                                }
+                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                //         this.changeOrderTab(1);
+                                //         DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                //         this.props.navigation.navigate('Order');
+                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                //         this.notifyCarStatus();
+                                //     } else {
+                                //         this.getUserCar();
+                                //     }
+                                // } else {
+                                //     this.getUserCar();
+                                // }
                             }}
                         />
                         <View style={styles.line}/>
@@ -1299,19 +1301,19 @@ class Home extends Component {
                             badgeText={0}
                             renderImage={() => <Image source={StaticImage.signIcon}/>}
                             clickAction={() => {
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.changeOrderTab(2);
-                                        DeviceEventEmitter.emit('changeOrderTabPage', 2);
-                                        this.props.navigation.navigate('Order');
-                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                        this.notifyCarStatus();
-                                    } else {
-                                        this.getUserCar();
-                                    }
-                                } else {
-                                    this.getUserCar();
-                                }
+                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                //         this.changeOrderTab(2);
+                                //         DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                                //         this.props.navigation.navigate('Order');
+                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                //         this.notifyCarStatus();
+                                //     } else {
+                                //         this.getUserCar();
+                                //     }
+                                // } else {
+                                //     this.getUserCar();
+                                // }
                             }}
                         />
                         <View style={styles.line}/>
@@ -1324,19 +1326,19 @@ class Home extends Component {
                             badgeText={0}
                             renderImage={() => <Image source={StaticImage.receiveIcon}/>}
                             clickAction={() => {
-                                if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                    if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                        this.changeOrderTab(3);
-                                        DeviceEventEmitter.emit('changeOrderTabPage', 3);
-                                        this.props.navigation.navigate('Order');
-                                    } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                        this.notifyCarStatus();
-                                    } else {
-                                        this.getUserCar();
-                                    }
-                                } else {
-                                    this.getUserCar();
-                                }
+                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
+                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                //         this.changeOrderTab(3);
+                                //         DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                                //         this.props.navigation.navigate('Order');
+                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                //         this.notifyCarStatus();
+                                //     } else {
+                                //         this.getUserCar();
+                                //     }
+                                // } else {
+                                //     this.getUserCar();
+                                // }
                             }}
                         />
                     </View>
@@ -1385,6 +1387,8 @@ function mapStateToProps(state) {
         userCarList: state.user.get('userCarList'),
         speechSwitchStatus: state.app.get('speechSwitchStatus'),
         versionUrl: state.app.get('versionUrl'),
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

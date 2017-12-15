@@ -4,18 +4,19 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import VerifiedSpaceItem from './verifiedSpaceItem';
+import Line from './verifiedLineItem';
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: '#f5f5f5',
+        backgroundColor: 'white',
     },
     titleStyle:{
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 15,
+        marginBottom: 15,
         marginLeft: 10,
-        fontSize: 17,
+        fontSize: 16,
         color: '#333333',
-
     }
 });
 
@@ -28,9 +29,12 @@ class verifiedGrayTitleItem extends Component{
         const {title} = this.props;
         return (
             <View style={styles.container}>
+                <VerifiedSpaceItem/>
+
                 <Text style={styles.titleStyle}>
                     {title}
                 </Text>
+                <Line />
             </View>
         )
     }

@@ -49,6 +49,8 @@ class CharacterList extends BaseContainer {
     }
 
     render() {
+        const navigator = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
@@ -60,7 +62,7 @@ class CharacterList extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
-                                this.props.navigation.goBack();
+                                this.props.navigation.navigate('Login');
                             },
                         }}
                     />
@@ -75,12 +77,13 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-
+                                        this.props.navigation.navigate('Main');
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-
+                                        this.props.setCharacter({driverStatus:'1',ownerStatus:'0'});
+                                        // this.props.navigation.navigate('Main');
                                     }
                                     },
                                 ]
@@ -98,13 +101,13 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-                                        console.log('character', this.props.character);
-                                        console.log('characterSize', this.props.character.driver);
+                                        console.log('driverStatus', this.props.driverStatus);
+                                        console.log('ownerStatus', this.props.ownerStatus);
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driver:'OUTSIDEDRIVER',owner:'Personalowner'});
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'1'});
                                     }
                                     },
                                 ]
@@ -127,7 +130,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter('Enterpriseowner');
+                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'3'});
                                     }
                                     },
                                 ]
@@ -138,6 +141,115 @@ class CharacterList extends BaseContainer {
 
                 </View>
 
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                            if (value){
+                                navigator.navigate('VerifiedPage', {
+                                    resultInfo: value,
+                                    });
+                            }else {
+                                navigator.navigate('VerifiedPage');
+                            }
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机认证</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        navigator.navigate('VerifiedStatePage', {
+                            qualifications: 1201,
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机认证详情</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                         Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                             if (value){
+                                 navigator.navigate('CertificationPage', {
+                                     resultInfo: value,
+                                 });
+                             }else {
+                                 navigator.navigate('CertificationPage');
+                             }
+
+                         });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机增加车辆</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        this.props.navigation.navigate('CerifiedStatePage', {
+                            qualifications: 1202,
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'purple'}} onPress={()=>{
+                        navigator.navigate('PersonCarOwnerAuth');
+                    }}>
+                        <Text style={{textAlign: 'center'}}>个人车主认证</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>个人车主认证详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'purple'}} onPress={()=>{
+                        navigator.navigate('CompanyCarOwnerAuth');
+                    }}>
+                        <Text style={{textAlign: 'center'}}>企业车主认证</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+
+                    }}>
+                        <Text style={{textAlign: 'center'}}>企业车主认证详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {
+                            if (value){
+                                navigator.navigate('CarOwnerAddDriver', {
+                                    resultInfo: value,
+                                });
+                            }else {
+                                navigator.navigate('CarOwnerAddDriver');
+                            }
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加司机</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        navigator.navigate('CarOwnerAddDriverDetail', {
+                            qualifications: 1201,
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加司机详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                        Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {
+                             if (value){
+                                 navigator.navigate('CarOwnerAddCar', {
+                                     resultInfo: value,
+                                 });
+                             }else {
+                                 navigator.navigate('CarOwnerAddCar');
+                             }
+
+                         });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加车辆</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+
+                        this.props.navigation.navigate('CarOwnerAddCarDetail', {
+                            qualifications: 1202,
+                        });
+                    }}>
+                        <Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -145,7 +257,10 @@ class CharacterList extends BaseContainer {
 
 function mapStateToProps(state) {
     return {
-        character: state.user.get('character')
+        // driver: state.user.get('driver'),
+        // owner: state.user.get('owner'),
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

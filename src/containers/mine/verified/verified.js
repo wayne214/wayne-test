@@ -767,10 +767,10 @@ class Verified extends Component {
         console.log('手持身份证缩略图：', this.state.handleIDThumbnailAddress);
 
 
-        this.setState({
-            appLoading: true,
-        });
-        this.realNameVerified(dataString, date);
+        // this.setState({
+        //     appLoading: true,
+        // });
+        // this.realNameVerified(dataString, date);
 
     }
 
@@ -797,7 +797,7 @@ class Verified extends Component {
     }
 
 
-    /*实名认证*/
+    /*司机认证*/
     realNameVerified(dataString, date) {
         currentTime = new Date().getTime();
 
@@ -830,8 +830,8 @@ class Verified extends Component {
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('提交实名认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '实名认证页面');
+                ReadAndWriteFileUtil.appendFile('提交司机认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '司机认证页面');
                 this.setState({
                     appLoading: false,
                 });
@@ -840,7 +840,7 @@ class Verified extends Component {
 
                 Storage.remove(StorageKey.changePersonInfoResult);
                 Storage.remove(StorageKey.personInfoResult);
-                Toast.showShortCenter('实名认证提交成功');
+                Toast.showShortCenter('司机认证提交成功');
                 DeviceEventEmitter.emit('verifiedSuccess');
 
                 this.popToTop();
@@ -946,7 +946,7 @@ class Verified extends Component {
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'实名认证'}
+                    title={'司机认证'}
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {

@@ -50,9 +50,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textStyle: {
-        marginTop: 15,
         fontSize: 20,
         color: 'white',
+        position: 'absolute',
+        bottom: 10,
+        backgroundColor: 'transparent'
     },
     bottomViewStyle: {
         height: 40,
@@ -132,7 +134,7 @@ class verifiedState extends Component{
         });
     }
 
-    /*实名认证*/
+    /*司机认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
 
@@ -148,8 +150,8 @@ class verifiedState extends Component{
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取实名认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '实名认证详情页面');
+                ReadAndWriteFileUtil.appendFile('获取司机认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '司机认证详情页面');
                 if(responseData.result){
                     this.setState({
                         resultInfo: responseData.result,
@@ -253,7 +255,7 @@ class verifiedState extends Component{
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'实名认证'}
+                    title={'司机认证详情'}
                     navigator={navigator}
                     hiddenBackIcon={false}
                 />
