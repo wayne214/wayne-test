@@ -90,6 +90,10 @@ import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
 import CharacterList from '../containers/login/character/characterList';
 import CharacterOwner from '../containers/login/character/characterOwner';
 import UploadAbnormal from '../containers/home/uploadAbnormal';
+import TakePhoto from '../containers/home/takePhoto';
+import RecordVideo from '../containers/home/recordVideo';
+import TakePhotoFinished from '../containers/home/takePhotoFinished';
+import RecordVideoFinished from '../containers/home/recordVideoFinished';
 
 
 
@@ -549,6 +553,30 @@ const StackRouteConfigs = {
     },
     UploadAbnormal: {
         screen: UploadAbnormal,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhoto: {
+        screen: TakePhoto,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecordVideo: {
+        screen: RecordVideo,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhotoFinished: {
+        screen: TakePhotoFinished,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecordVideoFinished: {
+        screen: RecordVideoFinished,
         navigationOptions: {
             header: null
         }

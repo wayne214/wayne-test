@@ -25,7 +25,7 @@ import Loading from '../../utils/loading';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
 const {width, height} = Dimensions.get('window');
-const selectedArr = ["拍照", "视频"];
+let selectedArr = ["拍照", "视频"];
 const ImageWH = (width - 70) / 4;
 
 let result = {
@@ -47,6 +47,7 @@ class uploadAbnormal extends Component {
         this.state = {
             loading: false,
             location: '',
+            selectedArr: ["拍照", "视频"],
         };
         this.submit = this.submit.bind(this);
         this.takePhoto = this.takePhoto.bind(this);
@@ -125,27 +126,33 @@ class uploadAbnormal extends Component {
 
     // 打开相机
     takePhoto() {
-        console.log('拍照');
+        this.props.navigation.navigate('TakePhoto');
     }
     // 打开视频
     recordVideo() {
-        console.log('视频');
+        this.props.navigation.navigate('RecordVideo');
     }
 
     clickImage(index) {
-        // const {imageList} = this.props;
-        // this.props.navigation.navigate(
-        //     'ReceiptPhotoShow',
-        //     {
-        //         image: imageList.toArray(),
-        //         num: index,
-        //     },
-        // );
+        console.log('---==index==---',index);
+        const {imageList} = this.props;
+        this.props.navigation.navigate(
+            'ReceiptPhotoShow',
+            {
+                image: imageList.toArray(),
+                num: index,
+            },
+        );
     }
 
 
     render() {
         const {imageList} = this.props;
+        if (imageList.size === 0) {
+            selectedArr = ['拍照', '视频'];
+        }else if (imageList.size > 0) {
+            selectedArr = ['拍照'];
+        }
         const navigator = this.props.navigation;
         const imagesView = imageList.map((picture, index) => {
             console.log('---imageList--',picture);
@@ -193,7 +200,18 @@ class uploadAbnormal extends Component {
                         type: 'string',
                         title: '取消',
                         onClick: () => {
-                            navigator.goBack();
+                            Alert.alert('','退出此次编辑？',[
+                                {
+                                    text: '取消',
+                                    onPress: () => {}
+                                },
+                                {
+                                    text: '退出',
+                                    onPress: () => {
+                                        navigator.goBack();
+                                    }
+                                },
+                            ], {cancelable: true});
                         },
                     }}
                     rightButtonConfig={{
@@ -357,7 +375,7 @@ const styles =StyleSheet.create({
     },
     bottomView: {
         width,
-        height: 200,
+        height: 210,
         marginTop: 15
     }
 });

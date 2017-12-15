@@ -162,7 +162,13 @@ import DriverDown from '../../assets/character/driverDown.png';
 import OwnerUp from '../../assets/character/ownerUp.png';
 /*角色-首页气泡*/
 import OwnerDown from '../../assets/character/ownerDown.png';
-
+/*录制视频按钮*/
+import solidCircle from '../../assets/home/solidCircle.png'
+import transparentCircle from '../../assets/home/transparentCircle.png'
+import circleView from '../../assets/home/circleView.png'
+import hollowCircle from '../../assets/home/hollowCircle.png'
+import takeBack from '../../assets/home/takeBack.png'
+import takeNext from '../../assets/home/takeNext.png'
 
 export default {
     EmptyImage,
@@ -262,5 +268,11 @@ export default {
     OwnerUp,
     OwnerDown,
     roadIcon,
+    solidCircle,
+    transparentCircle,
+    circleView,
+    hollowCircle,
+    takeBack,
+    takeNext,
 }
 
