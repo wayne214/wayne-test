@@ -100,6 +100,12 @@ import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerV
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
 import DriverManagement from '../containers/mine/owner/driverManagement';
 import CarManagement from '../containers/mine/owner/carManagement';
+import UploadAbnormal from '../containers/home/uploadAbnormal';
+import TakePhoto from '../containers/home/takePhoto';
+import RecordVideo from '../containers/home/recordVideo';
+import TakePhotoFinished from '../containers/home/takePhotoFinished';
+import RecordVideoFinished from '../containers/home/recordVideoFinished';
+
 
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
@@ -562,8 +568,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    UploadAbnormal: {
+        screen: UploadAbnormal,
+        navigationOptions: {
+            header: null
+        }
+    },
     AddCarDriver: {
         screen: AddCarDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhoto: {
+        screen: TakePhoto,
         navigationOptions: {
             header: null
         }
@@ -575,8 +593,20 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    RecordVideo: {
+        screen: RecordVideo,
+        navigationOptions: {
+            header: null
+        }
+    },
     CarManagement: {
         screen: CarManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhotoFinished: {
+        screen: TakePhotoFinished,
         navigationOptions: {
             header: null
         }
@@ -619,6 +649,12 @@ const StackRouteConfigs = {
     },
     DriverManagement: {
         screen: DriverManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecordVideoFinished: {
+        screen: RecordVideoFinished,
         navigationOptions: {
             header: null
         }

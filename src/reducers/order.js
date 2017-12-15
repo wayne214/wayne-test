@@ -5,9 +5,7 @@ import Immutable from 'immutable';
 import * as ActionTypes from '../constants/actionType';
 const initState = Immutable.fromJS({
     isResetCity: false,
-
     imageList: Immutable.List(),
-
     maxNum: 9, // 照片最大张数
 });
 

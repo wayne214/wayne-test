@@ -1137,6 +1137,172 @@ class Home extends Component {
                 }}>{this.state.limitNumber}</Text>
             </View> : null;
         let date = new Date();
+        const driverView = <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
+            <HomeCell
+                title="接单"// 文字
+                describe="方便接单，快速查看"
+                padding={10}// 文字与文字间距
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
+                badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
+                clickAction={() => { // 点击事件
+                    if (this.props.plateNumber && this.props.plateNumber !== '') {
+                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                            DeviceEventEmitter.emit('resetGood');
+                            this.props.navigation.navigate('GoodsSource');
+                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                            this.notifyCarStatus();
+                        } else {
+                            this.getUserCar();
+                        }
+                    } else {
+                        this.getUserCar();
+                    }
+                }}
+            />
+            <View style={styles.line}/>
+            <HomeCell
+                title="发运"
+                describe="一键发运，安全无忧"
+                padding={10}
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}
+                badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
+                clickAction={() => {
+                    if (this.props.plateNumber && this.props.plateNumber !== '') {
+                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                            this.changeOrderTab(1);
+                            DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                            this.props.navigation.navigate('Order');
+                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                            this.notifyCarStatus();
+                        } else {
+                            this.getUserCar();
+                        }
+                    } else {
+                        this.getUserCar();
+                    }
+                }}
+            />
+            <View style={styles.line}/>
+            <HomeCell
+                title="签收"
+                describe="签收快捷，免去后顾之忧"
+                padding={10}
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}
+                badgeText={0}
+                renderImage={() => <Image source={StaticImage.signIcon}/>}
+                clickAction={() => {
+                    if (this.props.plateNumber && this.props.plateNumber !== '') {
+                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                            this.changeOrderTab(2);
+                            DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                            this.props.navigation.navigate('Order');
+                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                            this.notifyCarStatus();
+                        } else {
+                            this.getUserCar();
+                        }
+                    } else {
+                        this.getUserCar();
+                    }
+                }}
+            />
+            <View style={styles.line}/>
+            <HomeCell
+                title="回单"
+                describe="接收回单，方便快捷"
+                padding={8}
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}
+                badgeText={0}
+                renderImage={() => <Image source={StaticImage.receiveIcon}/>}
+                clickAction={() => {
+                    if (this.props.plateNumber && this.props.plateNumber !== '') {
+                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                            this.changeOrderTab(3);
+                            DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                            this.props.navigation.navigate('Order');
+                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                            this.notifyCarStatus();
+                        } else {
+                            this.getUserCar();
+                        }
+                    } else {
+                        this.getUserCar();
+                    }
+                }}
+            />
+            <View style={styles.line}/>
+            <HomeCell
+                title="道路异常"
+                describe="道路异常，上传分享"
+                padding={8}
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}
+                badgeText={0}
+                renderImage={() => <Image source={StaticImage.roadIcon}/>}
+                clickAction={() => {
+                    this.props.navigation.navigate('UploadAbnormal');
+                    {/*this.props.navigation.navigate('UploadReceipt',{*/}
+                    {/*transCode: '2345',*/}
+                    {/*});*/}
+                }}
+            />
+        </View>;
+            const carrierView = <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
+                <HomeCell
+                    title="接单"// 文字
+                    describe="方便接单，快速查看"
+                    padding={10}// 文字与文字间距
+                    imageStyle={styles.imageView}
+                    backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
+                    // badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                    renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
+                    clickAction={() => { // 点击事件
+                        if (this.props.plateNumber && this.props.plateNumber !== '') {
+                            if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                DeviceEventEmitter.emit('resetGood');
+                                this.props.navigation.navigate('GoodsSource');
+                            } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                this.notifyCarStatus();
+                            } else {
+                                this.getUserCar();
+                            }
+                        } else {
+                            this.getUserCar();
+                        }
+                    }}
+                />
+                <View style={styles.line}/>
+                <HomeCell
+                    title="调度"
+                    describe="一键调度，快捷无忧"
+                    padding={10}
+                    imageStyle={styles.imageView}
+                    backgroundColor={{backgroundColor: WHITE_COLOR}}
+                    // badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                    renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
+                    clickAction={() => {
+                        if (this.props.plateNumber && this.props.plateNumber !== '') {
+                            if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
+                                this.changeOrderTab(1);
+                                DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                                this.props.navigation.navigate('Order');
+                            } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
+                                this.notifyCarStatus();
+                            } else {
+                                this.getUserCar();
+                            }
+                        } else {
+                            this.getUserCar();
+                        }
+                    }}
+                />
+            </View>;
         return (
             <View style={styles.containerView}>
                 <NavigatorBar
@@ -1242,106 +1408,7 @@ class Home extends Component {
                         </View>
                         {limitView}
                     </View>
-                    <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
-                        <HomeCell
-                            title="接单"// 文字
-                            describe="方便接单，快速查看"
-                            padding={10}// 文字与文字间距
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                            badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
-                            renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
-                            clickAction={() => { // 点击事件
-                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                //         DeviceEventEmitter.emit('resetGood');
-                                //         this.props.navigation.navigate('GoodsSource');
-                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                //         this.notifyCarStatus();
-                                //     } else {
-                                //         this.getUserCar();
-                                //     }
-                                // } else {
-                                //     this.getUserCar();
-                                // }
-                            }}
-                        />
-                        <View style={styles.line}/>
-                        <HomeCell
-                            title="发运"
-                            describe="一键发运，安全无忧"
-                            padding={10}
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
-                            renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
-                            clickAction={() => {
-                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                //         this.changeOrderTab(1);
-                                //         DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                                //         this.props.navigation.navigate('Order');
-                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                //         this.notifyCarStatus();
-                                //     } else {
-                                //         this.getUserCar();
-                                //     }
-                                // } else {
-                                //     this.getUserCar();
-                                // }
-                            }}
-                        />
-                        <View style={styles.line}/>
-                        <HomeCell
-                            title="签收"
-                            describe="签收快捷，免去后顾之忧"
-                            padding={10}
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            badgeText={0}
-                            renderImage={() => <Image source={StaticImage.signIcon}/>}
-                            clickAction={() => {
-                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                //         this.changeOrderTab(2);
-                                //         DeviceEventEmitter.emit('changeOrderTabPage', 2);
-                                //         this.props.navigation.navigate('Order');
-                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                //         this.notifyCarStatus();
-                                //     } else {
-                                //         this.getUserCar();
-                                //     }
-                                // } else {
-                                //     this.getUserCar();
-                                // }
-                            }}
-                        />
-                        <View style={styles.line}/>
-                        <HomeCell
-                            title="回单"
-                            describe="接收回单，方便快捷"
-                            padding={8}
-                            imageStyle={styles.imageView}
-                            backgroundColor={{backgroundColor: WHITE_COLOR}}
-                            badgeText={0}
-                            renderImage={() => <Image source={StaticImage.receiveIcon}/>}
-                            clickAction={() => {
-                                // if (this.props.plateNumber && this.props.plateNumber !== '') {
-                                //     if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                //         this.changeOrderTab(3);
-                                //         DeviceEventEmitter.emit('changeOrderTabPage', 3);
-                                //         this.props.navigation.navigate('Order');
-                                //     } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                //         this.notifyCarStatus();
-                                //     } else {
-                                //         this.getUserCar();
-                                //     }
-                                // } else {
-                                //     this.getUserCar();
-                                // }
-                            }}
-                        />
-                    </View>
+                    {driverView}
                 </ScrollView>
                 <Modal
                     animationType={"slide"}
@@ -1351,7 +1418,6 @@ class Home extends Component {
                         ref="updateDialog"
                         callback={this.dialogOkCallBack.bind(this)}/>
                 </Modal>
-
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {

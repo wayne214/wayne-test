@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     leftTitleStyle: {
-        color: 'white',
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         marginLeft: 10,
-        fontSize:16,
+        fontSize: 16,
         marginTop: 5
     },
     rightTitleStyle: {
-        fontSize:16,
+        fontSize: 16,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
         marginRight: 10,
         marginTop: 5
