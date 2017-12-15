@@ -32,6 +32,7 @@ import Toast from '@remobile/react-native-toast';
 import VerifiedLineItem from './verifiedIDItem/verifiedLineItem';
 import VerifiedDateSources from './verifiedIDItem/verifiedDateSource';
 import VerfiedCompanyItem from './verifiedIDItem/verifiedCompanyItem';
+import Validator from '../../../utils/validator';
 
 const businessTrunRightImage = require('./images/business_right_add.png');
 const businessTrunLeftImage = require('./images/business_right.png');
@@ -113,8 +114,8 @@ class companyCarOwnerAuth extends Component {
 
             if (this.state.IDDate) {
                 year = this.state.IDDate.substr(0, 4);
-                month = this.state.IDDate.substr(4, 2);
-                day = this.state.IDDate.substr(6, 2);
+                month = this.state.IDDate.substr(5, 2);
+                day = this.state.IDDate.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -159,13 +160,17 @@ class companyCarOwnerAuth extends Component {
                     }
                 } else {
 
+                    let year = pickedValue[0].substring(0, pickedValue[0].length - 1);
+                    let month = pickedValue[1].substring(0, pickedValue[1].length - 1);
+                    let day = pickedValue[2].substring(0, pickedValue[2].length - 1);
+
                     if (selectDatePickerType === 0) {
                         this.setState({
-                            IDDate: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            IDDate: Validator.timeTrunToDateString(year + month + day),
                         });
                     } else {
                         this.setState({
-                            businessLicenseValidUntil: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            businessLicenseValidUntil: Validator.timeTrunToDateString(year + month + day),
                         });
                     }
 
@@ -405,11 +410,6 @@ class companyCarOwnerAuth extends Component {
             <View>
                 <VerifiedGrayTitleItem title="确认营业执照基本信息"/>
 
-                {/*companyName: '',*/}
-           {/*companyOwnerName: '',*/}
-           {/*companyAddress: '',*/}
-           {/*companyCode: '',*/}
-
                 <VerfiedCompanyItem companyName={this.state.companyName}
                                     companyOwnerName={this.state.companyOwnerName}
                                     companyAddress={this.state.companyAddress}
@@ -442,12 +442,7 @@ class companyCarOwnerAuth extends Component {
                                     />
             </View> ;
 
-
-
-
-
         const plat = Platform.OS === 'ios' ? 'on-drag' : 'none';
-
 
         return (
             <View style={styles.container}>

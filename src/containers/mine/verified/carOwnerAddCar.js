@@ -40,6 +40,7 @@ import {setUserCarAction} from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
 import LoadingView from '../../../utils/loading';
 import Toast from '@remobile/react-native-toast';
+import Validator from '../../../utils/validator';
 
 import Storage from '../../../utils/storage';
 import PermissionsManager from '../../../utils/permissionManager';
@@ -526,16 +527,15 @@ class certification extends Component {
             let day;
             if (this.state.insuranceData) {
                 year = this.state.insuranceData.substr(0, 4);
-                month = this.state.insuranceData.substr(4, 2);
-                day = this.state.insuranceData.substr(6, 2);
+                month = this.state.insuranceData.substr(5, 2);
+                day = this.state.insuranceData.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
                 day = date.getUTCDate();
             }
-
-
             selectValue = [year + '年', month + '月', day + '日'];
+
         } else if (type === 'carType') {
             selectValue = [data[0]];
             title = '车辆类型';
@@ -547,7 +547,7 @@ class certification extends Component {
             let month;
             if (this.state.carDate) {
                 year = this.state.carDate.substr(0, 4);
-                month = this.state.carDate.substr(4, 2);
+                month = this.state.carDate.substr(5, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -592,12 +592,20 @@ class certification extends Component {
                     console.log('onPickerConfirmdate', pickedValue, pickedIndex);
 
                     if (selectDatePickerType === 0) {
+                        let year = pickedValue[0].substring(-0, pickedValue[0].length - 1);
+                        let month = pickedValue[1].substring(-0, pickedValue[1].length - 1);
+
                         this.setState({
-                            carDate: pickedValue[0] + pickedValue[1] + ' ',
+                            carDate: Validator.timeTrunToDateString(year + month),
                         })
                     } else if (selectDatePickerType === 1) {
+                        let year = pickedValue[0].substring(0, pickedValue[0].length - 1);
+                        let month = pickedValue[1].substring(0, pickedValue[1].length - 1);
+                        let day = pickedValue[2].substring(0, pickedValue[2].length - 1);
+
+
                         this.setState({
-                            insuranceData: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            insuranceData: Validator.timeTrunToDateString(year + month + day),
                         })
                     } else if (selectDatePickerType === 2) {
                         this.setState({
@@ -713,19 +721,19 @@ class certification extends Component {
         console.log('车头照缩略图：', this.state.vehicleThumbnailAddress);
 
 
-        let carData1 = this.state.carDate.replace('年', '-');
-        let carData2 = carData1.replace('月', '');
-        carData2 = carData2.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        // let carData1 = this.state.carDate.replace('年', '-');
+        // let carData2 = carData1.replace('月', '');
+        let carData2 = carData2.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        let insuranceData1 = this.state.insuranceData.replace('年', '-');
-        let insuranceData2 = insuranceData1.replace('月', '-');
-        let insuranceData3 = insuranceData2.replace('日', '');
-        insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        // let insuranceData1 = this.state.insuranceData.replace('年', '-');
+        // let insuranceData2 = insuranceData1.replace('月', '-');
+        // let insuranceData3 = insuranceData2.replace('日', '');
+        let insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        this.setState({
-            appLoading: true,
-        });
-        this.implementationVerified(carData2, insuranceData3);
+        // this.setState({
+        //     appLoading: true,
+        // });
+        // this.implementationVerified(carData2, insuranceData3);
     }
 
     isRightData(date) {

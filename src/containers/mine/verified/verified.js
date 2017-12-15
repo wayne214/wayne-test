@@ -44,7 +44,7 @@ import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import HTTPRequest from '../../../utils/httpRequest';
 import { setUserNameAction } from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
-
+import Validator from '../../../utils/validator';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -196,6 +196,7 @@ class Verified extends Component {
         this.isRightData = this.isRightData.bind(this);
         this.formatterTime = this.formatterTime.bind(this);
         this.popToTop = this.popToTop.bind(this);
+
     }
 
     componentDidMount() {
@@ -482,7 +483,7 @@ class Verified extends Component {
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
                             this.setState({
-                                IDDate: respones.result.idValidUntil,
+                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                             });
@@ -498,7 +499,7 @@ class Verified extends Component {
                                 drivingLicenseName: respones.result.drivingLicenseName, // 驾驶证姓名
                                 drivingLicenseNum: respones.result.drivingLicenseNum, // 驾驶证号
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
-                                drivingLicenseValidUntil: respones.result.drivingLicenseValidUntil, // 驾驶证有效期
+                                drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
                                 motorcycleType: respones.result.motorcycleType, // 驾驶证类型
 
                                 drivingLicenseHomepageNormalPhotoAddress: respones.result.drivingLicenseHomepageNormalPhotoAddress,
@@ -555,15 +556,12 @@ class Verified extends Component {
         let date = new Date();
         let selectValue = [];
 
-        let year;
-        let month;
-        let day;
         if (type === 'cardID') {
 
             if (this.state.IDDate) {
                 year = this.state.IDDate.substr(0, 4);
-                month = this.state.IDDate.substr(4, 2);
-                day = this.state.IDDate.substr(6, 2);
+                month = this.state.IDDate.substr(5, 2);
+                day = this.state.IDDate.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -574,10 +572,10 @@ class Verified extends Component {
 
         } else {
 
-            if (this.state.drivingLicenseValidUntil && this.state.drivingLicenseValidUntil.length > 5) {
+            if (this.state.drivingLicenseValidUntil) {
                 year = this.state.drivingLicenseValidUntil.substr(0, 4);
-                month = this.state.drivingLicenseValidUntil.substr(4, 2);
-                day = this.state.drivingLicenseValidUntil.substr(6, 2);
+                month = this.state.drivingLicenseValidUntil.substr(5, 2);
+                day = this.state.drivingLicenseValidUntil.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -624,14 +622,17 @@ class Verified extends Component {
                 } else {
                     console.log('onPickerConfirmdate', pickedValue, pickedIndex);
 
+                    let year = pickedValue[0].substring(-0, pickedValue[0].length - 1);
+                    let month = pickedValue[1].substring(-0, pickedValue[1].length - 1);
+                    let day = pickedValue[2].substring(-0, pickedValue[2].length - 1);
 
                     if (selectDatePickerType === 0) {
                         this.setState({
-                            IDDate: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            IDDate: Validator.timeTrunToDateString(year + month + day),
                         });
                     } else {
                         this.setState({
-                            drivingLicenseValidUntil: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            drivingLicenseValidUntil: Validator.timeTrunToDateString(year + month + day),
                         });
                     }
 
@@ -680,10 +681,10 @@ class Verified extends Component {
             return;
         }
 
-        let date = this.state.IDDate.length === 8 ?
-            this.state.IDDate.substr(0, 4) + '-' + this.state.IDDate.substr(4, 2) + '-' + this.state.IDDate.substr(6, 2)
-            : this.state.IDDate;
-
+        // let date = this.state.IDDate.length === 8 ?
+        //     this.state.IDDate.substr(0, 4) + '-' + this.state.IDDate.substr(4, 2) + '-' + this.state.IDDate.substr(6, 2)
+        //     : this.state.IDDate;
+        let date = this.state.IDDate;
 
         if (date === '' ) {
             Toast.showShortCenter('请选择身份证有效期');
@@ -704,26 +705,27 @@ class Verified extends Component {
 
         let dataString;
 
-        if (this.state.drivingLicenseValidUntil.length < 4 &&
-            this.state.drivingLicenseValidUntil != '长期' &&
-            this.state.drivingLicenseValidUntil != '') {
-            let data = parseInt(this.state.drivingLicenseStartDate) + parseInt(this.state.drivingLicenseValidUntil) * 10000;
+        // if (this.state.drivingLicenseValidUntil.length < 4 &&
+        //     this.state.drivingLicenseValidUntil != '长期' &&
+        //     this.state.drivingLicenseValidUntil != '') {
+        //     let data = parseInt(this.state.drivingLicenseStartDate) + parseInt(this.state.drivingLicenseValidUntil) * 10000;
+        //
+        //     dataString = data.toString().substr(0, 4) + '-' + data.toString().substr(4, 2) + '-' + data.toString().substr(6, 2);
+        //
+        // } else if(this.state.drivingLicenseValidUntil.indexOf('NaN') >= 0){
+        //     dataString = '长期';
+        //     this.setState({
+        //         drivingLicenseValidUntil: '长期',
+        //     });
+        // }else
+        //     dataString = this.state.drivingLicenseValidUntil;
+        dataString = this.state.drivingLicenseValidUntil;
 
-            dataString = data.toString().substr(0, 4) + '-' + data.toString().substr(4, 2) + '-' + data.toString().substr(6, 2);
-
-        } else if(this.state.drivingLicenseValidUntil.indexOf('NaN') >= 0){
-            dataString = '长期';
-            this.setState({
-                drivingLicenseValidUntil: '长期',
-            });
-        }else
-            dataString = this.state.drivingLicenseValidUntil;
-
-        date = this.formatterTime(date);
+        //date = this.formatterTime(date);
 
         date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        dataString = this.formatterTime(dataString);
+        //dataString = this.formatterTime(dataString);
         dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
         if (dataString === '') {
