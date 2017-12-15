@@ -755,6 +755,7 @@ class Mine extends Component {
                             >
                                 <View style={styles.numberView}/>
                                 <View style={styles.contentView}>
+
                                     {this.props.driverStatus == '1' || this.props.driverStatus == '2' ?
                                         <View>
                                             <SettingCell
@@ -815,7 +816,7 @@ class Mine extends Component {
                                                 content={'司机管理'}
                                                 showBottomLine={false}
                                                 clickAction={() => {
-
+                                                    navigator.navigate('DriverManagement');
                                                 }}
                                             />
                                             <SettingCell
@@ -823,7 +824,7 @@ class Mine extends Component {
                                                 content={'车辆管理'}
                                                 showBottomLine={false}
                                                 clickAction={() => {
-
+                                                    navigator.navigate('CarManagement');
                                                 }}
                                             />
                                             <SettingCell
@@ -998,6 +999,7 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         userCarList: state.user.get('userCarList'),
         plateNumberObj: state.user.get('plateNumberObj'),
+        driverStatus: state.user.get('driverStatus'),
     };
 }
 
