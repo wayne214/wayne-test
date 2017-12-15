@@ -281,7 +281,7 @@ class certification extends Component {
             success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取车长载重', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '司机增加车辆页面');
+                    locationData.district, lastTime - currentTime, '车主增加车辆页面');
                 for (let i = 0; i < responseData.result.length; i++) {
 
                     let key = responseData.result[i].carLen;
@@ -722,10 +722,10 @@ class certification extends Component {
         let insuranceData3 = insuranceData2.replace('日', '');
         insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        // this.setState({
-        //     appLoading: true,
-        // });
-        // this.implementationVerified(carData2, insuranceData3);
+        this.setState({
+            appLoading: true,
+        });
+        this.implementationVerified(carData2, insuranceData3);
     }
 
     isRightData(date) {
@@ -746,7 +746,7 @@ class certification extends Component {
 
     }
 
-    /*司机增加车辆*/
+    /*车主增加车辆*/
     implementationVerified(carDate, insuranceData) {
         currentTime = new Date().getTime();
 
@@ -778,13 +778,13 @@ class certification extends Component {
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('提交司机增加车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '司机增加车辆页面');
+                ReadAndWriteFileUtil.appendFile('提交车主增加车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '车主增加车辆页面');
 
                 this.props.saveUserSetCarSuccess({carNum: this.state.carNumber, carStatus: 0});
 
-                Toast.showShortCenter('司机增加车辆提交成功');
-                Storage.remove(StorageKey.changeCarInfoResult);
+                Toast.showShortCenter('车主增加车辆提交成功');
+                Storage.remove(StorageKey.carOwnerAddCarInfo);
                 DeviceEventEmitter.emit('certificationSuccess');
                 Storage.remove(StorageKey.carInfoResult);
 
@@ -906,7 +906,7 @@ class certification extends Component {
                         };
 
                         console.log(info);
-                        Storage.save(StorageKey.changeCarInfoResult, info);
+                        Storage.save(StorageKey.carOwnerAddCarInfo, info);
                         navigator.goBack();
 
                     }}

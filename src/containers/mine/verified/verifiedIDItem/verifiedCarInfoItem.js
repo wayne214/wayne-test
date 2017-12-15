@@ -146,7 +146,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.drivingLicenseName}
-                               placeholder={'请手动输入驾驶证姓名'}
+                               placeholder={'请输入驾驶证姓名'}
 
                     />
                 </View>
@@ -168,7 +168,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.drivingLicenseNum}
-                               placeholder={'请手动输入驾驶证号'}
+                               placeholder={'请输入驾驶证号'}
 
                     />
                 </View>
@@ -189,7 +189,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.motorcycleType}
-                               placeholder={'请手动输入准驾车型'}
+                               placeholder={'请输入准驾车型'}
                     />
                 </View>
                 <Line/>

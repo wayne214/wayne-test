@@ -89,8 +89,12 @@ import ForgetPayPassword from '../containers/mine/forgetPayPassword';
 import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
 import CharacterList from '../containers/login/character/characterList';
 import CharacterOwner from '../containers/login/character/characterOwner';
-
-
+import CarOwnerAddDriver from '../containers/mine/verified/carOwnerAddDriver';
+import CarOwnerAddDriverDetail from '../containers/mine/verified/carOwnerAddDriverDetail';
+import CarOwnerAddCar from '../containers/mine/verified/carOwnerAddCar';
+import CarOwnerAddCarDetail from '../containers/mine/verified/carOwnerAddCarDetail';
+import PersonCarOwnerAuth from '../containers/mine/verified/personCarOwnerAuth';
+import CompanyCarOwnerAuth from '../containers/mine/verified/companyCarOwnerAuth';
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
 
@@ -546,7 +550,42 @@ const StackRouteConfigs = {
             header: null
         }
     },
-
+    CarOwnerAddDriver: {
+        screen: CarOwnerAddDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarOwnerAddDriverDetail: {
+        screen: CarOwnerAddDriverDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarOwnerAddCar: {
+        screen: CarOwnerAddCar,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarOwnerAddCarDetail: {
+        screen: CarOwnerAddCarDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonCarOwnerAuth: {
+        screen: PersonCarOwnerAuth,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CompanyCarOwnerAuth: {
+        screen: CompanyCarOwnerAuth,
+        navigationOptions: {
+            header: null
+        }
+    },
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'Splash', // 初始化哪个界面为根界面

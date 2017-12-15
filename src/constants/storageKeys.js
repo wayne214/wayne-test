@@ -19,11 +19,11 @@ const CarSuccessFlag = 'setCarSuccessFlag'; //设置车辆的flag
 
 const PlateNumber = 'plateNumber'; // 车牌号
 
-const changeCarInfoResult = 'changeCarInfoResult'; // 资质认证提交的信息
+const changeCarInfoResult = 'changeCarInfoResult'; // 司机增加车辆认证提交的信息
 
 const carInfoResult = 'carInfoResult'; // 车辆的信息
 
-const changePersonInfoResult = 'changePersonInfoResult'; // 实名认证提交的信息
+const changePersonInfoResult = 'changePersonInfoResult'; // 司机认证提交的信息
 
 const personInfoResult = 'personInfoResult'; // 个人信息
 
@@ -36,6 +36,10 @@ const acceptMessage = 'acceptMessage'; //接收消息
 const newMessageFlag = 'newMessageFlag'; //新消息标记
 
 const payPassword = 'payPassword'; //支付密码
+
+const carOwnerAddDriverInfo = 'carOwnerAddDriverInfo'; // 车主增加司机
+
+const carOwnerAddCarInfo = 'carOwnerAddCarInfo'; // 车主增加车辆
 
 export default {
     IS_FIRST_START_FLAG,
@@ -55,5 +59,7 @@ export default {
     acceptMessage,
     newMessageFlag,
     payPassword,
+    carOwnerAddDriverInfo,
+    carOwnerAddCarInfo,
 }
 

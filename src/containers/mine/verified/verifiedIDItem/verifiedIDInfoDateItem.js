@@ -49,27 +49,28 @@ class verifiedIDInfoDateItem extends Component{
     render() {
         const {IDDate} = this.props;
 
-        let date='请手动选择有效期';
+        let date='请选择有效期';
         let color = {color: '#666666'};
 
         if (IDDate && IDDate !== '请选择有效期') {
             color = {color: 'black'};
+            date = IDDate;
+            // date = IDDate.length === 8 && IDDate.indexOf('/') < 0 ?
+            //     IDDate.substr(0, 4) + '/' + IDDate.substr(4, 2) + '/' + IDDate.substr(6, 2) + ''
+            //     : IDDate;
 
-            date = IDDate.length === 8 && IDDate.indexOf('-') < 0 ?
-                IDDate.substr(0, 4) + '-' + IDDate.substr(4, 2) + '-' + IDDate.substr(6, 2) + ''
-                : IDDate;
-
-            date = date.replace('年', '-');
-
-            if (date.indexOf('日') > 0) {
-                date = date.replace('月', '-');
-                date = date.replace('日', '');
-            } else {
-                date = date.replace('月', '');
-            }
-        }else
+            // date = date.replace('年', '/');
+            //
+            // if (date.indexOf('日') > 0) {
+            //     date = date.replace('月', '/');
+            //     date = date.replace('日', '');
+            // } else {
+            //     date = date.replace('月', '');
+            // }
+        }else {
+            date = '请选择有效期';
             color = {color: '#666666'};
-
+        }
         return (
             <View style={styles.container}>
 

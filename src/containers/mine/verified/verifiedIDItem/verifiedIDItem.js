@@ -32,17 +32,15 @@ const idItemHeight = 92 * idItemWidth / 148;
 const idTiemViewWidth = idItemWidth + idItemLeftSpace + idItemLeftSpace;
 const idTiemViewHeight = idItemHeight + idTiemTopSpace + idTiemTopSpace;
 
-const  a1  = require('../images/IdCardAdd.png');
-const  a2  = require('../images/IdCardTurnAdd.png');
-const  a3 = require('../images/driverAdd.png');
-const  a4  = require('../images/driverTrunAdd.png');
-const  a5  = require('../images/handPicModel.png');
-
-
+const a1  = require('../images/IdCardAdd.png');
+const a2  = require('../images/IdCardTurnAdd.png');
+const a3 = require('../images/driverAdd.png');
+const a4  = require('../images/driverTrunAdd.png');
+const a5  = require('../images/handPicModel.png');
 const a6 = require('../images/travelCardHome_right.png');
 const a7 = require('../images/travelCard_right.png');
 const a9 = require('../images/carheader_right.png');
-
+const a10 = require('../images/business_right_add.png');
 
 
 const styles = StyleSheet.create({
@@ -134,6 +132,8 @@ class verifiedIDItem extends Component{
                 imagePath = a7;
             }else if (rightImage.uri === '../navigationBar/carheader_right.png') {
                 imagePath = a9;
+            }else if (rightImage.uri === '../navigationBar/business_add') {
+                imagePath = a10;
             }else {
                 imagePath = rightImage;
             }

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 
 });
 
-class verifiedState extends Component{
+class carOwnerAddDriverDetail extends Component{
     constructor(props) {
         super(props);
 
@@ -108,20 +108,9 @@ class verifiedState extends Component{
             this.getRealNameDetail(global.phone);
 
         } else {
-            Storage.get(StorageKey.personInfoResult).then((value) => {
 
-                if (value) {
-                    this.setState({
-                        resultInfo: value,
-                    });
-                } else {
-
-                    console.log('global.phone:', global.phone);
-                    this.getRealNameDetail(global.phone);
-
-                }
-            });
-
+            // 先判断是否有存储的值
+            this.getRealNameDetail(global.phone);
         }
     }
 
@@ -159,7 +148,7 @@ class verifiedState extends Component{
                     });
 
                     if (responseData.result.certificationStatus == '1202'){
-                        Storage.save(StorageKey.personInfoResult, responseData.result);
+                        // 是否需要保存值
                     }
                     DeviceEventEmitter.emit('verifiedSuccess');
 
@@ -181,9 +170,10 @@ class verifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
-        Storage.remove(StorageKey.personInfoResult);
+        // 移除保存的值
+        //Storage.remove(StorageKey.personInfoResult);
 
-        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+        Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {
             if (value){
                 this.props.navigation.navigate('VerifiedPage', {
                     resultInfo: value,
@@ -255,7 +245,7 @@ class verifiedState extends Component{
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'司机认证详情'}
+                    title={'司机详情'}
                     navigator={navigator}
                     hiddenBackIcon={false}
                 />
@@ -269,23 +259,23 @@ class verifiedState extends Component{
 
                     <RealNameItem resultInfo={this.state.resultInfo}
                                   imageClick={(index)=>{
-                                      
+
                                       if (index === 0){
-                                          if (this.state.resultInfo.positiveCard){                   
+                                          if (this.state.resultInfo.positiveCard){
                                               this.showBigImage([this.state.resultInfo.positiveCard], 0);
-                                          }else 
+                                          }else
                                               Toast.showShortCenter('暂无图片');
                                       }
                                       if (index === 1){
-                                          if (this.state.resultInfo.oppositeCard){                   
+                                          if (this.state.resultInfo.oppositeCard){
                                               this.showBigImage([this.state.resultInfo.oppositeCard], 0);
-                                          }else 
+                                          }else
                                               Toast.showShortCenter('暂无图片');
                                       }
                                       if (index === 2){
-                                          if (this.state.resultInfo.handleIdNormalPhotoAddress){                   
+                                          if (this.state.resultInfo.handleIdNormalPhotoAddress){
                                               this.showBigImage([this.state.resultInfo.handleIdNormalPhotoAddress], 0);
-                                          }else 
+                                          }else
                                               Toast.showShortCenter('暂无图片');
                                       }
 
@@ -294,20 +284,20 @@ class verifiedState extends Component{
                     <VerifiedGrayTitleItem title="驾驶证"/>
                     <DriverItem resultInfo={this.state.resultInfo}
                                 imageClick={(index)=>{
-                                    
+
                                     if (index === 0){
-                                        if (this.state.resultInfo.drivingLicenceHomePage){                   
+                                        if (this.state.resultInfo.drivingLicenceHomePage){
                                             this.showBigImage([this.state.resultInfo.drivingLicenceHomePage], 0);
-                                        }else 
+                                        }else
                                             Toast.showShortCenter('暂无图片');
                                     }
                                     if (index === 1){
-                                        if (this.state.resultInfo.drivingLicenceSubPage){                   
+                                        if (this.state.resultInfo.drivingLicenceSubPage){
                                             this.showBigImage([this.state.resultInfo.drivingLicenceSubPage], 0);
-                                        }else 
+                                        }else
                                             Toast.showShortCenter('暂无图片');
                                     }
-                                                                    
+
 
                                   }}/>
 
@@ -335,4 +325,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(verifiedState);
+export default connect(mapStateToProps, mapDispatchToProps)(carOwnerAddDriverDetail);

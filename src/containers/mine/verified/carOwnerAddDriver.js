@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class Verified extends Component {
+class carOwnerAddDriver extends Component {
 
     constructor(props) {
         super(props);
@@ -201,85 +201,85 @@ class Verified extends Component {
     componentDidMount() {
         this.getCurrentPosition();
 
-            userID = global.userId;
-            userName = global.userName;
-            userPhone = global.phone;
+        userID = global.userId;
+        userName = global.userName;
+        userPhone = global.phone;
 
 
-            /*相机拍照*/
-            this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
+        /*相机拍照*/
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
 
-                console.log('DeviceEventEmitter:', imagePath);
+            console.log('DeviceEventEmitter:', imagePath);
 
-                if (Platform.OS === 'ios') {
-                    imagePath = 'file://' + imagePath;
-                }
+            if (Platform.OS === 'ios') {
+                imagePath = 'file://' + imagePath;
+            }
 
-                let source = {uri: imagePath};
+            let source = {uri: imagePath};
 
-                let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
-                let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
 
-                formData.append("photo", file);   //这里的files就是后台需要的key
-                formData.append('phoneNum', userPhone);
-                formData.append('isShot', 'Y');
-                switch (selectType) {
-                    case 0:
-                        this.setState({
-                            idCardImage: source,
-                            IDName: '',
-                            IDCard: '',
-                            isChooseCardImage: true,
-                        });
-                        this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
-                        isFirstCarD = true;
-                        break;
-                    case 1:
-                        this.setState({
-                            idCardTrunImage: source,
-                            IDDate: '',
-                            isChooseCardTrunImage: true,
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('phoneNum', userPhone);
+            formData.append('isShot', 'Y');
+            switch (selectType) {
+                case 0:
+                    this.setState({
+                        idCardImage: source,
+                        IDName: '',
+                        IDCard: '',
+                        isChooseCardImage: true,
+                    });
+                    this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
+                    isFirstCarD = true;
+                    break;
+                case 1:
+                    this.setState({
+                        idCardTrunImage: source,
+                        IDDate: '',
+                        isChooseCardTrunImage: true,
 
-                        });
-                        this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
+                    });
+                    this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
 
-                        break;
-                    case 2:
+                    break;
+                case 2:
 
-                        this.setState({
-                            driverCarImage: source,
-                            drivingLicenseName: '',
-                            drivingLicenseNum: '',
-                            isChooseDriverCarImage: true,
+                    this.setState({
+                        driverCarImage: source,
+                        drivingLicenseName: '',
+                        drivingLicenseNum: '',
+                        isChooseDriverCarImage: true,
 
-                        });
-                        this.upLoadImage(API.API_GET_DRIVER_INFO, formData);
-                        isFirstDriver = true;
+                    });
+                    this.upLoadImage(API.API_GET_DRIVER_INFO, formData);
+                    isFirstDriver = true;
 
-                        break;
-                    case 3:
-                        this.setState({
-                            drivereCarTrunImage: source,
-                            isChooseDriverCarTrunImage: true,
+                    break;
+                case 3:
+                    this.setState({
+                        drivereCarTrunImage: source,
+                        isChooseDriverCarTrunImage: true,
 
-                        });
+                    });
 
-                        this.upLoadImage(API.API_GET_DRIVER_TRUN_INFO, formData);
+                    this.upLoadImage(API.API_GET_DRIVER_TRUN_INFO, formData);
 
-                        break;
-                    case 4:
-                        this.setState({
-                            handPicImage: source,
-                            isChooseHandPicImage: true,
-                        });
-                        this.upLoadImage(API.API_GET_HAND_PIC_INFO, formData);
+                    break;
+                case 4:
+                    this.setState({
+                        handPicImage: source,
+                        isChooseHandPicImage: true,
+                    });
+                    this.upLoadImage(API.API_GET_HAND_PIC_INFO, formData);
 
-                        break;
-                }
-                this.setState({
-                    appLoading: true,
-                });
+                    break;
+            }
+            this.setState({
+                appLoading: true,
             });
+        });
 
 
 
@@ -767,10 +767,10 @@ class Verified extends Component {
         console.log('手持身份证缩略图：', this.state.handleIDThumbnailAddress);
 
 
-        // this.setState({
-        //     appLoading: true,
-        // });
-        // this.realNameVerified(dataString, date);
+        this.setState({
+            appLoading: true,
+        });
+        this.realNameVerified(dataString, date);
 
     }
 
@@ -797,7 +797,7 @@ class Verified extends Component {
     }
 
 
-    /*司机认证*/
+    /*增加司机*/
     realNameVerified(dataString, date) {
         currentTime = new Date().getTime();
 
@@ -830,17 +830,17 @@ class Verified extends Component {
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('提交司机认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '司机认证页面');
+                ReadAndWriteFileUtil.appendFile('提交增加司机', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '增加司机页面');
                 this.setState({
                     appLoading: false,
                 });
 
                 this.props.reloadUserName(this.state.IDName);
 
-                Storage.remove(StorageKey.changePersonInfoResult);
+                Storage.remove(StorageKey.carOwnerAddDriverInfo);
                 Storage.remove(StorageKey.personInfoResult);
-                Toast.showShortCenter('司机认证提交成功');
+                Toast.showShortCenter('增加司机提交成功');
                 DeviceEventEmitter.emit('verifiedSuccess');
 
                 this.popToTop();
@@ -940,13 +940,13 @@ class Verified extends Component {
                 />
             </View> : null;
 
-            const plat = Platform.OS === 'ios' ? 'on-drag' : 'none';
+        const plat = Platform.OS === 'ios' ? 'on-drag' : 'none';
 
 
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'司机认证'}
+                    title={'增加司机'}
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
@@ -998,7 +998,7 @@ class Verified extends Component {
                             isChooseHandPicImage: this.state.isChooseHandPicImage,
 
                         };
-                        Storage.save(StorageKey.changePersonInfoResult, info);
+                        Storage.save(StorageKey.carOwnerAddDriverInfo, info);
                         navigator.goBack();
                     }}
                 />
@@ -1110,4 +1110,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Verified);
+export default connect(mapStateToProps, mapDispatchToProps)(carOwnerAddDriver);
