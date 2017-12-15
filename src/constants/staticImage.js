@@ -161,6 +161,10 @@ import DriverDown from '../../assets/character/driverDown.png';
 import OwnerUp from '../../assets/character/ownerUp.png';
 /*角色-首页气泡*/
 import OwnerDown from '../../assets/character/ownerDown.png';
+/*司机-默认头像-车辆*/
+import CarAvatar from '../../assets/character/carAvatar.png';
+/*司机-默认头像-个人*/
+import DriverAvatar from '../../assets/character/driverAvatar.png';
 
 
 export default {
@@ -260,5 +264,7 @@ export default {
     DriverDown,
     OwnerUp,
     OwnerDown,
+    CarAvatar,
+    DriverAvatar,
 }
 
