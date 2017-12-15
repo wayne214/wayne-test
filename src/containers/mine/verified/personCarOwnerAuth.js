@@ -32,6 +32,7 @@ import Toast from '@remobile/react-native-toast';
 import VerifiedLineItem from './verifiedIDItem/verifiedLineItem';
 import VerifiedTravelInfoItemOne from './verifiedIDItem/verifiedTravelInfoItemOne';
 import VerifiedDateSources from './verifiedIDItem/verifiedDateSource';
+import Validator from '../../../utils/validator';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -123,8 +124,8 @@ class personCarOwnerAuth extends Component {
 
             if (this.state.IDDate) {
                 year = this.state.IDDate.substr(0, 4);
-                month = this.state.IDDate.substr(4, 2);
-                day = this.state.IDDate.substr(6, 2);
+                month = this.state.IDDate.substr(5, 2);
+                day = this.state.IDDate.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -168,14 +169,17 @@ class personCarOwnerAuth extends Component {
                         });
                     }
                 } else {
+                    let year = pickedValue[0].substring(0, pickedValue[0].length - 1);
+                    let month = pickedValue[1].substring(0, pickedValue[1].length - 1);
 
                     if (selectDatePickerType === 0) {
+                        let day = pickedValue[2].substring(0, pickedValue[2].length - 1);
                         this.setState({
-                            IDDate: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            IDDate:Validator.timeTrunToDateString(year + month + day),
                         });
                     } else {
                         this.setState({
-                            drivingLicenseValidUntil: pickedValue[0] + pickedValue[1],
+                            drivingLicenseValidUntil: Validator.timeTrunToDateString(year + month),
                         });
                     }
 
@@ -234,7 +238,6 @@ class personCarOwnerAuth extends Component {
                     });
                 }else
                     this.selectPhoto();
-
 
                 break;
         }

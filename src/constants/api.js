@@ -163,13 +163,13 @@ export const API_GET_SEND_QIANGXIAN_INFO = `${HOST}app/photo/insurance`;
 export const API_GET_CAR_HEADER_INFO = `${HOST}app/photo/vehicle`;
 
 // 实名认证确认提交接口
-export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/auth/realName/commit`;
+export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/driver/addDriver`;
 
 // 实名认证详情接口
-export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/auth/realName/info/`;
+export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo`;
 
 // 资质认证确认提交接口
-export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/auth/qualifications/commit`;
+export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/auth/qualifications/createCertificationQualification`;
 
 // 资质认证详情接口
 export const API_AUTH_QUALIFICATIONS_DETAIL = `${HOST}app/rmc/auth/qualifications/info`;
