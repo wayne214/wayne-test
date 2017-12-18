@@ -9,11 +9,14 @@ const initState = Immutable.fromJS({
     plateNumberObj: {}, //车牌号对象
     versionUrl: '', // 版本地址
     speechSwitchStatus: true, // 语音播报开关
+    videoList: Immutable.List(),
+
 });
 
 
 export default (state = initState, action) => {
     let globalState = state;
+    let videoList;
     switch (action.type) {
         case ActionTypes.CHANGE_TAB:
             globalState = globalState.set('currentTab', action.payload.tab);
@@ -37,6 +40,26 @@ export default (state = initState, action) => {
 
         case ActionTypes.ACTION_VOICE_SWITCH:
             globalState = globalState.set('speechSwitchStatus', action.payload);
+            return globalState;
+
+        case ActionTypes.ACTION_ADD_VIDEO:
+            videoList = globalState.get('videoList');
+            action.payload.map(i =>{
+                videoList = videoList.push(i);
+            });
+            globalState = globalState.set('videoList', videoList);
+            return globalState;
+
+        case ActionTypes.ACTION_DELETE_VIDEO:
+            videoList = globalState.get('videoList');
+            videoList = videoList.delete(action.payload);
+            globalState = globalState.set('videoList', videoList);
+            return globalState;
+
+        case ActionTypes.ACTION_CLEAR_VIDEO:
+            videoList = globalState.get('videoList');
+            videoList = videoList.clear();
+            globalState = globalState.set('videoList', videoList);
             return globalState;
 
         default:
