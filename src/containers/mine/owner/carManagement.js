@@ -335,7 +335,6 @@ class CarManagement extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
 
                 <FlatList
                     style={{backgroundColor: 'white', flex: 1}}
