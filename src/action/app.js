@@ -38,3 +38,24 @@ export const voiceSpeechAction = (value) => {
         payload: value,
     };
 };
+// 添加视频
+export const addVideoAction = (value) => {
+    return {
+        type: ActionTypes.ACTION_ADD_VIDEO,
+        payload: value,
+    };
+};
+// 删除视频
+export const deleteVideoAction = (value) => {
+    return {
+        type: ActionTypes.ACTION_DELETE_VIDEO,
+        payload: value,
+    };
+};
+// 清空视频
+export const clearVideoAction = (value) => {
+    return {
+        type: ActionTypes.ACTION_CLEAR_VIDEO,
+        payload: value,
+    };
+};

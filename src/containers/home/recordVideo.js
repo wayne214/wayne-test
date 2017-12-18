@@ -11,6 +11,7 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
+    DeviceEventEmitter
 } from 'react-native';
 
 import Camera from 'react-native-camera';
@@ -30,8 +31,14 @@ class recordVideo extends Component {
         this.startRecord = this.startRecord.bind(this);
         this.stopRecord = this.stopRecord.bind(this);
     }
-    componentDidMount() {
 
+    componentDidMount() {
+        this.listener = DeviceEventEmitter.addListener('updateProgress',() => {
+            this.setState({
+                progress: 0,
+            });
+            seconds = 0;
+        })
     }
 
     countDown() {
@@ -52,6 +59,7 @@ class recordVideo extends Component {
 
     componentWillUnmount() {
         seconds = 0;
+        this.listener.remove();
     }
 
     startRecord() {
@@ -61,7 +69,7 @@ class recordVideo extends Component {
             .then((data) => {
                 console.log('video===',data);
                 this.props.navigation.navigate('RecordVideoFinished', {
-                    imagePath: data.path,
+                    videoPath: data.path,
                     mediaType: 'video',
                 });
             })
@@ -193,7 +201,7 @@ const styles =StyleSheet.create({
     transparentCircle: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000'
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
 });
 

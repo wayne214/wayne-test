@@ -105,6 +105,7 @@ import TakePhoto from '../containers/home/takePhoto';
 import RecordVideo from '../containers/home/recordVideo';
 import TakePhotoFinished from '../containers/home/takePhotoFinished';
 import RecordVideoFinished from '../containers/home/recordVideoFinished';
+import VideoShow from '../containers/home/videoShow';
 
 
 
@@ -655,6 +656,12 @@ const StackRouteConfigs = {
     },
     RecordVideoFinished: {
         screen: RecordVideoFinished,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VideoShow: {
+        screen: VideoShow,
         navigationOptions: {
             header: null
         }

@@ -16,16 +16,24 @@ import {
     Platform,
 } from 'react-native';
 
+import Video from 'react-native-video';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';
 import OrdersItemCell from '../order/components/ordersItemCell';
 import DialogSelected from '../../common/alertSelected';
 import Loading from '../../utils/loading';
-
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
+import {
+    updateImages
+} from '../../action/order';
+import {
+    clearVideoAction
+} from '../../action/app';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 const {width, height} = Dimensions.get('window');
 let selectedArr = ["拍照", "视频"];
+let title = '请选择照片或视频';
 const ImageWH = (width - 70) / 4;
 
 let result = {
@@ -47,7 +55,6 @@ class uploadAbnormal extends Component {
         this.state = {
             loading: false,
             location: '',
-            selectedArr: ["拍照", "视频"],
         };
         this.submit = this.submit.bind(this);
         this.takePhoto = this.takePhoto.bind(this);
@@ -55,13 +62,28 @@ class uploadAbnormal extends Component {
         this.callbackSelected = this.callbackSelected.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
         this.clickImage = this.clickImage.bind(this);
+        this.clickVideo = this.clickVideo.bind(this);
         this.createAddItem = this.createAddItem.bind(this);
         this.getItemContent = this.getItemContent.bind(this);
+        this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
     }
     componentDidMount() {
+        this.getCurrentPosition();
 
     }
+
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =', JSON.stringify(data));
+            this.setState({
+                location: data.address,
+            });
+        }).catch(e => {
+            console.log(e, 'error');
+        });
+    }
+
     // 获取调度单数据
     getItemContent() {
 
@@ -86,7 +108,7 @@ class uploadAbnormal extends Component {
     }
 
     showAlertSelected(){
-        this.dialog.show("请选择照片或视频", selectedArr, '#333333', this.callbackSelected);
+        this.dialog.show(title, selectedArr, '#333333', this.callbackSelected);
     }
 
     callbackSelected(i){
@@ -145,13 +167,26 @@ class uploadAbnormal extends Component {
         );
     }
 
+    clickVideo(index) {
+        console.log('---==index==---',index);
+        const {videoList} = this.props;
+        this.props.navigation.navigate(
+            'VideoShow',
+            {
+                video: videoList.toArray(),
+                num: index,
+            },
+        );
+    }
 
     render() {
-        const {imageList} = this.props;
+        const {imageList, videoList} = this.props;
         if (imageList.size === 0) {
             selectedArr = ['拍照', '视频'];
+            title = '请选择照片或视频';
         }else if (imageList.size > 0) {
             selectedArr = ['拍照'];
+            title = '请选择照片';
         }
         const navigator = this.props.navigation;
         const imagesView = imageList.map((picture, index) => {
@@ -191,6 +226,52 @@ class uploadAbnormal extends Component {
                 </View>
             );
         });
+        const imageLayout = <View style={styles.imageLayout}>
+            <View style={[styles.imageView, { paddingBottom: 0, }]}>
+                {imagesView}
+                {this.createAddItem(1)}
+            </View>
+            <View style={[styles.imageView, { paddingBottom: 0 }]}>
+                {imagesViewSecond}
+                {this.createAddItem(2)}
+            </View>
+            <View style={styles.imageView}>
+                {imagesViewThird}
+                {this.createAddItem(3)}
+            </View>
+        </View>;
+        const videoView = videoList.map((video, index) => {
+            return  (
+                <View key={index}>
+                    <TouchableOpacity onPress={() => {this.clickVideo(index)}} style={styles.imageBorder}>
+                        <Video
+                            source={{uri: video.uri}}   // Can be a URL or a local file.
+                            ref={(ref) => {
+                                this.player = ref
+                            }}                                      // Store reference
+                            rate={0}                                // 控制暂停/播放，0 代表暂停paused, 1代表播放normal.
+                            volume={1.0}                            // 声音的放大倍数，0 代表没有声音，就是静音muted, 1 代表正常音量 normal，更大的数字表示放大的倍数
+                            muted={false}                           // true代表静音，默认为false.
+                            paused={false}                          // Pauses playback entirely.
+                            resizeMode="cover"                      // 视频的自适应伸缩铺放行为
+                            repeat={false}                           // 是否重复播放
+                            playInBackground={false}                // 当应用程序输入背景音频时，音频继续播放
+                            playWhenInactive={false}                // [iOS] 当显示控制或通知中心时，视频继续播放
+                            ignoreSilentSwitch={"ignore"}           // [iOS] ignore | obey - When 'ignore', audio will still play with the iOS hard silent switch set to silent. When 'obey', audio will toggle with the switch. When not specified, will inherit audio settings as usual.
+                            progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
+                            onLoadStart={() => {console.log('开始加载')}}            //  当视频开始加载时的回调函数
+                            onEnd={() => {console.log('播放完毕')}}                      // 当视频播放完毕后的回调函数
+                            style={styles.imageItem}
+                        />
+                    </TouchableOpacity>
+                </View>
+            );
+        });
+        const  videoLayout = <View style={styles.imageLayout}>
+            <View style={[styles.imageView, { paddingBottom: 10, }]}>
+                {videoView}
+            </View>
+        </View>;
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -208,6 +289,8 @@ class uploadAbnormal extends Component {
                                 {
                                     text: '退出',
                                     onPress: () => {
+                                        this.props.dispatch(updateImages());
+                                        this.props.dispatch(clearVideoAction());
                                         navigator.goBack();
                                     }
                                 },
@@ -232,20 +315,9 @@ class uploadAbnormal extends Component {
                             multiline={true}
                             underlineColorAndroid={'transparent'}
                         />
-                        <View style={styles.imageLayout}>
-                            <View style={[styles.imageView, { paddingBottom: 0, }]}>
-                                {imagesView}
-                                {this.createAddItem(1)}
-                            </View>
-                            <View style={[styles.imageView, { paddingBottom: 0 }]}>
-                                {imagesViewSecond}
-                                {this.createAddItem(2)}
-                            </View>
-                            <View style={styles.imageView}>
-                                {imagesViewThird}
-                                {this.createAddItem(3)}
-                            </View>
-                        </View>
+                        {
+                            videoList.size > 0 ? videoLayout : imageLayout
+                        }
                         <View style={styles.divideLine}/>
                         <View style={styles.locationStyle}>
                             <Text style={styles.locationIcon}>&#xe677;</Text>
@@ -377,11 +449,12 @@ const styles =StyleSheet.create({
         width,
         height: 210,
         marginTop: 15
-    }
+    },
 });
 
 function mapStateToProps(state){
     return {
+        videoList: state.app.get('videoList'),
         imageList: state.order.get('imageList'),
         maxNum: state.order.get('maxNum'),
         routes: state.nav.routes,
@@ -389,7 +462,9 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps (dispatch){
-    return {};
+    return {
+        dispatch
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(uploadAbnormal);

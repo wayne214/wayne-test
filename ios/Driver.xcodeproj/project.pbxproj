@@ -61,7 +61,6 @@
 		35AC22FC1F79F4F9007D53B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FB1F79F4F9007D53B5 /* CoreLocation.framework */; };
 		35AC22FE1F79F506007D53B5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FD1F79F506007D53B5 /* QuartzCore.framework */; };
 		35AC23001F79F512007D53B5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AC22FF1F79F512007D53B5 /* OpenGLES.framework */; };
-		35CB8E111FE135FC004BDD23 /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BD22341FDE3A5200934C51 /* libRCTJPushModule.a */; };
 		3E304C86D7DA4190BA6E131C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867703CCF1DF475B81CC8A6E /* Security.framework */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		76FA9D87C0FC40E19FE1CA3D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3435735946DF462E8035CEE1 /* libz.tbd */; };
@@ -76,6 +75,7 @@
 		A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BA98A06BC45FD94546BFF /* libRNSound.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B0626A5A1FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */; };
+		B584639D00104A1BBB114E48 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3885C87517B7456CBAAACCF4 /* libRCTVideo.a */; };
 		C62F90101FE12BC000B6EC6A /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BD22341FDE3A5200934C51 /* libRCTJPushModule.a */; };
 		C630DB831FC2B659004FBBA2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB821FC2B658004FBBA2 /* AudioToolbox.framework */; };
 		C630DB851FC2B664004FBBA2 /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB841FC2B664004FBBA2 /* libiconv.2.4.0.tbd */; };
@@ -288,6 +288,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 91C5EFFF1C76ECA90037E727;
 			remoteInfo = RCTHotUpdate;
+		};
+		358297AB1FE78F5D00251D04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B27F5D18C7A4AAD9947A2BF /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTVideo;
+		};
+		358297AD1FE78F5D00251D04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B27F5D18C7A4AAD9947A2BF /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 641E28441F0EEC8500443AF6;
+			remoteInfo = "RCTVideo-tvOS";
 		};
 		35BC82281F73AD75005CD20C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -524,6 +538,7 @@
 		22273DD0C9EC4F5EB7D49795 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		2A379914C443439FA8B4A613 /* RCTHotUpdate.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTHotUpdate.xcodeproj; path = "../node_modules/react-native-update/ios/RCTHotUpdate.xcodeproj"; sourceTree = "<group>"; };
 		2AE3B56DF00B4EE2B8FA7A17 /* RCTJPushModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTJPushModule.xcodeproj; path = "../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule.xcodeproj"; sourceTree = "<group>"; };
+		2B27F5D18C7A4AAD9947A2BF /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Driver-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Driver-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Driver-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Driver-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		327843ED3FDC45ED8DFDFE73 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
@@ -558,6 +573,7 @@
 		35DB3A631FBC3CDF008BED79 /* launch6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch6.png; sourceTree = "<group>"; };
 		35DB3A641FBC3CDF008BED79 /* launch7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch7.png; sourceTree = "<group>"; };
 		35DB3A651FBC3CDF008BED79 /* launchX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchX.png; sourceTree = "<group>"; };
+		3885C87517B7456CBAAACCF4 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		3A163A27B14A4D63A0ACEB65 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker-custom/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
 		4F0CDCD3C7844CB19FCC2856 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -734,6 +750,7 @@
 				815E3CFFF2DD434FA2C0D55A /* libRCTBEEPickerManager.a in Frameworks */,
 				8B4F1BAD81BB4000BF931B53 /* libimageCropPicker.a in Frameworks */,
 				A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */,
+				B584639D00104A1BBB114E48 /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,6 +993,7 @@
 				0537408D93D648B49F95E9BF /* libspeech.a */,
 				3507D9E4745749409A6120C0 /* libRCTHotUpdate.a */,
 				9117FF491FE1040700101E0F /* libBaiduSpeechSDK.a */,
+				3885C87517B7456CBAAACCF4 /* libRCTVideo.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1029,6 +1047,15 @@
 			isa = PBXGroup;
 			children = (
 				354F4AF01FBD8A3F0035F679 /* libRCTHotUpdate.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		358297A71FE78F5D00251D04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				358297AC1FE78F5D00251D04 /* libRCTVideo.a */,
+				358297AE1FE78F5D00251D04 /* libRCTVideo.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1134,6 +1161,7 @@
 				2A379914C443439FA8B4A613 /* RCTHotUpdate.xcodeproj */,
 				2AE3B56DF00B4EE2B8FA7A17 /* RCTJPushModule.xcodeproj */,
 				F85D9C1407874541947581FC /* RCTJCoreModule.xcodeproj */,
+				2B27F5D18C7A4AAD9947A2BF /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1587,6 +1615,10 @@
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
 				},
 				{
+					ProductGroup = 358297A71FE78F5D00251D04 /* Products */;
+					ProjectRef = 2B27F5D18C7A4AAD9947A2BF /* RCTVideo.xcodeproj */;
+				},
+				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
@@ -1789,6 +1821,20 @@
 			fileType = archive.ar;
 			path = libRCTHotUpdate.a;
 			remoteRef = 354F4AEF1FBD8A3F0035F679 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		358297AC1FE78F5D00251D04 /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 358297AB1FE78F5D00251D04 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		358297AE1FE78F5D00251D04 /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 358297AD1FE78F5D00251D04 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		35BC82291F73AD75005CD20C /* libthird-party.a */ = {
@@ -2163,12 +2209,14 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2225,12 +2273,14 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2292,6 +2342,7 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2354,6 +2405,7 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2418,11 +2470,13 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2489,11 +2543,13 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2549,6 +2605,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2573,6 +2630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
