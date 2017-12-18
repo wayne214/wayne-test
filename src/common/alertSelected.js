@@ -14,7 +14,7 @@ import {
     TouchableOpacity,
     DeviceEventEmitter,
 } from 'react-native';
-
+import * as StaticColor from '../constants/staticColor';
 const {width, height} = Dimensions.get('window');
 const [aWidth] = [width-20];
 const [left, top] = [0, 0];
@@ -93,6 +93,7 @@ export default class AlertSelected extends Component {
                 <View style={{height: 0.5, backgroundColor: '#a9a9a9', width: aWidth}}/>
                 <TouchableOpacity
                     index={i}
+                    key={i}
                     onPress={this.choose.bind(this, i)}
                 >
                     <View style={styles.item}>
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
     },
     // 提示文字
     tipTitleText: {
@@ -267,5 +268,5 @@ const styles = StyleSheet.create({
     content: {
         backgroundColor: '#fff',
         borderRadius: 5,
-    }
+    },
 });

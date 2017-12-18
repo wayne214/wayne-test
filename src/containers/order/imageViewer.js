@@ -99,8 +99,11 @@ class ImageViewer extends Component {
     componentDidMount() {
         const params = this.props.navigation.state.params;
         const pageNum = params.num;
+
         if (Platform.OS === 'ios') {
-            this.refs.scrollView.scrollTo({x: width * pageNum, y: 0, animated: true});
+            setTimeout(() => {
+                this.refs.scrollView.scrollTo({x: width * pageNum, y: 0, animated: false})
+            },0);
         } else {
             this.listeners = [
                 this.props.navigation.navigationContext.addListener('didfocus', (e) => {
@@ -136,7 +139,7 @@ class ImageViewer extends Component {
             dispatch(deleteImage(this.state.imageIndex - 1));
 
             this.timer = setTimeout(() => {
-                navigator.pop();
+                navigator.goBack();
             }, 2000);
             return;
         }
@@ -157,6 +160,7 @@ class ImageViewer extends Component {
                 remindIsOpen: false,
             });
         }, 3000);
+
     }
 
     imageViewScroll(e) {

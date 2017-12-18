@@ -41,6 +41,7 @@ import signIcon from '../../assets/home/sign_icon.png';
 import receiptIcon from '../../assets/home/receipt_icon.png';
 import dispatchIcon from '../../assets/home/despatch_icon.png';
 import receiveIcon from '../../assets/home/receive_icon.png';
+import roadIcon from '../../assets/home/road_abnormality.png';
 
 /*货源*/
 import close from '../../assets/good/close.png';
@@ -166,6 +167,13 @@ import CarAvatar from '../../assets/character/carAvatar.png';
 /*司机-默认头像-个人*/
 import DriverAvatar from '../../assets/character/driverAvatar.png';
 
+/*录制视频按钮*/
+import solidCircle from '../../assets/home/solidCircle.png'
+import transparentCircle from '../../assets/home/transparentCircle.png'
+import circleView from '../../assets/home/circleView.png'
+import hollowCircle from '../../assets/home/hollowCircle.png'
+import takeBack from '../../assets/home/takeBack.png'
+import takeNext from '../../assets/home/takeNext.png'
 
 export default {
     EmptyImage,
@@ -266,5 +274,12 @@ export default {
     OwnerDown,
     CarAvatar,
     DriverAvatar,
+    roadIcon,
+    solidCircle,
+    transparentCircle,
+    circleView,
+    hollowCircle,
+    takeBack,
+    takeNext,
 }
 

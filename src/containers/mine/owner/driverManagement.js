@@ -1,5 +1,5 @@
 /**
- * 添加车辆
+ * 司机管理
  * by：wl
  */
 import React, {Component} from 'react';
@@ -9,20 +9,20 @@ import {
     View,
     Text,
     Image,
-    Button,
     StyleSheet,
     ScrollView,
     Dimensions,
     TextInput,
     FlatList,
     TouchableOpacity,
-    Platform
+    Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
 import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
 import Swipeout from 'react-native-swipeout';
+import Button from 'apsl-react-native-button';
 
 const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
@@ -134,12 +134,8 @@ class DriverManagement extends BaseContainer {
 
     //点击城市cell
     cityClicked(item) {
-        // alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankNameCallback) {
-            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
-        }
-        this.props.navigation.goBack();
+        console.log('item',item);
+        // this.props.navigation.goBack();
     }
 
     //列表的每一行
@@ -204,12 +200,12 @@ class DriverManagement extends BaseContainer {
                         <View style={{marginLeft: 45}}>
                             {this.state.line && this.state.clickLine == index ?
                                 <Text
-                                    style={{fontsize: 18, lineHeight: 24}}
+                                    style={{fontsize: 18, lineHeight: 24,color:'#3F3F3F'}}
                                 >
                                     关联车辆：{item.carList}</Text>
                                 : <Text
                                     numberOfLines={1}
-                                    style={{fontsize: 18, lineHeight: 24}}>关联车辆：{item.carList}</Text>
+                                    style={{fontsize: 18, lineHeight: 24, color:'#3F3F3F'}}>关联车辆：{item.carList}</Text>
                             }
 
                             {this.state.line && this.state.clickLine == index ?
@@ -232,22 +228,26 @@ class DriverManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                        {item.status != '禁用' ?
-                        <View
-                            style={{
-                                height: 30,
-                                width: 85,
-                                marginLeft: width - 100,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderRadius: 20,
-                                borderColor: '#999999',
-                                borderWidth: 1,
-                            }}>
-                            < Text style={{color: 'black'}}>绑定车辆</Text>
-                        </View>
-                            :null
-                        }
+                            {item.status != '禁用' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 85,
+                                            marginLeft: width - 100,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#999999',
+                                            borderWidth: 0.5,
+                                        }}>
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
                         </View>
                         <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
                     </View>
@@ -270,7 +270,11 @@ class DriverManagement extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -335,18 +339,32 @@ class DriverManagement extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
-                <FlatList
-                    style={{backgroundColor: 'white', flex: 1}}
-                    data={this.state.branchList}
-                    // renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
 
+                <FlatList
+                    style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop:10}}
+                    data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
-
                 </FlatList>
-
+                <Button
+                    ref='button'
+                    isDisabled={false}
+                    style={{
+                        backgroundColor: '#0083FF',
+                        width: width,
+                        marginBottom: 0,
+                        height: 44,
+                        borderRadius:0,
+                        borderWidth: 0,
+                        borderColor: '#0083FF',}}
+                    textStyle={{color: 'white', fontSize: 18}}
+                    onPress={() => {
+                        this.props.navigation.navigate('AddDriverPage');
+                    }}
+                >
+                    添加司机
+                </Button>
             </View>
 
         );
