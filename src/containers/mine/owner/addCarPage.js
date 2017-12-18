@@ -162,13 +162,20 @@ class AddCarPage extends BaseContainer {
 
                 }}>
 
-                    <View style={{paddingLeft: 10, backgroundColor: '#ffffff',flexDirection: 'row',alignItems:'center',paddingTop:15,paddingBottom:15}}>
+                    <View style={{
+                        paddingLeft: 10,
+                        backgroundColor: '#ffffff',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingTop: 16,
+                        paddingBottom: 16
+                    }}>
                         <Image
                             style={{height: 36, width: 36}}
                             source={StaticImage.CarAvatar}></Image>
 
                         <View style={{flexDirection: 'column'}}>
-                            <View style={{flexDirection: 'row',alignItems:'center',}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
 
                                 <Text style={{
                                     marginLeft: 10,
@@ -190,7 +197,7 @@ class AddCarPage extends BaseContainer {
                                                 alignItems: 'center',
                                                 borderRadius: 20,
                                                 borderColor: '#0071FF',
-                                                borderWidth: 1,
+                                                borderWidth: 0.5,
                                             }}>
                                             < Text style={{color: '#0071FF'}}>+添加</Text>
                                         </View>
@@ -200,11 +207,11 @@ class AddCarPage extends BaseContainer {
                             </View>
                             {item.Disabled == '禁用' ?
                                 <Text style={{
-                                    marginLeft:10,
+                                    marginLeft: 10,
                                     color: '#CCCCCC',
                                     fontSize: 12,
                                     height: 18,
-                                    marginTop:3,
+                                    marginTop: 3,
                                 }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
                                 : null}
                         </View>
@@ -232,7 +239,11 @@ class AddCarPage extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -297,10 +308,11 @@ class AddCarPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
-
+                <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
+                <Text style={{color: '#666666', fontsize: 15,marginLeft:10}}>添加车辆</Text>
+                </View>
                 <FlatList
-                    style={{backgroundColor: 'white', flex: 1}}
+                    style={{backgroundColor: '#F4F4F4', flex: 1}}
                     data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告

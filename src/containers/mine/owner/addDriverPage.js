@@ -202,7 +202,7 @@ class AddDriverPage extends BaseContainer {
                                             alignItems: 'center',
                                             borderRadius: 20,
                                             borderColor: '#0071FF',
-                                            borderWidth: 1,
+                                            borderWidth: 0.5,
                                         }}>
                                         < Text style={{color: '#0071FF'}}>+添加</Text>
                                     </View>
