@@ -33,6 +33,10 @@ import VerifiedLineItem from './verifiedIDItem/verifiedLineItem';
 import VerifiedDateSources from './verifiedIDItem/verifiedDateSource';
 import VerfiedCompanyItem from './verifiedIDItem/verifiedCompanyItem';
 import Validator from '../../../utils/validator';
+import Storage from '../../../utils/storage';
+import StorageKey from '../../../constants/storageKeys';
+import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
+
 
 const businessTrunRightImage = require('./images/business_right_add.png');
 const businessTrunLeftImage = require('./images/business_right.png');
@@ -57,34 +61,84 @@ let selectType = 0;
  * */
 let selectDatePickerType = 0;
 
+let isShowCompanyInfo = false;
+let isShowCardInfo = false;
+
+let userID = '';
+let userName = '';
+let userPhone = '';
+
 class companyCarOwnerAuth extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            appLoading: false,
+        if (this.props.navigation.state.params) {
+            const result = this.props.navigation.state.params.resultInfo;
 
-            IDName: '',
-            IDCard: '',
-            IDDate: '',
+            isShowCardInfo = result.IDCard ? true : false;
+            isShowCompanyInfo = result.companyCode ? true : false;
+            this.state = {
+                appLoading: false,
 
-            idCardImage: idCardRightImage,
-            idCardTrunImage: idCardTrunRightImage,
+                IDName: result.IDName,
+                IDCard: result.IDCard,
+                IDDate: result.IDDate,
 
-            idFaceSideNormalPhotoAddress: '', // 身份证正面原图
-            idFaceSideThumbnailAddress: '', // 身份证正面缩略图
+                idCardImage:  {uri: result.idCardImage},
+                idCardTrunImage:  {uri: result.idCardTrunImage},
 
-            idBackSideNormalPhotoAddress: '', // 身份证反面原图
-            idBackSideThumbnailAddress: '', // 身份证反面缩略图
+                idFaceSideNormalPhotoAddress: result.idFaceSideNormalPhotoAddress, // 身份证正面原图
+                idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddress, // 身份证正面缩略图
+
+                idBackSideNormalPhotoAddress: result.idBackSideNormalPhotoAddress, // 身份证反面原图
+                idBackSideThumbnailAddress: result.idBackSideThumbnailAddress, // 身份证反面缩略图
 
 
-            companyName: '',
-            companyOwnerName: '',
-            companyAddress: '',
-            companyCode: '',
-            businessTrunLeftImage,
-            businessTrunRightImage,
-            businessLicenseValidUntil: '', // 营业执照有效期
-        };
+                companyName: result.companyName,
+                companyOwnerName: result.companyOwnerName,
+                companyAddress: result.companyAddress,
+                companyCode: result.companyCode,
+                businessTrunRightImage: {uri: result.businessTrunRightImage} ,
+                businessNormalPhotoAddress: result.businessNormalPhotoAddress, // 营业执照原图
+                businessThumbnailAddress: result.businessThumbnailAddress, // 营业执照缩略图
+                businessLicenseValidUntil: result.businessLicenseValidUntil, // 营业执照有效期
+
+                isChooseCompanyImage: result.isChooseCompanyImage,
+                isChooseBusinessLicenseValidImage: result.isChooseBusinessLicenseValidImage,
+                isChooseBusinessLicenseValidTrunImage: result.isChooseBusinessLicenseValidTrunImage,
+            };
+        }else {
+            this.state = {
+                appLoading: false,
+
+                IDName: '',
+                IDCard: '',
+                IDDate: '',
+
+                idCardImage: idCardRightImage,
+                idCardTrunImage: idCardTrunRightImage,
+
+                idFaceSideNormalPhotoAddress: '', // 身份证正面原图
+                idFaceSideThumbnailAddress: '', // 身份证正面缩略图
+
+                idBackSideNormalPhotoAddress: '', // 身份证反面原图
+                idBackSideThumbnailAddress: '', // 身份证反面缩略图
+
+
+                companyName: '',
+                companyOwnerName: '',
+                companyAddress: '',
+                companyCode: '',
+                businessTrunRightImage,
+                businessNormalPhotoAddress: '', // 营业执照原图
+                businessThumbnailAddress: '', // 营业执照缩略图
+                businessLicenseValidUntil: '', // 营业执照有效期
+
+                isChooseCompanyImage: false,
+                isChooseBusinessLicenseValidImage: false,
+                isChooseBusinessLicenseValidTrunImage: false,
+            };
+        }
+
 
 
         this.showDatePick = this.showDatePick.bind(this);
@@ -93,11 +147,61 @@ class companyCarOwnerAuth extends Component {
         this.selectPhoto = this.selectPhoto.bind(this);
         this.selectCamera = this.selectCamera.bind(this);
         this.upLoadImage = this.upLoadImage.bind(this);
-
-
     }
     componentDidMount() {
+        userID = global.userId;
+        userName = global.userName;
+        userPhone = global.phone;
+        /*相机拍照*/
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
 
+            console.log('DeviceEventEmitter:', imagePath);
+
+            if (Platform.OS === 'ios') {
+                imagePath = 'file://' + imagePath;
+            }
+
+            let source = {uri: imagePath};
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
+
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('phoneNum', userPhone);
+            formData.append('isShot', 'Y');
+            switch (selectType) {
+                case 0:
+                    this.setState({
+                        idCardImage: source,
+                        isChooseBusinessLicenseValidImage: false,
+                    });
+
+                    this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
+
+                    break;
+                case 1:
+                    this.setState({
+                        idCardTrunImage: source,
+                        isChooseBusinessLicenseValidTrunImage: false,
+                    });
+
+                    this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
+
+                    break;
+
+                case 2:
+                    this.setState({
+                        businessTrunRightImage: source,
+                        isChooseCompanyImage: false,
+                    });
+                    //this.upLoadImage(API.'营业执照地址', formData);
+                    break;
+            }
+
+            this.setState({
+                appLoading: true,
+            });
+        });
     }
 
 
@@ -282,6 +386,7 @@ class companyCarOwnerAuth extends Component {
                     case 0:
                         this.setState({
                             idCardImage: source,
+                            isChooseBusinessLicenseValidImage: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
@@ -290,12 +395,20 @@ class companyCarOwnerAuth extends Component {
                     case 1:
                         this.setState({
                             idCardTrunImage: source,
+                            isChooseBusinessLicenseValidTrunImage: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
 
                         break;
 
+                    case 2:
+                        this.setState({
+                            businessTrunRightImage: source,
+                            isChooseCompanyImage: false,
+                        });
+                        //this.upLoadImage(API.'营业执照地址', formData);
+                        break;
                 }
 
                 this.setState({
@@ -329,19 +442,29 @@ class companyCarOwnerAuth extends Component {
                                 idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
                             });
 
+                            isShowCardInfo = true;
                             break;
                         case 1:
                             if (respones.result.idValidUntil){
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
                             this.setState({
-                                IDDate: respones.result.idValidUntil,
+                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                             });
-
+                            isShowCardInfo = true;
                             break;
-
+                        case 2:
+                            if (respones.result.idValidUntil){
+                            }else
+                                Toast.showShortCenter('图片解析失败，请手动填写信息');
+                            this.setState({
+                                businessNormalPhotoAddress: '', // 营业执照原图
+                                businessThumbnailAddress: '', // 营业执照缩略图
+                            });
+                            isShowCompanyInfo = true;
+                            break;
                     }
                 }else
                     Toast.showShortCenter('解析失败，请重新上传');
@@ -364,14 +487,9 @@ class companyCarOwnerAuth extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        const personCardInfoTitle =
+        const personCardInfo = isShowCardInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认身份证基本信息"/>
-
-            </View> ;
-        const personCardInfo =
-            <View>
-
                 <VerifiedIDInfoItem IDName={this.state.IDName}
                                     IDCard={this.state.IDCard}
                                     nameChange={(text)=>{
@@ -391,9 +509,9 @@ class companyCarOwnerAuth extends Component {
 
                                     }}
                 />
-            </View> ;
+            </View> : null;
 
-        const personCardDate =
+        const personCardDate = isShowCardInfo ?
             <View>
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
@@ -403,10 +521,10 @@ class companyCarOwnerAuth extends Component {
                                         selectDatePickerType = 0;
                                         this.showDatePick(true ,'cardID');
                                     }}/>
-            </View> ;
+            </View> : null;
 
 
-        const companyInfo =
+        const companyInfo = isShowCompanyInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认营业执照基本信息"/>
 
@@ -440,7 +558,7 @@ class companyCarOwnerAuth extends Component {
                                         }
                                     }}
                                     />
-            </View> ;
+            </View> : null;
 
         const plat = Platform.OS === 'ios' ? 'on-drag' : 'none';
 
@@ -451,6 +569,36 @@ class companyCarOwnerAuth extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
+                        let info = {
+                            appLoading: false,
+
+                            IDName: this.state.IDName,
+                            IDCard: this.state.IDCard,
+                            IDDate: this.state.IDDate,
+
+                            idCardImage: this.state.idCardImage.uri || '../navigationBar/IdCardAdd.png',
+                            idCardTrunImage: this.state.idCardTrunImage.uri || '../navigationBar/IdCardTurnAdd.png',
+
+                            idFaceSideNormalPhotoAddress: this.state.idFaceSideNormalPhotoAddress, // 身份证正面原图
+                            idFaceSideThumbnailAddress: this.state.idFaceSideThumbnailAddress, // 身份证正面缩略图
+
+                            idBackSideNormalPhotoAddress: this.state.idBackSideNormalPhotoAddress, // 身份证反面原图
+                            idBackSideThumbnailAddress: this.state.idBackSideThumbnailAddress, // 身份证反面缩略图
+
+                            companyName: this.state.companyName,
+                            companyOwnerName: this.state.companyOwnerName,
+                            companyAddress: this.state.companyAddress,
+                            companyCode: this.state.companyCode,
+                            businessTrunRightImage: this.state.businessTrunRightImage.uri || '../navigationBar/business_add',
+                            businessNormalPhotoAddress: this.state.businessNormalPhotoAddress, // 营业执照原图
+                            businessThumbnailAddress: this.state.businessThumbnailAddress, // 营业执照缩略图
+                            businessLicenseValidUntil: this.state.businessLicenseValidUntil, // 营业执照有效期
+
+                            isChooseCompanyImage: this.state.isChooseCompanyImage,
+                            isChooseBusinessLicenseValidImage: this.state.isChooseBusinessLicenseValidImage,
+                            isChooseBusinessLicenseValidTrunImage: this.state.isChooseBusinessLicenseValidTrunImage,
+                        };
+                        Storage.save(StorageKey.enterpriseownerInfoResult, info);
                         navigator.goBack();
                     }}
                 />
@@ -484,7 +632,7 @@ class companyCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="营业执照要清晰"
                                         leftImage={businessTrunLeftImage}
                                         rightImage={this.state.businessTrunRightImage}
-                                        isChooseRight={false}
+                                        isChooseRight={this.state.isChooseCompanyImage}
                                         click={()=> {
                                             selectType=2;
                                             this.showAlertSelected();
@@ -499,7 +647,7 @@ class companyCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="身份证号要清晰"
                                         leftImage={idCardLeftImage}
                                         rightImage={this.state.idCardImage}
-                                        isChooseRight={false}
+                                        isChooseRight={this.state.isChooseBusinessLicenseValidImage}
                                         click={()=> {
                                             selectType=0;
                                             this.showAlertSelected();
@@ -512,20 +660,19 @@ class companyCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="身份信息要清晰"
                                         leftImage={idCardTrunLeftImage}
                                         rightImage={this.state.idCardTrunImage}
-                                        isChooseRight={false}
-
+                                        isChooseRight={this.state.isChooseBusinessLicenseValidTrunImage}
                                         click={()=> {
                                             selectType=1;
                                             this.showAlertSelected();
                                         }}
                     />
 
-                    {personCardInfoTitle}
                     {personCardInfo}
                     {personCardDate}
 
                     <VerifiedSpaceItem/>
-
+                    <VierifiedBottomItem clickAction={()=>{
+                    }}/>
                 </ScrollView>
                 <AlertSheetItem ref={(dialog)=>{
                     this.dialog = dialog;

@@ -69,10 +69,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B4F1BAD81BB4000BF931B53 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062E833C16F6450FA50A03A5 /* libimageCropPicker.a */; };
 		9117FF4A1FE1040700101E0F /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9117FF491FE1040700101E0F /* libBaiduSpeechSDK.a */; };
-<<<<<<< HEAD
-		916559CD1FC430A700E9CDE2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-=======
->>>>>>> c897fd4b3d6912cac31174d117b2e6c801873465
 		9EFCBF0AEA264BEA8472DB8A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 86B0E2E7CDE24813BA9644E5 /* libresolv.tbd */; };
 		9FFC2E0DCDA843648EA759D3 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FCABD8063846A783E608E8 /* libRNFS.a */; };
 		A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BA98A06BC45FD94546BFF /* libRNSound.a */; };
@@ -674,10 +670,6 @@
 			files = (
 				C62F90101FE12BC000B6EC6A /* libRCTJPushModule.a in Frameworks */,
 				9117FF4A1FE1040700101E0F /* libBaiduSpeechSDK.a in Frameworks */,
-<<<<<<< HEAD
-				916559CD1FC430A700E9CDE2 /* (null) in Frameworks */,
-=======
->>>>>>> c897fd4b3d6912cac31174d117b2e6c801873465
 				C630DB8B1FC2B680004FBBA2 /* AVFoundation.framework in Frameworks */,
 				C630DB891FC2B67B004FBBA2 /* libc++.tbd in Frameworks */,
 				1FAC30371F73BB15004DF4C6 /* libstdc++.6.0.9.tbd in Frameworks */,

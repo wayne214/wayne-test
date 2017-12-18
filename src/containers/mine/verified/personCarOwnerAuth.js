@@ -33,6 +33,9 @@ import VerifiedLineItem from './verifiedIDItem/verifiedLineItem';
 import VerifiedTravelInfoItemOne from './verifiedIDItem/verifiedTravelInfoItemOne';
 import VerifiedDateSources from './verifiedIDItem/verifiedDateSource';
 import Validator from '../../../utils/validator';
+import Storage from '../../../utils/storage';
+import StorageKey from '../../../constants/storageKeys';
+import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -62,39 +65,101 @@ let selectType = 0;
 * */
 let selectDatePickerType = 0;
 
+
+let userID = '';
+let userName = '';
+let userPhone = '';
+
 class personCarOwnerAuth extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            appLoading: false,
 
-            IDName: '',
-            IDCard: '',
-            IDDate: '',
-
-            idCardImage: idCardRightImage,
-            idCardTrunImage: idCardTrunRightImage,
-
-            idFaceSideNormalPhotoAddress: '', // 身份证正面原图
-            idFaceSideThumbnailAddress: '', // 身份证正面缩略图
-
-            idBackSideNormalPhotoAddress: '', // 身份证反面原图
-            idBackSideThumbnailAddress: '', // 身份证反面缩略图
+        if (this.props.navigation.state.params) {
+            const result = this.props.navigation.state.params.resultInfo;
 
 
-            carNumber: '',
-            carOwner: '',
-            carEngineNumber: '',
-            travelRightImage: travelRightImage,
-            travelTrunRightImage: travelTrunRightImage,
-            drivingLicenseValidUntil: '', // 行驶证有效期
 
-            vehicleLicenseHomepageNormalPhotoAddress: '', // 行驶证主页原图
-            vehicleLicenseHomepageThumbnailAddress: '', // 行驶证主页缩略图
+            this.state = {
+                appLoading: false,
 
-            vehicleLicenseVicePageNormalPhotoAddress: '', // 行驶证副页原图
-            vehicleLicenseVicePageThumbnailAddress: '', // 行驶证副页缩略图
-        };
+                IDName: result.IDName,
+                IDCard: result.IDCard,
+                IDDate: result.IDDate,
+
+                idCardImage: {uri: result.idCardImage} ,
+                idCardTrunImage: {uri: result.idCardTrunImage} ,
+
+                idFaceSideNormalPhotoAddress: result.idFaceSideNormalPhotoAddress, // 身份证正面原图
+                idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddress, // 身份证正面缩略图
+
+                idBackSideNormalPhotoAddress: result.idBackSideNormalPhotoAddress, // 身份证反面原图
+                idBackSideThumbnailAddress: result.idBackSideThumbnailAddress, // 身份证反面缩略图
+
+
+                carNumber: result.carNumber,
+                carOwner: result.carOwner,
+                carEngineNumber: result.carEngineNumber,
+                travelRightImage: {uri: result.travelRightImage} ,
+                travelTrunRightImage:  {uri: result.travelTrunRightImage},
+                drivingLicenseValidUntil: result.drivingLicenseValidUntil, // 行驶证有效期
+
+                vehicleLicenseHomepageNormalPhotoAddress: result.vehicleLicenseHomepageNormalPhotoAddress, // 行驶证主页原图
+                vehicleLicenseHomepageThumbnailAddress: result.vehicleLicenseHomepageThumbnailAddress, // 行驶证主页缩略图
+
+                vehicleLicenseVicePageNormalPhotoAddress: result.vehicleLicenseVicePageNormalPhotoAddress, // 行驶证副页原图
+                vehicleLicenseVicePageThumbnailAddress: result.vehicleLicenseVicePageThumbnailAddress, // 行驶证副页缩略图
+
+                isChooseCardImage: result.isChooseCardImage,
+                isChooseCardTrunImage: result.isChooseCardTrunImage,
+                isChooseVehicleLicenseViceImage: result.isChooseVehicleLicenseViceImage,
+                isChooseVehicleLicenseViceTrunImage: result.isChooseVehicleLicenseViceTrunImage,
+
+                isShowCardInfo: result.IDCard ? true : false,
+                isShowDriverInfo: result.carEngineNumber ? true : false,
+            };
+        }else {
+            this.state = {
+                appLoading: false,
+
+                IDName: '',
+                IDCard: '',
+                IDDate: '',
+
+                idCardImage: idCardRightImage,
+                idCardTrunImage: idCardTrunRightImage,
+
+                idFaceSideNormalPhotoAddress: '', // 身份证正面原图
+                idFaceSideThumbnailAddress: '', // 身份证正面缩略图
+
+                idBackSideNormalPhotoAddress: '', // 身份证反面原图
+                idBackSideThumbnailAddress: '', // 身份证反面缩略图
+
+
+                carNumber: '',
+                carOwner: '',
+                carEngineNumber: '',
+                travelRightImage: travelRightImage,
+                travelTrunRightImage: travelTrunRightImage,
+                drivingLicenseValidUntil: '', // 行驶证有效期
+
+                vehicleLicenseHomepageNormalPhotoAddress: '', // 行驶证主页原图
+                vehicleLicenseHomepageThumbnailAddress: '', // 行驶证主页缩略图
+
+                vehicleLicenseVicePageNormalPhotoAddress: '', // 行驶证副页原图
+                vehicleLicenseVicePageThumbnailAddress: '', // 行驶证副页缩略图
+
+                isChooseCardImage: false,
+                isChooseCardTrunImage: false,
+                isChooseVehicleLicenseViceImage: false,
+                isChooseVehicleLicenseViceTrunImage: false,
+
+                isShowCardInfo: false,
+                isShowDriverInfo: false,
+            };
+        }
+
+
+
 
 
         this.showDatePick = this.showDatePick.bind(this);
@@ -107,6 +172,65 @@ class personCarOwnerAuth extends Component {
 
     }
     componentDidMount() {
+        userID = global.userId;
+        userName = global.userName;
+        userPhone = global.phone;
+
+        /*相机拍照*/
+        this.listener = DeviceEventEmitter.addListener('endSureCameraPhotoEnd', (imagePath) => {
+
+            console.log('DeviceEventEmitter:', imagePath);
+
+            if (Platform.OS === 'ios') {
+                imagePath = 'file://' + imagePath;
+            }
+
+            let source = {uri: imagePath};
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {uri: imagePath, type: 'multipart/form-data', name: 'image.png'};   //这里的key(uri和type和name)不能改变,
+
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('phoneNum', userPhone);
+            formData.append('isShot', 'Y');
+            switch (selectType) {
+                case 0:
+                    this.setState({
+                        idCardImage: source,
+                        isChooseCardImage: true
+                    });
+
+                    this.upLoadImage(API.API_GET_IDCARD_INFO, formData, 'camera');
+                    break;
+                case 1:
+                    this.setState({
+                        idCardTrunImage: source,
+                        isChooseCardTrunImage: true,
+                    });
+                    this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData, 'camera');
+
+                    break;
+                case 2:
+                    this.setState({
+                        travelRightImage: source,
+                        isChooseVehicleLicenseViceImage: true
+                    });
+                    this.upLoadImage(API.API_GET_TRAVEL_INFO, formData, 'camera');
+
+                    break;
+                case 3:
+                    this.setState({
+                        travelTrunRightImage: source,
+                        isChooseVehicleLicenseViceTrunImage: true
+                    });
+                    this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData, 'camera');
+
+                    break;
+            }
+            this.setState({
+                appLoading: true,
+            });
+        });
 
     }
 
@@ -290,36 +414,37 @@ class personCarOwnerAuth extends Component {
                     case 0:
                         this.setState({
                             idCardImage: source,
+                            isChooseCardImage: false
                         });
 
-                        this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
+                        this.upLoadImage(API.API_GET_IDCARD_INFO, formData, 'photo');
 
                         break;
                     case 1:
                         this.setState({
                             idCardTrunImage: source,
+                            isChooseCardTrunImage: false
                         });
 
-                        this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
+                        this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData, 'photo');
 
                         break;
 
                     case 2:
                         this.setState({
                             travelRightImage: source,
-                            carOwner: '',
-                            carNumber: '',
-                            isChooseTravelRightImage: false,
+                            isChooseVehicleLicenseViceImage: false
                         });
-                        this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
+                        this.upLoadImage(API.API_GET_TRAVEL_INFO, formData, 'photo');
                         break;
 
                     case 3:
                         this.setState({
                             travelTrunRightImage: source,
-                            isChooseTravelTrunRightImage: false,
+                            isChooseVehicleLicenseViceTrunImage: false,
+
                         });
-                        this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData);
+                        this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData, 'photo');
 
                         break;
 
@@ -332,7 +457,8 @@ class personCarOwnerAuth extends Component {
         });
     }
     /*上传图片*/
-    upLoadImage(url, data) {
+    upLoadImage(url, data, source) {
+
         upLoadImageManager(url,
             data,
             () => {
@@ -354,17 +480,21 @@ class personCarOwnerAuth extends Component {
 
                                 idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
                                 idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
+                                isShowCardInfo : true,
                             });
+
 
                             break;
                         case 1:
                             if (respones.result.idValidUntil){
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
+
                             this.setState({
-                                IDDate: respones.result.idValidUntil,
+                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
+                                isShowCardInfo : true,
                             });
 
                             break;
@@ -379,6 +509,7 @@ class personCarOwnerAuth extends Component {
                                 carEngineNumber: respones.result.engineNumber,
                                 vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
                                 vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
+                                isShowDriverInfo: true,
                             });
 
                             break;
@@ -386,8 +517,8 @@ class personCarOwnerAuth extends Component {
                             this.setState({
                                 vehicleLicenseVicePageNormalPhotoAddress: respones.result.vehicleLicenseVicePageNormalPhotoAddress,
                                 vehicleLicenseVicePageThumbnailAddress: respones.result.vehicleLicenseVicePageThumbnailAddress,
+                                isShowDriverInfo: true,
                             });
-
                             break;
                     }
                 }else
@@ -411,14 +542,9 @@ class personCarOwnerAuth extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        const personCardInfoTitle =
+        const personCardInfo = this.state.isShowCardInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认身份证基本信息"/>
-
-            </View> ;
-        const personCardInfo =
-            <View>
-
                 <VerifiedIDInfoItem IDName={this.state.IDName}
                                     IDCard={this.state.IDCard}
                                     nameChange={(text)=>{
@@ -438,9 +564,9 @@ class personCarOwnerAuth extends Component {
 
                                     }}
                 />
-            </View> ;
+            </View> : null;
 
-        const personCardDate =
+        const personCardDate = this.state.isShowCardInfo ?
             <View>
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
@@ -450,12 +576,12 @@ class personCarOwnerAuth extends Component {
                                         selectDatePickerType = 0;
                                         this.showDatePick('cardID');
                                     }}/>
-            </View> ;
+            </View> : null;
 
 
         const plat = Platform.OS === 'ios' ? 'on-drag' : 'none';
 
-        let travelInfo =
+        let travelInfo = this.state.isShowDriverInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认行驶证基本信息"/>
                 <VerifiedTravelInfoItemOne carNumber={this.state.carNumber}
@@ -490,8 +616,7 @@ class personCarOwnerAuth extends Component {
 
                                             }}
                 />
-            </View>
-           ;
+            </View> : null;
         return (
             <View style={styles.container}>
                 <NavigatorBar
@@ -499,6 +624,42 @@ class personCarOwnerAuth extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
+                        let info = {
+                            appLoading: false,
+                            IDName: this.state.IDName,
+                            IDCard: this.state.IDCard,
+                            IDDate: this.state.IDDate,
+
+                            idCardImage: this.state.idCardImage.uri || '../navigationBar/IdCardAdd.png',
+                            idCardTrunImage: this.state.idCardTrunImage.uri || '../navigationBar/IdCardTurnAdd.png',
+
+                            idFaceSideNormalPhotoAddress: this.state.idFaceSideNormalPhotoAddress, // 身份证正面原图
+                            idFaceSideThumbnailAddress: this.state.idFaceSideThumbnailAddress , // 身份证正面缩略图
+
+                            idBackSideNormalPhotoAddress: this.state.idBackSideNormalPhotoAddress, // 身份证反面原图
+                            idBackSideThumbnailAddress: this.state.idBackSideThumbnailAddress , // 身份证反面缩略图
+
+
+                            carNumber: this.state.carNumber,
+                            carOwner: this.state.carOwner,
+                            carEngineNumber: this.state.carEngineNumber,
+                            travelRightImage: this.state.travelRightImage.uri || '../navigationBar/travelCardHome_right.png',
+                            travelTrunRightImage: this.state.travelTrunRightImage.uri || '../navigationBar/travelCard_right.png',
+                            drivingLicenseValidUntil: this.state.drivingLicenseValidUntil, // 行驶证有效期
+
+                            vehicleLicenseHomepageNormalPhotoAddress: this.state.vehicleLicenseHomepageNormalPhotoAddress, // 行驶证主页原图
+                            vehicleLicenseHomepageThumbnailAddress: this.state.vehicleLicenseHomepageThumbnailAddress, // 行驶证主页缩略图
+
+                            vehicleLicenseVicePageNormalPhotoAddress: this.state.vehicleLicenseVicePageNormalPhotoAddress, // 行驶证副页原图
+                            vehicleLicenseVicePageThumbnailAddress: this.state.vehicleLicenseVicePageThumbnailAddress, // 行驶证副页缩略图
+
+                            isChooseCardImage: this.state.isChooseCardImage,
+                            isChooseCardTrunImage: this.state.isChooseCardTrunImage,
+                            isChooseVehicleLicenseViceImage: this.state.isChooseVehicleLicenseViceImage,
+                            isChooseVehicleLicenseViceTrunImage: this.state.isChooseVehicleLicenseViceTrunImage,
+                        };
+
+                        Storage.save(StorageKey.personownerInfoResult, info);
                         navigator.goBack();
                     }}
                 />
@@ -508,7 +669,7 @@ class personCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="身份证号要清晰"
                                         leftImage={idCardLeftImage}
                                         rightImage={this.state.idCardImage}
-                                        isChooseRight={false}
+                                        isChooseRight={this.state.isChooseCardImage}
                                         click={()=> {
                                             selectType=0;
                                             this.showAlertSelected();
@@ -521,15 +682,13 @@ class personCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="身份信息要清晰"
                                         leftImage={idCardTrunLeftImage}
                                         rightImage={this.state.idCardTrunImage}
-                                        isChooseRight={false}
-
+                                        isChooseRight={this.state.isChooseCardTrunImage}
                                         click={()=> {
                                             selectType=1;
                                             this.showAlertSelected();
                                         }}
                     />
 
-                    {personCardInfoTitle}
                     {personCardInfo}
                     {personCardDate}
 
@@ -551,7 +710,7 @@ class personCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="证件要清晰，拍摄完整"
                                         leftImage={travelLeftImage}
                                         rightImage={this.state.travelRightImage}
-                                        isChooseRight={false}
+                                        isChooseRight={this.state.isChooseVehicleLicenseViceImage}
                                         click={()=> {
                                             selectType=2;
                                             this.showAlertSelected();
@@ -563,7 +722,7 @@ class personCarOwnerAuth extends Component {
                     <VerifiedIDItemView showTitle="证件要清晰，拍摄完整"
                                         leftImage={travelTrunLeftImage}
                                         rightImage={this.state.travelTrunRightImage}
-                                        isChooseRight={false}
+                                        isChooseRight={this.state.isChooseVehicleLicenseViceTrunImage}
                                         click={()=> {
                                             selectType=3;
                                             this.showAlertSelected();
@@ -571,7 +730,8 @@ class personCarOwnerAuth extends Component {
                     />
 
                     {travelInfo}
-
+                    <VierifiedBottomItem clickAction={()=>{
+                    }}/>
                 </ScrollView>
                 <AlertSheetItem ref={(dialog)=>{
                     this.dialog = dialog;

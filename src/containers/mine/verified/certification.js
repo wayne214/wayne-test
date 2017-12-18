@@ -118,11 +118,11 @@ class certification extends Component {
                 insuranceData: result.insuranceDate, // 强险有效期至
 
 
-                travelRightImage: {uri: result.drivingLicenseThumbnail},
+                travelRightImage: {uri: result.drivingLicenseThumbnail} ,
                 travelTrunRightImage: {
                     uri: result.drivingLicenseSecondaryThumbnail ?
                         result.drivingLicenseSecondaryThumbnail : '../navigationBar/driverTrunAdd.png'
-                },
+                } ,
                 qiangxianRightImage: {uri: result.insuranceThumbnail},
                 carHeaderRightImage: {uri: result.carHeadThumbnail},
 
@@ -399,8 +399,6 @@ class certification extends Component {
                     case 0:
                         this.setState({
                             travelRightImage: source,
-                            carOwner: '',
-                            carNumber: '',
                             isChooseTravelRightImage: false,
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
@@ -816,7 +814,10 @@ class certification extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        let travelInfo = (this.state.carOwner != '' || this.state.carNumber != '') ?
+        console.log('this.state.carOwner:',this.state.carOwner);
+        console.log('this.state.carNumber:',this.state.carNumber);
+
+        let travelInfo = !isFirst ?
             <View>
                 <VerifiedGrayTitleItem title="确认行驶证基本信息"/>
                 <VerifiedTravelInfoItem carNumber={this.state.carNumber}

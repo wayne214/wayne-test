@@ -102,6 +102,7 @@ class carOwnerAddDriver extends Component {
 
             this.state = {
 
+
                 isChooseCardImage: result.isChooseCardImage ? true : false,
                 isChooseCardTrunImage: result.isChooseCardTrunImage ? true : false,
                 isChooseDriverCarImage: result.isChooseDriverCarImage ? true : false,
@@ -112,8 +113,8 @@ class carOwnerAddDriver extends Component {
 
                 IDName: result.idCardName, // 身份证姓名
                 IDCard: result.idCard, // 身份证ID
-                idCardImage: {uri: result.idFaceSideThumbnailAddress}, // 身份证正面图片url
-                idCardTrunImage: {uri: result.idBackSideThumbnailAddress}, // 身份证反面图片url
+                idCardImage:  {uri: result.idFaceSideThumbnailAddress} , // 身份证正面图片url
+                idCardTrunImage:  {uri: result.idBackSideThumbnailAddress} , // 身份证反面图片url
                 idFaceSideNormalPhotoAddress: result.positiveCardRelative, // 身份证正面原图
                 idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddressRelative, // 身份证正面缩略图
 
@@ -126,7 +127,7 @@ class carOwnerAddDriver extends Component {
                 drivingLicenseStartDate: result.drivingLicenseStartDate, // 驾驶证发证日期
                 drivingLicenseValidUntil: result.driverCardExpiry, // 驾驶证有效期
                 motorcycleType: result.quasiCarType, // 驾驶证类型
-                driverCarImage: {uri: result.drivingLicenseHomepageThumbnailAddress}, // 驾驶证正面图片url
+                driverCarImage: {uri: result.drivingLicenseHomepageThumbnailAddress} , // 驾驶证正面图片url
                 drivereCarTrunImage: {uri: result.drivingLicenseVicePageThumbnailAddress}, // 驾驶证反面图片url
 
                 drivingLicenseHomepageNormalPhotoAddress: result.drivingLicenceHomePageRelative, // 驾驶证正面原图

@@ -188,7 +188,16 @@ class CharacterList extends BaseContainer {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'purple'}} onPress={()=>{
-                        navigator.navigate('PersonCarOwnerAuth');
+                        Storage.get(StorageKey.personownerInfoResult).then((value) => {
+                             if (value){
+                                 navigator.navigate('PersonCarOwnerAuth', {
+                                     resultInfo: value,
+                                 });
+                             }else {
+                                navigator.navigate('PersonCarOwnerAuth');
+                             }
+
+                         });
                     }}>
                         <Text style={{textAlign: 'center'}}>个人车主认证</Text>
                     </TouchableOpacity>
@@ -198,7 +207,16 @@ class CharacterList extends BaseContainer {
                         <Text style={{textAlign: 'center'}}>个人车主认证详情</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'purple'}} onPress={()=>{
-                        navigator.navigate('CompanyCarOwnerAuth');
+                         Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+                             if (value){
+                                 navigator.navigate('CompanyCarOwnerAuth', {
+                                     resultInfo: value,
+                                 });
+                             }else {
+                                navigator.navigate('CompanyCarOwnerAuth');
+                             }
+
+                         });
                     }}>
                         <Text style={{textAlign: 'center'}}>企业车主认证</Text>
                     </TouchableOpacity>
