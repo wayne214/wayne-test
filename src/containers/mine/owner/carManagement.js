@@ -176,7 +176,7 @@ class CarManagement extends BaseContainer {
                         <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
                             <Image
                                 style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
+                                source={StaticImage.CarAvatar}></Image>
                             <Text style={{marginLeft: 10, color: '#333333', fontsize: 16}}>{item.CarNum}</Text>
                             {item.status == '认证通过' ?
                                 <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
@@ -270,7 +270,11 @@ class CarManagement extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -337,7 +341,7 @@ class CarManagement extends BaseContainer {
                 </View>
 
                 <FlatList
-                    style={{backgroundColor: 'white', flex: 1}}
+                    style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop:10}}
                     data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
