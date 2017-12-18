@@ -134,12 +134,8 @@ class DriverManagement extends BaseContainer {
 
     //点击城市cell
     cityClicked(item) {
-        // alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankNameCallback) {
-            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
-        }
-        this.props.navigation.goBack();
+        console.log('item',item);
+        // this.props.navigation.goBack();
     }
 
     //列表的每一行
@@ -232,22 +228,26 @@ class DriverManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                        {item.status != '禁用' ?
-                        <View
-                            style={{
-                                height: 30,
-                                width: 85,
-                                marginLeft: width - 100,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderRadius: 20,
-                                borderColor: '#999999',
-                                borderWidth: 1,
-                            }}>
-                            < Text style={{color: 'black'}}>绑定车辆</Text>
-                        </View>
-                            :null
-                        }
+                            {item.status != '禁用' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 85,
+                                            marginLeft: width - 100,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#999999',
+                                            borderWidth: 1,
+                                        }}>
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
                         </View>
                         <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
                     </View>
