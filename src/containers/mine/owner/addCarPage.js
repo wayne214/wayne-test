@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     textInputStyle: {
         flex: 1,
         marginLeft: 5,
-        fontSize: 16,
+        fontSize: 13,
         color: '#666666',
         ...Platform.select({
             ios: {},
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class AddDriverPage extends BaseContainer {
+class AddCarPage extends BaseContainer {
 
     constructor(props) {
         super(props);
@@ -64,23 +64,19 @@ class AddDriverPage extends BaseContainer {
             NumberArr: '',
             branchList: [
                 {
-                    driverName: '吕布',
-                    driverPhone: '12345678901',
+                    carNum: '京A12345',
                     Disabled: 'true',
                 },
                 {
-                    driverName: '赵云',
-                    driverPhone: '13888888882',
+                    carNum: '京B12345',
                     Disabled: 'true',
                 },
                 {
-                    driverName: '典韦',
-                    driverPhone: '13888888883',
+                    carNum: '京A12345',
                     Disabled: '禁用',
                 },
                 {
-                    driverName: '关羽',
-                    driverPhone: '13888888884',
+                    carNum: '京A12345',
                     Disabled: 'true',
                 }],
             text: '',
@@ -166,61 +162,57 @@ class AddDriverPage extends BaseContainer {
 
                 }}>
 
-                    <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Image
-                                style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
-                            <View>
+                    <View style={{paddingLeft: 10, backgroundColor: '#ffffff',flexDirection: 'row',alignItems:'center',paddingTop:15,paddingBottom:15}}>
+                        <Image
+                            style={{height: 36, width: 36}}
+                            source={StaticImage.CarAvatar}></Image>
+
+                        <View style={{flexDirection: 'column'}}>
+                            <View style={{flexDirection: 'row',alignItems:'center',}}>
+
                                 <Text style={{
                                     marginLeft: 10,
                                     color: '#333333',
                                     fontSize: 16,
-                                    height: 27,
-                                    marginTop: 15
-                                }}>{item.driverName}</Text>
-                                <Text style={{
-                                    marginLeft: 10,
-                                    color: '#666666',
-                                    fontSize: 16,
-                                    height: 27,
-                                    marginBottom:5,
-                                }}>{item.driverPhone.substr(0, 3) + '*****' + item.driverPhone.substr(8, 3)}
-                                </Text>
+                                    height: 24,
+                                }}>{item.carNum}</Text>
 
+                                {item.Disabled != '禁用' ?
+                                    <TouchableOpacity onPress={() => {
+                                        this.cityClicked(item);
+                                    }}>
+                                        <View
+                                            style={{
+                                                height: 30,
+                                                width: 75,
+                                                marginLeft: width - 220,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: 20,
+                                                borderColor: '#0071FF',
+                                                borderWidth: 1,
+                                            }}>
+                                            < Text style={{color: '#0071FF'}}>+添加</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    : null
+                                }
                             </View>
-                            {item.Disabled != '禁用' ?
-                                <TouchableOpacity onPress={() => {
-                                    this.cityClicked(item);
-                                }}>
-                                    <View
-                                        style={{
-                                            height: 30,
-                                            width: 75,
-                                            marginLeft: width - 250,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            borderRadius: 20,
-                                            borderColor: '#0071FF',
-                                            borderWidth: 1,
-                                        }}>
-                                        < Text style={{color: '#0071FF'}}>+添加</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                : null
-                            }
-
+                            {item.Disabled == '禁用' ?
+                                <Text style={{
+                                    marginLeft:10,
+                                    color: '#CCCCCC',
+                                    fontSize: 12,
+                                    height: 18,
+                                    marginTop:3,
+                                }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
+                                : null}
                         </View>
-                        {item.Disabled == '禁用' ?
-                            <Text style={{
-                                marginLeft: 46,
-                                color: '#CCCCCC',
-                                fontSize: 12,
-                                height: 22,
-                            }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
-                            : null}
-                        <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+
                     </View>
+
+                    <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+
                 </TouchableOpacity>
 
             </Swipeout>
@@ -271,7 +263,7 @@ class AddDriverPage extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
-                            placeholder={'车牌号/姓名'}
+                            placeholder={'车牌号'}
                             onChangeText={(text) => {
                                 this.setState({
                                     text: text
@@ -305,7 +297,7 @@ class AddDriverPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加司机</Text>
+                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
 
                 <FlatList
                     style={{backgroundColor: 'white', flex: 1}}
@@ -329,6 +321,6 @@ function mapDispatchToProps(dispatch) {
     return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDriverPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCarPage);
 
 

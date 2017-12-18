@@ -106,6 +106,7 @@ import RecordVideo from '../containers/home/recordVideo';
 import TakePhotoFinished from '../containers/home/takePhotoFinished';
 import RecordVideoFinished from '../containers/home/recordVideoFinished';
 import AddDriverPage from '../containers/mine/owner/addDriverPage';
+import AddCarPage from '../containers/mine/owner/addCarPage';
 
 
 
@@ -662,6 +663,12 @@ const StackRouteConfigs = {
     },
     AddDriverPage: {
         screen: AddDriverPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddCarPage: {
+        screen: AddCarPage,
         navigationOptions: {
             header: null
         }

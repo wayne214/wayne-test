@@ -356,10 +356,10 @@ class CarManagement extends BaseContainer {
                         borderColor: '#0083FF',}}
                     textStyle={{color: 'white', fontSize: 18}}
                     onPress={() => {
-                        this.props.navigation.navigate('AddDriverPage');
+                        this.props.navigation.navigate('AddCarPage');
                     }}
                 >
-                    添加司机
+                    添加车辆
                 </Button>
             </View>
 
