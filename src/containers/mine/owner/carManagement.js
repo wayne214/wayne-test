@@ -1,5 +1,5 @@
 /**
- * 添加车辆
+ * 车辆管理
  * by：wl
  */
 import React, {Component} from 'react';
@@ -9,19 +9,20 @@ import {
     View,
     Text,
     Image,
-    Button,
     StyleSheet,
     ScrollView,
     Dimensions,
     TextInput,
     FlatList,
     TouchableOpacity,
-    Platform
+    Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
-import NavigatorBar from '../../../common/navigationBar/navigationBar';
 import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
+import StaticImage from '../../../constants/staticImage'
+import Swipeout from 'react-native-swipeout';
+import Button from 'apsl-react-native-button';
 
 const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
@@ -64,8 +65,34 @@ class CarManagement extends BaseContainer {
             // NumberArr: params.branchList,
             // branchList:params.branchList,
             NumberArr: '',
-            branchList: '',
-            text:'',
+            branchList: [{
+                CarNum: '京A12345',
+                status: '认证中',
+                ifBind: 'true',
+                driverList: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
+            },
+                {
+                    CarNum: '京B12345',
+                    status: '认证中',
+                    ifBind: 'true',
+                    driverList: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
+                },
+                {
+                    CarNum: '京C12345',
+                    status: '认证中',
+                    ifBind: 'true',
+                    driverList: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
+                },
+                {
+                    CarNum: '京D12345',
+                    status: '禁用',
+                    ifBind: 'true',
+                    driverList: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，'
+                }],
+            text: '',
+            index: null,
+            line: true,
+            clickLine: 'a',
         }
     }
 
@@ -107,40 +134,126 @@ class CarManagement extends BaseContainer {
 
     //点击城市cell
     cityClicked(item) {
-        // alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankNameCallback) {
-            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
-        }
-        this.props.navigation.goBack();
+        console.log('item',item);
+        // this.props.navigation.goBack();
     }
 
     //列表的每一行
     renderItemView({item, index}) {
+        // Buttons
+        const swipeoutBtns = [
+            {
+                text: '删除',
+                backgroundColor: 'red',
+                onPress: () => {
+
+                },
+
+            }
+        ];
+
         return (
-            <TouchableOpacity
-                style={{
-                    flex: 1,
-                    backgroundColor: '#E8E8E8',
-                    marginLeft: 10,
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: '#E8E8E8'
+
+            <Swipeout
+                autoClose={false}
+                close={!(this.state.index === index)}
+                right={swipeoutBtns}
+                rowID={index}
+                sectionID={index}
+                onOpen={(index) => {
+                    this.setState({
+                        index,
+                    });
                 }}
-                onPress={() => {
-                    this.cityClicked(item)
-                }}
+                onClose={() => console.log('===close')}
+                scroll={event => console.log('scroll event')}
             >
-                <View style={{
-                    backgroundColor: '#ffffff',
-                    height: 40,
-                    justifyContent: 'center',
-                    flex: 1,
+                <TouchableOpacity onPress={() => {
+
                 }}>
-                    <Text
-                        style={{color: '#999999', fontSize: 15}}
-                    >{item.branchBank}</Text>
-                </View>
-            </TouchableOpacity>
+
+                    <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
+                            <Image
+                                style={{height: 36, width: 36}}
+                                source={StaticImage.DriverAvatar}></Image>
+                            <Text style={{marginLeft: 10, color: '#333333', fontsize: 16}}>{item.CarNum}</Text>
+                            {item.status == '认证通过' ?
+                                <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                    认证通过
+                                </Text>
+                                : item.status == '认证中' ?
+                                    <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                        认证中
+                                    </Text>
+                                    : item.status == '认证驳回' ?
+                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                            认证驳回
+                                        </Text>
+                                        :
+                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#FA5741'}}>
+                                            禁用
+                                        </Text>
+                            }
+
+                        </View>
+                        <View style={{marginLeft: 45}}>
+                            {this.state.line && this.state.clickLine == index ?
+                                <Text
+                                    style={{fontsize: 18, lineHeight: 24,color:'#3F3F3F'}}
+                                >
+                                    关联车辆：{item.driverList}</Text>
+                                : <Text
+                                    numberOfLines={1}
+                                    style={{fontsize: 18, lineHeight: 24, color:'#3F3F3F'}}>关联车辆：{item.driverList}</Text>
+                            }
+
+                            {this.state.line && this.state.clickLine == index ?
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({
+                                        clickLine: 'a',
+                                    })
+                                }}>
+                                    <Text style={{color: '#008AFF', fontsize: 12, lineHeight: 24}}>收起</Text>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({
+                                        clickLine: index,
+                                    })
+                                }}>
+                                    <Text style={{color: '#008AFF', fontsize: 12, lineHeight: 24}}>全部</Text>
+                                </TouchableOpacity>
+
+                            }
+                        </View>
+                        <View style={{marginBottom: 10,}}>
+                            {item.status != '禁用' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 85,
+                                            marginLeft: width - 100,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#999999',
+                                            borderWidth: 1,
+                                        }}>
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
+                        </View>
+                        <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+                    </View>
+                </TouchableOpacity>
+
+            </Swipeout>
         );
     }
 
@@ -189,16 +302,16 @@ class CarManagement extends BaseContainer {
                             maxLength={20}
                             value={text}
                             placeholder={'车牌号/姓名'}
-                            onChangeText={(text)=>{
+                            onChangeText={(text) => {
                                 this.setState({
-                                    text:text
+                                    text: text
                                 })
                                 this.onChanegeTextKeyword(text)
                             }}>
                         </TextInput>
                         <TouchableOpacity onPress={() => {
                             this.setState({
-                                text:''
+                                text: ''
                             })
                         }}>
                             <Text
@@ -222,20 +335,33 @@ class CarManagement extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color:'#666666',fontsize:15, margin:10}} >添加车辆</Text>
-                {this.state.branchList ?
-                    <FlatList
-                        style={{backgroundColor: 'white', flex: 1}}
-                        data={this.state.branchList}
-                        renderItem={this.renderItemView.bind(this)}
-                        keyExtractor={this.extraUniqueKey}//去除警告
-                    >
+                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
 
-                    </FlatList>
-                    :
-                    <Text style={{marginTop:height/2 -70, marginLeft:width/2-80,color:'#999999',fontSize:16}}>请输入您要添加的车牌</Text>
-                }
-
+                <FlatList
+                    style={{backgroundColor: 'white', flex: 1}}
+                    data={this.state.branchList}
+                    renderItem={this.renderItemView.bind(this)}
+                    keyExtractor={this.extraUniqueKey}//去除警告
+                >
+                </FlatList>
+                <Button
+                    ref='button'
+                    isDisabled={false}
+                    style={{
+                        backgroundColor: '#0083FF',
+                        width: width,
+                        marginBottom: 0,
+                        height: 44,
+                        borderRadius:0,
+                        borderWidth: 0,
+                        borderColor: '#0083FF',}}
+                    textStyle={{color: 'white', fontSize: 18}}
+                    onPress={() => {
+                        this.props.navigation.navigate('AddDriverPage');
+                    }}
+                >
+                    添加司机
+                </Button>
             </View>
 
         );
@@ -243,15 +369,11 @@ class CarManagement extends BaseContainer {
 }
 
 function mapStateToProps(state) {
-    return {
-
-    };
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-
-    };
+    return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarManagement);
