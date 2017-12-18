@@ -89,9 +89,25 @@ import ForgetPayPassword from '../containers/mine/forgetPayPassword';
 import ForgetPayPasswordCode from '../containers/mine/forgetPayPasswordCode';
 import CharacterList from '../containers/login/character/characterList';
 import CharacterOwner from '../containers/login/character/characterOwner';
+import CarOwnerAddDriver from '../containers/mine/verified/carOwnerAddDriver';
+import CarOwnerAddDriverDetail from '../containers/mine/verified/carOwnerAddDriverDetail';
+import CarOwnerAddCar from '../containers/mine/verified/carOwnerAddCar';
+import CarOwnerAddCarDetail from '../containers/mine/verified/carOwnerAddCarDetail';
+import PersonCarOwnerAuth from '../containers/mine/verified/personCarOwnerAuth';
+import CompanyCarOwnerAuth from '../containers/mine/verified/companyCarOwnerAuth';
 import AddCarDriver from '../containers/mine/driver/addCarDriver';
 import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/enterpriseownerVerifiedState';
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
+import DriverManagement from '../containers/mine/owner/driverManagement';
+import CarManagement from '../containers/mine/owner/carManagement';
+import UploadAbnormal from '../containers/home/uploadAbnormal';
+import TakePhoto from '../containers/home/takePhoto';
+import RecordVideo from '../containers/home/recordVideo';
+import TakePhotoFinished from '../containers/home/takePhotoFinished';
+import RecordVideoFinished from '../containers/home/recordVideoFinished';
+import AddDriverPage from '../containers/mine/owner/addDriverPage';
+import AddCarPage from '../containers/mine/owner/addCarPage';
+import VideoShow from '../containers/home/videoShow';
 
 
 
@@ -549,8 +565,51 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    CarOwnerAddDriver: {
+        screen: CarOwnerAddDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
+    UploadAbnormal: {
+        screen: UploadAbnormal,
+        navigationOptions: {
+            header: null
+        }
+    },
     AddCarDriver: {
         screen: AddCarDriver,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhoto: {
+        screen: TakePhoto,
+        navigationOptions: {
+            header: null
+        }
+    },
+
+    CarOwnerAddDriverDetail: {
+        screen: CarOwnerAddDriverDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecordVideo: {
+        screen: RecordVideo,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarManagement: {
+        screen: CarManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TakePhotoFinished: {
+        screen: TakePhotoFinished,
         navigationOptions: {
             header: null
         }
@@ -561,8 +620,62 @@ const StackRouteConfigs = {
             header: null
         }
     },
+    CarOwnerAddCar: {
+        screen: CarOwnerAddCar,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CarOwnerAddCarDetail: {
+        screen: CarOwnerAddCarDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PersonCarOwnerAuth: {
+        screen: PersonCarOwnerAuth,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CompanyCarOwnerAuth: {
+        screen: CompanyCarOwnerAuth,
+        navigationOptions: {
+            header: null
+        }
+    },
     PersonownerVerifiedStatePage: {
         screen: PersonownerVerifiedStatePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DriverManagement: {
+        screen: DriverManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecordVideoFinished: {
+        screen: RecordVideoFinished,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddDriverPage: {
+        screen: AddDriverPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddCarPage: {
+        screen: AddCarPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VideoShow: {
+        screen: VideoShow,
         navigationOptions: {
             header: null
         }

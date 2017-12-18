@@ -60,6 +60,20 @@ const newPhone = (phone)=>{
     }
     return '';
 };
+/*处理事件格式*/
+const timeTrunToDateString = (time)=>{
+    let dataString;
+    //20121212 or 201212  转化为 2012年12月12日  or  2012年12月
+    if (time.length === 8){
+        // 年月日
+        dataString = time.toString().substr(0, 4) + '年' + time.toString().substr(4, 2) + '月' + time.toString().substr(6, 2) + '日';
+    }else if (time.length === 6) {
+        dataString = time.toString().substr(0, 4) + '年' + time.toString().substr(4, 2) + '月';
+    }
+
+    return dataString;
+};
+
 export default {
     isPhoneNumber,
     isPassword,
@@ -68,5 +82,6 @@ export default {
     isInteger,
     isFloat,
     leadingZeros,
-    newPhone
+    newPhone,
+    timeTrunToDateString
 };

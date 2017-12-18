@@ -40,6 +40,7 @@ import {setUserCarAction} from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
 import LoadingView from '../../../utils/loading';
 import Toast from '@remobile/react-native-toast';
+import Validator from '../../../utils/validator';
 
 import Storage from '../../../utils/storage';
 import PermissionsManager from '../../../utils/permissionManager';
@@ -117,11 +118,11 @@ class certification extends Component {
                 insuranceData: result.insuranceDate, // 强险有效期至
 
 
-                travelRightImage: {uri: result.drivingLicenseThumbnail},
+                travelRightImage: {uri: result.drivingLicenseThumbnail} ,
                 travelTrunRightImage: {
                     uri: result.drivingLicenseSecondaryThumbnail ?
                         result.drivingLicenseSecondaryThumbnail : '../navigationBar/driverTrunAdd.png'
-                },
+                } ,
                 qiangxianRightImage: {uri: result.insuranceThumbnail},
                 carHeaderRightImage: {uri: result.carHeadThumbnail},
 
@@ -281,7 +282,7 @@ class certification extends Component {
             success: (responseData) => {
                 lastTime = new Date().getTime();
                 ReadAndWriteFileUtil.appendFile('获取车长载重', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '资质认证页面');
+                    locationData.district, lastTime - currentTime, '司机增加车辆页面');
                 for (let i = 0; i < responseData.result.length; i++) {
 
                     let key = responseData.result[i].carLen;
@@ -398,8 +399,6 @@ class certification extends Component {
                     case 0:
                         this.setState({
                             travelRightImage: source,
-                            carOwner: '',
-                            carNumber: '',
                             isChooseTravelRightImage: false,
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
@@ -526,8 +525,8 @@ class certification extends Component {
             let day;
             if (this.state.insuranceData) {
                 year = this.state.insuranceData.substr(0, 4);
-                month = this.state.insuranceData.substr(4, 2);
-                day = this.state.insuranceData.substr(6, 2);
+                month = this.state.insuranceData.substr(5, 2);
+                day = this.state.insuranceData.substr(8, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -536,6 +535,8 @@ class certification extends Component {
 
 
             selectValue = [year + '年', month + '月', day + '日'];
+
+
         } else if (type === 'carType') {
             selectValue = [data[0]];
             title = '车辆类型';
@@ -547,7 +548,7 @@ class certification extends Component {
             let month;
             if (this.state.carDate) {
                 year = this.state.carDate.substr(0, 4);
-                month = this.state.carDate.substr(4, 2);
+                month = this.state.carDate.substr(5, 2);
             } else {
                 year = date.getUTCFullYear();
                 month = date.getUTCMonth() + 1;
@@ -592,12 +593,19 @@ class certification extends Component {
                     console.log('onPickerConfirmdate', pickedValue, pickedIndex);
 
                     if (selectDatePickerType === 0) {
+                        let year = pickedValue[0].substring(-0, pickedValue[0].length - 1);
+                        let month = pickedValue[1].substring(-0, pickedValue[1].length - 1);
+
                         this.setState({
-                            carDate: pickedValue[0] + pickedValue[1] + ' ',
+                            carDate: Validator.timeTrunToDateString(year + month),
                         })
                     } else if (selectDatePickerType === 1) {
+                        let year = pickedValue[0].substring(-0, pickedValue[0].length - 1);
+                        let month = pickedValue[1].substring(-0, pickedValue[1].length - 1);
+                        let day = pickedValue[2].substring(-0, pickedValue[2].length - 1);
+
                         this.setState({
-                            insuranceData: pickedValue[0] + pickedValue[1] + pickedValue[2],
+                            insuranceData: Validator.timeTrunToDateString(year + month + day),
                         })
                     } else if (selectDatePickerType === 2) {
                         this.setState({
@@ -713,19 +721,19 @@ class certification extends Component {
         console.log('车头照缩略图：', this.state.vehicleThumbnailAddress);
 
 
-        let carData1 = this.state.carDate.replace('年', '-');
-        let carData2 = carData1.replace('月', '');
-        carData2 = carData2.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        // let carData1 = this.state.carDate.replace('年', '-');
+        // let carData2 = carData1.replace('月', '');
+        let carData2 = carData2.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        let insuranceData1 = this.state.insuranceData.replace('年', '-');
-        let insuranceData2 = insuranceData1.replace('月', '-');
-        let insuranceData3 = insuranceData2.replace('日', '');
-        insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        // let insuranceData1 = this.state.insuranceData.replace('年', '-');
+        // let insuranceData2 = insuranceData1.replace('月', '-');
+        // let insuranceData3 = insuranceData2.replace('日', '');
+        let insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        this.setState({
-            appLoading: true,
-        });
-        this.implementationVerified(carData2, insuranceData3);
+        // this.setState({
+        //     appLoading: true,
+        // });
+        // this.implementationVerified(carData2, insuranceData3);
     }
 
     isRightData(date) {
@@ -746,7 +754,7 @@ class certification extends Component {
 
     }
 
-    /*资质认证*/
+    /*司机增加车辆*/
     implementationVerified(carDate, insuranceData) {
         currentTime = new Date().getTime();
 
@@ -778,12 +786,12 @@ class certification extends Component {
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('提交资质认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '资质认证页面');
+                ReadAndWriteFileUtil.appendFile('提交司机增加车辆', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '司机增加车辆页面');
 
                 this.props.saveUserSetCarSuccess({carNum: this.state.carNumber, carStatus: 0});
 
-                Toast.showShortCenter('资质认证提交成功');
+                Toast.showShortCenter('司机增加车辆提交成功');
                 Storage.remove(StorageKey.changeCarInfoResult);
                 DeviceEventEmitter.emit('certificationSuccess');
                 Storage.remove(StorageKey.carInfoResult);
@@ -806,7 +814,10 @@ class certification extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        let travelInfo = (this.state.carOwner != '' || this.state.carNumber != '') ?
+        console.log('this.state.carOwner:',this.state.carOwner);
+        console.log('this.state.carNumber:',this.state.carNumber);
+
+        let travelInfo = !isFirst ?
             <View>
                 <VerifiedGrayTitleItem title="确认行驶证基本信息"/>
                 <VerifiedTravelInfoItem carNumber={this.state.carNumber}
@@ -865,7 +876,7 @@ class certification extends Component {
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'资质认证'}
+                    title={'新增车辆'}
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
@@ -965,7 +976,7 @@ class certification extends Component {
                     <VerifiedIDDateItem IDDate={this.state.insuranceData}
                                         clickDataPick={()=>{
                                             if (Platform.OS === 'ios'){
-                                                this.refs.scrollView.scrollTo({x: 0, y: 560, animated: true});
+                                                this.refs.scrollView.scrollTo({x: 0, y: 400, animated: true});
                                             }
                                             selectDatePickerType = 1;
                                             this.showDatePick(false, VerifiedDateSources.createDateData(), 'Date');

@@ -50,9 +50,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textStyle: {
-        marginTop: 15,
         fontSize: 20,
         color: 'white',
+        position: 'absolute',
+        bottom: 10,
+        backgroundColor: 'transparent'
     },
     bottomViewStyle: {
         height: 40,
@@ -135,8 +137,8 @@ export default class certificationState extends Component{
             },
             success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取资质认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '资质认证详情页面');
+                ReadAndWriteFileUtil.appendFile('获取司机增加车辆详情详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '司机增加车辆详情详情页面');
                 this.setState({
                     resultInfo: responseData.result,
                     qualifications: responseData.result.certificationStatus,
@@ -248,7 +250,7 @@ export default class certificationState extends Component{
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'资质认证'}
+                    title={'车辆详情'}
                     navigator={navigator}
                     hiddenBackIcon={false}
                 />

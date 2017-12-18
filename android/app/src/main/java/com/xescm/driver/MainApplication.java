@@ -3,6 +3,7 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.brentvatne.react.ReactVideoPackage;
 import com.remobile.toast.RCTToastPackage;
 
 import cn.reactnative.modules.update.UpdateContext;
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new ReactVideoPackage(),
                     new UpdatePackage(),
                     new RNSoundPackage(),
                     new PickerPackage(),

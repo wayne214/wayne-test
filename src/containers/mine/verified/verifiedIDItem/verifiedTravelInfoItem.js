@@ -47,6 +47,7 @@ class verifiedTravelInfoItem extends Component{
     constructor(props) {
         super(props);
 
+
         this.state={
             carNumber: this.props.carNumber,
             owner: this.props.carOwner,
@@ -95,21 +96,21 @@ class verifiedTravelInfoItem extends Component{
         const {carType, carWeight, carLength} = this.props;
 
 
-        let catString = '请手动选择车辆类型';
+        let catString = '请选择车辆类型';
         let carColor = {color : '#666666'};
         if (carType){
             catString = carType;
             carColor = {color: '#333333'}
         }
 
-        let carWeightString = '请手动选择车辆长度';
+        let carWeightString = '请选择车辆长度';
         let carWeightColor = {color : '#666666'};
         if (carWeight){
             carWeightString = carWeight;
             carWeightColor = {color: '#333333'}
         }
 
-        let carLengthString = '请手动选择车辆长度';
+        let carLengthString = '请选择车辆长度';
         let carLengthColor = {color : '#666666'};
         if (carLength){
             carLengthString = carLength;
@@ -135,7 +136,7 @@ class verifiedTravelInfoItem extends Component{
                                    this.textOnFocus(300);
                                }}
                                value={this.state.carNumber}
-                               placeholder={'请手动输入车牌号'}
+                               placeholder={'请输入车牌号'}
                                underlineColorAndroid={'transparent'}
 
                     />
@@ -157,7 +158,7 @@ class verifiedTravelInfoItem extends Component{
                                    this.textOnFocus(300);
                                }}
                                value={this.state.owner}
-                               placeholder={'请手动输入所有人'}
+                               placeholder={'请输入所有人'}
                                underlineColorAndroid={'transparent'}
 
                     />
@@ -223,7 +224,7 @@ class verifiedTravelInfoItem extends Component{
                                }}
                                underlineColorAndroid={'transparent'}
                                value={this.state.engineNumber}
-                               placeholder={'请手动输入发动机编号'}
+                               placeholder={'请输入发动机编号'}
                     />
                 </View>
             </View>

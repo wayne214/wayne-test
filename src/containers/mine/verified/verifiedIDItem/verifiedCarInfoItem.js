@@ -102,31 +102,37 @@ class verifiedCarInfoItem extends Component{
 
         const {drivingLicenseValidUntil, drivingLicenseStartDate} = this.props;
         let dataString;
+        dataString = drivingLicenseValidUntil || '请选择有效期';
 
-        if (drivingLicenseValidUntil){
-            if (drivingLicenseValidUntil.length < 4 && drivingLicenseValidUntil.indexOf('长期') < 0){
-                let data = parseInt(drivingLicenseStartDate) + parseInt(drivingLicenseValidUntil) * 10000;
+        {/*if (drivingLicenseValidUntil){*/}
+            {/*if (drivingLicenseValidUntil.length < 4 && drivingLicenseValidUntil.indexOf('长期') < 0){*/}
+                {/*let data = parseInt(drivingLicenseStartDate) + parseInt(drivingLicenseValidUntil) * 10000;*/}
 
-                dataString = data.toString().substr(0,4)+'-'+data.toString().substr(4,2)+'-'+data.toString().substr(6,2)+'';
+                {/*dataString = data.toString().substr(0,4)+'-'+data.toString().substr(4,2)+'-'+data.toString().substr(6,2)+'';*/}
 
-            }else if (drivingLicenseValidUntil.length === 8){
-                dataString = drivingLicenseValidUntil.toString().substr(0,4)+'-'+drivingLicenseValidUntil.toString().substr(4,2)+'-'+drivingLicenseValidUntil.toString().substr(6,2)+'';
+            {/*}else if (drivingLicenseValidUntil.length === 8){*/}
+                {/*dataString = drivingLicenseValidUntil.toString().substr(0,4)+'-'+drivingLicenseValidUntil.toString().substr(4,2)+'-'+drivingLicenseValidUntil.toString().substr(6,2)+'';*/}
 
-            }else
-                dataString = drivingLicenseValidUntil;
+            {/*}else*/}
+                {/*dataString = drivingLicenseValidUntil;*/}
 
 
-            dataString=dataString.replace('年','-');
+        //     dataString=dataString.replace('年','-');
+        //
+        //     if (dataString.indexOf('日') > 0){
+        //         dataString=dataString.replace('月','-');
+        //         dataString=dataString.replace('日','');
+        //     }else {
+        //         dataString=dataString.replace('月','');
+        //     }
+        // }
 
-            if (dataString.indexOf('日') > 0){
-                dataString=dataString.replace('月','-');
-                dataString=dataString.replace('日','');
-            }else {
-                dataString=dataString.replace('月','');
-            }
+        let color = {};
+        if (dataString && dataString !== '请选择有效期') {
+            color = {color: 'black'};
+        }else {
+            color = {color: '#666666'};
         }
-
-
         return (
             <View style={styles.container}>
                 <View style={{flexDirection: 'row'}}>
@@ -146,7 +152,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.drivingLicenseName}
-                               placeholder={'请手动输入驾驶证姓名'}
+                               placeholder={'请输入驾驶证姓名'}
 
                     />
                 </View>
@@ -168,7 +174,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.drivingLicenseNum}
-                               placeholder={'请手动输入驾驶证号'}
+                               placeholder={'请输入驾驶证号'}
 
                     />
                 </View>
@@ -189,7 +195,7 @@ class verifiedCarInfoItem extends Component{
                                    this.textOnFocus();
                                }}
                                value={this.state.motorcycleType}
-                               placeholder={'请手动输入准驾车型'}
+                               placeholder={'请输入准驾车型'}
                     />
                 </View>
                 <Line/>
@@ -201,7 +207,7 @@ class verifiedCarInfoItem extends Component{
                                       onPress={()=>{
                                           this.clickDatePicker();
                                       }}>
-                        <Text style={styles.textInputStyle1}>
+                        <Text style={[styles.textInputStyle1, color]}>
                             {dataString}
                         </Text>
                     </TouchableOpacity>
