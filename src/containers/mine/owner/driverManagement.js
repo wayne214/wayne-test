@@ -241,7 +241,7 @@ class DriverManagement extends BaseContainer {
                                             alignItems: 'center',
                                             borderRadius: 20,
                                             borderColor: '#999999',
-                                            borderWidth: 1,
+                                            borderWidth: 0.5,
                                         }}>
                                         < Text style={{color: 'black'}}>绑定车辆</Text>
                                     </View>
@@ -270,7 +270,11 @@ class DriverManagement extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -335,10 +339,9 @@ class DriverManagement extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
 
                 <FlatList
-                    style={{backgroundColor: 'white', flex: 1}}
+                    style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop:10}}
                     data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告

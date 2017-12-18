@@ -202,7 +202,7 @@ class AddDriverPage extends BaseContainer {
                                             alignItems: 'center',
                                             borderRadius: 20,
                                             borderColor: '#0071FF',
-                                            borderWidth: 1,
+                                            borderWidth: 0.5,
                                         }}>
                                         < Text style={{color: '#0071FF'}}>+添加</Text>
                                     </View>
@@ -240,7 +240,11 @@ class AddDriverPage extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -305,10 +309,11 @@ class AddDriverPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
-
+                <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
+                    <Text style={{color: '#666666', fontsize: 15,marginLeft:10}}>添加司机</Text>
+                </View>
                 <FlatList
-                    style={{backgroundColor: 'white', flex: 1}}
+                    style={{backgroundColor: '#F4F4F4', flex: 1}}
                     data={this.state.branchList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
