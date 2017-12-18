@@ -143,6 +143,7 @@ class entryToBeShipped extends Component {
                 });
             },
             success: (responseData)=>{
+                console.log('==responseData',responseData);
                 this.getOrderDetailInfoSuccessCallBack(responseData.result);
             },
             error: (errorInfo)=>{
@@ -179,6 +180,7 @@ class entryToBeShipped extends Component {
                     shipmentNum: object.shipmentNum,
                     signNum: object.signNum,
                     weight: object.weight,
+                    paasLineNo: object.paasLineNo
                 };
                 if (oo.shipmentNum === '0' || !oo.shipmentNum || oo.shipmentNum === 0) {
                     oo.shipmentNum = oo.arNums;
@@ -205,6 +207,7 @@ class entryToBeShipped extends Component {
                     ],
                     refuseNum: goods.refuseNum,
                     signNum: goods.signNum,
+                    paasLineNo: goods.paasLineNo,
                 });
             }
             transOrderInfo.push({

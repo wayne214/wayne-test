@@ -284,14 +284,14 @@ export default class SignProductInfoView extends Component {
     }
 }
 
-SignProductInfoView.propTypes = {
-    sendValueCallBack: React.PropTypes.func.isRequired,
-    productID: React.PropTypes.string.isRequired,
-    arNums: React.PropTypes.string.isRequired,
-    indexRow: React.PropTypes.number.isRequired,
-    title: React.PropTypes.string.isRequired,
-    Specifications: React.PropTypes.string.isRequired,
-    getNum: React.PropTypes.string.isRequired,
-    shipmentNum: React.PropTypes.string.isRequired,
-    refuseNum: React.PropTypes.string,
-};
+// SignProductInfoView.propTypes = {
+//     sendValueCallBack: React.PropTypes.func.isRequired,
+//     productID: React.PropTypes.string.isRequired,
+//     arNums: React.PropTypes.string.isRequired,
+//     indexRow: React.PropTypes.number.isRequired,
+//     title: React.PropTypes.string.isRequired,
+//     Specifications: React.PropTypes.string.isRequired,
+//     getNum: React.PropTypes.string.isRequired,
+//     shipmentNum: React.PropTypes.string.isRequired,
+//     refuseNum: React.PropTypes.string,
+// };

@@ -142,12 +142,14 @@ class signPage extends Component {
                     signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
                     refuseDetail: productInfo.refuseDetailDtoList,
+                    paasLineNo: productInfo.paasLineNo, // 货品行号
                 });
             } else {
                 goodsInfo.push({
                     goodsId: productInfo.goodsId,
                     signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
+                    paasLineNo: productInfo.paasLineNo, // 货品行号
                 });
             }
         }
@@ -405,7 +407,7 @@ class signPage extends Component {
                     {
                         this.state.products.map((item, indexRow) => {
                             return (
-                                <View>
+                                <View key={indexRow}>
                                     <ProductInfoView
                                         key={indexRow}
                                         indexRow={indexRow}
