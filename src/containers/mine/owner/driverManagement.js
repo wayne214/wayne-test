@@ -9,20 +9,20 @@ import {
     View,
     Text,
     Image,
-    Button,
     StyleSheet,
     ScrollView,
     Dimensions,
     TextInput,
     FlatList,
     TouchableOpacity,
-    Platform
+    Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
 import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
 import Swipeout from 'react-native-swipeout';
+import Button from 'apsl-react-native-button';
 
 const {height, width} = Dimensions.get('window');
 const NumberArr = BankCode.searchCode();
@@ -336,17 +336,32 @@ class DriverManagement extends BaseContainer {
                     </TouchableOpacity>
                 </View>
                 <Text style={{color: '#666666', fontsize: 15, margin: 10}}>添加车辆</Text>
+
                 <FlatList
                     style={{backgroundColor: 'white', flex: 1}}
                     data={this.state.branchList}
-                    // renderRow={(rowData, sectionID, rowID) => this.renderRowList(rowData, sectionID, rowID)}
-
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
-
                 </FlatList>
+                <Button
+                    ref='button'
+                    isDisabled={false}
+                    style={{
+                        backgroundColor: '#0083FF',
+                        width: width,
+                        marginBottom: 0,
+                        height: 44,
+                        borderRadius:0,
+                        borderWidth: 0,
+                        borderColor: '#0083FF',}}
+                    textStyle={{color: 'white', fontSize: 18}}
+                    onPress={() => {
 
+                    }}
+                >
+                    添加司机
+                </Button>
             </View>
 
         );
