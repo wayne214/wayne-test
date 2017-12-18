@@ -200,12 +200,12 @@ class DriverManagement extends BaseContainer {
                         <View style={{marginLeft: 45}}>
                             {this.state.line && this.state.clickLine == index ?
                                 <Text
-                                    style={{fontsize: 18, lineHeight: 24}}
+                                    style={{fontsize: 18, lineHeight: 24,color:'#3F3F3F'}}
                                 >
                                     关联车辆：{item.carList}</Text>
                                 : <Text
                                     numberOfLines={1}
-                                    style={{fontsize: 18, lineHeight: 24}}>关联车辆：{item.carList}</Text>
+                                    style={{fontsize: 18, lineHeight: 24, color:'#3F3F3F'}}>关联车辆：{item.carList}</Text>
                             }
 
                             {this.state.line && this.state.clickLine == index ?
