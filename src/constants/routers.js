@@ -100,6 +100,7 @@ import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerV
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
 import DriverManagement from '../containers/mine/owner/driverManagement';
 import CarManagement from '../containers/mine/owner/carManagement';
+import AddDriverPage from '../containers/mine/owner/addDriverPage';
 
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
@@ -619,6 +620,12 @@ const StackRouteConfigs = {
     },
     DriverManagement: {
         screen: DriverManagement,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AddDriverPage: {
+        screen: AddDriverPage,
         navigationOptions: {
             header: null
         }
