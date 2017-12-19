@@ -6,16 +6,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
     View,
-    Text,
     StyleSheet,
-    FlatList,
-    Image,
-    TouchableOpacity,
     Alert,
 } from 'react-native';
 
 import * as StaticColor from '../../../constants/staticColor';
-import StaticImage from '../../../constants/staticImage';
 import NavigatorBar from "../../../common/navigationBar/navigationBar";
 import RadioList from '../components/RadioList';
 import BottomButton from '../components/bottomButtonComponent';

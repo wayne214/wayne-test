@@ -92,6 +92,7 @@ let transCodeListData3 = [];
         this.toEnd = this.toEnd.bind(this);
 
         this.getTransPorting = this.getTransPorting.bind(this);
+        this.getWaitForSignList = this.getWaitForSignList.bind(this);
         this.transportBatchSign = this.transportBatchSign.bind(this);
 
         this.transportsList = this.transportsList.bind(this);
@@ -410,7 +411,11 @@ let transCodeListData3 = [];
                 break;
             case 2:
                 console.log('订单待签收界面', pageIndex);
-                this.getTransPorting();
+                if(1===1) {
+                    this.getWaitForSignList('CCC',pageNum, pageSize);
+                }else {
+                    this.getTransPorting();
+                }
                 break;
             case 3:
                 console.log('订单待回单界面', pageIndex);
@@ -712,6 +717,60 @@ let transCodeListData3 = [];
         }
     }
 
+     // 车主获取待签收订单列表
+     getWaitForSignList(queryType, pageNum, pageSize) {
+         currentTime = new Date().getTime();
+         if (pageNum === 1) {
+             this.setState({
+                 isRefresh: true,
+             })
+         }
+
+         HTTPRequest({
+             url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
+             params: {
+                 page: pageNum,
+                 pageSize,
+                 phone: global.phone,
+                 plateNumber: global.plateNumber,
+                 queryType,
+             },
+             loading: () => {
+
+             },
+             success: (responseData) => {
+                 lastTime = new Date().getTime();
+                 ReadAndWriteFileUtil.appendFile('车主获取待签收订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                     locationData.district, lastTime - currentTime, '订单页面');
+                 if (!responseData.result.list) {
+                     return;
+                 }
+                 if (pageNum === 1) {
+                     signListData = [];
+                 }
+                 signListData = signListData.concat(responseData.result.list);
+
+                 if (signListData.length === responseData.result.total) {
+                     this.setState({
+                         isLoadsignMore: false,
+                         allCount: signListData.length,
+                     });
+                 }
+                 this.setState({
+                     dataSourceSign: this.state.dataSourceReceipt.cloneWithRows(signListData),
+                 });
+             },
+             error: (errorInfo) => {
+
+             },
+             finish: () => {
+                 this.setState({
+                     isRefresh: false,
+                 });
+             }
+         });
+     }
+
     //获取运输中订单列表数据
     getTransPorting() {
 
@@ -848,29 +907,79 @@ let transCodeListData3 = [];
 
     // 运输中item
     renderRowItem(dataRow) {
-        if ( dataRow.transCodeNum !== 0) {
+        if (1===1) {
+            const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
+            const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 5) : '';
+            // 货品类型
+            const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
+            let goodTepesTemp = [];
+            let goodTypesName = [];
+            if(orderDetaiTypeList.length > 0) {
+                let good = '';
+                for (let i = 0; i < orderDetaiTypeList.length; i++) {
+                    good = orderDetaiTypeList[i];
+                    goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
+                }
+                // 去重
+                goodTypesName = UniqueUtil.unique(goodTepesTemp);
+            } else {
+                goodTypesName.push('其他');
+            }
             return (
-                <OrderTransportCell
-                    receiveContact={dataRow.receiveContact ? dataRow.receiveContact : ''}
-                    transCodeList={dataRow.transports}
-                    ordersNum={dataRow.transCodeNum}
-                    receiveAddress={dataRow.receiveAddress}
-                    receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
-                    phoneNum={dataRow.phoneNum}
-                    isBatchSign={dataRow.transports.length > 1}
-                    orderSignNum={dataRow.orderSignNum}
+                <OrdersItemCell
+                    time={pushTime}
+                    scheduleCode={dataRow.scheduleCode}
+                    scheduleRoutes={dataRow.scheduleRoutes}
+                    distributionPoint={dataRow.distributionPoint}
+                    arrivalTime={arrivalTime}
+                    weight={dataRow.weight}
+                    vol={dataRow.vol}
+                    stateName={dataRow.stateName}
+                    dispatchStatus={dataRow.dispatchStatus}
+                    orderStatus={selectPage}
+                    goodKindsNames={goodTypesName} // 货品种类
+                    waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
+                    beSureOrderNum={dataRow.beSureOrderNum}
+                    transCodeNum={dataRow.transCodeNum}
+                    goodsCount={200}
+                    temperature={2}
                     onSelect={() => {
+                        if (dataRow.distributionPoint === 0) {
+                            Toast.showShortCenter('暂无详情');
+                            return;
+                        }
+                        // 其他的都跳转到  ORDER_ENTRY_TO_BE_SIGNIN
                         this.props.navigation.navigate('EntryToBeSignIn', {
-                            transOrderList: this.transportsList(dataRow),
-                        })
-                    }}
-                    onButton={() => {
-                        this.transportBatchSign(dataRow);
+                            transOrderList: dataRow.transOrderList,
+                        });
                     }}
                 />
             );
         }else {
-            return null;
+            if ( dataRow.transCodeNum !== 0) {
+                return (
+                    <OrderTransportCell
+                        receiveContact={dataRow.receiveContact ? dataRow.receiveContact : ''}
+                        transCodeList={dataRow.transports}
+                        ordersNum={dataRow.transCodeNum}
+                        receiveAddress={dataRow.receiveAddress}
+                        receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
+                        phoneNum={dataRow.phoneNum}
+                        isBatchSign={dataRow.transports.length > 1}
+                        orderSignNum={dataRow.orderSignNum}
+                        onSelect={() => {
+                            this.props.navigation.navigate('EntryToBeSignIn', {
+                                transOrderList: this.transportsList(dataRow),
+                            })
+                        }}
+                        onButton={() => {
+                            this.transportBatchSign(dataRow);
+                        }}
+                    />
+                );
+            }else {
+                return null;
+            }
         }
     }
      // 运单号集合
