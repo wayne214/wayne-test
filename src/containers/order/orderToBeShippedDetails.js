@@ -125,6 +125,7 @@ export default class OrderDetails extends Component {
             refuseReason: '',
             shipmentNum: number,
             signNum: '0',
+            paasLineNo: item.paasLineNo,
         };
 
         this.setState({
@@ -140,6 +141,15 @@ export default class OrderDetails extends Component {
             goodsInfo.push({
                 goodsId: subitem.goodsId,
                 shipmentNums: subitem.shipmentNum,
+                refuseDetail: [
+                    {
+                        detailNum: null,
+                        refuseType: '',
+                    },
+                ],
+                refuseNum: null,
+                signNum: null,
+                paasLineNo: subitem.paasLineNo,
             });
         }
         const transOrderInfo = {
