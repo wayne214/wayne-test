@@ -93,7 +93,7 @@ class Verified extends Component {
     constructor(props) {
         super(props);
 
-        if (this.props.navigation.state.params){
+        if (this.props.navigation.state.params) {
             const result = this.props.navigation.state.params.resultInfo;
 
             isFirstCarD = result.idCardName ? false : true;
@@ -111,8 +111,8 @@ class Verified extends Component {
 
                 IDName: result.idCardName, // 身份证姓名
                 IDCard: result.idCard, // 身份证ID
-                idCardImage: {uri: result.idFaceSideThumbnailAddress} , // 身份证正面图片url
-                idCardTrunImage:  {uri: result.idBackSideThumbnailAddress} , // 身份证反面图片url
+                idCardImage: {uri: result.idFaceSideThumbnailAddress}, // 身份证正面图片url
+                idCardTrunImage: {uri: result.idBackSideThumbnailAddress}, // 身份证反面图片url
                 idFaceSideNormalPhotoAddress: result.positiveCardRelative, // 身份证正面原图
                 idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddressRelative, // 身份证正面缩略图
 
@@ -125,7 +125,7 @@ class Verified extends Component {
                 drivingLicenseStartDate: result.drivingLicenseStartDate, // 驾驶证发证日期
                 drivingLicenseValidUntil: result.driverCardExpiry, // 驾驶证有效期
                 motorcycleType: result.quasiCarType, // 驾驶证类型
-                driverCarImage:  {uri: result.drivingLicenseHomepageThumbnailAddress} , // 驾驶证正面图片url
+                driverCarImage: {uri: result.drivingLicenseHomepageThumbnailAddress}, // 驾驶证正面图片url
                 drivereCarTrunImage: {uri: result.drivingLicenseVicePageThumbnailAddress}, // 驾驶证反面图片url
 
                 drivingLicenseHomepageNormalPhotoAddress: result.drivingLicenceHomePageRelative, // 驾驶证正面原图
@@ -139,7 +139,7 @@ class Verified extends Component {
                 handPicImage: {uri: result.handleIdThumbnailAddress}, // 手持身份证图片url
 
             };
-        }else {
+        } else {
 
             this.state = {
                 idCardImage: idCardRightImage,
@@ -190,25 +190,25 @@ class Verified extends Component {
                 driverCardRecognition: '', // 识别驾驶证号
                 quasiCarTypeRecognition: '', // 识别准驾车型
                 driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
+            }
+
+            this.showAlertSelected = this.showAlertSelected.bind(this);
+            this.callbackSelected = this.callbackSelected.bind(this);
+            this.selectPhoto = this.selectPhoto.bind(this);
+            this.selectCamera = this.selectCamera.bind(this);
+
+            this.upLoadImage = this.upLoadImage.bind(this);
+            this.showDatePick = this.showDatePick.bind(this);
+            this.checkUploadParams = this.checkUploadParams.bind(this);
+
+            this.realNameVerified = this.realNameVerified.bind(this);
+
+            this.isRightData = this.isRightData.bind(this);
+            this.formatterTime = this.formatterTime.bind(this);
+            this.popToTop = this.popToTop.bind(this);
+
         }
-
-        this.showAlertSelected = this.showAlertSelected.bind(this);
-        this.callbackSelected = this.callbackSelected.bind(this);
-        this.selectPhoto = this.selectPhoto.bind(this);
-        this.selectCamera = this.selectCamera.bind(this);
-
-        this.upLoadImage = this.upLoadImage.bind(this);
-        this.showDatePick = this.showDatePick.bind(this);
-        this.checkUploadParams = this.checkUploadParams.bind(this);
-
-        this.realNameVerified = this.realNameVerified.bind(this);
-
-        this.isRightData = this.isRightData.bind(this);
-        this.formatterTime = this.formatterTime.bind(this);
-        this.popToTop = this.popToTop.bind(this);
-
     }
-
     componentDidMount() {
         this.getCurrentPosition();
 
