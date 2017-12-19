@@ -56,7 +56,7 @@ class signPage extends Component {
             isReceipt: params.taskInfo.isReceipt,
             loading: false,
         };
-
+        console.log('====products', this.state.products);
         this.productInfo = this.productInfo.bind(this);
         this.getSignIn = this.getSignIn.bind(this);
         this.getSignInSuccessCallBack = this.getSignInSuccessCallBack.bind(this);
@@ -325,8 +325,8 @@ class signPage extends Component {
 
 
         refuseDetailDtoList = refuseDetailDtoList1;
-
         const array = this.state.products;
+        console.log('=====array', array);
         // 取出对应的item
         const item = array[index];
         // 改变签收的值
@@ -375,6 +375,7 @@ class signPage extends Component {
                 refuseDetailDtoList,
                 goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
                 refuseReason: item.refuseReason,
+                paasLineNo: item.paasLineNo,
             };
         }
 
