@@ -42,8 +42,12 @@ export const ACTION_VOICE_SWITCH = 'ACTION_VOICE_SWITCH'; // 语音播报
 
 export const ACTION_SET_CHARACTER = 'ACTION_SET_CHARACTER'; // 账户-角色
 
+
 export const ACTION_ADD_VIDEO = 'ACTION_ADD_VIDEO'; // 添加视频
 
 export const ACTION_DELETE_VIDEO = 'ACTION_DELETE_VIDEO'; // 删除视频
 
 export const ACTION_CLEAR_VIDEO = 'ACTION_CLEAR_VIDEO'; // 清空视频
+
+export const ACTION_SET_CURRENT_CHARACTER = 'ACTION_SET_CURRENT_CHARACTER'; // 账户-当前选择角色
+

@@ -241,7 +241,7 @@ class CarManagement extends BaseContainer {
                                             alignItems: 'center',
                                             borderRadius: 20,
                                             borderColor: '#999999',
-                                            borderWidth: 1,
+                                            borderWidth: 0.5,
                                         }}>
                                         < Text style={{color: 'black'}}>绑定车辆</Text>
                                     </View>
