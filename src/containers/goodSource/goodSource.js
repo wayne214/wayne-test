@@ -311,6 +311,7 @@ class GoodSource extends BaseContainer{
                     tintColor={StaticColor.LIGHT_BLACK_TEXT_COLOR}
                     selectItemColor={'black'}
                     data={data}
+                    isShow={this.props.currentStatus == 'driver'}
                     handler={(selection, row) => {
                         this.resetParams();
                         data[selection][row] === '待处理' ?
@@ -360,6 +361,7 @@ class GoodSource extends BaseContainer{
 function mapStateToProps(state) {
     return {
         userPlateNumber: state.user.get('plateNumber'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

@@ -633,11 +633,11 @@ class Home extends Component {
                         }
                     }
                 } else {
-                    // this.setData();
+                    this.setData();
                 }
             },
             error: (errorInfo) => {
-                // this.setData();
+                this.setData();
             },
             finish: () => {
             }
