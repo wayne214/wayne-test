@@ -799,34 +799,6 @@ class Mine extends Component {
                                                     }
                                                 }}
                                             />
-                                            <SettingCell
-                                                leftIcon="&#xe672;"
-                                                iconFontColor={{color: '#F6BD0E'}}
-                                                content={'认证信息'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
-
-                                                }}
-                                            />
-                                        </View>
-                                        :
-                                        <View>
-                                            <SettingCell
-                                                leftIcon="&#xe62a;"
-                                                content={'司机管理'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
-                                                    navigator.navigate('DriverManagement');
-                                                }}
-                                            />
-                                            <SettingCell
-                                                leftIcon="&#xe62b;"
-                                                content={'车辆管理'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
-                                                    navigator.navigate('CarManagement');
-                                                }}
-                                            />
                                             {
                                                 this.state.verifiedState != '1202' ?
                                                     <SettingCell
@@ -857,6 +829,34 @@ class Mine extends Component {
                                                         }}
                                                     /> : null
                                             }
+                                        </View>
+                                        :
+                                        <View>
+                                            <SettingCell
+                                                leftIcon="&#xe62a;"
+                                                content={'司机管理'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
+                                                    navigator.navigate('DriverManagement');
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe62b;"
+                                                content={'车辆管理'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
+                                                    navigator.navigate('CarManagement');
+                                                }}
+                                            />
+                                            <SettingCell
+                                                leftIcon="&#xe672;"
+                                                iconFontColor={{color: '#F6BD0E'}}
+                                                content={'认证信息'}
+                                                showBottomLine={false}
+                                                clickAction={() => {
+
+                                                }}
+                                            />
                                         </View>
 
                                     }
