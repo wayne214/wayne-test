@@ -63,13 +63,22 @@ const newPhone = (phone)=>{
 /*处理事件格式*/
 const timeTrunToDateString = (time)=>{
     let dataString;
-    //20121212 or 201212  转化为 2012年12月12日  or  2012年12月
+    //20121212 or 201212  转化为 2012/12/12  or  2012/12
     if (time.length === 8){
         // 年月日
-        dataString = time.toString().substr(0, 4) + '年' + time.toString().substr(4, 2) + '月' + time.toString().substr(6, 2) + '日';
+        dataString = time.toString().substr(0, 4) + '/' + time.toString().substr(4, 2) + '/' + time.toString().substr(6, 2);
     }else if (time.length === 6) {
-        dataString = time.toString().substr(0, 4) + '年' + time.toString().substr(4, 2) + '月';
+        dataString = time.toString().substr(0, 4) + '/' + time.toString().substr(4, 2);
     }
+
+    return dataString;
+};
+/*处理事件格式*/
+const timeFormatterToDateString = (time)=>{
+    let dataString;
+    //  2012/12/12  or  2012/12 转化为  20121212 or 201212
+
+    dataString = time.replace('/', '');
 
     return dataString;
 };

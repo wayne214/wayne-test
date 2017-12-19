@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         marginLeft: 10,
-        fontSize: 15,
+        fontSize: 14,
         color: '#666666',
-        flex: 2,
+        flex: 1,
     },
     touchStyle:{
-        flex: 3,
+        flex: 2,
     },
     textInputStyle:{
         ...Platform.select({

@@ -173,7 +173,7 @@ class companyCarOwnerAuth extends Component {
                 case 0:
                     this.setState({
                         idCardImage: source,
-                        isChooseBusinessLicenseValidImage: false,
+                        isChooseBusinessLicenseValidImage: true,
                     });
 
                     this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
@@ -182,7 +182,7 @@ class companyCarOwnerAuth extends Component {
                 case 1:
                     this.setState({
                         idCardTrunImage: source,
-                        isChooseBusinessLicenseValidTrunImage: false,
+                        isChooseBusinessLicenseValidTrunImage: true,
                     });
 
                     this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
@@ -192,15 +192,15 @@ class companyCarOwnerAuth extends Component {
                 case 2:
                     this.setState({
                         businessTrunRightImage: source,
-                        isChooseCompanyImage: false,
+                        isChooseCompanyImage: true,
                     });
                     //this.upLoadImage(API.'营业执照地址', formData);
                     break;
             }
 
-            this.setState({
-                appLoading: true,
-            });
+            // this.setState({
+            //     appLoading: true,
+            // });
         });
     }
 
@@ -341,10 +341,16 @@ class companyCarOwnerAuth extends Component {
 
     /*选择相机*/
     selectCamera() {
-        this.props.navigation.navigate('TakeCamearPage', {
-            cameraType: selectType,
-            verifiedType: 1,
-        });
+        if (selectType < 2) {
+            this.props.navigation.navigate('TakeCamearPage', {
+                cameraType: selectType,
+                verifiedType: 2,
+            });
+        } else {
+            this.props.navigation.navigate('TakeCameraVer', {
+                cameraType: 4,
+            });
+        }
     }
 
     /*选择照片*/
@@ -397,9 +403,7 @@ class companyCarOwnerAuth extends Component {
                             idCardTrunImage: source,
                             isChooseBusinessLicenseValidTrunImage: false,
                         });
-
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
-
                         break;
 
                     case 2:
@@ -407,7 +411,7 @@ class companyCarOwnerAuth extends Component {
                             businessTrunRightImage: source,
                             isChooseCompanyImage: false,
                         });
-                        //this.upLoadImage(API.'营业执照地址', formData);
+                        this.upLoadImage(API.API_GET_BUSINESS_LICENSE, formData);
                         break;
                 }
 
@@ -426,7 +430,6 @@ class companyCarOwnerAuth extends Component {
             },
             (respones) => {
                 console.log(respones);
-
                 if (respones.code === 200) {
                     switch (selectType) {
                         case 0:
@@ -456,12 +459,17 @@ class companyCarOwnerAuth extends Component {
                             isShowCardInfo = true;
                             break;
                         case 2:
-                            if (respones.result.idValidUntil){
+                            if (respones.result.regNum){
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
+
                             this.setState({
-                                businessNormalPhotoAddress: '', // 营业执照原图
-                                businessThumbnailAddress: '', // 营业执照缩略图
+                                businessNormalPhotoAddress: respones.result.businessLicensePhotoAddress, // 营业执照原图
+                                businessThumbnailAddress:  respones.result.businessLicenseThumbnailAddress,// 营业执照缩略图
+                                companyName: respones.result.name,
+                                companyOwnerName: respones.result.person,
+                                companyAddress: respones.result.address,
+                                companyCode: respones.result.regNum,
                             });
                             isShowCompanyInfo = true;
                             break;
@@ -476,6 +484,7 @@ class companyCarOwnerAuth extends Component {
 
             },
             (error) => {
+                console.log('error:', error);
                 Toast.showShortCenter('解析失败，请重新上传');
 
                 this.setState({

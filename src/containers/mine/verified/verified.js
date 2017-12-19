@@ -179,7 +179,17 @@ class Verified extends Component {
 
                 handleIDNormalPhotoAddress: '', // 手持身份证原图
                 handleIDThumbnailAddress: '', // 手持身份证缩略图
-            };
+
+
+                idCardNameRecognition: '', //识别身份证姓名
+                idCardRecognition: '', //识别身份证号
+                idCardValidityRecognition: '', //识别身份证有效期
+
+
+                drivingLicenceNameRecognition: '', // 识别驾驶证姓名
+                driverCardRecognition: '', // 识别驾驶证号
+                quasiCarTypeRecognition: '', // 识别准驾车型
+                driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
         }
 
         this.showAlertSelected = this.showAlertSelected.bind(this);
@@ -471,6 +481,8 @@ class Verified extends Component {
                             this.setState({
                                 IDName: respones.result.idName,
                                 IDCard: respones.result.idNum,
+                                idCardNameRecognition: respones.result.idName, //识别身份证姓名
+                                idCardRecognition: respones.result.idNum, //识别身份证号
 
                                 idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
                                 idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
@@ -484,6 +496,8 @@ class Verified extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
                             this.setState({
                                 IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+                                idCardValidityRecognition: respones.result.idValidUntil, //识别身份证有效期
+
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                             });
@@ -501,6 +515,11 @@ class Verified extends Component {
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
                                 drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
                                 motorcycleType: respones.result.motorcycleType, // 驾驶证类型
+
+                                drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
+                                driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号
+                                quasiCarTypeRecognition: respones.result.motorcycleType, // 识别准驾车型
+                                driverLicenseValidateRecognition: respones.result.drivingLicenseValidUntil,  // 识别驾驶证有效期
 
                                 drivingLicenseHomepageNormalPhotoAddress: respones.result.drivingLicenseHomepageNormalPhotoAddress,
                                 drivingLicenseHomepageThumbnailAddress: respones.result.drivingLicenseHomepageThumbnailAddress,
@@ -826,6 +845,13 @@ class Verified extends Component {
                 phoneNum: userPhone,
                 userId: userID,
                 userName: this.state.IDName,
+                // idCardNameRecognition
+                // idCardRecognition
+                // idCardValidityRecognition
+                // drivingLicenceNameRecognition: '', // 识别驾驶证姓名
+                // driverCardRecognition: '', // 识别驾驶证号
+                // quasiCarTypeRecognition: '', // 识别准驾车型
+                // driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
             },
             loading: () => {
 

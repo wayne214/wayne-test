@@ -106,7 +106,7 @@ class verifiedTravelInfoItem extends Component{
         let carWeightString = '请选择车辆长度';
         let carWeightColor = {color : '#666666'};
         if (carWeight){
-            carWeightString = carWeight;
+            carWeightString = carWeight + '吨';
             carWeightColor = {color: '#333333'}
         }
 
@@ -203,7 +203,7 @@ class verifiedTravelInfoItem extends Component{
                                       }}>
 
                         <Text style={[styles.textStyle, carLengthColor]}>
-                            {carWeightString}吨
+                            {carWeightString}
                         </Text>
                     </TouchableOpacity>
                 </View>

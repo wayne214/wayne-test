@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         top: 50,
+        backgroundColor: 'transparent'
     },
     topLeftImageStyle: {
         position: 'absolute',
@@ -155,6 +156,9 @@ export default class takeCameraV extends Component {
                 break;
             case 3 :
                 showTitle='车牌号要清晰，车头要完整';
+                break;
+            case 4 :
+                showTitle='请放正营业执照，并调整好光线';
                 break;
         }
 

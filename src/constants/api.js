@@ -162,6 +162,10 @@ export const API_GET_SEND_QIANGXIAN_INFO = `${HOST}app/photo/insurance`;
 // 车头照
 export const API_GET_CAR_HEADER_INFO = `${HOST}app/photo/vehicle`;
 
+// 上传营业执照
+export const API_GET_BUSINESS_LICENSE = `${HOST}app/photo/businessLicense`;
+
+
 // 实名认证确认提交接口
 export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/driver/addDriver`;
 
