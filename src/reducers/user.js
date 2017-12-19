@@ -2,8 +2,9 @@
  * OUTSIDEDRIVER  外部司机
  * Personalowner  个人车主
  * Enterpriseowner  企业车主
- * driverStatus ： 0 未认证 1 认证中 2 认证驳回
- * ownerStatus ： 0 未认证 1 个人车主认证中 2 个人车主认证驳回 3 企业车主认证中 4 企业车主认证驳回
+ * driverStatus ： 1 司机认证中     2 司机认证通过     3 司机认证驳回
+ * ownerStatus ： 11 个人车主认证中 12 个人车主认证通过 13 企业车主认证驳回
+ *                21 企业车主认证中 22 个人车主认证通过 23 企业车主认证驳回
  * currentStatus ： driver 司机  personalOwner 个人车主 businessOwner 企业车主
  */
 import Immutable from 'immutable';
@@ -96,9 +97,11 @@ export default (state = initState, action) => {
             Storage.save('userCarList', action.payload);
             globalState = globalState.set('userCarList', action.payload);
             return globalState;
-        case ActionTypes.ACTION_SET_CHARACTER:
-            globalState = globalState.set('driverStatus', action.payload.driverStatus);
-            globalState = globalState.set('ownerStatus', action.payload.ownerStatus);
+        case ActionTypes.ACTION_SET_DRIVER_CHARACTER:
+            globalState = globalState.set('driverStatus', action.payload);
+            return globalState;
+        case ActionTypes.ACTION_SET_OWNER_CHARACTER:
+            globalState = globalState.set('ownerStatus', action.payload);
             return globalState;
         case ActionTypes.ACTION_SET_CURRENT_CHARACTER:
             globalState = globalState.set('currentStatus', action.payload);

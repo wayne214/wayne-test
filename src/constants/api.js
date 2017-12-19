@@ -1,5 +1,7 @@
 import { HOST } from './setting';
 
+/** *****************************************************伙伴资源中心接口***************************************************/
+export const API_INQUIRE_ACCOUNT_ROLE = `${HOST}app/rmc/company/queryAppRoleInfoByBusTel/`;
 /** *****************************************************在线用户接口******************************************************/
 // export const API_USER_LOGOUT = `${HOST}app/user/logout/`;
 export const API_USER_LOGOUT = `${HOST}app/user/logout/v3.0/`;

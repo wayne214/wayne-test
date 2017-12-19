@@ -24,7 +24,13 @@ import Toast from '@remobile/react-native-toast';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import BaseContainer from '../base/baseContainer';
 import Button from 'apsl-react-native-button';
-import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import {
+    loginSuccessAction,
+    setUserNameAction,
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+    setCurrentCharacterAction,
+} from '../../action/user';
 
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         alignItems: 'center',
         paddingLeft: 15,
-        
+
     },
     textInput: {
         flex: 1,
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
         height: 44,
         resizeMode: 'stretch',
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent: 'center'
     },
     loginButton: {
         backgroundColor: '#00000000',
@@ -142,8 +148,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // alignItems: 'flex-end',
         height: 40,
-        top: height-60,
-        left:0,
+        top: height - 60,
+        left: 0,
         // marginBottom: 20
     },
     screenEndViewTextLeft: {
@@ -168,6 +174,7 @@ class Login extends BaseContainer {
         };
         this.loginSecretCode = this.loginSecretCode.bind(this);
         this.login = this.login.bind(this);
+        this.InquireAccountRole = this.InquireAccountRole.bind(this);
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
         this.success = this.success.bind(this);
@@ -176,31 +183,32 @@ class Login extends BaseContainer {
 
     }
 
-    componentWillMount () {
+    componentWillMount() {
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.keyboardDidHideListener.remove();
     }
 
-    _keyboardDidHide(){
+    _keyboardDidHide() {
         this.refs.phoneNumber && this.refs.phoneNumber.blur();
         this.refs.password && this.refs.password.blur();
     }
 
     componentDidMount() {
-        if(Platform.OS === 'ios'){
+        if (Platform.OS === 'ios') {
             // this.getCurrentPosition();
-        }else {
+        } else {
             PermissionsAndroid.locationPermission().then((data) => {
                 this.getCurrentPosition();
             }, (err) => {
-                Alert.alert('提示','请到设置-应用-授权管理设置定位权限');
+                Alert.alert('提示', '请到设置-应用-授权管理设置定位权限');
             });
         }
     }
-    getCurrentPosition(){
+
+    getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
             console.log('position..........', JSON.stringify(data));
             locationData = data;
@@ -257,13 +265,13 @@ class Login extends BaseContainer {
                 this.setState({
                     loading: false,
                 }, () => {
-                    console.log('lqq---responseData---',responseData);
+                    console.log('lqq---responseData---', responseData);
 
                     let isBind = responseData.result.isBind;
-                    console.log('-lqq---isBind',isBind);
+                    console.log('-lqq---isBind', isBind);
                     // TODO 暂时关掉登录验证
                     isBind = true;
-                    if(isBind){//继续登录操作
+                    if (isBind) {//继续登录操作
                         lastTime = new Date().getTime();
 
                         // ReadAndWriteFileUtil.writeFile('通过密码登录', locationData.city, locationData.latitude, locationData.longitude, responseData.result.phone, locationData.province,
@@ -277,18 +285,18 @@ class Login extends BaseContainer {
                         // 发送Action,全局赋值用户信息
                         this.props.sendLoginSuccessAction(responseData.result);
 
-                        const resetAction = NavigationActions.reset({
-                            index: 0,
-                            actions: [
-                                NavigationActions.navigate({routeName: 'Main'}),
-                                // NavigationActions.navigate({routeName: 'CharacterList'}),
-                    ]
-                        });
-                        this.props.navigation.dispatch(resetAction);
+                        // const resetAction = NavigationActions.reset({
+                        //     index: 0,
+                        //     actions: [
+                        //         NavigationActions.navigate({routeName: 'Main'}),
+                        //         // NavigationActions.navigate({routeName: 'CharacterList'}),
+                        //     ]
+                        // });
+                        // this.props.navigation.dispatch(resetAction);
 
-                        JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
-
-                    }else{
+                        // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                        this.InquireAccountRole();
+                    } else {
                         //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
                             loginPhone: responseData.result.phone,
@@ -313,6 +321,151 @@ class Login extends BaseContainer {
 
     }
 
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+
+                if (responseData.result.length == 0) {
+                    this.props.navigation.navigate('CharacterList');
+                    return
+                }
+
+                if (responseData.result.length == 1) {
+                    if (responseData.result[0].owner == 1) {
+                        // 先是车主
+                        if (responseData.result[0].isApp == 1) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                // 确认个人车主
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                                this.props.setCurrentCharacterAction('personalOwner')
+                            } else {
+                                // 确认企业车主
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                                this.props.setCurrentCharacterAction('businessOwner')
+                            }
+                        }
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 先是司机
+                        if (responseData.result[0].isApp == 1) {
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                            this.props.setCurrentCharacterAction('driver')
+                        }
+
+                    }
+                }
+
+                if (responseData.result.length == 2) {
+
+                    if (responseData.result[0].owner == 1) {
+                        // 先是车主
+                        if (responseData.result[0].isApp == 1) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                // 确认个人车主
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                                this.props.setCurrentCharacterAction('personalOwner')
+                            } else {
+                                // 确认企业车主
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                                this.props.setCurrentCharacterAction('businessOwner')
+                            }
+                        }
+                        // 后是司机
+                        if (responseData.result[1].isApp == 1) {
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                            this.props.setCurrentCharacterAction('driver')
+                        }
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 先是司机
+                        if (responseData.result[0].isApp == 1) {
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                            this.props.setCurrentCharacterAction('driver')
+                        }
+                        // 后是车主
+                        if (responseData.result[1].isApp == 1) {
+                            if (responseData.result[1].companyNature == '个人') {
+                                // 确认个人车主
+                                responseData.result[1].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[1].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                                this.props.setCurrentCharacterAction('personalOwner')
+                            } else {
+                                // 确认企业车主
+                                responseData.result[1].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[1].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                                this.props.setCurrentCharacterAction('businessOwner')
+                            }
+                        }
+                    }
+
+                }
+
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'Main'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+
+                JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     fail = () => {
     };
 
@@ -325,13 +478,13 @@ class Login extends BaseContainer {
         const {phoneNumber, password} = this.state;
         return (
             <View style={styles.container}>
-                { false && 
-                    <View style={styles.backgroundImageView}>
+                {false &&
+                <View style={styles.backgroundImageView}>
                     <Image
                         source={StaticImage.LoginBackground}
                         style={{width, height}}
                     />
-                    </View>
+                </View>
                 }
                 <KeyboardAwareScrollView style={{width: width, height: height}}>
                     <View style={{alignItems: 'center'}}>
@@ -340,45 +493,45 @@ class Login extends BaseContainer {
                             resizeMode={'stretch'}
                             style={{width: width, height: width * 224 / 375}}
                         />
-                        
+
                     </View>
 
                     <View style={styles.contentView}>
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>账号</Text>
                             <TextInput
-                            ref='phoneNumber'
-                            underlineColorAndroid={'transparent'}
-                            placeholder="请输入手机号"
-                            placeholderTextColor="#cccccc"
-                            textAlign="left"
-                            keyboardType="numeric"
-                            style={styles.textInput}
-                            onChangeText={(phoneNumber) => {
-                                this.setState({phoneNumber});
-                            }}
-                            value={phoneNumber}/>
+                                ref='phoneNumber'
+                                underlineColorAndroid={'transparent'}
+                                placeholder="请输入手机号"
+                                placeholderTextColor="#cccccc"
+                                textAlign="left"
+                                keyboardType="numeric"
+                                style={styles.textInput}
+                                onChangeText={(phoneNumber) => {
+                                    this.setState({phoneNumber});
+                                }}
+                                value={phoneNumber}/>
                         </View>
 
                         <View style={styles.cellContainer}>
                             <Text style={styles.textLeft}>密码</Text>
                             <TextInput
-                            ref='password'
-                            underlineColorAndroid={'transparent'}
-                            secureTextEntry={true}
-                            placeholder="密码"
-                            placeholderTextColor="#cccccc"
-                            textAlign="left"
-                            returnKeyLabel={'done'}
-                            returnKeyType={'done'}
-                            style={styles.textInput}
-                            onChangeText={(password) => {
-                                this.setState({password});
-                            }}
-                            value={password}/>
+                                ref='password'
+                                underlineColorAndroid={'transparent'}
+                                secureTextEntry={true}
+                                placeholder="密码"
+                                placeholderTextColor="#cccccc"
+                                textAlign="left"
+                                returnKeyLabel={'done'}
+                                returnKeyType={'done'}
+                                style={styles.textInput}
+                                onChangeText={(password) => {
+                                    this.setState({password});
+                                }}
+                                value={password}/>
                         </View>
 
-                        <Image style={styles.loginBackground} source ={StaticImage.BlueButtonArc}>
+                        <Image style={styles.loginBackground} source={StaticImage.BlueButtonArc}>
                             <Button
                                 ref='button'
                                 isDisabled={!(phoneNumber && password)}
@@ -397,7 +550,7 @@ class Login extends BaseContainer {
                             </Button>
                         </Image>
                         <View style={styles.bottomView}>
-                            <View  >
+                            <View>
                                 <Text
                                     onPress={() => {
                                         this.props.navigation.navigate('LoginSms', {
@@ -411,35 +564,34 @@ class Login extends BaseContainer {
                                 </Text>
                             </View>
                             <View style={styles.lineUnder}/>
-                            <View >
-                            <Text
-                                onPress={() => {
-                                    this.props.navigation.navigate('ForgetPwd', {
-                                        loginPhone: this.state.phoneNumber
-                                    });
+                            <View>
+                                <Text
+                                    onPress={() => {
+                                        this.props.navigation.navigate('ForgetPwd', {
+                                            loginPhone: this.state.phoneNumber
+                                        });
 
-                                }}
-                                style={styles.bottomViewText}
-                            >
-                                忘记密码
-                            </Text>
+                                    }}
+                                    style={styles.bottomViewText}
+                                >
+                                    忘记密码
+                                </Text>
                             </View>
                         </View>
                     </View>
 
-                    
-                    
+
                 </KeyboardAwareScrollView>
                 <View style={styles.screenEndView}>
-                        <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
-                        <Text
-                            style={styles.screenEndViewText}
-                            onPress={() => {
-                                this.props.navigation.navigate('RegisterStepOne');
-                            }}
-                        >
-                            去注册
-                        </Text>
+                    <Text style={styles.screenEndViewTextLeft}>没有鲜易通账号？</Text>
+                    <Text
+                        style={styles.screenEndViewText}
+                        onPress={() => {
+                            this.props.navigation.navigate('RegisterStepOne');
+                        }}
+                    >
+                        去注册
+                    </Text>
                 </View>
                 {
                     this.state.loading ? <Loading/> : null
@@ -460,6 +612,15 @@ function mapDispatchToProps(dispatch) {
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
             dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+        setCurrentCharacterAction: (result) => {
+            dispatch(setCurrentCharacterAction(result));
         },
     };
 }
