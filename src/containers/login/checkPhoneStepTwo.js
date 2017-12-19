@@ -22,7 +22,7 @@ import JPushModule from 'jpush-react-native';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import CountDownButton from '../../common/timerButton';
 import Loading from '../../utils/loading';
-import  HTTPRequest from '../../utils/httpRequest';
+import HTTPRequest from '../../utils/httpRequest';
 import Storage from '../../utils/storage';
 import StorageKey from '../../constants/storageKeys';
 import {
@@ -35,15 +35,22 @@ import * as API from '../../constants/api';
 import Validator from '../../utils/validator';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import StaticImage from '../../constants/staticImage';
+
 const {width, height} = Dimensions.get('window');
-import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import {
+    loginSuccessAction,
+    setUserNameAction,
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+    setCurrentCharacterAction,
+} from '../../action/user';
 
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: COLOR_VIEW_BACKGROUND,
     },
@@ -97,25 +104,27 @@ class CheckPhoneStepTwo extends Component {
         this.phoneNo = params.loginPhone;
         this.loginResponseData = params.responseData;
         this.clearPhoneCode = this.clearPhoneCode.bind(this);
+        this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentDidMount() {
-         this.getCurrentPosition();
-         console.log('lqq-countDownButton--',this.refs.countDownButton);
-         this.refs.countDownButton && this.refs.countDownButton.shouldStartCountting(true);
+        this.getCurrentPosition();
+        console.log('lqq-countDownButton--', this.refs.countDownButton);
+        this.refs.countDownButton && this.refs.countDownButton.shouldStartCountting(true);
     }
+
     // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
-            console.log('position =',JSON.stringify(data));
+            console.log('position =', JSON.stringify(data));
             locationData = data;
-        }).catch(e =>{
+        }).catch(e => {
             console.log(e, 'error');
         });
     }
 
     /*绑定设备*/
-    bindDevice(){
+    bindDevice() {
         currentTime = new Date().getTime();
 
         HTTPRequest({
@@ -127,14 +136,14 @@ class CheckPhoneStepTwo extends Component {
                 platform: global.platform,
                 loginSite: 1
             },
-            loading: ()=>{
+            loading: () => {
                 this.setState({
                     loading: true,
                 });
             },
-            success: (responseData)=>{
+            success: (responseData) => {
                 lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('绑定设备',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                ReadAndWriteFileUtil.appendFile('绑定设备', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '绑定设备');
                 if (responseData.result) {
                     const loginUserId = this.loginResponseData.result.userId;
@@ -145,30 +154,165 @@ class CheckPhoneStepTwo extends Component {
                     // 发送Action,全局赋值用户信息
                     this.props.sendLoginSuccessAction(this.loginResponseData.result);
 
-
-                    const resetAction = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({ routeName: 'CharacterList'}),
-
-                        ]
-                    });
-                    this.props.navigation.dispatch(resetAction);
-
-                    JPushModule.setAlias(this.loginResponseData.result.phone, ()=>{}, ()=>{});
+                    this.InquireAccountRole();
+                    // const resetAction = NavigationActions.reset({
+                    //     index: 0,
+                    //     actions: [
+                    //         NavigationActions.navigate({routeName: 'CharacterList'}),
+                    //
+                    //     ]
+                    // });
+                    // this.props.navigation.dispatch(resetAction);
+                    //
+                    // JPushModule.setAlias(this.loginResponseData.result.phone, () => {
+                    // }, () => {
+                    // });
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }
             },
-            error: (errorInfo)=>{
+            error: (errorInfo) => {
 
             },
-            finish: ()=>{
+            finish: () => {
                 this.setState({
                     loading: false,
                 });
             }
         })
+    }
+
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+
+                if (responseData.result.length == 0) {
+                    this.props.navigation.navigate('CharacterList');
+                    return
+                }
+
+                if (responseData.result.length == 1) {
+                    if (responseData.result[0].owner == 1) {
+                        // 车主
+                        if (responseData.result[0].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                            this.props.setCurrentCharacterAction('personalOwner')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                            this.props.setCurrentCharacterAction('businessOwner')
+                        }
+
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 司机
+                        responseData.result[0].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[0].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+                        this.props.setCurrentCharacterAction('driver')
+                    }
+                }
+
+                if (responseData.result.length == 2) {
+
+                    if (responseData.result[0].owner == 1) {
+                        // 先是车主
+                        if (responseData.result[0].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                        }
+
+                        // 后是司机
+                        responseData.result[1].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[1].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+
+                        this.props.setCurrentCharacterAction('driver')
+
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 先是司机
+                        responseData.result[0].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[0].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+
+                        // 后是车主
+                        if (responseData.result[1].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                        }
+                        this.props.setCurrentCharacterAction('driver')
+                    }
+                }
+
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'Main'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+
+                JPushModule.setAlias(this.loginResponseData.result.phone, () => {
+                }, () => {
+                });
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
     }
 
     // 下一步按钮
@@ -182,35 +326,37 @@ class CheckPhoneStepTwo extends Component {
 
     /*获取登录验证码*/
     requestVCodeForLogin(shouldStartCountting) {
-       HTTPRequest({
-           url: API.API_GET_LOGIN_WITH_CODE,
-           params: {
-               deviceId: global.UDID+'-1',
-               phoneNum: this.phoneNo,
-           },
-           loading: ()=>{
+        HTTPRequest({
+            url: API.API_GET_LOGIN_WITH_CODE,
+            params: {
+                deviceId: global.UDID + '-1',
+                phoneNum: this.phoneNo,
+            },
+            loading: () => {
 
-           },
-           success: (responseData)=>{
-               /*开启倒计时*/
-               shouldStartCountting(true);
-               Toast.showShortCenter('验证码已发送');
+            },
+            success: (responseData) => {
+                /*开启倒计时*/
+                shouldStartCountting(true);
+                Toast.showShortCenter('验证码已发送');
 
-           },
-           error: (errorInfo)=>{
-               /*关闭倒计时*/
-               shouldStartCountting(false);
+            },
+            error: (errorInfo) => {
+                /*关闭倒计时*/
+                shouldStartCountting(false);
 
-           },
-           finish: ()=>{
+            },
+            finish: () => {
 
-           }
-       })
+            }
+        })
     }
-    clearPhoneCode(){
-        if (this.state.pwdCode.length > 0) {this.setState({
-            pwdCode: '',
-        });
+
+    clearPhoneCode() {
+        if (this.state.pwdCode.length > 0) {
+            this.setState({
+                pwdCode: '',
+            });
         }
     }
 
@@ -230,14 +376,14 @@ class CheckPhoneStepTwo extends Component {
                         marginTop: 10,
                     }}
                 >
-                    
+
 
                     <View style={{flex: 1}}>
                         <Text
                             style={styles.textStyle}
                         >短信验证码已发送至({Validator.newPhone(this.phoneNo)})，请填写验证码</Text>
                     </View>
-                    
+
                 </View>
                 <View
                     style={{
@@ -245,7 +391,7 @@ class CheckPhoneStepTwo extends Component {
 
                     }}
                 >
-                    { false && <View style={styles.iconStyle}>
+                    {false && <View style={styles.iconStyle}>
                         <Text style={styles.iconfont}> &#xe634;</Text>
 
                     </View>
@@ -270,18 +416,20 @@ class CheckPhoneStepTwo extends Component {
                         (() => {
                             if (this.state.pwdCode.length > 0) {
                                 return (
-                                    <TouchableOpacity onPress={() => {this.clearPhoneCode()}}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.clearPhoneCode()
+                                    }}>
                                         <View style={styles.iconStyle}>
-                                            <Image source={StaticImage.clearIcon} />
+                                            <Image source={StaticImage.clearIcon}/>
                                         </View>
                                     </TouchableOpacity>
                                 );
                             }
                         })()
                     }
-                    { false && <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>}
+                    {false && <View style={{width: 1, backgroundColor: COLOR_VIEW_BACKGROUND}}/>}
                     <CountDownButton
-                        ref= 'countDownButton'
+                        ref='countDownButton'
                         enable={this.phoneNo.length}
                         style={{width: 100, backgroundColor: WHITE_COLOR, paddingRight: 15}}
                         textStyle={{color: '#0078ff'}}
@@ -308,7 +456,7 @@ class CheckPhoneStepTwo extends Component {
                             height: 44,
                             resizeMode: 'stretch',
                             alignItems: 'center',
-                            justifyContent:'center'
+                            justifyContent: 'center'
                         }}
                         source={StaticImage.BlueButtonArc}
                     >
@@ -328,7 +476,7 @@ class CheckPhoneStepTwo extends Component {
                 </TouchableOpacity>
 
                 {
-                    this.state.loading ? <Loading /> : null
+                    this.state.loading ? <Loading/> : null
                 }
             </View>
 
@@ -336,8 +484,12 @@ class CheckPhoneStepTwo extends Component {
         );
     }
 }
+
 function mapStateToProps(state) {
-    return {};
+    return {
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
+    };
 
 }
 
@@ -347,7 +499,15 @@ function mapDispatchToProps(dispatch) {
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
             dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
-
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+        setCurrentCharacterAction: (result) => {
+            dispatch(setCurrentCharacterAction(result));
         },
     };
 }
