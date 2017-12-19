@@ -756,7 +756,7 @@ class Mine extends Component {
                                 <View style={styles.numberView}/>
                                 <View style={styles.contentView}>
 
-                                    {this.props.driverStatus == '1' || this.props.driverStatus == '2' ?
+                                    {this.props.currentStatus == 'driver' ?
                                         <View>
                                             <SettingCell
                                                 style={{height: 36}}
@@ -1000,11 +1000,14 @@ function mapStateToProps(state) {
         userCarList: state.user.get('userCarList'),
         plateNumberObj: state.user.get('plateNumberObj'),
         driverStatus: state.user.get('driverStatus'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);
