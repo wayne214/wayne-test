@@ -756,7 +756,7 @@ class Mine extends Component {
                                 <View style={styles.numberView}/>
                                 <View style={styles.contentView}>
 
-                                    {this.props.driverStatus == '1' || this.props.driverStatus == '2' ?
+                                    {this.props.currentStatus == 'driver' ?
                                         <View>
                                             <SettingCell
                                                 style={{height: 36}}
@@ -799,15 +799,36 @@ class Mine extends Component {
                                                     }
                                                 }}
                                             />
-                                            <SettingCell
-                                                leftIcon="&#xe672;"
-                                                iconFontColor={{color: '#F6BD0E'}}
-                                                content={'认证信息'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
+                                            {
+                                                this.state.verifiedState != '1202' ?
+                                                    <SettingCell
+                                                        leftIcon="&#xe672;"
+                                                        iconFontColor={{color: '#F6BD0E'}}
+                                                        content={'认证信息'}
+                                                        showBottomLine={false}
+                                                        clickAction={() => {
+                                                            if (this.state.verifiedState == '1200') {
+                                                                // 未认证
+                                                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 
-                                                }}
-                                            />
+                                                                    if (value){
+                                                                        this.props.navigation.navigate('VerifiedPage', {
+                                                                            resultInfo: value,
+                                                                        });
+                                                                    }else {
+                                                                        this.props.navigation.navigate('VerifiedPage');
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                // 认证中，认证驳回，认证通过
+
+                                                                this.props.navigation.navigate('VerifiedStatePage', {
+                                                                    qualifications: this.state.verifiedState,
+                                                                });
+                                                            }
+                                                        }}
+                                                    /> : null
+                                            }
                                         </View>
                                         :
                                         <View>
@@ -1000,11 +1021,14 @@ function mapStateToProps(state) {
         userCarList: state.user.get('userCarList'),
         plateNumberObj: state.user.get('plateNumberObj'),
         driverStatus: state.user.get('driverStatus'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);

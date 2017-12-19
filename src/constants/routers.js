@@ -100,14 +100,21 @@ import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerV
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
 import DriverManagement from '../containers/mine/owner/driverManagement';
 import CarManagement from '../containers/mine/owner/carManagement';
+
+// 上报道路异常界面
 import UploadAbnormal from '../containers/home/uploadAbnormal';
 import TakePhoto from '../containers/home/takePhoto';
 import RecordVideo from '../containers/home/recordVideo';
+import VideoShow from '../containers/home/videoShow';
 import TakePhotoFinished from '../containers/home/takePhotoFinished';
 import RecordVideoFinished from '../containers/home/recordVideoFinished';
+
 import AddDriverPage from '../containers/mine/owner/addDriverPage';
 import AddCarPage from '../containers/mine/owner/addCarPage';
-import VideoShow from '../containers/home/videoShow';
+
+// 安排车辆列表界面
+import ArrangeCarList from '../containers/order/carrier/arrangeCarList';
+import ArrangeDriverList from '../containers/order/carrier/arrangeDriverList';
 
 
 
@@ -676,6 +683,18 @@ const StackRouteConfigs = {
     },
     VideoShow: {
         screen: VideoShow,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ArrangeDriverList: {
+        screen: ArrangeDriverList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ArrangeCarList: {
+        screen: ArrangeCarList,
         navigationOptions: {
             header: null
         }

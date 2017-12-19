@@ -61,6 +61,7 @@ import {
     setUserCarAction,
     queryEnterpriseNatureSuccessAction,
     saveUserCarList,
+    setCurrentCharacterAction,
 } from '../../action/user';
 import {setMessageListIconAction} from '../../action/jpush';
 import CharacterChooseCell from '../login/components/characterChooseCell';
@@ -632,11 +633,11 @@ class Home extends Component {
                         }
                     }
                 } else {
-                    // this.setData();
+                    this.setData();
                 }
             },
             error: (errorInfo) => {
-                // this.setData();
+                this.setData();
             },
             finish: () => {
             }
@@ -1311,7 +1312,7 @@ class Home extends Component {
                     leftButtonHidden={false}
                     leftButtonConfig={{
                         type: 'image',
-                        image: this.props.driverStatus == '1' ||  this.props.driverStatus == '2'?
+                        image: this.props.currentStatus == 'driver' ?
                             this.state.bubbleSwitch ? StaticImage.DriverUp : StaticImage.DriverDown
                             : this.state.bubbleSwitch ? StaticImage.OwnerUp : StaticImage.OwnerDown,
                         // disableImage: StaticImage.DriverUp,
@@ -1421,13 +1422,22 @@ class Home extends Component {
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {
-                            this.props.navigation.navigate('CharacterOwner');
+                            {this.state.ownerStatus != '0' ?
+                                this.props.setCurrentCharacterAction('owner')
+                                :
+                                this.props.navigation.navigate('CharacterOwner');
+                            }
                             this.setState({
                                 bubbleSwitch: false,
                                 show : false,
                             })
                         }}
                         driverClick={() => {
+                            {this.state.driverStatus != '0' ?
+                                this.props.setCurrentCharacterAction('driver')
+                                :null
+                                // 跳转到司机认证
+                            }
                             this.setState({
                                 bubbleSwitch: false,
                                 show : false,
@@ -1455,6 +1465,7 @@ function mapStateToProps(state) {
         versionUrl: state.app.get('versionUrl'),
         driverStatus: state.user.get('driverStatus'),
         ownerStatus: state.user.get('ownerStatus'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
@@ -1487,6 +1498,9 @@ function mapDispatchToProps(dispatch) {
         },
         saveUserCarListAction: (data) => {
             dispatch(saveUserCarList(data));
+        },
+        setCurrentCharacterAction: (data) => {
+            dispatch(setCurrentCharacterAction(data));
         },
     };
 }

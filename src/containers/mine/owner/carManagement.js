@@ -179,19 +179,19 @@ class CarManagement extends BaseContainer {
                                 source={StaticImage.CarAvatar}></Image>
                             <Text style={{marginLeft: 10, color: '#333333', fontsize: 16}}>{item.CarNum}</Text>
                             {item.status == '认证通过' ?
-                                <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                <Text style={{marginLeft: width - 180, fontsize: 16, color: '#0071FF'}}>
                                     认证通过
                                 </Text>
                                 : item.status == '认证中' ?
-                                    <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                    <Text style={{marginLeft: width - 180, fontsize: 16, color: '#0071FF'}}>
                                         认证中
                                     </Text>
                                     : item.status == '认证驳回' ?
-                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
+                                        <Text style={{marginLeft: width - 180, fontsize: 16, color: '#0071FF'}}>
                                             认证驳回
                                         </Text>
                                         :
-                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#FA5741'}}>
+                                        <Text style={{marginLeft: width - 180, fontsize: 16, color: '#FA5741'}}>
                                             禁用
                                         </Text>
                             }
@@ -241,7 +241,7 @@ class CarManagement extends BaseContainer {
                                             alignItems: 'center',
                                             borderRadius: 20,
                                             borderColor: '#999999',
-                                            borderWidth: 1,
+                                            borderWidth: 0.5,
                                         }}>
                                         < Text style={{color: 'black'}}>绑定车辆</Text>
                                     </View>

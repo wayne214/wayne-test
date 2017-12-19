@@ -129,6 +129,8 @@ import OrangeButtonSquare from '../../assets/button/orangeButtonSquare.png';
 
 /*待签收箭头*/
 import upArrow from '../../assets/order/upArrow.png';
+/*承运者图标*/
+import carrierIcon from '../../assets/order/carrierIcon.png';
 
 import finishIcon from '../../assets/order/finishIcon.png';
 
@@ -281,5 +283,6 @@ export default {
     hollowCircle,
     takeBack,
     takeNext,
+    carrierIcon,
 }
 

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import * as StaticColor from '../../../constants/staticColor';
+import StaticImage from '../../../constants/staticImage';
 import GoodKindUtil from '../../../utils/goodKindUtil';
 import CommonLabelCell from '../../../common/commonLabelCell';
 import OrderStateNumView from './orderStateNumView';
@@ -136,6 +137,25 @@ const styles = StyleSheet.create({
     },
     flex: {
         flex: 1,
+    },
+    carrierText: {
+        marginLeft: 5,
+        marginRight: 5,
+        fontSize: 13,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
+        paddingBottom: 12,
+        paddingTop: 12,
+    },
+    carrierView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: StaticColor.TITLE_BACKGROUND_COLOR,
+        marginTop: 10,
+        marginRight: 15,
+    },
+    carrierIcon: {
+        marginLeft: 6,
+        alignSelf: 'center'
     }
 });
 
@@ -185,7 +205,18 @@ class OrdersItemCell extends Component {
                 unit={'单'}
             />
         </View>;
-
+        const signNumView = <View style={styles.orderNumView}>
+            <OrderStateNumView
+                fontText={'已签'}
+                num={waitBeSureOrderNum}
+                unit={'单'}
+            />
+        </View>;
+        const carrierView = <View style={styles.carrierView}>
+            <Image style={styles.carrierIcon} source={StaticImage.carrierIcon}/>
+            <Text style={styles.carrierText}>承运者：{'张三'}</Text>
+            <Text style={styles.carrierText}>{'京A12345'}</Text>
+        </View>;
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -213,6 +244,7 @@ class OrdersItemCell extends Component {
                                     </View>
                                     <View style={styles.stateView}>
                                         {this.state.showStatus === 0 ? statusView : null}
+                                        {this.state.showStatus === 2 ? signNumView : null}
                                         {this.state.showStatus === 3 ? orderNumView : null}
                                     </View>
                                 </View>
@@ -244,6 +276,9 @@ class OrdersItemCell extends Component {
                                         textStyle={{color: StaticColor.PINK_TEMPER_TEXT_COLOR}}
                                     />
                                 </View>
+                                {
+                                    1 === 1 ? carrierView : null
+                                }
                                 <View style={styles.goodsTotal}>
                                     <View style={styles.flexDirection}>
                                         <Text style={[styles.arriveAndGoodsText]}>{weight}</Text>

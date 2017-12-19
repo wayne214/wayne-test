@@ -22,9 +22,15 @@ import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import StorageKey from '../../../../constants/storageKeys';
+import * as StaticColor from '../../../../constants/staticColor';
+import {Geolocation} from 'react-native-baidu-map-xzx';
+import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
 
 let userID = '';
 let userName = '';
+let currentTime = 0;
+let lastTime = 0;
+let locationData = '';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -52,15 +58,22 @@ const styles = StyleSheet.create({
             width: 0, height: 0.5
         },
         textShadowRadius: 0
+    },
+    text: {
+        marginLeft: 10,
+        fontSize: 16,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        paddingBottom: 14,
+        paddingTop: 14,
+
+    },
+    carrierView: {
+        flexDirection: 'row',
+        backgroundColor: StaticColor.WHITE_COLOR,
+        alignItems: 'center'
     }
+
 });
-
-import {Geolocation} from 'react-native-baidu-map-xzx';
-import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
-
-let currentTime = 0;
-let lastTime = 0;
-let locationData = '';
 
 class entryToBeSignin extends Component {
 
@@ -475,6 +488,11 @@ class entryToBeSignin extends Component {
             }
             return null;
         });
+        const carrierView = <View style={styles.carrierView}>
+            <View style={{backgroundColor: StaticColor.BLUE_TAB_BAR_COLOR, width: 3, height: 16,}}/>
+            <Text style={styles.text}>承运车辆：{'京A12345'}</Text>
+            <Text style={styles.text}>{'张三'}</Text>
+        </View>;
 
         return (
             <View style={styles.container}>
@@ -488,6 +506,9 @@ class entryToBeSignin extends Component {
                         onClick: this.receiptPhoto,
                     } : {}}
                 />
+                {
+                    1===1 ? carrierView : null
+                }
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color:'#666'}}>
                     {this.state.current}/{this.state.datas.length}
                 </Text>

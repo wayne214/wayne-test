@@ -260,7 +260,7 @@ export default class DropdownMenu extends Component {
     }
 
     render() {
-
+        const {isShow} = this.props;
         const TextStyle = ConstValue.is_iPhoneX ? {marginTop: 8} : {marginTop: -5};
         return (
             <View style={{flexDirection: 'column', flex: 1}}>
@@ -291,12 +291,14 @@ export default class DropdownMenu extends Component {
                             </TouchableOpacity>,
                         )
                     }
-                    {/*货源偏好设置入口*/}
-                    <TouchableOpacity style={styles.preferences} onPress={() => { this.props.preferences(); }} activeOpacity={1}>
-                        <View>
-                            <Text style={[{fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor},TextStyle]}>货源偏好</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {/*货源偏好设置入口----车主隐藏货源偏好*/}
+                    {
+                        isShow ? <TouchableOpacity style={styles.preferences} onPress={() => { this.props.preferences(); }} activeOpacity={1}>
+                            <View>
+                                <Text style={[{fontSize: 17, color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor},TextStyle]}>货源偏好</Text>
+                            </View>
+                        </TouchableOpacity> : null
+                    }
                 </View>
                 {this.props.children}
 

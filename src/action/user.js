@@ -54,3 +54,11 @@ export const setCharacterAction = (data) => {
         payload: data,
     };
 };
+
+/*账户-设置当前角色*/
+export const setCurrentCharacterAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_SET_CURRENT_CHARACTER,
+        payload: data,
+    };
+};

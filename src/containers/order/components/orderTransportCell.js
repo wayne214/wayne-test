@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
         height: 24,
         marginLeft: 15,
         alignItems: 'center',
+        width: width - 55,
+        justifyContent: 'space-between'
     },
     textSizeNum: {
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
@@ -146,7 +148,16 @@ const styles = StyleSheet.create({
         height: 45,
         justifyContent: 'center',
         paddingLeft: 15,
-    }
+        position: 'absolute',
+        top: 5,
+        right: 15,
+    },
+    orderTimeStyle: {
+        marginLeft: 15,
+        marginTop: 10,
+        color: '#999999',
+        fontSize: 12
+    },
 });
 
 class OrdersItemCell extends Component {
@@ -170,6 +181,7 @@ class OrdersItemCell extends Component {
         // 初始状态
         this.state = {
             isUnfolded: this.props.isBatchSign,
+            transCodeArray: this.props.transCodeList,
         };
     }
 
@@ -180,8 +192,9 @@ class OrdersItemCell extends Component {
     renderItem(item, i) {
         console.log('item.customerOrderCode',item.customerOrderCode);
         console.log('item.transCode',item.transCode);
+        console.log('transCodeArray',this.state.transCodeArray, i);
         return (
-            <View key={i}>
+            <View key={i} style={{marginTop: 13}}>
                 <View style={styles.orderDetailCell}>
                     <Text
                         style={styles.textSizeNum}>单号：{item.customerOrderCode ? item.customerOrderCode : item.transCode}</Text>
@@ -191,6 +204,10 @@ class OrdersItemCell extends Component {
                             <Text style={styles.textSizeWeight}>0Kg</Text>
                     }
                 </View>
+                <Text style={styles.orderTimeStyle}>订单时间：{item.time ? item.time.replace(/-/g,'/').substring(0, item.time.length - 3) : ''}</Text>
+                {
+                    i === this.state.transCodeArray.length - 1  ? null : <View style={[styles.separateLine, {width: width, marginLeft: 15, marginTop: 13}]}/>
+                }
             </View>
         );
     }
@@ -256,27 +273,35 @@ class OrdersItemCell extends Component {
 
                     }
                 </View>
+                <Text style={styles.orderTimeStyle}>订单时间：{transport.time ? transport.time.replace(/-/g,'/').substring(0, transport.time.length - 3) : ''}</Text>
             </View>
         </View>;
         const transOrderViews = this.state.isUnfolded ?
             <View style={styles.orderDeatailAll}>
                 <View style={styles.orderDetailText}>
-                    <View style={styles.orderDetailCell}>
-                        <Text style={styles.textSizeNum}>单号：{transport.customerOrderCode ? transport.customerOrderCode : transport.transCode}</Text>
-                        {
-                            transport.weight ?
-                                <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
-                                <Text style={styles.textSizeWeight}>0Kg</Text>
+                    <View>
+                        <View style={styles.orderDetailCell}>
+                            <Text style={styles.textSizeNum}>单号：{transport.customerOrderCode ? transport.customerOrderCode : transport.transCode}</Text>
+                            {
+                                transport.weight ?
+                                    <Text style={styles.textSizeWeight}>{transport.weight}Kg</Text> :
+                                    <Text style={styles.textSizeWeight}>0Kg</Text>
 
-                        }
+                            }
+                        </View>
+                        <Text style={styles.orderTimeStyle}>订单时间：{transport.time ? transport.time.replace(/-/g,'/').substring(0, transport.time.length - 3) : ''}</Text>
                     </View>
-                    <View style={styles.orderDetailCell}>
+                    <View style={[styles.separateLine, {width: width, marginLeft: 15, marginTop: 13, marginBottom: 13}]}/>
+                    <View>
+                        <View style={styles.orderDetailCell}>
                         <Text style={styles.textSizeNum}>单号：{transport1.customerOrderCode ? transport1.customerOrderCode : transport1.transCode}</Text>
                         {
                             transport1.weight ?
                                 <Text style={styles.textSizeWeight}>{transport1.weight}Kg</Text> :
                                 <Text style={styles.textSizeWeight}>0Kg</Text>
                         }
+                        </View>
+                        <Text style={styles.orderTimeStyle}>订单时间：{transport1.time ? transport1.time.replace(/-/g,'/').substring(0, transport1.time.length - 3) : ''}</Text>
                     </View>
                 </View>
                 <TouchableOpacity
@@ -290,7 +315,7 @@ class OrdersItemCell extends Component {
                     <Image source={StaticImage.receiveBottomArrow} />
                 </TouchableOpacity>
             </View> : <View style={styles.orderDeatailAll}>
-                <View style={styles.orderDetailText}>
+                <View style={[styles.orderDetailText, {marginTop: 0, marginBottom: 13}]}>
                     {this.renderList(transCodeList)}
                 </View>
                 <TouchableOpacity
