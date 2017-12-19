@@ -35,6 +35,7 @@ import BottomButton from './components/bottomButtonComponent';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
+let carrierViewHeight = 0;
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 let userID = '';
@@ -127,6 +128,19 @@ class orderToBeWaitSureDetail extends Component {
             scheduleTimeAgain,
         } = this.props;
 
+        if(1===1) {
+            carrierViewHeight = 44;
+        }
+
+        const buttonView = taskInfo && taskInfo.isReceipt === '是' ?
+            <BottomButton
+                text={'回单'}
+                onClick={() => {
+                    this.uploadReceipt();
+                }}
+                buttonDisabled={this.state.buttonDisabled}
+            /> : null;
+
         return (
             <View
                 style={{
@@ -137,8 +151,8 @@ class orderToBeWaitSureDetail extends Component {
                     overflow: 'hidden',
                     marginTop: topSpace,
                     ...Platform.select({
-                        ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
-                        android:{height: screenHeight - topHeight - 73}
+                        ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - carrierViewHeight},
+                        android:{height: screenHeight - topHeight - 73 - carrierViewHeight}
                     })
                 }}
             >
@@ -231,16 +245,8 @@ class orderToBeWaitSureDetail extends Component {
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
                 {
-                    taskInfo && taskInfo.isReceipt === '是' ?
-                        <BottomButton
-                            text={'回单'}
-                            onClick={() => {
-                                this.uploadReceipt();
-                            }}
-                            buttonDisabled={this.state.buttonDisabled}
-                        /> : null
+                    1 === 1 ? null : buttonView
                 }
-
                 {this.state.loading ? <Loading/> : null}
             </View>
         );

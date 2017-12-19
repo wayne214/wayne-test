@@ -37,6 +37,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
     },
+    text: {
+        marginLeft: 10,
+        fontSize: 16,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        paddingBottom: 14,
+        paddingTop: 14,
+
+    },
+    carrierView: {
+        flexDirection: 'row',
+        backgroundColor: StaticColor.WHITE_COLOR,
+        alignItems: 'center'
+    }
+
 });
 let transOrderInfo = [];
 let userID = '';
@@ -381,6 +395,11 @@ class entryToBeShipped extends Component {
         );
     }
 
+    // 安排车辆
+    arrangeCar() {
+        this.props.navigation.navigate('ArrangeCarList');
+    }
+
     cancelOrder() {
 
         if (this.state.isShowEmptyView) {
@@ -454,6 +473,28 @@ class entryToBeShipped extends Component {
                 />
             );
         });
+        const carrierView = <View style={styles.carrierView}>
+            <View style={{backgroundColor: StaticColor.BLUE_TAB_BAR_COLOR, width: 3, height: 16,}}/>
+            <Text style={styles.text}>承运者：{'张三'}</Text>
+            <Text style={styles.text}>{'京A12345'}</Text>
+        </View>;
+        const carrierBottomView = 3 === 3 ? <BottomButton
+            onClick={() => {
+                if (prventDoubleClickUtil.onMultiClick()) {
+                    this.arrangeCar();
+                }
+            }}
+            text="安排车辆"
+        /> : null;
+        const bottomView = <BottomButton
+            text={'发运'}
+            onClick={() => {
+                if (prventDoubleClickUtil.onMultiClick()) {
+                    this.sendOrder();
+                }
+            }}
+        />;
+
         return (
             <View style={styles.container}>
                 <NavigatorBar
@@ -466,6 +507,9 @@ class entryToBeShipped extends Component {
                         onClick: this.cancelOrder,
                     }}
                 />
+                {
+                    1===1 ? carrierView : null
+                }
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>
                     {this.state.current}/{this.state.datas.length}
                 </Text>
@@ -479,14 +523,9 @@ class entryToBeShipped extends Component {
                 >
                     {aa}
                 </ScrollView>
-                <BottomButton
-                    text={'发运'}
-                    onClick={() => {
-                        if (prventDoubleClickUtil.onMultiClick()) {
-                            this.sendOrder();
-                        }
-                    }}
-                />
+                {
+                    1===1 ? carrierBottomView : bottomView
+                }
                 {this.state.loading ? <Loading /> : null }
             </View>
         );
@@ -510,6 +549,7 @@ function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
         plateNumber: state.user.get('plateNumber'),
+
     };
 }
 
