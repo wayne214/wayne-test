@@ -37,7 +37,13 @@ import StorageKey from '../../constants/storageKeys';
 import Validator from '../../utils/validator';
 import ClickUtil from '../../utils/prventMultiClickUtil';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
-import {loginSuccessAction, setUserNameAction} from '../../action/user';
+import {
+    loginSuccessAction,
+    setUserNameAction,
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+    setCurrentCharacterAction,
+} from '../../action/user';
 import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
 const {width, height} = Dimensions.get('window');
@@ -196,6 +202,7 @@ class LoginSms extends BaseContainer {
         this.login = this.login.bind(this);
         this.requestVCodeForLogin = this.requestVCodeForLogin.bind(this);
         this._keyboardDidHide = this._keyboardDidHide.bind(this);
+        this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentWillMount () {
@@ -279,16 +286,16 @@ class LoginSms extends BaseContainer {
                     // 发送Action,全局赋值用户信息
                     this.props.sendLoginSuccessAction(responseData.result);
 
+                    this.InquireAccountRole();
+                    // const resetAction = NavigationActions.reset({
+                    //     index: 0,
+                    //     actions: [
+                    //         NavigationActions.navigate({ routeName: 'Main'}),
+                    //     ]
+                    // });
+                    // this.props.navigation.dispatch(resetAction);
 
-                    const resetAction = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({ routeName: 'Main'}),
-                        ]
-                    });
-                    this.props.navigation.dispatch(resetAction);
-
-                    JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
+                    // JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
                 }else{//跳转到绑定设备界面
                     this.props.navigation.navigate('CheckPhone', {
                         loginPhone: responseData.result.phone,
@@ -308,6 +315,138 @@ class LoginSms extends BaseContainer {
         })
 
 
+    }
+
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+
+                if (responseData.result.length == 0) {
+                    this.props.navigation.navigate('CharacterList');
+                    return
+                }
+
+                if (responseData.result.length == 1) {
+                    if (responseData.result[0].owner == 1) {
+                        // 车主
+                        if (responseData.result[0].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                            this.props.setCurrentCharacterAction('personalOwner')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                            this.props.setCurrentCharacterAction('businessOwner')
+                        }
+
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 司机
+                        responseData.result[0].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[0].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+                        this.props.setCurrentCharacterAction('driver')
+                    }
+                }
+
+                if (responseData.result.length == 2) {
+
+                    if (responseData.result[0].owner == 1) {
+                        // 先是车主
+                        if (responseData.result[0].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                        }
+
+                        // 后是司机
+                        responseData.result[1].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[1].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+
+                        this.props.setCurrentCharacterAction('driver')
+
+                    }
+
+                    if (responseData.result[0].owner == 2) {
+                        // 先是司机
+                        responseData.result[0].certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : responseData.result[0].certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
+
+                        // 后是车主
+                        if (responseData.result[1].companyNature == '个人') {
+                            // 确认个人车主
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                        } else {
+                            // 确认企业车主
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                        }
+                        this.props.setCurrentCharacterAction('driver')
+                    }
+                }
+
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'Main'}),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction);
+
+                JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
+
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
     }
 
 
@@ -510,7 +649,10 @@ class LoginSms extends BaseContainer {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        driverStatus:state.user.get('driverStatus'),
+        ownerStatus:state.user.get('ownerStatus'),
+    };
 
 }
 
@@ -520,7 +662,15 @@ function mapDispatchToProps(dispatch) {
         sendLoginSuccessAction: (result) => {
             dispatch(loginSuccessAction(result));
             dispatch(setUserNameAction(result.userName ? result.userName : result.phone))
-
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+        setCurrentCharacterAction: (result) => {
+            dispatch(setCurrentCharacterAction(result));
         },
     };
 }
