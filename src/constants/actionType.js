@@ -41,3 +41,5 @@ export const UPDATE_IMAGES = 'UPDATE_IMAGES'; // 清空图片
 export const ACTION_VOICE_SWITCH = 'ACTION_VOICE_SWITCH'; // 语音播报
 
 export const ACTION_SET_CHARACTER = 'ACTION_SET_CHARACTER'; // 账户-角色
+
+export const ACTION_SET_CURRENT_CHARACTER = 'ACTION_SET_CURRENT_CHARACTER'; // 账户-当前选择角色
