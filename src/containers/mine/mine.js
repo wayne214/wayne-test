@@ -827,15 +827,36 @@ class Mine extends Component {
                                                     navigator.navigate('CarManagement');
                                                 }}
                                             />
-                                            <SettingCell
-                                                leftIcon="&#xe672;"
-                                                iconFontColor={{color: '#F6BD0E'}}
-                                                content={'认证信息'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
+                                            {
+                                                this.state.verifiedState != '1202' ?
+                                                    <SettingCell
+                                                        leftIcon="&#xe672;"
+                                                        iconFontColor={{color: '#F6BD0E'}}
+                                                        content={'认证信息'}
+                                                        showBottomLine={false}
+                                                        clickAction={() => {
+                                                            if (this.state.verifiedState == '1200') {
+                                                                // 未认证
+                                                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 
-                                                }}
-                                            />
+                                                                    if (value){
+                                                                        this.props.navigation.navigate('VerifiedPage', {
+                                                                            resultInfo: value,
+                                                                        });
+                                                                    }else {
+                                                                        this.props.navigation.navigate('VerifiedPage');
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                // 认证中，认证驳回，认证通过
+
+                                                                this.props.navigation.navigate('VerifiedStatePage', {
+                                                                    qualifications: this.state.verifiedState,
+                                                                });
+                                                            }
+                                                        }}
+                                                    /> : null
+                                            }
                                         </View>
 
                                     }
