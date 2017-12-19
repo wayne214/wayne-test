@@ -125,6 +125,23 @@ export default class orderToBeSignInDetail extends Component {
             settleMethod,
             amount
         } = this.props;
+        const  buttonView = settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1' || settleMethod !== '20' || amount === '0.00' ?
+            <BottomButton
+                text={'签收'}
+                onClick={() => {
+                    this.props.signIn();
+                }}
+                buttonDisabled={this.state.buttonDisabled}
+            /> : <ChooseButton
+                leftContent={'收款'}
+                rightContent={'签收'}
+                leftClick={() => {
+                    this.props.payment();
+                }}
+                rightClick={() => {
+                    this.props.signIn();
+                }}
+            />;
 
         return (
             <View style={{
@@ -236,23 +253,7 @@ export default class orderToBeSignInDetail extends Component {
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13,}} />
             </View>
                 {
-                    settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1' || settleMethod !== '20' || amount === '0.00' ?
-                        <BottomButton
-                            text={'签收'}
-                            onClick={() => {
-                                this.props.signIn();
-                            }}
-                            buttonDisabled={this.state.buttonDisabled}
-                        /> : <ChooseButton
-                            leftContent={'收款'}
-                            rightContent={'签收'}
-                            leftClick={() => {
-                                this.props.payment();
-                            }}
-                            rightClick={() => {
-                                this.props.signIn();
-                            }}
-                        />
+                    1===1 ? null : buttonView
                 }
             </View>
         );
