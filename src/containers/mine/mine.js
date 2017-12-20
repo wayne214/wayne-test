@@ -857,12 +857,12 @@ class Mine extends Component {
                                                         showBottomLine={false}
                                                         clickAction={() => {
                                                             // 个人车主认证信息
-                                                            console.log('点击车主认证信息');
                                                             if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
                                                                 this.props.navigation.navigate('PersonownerVerifiedStatePage', {
                                                                     // qualifications: this.state.verifiedState,
                                                                 });
                                                             }
+                                                            // 企业车主认证信息
                                                             if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
                                                                 this.props.navigation.navigate('EnterpriseownerVerifiedStatePage', {
                                                                     // qualifications: this.state.verifiedState,

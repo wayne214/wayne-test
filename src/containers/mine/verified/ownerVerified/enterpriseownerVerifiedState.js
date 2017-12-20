@@ -262,13 +262,14 @@ class enterpriseownerVerifiedState extends Component{
                     title={'车主认证'}
                     navigator={navigator}
                     hiddenBackIcon={false}
-                    rightButtonConfig={{
+                    rightButtonConfig={this.state.qualifications == '23' ? {
                         type: 'string',
                         title: '个人认证',
                         onClick: ()=> {
                         // TODO 进行个人车主认证
                         }
-                    }}
+                    } : {}
+                    }
                 />
 
                 <ScrollView
