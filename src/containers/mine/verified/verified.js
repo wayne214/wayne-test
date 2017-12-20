@@ -190,6 +190,7 @@ class Verified extends Component {
                 driverCardRecognition: '', // 识别驾驶证号
                 quasiCarTypeRecognition: '', // 识别准驾车型
                 driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
+            }
         }
 
         this.showAlertSelected = this.showAlertSelected.bind(this);
