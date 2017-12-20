@@ -212,16 +212,16 @@ class personownerVerifiedState extends Component{
     render() {
         const navigator = this.props.navigation;
 
-        // 1201  认证中   1202 认证通过  1203 认证驳回
+        // 11  个人车主认证中   12 个人车主认证通过  13 个人车主认证驳回
 
-        let headView = this.state.qualifications == '1201' ?
+        let headView = this.state.qualifications == '11' ?
             <View style={styles.headStyle}>
 
                 <Image source={headerImageLoading}/>
 
                 <Text style={styles.textStyle}>认证中</Text>
             </View>
-            : this.state.qualifications == '1202' ?
+            : this.state.qualifications == '12' ?
                 <View style={styles.headStyle}>
 
                     <Image source={headerImageSuccess}/>
@@ -236,13 +236,13 @@ class personownerVerifiedState extends Component{
                     <Text style={styles.textStyle}>认证驳回</Text>
                 </View>;
 
-        let bottomView = this.state.qualifications == '1203' ?
+        let bottomView = this.state.qualifications == '13' ?
             <View>
                 <VerifiedGrayTitleItem title='驳回原因'/>
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '1203' ?
+        let bottomReloadView = this.state.qualifications == '13' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
@@ -335,6 +335,7 @@ class personownerVerifiedState extends Component{
 
 function mapStateToProps(state) {
     return {
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

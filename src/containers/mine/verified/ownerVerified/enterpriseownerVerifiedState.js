@@ -211,16 +211,16 @@ class enterpriseownerVerifiedState extends Component{
     render() {
         const navigator = this.props.navigation;
 
-        // 1201  认证中   1202 认证通过  1203 认证驳回
+        // 21  企业车主认证中   22 企业车主认证通过  23 企业车主认证驳回
 
-        let headView = this.state.qualifications == '1201' ?
+        let headView = this.state.qualifications == '21' ?
             <View style={styles.headStyle}>
 
                 <Image source={headerImageLoading}/>
 
                 <Text style={styles.textStyle}>认证中</Text>
             </View>
-            : this.state.qualifications == '1202' ?
+            : this.state.qualifications == '22' ?
                 <View style={styles.headStyle}>
 
                     <Image source={headerImageSuccess} resizeMode='stretch'/>
@@ -235,13 +235,13 @@ class enterpriseownerVerifiedState extends Component{
                     <Text style={styles.textStyle}>认证驳回</Text>
                 </View>;
 
-        let bottomView = this.state.qualifications == '1203' ?
+        let bottomView = this.state.qualifications == '23' ?
             <View>
                 <VerifiedGrayTitleItem title='驳回原因'/>
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '1203' ?
+        let bottomReloadView = this.state.qualifications == '23' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
