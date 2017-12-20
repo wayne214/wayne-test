@@ -1409,7 +1409,7 @@ class Home extends Component {
                         </View>
                         {limitView}
                     </View>
-                    {driverView}
+                    {this.props.currentStatus == 'driver' ? driverView : carrierView}
                 </ScrollView>
                 <Modal
                     animationType={"slide"}

@@ -848,15 +848,29 @@ class Mine extends Component {
                                                     navigator.navigate('CarManagement');
                                                 }}
                                             />
-                                            <SettingCell
-                                                leftIcon="&#xe672;"
-                                                iconFontColor={{color: '#F6BD0E'}}
-                                                content={'认证信息'}
-                                                showBottomLine={false}
-                                                clickAction={() => {
-
-                                                }}
-                                            />
+                                            {
+                                                this.props.ownerStatus == '12' || this.props.ownerStatus == '22' ?
+                                                    null : <SettingCell
+                                                        leftIcon="&#xe672;"
+                                                        iconFontColor={{color: '#F6BD0E'}}
+                                                        content={'认证信息'}
+                                                        showBottomLine={false}
+                                                        clickAction={() => {
+                                                            // 个人车主认证信息
+                                                            if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
+                                                                this.props.navigation.navigate('PersonownerVerifiedStatePage', {
+                                                                    // qualifications: this.state.verifiedState,
+                                                                });
+                                                            }
+                                                            // 企业车主认证信息
+                                                            if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
+                                                                this.props.navigation.navigate('EnterpriseownerVerifiedStatePage', {
+                                                                    // qualifications: this.state.verifiedState,
+                                                                });
+                                                            }
+                                                        }}
+                                                    />
+                                            }
                                         </View>
 
                                     }
@@ -938,7 +952,7 @@ class Mine extends Component {
                                     <SettingCell
                                         leftIcon="&#xe62e;"
                                         iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
-                                        content={'登录密码'}
+                                        content={'修改密码'}
                                         showBottomLine={false}
                                         clickAction={() => {
                                             ClickUtil.resetLastTime();
@@ -1022,6 +1036,7 @@ function mapStateToProps(state) {
         plateNumberObj: state.user.get('plateNumberObj'),
         driverStatus: state.user.get('driverStatus'),
         currentStatus: state.user.get('currentStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

@@ -47,10 +47,18 @@ export const saveUserCarList = (data) => {
     };
 };
 
-/*账户-角色*/
-export const setCharacterAction = (data) => {
+/*账户-司机角色*/
+export const setDriverCharacterAction = (data) => {
     return {
-        type: ActionTypes.ACTION_SET_CHARACTER,
+        type: ActionTypes.ACTION_SET_DRIVER_CHARACTER,
+        payload: data,
+    };
+};
+
+/*账户-车主角色*/
+export const setOwnerCharacterAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_SET_OWNER_CHARACTER,
         payload: data,
     };
 };

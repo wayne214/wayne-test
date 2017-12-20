@@ -27,7 +27,10 @@ import StorageKey from '../../../constants/storageKeys';
 import NavigatorBar from '../../../common/navigationBar/navigationBar';
 import CharacterCell from '../components/characterCell';
 import CharacterChooseCell from '../components/characterChooseCell';
-import {setCharacterAction} from '../../../action/user';
+import {
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+} from '../../../action/user';
 
 const {width, height} = Dimensions.get('window');
 
@@ -82,7 +85,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driverStatus:'1',ownerStatus:'0'});
+                                        this.props.setDriverCharacterAction('1');
                                         // this.props.navigation.navigate('Main');
                                     }
                                     },
@@ -101,13 +104,12 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-                                        console.log('driverStatus', this.props.driverStatus);
-                                        console.log('ownerStatus', this.props.ownerStatus);
+
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'1'});
+                                        this.props.setOwnerCharacterAction('11');
                                     }
                                     },
                                 ]
@@ -130,7 +132,7 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setCharacter({driverStatus:'0',ownerStatus:'3'});
+                                        this.props.setOwnerCharacterAction('21');
                                     }
                                     },
                                 ]
@@ -286,6 +288,12 @@ function mapDispatchToProps(dispatch) {
     return {
         setCharacter: (data) => {
             dispatch(setCharacterAction(data));
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
         },
     };
 }
