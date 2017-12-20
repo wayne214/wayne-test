@@ -3,8 +3,8 @@
  * Personalowner  个人车主
  * Enterpriseowner  企业车主
  * driverStatus ： 1 司机认证中     2 司机认证通过     3 司机认证驳回
- * ownerStatus ： 11 个人车主认证中 12 个人车主认证通过 13 企业车主认证驳回
- *                21 企业车主认证中 22 个人车主认证通过 23 企业车主认证驳回
+ * ownerStatus ： 11 个人车主认证中 12 个人车主认证通过 13 个人车主认证驳回
+ *                21 企业车主认证中 22 企业车主认证通过 23 企业车主认证驳回
  * currentStatus ： driver 司机  personalOwner 个人车主 businessOwner 企业车主
  */
 import Immutable from 'immutable';
