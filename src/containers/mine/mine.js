@@ -938,7 +938,7 @@ class Mine extends Component {
                                     <SettingCell
                                         leftIcon="&#xe62e;"
                                         iconFontColor={{color: StaticColor.RED_CHANGE_PWD_ICON_COLOR}}
-                                        content={'登录密码'}
+                                        content={'修改密码'}
                                         showBottomLine={false}
                                         clickAction={() => {
                                             ClickUtil.resetLastTime();
