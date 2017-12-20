@@ -178,15 +178,15 @@ class DriverManagement extends BaseContainer {
                                 style={{height: 36, width: 36}}
                                 source={StaticImage.DriverAvatar}></Image>
                             <Text style={{marginLeft: 10, color: '#333333', fontsize: 16}}>{item.driverName}</Text>
-                            {item.status == '认证通过' ?
+                            {item.certificationStatus == '认证通过' ?
                                 <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
                                     认证通过
                                 </Text>
-                                : item.status == '认证中' ?
+                                : item.certificationStatus == '认证中' ?
                                     <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
                                         认证中
                                     </Text>
-                                    : item.status == '认证驳回' ?
+                                    : item.certificationStatus == '认证驳回' ?
                                         <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
                                             认证驳回
                                         </Text>
@@ -228,7 +228,7 @@ class DriverManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.status != '禁用' ?
+                            {item.certificationStatus != '禁用' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
