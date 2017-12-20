@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xescm.driver"
-    android:versionCode="5"
-    android:versionName="3.0.0">
+    android:versionCode="6"
+    android:versionName="3.0.1">
 
     <!-- 普通权限，不需要向用户获取授权-->
     <uses-permission android:name="android.permission.VIBRATE" />
