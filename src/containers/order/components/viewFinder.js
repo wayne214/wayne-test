@@ -6,12 +6,14 @@ import {
     ActivityIndicator,
     StyleSheet,
     View,
+    Dimensions,
 } from 'react-native';
 
 import {
     BLUE_CONTACT_COLOR,
 } from '../../../constants/staticColor';
 
+const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
@@ -171,7 +173,7 @@ Viewfinder.defaultProps = {
     color: BLUE_CONTACT_COLOR,
     height: 150,
     isLoading: false,
-    width: 300,
+    width: width - 48,
 };
 
 module.exports = Viewfinder;

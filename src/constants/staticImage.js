@@ -177,6 +177,12 @@ import hollowCircle from '../../assets/home/hollowCircle.png'
 import takeBack from '../../assets/home/takeBack.png'
 import takeNext from '../../assets/home/takeNext.png'
 
+/*扫描GPS设备图标*/
+import inputNum from '../../assets/scan/inputNum.png'
+import light from '../../assets/scan/light.png'
+import gps from '../../assets/scan/gps.png'
+import Rectangle from '../../assets/scan/Rectangle.png'
+
 export default {
     EmptyImage,
     Img01,
@@ -284,5 +290,9 @@ export default {
     takeBack,
     takeNext,
     carrierIcon,
+    light,
+    inputNum,
+    gps,
+    Rectangle,
 }
 
