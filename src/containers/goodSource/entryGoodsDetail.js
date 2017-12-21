@@ -234,11 +234,16 @@ class entryGoodsDetail extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_DRIVER_RECEIVE_ORDER,
-            params: {
+            url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_RECEIVE_ORDER : API.API_NEW_CARRIER_RECEIVE_ORDER,
+            params: this.props.currentStatus == 'driver' ? {
                 userId: global.userId,
                 userName: global.userName,
                 plateNumber: this.props.plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            } : {
+                userId: global.userId,
+                userName: global.userName,
+                carrierCode: '',
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -296,11 +301,16 @@ class entryGoodsDetail extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_DRIVER_REFUSE_ORDER,
-            params: {
+            url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_REFUSE_ORDER : API.API_NEW_CARRIER_REFUSE_ORDER,
+            params: this.props.currentStatus == 'driver' ? {
                 userId: global.userId,
                 userName: global.userName,
                 plateNumber: this.props.plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            } : {
+                userId: global.userId,
+                userName: global.userName,
+                carrierCode: '',
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{

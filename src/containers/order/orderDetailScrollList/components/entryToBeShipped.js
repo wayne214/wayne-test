@@ -318,11 +318,16 @@ class entryToBeShipped extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_DRIVER_CANCEL_ORDER,
-            params: {
+            url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_CANCEL_ORDER : API.API_NEW_CARRIER_REFUSE_ORDER,
+            params: this.props.currentStatus == 'driver' ? {
                 userId: userID,
                 userName,
                 plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            } : {
+                userId: global.userId,
+                userName: global.userName,
+                carrierCode: '',
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -549,7 +554,7 @@ function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
         plateNumber: state.user.get('plateNumber'),
-
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
