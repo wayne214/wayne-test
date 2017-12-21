@@ -142,7 +142,7 @@ class personownerVerifiedState extends Component{
     /*实名认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
-
+        // TODO 获取个人车主认证信息
         HTTPRequest({
             url: API.API_AUTH_REALNAME_DETAIL + userPhone,
             params: {
@@ -186,9 +186,7 @@ class personownerVerifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
-        Storage.remove(StorageKey.personownerInfoResult);
-        // TODO 修改StorageKey
-        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+        Storage.get(StorageKey.personownerInfoResult).then((value) => {
             if (value){
                 this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: value,

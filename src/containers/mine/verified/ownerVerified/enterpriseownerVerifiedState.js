@@ -141,7 +141,7 @@ class enterpriseownerVerifiedState extends Component{
     /*实名认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
-
+        // TODO 获取企业车主认证信息
         HTTPRequest({
             url: API.API_AUTH_REALNAME_DETAIL + userPhone,
             params: {
@@ -185,9 +185,7 @@ class enterpriseownerVerifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
-        Storage.remove(StorageKey.enterpriseownerInfoResult);
-        // TODO 修改StorageKey
-        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+        Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
             if (value){
                 this.props.navigation.navigate('CompanyCarOwnerAuth', {
                     resultInfo: value,

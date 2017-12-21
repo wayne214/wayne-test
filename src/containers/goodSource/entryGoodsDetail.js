@@ -519,6 +519,7 @@ function mapStateToProps(state) {
     return {
         plateNumber: state.user.get('plateNumber'),
         routes: state.nav.routes,
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
