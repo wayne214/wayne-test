@@ -172,12 +172,16 @@ export default class OrderDetails extends Component {
             scheduleTime,
             customerOrderCode,
             isEndDistribution,
-            scheduleTimeAgain
+            scheduleTimeAgain,
+            currentStatus
         } = this.props;
 
-        if(1===1) {
+        if(currentStatus != 'driver') {
             carrierViewHeight = 44;
+        }else {
+            carrierViewHeight = 0;
         }
+
         return (
             <View
                 style={{

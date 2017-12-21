@@ -188,7 +188,8 @@ class OrdersItemCell extends Component {
             beSureOrderNum,
             transCodeNum,
             temperature,
-            goodsCount
+            goodsCount,
+            currentStatus,
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
@@ -277,7 +278,7 @@ class OrdersItemCell extends Component {
                                     />
                                 </View>
                                 {
-                                    1 === 1 ? carrierView : null
+                                    currentStatus == 'driver' ? null : carrierView
                                 }
                                 <View style={styles.goodsTotal}>
                                     <View style={styles.flexDirection}>

@@ -76,6 +76,9 @@ class bindGPS extends Component {
                 <BottomButton
                     onClick={() => {
                         this.bindGPS();
+                        const routes = this.props.routes;
+                        let key = routes[routes.length - 2].key;
+                        this.props.navigation.goBack(key);
                     }}
                     text="确认"
                 />
@@ -107,7 +110,9 @@ const styles =StyleSheet.create({
 });
 
 function mapStateToProps(state){
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps (dispatch){
