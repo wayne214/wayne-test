@@ -285,8 +285,8 @@ class GoodSource extends BaseContainer{
                 allocationModel={dataRow.allocationModel}
                 goodKindsNames={goodTypesName} // 货品种类
                 orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
-                goodsCount={200}
-                temperature={2}
+                goodsCount={dataRow.goodsQuantity}
+                temperature={dataRow.temperature}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList, // 运单号
