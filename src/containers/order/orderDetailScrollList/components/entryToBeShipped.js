@@ -28,6 +28,7 @@ import * as StaticColor from '../../../../constants/staticColor';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
 import BottomButton from '../../components/bottomButtonComponent';
+import ChooseButton from '../../../goodSource/component/chooseButtonCell';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -486,9 +487,20 @@ class entryToBeShipped extends Component {
             }}
             text="安排车辆"
         /> : null;
-        const bottomView = <BottomButton
+        const bottomView = 2===3 ? <BottomButton
             text={'发运'}
             onClick={() => {
+                if (prventDoubleClickUtil.onMultiClick()) {
+                    this.sendOrder();
+                }
+            }}
+        /> : <ChooseButton
+            leftContent={'绑定GPS设备'}
+            rightContent={'发运'}
+            leftClick={() => {
+                this.props.navigation.navigate('ScanGPS');
+            }}
+            rightClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {
                     this.sendOrder();
                 }
@@ -524,7 +536,7 @@ class entryToBeShipped extends Component {
                     {aa}
                 </ScrollView>
                 {
-                    1===1 ? carrierBottomView : bottomView
+                    1===2 ? carrierBottomView : bottomView
                 }
                 {this.state.loading ? <Loading /> : null }
             </View>
