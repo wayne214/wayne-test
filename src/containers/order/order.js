@@ -127,6 +127,10 @@ let transCodeListData3 = [];
         };
     }
 
+     componentWillReceiveProps() {
+
+     }
+
     // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {

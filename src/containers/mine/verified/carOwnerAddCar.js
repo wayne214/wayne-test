@@ -138,6 +138,10 @@ class certification extends Component {
 
                 vehicleNormalPhotoAddress: result.carHeadPicRelative, // 车头照原图
                 vehicleThumbnailAddress: result.carHeadThumbnailRelative, // 车头照缩略图
+
+                analysisCarNum: result.analysisCarNum, // 解析车牌号
+                analysisHaverName:result.analysisHaverName, // 解析所有人
+                analysisEngineNum:result.analysisEngineNum, //  解析发动机号
             };
         } else {
             this.state = {
@@ -172,6 +176,10 @@ class certification extends Component {
 
                 vehicleNormalPhotoAddress: '', // 车头照原图
                 vehicleThumbnailAddress: '', // 车头照缩略图
+
+                analysisCarNum: '', // 解析车牌号
+                analysisHaverName:'', // 解析所有人
+                analysisEngineNum:'', //  解析发动机号
             };
         }
         this.showAlertSelected = this.showAlertSelected.bind(this);
@@ -461,6 +469,11 @@ class certification extends Component {
                                 carNumber: respones.result.plateNumber,
                                 carOwner: respones.result.owner,
                                 carEngineNumber: respones.result.engineNumber,
+
+                                analysisCarNum: respones.result.plateNumber, // 解析车牌号
+                                analysisHaverName:respones.result.owner, // 解析所有人
+                                analysisEngineNum:respones.result.engineNumber, //  解析发动机号
+
                                 vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
                                 vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
                             });
@@ -699,6 +712,11 @@ class certification extends Component {
         console.log('车牌号：', this.state.carNumber);
         console.log('所有人：', this.state.carOwner);
         console.log('车辆类型：', this.state.carType);
+
+        console.log('默认车牌号：', this.state.analysisCarNum);
+        console.log('默认所有人：', this.state.analysisHaverName);
+        console.log('默认车辆类型：', this.state.analysisEngineNum);
+
         console.log('车长：', this.state.carLength);
         console.log('载重：', this.state.carWeight);
         console.log('行驶证有效期：', this.state.carDate);
@@ -721,17 +739,17 @@ class certification extends Component {
 
         // let carData1 = this.state.carDate.replace('年', '-');
         // let carData2 = carData1.replace('月', '');
-        let carData2 = carData2.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        let carData2 = this.state.carDate.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
         // let insuranceData1 = this.state.insuranceData.replace('年', '-');
         // let insuranceData2 = insuranceData1.replace('月', '-');
         // let insuranceData3 = insuranceData2.replace('日', '');
-        let insuranceData3 = insuranceData3.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        let insuranceData3 = this.state.insuranceData.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        // this.setState({
-        //     appLoading: true,
-        // });
-        // this.implementationVerified(carData2, insuranceData3);
+        this.setState({
+            appLoading: true,
+        });
+        this.implementationVerified(carData2, insuranceData3);
     }
 
     isRightData(date) {
@@ -762,14 +780,14 @@ class certification extends Component {
                 engineNumber: this.state.carEngineNumber,
                 handleIDNormalPhotoAddress: this.state.handleIDNormalPhotoAddress,
                 insuranceThumbnailAddress: this.state.insuranceThumbnailAddress,
-                insuranceValidUntil: insuranceData,
+                insuranceValidUntil: insuranceData.replace('/', '-').replace('/', '-'),
                 load: this.state.carWeight,
                 owner: this.state.carOwner,
                 phoneNum: userPhone,
                 plateNumber: this.state.carNumber,
                 userId: userID,
                 userName: this.state.carOwner,
-                validUntil: carDate,
+                validUntil: carDate.replace('/', '-'),
                 vehicleLength: this.state.carLength,
                 vehicleLicenseHomepageNormalPhotoAddress: this.state.vehicleLicenseHomepageNormalPhotoAddress,
                 vehicleLicenseHomepageThumbnailAddress: this.state.vehicleLicenseHomepageThumbnailAddress,
@@ -778,6 +796,10 @@ class certification extends Component {
                 vehicleNormalPhotoAddress: this.state.vehicleNormalPhotoAddress,
                 vehicleThumbnailAddress: this.state.vehicleThumbnailAddress,
                 vehicleType: this.state.carType,
+                analysisCarNum: this.state.analysisCarNum, // 解析车牌号
+                analysisHaverName:this.state.analysisHaverName, // 解析所有人
+                analysisEngineNum:this.state.analysisEngineNum, //  解析发动机号
+                currentRole: 'Personalowner' // OUTSIDEDRIVER 司机  Personalowner 个人    Enterpriseowner企业
             },
             loading: () => {
 
@@ -791,10 +813,11 @@ class certification extends Component {
 
                 Toast.showShortCenter('车主增加车辆提交成功');
                 Storage.remove(StorageKey.carOwnerAddCarInfo);
-                DeviceEventEmitter.emit('certificationSuccess');
-                Storage.remove(StorageKey.carInfoResult);
+                //DeviceEventEmitter.emit('certificationSuccess');
+                //Storage.remove(StorageKey.carInfoResult);
 
-                this.popToTop();
+                //this.popToTop();
+                this.props.navigation.goBack()
 
             },
             error: (errorInfo) => {

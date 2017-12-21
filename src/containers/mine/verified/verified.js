@@ -775,10 +775,10 @@ class Verified extends Component {
         console.log('手持身份证缩略图：', this.state.handleIDThumbnailAddress);
 
 
-        // this.setState({
-        //     appLoading: true,
-        // });
-        // this.realNameVerified(dataString, date);
+        this.setState({
+            appLoading: true,
+        });
+        this.realNameVerified(dataString, date);
 
     }
 
@@ -816,7 +816,7 @@ class Verified extends Component {
                 drivingLicenseHomepageThumbnailAddress: this.state.drivingLicenseHomepageThumbnailAddress,
                 drivingLicenseName: this.state.drivingLicenseName,
                 drivingLicenseNum: this.state.drivingLicenseNum,
-                drivingLicenseValidUntil: dataString, // 时间格式处理 转成 20121212
+                drivingLicenseValidUntil: dataString,
                 drivingLicenseVicePageNormalAddress: this.state.drivingLicenseVicePageNormalAddress,
                 drivingLicenseVicePageThumbnailAddress: this.state.drivingLicenseVicePageThumbnailAddress,
                 handleIDNormalPhotoAddress: this.state.handleIDNormalPhotoAddress,
@@ -827,7 +827,7 @@ class Verified extends Component {
                 idFaceSideThumbnailAddress: this.state.idFaceSideThumbnailAddress,
                 idName: this.state.IDName,
                 idNum: this.state.IDCard,
-                idValidUntil: date, // 时间格式处理 转成 20121212
+                idValidUntil: date,
                 motorcycleType: this.state.motorcycleType,
                 phoneNum: userPhone,
                 userId: userID,
@@ -836,11 +836,11 @@ class Verified extends Component {
                 // 默认
                 idCardNameRecognition: this.state.idCardNameRecognition, //识别身份证姓名
                 idCardRecognition: this.state.idCardRecognition, //识别身份证号
-                idCardValidityRecognition: this.state.idCardValidityRecognition, //识别身份证有效期
+                idCardValidityRecognition: Validator.timeTrunToDateString(this.state.idCardValidityRecognition), //识别身份证有效期
                 drivingLicenceNameRecognition: this.state.drivingLicenceNameRecognition, // 识别驾驶证姓名
                 driverCardRecognition: this.state.driverCardRecognition, // 识别驾驶证号
                 quasiCarTypeRecognition: this.state.quasiCarTypeRecognition, // 识别准驾车型
-                driverLicenseValidateRecognition: this.state.driverLicenseValidateRecognition,  // 识别驾驶证有效期
+                driverLicenseValidateRecognition: Validator.timeTrunToDateString(this.state.driverLicenseValidateRecognition),  // 识别驾驶证有效期
             },
             loading: () => {
 
@@ -859,7 +859,7 @@ class Verified extends Component {
                 Toast.showShortCenter('司机认证提交成功');
                 //DeviceEventEmitter.emit('verifiedSuccess');
                 //this.popToTop();
-
+                this.props.navigation.goBack()
             },
             error: (errorInfo) => {
             },

@@ -140,6 +140,15 @@ class carOwnerAddDriver extends Component {
                 handleIDThumbnailAddress: result.handleIdThumbnailAddressRelative, // 手持身份证缩略图
                 handPicImage: {uri: result.handleIdThumbnailAddress}, // 手持身份证图片url
 
+                // 默认
+                idCardNameRecognition: result.idCardNameRecognition, //识别身份证姓名
+                idCardRecognition: result.idCardRecognition, //识别身份证号
+                idCardValidityRecognition: result.idCardValidityRecognition, //识别身份证有效期
+
+                drivingLicenceNameRecognition: result.drivingLicenceNameRecognition, // 识别驾驶证姓名
+                driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
+                quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
+                driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
             };
         }else {
 
@@ -181,6 +190,16 @@ class carOwnerAddDriver extends Component {
 
                 handleIDNormalPhotoAddress: '', // 手持身份证原图
                 handleIDThumbnailAddress: '', // 手持身份证缩略图
+
+                // 默认
+                idCardNameRecognition: '', //识别身份证姓名
+                idCardRecognition: '', //识别身份证号
+                idCardValidityRecognition: '', //识别身份证有效期
+
+                drivingLicenceNameRecognition: '', // 识别驾驶证姓名
+                driverCardRecognition: '', // 识别驾驶证号
+                quasiCarTypeRecognition: '', // 识别准驾车型
+                driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
             };
         }
 
@@ -396,8 +415,6 @@ class carOwnerAddDriver extends Component {
                     case 0:
                         this.setState({
                             idCardImage: source,
-                            IDName: '',
-                            IDCard: '',
                             isChooseCardImage: false,
                         });
                         isFirstCarD = true;
@@ -407,7 +424,6 @@ class carOwnerAddDriver extends Component {
                     case 1:
                         this.setState({
                             idCardTrunImage: source,
-                            IDDate: '',
                             isChooseCardTrunImage: false,
                         });
 
@@ -418,8 +434,6 @@ class carOwnerAddDriver extends Component {
 
                         this.setState({
                             driverCarImage: source,
-                            drivingLicenseName: '',
-                            drivingLicenseNum: '',
                             isChooseDriverCarImage: false,
                         });
                         isFirstDriver = true;
@@ -473,6 +487,9 @@ class carOwnerAddDriver extends Component {
                                 IDName: respones.result.idName,
                                 IDCard: respones.result.idNum,
 
+                                idCardNameRecognition: respones.result.idName, //识别身份证姓名
+                                idCardRecognition: respones.result.idNum, //识别身份证号
+
                                 idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
                                 idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
                             });
@@ -485,6 +502,9 @@ class carOwnerAddDriver extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
                             this.setState({
                                 IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+
+                                idCardValidityRecognition: respones.result.idValidUntil, //识别身份证有效期
+
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                             });
@@ -501,8 +521,13 @@ class carOwnerAddDriver extends Component {
                                 drivingLicenseNum: respones.result.drivingLicenseNum, // 驾驶证号
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
                                 drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
-                                motorcycleType: respones.result.motorcycleType, // 驾驶证类型
 
+                                drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
+                                driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号
+                                quasiCarTypeRecognition: respones.result.motorcycleType, // 识别准驾车型
+                                driverLicenseValidateRecognition: respones.result.drivingLicenseValidUntil,  // 识别驾驶证有效期
+
+                                motorcycleType: respones.result.motorcycleType, // 驾驶证类型
                                 drivingLicenseHomepageNormalPhotoAddress: respones.result.drivingLicenseHomepageNormalPhotoAddress,
                                 drivingLicenseHomepageThumbnailAddress: respones.result.drivingLicenseHomepageThumbnailAddress,
                             });
@@ -689,10 +714,7 @@ class carOwnerAddDriver extends Component {
             return;
         }
 
-        // let date = this.state.IDDate.length === 8 ?
-        //     this.state.IDDate.substr(0, 4) + '-' + this.state.IDDate.substr(4, 2) + '-' + this.state.IDDate.substr(6, 2)
-        //     : this.state.IDDate;
-        let date = this.state.IDDate.length;
+        let date = this.state.IDDate;
 
         if (date === '' ) {
             Toast.showShortCenter('请选择身份证有效期');
@@ -711,37 +733,16 @@ class carOwnerAddDriver extends Component {
             return;
         }
 
-        let dataString;
+        let carddate = this.state.IDDate.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        // if (this.state.drivingLicenseValidUntil.length < 4 &&
-        //     this.state.drivingLicenseValidUntil != '长期' &&
-        //     this.state.drivingLicenseValidUntil != '') {
-        //     let data = parseInt(this.state.drivingLicenseStartDate) + parseInt(this.state.drivingLicenseValidUntil) * 10000;
-        //
-        //     dataString = data.toString().substr(0, 4) + '-' + data.toString().substr(4, 2) + '-' + data.toString().substr(6, 2);
-        //
-        // } else if(this.state.drivingLicenseValidUntil.indexOf('NaN') >= 0){
-        //     dataString = '长期';
-        //     this.setState({
-        //         drivingLicenseValidUntil: '长期',
-        //     });
-        // }else
-        //     dataString = this.state.drivingLicenseValidUntil;
-        dataString = this.state.drivingLicenseValidUntil;
-
-        //date = this.formatterTime(date);
-
-        date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
-
-        //dataString = this.formatterTime(dataString);
-        dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        let dataString = this.state.drivingLicenseValidUntil.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
         if (dataString === '') {
             Toast.showShortCenter('请输入驾驶证有效期');
             return;
         }
 
-        if (!this.isRightData(date)){
+        if (!this.isRightData(carddate)){
             Toast.showShortCenter('所选择的身份证有效期应大于今天，请重新选择');
 
             return;
@@ -754,12 +755,22 @@ class carOwnerAddDriver extends Component {
 
         console.log('身份证姓名：', this.state.IDName);
         console.log('身份证证号：', this.state.IDCard);
-        console.log('身份证有效期：', date);
+        console.log('身份证有效期：', carddate);
+
+        console.log('默认身份证姓名：', this.state.idCardNameRecognition);
+        console.log('默认身份证证号：', this.state.idCardRecognition);
+        console.log('默认身份证有效期：', this.state.idCardValidityRecognition);
+
 
         console.log('驾驶证姓名：', this.state.drivingLicenseName);
         console.log('驾驶证证号：', this.state.drivingLicenseNum);
         console.log('准驾车型：', this.state.motorcycleType);
         console.log('驾驶证有效期：', dataString);
+
+        console.log('默认驾驶证姓名：', this.state.drivingLicenceNameRecognition);
+        console.log('默认驾驶证证号：', this.state.driverCardRecognition);
+        console.log('默认准驾车型：', this.state.quasiCarTypeRecognition);
+        console.log('默认驾驶证有效期：', this.state.driverLicenseValidateRecognition);
 
         console.log('身份证正面原图：', this.state.idFaceSideNormalPhotoAddress);
         console.log('身份证正面缩略图：', this.state.idFaceSideThumbnailAddress);
@@ -777,10 +788,10 @@ class carOwnerAddDriver extends Component {
         console.log('手持身份证缩略图：', this.state.handleIDThumbnailAddress);
 
 
-        // this.setState({
-        //     appLoading: true,
-        // });
-        // this.realNameVerified(dataString, date);
+        this.setState({
+            appLoading: true,
+        });
+        this.realNameVerified(dataString, carddate);
 
     }
 
@@ -834,6 +845,15 @@ class carOwnerAddDriver extends Component {
                 phoneNum: userPhone,
                 userId: userID,
                 userName: this.state.IDName,
+
+                // 默认
+                idCardNameRecognition: this.state.idCardNameRecognition, //识别身份证姓名
+                idCardRecognition: this.state.idCardRecognition, //识别身份证号
+                idCardValidityRecognition: Validator.timeTrunToDateString(this.state.idCardValidityRecognition), //识别身份证有效期
+                drivingLicenceNameRecognition: this.state.drivingLicenceNameRecognition, // 识别驾驶证姓名
+                driverCardRecognition: this.state.driverCardRecognition, // 识别驾驶证号
+                quasiCarTypeRecognition: this.state.quasiCarTypeRecognition, // 识别准驾车型
+                driverLicenseValidateRecognition: Validator.timeTrunToDateString(this.state.driverLicenseValidateRecognition),  // 识别驾驶证有效期
             },
             loading: () => {
 
@@ -849,11 +869,12 @@ class carOwnerAddDriver extends Component {
                 this.props.reloadUserName(this.state.IDName);
 
                 Storage.remove(StorageKey.carOwnerAddDriverInfo);
-                Storage.remove(StorageKey.personInfoResult);
+                //Storage.remove(StorageKey.personInfoResult);
                 Toast.showShortCenter('增加司机提交成功');
-                DeviceEventEmitter.emit('verifiedSuccess');
+                //DeviceEventEmitter.emit('verifiedSuccess');
 
-                this.popToTop();
+                // this.popToTop();
+                this.props.navigation.goBack();
 
             },
             error: (errorInfo) => {

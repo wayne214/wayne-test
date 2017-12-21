@@ -175,7 +175,7 @@ export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/driver/addDriver`;
 export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo`;
 
 // 资质认证确认提交接口
-export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/auth/qualifications/createCertificationQualification`;
+export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/rmcCar/createCertificationQualification`;
 
 // 资质认证详情接口
 export const API_AUTH_QUALIFICATIONS_DETAIL = `${HOST}app/rmc/auth/qualifications/info`;
