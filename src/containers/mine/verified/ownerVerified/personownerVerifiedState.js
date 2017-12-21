@@ -190,11 +190,11 @@ class personownerVerifiedState extends Component{
         // TODO 修改StorageKey
         Storage.get(StorageKey.changePersonInfoResult).then((value) => {
             if (value){
-                this.props.navigation.navigate('VerifiedPage', {
+                this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: value,
                 });
             }else {
-                this.props.navigation.navigate('VerifiedPage', {
+                this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: this.state.resultInfo,
                 });
             }
@@ -267,7 +267,8 @@ class personownerVerifiedState extends Component{
                         type: 'string',
                         title: '企业认证',
                         onClick: ()=> {
-                            // TODO 进行企业车主认证
+                            // 进行企业车主认证
+                            this.props.navigation.navigate('CompanyCarOwnerAuth');
                         }
                     } : {}
                     }
