@@ -28,6 +28,7 @@ import * as StaticColor from '../../../../constants/staticColor';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../../../utils/readAndWriteFileUtil';
 import BottomButton from '../../components/bottomButtonComponent';
+import ChooseButton from '../../../goodSource/component/chooseButtonCell';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -318,11 +319,16 @@ class entryToBeShipped extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_DRIVER_CANCEL_ORDER,
-            params: {
+            url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_CANCEL_ORDER : API.API_NEW_CARRIER_REFUSE_ORDER,
+            params: this.props.currentStatus == 'driver' ? {
                 userId: userID,
                 userName,
                 plateNumber,
+                dispatchCode: this.state.scheduleCode,
+            } : {
+                userId: global.userId,
+                userName: global.userName,
+                carrierCode: '',
                 dispatchCode: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -464,6 +470,7 @@ class entryToBeShipped extends Component {
                     vol={item.vol}
                     weight={item.weight}
                     index={index}
+                    currentStatus={this.props.currentStatus}
                     addressMapSelect={(indexRow, type) => {
                         this.jumpAddressPage(indexRow, type, item);
                     }}
@@ -486,9 +493,20 @@ class entryToBeShipped extends Component {
             }}
             text="安排车辆"
         /> : null;
-        const bottomView = <BottomButton
+        const bottomView = 2 === 3 ? <BottomButton
             text={'发运'}
             onClick={() => {
+                if (prventDoubleClickUtil.onMultiClick()) {
+                    this.sendOrder();
+                }
+            }}
+        /> : <ChooseButton
+            leftContent={'绑定GPS设备'}
+            rightContent={'发运'}
+            leftClick={() => {
+                this.props.navigation.navigate('ScanGPS');
+            }}
+            rightClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {
                     this.sendOrder();
                 }
@@ -508,7 +526,7 @@ class entryToBeShipped extends Component {
                     }}
                 />
                 {
-                    1===1 ? carrierView : null
+                    this.props.currentStatus == 'driver' ? null : carrierView
                 }
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>
                     {this.state.current}/{this.state.datas.length}
@@ -524,7 +542,7 @@ class entryToBeShipped extends Component {
                     {aa}
                 </ScrollView>
                 {
-                    1===1 ? carrierBottomView : bottomView
+                    this.props.currentStatus == 'driver' ? bottomView : carrierBottomView
                 }
                 {this.state.loading ? <Loading /> : null }
             </View>
@@ -549,7 +567,7 @@ function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
         plateNumber: state.user.get('plateNumber'),
-
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

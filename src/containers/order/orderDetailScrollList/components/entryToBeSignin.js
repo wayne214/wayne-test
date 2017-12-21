@@ -457,6 +457,7 @@ class entryToBeSignin extends Component {
                         payState={item.payState} // 付款状态：0 未付款 1 已付款
                         amount={item.amount}
                         index={index}
+                        currentStatus={this.props.currentStatus}
                         addressMapSelect={(indexRow, type) => {
                             this.jumpAddressPage(indexRow, type, item);
                         }}
@@ -507,7 +508,7 @@ class entryToBeSignin extends Component {
                     } : {}}
                 />
                 {
-                    1===1 ? carrierView : null
+                    this.props.currentStatus == 'driver' ? null : carrierView
                 }
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color:'#666'}}>
                     {this.state.current}/{this.state.datas.length}
@@ -555,6 +556,7 @@ class entryToBeSignin extends Component {
 function mapStateToProps(state) {
     return {
         plateNumber: state.user.get('plateNumber'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

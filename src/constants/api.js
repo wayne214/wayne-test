@@ -63,15 +63,27 @@ export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单
 export const API_NEW_DRIVER_CANCEL_ORDER = `${HOST}app/dpc/driverAppCancelOrder`;
-// 接单
+
+// 接单--司机
 export const API_NEW_DRIVER_RECEIVE_ORDER = `${HOST}app/dpc/driverAppReceiveOrder`;
-// 拒单
+// 接单--车主
+export const API_NEW_CARRIER_RECEIVE_ORDER = `${HOST}app/dpc/acceptOrder`;
+
+// 拒单--司机
 export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`;
+// 拒单--车主
+export const API_NEW_CARRIER_REFUSE_ORDER = `${HOST}app/dpc/refuseOrder`;
+
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
-// 根据时间获取获取货源列表
+// 根据时间获取获取货源列表--司机
 // export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v1.1`;
-export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v3.0`; // 3.0版本
+// export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v3.0`; // 3.0版本
+export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDateV2`; // 4.0版本--司机
+
+// 根据时间获取获取货源列表---车主
+export const API_CARRIER_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocWithCarrier`; // 4.0版本--车主
+
 // 接单拒单数量
 // export const API_NEW_GET_STATUS_NUMBER = `${HOST}app/dpc/queryDispatchDocStatusNum`;
 // // 调度单发车数量接口

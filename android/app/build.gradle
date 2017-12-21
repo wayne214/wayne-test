@@ -159,7 +159,6 @@ android {
 }
 
 dependencies {
-    compile project(':@remobile/react-native-toast')
     compile project(':react-native-video')
     compile project(':react-native-update')
     compile fileTree(dir: "libs", include: ["*.jar"])

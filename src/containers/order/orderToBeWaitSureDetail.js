@@ -128,8 +128,10 @@ class orderToBeWaitSureDetail extends Component {
             scheduleTimeAgain,
         } = this.props;
 
-        if(1===1) {
+        if(this.props.currentStatus != 'driver') {
             carrierViewHeight = 44;
+        }else {
+            carrierViewHeight = 0;
         }
 
         const buttonView = taskInfo && taskInfo.isReceipt === '是' ?
@@ -245,7 +247,7 @@ class orderToBeWaitSureDetail extends Component {
                 </ScrollView>
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
                 {
-                    1 === 1 ? null : buttonView
+                    this.props.currentStatus == 'driver' ? buttonView : null
                 }
                 {this.state.loading ? <Loading/> : null}
             </View>
@@ -256,6 +258,7 @@ class orderToBeWaitSureDetail extends Component {
 function mapStateToProps(state) {
     return {
         userInfo: state.user.get('userInfo'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

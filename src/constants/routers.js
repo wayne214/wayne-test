@@ -116,6 +116,11 @@ import AddCarPage from '../containers/mine/owner/addCarPage';
 import ArrangeCarList from '../containers/order/carrier/arrangeCarList';
 import ArrangeDriverList from '../containers/order/carrier/arrangeDriverList';
 
+// 绑定GPS设备界面
+import ScanGPS from '../containers/order/scan/scanGPS';
+import BindGPS from '../containers/order/scan/bindGPS';
+import GPSDetails from '../containers/order/scan/gpsDetails';
+
 
 
 const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
@@ -695,6 +700,24 @@ const StackRouteConfigs = {
     },
     ArrangeCarList: {
         screen: ArrangeCarList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ScanGPS: {
+        screen: ScanGPS,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BindGPS: {
+        screen: BindGPS,
+        navigationOptions: {
+            header: null
+        }
+    },
+    GPSDetails: {
+        screen: GPSDetails,
         navigationOptions: {
             header: null
         }

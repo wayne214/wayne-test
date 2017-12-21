@@ -124,6 +124,7 @@ let transCodeListData3 = [];
             allCount: 1,
             isRefresh: false,
             orderBy: '',
+            currentStatus: this.props.currentStatus,
         };
     }
 
@@ -286,6 +287,31 @@ let transCodeListData3 = [];
         });
     }
 
+     componentWillReceiveProps(nextProps) {
+        console.log('nextProps=',nextProps.currentStatus);
+        console.log('currentProps=',this.props.currentStatus);
+        console.log('selectPage=',selectPage);
+         if (nextProps.currentStatus != this.props.currentStatus) {
+             allListData = []; // 全部数据
+             shipListData = []; // 待发运数据
+             signListData = []; // 待签收数据
+             receiptListData = []; // 待回单数据
+             allPage = 1; // 全部页数
+             shipPage = 1; // 待发运页数
+             signPage = 1; // 待签收页数
+             receiptPage = 1; // 待回单页数
+             this.setState({
+                 isLoadallMore: true,
+                 isLoadshipMore: true,
+                 isLoadsignMore: true,
+                 isLoadreceiptMore: true,
+                 currentStatus: nextProps.currentStatus,
+             }, () => { // setState方法走完才执行下面方法
+                 this.onRefresh();
+             });
+         }
+     }
+
 
     componentWillUnmount() {
         this.listener.remove();
@@ -415,10 +441,12 @@ let transCodeListData3 = [];
                 break;
             case 2:
                 console.log('订单待签收界面', pageIndex);
-                if(1===1) {
-                    this.getWaitForSignList('CCC',pageNum, pageSize);
-                }else {
+                console.log('订单待签收界面----------', this.props.currentStatus);
+
+                if(this.state.currentStatus == 'driver') {
                     this.getTransPorting();
+                }else {
+                    this.getWaitForSignList('CCC',pageNum, pageSize);
                 }
                 break;
             case 3:
@@ -911,7 +939,32 @@ let transCodeListData3 = [];
 
     // 运输中item
     renderRowItem(dataRow) {
-        if (1===1) {
+        if (this.props.currentStatus == 'driver') {
+            if ( dataRow.transCodeNum !== 0) {
+                return (
+                    <OrderTransportCell
+                        receiveContact={dataRow.receiveContact ? dataRow.receiveContact : ''}
+                        transCodeList={dataRow.transports}
+                        ordersNum={dataRow.transCodeNum}
+                        receiveAddress={dataRow.receiveAddress}
+                        receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
+                        phoneNum={dataRow.phoneNum}
+                        isBatchSign={dataRow.transports.length > 1}
+                        orderSignNum={dataRow.orderSignNum}
+                        onSelect={() => {
+                            this.props.navigation.navigate('EntryToBeSignIn', {
+                                transOrderList: this.transportsList(dataRow),
+                            })
+                        }}
+                        onButton={() => {
+                            this.transportBatchSign(dataRow);
+                        }}
+                    />
+                );
+            }else {
+                return null;
+            }
+        }else {
             const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
             const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 5) : '';
             // 货品类型
@@ -959,31 +1012,6 @@ let transCodeListData3 = [];
                     }}
                 />
             );
-        }else {
-            if ( dataRow.transCodeNum !== 0) {
-                return (
-                    <OrderTransportCell
-                        receiveContact={dataRow.receiveContact ? dataRow.receiveContact : ''}
-                        transCodeList={dataRow.transports}
-                        ordersNum={dataRow.transCodeNum}
-                        receiveAddress={dataRow.receiveAddress}
-                        receiveContactName={dataRow.receiveContactName ? dataRow.receiveContactName : ''}
-                        phoneNum={dataRow.phoneNum}
-                        isBatchSign={dataRow.transports.length > 1}
-                        orderSignNum={dataRow.orderSignNum}
-                        onSelect={() => {
-                            this.props.navigation.navigate('EntryToBeSignIn', {
-                                transOrderList: this.transportsList(dataRow),
-                            })
-                        }}
-                        onButton={() => {
-                            this.transportBatchSign(dataRow);
-                        }}
-                    />
-                );
-            }else {
-                return null;
-            }
         }
     }
      // 运单号集合
@@ -1057,6 +1085,7 @@ let transCodeListData3 = [];
                 transCodeNum={dataRow.transCodeNum}
                 goodsCount={200}
                 temperature={2}
+                currentStatus={this.props.currentStatus}
                 onSelect={() => {
                     if (dataRow.distributionPoint === 0) {
                         Toast.showShortCenter('暂无详情');
@@ -1277,6 +1306,7 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         isResetCity: state.order.get('isResetCity'),
         orderTab: state.order.get('mainPress'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

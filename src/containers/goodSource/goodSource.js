@@ -127,8 +127,8 @@ class GoodSource extends BaseContainer{
         // const plateNumber = this.props.userPlateNumber;
         if (global.plateNumber) {
             HTTPRequest({
-                url: API.API_NEW_GET_SOURCE_BY_DATE,
-                params: {
+                url: this.props.currentStatus == 'driver' ? API.API_NEW_GET_SOURCE_BY_DATE : API.API_CARRIER_GET_SOURCE_BY_DATE,
+                params: this.props.currentStatus == 'driver' ? {
                     beginTime: '2017-06-01 00:00:00',
                     endTime: beginTime,
                     pageNum: pageNo,
@@ -136,6 +136,14 @@ class GoodSource extends BaseContainer{
                     driverPhone: global.phone,
                     status,
                     plateNumber: global.plateNumber,
+                } : {
+                    beginTime: '2017-06-01 00:00:00',
+                    carrierCode: "string",
+                    driverPhone: global.phone,
+                    endTime: beginTime,
+                    pageNum: pageNo,
+                    pageSize,
+                    status
                 },
                 loading: ()=>{
 
@@ -277,8 +285,8 @@ class GoodSource extends BaseContainer{
                 allocationModel={dataRow.allocationModel}
                 goodKindsNames={goodTypesName} // 货品种类
                 orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
-                goodsCount={200}
-                temperature={2}
+                goodsCount={dataRow.goodsQuantity}
+                temperature={dataRow.temperature}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList, // 运单号
