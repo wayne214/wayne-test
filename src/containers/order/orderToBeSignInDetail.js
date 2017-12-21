@@ -123,8 +123,10 @@ export default class orderToBeSignInDetail extends Component {
             scheduleTimeAgain,
             payState,
             settleMethod,
-            amount
+            amount,
+            currentStatus
         } = this.props;
+
         const  buttonView = settlementMode === '20' || (isEndDistribution === 'N' && transOrderType === '606') || payState === '1' || settleMethod !== '20' || amount === '0.00' ?
             <BottomButton
                 text={'签收'}
@@ -253,7 +255,7 @@ export default class orderToBeSignInDetail extends Component {
                 <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13,}} />
             </View>
                 {
-                    1===1 ? null : buttonView
+                    currentStatus == 'driver' ? buttonView : null
                 }
             </View>
         );

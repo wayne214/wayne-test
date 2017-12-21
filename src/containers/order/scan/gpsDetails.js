@@ -40,7 +40,7 @@ class gpsDetails extends Component {
                 </View>
                 <BottomButton
                     onClick={() => {
-
+                        this.props.navigation.goBack();
                     }}
                     text="解除绑定"
                 />
@@ -57,7 +57,9 @@ const styles =StyleSheet.create({
 });
 
 function mapStateToProps(state){
-    return {};
+    return {
+        routes: state.nav.routes,
+    };
 }
 
 function mapDispatchToProps (dispatch){

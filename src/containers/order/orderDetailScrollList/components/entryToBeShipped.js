@@ -465,6 +465,7 @@ class entryToBeShipped extends Component {
                     vol={item.vol}
                     weight={item.weight}
                     index={index}
+                    currentStatus={this.props.currentStatus}
                     addressMapSelect={(indexRow, type) => {
                         this.jumpAddressPage(indexRow, type, item);
                     }}
@@ -487,7 +488,7 @@ class entryToBeShipped extends Component {
             }}
             text="安排车辆"
         /> : null;
-        const bottomView = 2===3 ? <BottomButton
+        const bottomView = 2 === 3 ? <BottomButton
             text={'发运'}
             onClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {
@@ -520,7 +521,7 @@ class entryToBeShipped extends Component {
                     }}
                 />
                 {
-                    1===1 ? carrierView : null
+                    this.props.currentStatus == 'driver' ? null : carrierView
                 }
                 <Text style={{textAlign: 'center', marginTop: 10, height: 20, fontSize: 16, color: StaticColor.COLOR_LIGHT_GRAY_TEXT}}>
                     {this.state.current}/{this.state.datas.length}
@@ -536,7 +537,7 @@ class entryToBeShipped extends Component {
                     {aa}
                 </ScrollView>
                 {
-                    1===2 ? carrierBottomView : bottomView
+                    this.props.currentStatus == 'driver' ? bottomView : carrierBottomView
                 }
                 {this.state.loading ? <Loading /> : null }
             </View>
@@ -561,7 +562,7 @@ function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
         plateNumber: state.user.get('plateNumber'),
-
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
