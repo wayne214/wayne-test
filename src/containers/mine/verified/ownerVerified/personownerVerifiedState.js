@@ -142,7 +142,7 @@ class personownerVerifiedState extends Component{
     /*实名认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
-
+        // TODO 获取个人车主认证信息
         HTTPRequest({
             url: API.API_AUTH_REALNAME_DETAIL + userPhone,
             params: {
@@ -186,15 +186,13 @@ class personownerVerifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
-        Storage.remove(StorageKey.personownerInfoResult);
-        // TODO 修改StorageKey
-        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+        Storage.get(StorageKey.personownerInfoResult).then((value) => {
             if (value){
-                this.props.navigation.navigate('VerifiedPage', {
+                this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: value,
                 });
             }else {
-                this.props.navigation.navigate('VerifiedPage', {
+                this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: this.state.resultInfo,
                 });
             }
@@ -267,7 +265,8 @@ class personownerVerifiedState extends Component{
                         type: 'string',
                         title: '企业认证',
                         onClick: ()=> {
-                            // TODO 进行企业车主认证
+                            // 进行企业车主认证
+                            this.props.navigation.navigate('CompanyCarOwnerAuth');
                         }
                     } : {}
                     }
