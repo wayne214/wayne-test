@@ -34,10 +34,8 @@ export const API_NEW_CHANGE_PSD_WITH_CODE = `${HOST}app/uam/login/forgetPassword
 // 获取登录密钥接口
 export const API_GET_SEC_TOKEN = `${HOST}app/uam/login/getSecToken`;
 // 通过密码登录接口
-// export const API_LOGIN_WITH_PSD = `${HOST}app/uam/login/loginWithPassword`;
 export const API_LOGIN_WITH_PSD = `${HOST}app/uam/login/loginWithPassword/v3.0`;
 // 通过验证码登录接口
-// export const API_LOGIN_WITH_CODE = `${HOST}app/uam/login/loginWithVerificationCode`;
 export const API_LOGIN_WITH_CODE = `${HOST}app/uam/login/loginWithVerificationCode/v3.0`;
 // 根据旧密码修改密码
 export const API_CHANGE_PSD_WITH_OLD_PSD = `${HOST}app/uam/login/modifyPassword`;
@@ -70,7 +68,6 @@ export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
 // 根据时间获取获取货源列表
-// export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v1.1`;
 export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDate/v3.0`; // 3.0版本
 // 接单拒单数量
 // export const API_NEW_GET_STATUS_NUMBER = `${HOST}app/dpc/queryDispatchDocStatusNum`;
@@ -95,10 +92,8 @@ export const API_AUTH_QUALIFICATIONS_STATUS = `${HOST}app/rmc/auth/qualification
 // 实名认证状态查询接口
 export const API_AUTH_REALNAME_STATUS = `${HOST}app/rmc/auth/realName/status/`;
 // 货源-设置货源偏好
-// export const API_SET_GOODSOURCE_PREFERENCE = `${HOST}app/rmc/preference/set`;
 export const API_SET_GOODSOURCE_PREFERENCE = `${HOST}app/rmc/preference/v2.0.1/set`;
 // 货源-货源偏好查询
-// export const API_QUERY_GOODSOURCE_PREFERENCE = `${HOST}app/rmc/preference/query`;
 export const API_QUERY_GOODSOURCE_PREFERENCE = `${HOST}app/rmc/preference/v2.0.1/query`;
 
 //银行卡-绑定接口
@@ -118,7 +113,6 @@ export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
 // 发运接口
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
-// export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`;
 export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource/v3.0`; // 3.0版本
 // 订单列表（待回单）
 export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPage`;
@@ -131,7 +125,6 @@ export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 // 签收接口
 export const API_NEW_SIGN = `${HOST}app/transport/sign`;
 // 批量签收接口
-// export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign`;
 export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign/v3.0`; // 3.0版本
 // 订单列表（全部，待发运）分页查询调度单
 export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPage`;
