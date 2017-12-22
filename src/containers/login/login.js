@@ -30,6 +30,7 @@ import {
     setDriverCharacterAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
+    getCompanyCodeAction
 } from '../../action/user';
 
 import * as StaticColor from '../../constants/staticColor';
@@ -332,6 +333,7 @@ class Login extends BaseContainer {
                 });
             },
             success: (responseData) => {
+                console.log('===responseData', responseData);
 
                 if (responseData.result.length == 0) {
                     this.props.navigation.navigate('CharacterList');
@@ -340,6 +342,8 @@ class Login extends BaseContainer {
 
                 if (responseData.result.length == 1) {
                     if (responseData.result[0].owner == 1) {
+                        // 保存承运商编码
+                        this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -375,6 +379,8 @@ class Login extends BaseContainer {
                 if (responseData.result.length == 2) {
 
                     if (responseData.result[0].owner == 1) {
+                        // 保存承运商编码
+                        this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 先是车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -413,6 +419,8 @@ class Login extends BaseContainer {
 
                         // 后是车主
                         if (responseData.result[1].companyNature == '个人') {
+                            // 保存承运商编码
+                            this.props.getCompanyCodeAction(responseData.result[1].companyCode);
                             // 确认个人车主
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setOwnerCharacterAction('11')
@@ -420,6 +428,8 @@ class Login extends BaseContainer {
                                 this.props.setOwnerCharacterAction('12') :
                                 this.props.setOwnerCharacterAction('13')
                         } else {
+                            // 保存承运商编码
+                            this.props.getCompanyCodeAction(responseData.result[1].companyCode);
                             // 确认企业车主
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setOwnerCharacterAction('21')
@@ -612,6 +622,9 @@ function mapDispatchToProps(dispatch) {
         setCurrentCharacterAction: (result) => {
             dispatch(setCurrentCharacterAction(result));
         },
+        getCompanyCodeAction: (data) => {
+            dispatch(getCompanyCodeAction(data));
+        }
     };
 }
 
