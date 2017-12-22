@@ -71,10 +71,19 @@ export const setCurrentCharacterAction = (data) => {
     };
 };
 
+
 /*账户-获取承运商编码*/
 export const getCompanyCodeAction = (data) => {
     return {
         type: ActionTypes.ACTION_GET_COMPANY_CODE,
+        payload: data,
+    };
+};
+/*ACTION_SET_COMPANY_CODE*/
+export const setCompanyCodeAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_SET_COMPANY_CODE,
+
         payload: data,
     };
 };

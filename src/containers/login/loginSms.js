@@ -354,7 +354,7 @@ class LoginSms extends BaseContainer {
                                 this.props.setOwnerCharacterAction('23')
                             this.props.setCurrentCharacterAction('businessOwner')
                         }
-
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -396,7 +396,7 @@ class LoginSms extends BaseContainer {
                             this.props.setDriverCharacterAction('3')
 
                         this.props.setCurrentCharacterAction('driver')
-
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -424,6 +424,7 @@ class LoginSms extends BaseContainer {
                                 this.props.setOwnerCharacterAction('23')
                         }
                         this.props.setCurrentCharacterAction('driver')
+                        this.props.setCompanyCodeAction(responseData.result[1].companyCode);
                     }
                 }
 

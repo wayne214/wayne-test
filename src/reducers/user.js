@@ -6,6 +6,7 @@
  * ownerStatus ： 11 个人车主认证中 12 个人车主认证通过 13 个人车主认证驳回
  *                21 企业车主认证中 22 企业车主认证通过 23 企业车主认证驳回
  * currentStatus ： driver 司机  personalOwner 个人车主 businessOwner 企业车主
+ * companyCode ：号
  */
 import Immutable from 'immutable';
 import * as ActionTypes from '../constants/actionType';
@@ -107,6 +108,9 @@ export default (state = initState, action) => {
             globalState = globalState.set('currentStatus', action.payload);
             return globalState;
         case ActionTypes.ACTION_GET_COMPANY_CODE:
+            globalState = globalState.set('companyCode', action.payload);
+            return globalState;
+        case ActionTypes.ACTION_SET_COMPANY_CODE:
             globalState = globalState.set('companyCode', action.payload);
             return globalState;
         default:

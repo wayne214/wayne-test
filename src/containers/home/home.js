@@ -315,7 +315,7 @@ class Home extends Component {
 
     componentDidMount() {
 
-        this.compareVersion();
+        // this.compareVersion();
         this.getCurrentPosition(0);
         this.queryEnterpriseNature();
 

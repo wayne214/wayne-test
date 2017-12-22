@@ -30,7 +30,8 @@ import {
     setDriverCharacterAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
-    getCompanyCodeAction
+    getCompanyCodeAction,
+    setCompanyCodeAction,
 } from '../../action/user';
 
 import * as StaticColor from '../../constants/staticColor';
@@ -360,9 +361,9 @@ class Login extends BaseContainer {
                                 : responseData.result[0].certificationStatus == '1202' ?
                                 this.props.setOwnerCharacterAction('22') :
                                 this.props.setOwnerCharacterAction('23')
-                            this.props.setCurrentCharacterAction('businessOwner')
+                            this.props.setCurrentCharacterAction('businessOwner');
                         }
-
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -406,7 +407,7 @@ class Login extends BaseContainer {
                             this.props.setDriverCharacterAction('3')
 
                         this.props.setCurrentCharacterAction('driver')
-
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -438,6 +439,7 @@ class Login extends BaseContainer {
                                 this.props.setOwnerCharacterAction('23')
                         }
                         this.props.setCurrentCharacterAction('driver')
+                        this.props.setCompanyCodeAction(responseData.result[1].companyCode);
                     }
                 }
 
@@ -624,7 +626,10 @@ function mapDispatchToProps(dispatch) {
         },
         getCompanyCodeAction: (data) => {
             dispatch(getCompanyCodeAction(data));
-        }
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
+        },
     };
 }
 
