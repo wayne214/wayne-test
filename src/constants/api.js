@@ -115,6 +115,10 @@ export const API_QUERY_ENTERPRISE_NATURE = `${HOST}app/rmc/queryEnterpriseNature
 export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
 //根据伙伴手机号 查询伙伴下所有车辆列表
 export const API_QUERY_CAR_LIST_BY_COMPANIONINFO = `${HOST}app/rmc/rmcCar/queryCarListByCompanionInfo`;
+//根据司机手机号 查询伙伴下所有车辆列表
+export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriversByPhoneNum/`;
+//搜索全库车辆信息
+export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口

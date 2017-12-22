@@ -65,7 +65,7 @@ class CarManagement extends BaseContainer {
         this.queryCarList();
         this.state = {
             NumberArr: '',
-            branchList: [{
+            carList: [{
                 carNum: '京A12345',
                 certificationStatus: '1202',
                 carStatus: '20',
@@ -110,17 +110,17 @@ class CarManagement extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    branchList: this.state.NumberArr,
+                    carList: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    branchList: [],
+                    carList: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
+                            carList: this.state.carList.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -145,7 +145,7 @@ class CarManagement extends BaseContainer {
             success: (responseData) => {
                 console.log('carManagement', responseData)
                 this.setState({
-                    branchList: responseData.result,
+                    carList: responseData.result,
                 });
             },
             error: (errorInfo) => {
@@ -342,7 +342,7 @@ class CarManagement extends BaseContainer {
                             }}
                             maxLength={20}
                             value={text}
-                            placeholder={'车牌号/姓名'}
+                            placeholder={'车牌号'}
                             onChangeText={(text) => {
                                 this.setState({
                                     text: text
@@ -379,7 +379,7 @@ class CarManagement extends BaseContainer {
 
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop: 10}}
-                    data={this.state.branchList}
+                    data={this.state.carList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >

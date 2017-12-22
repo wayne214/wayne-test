@@ -18,14 +18,14 @@ import {
     Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
-import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
 import Swipeout from 'react-native-swipeout';
 import Button from 'apsl-react-native-button';
+import * as API from '../../../constants/api';
+import HTTPRequest from '../../../utils/httpRequest';
 
 const {height, width} = Dimensions.get('window');
-const NumberArr = BankCode.searchCode();
 
 const styles = StyleSheet.create({
     container: {
@@ -60,34 +60,35 @@ class DriverManagement extends BaseContainer {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
-        this.onChanegeTextKeyword.bind(this)
+        this.onChanegeTextKeyword.bind(this);
+        this.queryDriverList = this.queryDriverList.bind(this);
+        this.queryDriverList();
         this.state = {
-            // NumberArr: params.branchList,
-            // branchList:params.branchList,
+
             NumberArr: '',
-            branchList: [{
+            driverList: [{
                 driverName: '车车1',
-                status: '认证中',
-                ifBind: 'true',
-                carList: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                certificationStatus: 'null',
+                stauts: '20',
+                carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
             },
                 {
                     driverName: '车车2',
-                    status: '认证中',
-                    ifBind: 'true',
-                    carList: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                    certificationStatus: '1201',
+                    stauts: '20',
+                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
                 },
                 {
                     driverName: '车车3',
-                    status: '认证中',
-                    ifBind: 'true',
-                    carList: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                    certificationStatus: '1202',
+                    stauts: '10',
+                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
                 },
                 {
                     driverName: '车车4',
-                    status: '禁用',
-                    ifBind: 'true',
-                    carList: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                    certificationStatus: '1203',
+                    stauts: '20',
+                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
                 }],
             text: '',
             index: null,
@@ -110,17 +111,17 @@ class DriverManagement extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    branchList: this.state.NumberArr,
+                    driverList: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    branchList: [],
+                    driverList: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
+                            driverList: this.state.driverList.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -132,9 +133,33 @@ class DriverManagement extends BaseContainer {
 
     }
 
+    queryDriverList() {
+        HTTPRequest({
+            // url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM + global.phone,
+            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM + '13120382724',
+            params: {},
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                console.log('queryDriverList', responseData)
+                this.setState({
+                    driverList: responseData.result,
+                });
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     //点击城市cell
     cityClicked(item) {
-        console.log('item',item);
+        console.log('item', item);
         // this.props.navigation.goBack();
     }
 
@@ -177,35 +202,40 @@ class DriverManagement extends BaseContainer {
                             <Image
                                 style={{height: 36, width: 36}}
                                 source={StaticImage.DriverAvatar}></Image>
-                            <Text style={{marginLeft: 10, color: '#333333', fontsize: 16}}>{item.driverName}</Text>
-                            {item.certificationStatus == '认证通过' ?
-                                <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
-                                    认证通过
-                                </Text>
-                                : item.certificationStatus == '认证中' ?
-                                    <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
-                                        认证中
-                                    </Text>
-                                    : item.certificationStatus == '认证驳回' ?
-                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#0071FF'}}>
-                                            认证驳回
+                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                            <View style={{marginLeft: width - 180,justifyContent:'center',width:90,alignItems:'center',}}>
+                            {item.status == 10 ?
+                                <Text style={{ fontSize: 14, color: '#FA5741'}}>
+                                    禁用
+                                </Text> :
+                                    item.certificationStatus == '1202' ?
+                                        <Text style={{ fontSize: 14, color: '#0071FF'}}>
+                                            认证通过
                                         </Text>
-                                        :
-                                        <Text style={{marginLeft: width - 150, fontsize: 16, color: '#FA5741'}}>
-                                            禁用
+                                        : item.certificationStatus == '1201' ?
+                                        <Text style={{ fontSize: 14, color: '#0071FF'}}>
+                                            认证中
                                         </Text>
+                                        : item.certificationStatus == '1203' ?
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                认证驳回
+                                            </Text>
+                                            :
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                未认证
+                                            </Text>
                             }
-
+                            </View>
                         </View>
                         <View style={{marginLeft: 45}}>
                             {this.state.line && this.state.clickLine == index ?
                                 <Text
-                                    style={{fontsize: 18, lineHeight: 24,color:'#3F3F3F'}}
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
                                 >
-                                    关联车辆：{item.carList}</Text>
+                                    关联车辆：{item.carNums}</Text>
                                 : <Text
                                     numberOfLines={1}
-                                    style={{fontsize: 18, lineHeight: 24, color:'#3F3F3F'}}>关联车辆：{item.carList}</Text>
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{item.carNums}</Text>
                             }
 
                             {this.state.line && this.state.clickLine == index ?
@@ -214,7 +244,7 @@ class DriverManagement extends BaseContainer {
                                         clickLine: 'a',
                                     })
                                 }}>
-                                    <Text style={{color: '#008AFF', fontsize: 12, lineHeight: 24}}>收起</Text>
+                                    <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>收起</Text>
                                 </TouchableOpacity>
                                 :
                                 <TouchableOpacity onPress={() => {
@@ -222,13 +252,13 @@ class DriverManagement extends BaseContainer {
                                         clickLine: index,
                                     })
                                 }}>
-                                    <Text style={{color: '#008AFF', fontsize: 12, lineHeight: 24}}>全部</Text>
+                                    <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>全部</Text>
                                 </TouchableOpacity>
 
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.certificationStatus != '禁用' ?
+                            {item.status != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
@@ -305,7 +335,7 @@ class DriverManagement extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
-                            placeholder={'车牌号/姓名'}
+                            placeholder={'司机姓名'}
                             onChangeText={(text) => {
                                 this.setState({
                                     text: text
@@ -341,8 +371,8 @@ class DriverManagement extends BaseContainer {
                 </View>
 
                 <FlatList
-                    style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop:10}}
-                    data={this.state.branchList}
+                    style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop: 10}}
+                    data={this.state.driverList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
@@ -355,9 +385,10 @@ class DriverManagement extends BaseContainer {
                         width: width,
                         marginBottom: 0,
                         height: 44,
-                        borderRadius:0,
+                        borderRadius: 0,
                         borderWidth: 0,
-                        borderColor: '#0083FF',}}
+                        borderColor: '#0083FF',
+                    }}
                     textStyle={{color: 'white', fontSize: 18}}
                     onPress={() => {
                         this.props.navigation.navigate('AddDriverPage');

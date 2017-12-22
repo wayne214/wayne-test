@@ -18,13 +18,11 @@ import {
     Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
-import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
-import Swipeout from 'react-native-swipeout';
-
+import * as API from '../../../constants/api';
+import HTTPRequest from '../../../utils/httpRequest';
 const {height, width} = Dimensions.get('window');
-const NumberArr = BankCode.searchCode();
 
 const styles = StyleSheet.create({
     container: {
@@ -59,25 +57,21 @@ class AddCarPage extends BaseContainer {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
-        this.onChanegeTextKeyword.bind(this)
+        this.onChanegeTextKeyword.bind(this);
+        this.queryAllCarList = this.queryAllCarList.bind(this);
         this.state = {
             NumberArr: '',
-            branchList: [
+            carList: [
                 {
-                    carNum: '京A12345',
-                    Disabled: 'true',
-                },
-                {
-                    carNum: '京B12345',
-                    Disabled: 'true',
-                },
-                {
-                    carNum: '京A12345',
-                    Disabled: '禁用',
-                },
-                {
-                    carNum: '京A12345',
-                    Disabled: 'true',
+                    carId:"f594c68f99414b139f5630bb3fb7d322",
+                    carLen: null,
+                    carNum: "京Aaaaaa",
+                    carPhone: null,
+                    carStatus: 20,
+                    carryCapacity: null,
+                    certificationStatus: null,
+                    companionId: null,
+                    drivers: null
                 }],
             text: '',
             index: null,
@@ -100,17 +94,17 @@ class AddCarPage extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    branchList: this.state.NumberArr,
+                    carList: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    branchList: [],
+                    carList: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
+                            carList: this.state.carList.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -122,6 +116,39 @@ class AddCarPage extends BaseContainer {
 
     }
 
+    queryAllCarList(carNum) {
+        HTTPRequest({
+            url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
+            params: {
+                carNum: '京A12345',
+                bindRelieveFlag: 0,
+                carId: "",
+                companionId: "",
+                companionPhone: "",
+                driverIds: [
+                    ""
+                ],
+                driverPhone: ""
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                console.log('queryAllCarList', responseData)
+                console.log('queryAllCarList', responseData.result)
+                this.setState({
+                    carList: responseData.result,
+                })
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     //点击城市cell
     cityClicked(item) {
         console.log('item', item);
@@ -130,34 +157,11 @@ class AddCarPage extends BaseContainer {
 
     //列表的每一行
     renderItemView({item, index}) {
-        // Buttons
-        const swipeoutBtns = [
-            {
-                text: '删除',
-                backgroundColor: 'red',
-                onPress: () => {
 
-                },
-
-            }
-        ];
 
         return (
 
-            <Swipeout
-                autoClose={false}
-                close={!(this.state.index === index)}
-                right={swipeoutBtns}
-                rowID={index}
-                sectionID={index}
-                onOpen={(index) => {
-                    this.setState({
-                        index,
-                    });
-                }}
-                onClose={() => console.log('===close')}
-                scroll={event => console.log('scroll event')}
-            >
+
                 <TouchableOpacity onPress={() => {
 
                 }}>
@@ -184,7 +188,7 @@ class AddCarPage extends BaseContainer {
                                     height: 24,
                                 }}>{item.carNum}</Text>
 
-                                {item.Disabled != '禁用' ?
+                                {item.carStatus != '10' ?
                                     <TouchableOpacity onPress={() => {
                                         this.cityClicked(item);
                                     }}>
@@ -205,7 +209,7 @@ class AddCarPage extends BaseContainer {
                                     : null
                                 }
                             </View>
-                            {item.Disabled == '禁用' ?
+                            {item.carStatus == '禁用' ?
                                 <Text style={{
                                     marginLeft: 10,
                                     color: '#CCCCCC',
@@ -222,7 +226,7 @@ class AddCarPage extends BaseContainer {
 
                 </TouchableOpacity>
 
-            </Swipeout>
+
         );
     }
 
@@ -273,6 +277,11 @@ class AddCarPage extends BaseContainer {
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
+                            blurOnSubmit = {true}
+                            onSubmitEditing={(event) => {
+                                console.log('gg',event.nativeEvent.text)
+                                this.queryAllCarList(event.nativeEvent.text);
+                            }}
                             value={text}
                             placeholder={'车牌号'}
                             onChangeText={(text) => {
@@ -309,11 +318,11 @@ class AddCarPage extends BaseContainer {
                     </TouchableOpacity>
                 </View>
                 <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
-                <Text style={{color: '#666666', fontsize: 15,marginLeft:10}}>添加车辆</Text>
+                <Text style={{color: '#666666', fontSize: 15,marginLeft:10}}>添加车辆</Text>
                 </View>
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1}}
-                    data={this.state.branchList}
+                    data={this.state.carList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >

@@ -18,13 +18,10 @@ import {
     Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
-import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
-import Swipeout from 'react-native-swipeout';
 
 const {height, width} = Dimensions.get('window');
-const NumberArr = BankCode.searchCode();
 
 const styles = StyleSheet.create({
     container: {
@@ -147,21 +144,6 @@ class AddDriverPage extends BaseContainer {
         ];
 
         return (
-
-            <Swipeout
-                autoClose={false}
-                close={!(this.state.index === index)}
-                right={swipeoutBtns}
-                rowID={index}
-                sectionID={index}
-                onOpen={(index) => {
-                    this.setState({
-                        index,
-                    });
-                }}
-                onClose={() => console.log('===close')}
-                scroll={event => console.log('scroll event')}
-            >
                 <TouchableOpacity onPress={() => {
 
                 }}>
@@ -189,7 +171,7 @@ class AddDriverPage extends BaseContainer {
                                 </Text>
 
                             </View>
-                            {item.Disabled != '禁用' ?
+                            {item.carStatus != '禁用' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
@@ -211,7 +193,7 @@ class AddDriverPage extends BaseContainer {
                             }
 
                         </View>
-                        {item.Disabled == '禁用' ?
+                        {item.carStatus == '禁用' ?
                             <Text style={{
                                 marginLeft: 46,
                                 color: '#CCCCCC',
@@ -222,8 +204,6 @@ class AddDriverPage extends BaseContainer {
                         <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
                     </View>
                 </TouchableOpacity>
-
-            </Swipeout>
         );
     }
 
