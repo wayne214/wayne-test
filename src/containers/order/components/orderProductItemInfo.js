@@ -82,7 +82,6 @@ export default class orderProductItemInfo extends Component {
             text: this.props.receiveNum,
             length: this.props.receiveNum.length,
         };
-
         this.checkLast = this.checkLast.bind(this);
         this.checkPrice = this.checkPrice.bind(this);
     }
@@ -92,7 +91,7 @@ export default class orderProductItemInfo extends Component {
         let number = this.state.text;
         number = computationUtil.accAdd(number,1);
         //number++;
-        if (number > Number(arNum)) {
+        if (number > Number(this.props.receiveNum)) {
             return;
         }
         this.setState({
@@ -231,7 +230,7 @@ export default class orderProductItemInfo extends Component {
                             this.add();
                         }}
                     >
-                        <Image source={this.state.text == arNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd} />
+                        <Image source={this.state.text == this.props.receiveNum ? StaticImage.receiveAddUnselect : StaticImage.receiveAdd} />
                     </TouchableOpacity>
                 </View>
             </View>
