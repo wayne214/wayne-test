@@ -169,17 +169,17 @@ class GoodSource extends BaseContainer{
             locationData.district, lastTime - currentTime, '货源页面');
         startRow = result.startRow + pageSize;
         console.log('....startRow', startRow);
-        // if (result.total <= startRow || result.total === 0) {
-        //     this.setState({
-        //         isLoadMore: false,
-        //         goodsListLength: result.list.length,
-        //     });
-        // } else {
-        //     this.setState({
-        //         isLoadMore: true,
-        //         goodsListLength: result.list.length,
-        //     });
-        // }
+        if (result.total <= startRow || result.total === 0) {
+            this.setState({
+                isLoadMore: false,
+                goodsListLength: result.list.length,
+            });
+        } else {
+            this.setState({
+                isLoadMore: true,
+                goodsListLength: result.list.length,
+            });
+        }
 
         if (pageNO === 1) {
             list = [];
