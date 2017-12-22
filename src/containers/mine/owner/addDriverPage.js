@@ -131,23 +131,11 @@ class AddDriverPage extends BaseContainer {
 
     //列表的每一行
     renderItemView({item, index}) {
-        // Buttons
-        const swipeoutBtns = [
-            {
-                text: '删除',
-                backgroundColor: 'red',
-                onPress: () => {
-
-                },
-
-            }
-        ];
 
         return (
                 <TouchableOpacity onPress={() => {
 
                 }}>
-
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Image

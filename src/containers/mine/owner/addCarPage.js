@@ -22,6 +22,7 @@ import * as ConstValue from '../../../constants/constValue';
 import StaticImage from '../../../constants/staticImage'
 import * as API from '../../../constants/api';
 import HTTPRequest from '../../../utils/httpRequest';
+
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -63,7 +64,7 @@ class AddCarPage extends BaseContainer {
             NumberArr: '',
             carList: [
                 {
-                    carId:"f594c68f99414b139f5630bb3fb7d322",
+                    carId: "f594c68f99414b139f5630bb3fb7d322",
                     carLen: null,
                     carNum: "京Aaaaaa",
                     carPhone: null,
@@ -149,82 +150,108 @@ class AddCarPage extends BaseContainer {
         });
     }
 
-    //点击城市cell
+    bindRelieveCar(item) {
+        HTTPRequest({
+            url: API.API_BIND_RELIEVE_CAR_COMPANION,
+            params: {
+                bindRelieveFlag: 1, // 1是绑定  其余是解除
+                carId: item.carId,
+                carNum: item.carNum,
+                companionId: item.companionId,
+                companionPhone: global.phone, //车主手机号
+                driverIds: [],
+                driverPhone: '' // 司机时手机号
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                console.log('bindRelieveCar', responseData)
+                if(responseData.result){
+                    console.log('aa','添加成功')
+                }
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
+        this.bindRelieveCar(item);
     }
 
     //列表的每一行
     renderItemView({item, index}) {
-
-
         return (
+            <TouchableOpacity onPress={() => {
 
+            }}>
 
-                <TouchableOpacity onPress={() => {
-
+                <View style={{
+                    paddingLeft: 10,
+                    backgroundColor: '#ffffff',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingTop: 16,
+                    paddingBottom: 16
                 }}>
+                    <Image
+                        style={{height: 36, width: 36}}
+                        source={StaticImage.CarAvatar}></Image>
 
-                    <View style={{
-                        paddingLeft: 10,
-                        backgroundColor: '#ffffff',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingTop: 16,
-                        paddingBottom: 16
-                    }}>
-                        <Image
-                            style={{height: 36, width: 36}}
-                            source={StaticImage.CarAvatar}></Image>
+                    <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
 
-                        <View style={{flexDirection: 'column'}}>
-                            <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                            <Text style={{
+                                marginLeft: 10,
+                                color: '#333333',
+                                fontSize: 16,
+                                height: 24,
+                            }}>{item.carNum}</Text>
 
-                                <Text style={{
-                                    marginLeft: 10,
-                                    color: '#333333',
-                                    fontSize: 16,
-                                    height: 24,
-                                }}>{item.carNum}</Text>
-
-                                {item.carStatus != '10' ?
-                                    <TouchableOpacity onPress={() => {
-                                        this.cityClicked(item);
-                                    }}>
-                                        <View
-                                            style={{
-                                                height: 30,
-                                                width: 75,
-                                                marginLeft: width - 220,
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                borderRadius: 20,
-                                                borderColor: '#0071FF',
-                                                borderWidth: 0.5,
-                                            }}>
-                                            < Text style={{color: '#0071FF'}}>+添加</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    : null
-                                }
-                            </View>
-                            {item.carStatus == '禁用' ?
-                                <Text style={{
-                                    marginLeft: 10,
-                                    color: '#CCCCCC',
-                                    fontSize: 12,
-                                    height: 18,
-                                    marginTop: 3,
-                                }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
-                                : null}
+                            {item.carStatus != '10' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 75,
+                                            marginLeft: width - 220,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#0071FF',
+                                            borderWidth: 0.5,
+                                        }}>
+                                        < Text style={{color: '#0071FF'}}>+添加</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
                         </View>
-
+                        {item.carStatus == '禁用' ?
+                            <Text style={{
+                                marginLeft: 10,
+                                color: '#CCCCCC',
+                                fontSize: 12,
+                                height: 18,
+                                marginTop: 3,
+                            }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
+                            : null}
                     </View>
 
-                    <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+                </View>
 
-                </TouchableOpacity>
+                <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+
+            </TouchableOpacity>
 
 
         );
@@ -277,9 +304,9 @@ class AddCarPage extends BaseContainer {
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
-                            blurOnSubmit = {true}
+                            blurOnSubmit={true}
                             onSubmitEditing={(event) => {
-                                console.log('gg',event.nativeEvent.text)
+                                console.log('gg', event.nativeEvent.text)
                                 this.queryAllCarList(event.nativeEvent.text);
                             }}
                             value={text}
@@ -317,8 +344,8 @@ class AddCarPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
-                <Text style={{color: '#666666', fontSize: 15,marginLeft:10}}>添加车辆</Text>
+                <View style={{backgroundColor: '#F4F4F4', height: 45, justifyContent: 'center',}}>
+                    <Text style={{color: '#666666', fontSize: 15, marginLeft: 10}}>添加车辆</Text>
                 </View>
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1}}

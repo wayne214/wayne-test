@@ -70,3 +70,11 @@ export const setCurrentCharacterAction = (data) => {
         payload: data,
     };
 };
+
+/*ACTION_SET_COMPANY_CODE*/
+export const setCompanyCodeAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_SET_COMPANY_CODE,
+        payload: data,
+    };
+};

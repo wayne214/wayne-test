@@ -219,7 +219,7 @@ class CheckPhoneStepTwo extends Component {
                                 this.props.setOwnerCharacterAction('23')
                             this.props.setCurrentCharacterAction('businessOwner')
                         }
-
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -260,8 +260,8 @@ class CheckPhoneStepTwo extends Component {
                             this.props.setDriverCharacterAction('2') :
                             this.props.setDriverCharacterAction('3')
 
-                        this.props.setCurrentCharacterAction('driver')
-
+                        this.props.setCurrentCharacterAction('driver');
+                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
@@ -288,7 +288,8 @@ class CheckPhoneStepTwo extends Component {
                                 this.props.setOwnerCharacterAction('22') :
                                 this.props.setOwnerCharacterAction('23')
                         }
-                        this.props.setCurrentCharacterAction('driver')
+                        this.props.setCurrentCharacterAction('driver');
+                        this.props.setCompanyCodeAction(responseData.result[1].companyCode);
                     }
                 }
 

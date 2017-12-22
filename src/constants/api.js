@@ -119,6 +119,8 @@ export const API_QUERY_CAR_LIST_BY_COMPANIONINFO = `${HOST}app/rmc/rmcCar/queryC
 export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriversByPhoneNum/`;
 //搜索全库车辆信息
 export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
+//搜索全库车辆信息
+export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieveCarCompanionRelation`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
