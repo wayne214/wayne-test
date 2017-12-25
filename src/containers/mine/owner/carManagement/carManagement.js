@@ -17,13 +17,13 @@ import {
     TouchableOpacity,
     Platform,
 } from 'react-native';
-import BaseContainer from '../../base/baseContainer';
-import * as ConstValue from '../../../constants/constValue';
-import StaticImage from '../../../constants/staticImage'
+import BaseContainer from '../../../base/baseContainer';
+import * as ConstValue from '../../../../constants/constValue';
+import StaticImage from '../../../../constants/staticImage'
 import Swipeout from 'react-native-swipeout';
 import Button from 'apsl-react-native-button';
-import * as API from '../../../constants/api';
-import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../../constants/api';
+import HTTPRequest from '../../../../utils/httpRequest';
 
 const {height, width} = Dimensions.get('window');
 

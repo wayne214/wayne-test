@@ -4,8 +4,8 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as API from '../../../constants/api';
-import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../../constants/api';
+import HTTPRequest from '../../../../utils/httpRequest';
 
 import {
     View,
@@ -19,9 +19,9 @@ import {
     TouchableOpacity,
     Platform,
 } from 'react-native';
-import BaseContainer from '../../base/baseContainer';
-import * as ConstValue from '../../../constants/constValue';
-import StaticImage from '../../../constants/staticImage';
+import BaseContainer from '../../../base/baseContainer';
+import * as ConstValue from '../../../../constants/constValue';
+import StaticImage from '../../../../constants/staticImage';
 import Toast from '@remobile/react-native-toast';
 
 const {height, width} = Dimensions.get('window');

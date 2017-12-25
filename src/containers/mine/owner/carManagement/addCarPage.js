@@ -17,11 +17,11 @@ import {
     TouchableOpacity,
     Platform,
 } from 'react-native';
-import BaseContainer from '../../base/baseContainer';
-import * as ConstValue from '../../../constants/constValue';
-import StaticImage from '../../../constants/staticImage'
-import * as API from '../../../constants/api';
-import HTTPRequest from '../../../utils/httpRequest';
+import BaseContainer from '../../../base/baseContainer';
+import * as ConstValue from '../../../../constants/constValue';
+import StaticImage from '../../../../constants/staticImage'
+import * as API from '../../../../constants/api';
+import HTTPRequest from '../../../../utils/httpRequest';
 
 const {height, width} = Dimensions.get('window');
 
