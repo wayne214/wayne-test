@@ -62,34 +62,19 @@ class DriverManagement extends BaseContainer {
         const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this);
         this.queryDriverList = this.queryDriverList.bind(this);
+        this.queryDriverOne = this.queryDriverOne.bind(this);
         this.queryDriverList();
         this.state = {
 
             NumberArr: '',
-            driverList: [{
-                driverName: '车车1',
-                certificationStatus: 'null',
-                stauts: '20',
-                carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
-            },
-                {
-                    driverName: '车车2',
-                    certificationStatus: '1201',
-                    stauts: '20',
-                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
-                },
-                {
-                    driverName: '车车3',
-                    certificationStatus: '1202',
-                    stauts: '10',
-                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
-                },
-                {
-                    driverName: '车车4',
-                    certificationStatus: '1203',
-                    stauts: '20',
-                    carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
-                }],
+            driverList: [
+            //     {
+            //     driverName: '车车1',
+            //     certificationStatus: 'null',
+            //     stauts: '20',
+            //     carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+            // }
+            ],
             text: '',
             index: null,
             line: true,
@@ -135,14 +120,42 @@ class DriverManagement extends BaseContainer {
 
     queryDriverList() {
         HTTPRequest({
-            // url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM + global.phone,
-            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM + '13120382724',
-            params: {},
+            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM,
+            params: {
+                driverName: '',
+                phoneNum: global.phone
+            },
             loading: () => {
 
             },
             success: (responseData) => {
                 console.log('queryDriverList', responseData)
+                this.setState({
+                    driverList: responseData.result,
+                });
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    queryDriverOne(text) {
+        HTTPRequest({
+            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM,
+            params: {
+                driverName: text,
+                // phoneNum: '13120382724'
+                phoneNum: global.phone
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
                 this.setState({
                     driverList: responseData.result,
                 });
@@ -335,6 +348,10 @@ class DriverManagement extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
+                            blurOnSubmit = {true}
+                            onSubmitEditing={(event) => {
+                                this.queryDriverOne(event.nativeEvent.text);
+                            }}
                             placeholder={'司机姓名'}
                             onChangeText={(text) => {
                                 this.setState({

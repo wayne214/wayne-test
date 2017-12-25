@@ -133,6 +133,10 @@ export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriv
 export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
 //搜索全库车辆信息
 export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieveCarCompanionRelation`;
+//通过手机号或司机名称
+export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
+//通过手机号或司机名称
+export const API_COMPANION_RELATION = `${HOST}/app/rmc/driver/addDriverCompanionRelation`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口

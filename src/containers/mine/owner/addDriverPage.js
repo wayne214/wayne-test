@@ -4,6 +4,8 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import * as API from '../../../constants/api';
+import HTTPRequest from '../../../utils/httpRequest';
 
 import {
     View,
@@ -19,7 +21,8 @@ import {
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
 import * as ConstValue from '../../../constants/constValue';
-import StaticImage from '../../../constants/staticImage'
+import StaticImage from '../../../constants/staticImage';
+import Toast from '@remobile/react-native-toast';
 
 const {height, width} = Dimensions.get('window');
 
@@ -56,30 +59,13 @@ class AddDriverPage extends BaseContainer {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
-        this.onChanegeTextKeyword.bind(this)
+        this.onChanegeTextKeyword.bind(this);
+        this.queryPhoneOrName = this.queryPhoneOrName.bind(this);
+        this.bindDriverToApp = this.bindDriverToApp.bind(this);
         this.state = {
             NumberArr: '',
-            branchList: [
-                {
-                    driverName: '吕布',
-                    driverPhone: '12345678901',
-                    Disabled: 'true',
-                },
-                {
-                    driverName: '赵云',
-                    driverPhone: '13888888882',
-                    Disabled: 'true',
-                },
-                {
-                    driverName: '典韦',
-                    driverPhone: '13888888883',
-                    Disabled: '禁用',
-                },
-                {
-                    driverName: '关羽',
-                    driverPhone: '13888888884',
-                    Disabled: 'true',
-                }],
+            driverOne: [
+                ],
             text: '',
             index: null,
             line: true,
@@ -87,6 +73,51 @@ class AddDriverPage extends BaseContainer {
         }
     }
 
+    queryPhoneOrName(text) {
+        HTTPRequest({
+            url: API.API_QUERY_DRIVERS_ALL,
+            params: {
+                phoneNumOrDriverName: text,
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                this.setState({
+                    driverOne: responseData.result,
+                });
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+    // 绑定司机
+    bindDriverToApp(driverId,driverPhone) {
+        HTTPRequest({
+            url: API.API_COMPANION_RELATION,
+            params: {
+                driverId: driverId,
+                driverPhone: driverPhone,
+                phoneNum: global.phone,
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                Toast.show('添加成功');
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
     //改变搜索的文本
     onChanegeTextKeyword(text) {
         this.timeA(text);
@@ -101,17 +132,17 @@ class AddDriverPage extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    branchList: this.state.NumberArr,
+                    driverOne: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    branchList: [],
+                    driverOne: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
+                            driverOne: this.state.driverOne.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -127,6 +158,7 @@ class AddDriverPage extends BaseContainer {
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
+        this.bindDriverToApp(item.id,item.driverPhone);
     }
 
     //列表的每一行
@@ -243,7 +275,11 @@ class AddDriverPage extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
-                            placeholder={'车牌号/姓名'}
+                            blurOnSubmit = {true}
+                            onSubmitEditing={(event) => {
+                                this.queryPhoneOrName(event.nativeEvent.text);
+                            }}
+                            placeholder={'手机号/姓名'}
                             onChangeText={(text) => {
                                 this.setState({
                                     text: text
@@ -282,7 +318,7 @@ class AddDriverPage extends BaseContainer {
                 </View>
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1}}
-                    data={this.state.branchList}
+                    data={this.state.driverOne}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
