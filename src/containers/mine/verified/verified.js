@@ -965,15 +965,6 @@ class Verified extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
-
-                        if (this.state.idCardTrunImage){
-                            console.log('this.state.idCardTrunImage', this.state.idCardTrunImage);
-
-                            console.log('this.state.idCardTrunImage.uri:', this.state.idCardTrunImage.uri);
-                        }else{
-                            console.log('./navigationBar/IdCardTurnAdd.png');
-                        }
-
                         let info = {
                             appLoading: false,
 

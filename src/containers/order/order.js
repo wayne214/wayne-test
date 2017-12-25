@@ -529,11 +529,13 @@ let transCodeListData3 = [];
             HTTPRequest({
                 url: API_URL,
                 params: {
+                    // carrierCode: this.state.currentStatus == 'driver' ? '' : ,
                     page: pageNum,
                     pageSize,
                     phone: global.phone,
                     plateNumber: global.plateNumber,
                     queryType,
+
                 },
                 loading: () => {
 
