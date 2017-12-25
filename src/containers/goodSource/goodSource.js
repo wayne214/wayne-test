@@ -121,7 +121,7 @@ class GoodSource extends BaseContainer{
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
     }
     // 获取数据
-    getData(status, beginTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
+    getData(status, endTime, getDataSuccessCallBack, getDataFailCallBack, pageNo) {
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
         // const plateNumber = this.props.userPlateNumber;
@@ -130,7 +130,7 @@ class GoodSource extends BaseContainer{
                 url: this.props.currentStatus == 'driver' ? API.API_NEW_GET_SOURCE_BY_DATE : API.API_CARRIER_GET_SOURCE_BY_DATE,
                 params: this.props.currentStatus == 'driver' ? {
                     beginTime: '2017-06-01 00:00:00',
-                    endTime: beginTime,
+                    endTime: endTime,
                     pageNum: pageNo,
                     pageSize,
                     driverPhone: global.phone,
@@ -138,9 +138,9 @@ class GoodSource extends BaseContainer{
                     plateNumber: global.plateNumber,
                 } : {
                     beginTime: '2017-06-01 00:00:00',
-                    carrierCode: "string",
+                    carrierCode: this.props.carrierCode,
                     driverPhone: global.phone,
-                    endTime: beginTime,
+                    endTime: endTime,
                     pageNum: pageNo,
                     pageSize,
                     status
@@ -261,7 +261,7 @@ class GoodSource extends BaseContainer{
         const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
         let goodTepesTemp = [];
         let goodTypesName = [];
-        if(orderDetaiTypeList.length > 0) {
+        if(orderDetaiTypeList && orderDetaiTypeList.length > 0) {
             let good = '';
             for (let i = 0; i < orderDetaiTypeList.length; i++) {
                 good = orderDetaiTypeList[i];
@@ -370,6 +370,7 @@ function mapStateToProps(state) {
     return {
         userPlateNumber: state.user.get('plateNumber'),
         currentStatus: state.user.get('currentStatus'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 

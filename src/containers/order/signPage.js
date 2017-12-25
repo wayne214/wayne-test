@@ -56,7 +56,7 @@ class signPage extends Component {
             isReceipt: params.taskInfo.isReceipt,
             loading: false,
         };
-
+        console.log('====products', this.state.products);
         this.productInfo = this.productInfo.bind(this);
         this.getSignIn = this.getSignIn.bind(this);
         this.getSignInSuccessCallBack = this.getSignInSuccessCallBack.bind(this);
@@ -142,12 +142,14 @@ class signPage extends Component {
                     signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
                     refuseDetail: productInfo.refuseDetailDtoList,
+                    paasLineNo: productInfo.paasLineNo, // 货品行号
                 });
             } else {
                 goodsInfo.push({
                     goodsId: productInfo.goodsId,
                     signNum: productInfo.signNum ? productInfo.signNum : productInfo.shipmentNum,
                     refuseNum: productInfo.refuseNum,
+                    paasLineNo: productInfo.paasLineNo, // 货品行号
                 });
             }
         }
@@ -323,8 +325,8 @@ class signPage extends Component {
 
 
         refuseDetailDtoList = refuseDetailDtoList1;
-
         const array = this.state.products;
+        console.log('=====array', array);
         // 取出对应的item
         const item = array[index];
         // 改变签收的值
@@ -373,6 +375,7 @@ class signPage extends Component {
                 refuseDetailDtoList,
                 goodsUnit: item.arNums && item.arNums !== '' &&  item.arNums !== '0' ? item.goodsUnit : 'Kg',
                 refuseReason: item.refuseReason,
+                paasLineNo: item.paasLineNo,
             };
         }
 
@@ -405,7 +408,7 @@ class signPage extends Component {
                     {
                         this.state.products.map((item, indexRow) => {
                             return (
-                                <View>
+                                <View key={indexRow}>
                                     <ProductInfoView
                                         key={indexRow}
                                         indexRow={indexRow}

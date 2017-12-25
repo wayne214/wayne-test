@@ -235,6 +235,7 @@ class entryToBeSignin extends Component {
     }
     // 获取数据成功回调
     sendOderSuccessCallBack(result) {
+        console.log('全部====', result);
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('获取订单详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '待签收订单详情页面');
