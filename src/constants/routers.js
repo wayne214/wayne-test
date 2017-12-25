@@ -120,6 +120,8 @@ import ArrangeDriverList from '../containers/order/carrier/arrangeDriverList';
 import ScanGPS from '../containers/order/scan/scanGPS';
 import BindGPS from '../containers/order/scan/bindGPS';
 import GPSDetails from '../containers/order/scan/gpsDetails';
+import BindCarPage from '../containers/mine/owner/driverManagement/bindCarPage';
+import BindDriverPage from '../containers/mine/owner/carManagement/bindDriverPage';
 
 
 
@@ -718,6 +720,18 @@ const StackRouteConfigs = {
     },
     GPSDetails: {
         screen: GPSDetails,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BindCarPage: {
+        screen: BindCarPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BindDriverPage: {
+        screen: BindDriverPage,
         navigationOptions: {
             header: null
         }

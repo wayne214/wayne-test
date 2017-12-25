@@ -131,6 +131,8 @@ export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieve
 export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
 //通过手机号或司机名称
 export const API_COMPANION_RELATION = `${HOST}/app/rmc/driver/addDriverCompanionRelation`;
+// 司机管理-绑定车辆
+export const API_RMC_DRIVER_BINDING_CAR = `${HOST}/app/rmc/driver/bindingCar`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口

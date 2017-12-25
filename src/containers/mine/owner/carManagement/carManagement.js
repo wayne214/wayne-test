@@ -161,6 +161,7 @@ class CarManagement extends BaseContainer {
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
+        this.props.navigation.navigate('BindDriverPage');
     }
 
     //列表的每一行

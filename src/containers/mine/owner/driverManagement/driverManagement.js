@@ -174,6 +174,9 @@ class DriverManagement extends BaseContainer {
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
+        this.props.navigation.navigate('BindCarPage',{
+            drManID:item.id
+        });
     }
 
     //列表的每一行
