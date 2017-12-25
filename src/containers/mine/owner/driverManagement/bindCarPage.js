@@ -16,6 +16,7 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter,
 } from 'react-native';
 import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
@@ -164,6 +165,7 @@ class BindCarPage extends BaseContainer {
             success: (responseData) => {
                 console.log('bindRelieveCar', responseData);
                 //todo 添加车辆成功 添加监听 跳转页面
+                DeviceEventEmitter.emit('bindCarPage');
             },
             error: (errorInfo) => {
 

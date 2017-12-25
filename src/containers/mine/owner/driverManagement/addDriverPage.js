@@ -314,7 +314,7 @@ class AddDriverPage extends BaseContainer {
                     </TouchableOpacity>
                 </View>
                 <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
-                    <Text style={{color: '#666666', fontsize: 15,marginLeft:10}}>添加司机</Text>
+                    <Text style={{color: '#666666', fontSize: 15,marginLeft:10}}>添加司机</Text>
                 </View>
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1}}

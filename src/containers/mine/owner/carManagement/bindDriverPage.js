@@ -18,6 +18,7 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter
 } from 'react-native';
 import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
@@ -61,7 +62,7 @@ class BindDriverPage extends BaseContainer {
         const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this);
         this.queryPhoneOrName = this.queryPhoneOrName.bind(this);
-        this.bindDriverToApp = this.bindDriverToApp.bind(this);
+        this.bindDriverToCar = this.bindDriverToCar.bind(this);
         this.state = {
             NumberArr: '',
             driverOne: [
@@ -70,6 +71,7 @@ class BindDriverPage extends BaseContainer {
             index: null,
             line: true,
             clickLine: 'a',
+            carId: this.props.navigation.state.params.carId,
         }
     }
 
@@ -96,19 +98,24 @@ class BindDriverPage extends BaseContainer {
         });
     }
     // 绑定司机
-    bindDriverToApp(driverId,driverPhone) {
+    bindDriverToCar(id) {
         HTTPRequest({
-            url: API.API_COMPANION_RELATION,
+            url: API.API_BIND_CAR_DRIVER_RELATION,
             params: {
-                driverId: driverId,
-                driverPhone: driverPhone,
-                phoneNum: global.phone,
+                bindRelieveFlag: 1,
+                carId: this.state.carId,
+                carNum: "",
+                companionId: "",
+                companionPhone: "",
+                driverIds: [id],
+                driverPhone: ""
             },
             loading: () => {
 
             },
             success: (responseData) => {
                 Toast.show('添加成功');
+                DeviceEventEmitter.emit('bindDriverPage');
             },
             error: (errorInfo) => {
 
@@ -158,7 +165,7 @@ class BindDriverPage extends BaseContainer {
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
-        this.bindDriverToApp(item.id,item.driverPhone);
+        this.bindDriverToCar(item.id);
     }
 
     //列表的每一行
@@ -314,7 +321,7 @@ class BindDriverPage extends BaseContainer {
                     </TouchableOpacity>
                 </View>
                 <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
-                    <Text style={{color: '#666666', fontsize: 15,marginLeft:10}}>添加司机</Text>
+                    <Text style={{color: '#666666', fontSize: 15,marginLeft:10}}>添加司机</Text>
                 </View>
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1}}

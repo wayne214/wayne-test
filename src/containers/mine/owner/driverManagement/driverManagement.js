@@ -16,6 +16,7 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter,
 } from 'react-native';
 import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
@@ -80,6 +81,16 @@ class DriverManagement extends BaseContainer {
             line: true,
             clickLine: 'a',
         }
+    }
+
+    componentDidMount() {
+        this.bindCarListener = DeviceEventEmitter.addListener('bindCarPage', () => {
+            this.queryDriverList();
+        });
+    }
+
+    componentWillUnmount() {
+        this.bindCarListener.remove();
     }
 
     //改变搜索的文本

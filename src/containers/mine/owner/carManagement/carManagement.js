@@ -16,6 +16,7 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter,
 } from 'react-native';
 import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
@@ -70,30 +71,22 @@ class CarManagement extends BaseContainer {
                 certificationStatus: '1202',
                 carStatus: '20',
                 drivers: '张三2，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-            },
-                {
-                    carNum: '京B12345',
-                    certificationStatus: '1202',
-                    carStatus: '20',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-                },
-                {
-                    carNum: '京C12345',
-                    certificationStatus: '1201',
-                    carStatus: '20',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-                },
-                {
-                    carNum: '京D12345',
-                    certificationStatus: '1204',
-                    carStatus: '10',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，'
-                }],
+            }],
             text: '',
             index: null,
             line: true,
             clickLine: 'a',
         }
+    }
+
+    componentDidMount() {
+        this.bindDriverListener = DeviceEventEmitter.addListener('bindDriverPage', () => {
+            this.queryCarList();
+        });
+    }
+
+    componentWillUnmount() {
+        this.bindDriverListener.remove();
     }
 
     //改变搜索的文本
@@ -160,8 +153,9 @@ class CarManagement extends BaseContainer {
     //点击城市cell
     cityClicked(item) {
         console.log('item', item);
-        // this.props.navigation.goBack();
-        this.props.navigation.navigate('BindDriverPage');
+        this.props.navigation.navigate('BindDriverPage',{
+            carId:item.carId
+        });
     }
 
     //列表的每一行
