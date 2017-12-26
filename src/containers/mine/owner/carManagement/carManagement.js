@@ -68,12 +68,14 @@ class CarManagement extends BaseContainer {
         this.queryCarList();
         this.state = {
             NumberArr: '',
-            carList: [{
-                carNum: '京A12345',
-                certificationStatus: '1202',
-                carStatus: '20',
-                drivers: '张三2，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-            }],
+            carList: [
+                // {
+                //     carNum: '京A12345',
+                //     certificationStatus: '1202',
+                //     carStatus: '20',
+                //     drivers: '张三2，李四，王五，张柳，问问，的我，问问去，驱蚊器'
+                // }
+            ],
             text: '',
             index: null,
             line: true,
@@ -85,10 +87,14 @@ class CarManagement extends BaseContainer {
         this.bindDriverListener = DeviceEventEmitter.addListener('bindDriverPage', () => {
             this.queryCarList();
         });
+        this.addCarListener = DeviceEventEmitter.addListener('addCarPage', () => {
+            this.queryCarList();
+        });
     }
 
     componentWillUnmount() {
         this.bindDriverListener.remove();
+        this.addCarListener.remove();
     }
 
     //改变搜索的文本
@@ -210,8 +216,8 @@ class CarManagement extends BaseContainer {
     //点击城市cell
     cityClicked(item) {
         console.log('item', item);
-        this.props.navigation.navigate('BindDriverPage',{
-            carId:item.carId
+        this.props.navigation.navigate('BindDriverPage', {
+            carId: item.carId
         });
     }
 
@@ -388,7 +394,7 @@ class CarManagement extends BaseContainer {
                         <TextInput
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
-                            blurOnSubmit = {true}
+                            blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 this.queryCarOne(event.nativeEvent.text);
                             }}

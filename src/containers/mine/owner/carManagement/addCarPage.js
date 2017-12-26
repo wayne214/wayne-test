@@ -10,7 +10,7 @@ import {
     Text,
     Image,
     StyleSheet,
-    ScrollView,
+    DeviceEventEmitter,
     Dimensions,
     TextInput,
     FlatList,
@@ -22,6 +22,7 @@ import * as ConstValue from '../../../../constants/constValue';
 import StaticImage from '../../../../constants/staticImage'
 import * as API from '../../../../constants/api';
 import HTTPRequest from '../../../../utils/httpRequest';
+import Toast from '@remobile/react-native-toast';
 
 const {height, width} = Dimensions.get('window');
 
@@ -63,17 +64,18 @@ class AddCarPage extends BaseContainer {
         this.state = {
             NumberArr: '',
             carList: [
-                {
-                    carId: "f594c68f99414b139f5630bb3fb7d322",
-                    carLen: null,
-                    carNum: "京Aaaaaa",
-                    carPhone: null,
-                    carStatus: 20,
-                    carryCapacity: null,
-                    certificationStatus: null,
-                    companionId: null,
-                    drivers: null
-                }],
+                // {
+                //     carId: "f594c68f99414b139f5630bb3fb7d322",
+                //     carLen: null,
+                //     carNum: "京Aaaaaa",
+                //     carPhone: null,
+                //     carStatus: 20,
+                //     carryCapacity: null,
+                //     certificationStatus: null,
+                //     companionId: null,
+                //     drivers: null
+                // }
+                ],
             text: '',
             index: null,
             line: true,
@@ -166,7 +168,9 @@ class AddCarPage extends BaseContainer {
 
             },
             success: (responseData) => {
-                console.log('bindRelieveCar', '成功')
+                Toast.show('添加成功');
+                DeviceEventEmitter.emit('addCarPage');
+                this.props.navigation.goBack();
             },
             error: (errorInfo) => {
 

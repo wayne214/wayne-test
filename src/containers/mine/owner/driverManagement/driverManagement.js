@@ -88,10 +88,14 @@ class DriverManagement extends BaseContainer {
         this.bindCarListener = DeviceEventEmitter.addListener('bindCarPage', () => {
             this.queryDriverList();
         });
+        this.addDriverListener = DeviceEventEmitter.addListener('addDriverPage', () => {
+            this.queryDriverList();
+        });
     }
 
     componentWillUnmount() {
         this.bindCarListener.remove();
+        this.addDriverListener.remove();
     }
 
     //改变搜索的文本

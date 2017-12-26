@@ -18,6 +18,7 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter,
 } from 'react-native';
 import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
@@ -109,6 +110,8 @@ class AddDriverPage extends BaseContainer {
             },
             success: (responseData) => {
                 Toast.show('添加成功');
+                DeviceEventEmitter.emit('addDriverPage');
+                this.props.navigation.goBack();
             },
             error: (errorInfo) => {
 

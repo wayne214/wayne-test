@@ -116,6 +116,7 @@ class BindDriverPage extends BaseContainer {
             success: (responseData) => {
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('bindDriverPage');
+                this.props.navigation.goBack();
             },
             error: (errorInfo) => {
 

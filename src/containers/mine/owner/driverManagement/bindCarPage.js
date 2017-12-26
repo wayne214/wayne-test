@@ -63,17 +63,18 @@ class BindCarPage extends BaseContainer {
         this.state = {
             NumberArr: '',
             carList: [
-                {
-                    carId: "f594c68f99414b139f5630bb3fb7d322",
-                    carLen: null,
-                    carNum: "京Aaaaaa",
-                    carPhone: null,
-                    carStatus: 20,
-                    carryCapacity: null,
-                    certificationStatus: null,
-                    companionId: null,
-                    drivers: null
-                }],
+                // {
+                //     carId: "f594c68f99414b139f5630bb3fb7d322",
+                //     carLen: null,
+                //     carNum: "京Aaaaaa",
+                //     carPhone: null,
+                //     carStatus: 20,
+                //     carryCapacity: null,
+                //     certificationStatus: null,
+                //     companionId: null,
+                //     drivers: null
+                // }
+            ],
             text: '',
             index: null,
             line: true,
@@ -122,7 +123,7 @@ class BindCarPage extends BaseContainer {
         HTTPRequest({
             url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
             params: {
-                carNum: '京A12345',
+                carNum: carNum,
                 bindRelieveFlag: 0,
                 carId: "",
                 companionId: "",
@@ -157,7 +158,7 @@ class BindCarPage extends BaseContainer {
             params: {
                 carId: [item.carId],
                 driverPhone: '', // 司机时手机号
-                id:this.state.drManID,
+                id: this.state.drManID,
             },
             loading: () => {
 
@@ -166,6 +167,7 @@ class BindCarPage extends BaseContainer {
                 console.log('bindRelieveCar', responseData);
                 //todo 添加车辆成功 添加监听 跳转页面
                 DeviceEventEmitter.emit('bindCarPage');
+                this.props.navigation.goBack();
             },
             error: (errorInfo) => {
 
