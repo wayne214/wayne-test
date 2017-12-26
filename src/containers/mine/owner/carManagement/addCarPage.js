@@ -121,7 +121,7 @@ class AddCarPage extends BaseContainer {
         HTTPRequest({
             url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
             params: {
-                carNum: '京A12345',
+                carNum: carNum,
                 bindRelieveFlag: 0,
                 carId: "",
                 companionId: "",
@@ -166,10 +166,7 @@ class AddCarPage extends BaseContainer {
 
             },
             success: (responseData) => {
-                console.log('bindRelieveCar', responseData)
-                if(responseData.result){
-                    console.log('aa','添加成功')
-                }
+                console.log('bindRelieveCar', '成功')
             },
             error: (errorInfo) => {
 

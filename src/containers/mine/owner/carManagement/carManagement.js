@@ -63,6 +63,7 @@ class CarManagement extends BaseContainer {
         const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this);
         this.queryCarList = this.queryCarList.bind(this);
+        this.unBindRelieveCar = this.unBindRelieveCar.bind(this);
         this.queryCarList();
         this.state = {
             NumberArr: '',
@@ -130,7 +131,7 @@ class CarManagement extends BaseContainer {
             url: API.API_QUERY_CAR_LIST_BY_COMPANIONINFO,
             params: {
                 carStatus: '',
-                companionPhone: '13120382724',
+                companionPhone: global.phone,
             },
             loading: () => {
 
@@ -140,6 +141,35 @@ class CarManagement extends BaseContainer {
                 this.setState({
                     carList: responseData.result,
                 });
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    /* 解除车辆绑定 */
+    unBindRelieveCar(item) {
+        HTTPRequest({
+            url: API.API_BIND_RELIEVE_CAR_COMPANION,
+            params: {
+                bindRelieveFlag: 2, // 1是绑定  其余是解除
+                carId: item.carId,
+                carNum: item.carNum,
+                companionId: item.companionId,
+                companionPhone: global.phone, //车主手机号
+                driverIds: [],
+                driverPhone: '' // 司机时手机号
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                console.log('unBindRelieveCar', responseData)
+                this.queryCarList();
             },
             error: (errorInfo) => {
 
@@ -166,7 +196,7 @@ class CarManagement extends BaseContainer {
                 text: '删除',
                 backgroundColor: 'red',
                 onPress: () => {
-
+                    this.unBindRelieveCar(item);
                 },
 
             }
