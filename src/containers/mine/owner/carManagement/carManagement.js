@@ -64,6 +64,7 @@ class CarManagement extends BaseContainer {
         this.onChanegeTextKeyword.bind(this);
         this.queryCarList = this.queryCarList.bind(this);
         this.unBindRelieveCar = this.unBindRelieveCar.bind(this);
+        this.queryCarOne = this.queryCarOne.bind(this);
         this.queryCarList();
         this.state = {
             NumberArr: '',
@@ -130,6 +131,7 @@ class CarManagement extends BaseContainer {
         HTTPRequest({
             url: API.API_QUERY_CAR_LIST_BY_COMPANIONINFO,
             params: {
+                carNum: '',
                 carStatus: '',
                 companionPhone: global.phone,
             },
@@ -141,6 +143,31 @@ class CarManagement extends BaseContainer {
                 this.setState({
                     carList: responseData.result,
                 });
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    queryCarOne(carNum) {
+        HTTPRequest({
+            url: API.API_QUERY_CAR_LIST_BY_COMPANIONINFO,
+            params: {
+                carNum: carNum,
+                carStatus: '',
+                companionPhone: global.phone,
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                this.setState({
+                    carList: responseData.result,
+                })
             },
             error: (errorInfo) => {
 
@@ -363,7 +390,7 @@ class CarManagement extends BaseContainer {
                             underlineColorAndroid="transparent"
                             blurOnSubmit = {true}
                             onSubmitEditing={(event) => {
-                                console.log('aa',event.nativeEvent.text)
+                                this.queryCarOne(event.nativeEvent.text);
                             }}
                             maxLength={20}
                             value={text}

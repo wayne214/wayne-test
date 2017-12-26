@@ -64,17 +64,18 @@ class DriverManagement extends BaseContainer {
         this.onChanegeTextKeyword.bind(this);
         this.queryDriverList = this.queryDriverList.bind(this);
         this.queryDriverOne = this.queryDriverOne.bind(this);
+        this.unBindRelieveDriver = this.unBindRelieveDriver.bind(this);
         this.queryDriverList();
         this.state = {
 
             NumberArr: '',
             driverList: [
-            //     {
-            //     driverName: '车车1',
-            //     certificationStatus: 'null',
-            //     stauts: '20',
-            //     carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
-            // }
+                //     {
+                //     driverName: '车车1',
+                //     certificationStatus: 'null',
+                //     stauts: '20',
+                //     carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                // }
             ],
             text: '',
             index: null,
@@ -181,12 +182,36 @@ class DriverManagement extends BaseContainer {
         });
     }
 
+    /* 解除司机绑定 */
+    unBindRelieveDriver(item) {
+        HTTPRequest({
+            url: API.API_DEL_DRIVER_COMPANION_RELATION,
+            params: {
+                driverId: item.id,
+                driverPhone: '',
+                phoneNum: global.phone
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                this.queryDriverList();
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     //点击城市cell
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
-        this.props.navigation.navigate('BindCarPage',{
-            drManID:item.id
+        this.props.navigation.navigate('BindCarPage', {
+            drManID: item.id
         });
     }
 
@@ -198,7 +223,7 @@ class DriverManagement extends BaseContainer {
                 text: '删除',
                 backgroundColor: 'red',
                 onPress: () => {
-
+                    this.unBindRelieveDriver(item);
                 },
 
             }
@@ -230,17 +255,22 @@ class DriverManagement extends BaseContainer {
                                 style={{height: 36, width: 36}}
                                 source={StaticImage.DriverAvatar}></Image>
                             <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
-                            <View style={{marginLeft: width - 180,justifyContent:'center',width:90,alignItems:'center',}}>
-                            {item.status == 10 ?
-                                <Text style={{ fontSize: 14, color: '#FA5741'}}>
-                                    禁用
-                                </Text> :
+                            <View style={{
+                                marginLeft: width - 180,
+                                justifyContent: 'center',
+                                width: 90,
+                                alignItems: 'center',
+                            }}>
+                                {item.status == 10 ?
+                                    <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                        禁用
+                                    </Text> :
                                     item.certificationStatus == '1202' ?
-                                        <Text style={{ fontSize: 14, color: '#0071FF'}}>
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
                                             认证通过
                                         </Text>
                                         : item.certificationStatus == '1201' ?
-                                        <Text style={{ fontSize: 14, color: '#0071FF'}}>
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
                                             认证中
                                         </Text>
                                         : item.certificationStatus == '1203' ?
@@ -251,7 +281,7 @@ class DriverManagement extends BaseContainer {
                                             <Text style={{fontSize: 14, color: '#0071FF'}}>
                                                 未认证
                                             </Text>
-                            }
+                                }
                             </View>
                         </View>
                         <View style={{marginLeft: 45}}>
@@ -362,7 +392,7 @@ class DriverManagement extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
-                            blurOnSubmit = {true}
+                            blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 this.queryDriverOne(event.nativeEvent.text);
                             }}
