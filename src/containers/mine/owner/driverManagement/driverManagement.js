@@ -1,5 +1,5 @@
 /**
- * 车辆管理
+ * 司机管理
  * by：wl
  */
 import React, {Component} from 'react';
@@ -16,14 +16,15 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    DeviceEventEmitter,
 } from 'react-native';
-import BaseContainer from '../../base/baseContainer';
-import * as ConstValue from '../../../constants/constValue';
-import StaticImage from '../../../constants/staticImage'
+import BaseContainer from '../../../base/baseContainer';
+import * as ConstValue from '../../../../constants/constValue';
+import StaticImage from '../../../../constants/staticImage'
 import Swipeout from 'react-native-swipeout';
 import Button from 'apsl-react-native-button';
-import * as API from '../../../constants/api';
-import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../../constants/api';
+import HTTPRequest from '../../../../utils/httpRequest';
 
 const {height, width} = Dimensions.get('window');
 
@@ -55,45 +56,46 @@ const styles = StyleSheet.create({
     },
 });
 
-class CarManagement extends BaseContainer {
+class DriverManagement extends BaseContainer {
 
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
         this.onChanegeTextKeyword.bind(this);
-        this.queryCarList = this.queryCarList.bind(this);
-        this.queryCarList();
+        this.queryDriverList = this.queryDriverList.bind(this);
+        this.queryDriverOne = this.queryDriverOne.bind(this);
+        this.unBindRelieveDriver = this.unBindRelieveDriver.bind(this);
+        this.queryDriverList();
         this.state = {
+
             NumberArr: '',
-            carList: [{
-                carNum: '京A12345',
-                certificationStatus: '1202',
-                carStatus: '20',
-                drivers: '张三2，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-            },
-                {
-                    carNum: '京B12345',
-                    certificationStatus: '1202',
-                    carStatus: '20',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-                },
-                {
-                    carNum: '京C12345',
-                    certificationStatus: '1201',
-                    carStatus: '20',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，张三，李四，王五，张柳，问问，的我，问问去，驱蚊器'
-                },
-                {
-                    carNum: '京D12345',
-                    certificationStatus: '1204',
-                    carStatus: '10',
-                    drivers: '张三，李四，王五，张柳，问问，的我，问问去，驱蚊器，'
-                }],
+            driverList: [
+                //     {
+                //     driverName: '车车1',
+                //     certificationStatus: 'null',
+                //     stauts: '20',
+                //     carNums: '京A12345，京B12345，京A12345，京B12345，京A12345，京B12345，京A12345，京B12345'
+                // }
+            ],
             text: '',
             index: null,
             line: true,
             clickLine: 'a',
         }
+    }
+
+    componentDidMount() {
+        this.bindCarListener = DeviceEventEmitter.addListener('bindCarPage', () => {
+            this.queryDriverList();
+        });
+        this.addDriverListener = DeviceEventEmitter.addListener('addDriverPage', () => {
+            this.queryDriverList();
+        });
+    }
+
+    componentWillUnmount() {
+        this.bindCarListener.remove();
+        this.addDriverListener.remove();
     }
 
     //改变搜索的文本
@@ -110,17 +112,17 @@ class CarManagement extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    carList: this.state.NumberArr,
+                    driverList: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    carList: [],
+                    driverList: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            carList: this.state.carList.concat(this.state.NumberArr[i]),
+                            driverList: this.state.driverList.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -132,21 +134,72 @@ class CarManagement extends BaseContainer {
 
     }
 
-    queryCarList() {
+    queryDriverList() {
         HTTPRequest({
-            url: API.API_QUERY_CAR_LIST_BY_COMPANIONINFO,
+            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM,
             params: {
-                carStatus: '',
-                companionPhone: '13120382724',
+                driverName: '',
+                phoneNum: global.phone
             },
             loading: () => {
 
             },
             success: (responseData) => {
-                console.log('carManagement', responseData)
+                console.log('queryDriverList', responseData)
                 this.setState({
-                    carList: responseData.result,
+                    driverList: responseData.result,
                 });
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    queryDriverOne(text) {
+        HTTPRequest({
+            url: API.API_QUERY_CAR_LIST_BY_PHONE_NUM,
+            params: {
+                driverName: text,
+                // phoneNum: '13120382724'
+                phoneNum: global.phone
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                this.setState({
+                    driverList: responseData.result,
+                });
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    /* 解除司机绑定 */
+    unBindRelieveDriver(item) {
+        HTTPRequest({
+            url: API.API_DEL_DRIVER_COMPANION_RELATION,
+            params: {
+                driverId: item.id,
+                driverPhone: '',
+                phoneNum: global.phone
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                this.queryDriverList();
             },
             error: (errorInfo) => {
 
@@ -161,6 +214,9 @@ class CarManagement extends BaseContainer {
     cityClicked(item) {
         console.log('item', item);
         // this.props.navigation.goBack();
+        this.props.navigation.navigate('BindCarPage', {
+            drManID: item.id
+        });
     }
 
     //列表的每一行
@@ -171,7 +227,7 @@ class CarManagement extends BaseContainer {
                 text: '删除',
                 backgroundColor: 'red',
                 onPress: () => {
-
+                    this.unBindRelieveDriver(item);
                 },
 
             }
@@ -201,44 +257,46 @@ class CarManagement extends BaseContainer {
                         <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
                             <Image
                                 style={{height: 36, width: 36}}
-                                source={StaticImage.CarAvatar}></Image>
-                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
-                            {item.carStatus == 10 ?
-                                <Text style={{marginLeft: width - 180, fontSize: 14, color: '#FA5741'}}>
-                                    禁用
-                                </Text> :
-                                item.certificationStatus == '1202' ?
-                                    <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
-                                        认证通过
-                                    </Text>
-                                    : item.certificationStatus == '1201' ?
-                                    <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
-                                        认证中
-                                    </Text>
-                                    : item.certificationStatus == '1203' ?
-                                        <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
-                                            认证驳回
+                                source={StaticImage.DriverAvatar}></Image>
+                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                            <View style={{
+                                marginLeft: width - 180,
+                                justifyContent: 'center',
+                                width: 90,
+                                alignItems: 'center',
+                            }}>
+                                {item.status == 10 ?
+                                    <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                        禁用
+                                    </Text> :
+                                    item.certificationStatus == '1202' ?
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                            认证通过
                                         </Text>
-                                        :
-                                        <Text style={{marginLeft: width - 180, fontSize: 14, color: '#FA5741'}}>
-                                            禁用
+                                        : item.certificationStatus == '1201' ?
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                            认证中
                                         </Text>
-                            }
-
+                                        : item.certificationStatus == '1203' ?
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                认证驳回
+                                            </Text>
+                                            :
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                未认证
+                                            </Text>
+                                }
+                            </View>
                         </View>
                         <View style={{marginLeft: 45}}>
                             {this.state.line && this.state.clickLine == index ?
                                 <Text
                                     style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
                                 >
-                                    关联司机：{item.drivers}</Text>
+                                    关联车辆：{item.carNums}</Text>
                                 : <Text
                                     numberOfLines={1}
-                                    style={{
-                                        fontSize: 14,
-                                        lineHeight: 24,
-                                        color: '#3F3F3F'
-                                    }}>关联司机：{item.drivers}</Text>
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{item.carNums}</Text>
                             }
 
                             {this.state.line && this.state.clickLine == index ?
@@ -261,7 +319,7 @@ class CarManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.certificationStatus != '10' ?
+                            {item.status != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
@@ -276,7 +334,7 @@ class CarManagement extends BaseContainer {
                                             borderColor: '#999999',
                                             borderWidth: 0.5,
                                         }}>
-                                        <Text style={{color: 'black', fontSize: 14}}>绑定司机</Text>
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
                                     </View>
                                 </TouchableOpacity>
                                 : null
@@ -336,13 +394,13 @@ class CarManagement extends BaseContainer {
                         <TextInput
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
-                            blurOnSubmit = {true}
-                            onSubmitEditing={(event) => {
-                                console.log('aa',event.nativeEvent.text)
-                            }}
                             maxLength={20}
                             value={text}
-                            placeholder={'车牌号'}
+                            blurOnSubmit={true}
+                            onSubmitEditing={(event) => {
+                                this.queryDriverOne(event.nativeEvent.text);
+                            }}
+                            placeholder={'司机姓名'}
                             onChangeText={(text) => {
                                 this.setState({
                                     text: text
@@ -379,7 +437,7 @@ class CarManagement extends BaseContainer {
 
                 <FlatList
                     style={{backgroundColor: '#F4F4F4', flex: 1, paddingTop: 10}}
-                    data={this.state.carList}
+                    data={this.state.driverList}
                     renderItem={this.renderItemView.bind(this)}
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
@@ -398,10 +456,10 @@ class CarManagement extends BaseContainer {
                     }}
                     textStyle={{color: 'white', fontSize: 18}}
                     onPress={() => {
-                        this.props.navigation.navigate('AddCarPage');
+                        this.props.navigation.navigate('AddDriverPage');
                     }}
                 >
-                    添加车辆
+                    添加司机
                 </Button>
             </View>
 
@@ -417,6 +475,6 @@ function mapDispatchToProps(dispatch) {
     return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarManagement);
+export default connect(mapStateToProps, mapDispatchToProps)(DriverManagement);
 
 

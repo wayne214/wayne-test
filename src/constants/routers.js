@@ -98,8 +98,8 @@ import CompanyCarOwnerAuth from '../containers/mine/verified/companyCarOwnerAuth
 import AddCarDriver from '../containers/mine/driver/addCarDriver';
 import EnterpriseownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/enterpriseownerVerifiedState';
 import PersonownerVerifiedStatePage from '../containers/mine/verified/ownerVerified/personownerVerifiedState';
-import DriverManagement from '../containers/mine/owner/driverManagement';
-import CarManagement from '../containers/mine/owner/carManagement';
+import DriverManagement from '../containers/mine/owner/driverManagement/driverManagement';
+import CarManagement from '../containers/mine/owner/carManagement/carManagement';
 
 // 上报道路异常界面
 import UploadAbnormal from '../containers/home/uploadAbnormal';
@@ -109,8 +109,8 @@ import VideoShow from '../containers/home/videoShow';
 import TakePhotoFinished from '../containers/home/takePhotoFinished';
 import RecordVideoFinished from '../containers/home/recordVideoFinished';
 
-import AddDriverPage from '../containers/mine/owner/addDriverPage';
-import AddCarPage from '../containers/mine/owner/addCarPage';
+import AddDriverPage from '../containers/mine/owner/driverManagement/addDriverPage';
+import AddCarPage from '../containers/mine/owner/carManagement/addCarPage';
 
 // 安排车辆列表界面
 import ArrangeCarList from '../containers/order/carrier/arrangeCarList';
@@ -120,6 +120,8 @@ import ArrangeDriverList from '../containers/order/carrier/arrangeDriverList';
 import ScanGPS from '../containers/order/scan/scanGPS';
 import BindGPS from '../containers/order/scan/bindGPS';
 import GPSDetails from '../containers/order/scan/gpsDetails';
+import BindCarPage from '../containers/mine/owner/driverManagement/bindCarPage';
+import BindDriverPage from '../containers/mine/owner/carManagement/bindDriverPage';
 
 
 
@@ -718,6 +720,18 @@ const StackRouteConfigs = {
     },
     GPSDetails: {
         screen: GPSDetails,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BindCarPage: {
+        screen: BindCarPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    BindDriverPage: {
+        screen: BindDriverPage,
         navigationOptions: {
             header: null
         }
