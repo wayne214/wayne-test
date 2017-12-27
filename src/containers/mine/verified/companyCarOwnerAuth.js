@@ -553,12 +553,7 @@ class companyCarOwnerAuth extends Component {
         console.log('默认解析的统一社会信用代码',this.state.unifiedSocialCreditCode);
         console.log('默认营业执照有效期',this.state.businessValidity);
 
-
-
-
-
         //     个人            企业
-        userPhone = global.phone;
         let upLoadInfo = {
             userId: userID,
             userName: userName,
@@ -601,7 +596,7 @@ class companyCarOwnerAuth extends Component {
         };
 
         HTTPRequest({
-            url: API.API_COMPANY_CERTIFICATION
+            url: API.API_COMPANY_CERTIFICATION,
             params:upLoadInfo,
             loading: () => {
                 this.setState({
