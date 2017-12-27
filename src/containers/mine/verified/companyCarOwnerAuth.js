@@ -36,6 +36,7 @@ import Validator from '../../../utils/validator';
 import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
+import HTTPRequest from '../../../utils/httpRequest';
 
 
 const businessTrunRightImage = require('./images/business_right_add.png');
@@ -467,8 +468,8 @@ class companyCarOwnerAuth extends Component {
                                 leadPersonName: respones.result.idName, // 法人姓名
                                 leadPersonCardCode: respones.result.idNum, // 法人身份证号
 
-                                legalPersonPositiveCard: respones.result.legalPersonPositiveCard,
-                                legalPersonPositiveCardThumbnail: respones.result.legalPersonPositiveCardThumbnail,
+                                legalPersonPositiveCard: respones.result.idFaceSideNormalPhotoAddress,
+                                legalPersonPositiveCardThumbnail: respones.result.idFaceSideThumbnailAddress,
                             });
 
                             isShowCardInfo = true;
@@ -480,10 +481,10 @@ class companyCarOwnerAuth extends Component {
                             this.setState({
                                 IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
 
-                                leadPersonCardCodeTime: respones.result.idValidUntil, //法人身份证有效期至
+                                leadPersonCardCodeTime: Validator.timeTrunToDateString(respones.result.idValidUntil), //法人身份证有效期至
 
-                                legalPersonOppositeCard: respones.result.legalPersonOppositeCard,
-                                legalPersonOppositeCardThumbnail: respones.result.legalPersonOppositeCardThumbnail,
+                                legalPersonOppositeCard: respones.result.idBackSideNormalPhotoAddress,
+                                legalPersonOppositeCardThumbnail: respones.result.idBackSideThumbnailAddress,
                             });
                             isShowCardInfo = true;
                             break;
@@ -504,7 +505,7 @@ class companyCarOwnerAuth extends Component {
                                 person: respones.result.person, // 解析的法人名称
                                 comAddress: respones.result.address, // 解析的公司地址
                                 unifiedSocialCreditCode: respones.result.regNum, // 解析的统一社会信用代码
-
+                                businessValidity: Validator.timeTrunToDateString(respones.result.validNeriod), // 营业执照有效期
                             });
                             isShowCompanyInfo = true;
                             break;
@@ -533,15 +534,15 @@ class companyCarOwnerAuth extends Component {
         console.log('法人身份证名字',this.state.IDName);
         console.log('法人身份证号',this.state.IDCard);
         console.log('法人身份证有效期',this.state.IDDate);
-        console.log('法人身份证正面图片',this.state.idCardImage);
-        console.log('法人身份证反面图片',this.state.idCardTrunImage);
+        console.log('法人身份证正面图片',this.state.legalPersonPositiveCard);
+        console.log('法人身份证正面图缩略图片',this.state.legalPersonPositiveCardThumbnail);
         console.log('公司名称',this.state.companyName);
         console.log('公司所有人',this.state.companyOwnerName);
         console.log('公司地址',this.state.companyAddress);
         console.log('社会编码',this.state.companyCode);
         console.log('营业执照有效期',this.state.businessLicenseValidUntil);
-        console.log('营业执照图片',this.state.businessTrunRightImage);
-
+        console.log('营业执照原图',this.state.businessLicence);
+        console.log('营业执照缩略图',this.state.businessLicenceThumbnail);
 
         console.log('默认法人姓名',this.state.leadPersonName);
         console.log('默认法人身份证号',this.state.leadPersonCardCode);
@@ -556,16 +557,16 @@ class companyCarOwnerAuth extends Component {
 
 
 
-        //  Personalowner   个人         Enterpriseowner   企业
+        //     个人            企业
         userPhone = global.phone;
         let upLoadInfo = {
-            userID: userID,
+            userId: userID,
             userName: userName,
-            userPhone: userPhone,
-            companyNature: 'Enterpriseowner', // 伙伴性质
+            busTel: userPhone,
+            companyNature: '企业', // 伙伴性质
 
             businessLicence: this.state.businessLicence, // 营业执照图片原图地址
-            businessCardPhotoThumb: this.state.businessCardPhotoThumb, // 营业执照图片缩略图地址
+            businessLicenceThumbnail: this.state.businessCardPhotoThumb, // 营业执照图片缩略图地址
 
             legalPersonPositiveCard: this.state.legalPersonPositiveCard, // 法人身份证正面原图地址
             legalPersonPositiveCardThumbnail: this.state.legalPersonPositiveCardThumbnail, // 法人身份证正面缩略图地址
@@ -575,26 +576,49 @@ class companyCarOwnerAuth extends Component {
 
             // 图片解析信息
             rmcAnalysisAndContrastQo: {
-                leadPersonName: '', // 法人姓名
-                leadPersonCardCode: '', // 法人身份证号
-                leadPersonCardCodeTime: '', //法 人身份证有效期至
-                comName: '', // 解析的公司名称
-                person: '', // 解析的法人名称
-                comAddress: '', // 解析的公司地址
-                unifiedSocialCreditCode: '', // 解析的统一社会信用代码
-                businessValidity: '', // 营业执照有效期
 
-                manualLegalIdCardName: '', // 编辑的姓名
-                manualLegalIdCard: '', // 编辑的姓名法人身份证号
-                manualLegalIdCardValidity: '', // 修改法人身份证有效期
-                manualComName: '', // 修改的公司名称
-                manualPerson: '', // 修改的法人名称
-                manualComAddress: '', // 修改的公司地址
-                manualUnifiedSocialCreditCode: '', // 修改的统一社会信用代码
-                manualBusinessValidity: '', // 修改的营业执照有效期
+                // 手动修改
+                manualLegalIdCardName: this.state.IDName, // 法人姓名
+                manualLegalIdCard: this.state.IDCard, // 法人身份证号
+                manualLegalIdCardValidity: this.state.IDDate, //法 人身份证有效期至
+                manualComName: this.state.companyName, // 解析的公司名称
+                manualPerson: this.state.companyOwnerName, // 解析的法人名称
+                manualComAddress: this.state.companyAddress, // 解析的公司地址
+                manualUnifiedSocialCreditCode: this.state.companyCode, // 解析的统一社会信用代码
+                manualBusinessValidity: this.state.businessLicenseValidUntil, // 营业执照有效期
 
+
+                // 解析
+                legalIdCardName: this.state.leadPersonName, // 编辑的姓名
+                legalIdCard: this.state.leadPersonCardCode, // 编辑的姓名法人身份证号
+                legalIdCardValidity: this.state.leadPersonCardCodeTime, // 修改法人身份证有效期
+                comName: this.state.comName, // 修改的公司名称
+                person: this.state.person, // 修改的法人名称
+                comAddress: this.state.comAddress, // 修改的公司地址
+                unifiedSocialCreditCode: this.state.unifiedSocialCreditCode, // 修改的统一社会信用代码
+                businessValidity: this.state.businessValidity, // 修改的营业执照有效期
             }
-        }
+        };
+
+        HTTPRequest({
+            url: API.API_COMPANY_CERTIFICATION
+            params:upLoadInfo,
+            loading: () => {
+                this.setState({
+                    appLoading: true,
+                });
+            },
+            success: (responseData) => {
+
+            },
+            error: (errorInfo) => {
+            },
+            finish: () => {
+                this.setState({
+                    appLoading: false,
+                });
+            }
+        });
     }
 
     render() {
@@ -617,7 +641,7 @@ class companyCarOwnerAuth extends Component {
                                     }}
                                     textOnFocus={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 300, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 500, animated: true});
                                         }
 
                                     }}
@@ -710,6 +734,16 @@ class companyCarOwnerAuth extends Component {
                             isChooseCompanyImage: this.state.isChooseCompanyImage,
                             isChooseBusinessLicenseValidImage: this.state.isChooseBusinessLicenseValidImage,
                             isChooseBusinessLicenseValidTrunImage: this.state.isChooseBusinessLicenseValidTrunImage,
+
+                            // 默认
+                            leadPersonName: this.state.leadPersonName, // 法人姓名
+                            leadPersonCardCode: this.state.leadPersonCardCode, // 法人身份证号
+                            leadPersonCardCodeTime: this.state.leadPersonCardCodeTime, //法 人身份证有效期至
+                            comName: this.state.comName, // 解析的公司名称
+                            person: this.state.person, // 解析的法人名称
+                            comAddress: this.state.comAddress, // 解析的公司地址
+                            unifiedSocialCreditCode: this.state.unifiedSocialCreditCode, // 解析的统一社会信用代码
+                            businessValidity: this.state.businessValidity, // 营业执照有效期
 
 
                         };
