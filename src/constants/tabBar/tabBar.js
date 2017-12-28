@@ -67,6 +67,7 @@ const TabRouteConfigs = {
             tabBarOnPress:(scene, jumpToIndex) => {
                 if(global.certificationState && global.certificationState == '1202') {
                     if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                        DeviceEventEmitter.emit('resetGood');
                         jumpToIndex(scene.index)
                     }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
                         DeviceEventEmitter.emit('notifyCarStatus');

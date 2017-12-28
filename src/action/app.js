@@ -16,6 +16,13 @@ export const getHomePageCountAction = (data) => {
         payload: data,
     };
 };
+// 获取首页状态数量
+export const getCarrierHomoPageCountAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_GET_CARRIER_HOME_PAGE_COUNT,
+        payload: data,
+    };
+};
 export const mainPressAction = (orderTab) => {
     return {
         type: ActionTypes.ACTION_MAIN_PRESS,

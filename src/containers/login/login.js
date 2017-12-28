@@ -406,7 +406,7 @@ class Login extends BaseContainer {
                             this.props.setDriverCharacterAction('2') :
                             this.props.setDriverCharacterAction('3')
 
-                        this.props.setCurrentCharacterAction('driver')
+                        this.props.setCurrentCharacterAction('driver');
                         this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 

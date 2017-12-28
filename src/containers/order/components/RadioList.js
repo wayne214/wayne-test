@@ -193,10 +193,10 @@ class RadioList extends Component{
                             source={StaticImage.CarAvatar}
                         />
                         <View style={{flex: 1,justifyContent: 'center'}}>
-                            <Text style={styles.plateNumText}>{item.plateNumber}</Text>
+                            <Text style={styles.plateNumText}>{item.carNum}</Text>
                             <View style={{flexDirection: 'row'}}>
-                                <Text style={styles.carText}>{item.carLength}</Text>
-                                <Text style={styles.carText}>{item.carWeight}</Text>
+                                <Text style={styles.carText}>{item.carLen}</Text>
+                                <Text style={styles.carText}>{item.carryCapacity}吨</Text>
                             </View>
                         </View>
                         <View style={styles.optionIndicator}>
