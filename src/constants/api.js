@@ -57,6 +57,8 @@ export const API_REGISTER_IDENTIFY_CODE = `${HOST}app/uam/register/identifyCode`
 export const API_QUERY_USER_AVATAR = `${HOST}app/uam/queryUserAvatar`;
 // 更换头像接口
 export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
+// 道路异常-上传附件
+export const API_UPLOAD_FILE = `${HOST}app/uam/uplaodFile`;
 
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单
