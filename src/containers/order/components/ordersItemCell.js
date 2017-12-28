@@ -190,6 +190,8 @@ class OrdersItemCell extends Component {
             temperature,
             goodsCount,
             currentStatus,
+            carrierPlateNum,
+            carrierName,
         } = this.props;
         const goodIcon = goodKindsNames && goodKindsNames.length === 1 ? goodKindsNames[0] : '其他';
         const statusView = <Text style={styles.stateText}>{stateName}</Text>;
@@ -215,8 +217,8 @@ class OrdersItemCell extends Component {
         </View>;
         const carrierView = <View style={styles.carrierView}>
             <Image style={styles.carrierIcon} source={StaticImage.carrierIcon}/>
-            <Text style={styles.carrierText}>承运者：{'张三'}</Text>
-            <Text style={styles.carrierText}>{'京A12345'}</Text>
+            <Text style={styles.carrierText}>承运者：{carrierName}</Text>
+            <Text style={styles.carrierText}>{carrierPlateNum}</Text>
         </View>;
         return (
             <View style={styles.container}>
@@ -252,14 +254,14 @@ class OrdersItemCell extends Component {
                                 <Text style={[styles.arriveTimeStyle, {marginTop: 8}]}>到仓时间: {arrivalTime}</Text>
                                 <View style={styles.wrapView}>
                                     {
-                                        goodKindsNames.map((item, index) => {
+                                        goodKindsNames ? goodKindsNames.map((item, index) => {
                                             return (
                                                 <CommonLabelCell
                                                     content={item}
                                                     key={index}
                                                 />
                                             )
-                                        })
+                                        }) : null
                                     }
                                     <CommonLabelCell
                                         content={`订单${transCodeNum}单`}

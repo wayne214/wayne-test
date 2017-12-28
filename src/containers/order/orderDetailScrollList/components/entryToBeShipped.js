@@ -72,6 +72,8 @@ class entryToBeShipped extends Component {
             scheduleCode: params.scheduleCode,
             isShowEmptyView: true,
             loading: false,
+            carrierName: params.carrierName,
+            carrierPlateNum: params.carrierPlateNum,
         };
 
         this.onScrollEnd = this.onScrollEnd.bind(this);
@@ -331,8 +333,8 @@ class entryToBeShipped extends Component {
             } : {
                 userId: global.userId,
                 userName: global.userName,
-                carrierCode: '',
-                dispatchCode: this.state.scheduleCode,
+                carrierCode: '13120382724',
+                dispatchNo: this.state.scheduleCode,
             },
             loading: ()=>{
                 this.setState({
@@ -406,7 +408,9 @@ class entryToBeShipped extends Component {
 
     // 安排车辆
     arrangeCar() {
-        this.props.navigation.navigate('ArrangeCarList');
+        this.props.navigation.navigate('ArrangeCarList',{
+            dispatchCode: this.state.scheduleCode,
+        });
     }
 
     cancelOrder() {
@@ -485,8 +489,8 @@ class entryToBeShipped extends Component {
         });
         const carrierView = <View style={styles.carrierView}>
             <View style={{backgroundColor: StaticColor.BLUE_TAB_BAR_COLOR, width: 3, height: 16,}}/>
-            <Text style={styles.text}>承运者：{'张三'}</Text>
-            <Text style={styles.text}>{'京A12345'}</Text>
+            <Text style={styles.text}>承运者：{this.state.carrierName}</Text>
+            <Text style={styles.text}>{this.state.carrierPlateNum}</Text>
         </View>;
         const carrierBottomView = 3 === 3 ? <BottomButton
             onClick={() => {

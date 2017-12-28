@@ -14,7 +14,8 @@ import * as StaticColor from '../../../constants/staticColor';
 import NavigatorBar from "../../../common/navigationBar/navigationBar";
 import RadioList from '../components/RadioList';
 import BottomButton from '../components/bottomButtonComponent';
-
+import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../constants/api';
 let data = [{'plateNumber': '京A12345', 'carLength': '4.5米', 'carWeight': '4.0吨'},
     {'plateNumber': '京A12345', 'carLength': '4米', 'carWeight': '3.0吨'},
     {'plateNumber': '京A12345', 'carLength': '4.2米', 'carWeight': '3.5吨'}];
@@ -23,18 +24,41 @@ let selected = null;
 class arrangeCarList extends Component {
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
             data: data,
+            dispatchCode: params.dispatchCode,
         };
         this.getCarList = this.getCarList.bind(this);
     }
     componentDidMount() {
-        // this.getCarList();
+        this.getCarList();
     }
 
     getCarList() {
-        this.setState({
-            data: data,
+        // 传递参数
+        HTTPRequest({
+            url: API.API_QUERY_CAR_LIST,
+            params: {
+                companionPhone: global.phone,
+                carStatus: 'enable',
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.setState({
+                    data: responseData.result,
+                });
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
         });
     }
 
@@ -78,6 +102,7 @@ class arrangeCarList extends Component {
                         if(selected){
                             navigator.navigate('ArrangeDriverList',{
                                 driverOption: selected,
+                                dispatchCode: this.state.dispatchCode,
                             });
                         }else {
                             Alert.alert('提示','请选择承运的车辆');

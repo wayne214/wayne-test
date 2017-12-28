@@ -13,7 +13,8 @@ import * as StaticColor from '../../../constants/staticColor';
 import NavigatorBar from "../../../common/navigationBar/navigationBar";
 import RadioList from '../components/RadioList';
 import BottomButton from '../components/bottomButtonComponent';
-
+import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../constants/api';
 let data = [{'driverName': '张三', 'phone': '13121210000'},
     {'driverName': '李三', 'phone': '13812345678'},
     {'driverName': '王三', 'phone': '15800112233'}];
@@ -27,6 +28,7 @@ class arrangeDriverList extends Component {
         this.state = {
             data: data,
             driverOption: params.driverOption,
+            dispatchCode: params.dispatchCode,
         };
         this.getDriverList = this.getDriverList.bind(this);
         this.arrangeCar = this.arrangeCar.bind(this);
@@ -38,11 +40,60 @@ class arrangeDriverList extends Component {
 
     // 获取司机列表信息
     getDriverList() {
-
+        // 传递参数
+        HTTPRequest({
+            url: API.API_QUERY_DRIVER_LIST,
+            params: {
+                carNum: this.state.driverOption.carNum,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.setState({
+                    data: responseData.result,
+                });
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
     }
     // 安排车辆
-    arrangeCar() {
-
+    arrangeCar(driver) {
+        // 传递参数
+        HTTPRequest({
+            url: API.API_NEW_ARRANGE_CARS,
+            params: {
+                plateNumber: this.state.driverOption.carNum,
+                carModel: this.state.driverOption.carLen,
+                driverName: driver.driverName,
+                driverUserId: driver.id,
+                driverPhoneNum: driver.driverPhone,
+                dispatchCode: this.state.dispatchCode,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                const routes = this.props.routes;
+                let key = routes[routes.length - 3].key;
+                this.props.navigation.goBack(key);
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
     }
 
     renderListEmpty() {
@@ -82,10 +133,7 @@ class arrangeDriverList extends Component {
                     text={'提交'}
                     onClick={() => {
                         if(selected){
-                            this.arrangeCar();
-                            const routes = this.props.routes;
-                            let key = routes[routes.length - 3].key;
-                            this.props.navigation.goBack(key);
+                            this.arrangeCar(selected);
                         }else {
                             Alert.alert('提示','请选择承运的司机');
                         }
