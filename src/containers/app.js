@@ -24,7 +24,7 @@ class App extends Component {
         super(props);
         this.onBackAndroid = this.onBackAndroid.bind(this);
         // 生产环境日志打印重定向，提高性能
-        if (!DEBUG) {
+        if (DEBUG) {
             console.log = () => {
             };
             console.error = () => {
