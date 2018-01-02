@@ -98,14 +98,8 @@ class recordVideo extends Component {
                 >
                     <View style={styles.bottomView}>
                         <Text style={styles.text}>按住摄像</Text>
+
                         <View style={styles.photoView}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    navigator.goBack();
-                                }}
-                            >
-                                <Text style={styles.backIcon}>&#xe678;</Text>
-                            </TouchableOpacity>
                             <View style={styles.circleView}>
                                 <PercentageCircle
                                     radius={42}
@@ -148,6 +142,13 @@ class recordVideo extends Component {
                                 </PercentageCircle>
                             </View>
                         </View>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigator.goBack();
+                            }}
+                        >
+                            <Text style={styles.backIcon}>&#xe678;</Text>
+                        </TouchableOpacity>
                     </View>
                 </Camera>
             </View>
@@ -176,8 +177,9 @@ const styles =StyleSheet.create({
         fontFamily: 'iconfont',
         fontSize: 20,
         color: StaticColor.WHITE_COLOR,
-        marginLeft: 50,
-        alignSelf:'center'
+        position: 'absolute',
+        left: 50,
+        bottom: 30,
     },
     hollowCircle: {
         justifyContent: 'center',
@@ -192,11 +194,11 @@ const styles =StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 25,
+        justifyContent: 'center',
     },
     circleView:{
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 65,
     },
     transparentCircle: {
         justifyContent: 'center',

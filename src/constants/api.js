@@ -58,7 +58,10 @@ export const API_QUERY_USER_AVATAR = `${HOST}app/uam/queryUserAvatar`;
 // 更换头像接口
 export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
 // 道路异常-上传附件
-export const API_UPLOAD_FILE = `${HOST}app/uam/uplaodFile`;
+// export const API_UPLOAD_FILE = `${HOST}app/uam/uploadFile`;
+export const API_UPLOAD_FILE = `http://192.168.32.83:8899/app/uam/uploadFile`;
+
+export const API_UPLOAD_VIDEO_FILE = `http://192.168.32.83:8899/app/uam/uploadVideoFile`;
 
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单
@@ -164,7 +167,7 @@ export const API_QUERY_DRIVER_LIST = `${HOST}app/rmc/driver/queryDriversByCarNum
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
 export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`; // 4.0版本
-// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.162:8899/app/transport/goodsSource`; // 4.0版本
+// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.83:8899/app/transport/goodsSource`; // 4.0版本
 // 订单列表（待回单）
 export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPageV4`;
 // export const API_NEW_GET_RECEIVE_ORDER_LIST = `http://192.168.32.162:8899/app/transport/queryDelReceiptWithPageV4`;
@@ -187,8 +190,8 @@ export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign/v3.0`; /
 export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPageV4`;
 // export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `http://192.168.32.162:8899/app/transport/queryDeleveryWithPageV4`;
 // 上传道路异常查询调度单
-export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `${HOST}app/transport/finExceprionInfoByPlateNum/`;
-// export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `http://192.168.32.162:8899/app/transport/finExceprionInfoByPlateNum/`;
+export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `${HOST}app/transport/finExceprionInfoByPlateNum`;
+// export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `http://192.168.32.162:8899/app/transport/finExceprionInfoByPlateNum`;
 // 上传道路异常保存异常信息
 export const API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO= `${HOST}app/transport/saveExceptionInfo/`;
 // export const API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO= `http://192.168.32.162:8899/app/transport/saveExceptionInfo/`;
