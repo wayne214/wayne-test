@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     Alert,
     Platform,
+    DeviceEventEmitter
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -24,6 +25,7 @@ import DialogSelected from '../../common/alertSelected';
 import Loading from '../../utils/loading';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
+import Toast from '@remobile/react-native-toast';
 import {
     updateImages
 } from '../../action/order';
@@ -31,6 +33,8 @@ import {
     clearVideoAction
 } from '../../action/app';
 import {Geolocation} from 'react-native-baidu-map-xzx';
+import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
+import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 const {width, height} = Dimensions.get('window');
 let selectedArr = ["拍照", "视频"];
 let title = '请选择照片或视频';
@@ -54,6 +58,10 @@ import * as API from '../../constants/api';
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+
+let enclosureList = [];
+
+var url = '';
 
 class uploadAbnormal extends Component {
     constructor(props) {
@@ -98,8 +106,10 @@ class uploadAbnormal extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER + global.plateNumber,
-            params: {},
+            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER,
+            params: {
+                plateNum: global.plateNumber
+            },
             loading: ()=>{
                 this.setState({
                     loading: true,
@@ -118,41 +128,110 @@ class uploadAbnormal extends Component {
             }
         });
     }
+    uploadImage(url, data){
+        upLoadImageManager(url,
+            data,
+            ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            (response)=>{
+                console.log('response',response);
+                console.log('uploadCode===',response.code);
+                console.log('uploadResult===',response.result);
+                this.setState({
+                    loading: false,
+                });
+                if (response.code === 200){
+
+                    // lastTime = new Date().getTime();
+                    // ReadAndWriteFileUtil.appendFile('上传回单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    //     locationData.district, lastTime - currentTime, '上传回单页面');
+                    // // Toast.showShortCenter('上传回单成功');
+                    // DeviceEventEmitter.emit('changeStateReceipt');
+                    // this.goBackForward();
+                    const list = [...response.result];
+                    console.log('list', list);
+                    // this.uploadAbnormalException();
+
+                }else {
+                    Toast.showShortCenter('图片上传失败，请重新上传');
+                }
+            },
+            (error)=>{
+                console.log('uploadError===',error);
+                this.setState({
+                    loading: false,
+                });
+                // Toast.showShortCenter('上传回单失败');
+            });
+    }
+    uploadAbnormalException(enclosureList) {
+        // 传递参数
+        HTTPRequest({
+            url: API.API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO,
+            params: {
+                address: this.state.location,
+                content: this.state.content,
+                driverPhoneNum: global.phone,
+                enclosureList: enclosureList,
+                mediaType: 0,
+                plateNum: global.plateNumber,
+                scheduleCode: this.state.result.scheduleCode,
+                userId: global.userId,
+                userName: global.userName
+            },
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+
+            },
+            error: (errorInfo) => {
+            },
+            finish: () => {
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+    }
     // 提交道路异常
     submit() {
-        console.log('提交道路异常参数', this.state.location, this.state.content, global.phone, global.plateNumber,this.state.result.scheduleCode
-        ,global.userId, global.userName);
-    // 传递参数
-    //     HTTPRequest({
-    //         url: API.API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO,
-    //         params: {
-    //             address: this.state.location,
-    //             content: this.state.content,
-    //             driverPhoneNum: global.phone,
-    //             enclosureList: [
-    //                 "string"
-    //             ],
-    //             mediaType: 0,
-    //             plateNum: global.plateNumber,
-    //             scheduleCode: this.state.result.scheduleCode,
-    //             userId: global.userId,
-    //             userName: global.userName
-    //         },
-    //         loading: ()=>{
-    //             this.setState({
-    //                 loading: true,
-    //             });
-    //         },
-    //         success: (responseData)=>{
-    //
-    //         },
-    //         error: (errorInfo)=>{},
-    //         finish:()=>{
-    //             this.setState({
-    //                 loading: false,
-    //             });
-    //         }
-    //     });
+        const {videoList} = this.props;
+        let formData = new FormData();
+        if (videoList.size > 0) {
+            videoList.map((i)=> {
+                console.log('video',i);
+                if (Platform.OS === 'ios'){
+                    if(i.uri.indexOf('file://') === -1){
+                        i.uri = 'file://' + i.uri;
+                    }
+                }
+                let file = {uri: i.uri, type: 'multipart/form-data', name: i.id + '.mp4'};
+                console.log('filePath===',file.uri);
+                formData.append('photo', file);
+            });
+            url = API.API_UPLOAD_VIDEO_FILE;
+        } else {
+            this.props.imageList.map(i => {
+                if (Platform.OS === 'ios'){
+                    if(i.uri.indexOf('file://') === -1){
+                        i.uri = 'file://' + i.uri;
+                    }
+                }
+                let file = {uri: i.uri, type: 'multipart/form-data', name: i.id + '.jpg'};
+                console.log('filePath===',file.uri);
+                formData.append('photo', file);
+            });
+            url = API.API_UPLOAD_FILE;
+        }
+        formData.append('userId', global.userId);
+        formData.append('userName', global.userName);
+        this.uploadImage(url, formData);
     }
     createAddItem(type) {
         const {imageList} = this.props;

@@ -65,13 +65,6 @@ class takePhoto extends Component {
                     <View style={styles.bottomView}>
                         <Text style={styles.text}>轻触拍照</Text>
                         <View style={styles.photoView}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    navigator.goBack();
-                                }}
-                            >
-                                <Text style={styles.backIcon}>&#xe678;</Text>
-                            </TouchableOpacity>
                             <Image
                                 style={styles.hollowCircle}
                                 source={StaticImage.hollowCircle}
@@ -89,6 +82,13 @@ class takePhoto extends Component {
                                 </TouchableOpacity>
                             </Image>
                         </View>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigator.goBack();
+                            }}
+                        >
+                            <Text style={styles.backIcon}>&#xe678;</Text>
+                        </TouchableOpacity>
                     </View>
                 </Camera>
             </View>
@@ -117,13 +117,13 @@ const styles =StyleSheet.create({
         fontFamily: 'iconfont',
         fontSize: 20,
         color: StaticColor.WHITE_COLOR,
-        marginLeft: 50,
-        alignSelf:'center'
+        position: 'absolute',
+        left: 50,
+        bottom: 25,
     },
     hollowCircle: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 65,
     },
     text: {
         color: StaticColor.WHITE_COLOR,
@@ -134,6 +134,7 @@ const styles =StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 25,
+        justifyContent: 'center',
     }
 });
 
