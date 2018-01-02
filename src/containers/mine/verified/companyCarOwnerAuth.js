@@ -38,6 +38,10 @@ import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
 import HTTPRequest from '../../../utils/httpRequest';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+import {
+    setOwnerCharacterAction,
+} from '../../../action/user';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 
 
 const businessTrunRightImage = require('./images/business_right_add.png');
@@ -71,6 +75,8 @@ let userName = '';
 let userPhone = '';
 
 let lastTime = 0;
+let locationData = '';
+let currentTime = 0;
 
 class companyCarOwnerAuth extends Component {
     constructor(props) {
@@ -173,8 +179,11 @@ class companyCarOwnerAuth extends Component {
         this.selectCamera = this.selectCamera.bind(this);
         this.upLoadImage = this.upLoadImage.bind(this);
         this.uploadData = this.uploadData.bind(this);
+        this.getCurrentPosition = this.getCurrentPosition.bind(this);
     }
     componentDidMount() {
+        this.getCurrentPosition();
+
         userID = global.userId;
         userName = global.userName;
         userPhone = global.phone;
@@ -230,7 +239,15 @@ class companyCarOwnerAuth extends Component {
             // });
         });
     }
-
+// 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
+    }
 
     /*显示日期选取器*/
     showDatePick(showLongTime, type) {
@@ -533,6 +550,7 @@ class companyCarOwnerAuth extends Component {
     }
 
     uploadData(){
+        currentTime = new Date().getTime();
 
         console.log('法人身份证名字',this.state.IDName);
         console.log('法人身份证号',this.state.IDCard);
@@ -614,7 +632,9 @@ class companyCarOwnerAuth extends Component {
                 Storage.remove(StorageKey.enterpriseownerInfoResult);
                 Toast.showShortCenter('企业车主认证提交成功');
 
-                this.props.navigation.goBack()
+                this.props.setOwnerCharacterAction('21');
+                this.props.navigation.navigate('Main');
+
             },
             error: (errorInfo) => {
             },
@@ -853,7 +873,11 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps (dispatch){
-    return {};
+    return {
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(companyCarOwnerAuth);

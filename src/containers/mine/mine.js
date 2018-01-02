@@ -251,13 +251,10 @@ class Mine extends Component {
 
         /*点击我，刷新认证状态*/
         this.mineListener = DeviceEventEmitter.addListener('refreshMine', () => {
-            this.certificationState();
             this.verifiedState();
         });
 
 
-        /*资质认证状态请求*/
-        this.certificationState();
         /*实名认证状态请求*/
         this.verifiedState();
 
@@ -784,11 +781,13 @@ class Mine extends Component {
                 </View> :
                 <View
                     style={{
+                        position: 'absolute',
                         height: 18,
                         width: 50,
                         borderRadius: 10,
                         borderWidth: 1,
-                        marginLeft: 10,
+                        marginLeft: 22,
+                        marginTop:55,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
                         alignItems: 'center',
