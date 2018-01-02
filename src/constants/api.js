@@ -56,7 +56,11 @@ export const API_REGISTER_IDENTIFY_CODE = `${HOST}app/uam/register/identifyCode`
 // 查询头像接口
 export const API_QUERY_USER_AVATAR = `${HOST}app/uam/queryUserAvatar`;
 // 更换头像接口
-export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
+// export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
+export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatarNew`;
+
+// 道路异常-上传附件
+export const API_UPLOAD_FILE = `${HOST}app/uam/uplaodFile`;
 
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单
@@ -66,30 +70,44 @@ export const API_NEW_DRIVER_CANCEL_ORDER = `${HOST}app/dpc/driverAppCancelOrder`
 export const API_NEW_DRIVER_RECEIVE_ORDER = `${HOST}app/dpc/driverAppReceiveOrder`;
 // 接单--车主
 export const API_NEW_CARRIER_RECEIVE_ORDER = `${HOST}app/dpc/acceptOrder`;
+// export const API_NEW_CARRIER_RECEIVE_ORDER = `http://192.168.32.162:8899/app/dpc/acceptOrder`;
 
 // 拒单--司机
 export const API_NEW_DRIVER_REFUSE_ORDER = `${HOST}app/dpc/driverAppRefuseOrder`;
 // 拒单--车主
 export const API_NEW_CARRIER_REFUSE_ORDER = `${HOST}app/dpc/refuseOrder`;
+// export const API_NEW_CARRIER_REFUSE_ORDER = `http://192.168.32.162:8899/app/dpc/refuseOrder`;
 
 // 搜索根据单号查询调度单信息
 export const API_NEW_GET_SCHEDULE_INFO_BY_CODE = `${HOST}app/dpc/queryDispatchDocByCode`;
 // 根据时间获取获取货源列表--司机
 export const API_NEW_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocByDateV2`; // 4.0版本--司机
+// export const API_NEW_GET_SOURCE_BY_DATE = `http://192.168.32.162:8899/app/dpc/queryDispatchDocByDateV2`; // 4.0版本--司机
 
 // 根据时间获取获取货源列表---车主
 export const API_CARRIER_GET_SOURCE_BY_DATE = `${HOST}app/dpc/queryDispatchDocWithCarrier`; // 4.0版本--车主
+// export const API_CARRIER_GET_SOURCE_BY_DATE = `http://192.168.32.162:8899/app/dpc/queryDispatchDocWithCarrier`; // 4.0版本--车主
 
 // 接单拒单数量
 // export const API_NEW_GET_STATUS_NUMBER = `${HOST}app/dpc/queryDispatchDocStatusNum`;
 // // 调度单发车数量接口
 // export const API_NEW_QUERY_BOL_COUNT = `${HOST}app/transport/queryBolCountByTelPhoneNo/`;
+
+//车主获取待发运列表
+export const API_NEW_APP_DISPATCH_DOC_CARRIER = `${HOST}app/dpc/queryDispatchDocByStatus`;
+// export const API_NEW_APP_DISPATCH_DOC_CARRIER = `http://192.168.32.162:8899/app/dpc/queryDispatchDocByStatus`;
 // 首页-状态数量统计
 export const API_INDEX_STATUS_NUM = `${HOST}app/dpc/queryIndexStatusNum`;
+// 车主首页-状态数量统计
+export const API_CARRIER_INDEX_STATUS_NUM = `${HOST}app/dpc/queryCarrierDispatchCount`;
+// export const API_CARRIER_INDEX_STATUS_NUM = `http://192.168.32.162:8899/app/dpc/queryCarrierDispatchCount`;
 // 竞价排名查询接口
 export const API_NEW_QUERY_RANK = `${HOST}app/dpc/queryRank`;
 // 提交报价接口
 export const API_NEW_SUBMIT_QUOTES = `${HOST}app/dpc/submitQuotes`;
+// 安排车辆
+export const API_NEW_ARRANGE_CARS = `${HOST}app/dpc/arrangeVehicles`;
+// export const API_NEW_ARRANGE_CARS = `http://192.168.32.162:8899/app/dpc/arrangeVehicles`;
 
 /** *****************************************************资源中心接口******************************************************/
 // 根据司机手机号查询车辆信息
@@ -137,26 +155,45 @@ export const API_RMC_DRIVER_BINDING_CAR = `${HOST}/app/rmc/driver/bindingCar`;
 export const API_BIND_CAR_DRIVER_RELATION = `${HOST}/app/rmc/rmcCar/bindCarDriverRelation`;
 // 司机管理-解绑绑定司机
 export const API_DEL_DRIVER_COMPANION_RELATION = `${HOST}/app/rmc/driver/delDriverCompanionRelation`;
+// 车辆列表
+export const API_QUERY_CAR_LIST = `${HOST}app/rmc/rmcCar/queryCarListByCompanionInfo`;
+// 司机列表
+export const API_QUERY_DRIVER_LIST = `${HOST}app/rmc/driver/queryDriversByCarNum/`;
+// export const API_QUERY_DRIVER_LIST = `http://192.168.32.162:8899/app/rmc/driver/queryDriversByCarNum/`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
 export const API_NEW_DESPATCH = `${HOST}app/transport/despatch`;
 // 获取货源详情  and  根据运输单号搜索
-export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource/v3.0`; // 3.0版本
+export const API_NEW_GET_GOODS_SOURCE = `${HOST}app/transport/goodsSource`; // 4.0版本
+// export const API_NEW_GET_GOODS_SOURCE = `http://192.168.32.162:8899/app/transport/goodsSource`; // 4.0版本
 // 订单列表（待回单）
-export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPage`;
+export const API_NEW_GET_RECEIVE_ORDER_LIST = `${HOST}app/transport/queryDelReceiptWithPageV4`;
+// export const API_NEW_GET_RECEIVE_ORDER_LIST = `http://192.168.32.162:8899/app/transport/queryDelReceiptWithPageV4`;
 // 运输中
 export const API_NEW_GET_ORDER_LIST_TRANSPORT = `${HOST}app/transport/queryTransportList`;
+// 运输中--车主
+export const API_NEW_GET_CARRIER_ORDER_LIST_TRANSPORT = `${HOST}app/transport/queryCarrierTransportList`;
+// export const API_NEW_GET_CARRIER_ORDER_LIST_TRANSPORT = `http://192.168.32.162:8899/app/transport/queryCarrierTransportList`;
 // 回单接口
 export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `${HOST}app/transport/returnTransportOrder/v2.1`;
+// export const API_NEW_RETURN_TRANSPORT_ORDER_V2 = `http://192.168.32.162:8899/app/transport/returnTransportOrder/v2.1`;
 // 回单照片展示接口
 export const API_ORDER_PICTURE_SHOW = `${HOST}app/transport/pictureList`;
 // 签收接口
+// export const API_NEW_SIGN = `http://192.168.32.162:8899/app/transport/sign`;
 export const API_NEW_SIGN = `${HOST}app/transport/sign`;
 // 批量签收接口
 export const API_TRANSPORT_BATCH_SIGN = `${HOST}app/transport/batchSign/v3.0`; // 3.0版本
 // 订单列表（全部，待发运）分页查询调度单
-export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPage`;
+export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `${HOST}app/transport/queryDeleveryWithPageV4`;
+// export const API_NEW_APP_DISPATCH_DOC_WITH_PAGE = `http://192.168.32.162:8899/app/transport/queryDeleveryWithPageV4`;
+// 上传道路异常查询调度单
+export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `${HOST}app/transport/finExceprionInfoByPlateNum/`;
+// export const API_NEW_APP_UPLOAD_DISPATCH_ORDER = `http://192.168.32.162:8899/app/transport/finExceprionInfoByPlateNum/`;
+// 上传道路异常保存异常信息
+export const API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO= `${HOST}app/transport/saveExceptionInfo/`;
+// export const API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO= `http://192.168.32.162:8899/app/transport/saveExceptionInfo/`;
 
 /** *****************************************************获取图片信息******************************************************/
 // 身份证正面

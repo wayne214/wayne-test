@@ -243,8 +243,8 @@ class entryGoodsDetail extends Component {
             } : {
                 userId: global.userId,
                 userName: global.userName,
-                carrierCode: '',
-                dispatchCode: this.state.scheduleCode,
+                carrierCode: '13120382724',
+                dispatchNo: this.state.scheduleCode,
             },
             loading: ()=>{
                 this.setState({
@@ -310,8 +310,8 @@ class entryGoodsDetail extends Component {
             } : {
                 userId: global.userId,
                 userName: global.userName,
-                carrierCode: '',
-                dispatchCode: this.state.scheduleCode,
+                carrierCode: '13120382724',
+                dispatchNo: this.state.scheduleCode,
             },
             loading: ()=>{
                 this.setState({

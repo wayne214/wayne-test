@@ -128,10 +128,6 @@ let transCodeListData3 = [];
         };
     }
 
-     componentWillReceiveProps() {
-
-     }
-
     // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
@@ -433,11 +429,19 @@ let transCodeListData3 = [];
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
-                this.getOrderDetailAction( 'AAA', pageNum, pageSize);
+                if (this.props.currentStatus == 'driver') {
+                    this.getOrderDetailAction('AAA', pageNum, pageSize);
+                } else {
+                    this.getOrderDetailAction('CCC',pageNum, pageSize);
+                }
                 break;
             case 1:
                 console.log('订单待发运界面', pageIndex);
-                this.getOrderDetailAction( 'BBB', pageNum, pageSize);
+                if (this.props.currentStatus == 'driver') {
+                    this.getOrderDetailAction('BBB', pageNum, pageSize);
+                } else {
+                    this.getDispatchOrderList('BBB',pageNum, pageSize);
+                }
                 break;
             case 2:
                 console.log('订单待签收界面', pageIndex);
@@ -451,7 +455,7 @@ let transCodeListData3 = [];
                 break;
             case 3:
                 console.log('订单待回单界面', pageIndex);
-                this.getReceiveOrderDetailAction('CCC', pageNum, pageSize);
+                this.getReceiveOrderDetailAction('DDD', pageNum, pageSize);
                 break;
             default:
                 break;
@@ -471,10 +475,11 @@ let transCodeListData3 = [];
         HTTPRequest({
             url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
             params: {
+                carrierCode: this.props.currentStatus == 'driver' ? '' : '13120382724',
                 page: pageNum,
                 pageSize,
-                phone: global.phone,
-                plateNumber: global.plateNumber,
+                phone: this.props.currentStatus == 'driver' ? global.phone : '',
+                plateNumber: this.props.currentStatus == 'driver' ? global.plateNumber : '',
                 queryType,
             },
             loading: () => {
@@ -515,7 +520,64 @@ let transCodeListData3 = [];
 
     }
 
+     getDispatchOrderList(queryType, pageNum, pageSize) {
+         currentTime = new Date().getTime();
+         if (pageNum === 1) {
+             this.setState({
+                 isRefresh: true,
+             })
+         }
+         HTTPRequest({
+             url: API.API_NEW_APP_DISPATCH_DOC_CARRIER,
+             params: {
+                 carrierCode: '13120382724',
+                 page: pageNum,
+                 pageSize,
+                 queryType,
+             },
+             loading: () => {
 
+             },
+             success: (responseData) => {
+                 lastTime = new Date().getTime();
+                 ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                     locationData.district, lastTime - currentTime, '订单页面');
+                 if (!responseData.result.list) {
+                     return;
+                 }
+                 switch (queryType) {
+                     case 'BBB' : {
+                         if (pageNum === 1) {
+                             shipListData = [];
+                         }
+                         shipListData = shipListData.concat(responseData.result.list);
+
+                         if (shipListData.length === responseData.result.total) {
+                             this.setState({
+                                 isLoadshipMore: false,
+                                 allCount: shipListData.length,
+                             })
+                         }
+                         this.setState({
+                             dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                         });
+                         break;
+                     }
+                     default :
+                         break;
+                 }
+
+             },
+             error: (errorInfo) => {
+
+             },
+             finish: () => {
+                 this.setState({
+                     isRefresh: false,
+                 });
+             }
+         });
+     }
 
     // 获取全部、待发运订单列表
     getOrderDetailAction(queryType, pageNum, pageSize) {
@@ -529,11 +591,11 @@ let transCodeListData3 = [];
             HTTPRequest({
                 url: API_URL,
                 params: {
-                    // carrierCode: this.state.currentStatus == 'driver' ? '' : ,
+                    carrierCode: this.state.currentStatus == 'driver' ? '' : '13120382724',
                     page: pageNum,
                     pageSize,
-                    phone: global.phone,
-                    plateNumber: global.plateNumber,
+                    phone: this.state.currentStatus == 'driver' ? global.phone : '',
+                    plateNumber: this.state.currentStatus == 'driver' ? global.plateNumber : '',
                     queryType,
 
                 },
@@ -581,6 +643,23 @@ let transCodeListData3 = [];
                             this.setState({
                                 dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
                             });
+                            break;
+                        }
+                        case 'CCC' : {
+                            if (pageNum === 1) {
+                                allListData = [];
+                            }
+                            allListData = allListData.concat(responseData.result.list);
+                            if (allListData.length === responseData.result.total) {
+                                this.setState({
+                                    isLoadallMore: false,
+                                    allCount: allListData.length,
+                                });
+                            }
+                            this.setState({
+                                dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                            });
+
                             break;
                         }
                         default :
@@ -761,12 +840,11 @@ let transCodeListData3 = [];
          }
 
          HTTPRequest({
-             url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
+             url: API.API_NEW_GET_CARRIER_ORDER_LIST_TRANSPORT,
              params: {
-                 page: pageNum,
+                 carrierCode: '13120382724',
+                 pageNum: pageNum,
                  pageSize,
-                 phone: global.phone,
-                 plateNumber: global.plateNumber,
                  queryType,
              },
              loading: () => {
@@ -973,7 +1051,7 @@ let transCodeListData3 = [];
             const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
             let goodTepesTemp = [];
             let goodTypesName = [];
-            if(orderDetaiTypeList.length > 0) {
+            if(orderDetaiTypeList && orderDetaiTypeList.length > 0) {
                 let good = '';
                 for (let i = 0; i < orderDetaiTypeList.length; i++) {
                     good = orderDetaiTypeList[i];
@@ -997,7 +1075,7 @@ let transCodeListData3 = [];
                     dispatchStatus={dataRow.dispatchStatus}
                     orderStatus={selectPage}
                     goodKindsNames={goodTypesName} // 货品种类
-                    waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
+                    waitBeSureOrderNum={dataRow.orderSignNum}
                     beSureOrderNum={dataRow.beSureOrderNum}
                     transCodeNum={dataRow.transCodeNum}
                     goodsCount={200}
@@ -1055,13 +1133,13 @@ let transCodeListData3 = [];
         const pushTime = dataRow.time ? dataRow.time.replace(/-/g,'/').substring(0, dataRow.time.length - 3) : '';
         const arrivalTime = dataRow.arrivalTime ? dataRow.arrivalTime.replace(/-/g,'/').substring(0, dataRow.arrivalTime.length - 5) : '';
         // 货品类型
-        const orderDetaiTypeList = dataRow.ofcOrderDetailTypeDtoList;
+        const orderDetailTypeList = dataRow.ofcOrderDetailTypeDtoList;
         let goodTepesTemp = [];
         let goodTypesName = [];
-        if(orderDetaiTypeList.length > 0) {
+        if(orderDetailTypeList && orderDetailTypeList.length > 0) {
             let good = '';
-            for (let i = 0; i < orderDetaiTypeList.length; i++) {
-                good = orderDetaiTypeList[i];
+            for (let i = 0; i < orderDetailTypeList.length; i++) {
+                good = orderDetailTypeList[i];
                 goodTepesTemp = goodTepesTemp.concat(good.goodsTypes);
             }
             // 去重
@@ -1085,9 +1163,11 @@ let transCodeListData3 = [];
                 waitBeSureOrderNum={dataRow.waitBeSureOrderNum}
                 beSureOrderNum={dataRow.beSureOrderNum}
                 transCodeNum={dataRow.transCodeNum}
-                goodsCount={200}
-                temperature={2}
+                goodsCount={dataRow.num}
+                temperature={dataRow.temperature}
                 currentStatus={this.props.currentStatus}
+                carrierName={dataRow.carrierName}
+                carrierPlateNum={dataRow.carrierPlateNum}
                 onSelect={() => {
                     if (dataRow.distributionPoint === 0) {
                         Toast.showShortCenter('暂无详情');
@@ -1099,6 +1179,8 @@ let transCodeListData3 = [];
                             this.props.navigation.navigate('EntryToBeShipped', {
                                 transOrderList: dataRow.transOrderList,
                                 scheduleCode: dataRow.scheduleCode,
+                                carrierName: dataRow.carrierName,
+                                carrierPlateNum: dataRow.carrierPlateNum,
                                 successCallBack: () => {
                                     // 刷新
                                     setTimeout(() => {
@@ -1118,6 +1200,8 @@ let transCodeListData3 = [];
                         this.props.navigation.navigate('EntryToBeShipped', {
                             transOrderList: dataRow.transOrderList,
                             scheduleCode: dataRow.scheduleCode,
+                            carrierName: dataRow.carrierName,
+                            carrierPlateNum: dataRow.carrierPlateNum,
                             successCallBack: () => {
                                 // 刷新
                                 // InteractionManager.runAfterInteractions(() => {
@@ -1309,6 +1393,7 @@ function mapStateToProps(state) {
         isResetCity: state.order.get('isResetCity'),
         orderTab: state.order.get('mainPress'),
         currentStatus: state.user.get('currentStatus'),
+        companyCode: state.user.get('companyCode'),
     };
 }
 

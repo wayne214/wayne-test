@@ -35,19 +35,25 @@ const {width, height} = Dimensions.get('window');
 let selectedArr = ["拍照", "视频"];
 let title = '请选择照片或视频';
 const ImageWH = (width - 70) / 4;
+import HTTPRequest from '../../utils/httpRequest';
+import * as API from '../../constants/api';
 
-let result = {
-    pushTime: '2017-12-12 12:12',
-    scheduleCode: 'DP17121100012',
-    scheduleRoutes: '北京-深圳',
-    distributionPoint: '2',
-    arrivalTime: '2017-12-12 12:12',
-    weight: '200',
-    vol: '202',
-    transCodeNum: '4',
-    goodTypesName: ['其他'],
+// let result = {
+//     pushTime: '2017-12-12 12:12',
+//     scheduleCode: 'DP17121100012',
+//     scheduleRoutes: '北京-深圳',
+//     distributionPoint: '2',
+//     arrivalTime: '2017-12-12 12:12',
+//     weight: '200',
+//     vol: '202',
+//     transCodeNum: '4',
+//     goodTypesName: ['其他'],
+//
+// };
 
-};
+let currentTime = 0;
+let lastTime = 0;
+let locationData = '';
 
 class uploadAbnormal extends Component {
     constructor(props) {
@@ -55,6 +61,8 @@ class uploadAbnormal extends Component {
         this.state = {
             loading: false,
             location: '',
+            result: {},
+            content: '',
         };
         this.submit = this.submit.bind(this);
         this.takePhoto = this.takePhoto.bind(this);
@@ -70,6 +78,7 @@ class uploadAbnormal extends Component {
     }
     componentDidMount() {
         this.getCurrentPosition();
+        this.getItemContent();
 
     }
 
@@ -86,11 +95,64 @@ class uploadAbnormal extends Component {
 
     // 获取调度单数据
     getItemContent() {
-
+        currentTime = new Date().getTime();
+        // 传递参数
+        HTTPRequest({
+            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER + global.plateNumber,
+            params: {},
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                this.setState({
+                    result: responseData.result,
+                });
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
     }
     // 提交道路异常
     submit() {
-
+        console.log('提交道路异常参数', this.state.location, this.state.content, global.phone, global.plateNumber,this.state.result.scheduleCode
+        ,global.userId, global.userName);
+    // 传递参数
+    //     HTTPRequest({
+    //         url: API.API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO,
+    //         params: {
+    //             address: this.state.location,
+    //             content: this.state.content,
+    //             driverPhoneNum: global.phone,
+    //             enclosureList: [
+    //                 "string"
+    //             ],
+    //             mediaType: 0,
+    //             plateNum: global.plateNumber,
+    //             scheduleCode: this.state.result.scheduleCode,
+    //             userId: global.userId,
+    //             userName: global.userName
+    //         },
+    //         loading: ()=>{
+    //             this.setState({
+    //                 loading: true,
+    //             });
+    //         },
+    //         success: (responseData)=>{
+    //
+    //         },
+    //         error: (errorInfo)=>{},
+    //         finish:()=>{
+    //             this.setState({
+    //                 loading: false,
+    //             });
+    //         }
+    //     });
     }
     createAddItem(type) {
         const {imageList} = this.props;
@@ -314,6 +376,11 @@ class uploadAbnormal extends Component {
                             placeholderTextColor={'#999'}
                             multiline={true}
                             underlineColorAndroid={'transparent'}
+                            onChangeText={(text) => {
+                                this.setState({
+                                    content: text,
+                                });
+                            }}
                         />
                         {
                             videoList.size > 0 ? videoLayout : imageLayout
@@ -339,15 +406,16 @@ class uploadAbnormal extends Component {
                     </View>
                     <View style={styles.bottomView}>
                         <OrdersItemCell
-                            time={result.pushTime}
-                            scheduleCode={result.scheduleCode}
-                            scheduleRoutes={result.scheduleRoutes}
-                            distributionPoint={result.distributionPoint}
-                            arrivalTime={result.arrivalTime}
-                            weight={result.weight}
-                            vol={result.vol}
-                            goodKindsNames={result.goodTypesName} // 货品种类
-                            transCodeNum={result.transCodeNum}
+                            time={this.state.result.pushTime}
+                            scheduleCode={this.state.result.scheduleCode}
+                            scheduleRoutes={this.state.result.scheduleRoutes}
+                            distributionPoint={this.state.result.distributionPoint}
+                            arrivalTime={this.state.result.arrivalTime}
+                            weight={this.state.result.weight}
+                            vol={this.state.result.vol}
+                            goodKindsNames={this.state.result.goodTypesName} // 货品种类
+                            transCodeNum={this.state.result.transCodeNum}
+                            currentStatus={this.props.currentStatus}
                             onSelect={() => {}}
                         />
                     </View>
@@ -444,6 +512,7 @@ const styles =StyleSheet.create({
         marginLeft: 5,
         paddingTop: 5,
         paddingBottom: 5,
+        marginRight: 50,
     },
     bottomView: {
         width,
@@ -458,6 +527,7 @@ function mapStateToProps(state){
         imageList: state.order.get('imageList'),
         maxNum: state.order.get('maxNum'),
         routes: state.nav.routes,
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 
