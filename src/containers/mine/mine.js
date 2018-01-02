@@ -1047,6 +1047,7 @@ class Mine extends Component {
                                                         content={'认证信息'}
                                                         showBottomLine={false}
                                                         clickAction={() => {
+                                                            console.log("认证信息", this.props.ownerStatus);
                                                             // 个人车主认证信息
                                                             if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
                                                                 this.props.navigation.navigate('PersonownerVerifiedStatePage', {
