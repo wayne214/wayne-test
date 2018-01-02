@@ -107,7 +107,7 @@ class enterpriseownerVerifiedState extends Component{
 
         this.getCurrentPosition();
 
-        if (this.state.qualifications == '1203') {
+        if (this.state.qualifications == '23') {
 
             this.getRealNameDetail(global.phone);
 

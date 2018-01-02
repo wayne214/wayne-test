@@ -59,7 +59,7 @@ class verifiedRealNameItem extends Component{
                         姓名
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.idCardName}
+                        {resultInfo.companyName}
                     </Text>
 
                 </View>
