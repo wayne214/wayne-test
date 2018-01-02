@@ -1473,7 +1473,8 @@ class Home extends Component {
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {
-                            {this.state.ownerStatus != '0' ?
+                        console.log('this.props.ownerStatus',this.props.ownerStatus);
+                            {this.props.ownerStatus != '0' ?
                                 this.props.setCurrentCharacterAction('owner')
                                 :
                                 this.props.navigation.navigate('CharacterOwner');
@@ -1484,7 +1485,7 @@ class Home extends Component {
                             })
                         }}
                         driverClick={() => {
-                            {this.state.driverStatus != '0' ?
+                            {this.props.driverStatus != '0' ?
                                 this.props.setCurrentCharacterAction('driver')
                                 :null
                                 // 跳转到司机认证
