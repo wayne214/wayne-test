@@ -37,6 +37,7 @@ import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
 import HTTPRequest from '../../../utils/httpRequest';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -70,6 +71,8 @@ let selectDatePickerType = 0;
 let userID = '';
 let userName = '';
 let userPhone = '';
+
+let lastTime = 0;
 
 class personCarOwnerAuth extends Component {
     constructor(props) {
@@ -617,7 +620,14 @@ class personCarOwnerAuth extends Component {
                 });
             },
             success: (responseData) => {
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('个人车主认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '个人车主认证');
 
+                Storage.remove(StorageKey.personownerInfoResult);
+                Toast.showShortCenter('个人车主认证提交成功');
+
+                this.props.navigation.goBack()
             },
             error: (errorInfo) => {
 
