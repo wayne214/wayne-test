@@ -75,8 +75,8 @@
 		A06DBA2B53874E6394B55C5F /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BA98A06BC45FD94546BFF /* libRNSound.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B0626A5A1FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */; };
+		B0D33C771FF5E19300B92B04 /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BD22341FDE3A5200934C51 /* libRCTJPushModule.a */; };
 		B584639D00104A1BBB114E48 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3885C87517B7456CBAAACCF4 /* libRCTVideo.a */; };
-		C62F90101FE12BC000B6EC6A /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BD22341FDE3A5200934C51 /* libRCTJPushModule.a */; };
 		C630DB831FC2B659004FBBA2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB821FC2B658004FBBA2 /* AudioToolbox.framework */; };
 		C630DB851FC2B664004FBBA2 /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB841FC2B664004FBBA2 /* libiconv.2.4.0.tbd */; };
 		C630DB871FC2B669004FBBA2 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C630DB861FC2B669004FBBA2 /* libz.1.2.5.tbd */; };
@@ -732,7 +732,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C62F90101FE12BC000B6EC6A /* libRCTJPushModule.a in Frameworks */,
+				B0D33C771FF5E19300B92B04 /* libRCTJPushModule.a in Frameworks */,
 				9117FF4A1FE1040700101E0F /* libBaiduSpeechSDK.a in Frameworks */,
 				C630DB8B1FC2B680004FBBA2 /* AVFoundation.framework in Frameworks */,
 				C630DB891FC2B67B004FBBA2 /* libc++.tbd in Frameworks */,
@@ -2377,7 +2377,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6SAK22F6U5;

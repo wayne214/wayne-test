@@ -107,7 +107,7 @@ class enterpriseownerVerifiedState extends Component{
 
         this.getCurrentPosition();
 
-        if (this.state.qualifications == '1203') {
+        if (this.state.qualifications == '23') {
 
             this.getRealNameDetail(global.phone);
 
@@ -138,15 +138,13 @@ class enterpriseownerVerifiedState extends Component{
         });
     }
 
-    /*实名认证*/
+    /*企业车主实名认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
         // TODO 获取企业车主认证信息
         HTTPRequest({
-            url: API.API_AUTH_REALNAME_DETAIL + userPhone,
-            params: {
-                phoneNum: userPhone
-            },
+            url: API.API_QUERY_COMPANY_INFO + userPhone,
+            params: {},
             loading: () => {
                 this.setState({
                     appLoading: true,
