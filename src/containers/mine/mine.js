@@ -12,7 +12,6 @@ import {
     Platform,
     Alert,
     Modal,
-
 } from 'react-native';
 import Storage from '../../utils/storage';
 import * as StaticColor from '../../constants/staticColor';
@@ -31,6 +30,7 @@ import StaticImage from '../../constants/staticImage';
 import * as ConstValue from '../../constants/constValue';
 import AlertSheetItem from '../../common/alertSelected';
 import ImagePicker from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
 import DeviceInfo from 'react-native-device-info';
@@ -278,7 +278,21 @@ class Mine extends Component {
         this.imglistener = DeviceEventEmitter.addListener('imageCallBack', (response) => {
             this.imageProcess(response);
         });
+        this.imgPhotoListener = DeviceEventEmitter.addListener('imagePhotoCallBack', (image) => {
+            if (Platform.OS === 'ios') {
+                this.imageCropProcess(image);
+            } else {
+                this.imageADCropProcess(image);
+            }
+        });
+        this.imageCameralistener = DeviceEventEmitter.addListener('imageCameraCallBack', (image) => {
+            if (Platform.OS === 'ios') {
+                this.imageCropCameraProcess(image);
+            } else {
+                this.imageADCropCameraProcess(image);
+            }
 
+        });
         this.hideModuleListener = DeviceEventEmitter.addListener('hideModule', (response) => {
             this.setState({
                 modalVisible: false,
@@ -289,11 +303,13 @@ class Mine extends Component {
 
     componentWillUnmount() {
         this.mineListener.remove();
+        this.imgPhotoListener.remove();
         this.cerlistener.remove();
         this.verlistener.remove();
         this.imglistener.remove();
         this.choosePhotoListener.remove();
         this.hideModuleListener.remove();
+        this.imageCameralistener.remove();
     }
 
     /*点击弹出菜单*/
@@ -338,22 +354,46 @@ class Mine extends Component {
     }
 
     selectCamera() {
-        ImagePicker.launchCamera(options, (response) => {
-            // this.imageProcess(response);
+        // ImagePicker.launchCamera(options, (response) => {
+        //     // this.imageProcess(response);
+        //     this.setState({
+        //         modalVisible: false,
+        //     });
+        //     DeviceEventEmitter.emit('imageCallBack', response);
+        // })
+
+        ImageCropPicker.openCamera({
+            width: 400,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log('照相机image',image);
             this.setState({
                 modalVisible: false,
             });
-            DeviceEventEmitter.emit('imageCallBack', response);
-        })
+            DeviceEventEmitter.emit('imageCameraCallBack', image);
+        });
     }
 
     selectPhoto() {
-        ImagePicker.launchImageLibrary(options, (response) => {
-            // this.imageProcess(response);
+        // ImagePicker.launchImageLibrary(options, (response) => {
+        //     // this.imageProcess(response);
+        //     this.setState({
+        //         modalVisible: false,
+        //     });
+        //     DeviceEventEmitter.emit('imageCallBack', response);
+        // })
+
+        ImageCropPicker.openPicker({
+            width: 400,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log('图片image', image);
             this.setState({
                 modalVisible: false,
             });
-            DeviceEventEmitter.emit('imageCallBack', response);
+            DeviceEventEmitter.emit('imagePhotoCallBack', image);
         })
     }
 
@@ -530,16 +570,167 @@ class Mine extends Component {
         }
     }
 
+    /*IOS获取头像照片数据*/
+    imageCropProcess(image) {
+        console.log('iamgeee',image)
+        if (image.didCancel) {
+            console.log('User cancelled image picker');
+        }
+        else if (image.error) {
+            console.log('ImagePicker Error: ', image.error);
+
+        }
+        else if (image.customButton) {
+            console.log('User tapped custom button: ', image.customButton);
+
+        }
+        else {
+
+            let source = {uri: image.path};
+
+            this.setState({
+                avatarSource: source
+            })
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {
+                uri: image.path,
+                type: 'multipart/form-data',
+                name: 'image.png'
+            };   //这里的key(uri和type和name)不能改变,
+            console.log('response.fileName', image.filename, 'file', file)
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('userId', global.userId);
+            formData.append('userName', global.userName ? global.userName : this.state.phoneNum);
+            formData.append('fileName', image.filename);
+            formData.append('mimeType', image.mime);
+            this.upLoadImage(API.API_CHANGE_USER_AVATAR, formData);
+        }
+    }
+    /*ANDROID获取头像照片数据*/
+    imageADCropProcess(image) {
+        if (image.didCancel) {
+            console.log('User cancelled image picker');
+        }
+        else if (image.error) {
+            console.log('ImagePicker Error: ', image.error);
+
+        }
+        else if (image.customButton) {
+            console.log('User tapped custom button: ', image.customButton);
+
+        }
+        else {
+
+            let source = {uri: image.path};
+
+            this.setState({
+                avatarSource: source
+            })
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {
+                uri: image.path,
+                type: 'multipart/form-data',
+                name: 'image.png'
+            };   //这里的key(uri和type和name)不能改变,
+            console.log('response.fileName', 'abc.jpg', 'file', file)
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('userId', global.userId);
+            formData.append('userName', global.userName ? global.userName : this.state.phoneNum);
+            formData.append('fileName', 'abc.jpg');
+            formData.append('mimeType', image.mime);
+            this.upLoadImage(API.API_CHANGE_USER_AVATAR, formData);
+        }
+    }
+
+    /*获取头像拍摄数据*/
+    imageCropCameraProcess(image) {
+
+        if (image.didCancel) {
+            console.log('User cancelled image picker');
+        }
+        else if (image.error) {
+            console.log('ImagePicker Error: ', image.error);
+
+        }
+        else if (image.customButton) {
+            console.log('User tapped custom button: ', image.customButton);
+
+        }
+        else {
+
+            let source = {uri: image.path};
+
+            this.setState({
+                avatarSource: source
+            })
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {
+                uri: image.path,
+                type: 'multipart/form-data',
+                name: 'image.png'
+            };   //这里的key(uri和type和name)不能改变,
+            console.log('response.fileName', image.filename, 'file', file)
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('userId', global.userId);
+            formData.append('userName', global.userName ? global.userName : this.state.phoneNum);
+            formData.append('fileName', 'abc.jpg');
+            formData.append('mimeType', image.mime);
+            this.upLoadImage(API.API_CHANGE_USER_AVATAR, formData);
+        }
+    }
+    /*获取头像拍摄数据*/
+    imageADCropCameraProcess(image) {
+
+        if (image.didCancel) {
+            console.log('User cancelled image picker');
+        }
+        else if (image.error) {
+            console.log('ImagePicker Error: ', image.error);
+
+        }
+        else if (image.customButton) {
+            console.log('User tapped custom button: ', image.customButton);
+
+        }
+        else {
+
+            let source = {uri: image.path};
+
+            this.setState({
+                avatarSource: source
+            })
+
+            let formData = new FormData();//如果需要上传多张图片,需要遍历数组,把图片的路径数组放入formData中
+            let file = {
+                uri: image.path,
+                type: 'multipart/form-data',
+                name: 'image.png'
+            };   //这里的key(uri和type和name)不能改变,
+            console.log('response.fileName', image.filename, 'file', file)
+            formData.append("photo", file);   //这里的files就是后台需要的key
+            formData.append('userId', global.userId);
+            formData.append('userName', global.userName ? global.userName : this.state.phoneNum);
+            formData.append('fileName', 'abc.jpg');
+            formData.append('mimeType', image.mime);
+            this.upLoadImage(API.API_CHANGE_USER_AVATAR, formData);
+        }
+    }
+
 
     /*上传头像*/
     upLoadImage(url, data) {
+        console.log('upLoadImage1',url);
+        console.log('upLoadImage2',data);
         upLoadImageManager(url,
             data,
             () => {
                 console.log('开始请求数据');
             },
             (respones) => {
-                console.log(respones);
+                console.log('upLoadImage',respones);
                 if (respones.code === 200) {
                     Storage.save(PHOTOREFNO, respones.result);
                     global.photoRefNo = respones.result;
@@ -811,11 +1002,11 @@ class Mine extends Component {
                                                                 // 未认证
                                                                 Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 
-                                                                    if (value){
+                                                                    if (value) {
                                                                         this.props.navigation.navigate('VerifiedPage', {
                                                                             resultInfo: value,
                                                                         });
-                                                                    }else {
+                                                                    } else {
                                                                         this.props.navigation.navigate('VerifiedPage');
                                                                     }
                                                                 });
@@ -1041,9 +1232,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-
-    };
+    return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);
