@@ -917,26 +917,12 @@ class Mine extends Component {
                                                 }
                                             </Text>
                                         </View>
-
-                                        {/*<Text*/}
-                                            {/*style={{*/}
-                                                {/*marginTop: 5,*/}
-                                                {/*marginBottom: 10,*/}
-                                                {/*backgroundColor: 'transparent',*/}
-                                                {/*color: '#FFFFFF',*/}
-                                                {/*fontSize: 14*/}
-                                            {/*}}>*/}
-                                            {/*{*/}
-                                                {/*this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''*/}
-                                            {/*}*/}
-                                        {/*</Text>*/}
                                     </View>
                                     <View style={{flex: 1}}/>
                                     {this.props.currentStatus == 'driver' ?
                                         changeCarView : null}
                                 </View>
                             </View>
-                            {/*{changeCarView}*/}
                         </Image>
                         <View style={styles.contentPostionView}>
                             <ScrollView onMomentumScrollEnd={
