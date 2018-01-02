@@ -933,7 +933,8 @@ class Mine extends Component {
                                         {/*</Text>*/}
                                     </View>
                                     <View style={{flex: 1}}/>
-                                    {changeCarView}
+                                    {this.props.currentStatus == 'driver' ?
+                                        {changeCarView} : null}
                                 </View>
                             </View>
                             {/*{changeCarView}*/}
