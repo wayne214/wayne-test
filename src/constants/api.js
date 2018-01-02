@@ -61,11 +61,13 @@ export const API_QUERY_USER_AVATAR = `${HOST}app/uam/queryUserAvatar`;
 // export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
 export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatarNew`;
 
-// 道路异常-上传附件
+// 道路异常-上传图片附件
 // export const API_UPLOAD_FILE = `${HOST}app/uam/uploadFile`;
-export const API_UPLOAD_FILE = `http://192.168.32.83:8899/app/uam/uploadFile`;
-
-export const API_UPLOAD_VIDEO_FILE = `http://192.168.32.83:8899/app/uam/uploadVideoFile`;
+export const API_UPLOAD_FILE = `${HOST}app/uam/uploadFile`;
+// export const API_UPLOAD_FILE = `http://192.168.32.83:8899/app/uam/uploadFile`;
+// 道路异常-上传视频附件
+export const API_UPLOAD_VIDEO_FILE = `${HOST}app/uam/uploadVideoFile`;
+// export const API_UPLOAD_VIDEO_FILE = `http://192.168.32.83:8899/app/uam/uploadVideoFile`;
 
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单

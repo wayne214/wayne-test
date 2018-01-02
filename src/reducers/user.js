@@ -81,11 +81,19 @@ export default (state = initState, action) => {
             Storage.remove(StorageKey.PHOTO_REF_NO);
             Storage.remove(StorageKey.USER_ID);
 
+            Storage.remove(StorageKey.USER_DRIVER_STATE);
+            Storage.remove(StorageKey.USER_CAROWN_STATE);
+            Storage.remove(StorageKey.USER_CURRENT_STATE);
+
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');
             globalState = globalState.set('plateNumber', '');
             globalState = globalState.set('plateNumberObj', {carNum: '', carStatus: 0});
             globalState = globalState.set('userCarList', []);
+
+            globalState = globalState.set('driverStatus', '');
+            globalState = globalState.set('ownerStatus', '');
+            globalState = globalState.set('currentStatus', '');
 
             return globalState;
 
@@ -100,12 +108,23 @@ export default (state = initState, action) => {
             return globalState;
         case ActionTypes.ACTION_SET_DRIVER_CHARACTER:
             globalState = globalState.set('driverStatus', action.payload);
+
+            action.payload ? Storage.save(StorageKey.USER_DRIVER_STATE, action.payload) : null
+
             return globalState;
         case ActionTypes.ACTION_SET_OWNER_CHARACTER:
             globalState = globalState.set('ownerStatus', action.payload);
+
+            action.payload ? Storage.save(StorageKey.USER_CAROWN_STATE, action.payload) : null
+
+
             return globalState;
         case ActionTypes.ACTION_SET_CURRENT_CHARACTER:
             globalState = globalState.set('currentStatus', action.payload);
+
+            action.payload ? Storage.save(StorageKey.USER_CURRENT_STATE, action.payload) : null
+
+
             return globalState;
         case ActionTypes.ACTION_GET_COMPANY_CODE:
             globalState = globalState.set('companyCode', action.payload);
