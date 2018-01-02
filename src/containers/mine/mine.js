@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     iconOutView: {
         marginBottom: 10,
         marginLeft: 15,
-        borderRadius: 5,
+        borderRadius: 30,
         borderWidth: 3,
         borderColor: 'rgba(255,255,255,0.2)',
         overflow: 'visible'
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         resizeMode: 'stretch',
-        borderRadius: 5,
+        borderRadius: 30,
     },
     informView: {
         marginLeft: 15,
@@ -760,14 +760,16 @@ class Mine extends Component {
     render() {
         const navigator = this.props.navigation;
         const statusRender =
-            this.state.certificationState == '1202' && this.state.verifiedState == '1202' ?
+            this.state.verifiedState == '1202' ?
                 <View
                     style={{
+                        position: 'absolute',
                         height: 18,
                         width: 50,
                         borderRadius: 10,
                         borderWidth: 1,
-                        marginLeft: 10,
+                        marginLeft: 22,
+                        marginTop:55,
                         borderColor: 'transparent',
                         backgroundColor: '#f6bd0e',
                         alignItems: 'center',
@@ -897,6 +899,7 @@ class Mine extends Component {
                                                 />
                                         }
                                     </View>
+                                    {statusRender}
                                 </TouchableOpacity>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     <View style={styles.informView}>
@@ -914,20 +917,20 @@ class Mine extends Component {
                                                     this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
                                                 }
                                             </Text>
-                                            {statusRender}
                                         </View>
-                                        <Text
-                                            style={{
-                                                marginTop: 5,
-                                                marginBottom: 10,
-                                                backgroundColor: 'transparent',
-                                                color: '#FFFFFF',
-                                                fontSize: 14
-                                            }}>
-                                            {
-                                                this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
-                                            }
-                                        </Text>
+
+                                        {/*<Text*/}
+                                            {/*style={{*/}
+                                                {/*marginTop: 5,*/}
+                                                {/*marginBottom: 10,*/}
+                                                {/*backgroundColor: 'transparent',*/}
+                                                {/*color: '#FFFFFF',*/}
+                                                {/*fontSize: 14*/}
+                                            {/*}}>*/}
+                                            {/*{*/}
+                                                {/*this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''*/}
+                                            {/*}*/}
+                                        {/*</Text>*/}
                                     </View>
                                     <View style={{flex: 1}}/>
                                     {changeCarView}
