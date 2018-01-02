@@ -36,6 +36,7 @@ import Validator from '../../../utils/validator';
 import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
+import HTTPRequest from '../../../utils/httpRequest';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -116,6 +117,15 @@ class personCarOwnerAuth extends Component {
 
                 isShowCardInfo: result.IDCard ? true : false,
                 isShowDriverInfo: result.carEngineNumber ? true : false,
+
+                // 默认
+                moRenidCardName: result.moRenidCardName, // 身份证解析姓名
+                moRenidCard: result.moRenidCard, // 解析身份证号
+                moRenidCardValidity: result.moRenidCardValidity, // 解析身份证有效期
+                moRencarNum: result.moRencarNum, // 车牌号
+                moRenhaverName: result.moRenhaverName, // 所有人
+                moRenengineNum: result.moRenengineNum, // 发动机号码
+                moRendrivingValidity: result.moRendrivingValidity, // 行驶证有效期
             };
         }else {
             this.state = {
@@ -155,12 +165,18 @@ class personCarOwnerAuth extends Component {
 
                 isShowCardInfo: false,
                 isShowDriverInfo: false,
+
+                // 默认
+                moRenidCardName: '', // 身份证解析姓名
+                moRenidCard: '', // 解析身份证号
+                moRenidCardValidity: '', // 解析身份证有效期
+                moRencarNum: '', // 车牌号
+                moRenhaverName: '', // 所有人
+                moRenengineNum: '', // 发动机号码
+                moRendrivingValidity: '', // 行驶证有效期
+
             };
         }
-
-
-
-
 
         this.showDatePick = this.showDatePick.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
@@ -168,7 +184,7 @@ class personCarOwnerAuth extends Component {
         this.selectPhoto = this.selectPhoto.bind(this);
         this.selectCamera = this.selectCamera.bind(this);
         this.upLoadImage = this.upLoadImage.bind(this);
-
+        this.upDataToHttp = this.upDataToHttp.bind(this);
 
     }
     componentDidMount() {
@@ -478,6 +494,10 @@ class personCarOwnerAuth extends Component {
                                 IDName: respones.result.idName,
                                 IDCard: respones.result.idNum,
 
+                                // 默认
+                                moRenidCardName: respones.result.idName, // 身份证解析姓名
+                                moRenidCard: respones.result.idNum, // 解析身份证号
+
                                 idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
                                 idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
                                 isShowCardInfo : true,
@@ -492,6 +512,9 @@ class personCarOwnerAuth extends Component {
 
                             this.setState({
                                 IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+
+                                moRenidCardValidity:  Validator.timeTrunToDateString(respones.result.idValidUntil), // 解析身份证有效期
+
                                 idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                 idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                                 isShowCardInfo : true,
@@ -510,6 +533,11 @@ class personCarOwnerAuth extends Component {
                                 vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
                                 vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
                                 isShowDriverInfo: true,
+
+                                moRencarNum: respones.result.plateNumber, // 车牌号
+                                moRenhaverName: respones.result.owner, // 所有人
+                                moRenengineNum: respones.result.engineNumber, // 发动机号码
+
                             });
 
                             break;
@@ -538,6 +566,71 @@ class personCarOwnerAuth extends Component {
                 });
             });
     }
+
+    upDataToHttp(){
+        let obj = {
+            userId: userID, //用户ID
+            userName: userName, // 用户名
+            busTel: userPhone, // 用户手机号
+            companyNature: '个人', // 伙伴性质
+
+            positiveCard: this.state.idFaceSideNormalPhotoAddress, // 身份证正面原图地址
+            positiveCardThumbnail: this.state.idFaceSideThumbnailAddress, // 身份证正面缩略图地址
+            oppositeCard: this.state.idBackSideNormalPhotoAddress, // 身份证反面原图地址
+            oppositeCardThumbnail: this.state.idBackSideThumbnailAddress, // 身份证反面缩略图地址
+
+            // personName: '', // 姓名
+            // personCardCode: '', // 身份证号
+            // personCardCodeTime: '', // 身份证有效期至
+            // drivingCardTime: '', // 行驶证有效期
+
+
+            drivingCardHomePage: this.state.vehicleLicenseHomepageNormalPhotoAddress, // 行驶证正面原图地址
+            drivingCardHomePageThumbnail: this.state.vehicleLicenseHomepageThumbnailAddress, // 行驶证正面缩略图地
+            drivingPermitSubPage: this.state.vehicleLicenseVicePageNormalPhotoAddress, // 行驶证反面原图地
+            drivingPermitSubPageThumbnail: this.state.vehicleLicenseVicePageThumbnailAddress, // 行驶证反面缩略图地
+            rmcAnalysisAndContrastQo:{ // 片解析信息
+
+                manualIdCardName: this.state.IDName, // 手动修改的姓名
+                manualIdCard: this.state.IDCard, // 修改的身份证号
+                manualIdCardValidity: this.state.IDDate, // 修改身份证有效期
+                manualCarNum: this.state.carNumber, // 修改后的车牌号
+                manualHaverName: this.state.carOwner, // 修改的所有人
+                manualEngineNum: this.state.carEngineNumber, // 修改的发动机号
+                drivingValidity: this.state.drivingLicenseValidUntil, // 行驶证有效期
+                // 默认
+                idCardName: this.state.moRenidCardName, // 身份证解析姓名
+                idCard: this.state.moRenidCard, // 解析身份证号
+                idCardValidity: this.state.moRenidCardValidity, // 解析身份证有效期
+                carNum: this.state.moRencarNum, // 车牌号
+                haverName: this.state.moRenhaverName, // 所有人
+                engineNum: this.state.moRenengineNum, // 发动机号码
+            }
+        };
+        console.log(obj);
+        HTTPRequest({
+            url: API.API_COMPANY_CERTIFICATION,
+            params: obj,
+            loading: () => {
+                this.setState({
+                    appLoading: true,
+                });
+            },
+            success: (responseData) => {
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+                this.setState({
+                    appLoading: false,
+                });
+            }
+        });
+    }
+
+
 
     render() {
         const navigator = this.props.navigation;
@@ -657,6 +750,15 @@ class personCarOwnerAuth extends Component {
                             isChooseCardTrunImage: this.state.isChooseCardTrunImage,
                             isChooseVehicleLicenseViceImage: this.state.isChooseVehicleLicenseViceImage,
                             isChooseVehicleLicenseViceTrunImage: this.state.isChooseVehicleLicenseViceTrunImage,
+
+                            // 默认
+                            moRenidCardName: this.state.moRenidCardName, // 身份证解析姓名
+                            moRenidCard: this.state.moRenidCard, // 解析身份证号
+                            moRenidCardValidity: this.state.moRenidCardValidity, // 解析身份证有效期
+                            moRencarNum: this.state.moRencarNum, // 车牌号
+                            moRenhaverName: this.state.moRenhaverName, // 所有人
+                            moRenengineNum: this.state.moRenengineNum, // 发动机号码
+                            moRendrivingValidity: this.state.moRendrivingValidity, // 行驶证有效期
                         };
 
                         Storage.save(StorageKey.personownerInfoResult, info);
@@ -731,6 +833,7 @@ class personCarOwnerAuth extends Component {
 
                     {travelInfo}
                     <VierifiedBottomItem clickAction={()=>{
+                        this.upDataToHttp();
                     }}/>
                 </ScrollView>
                 <AlertSheetItem ref={(dialog)=>{

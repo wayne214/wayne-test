@@ -54,6 +54,7 @@ import {
 import {
     locationAction,
     getHomePageCountAction,
+    getCarrierHomoPageCountAction,
     mainPressAction,
     updateVersionAction,
 } from '../../action/app';
@@ -278,6 +279,7 @@ class Home extends Component {
         };
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
+        this.getCarrierHomePageCount = this.getCarrierHomePageCount.bind(this);
         this.setData = this.setData.bind(this);
         this.setUserCar = this.setUserCar.bind(this);
         this.setUserCarSuccessCallBack = this.setUserCarSuccessCallBack.bind(this);
@@ -310,16 +312,24 @@ class Home extends Component {
             this.getWeather(nextProps.location);
             this.vehicleLimit(nextProps.location);
         }
-
+        console.log('nextProps=',nextProps.currentStatus);
+        console.log('currentProps=',this.props.currentStatus);
+        if(nextProps.currentStatus != this.props.currentStatus) {
+            if (nextProps.currentStatus == 'driver') {
+                this.getHomePageCount(this.props.plateNumber, this.props.userInfo.phone);
+            } else {
+                this.getCarrierHomePageCount();
+            }
+        }
     }
 
     componentDidMount() {
 
-        // this.compareVersion();
+        this.compareVersion();
         this.getCurrentPosition(0);
-        this.queryEnterpriseNature();
-
-
+        if(this.props.currentStatus == 'driver'){
+            this.queryEnterpriseNature();
+        }
         if (Platform.OS === 'android') {
             JPushModule.notifyJSDidLoad((resultCode) => {
                 if (resultCode === 0) {
@@ -519,9 +529,13 @@ class Home extends Component {
         // -----------jpush  ios end
 
         this.listener = DeviceEventEmitter.addListener('refreshHome', () => {
-            if (this.props.plateNumber) {
-                const {userInfo} = this.props;
-                this.getHomePageCount(this.props.plateNumber, userInfo.phone);
+            if (this.props.currentStatus == 'driver') {
+                if (this.props.plateNumber) {
+                    const {userInfo} = this.props;
+                    this.getHomePageCount(this.props.plateNumber, userInfo.phone)
+                }
+            }else {
+                this.getCarrierHomePageCount();
             }
         });
         this.getUserCarListener = DeviceEventEmitter.addListener('getUserCar', () => {
@@ -543,7 +557,6 @@ class Home extends Component {
 
         this.bindCarListener = DeviceEventEmitter.addListener('bindUserCar', (value) => {
             if (value) {
-
                 this.setUserCar(value);
             }
         });
@@ -633,11 +646,19 @@ class Home extends Component {
                         }
                     }
                 } else {
-                    this.setData();
+                    if (this.props.currentStatus == 'driver') {
+                        this.setData();
+                    }else {
+                        this.getCarrierHomePageCount();
+                    }
                 }
             },
             error: (errorInfo) => {
-                this.setData();
+                if (this.props.currentStatus == 'driver') {
+                    this.setData();
+                }else {
+                    this.getCarrierHomePageCount();
+                }
             },
             finish: () => {
             }
@@ -788,6 +809,30 @@ class Home extends Component {
                     locationData.district, lastTime - currentTime, '首页');
                 if (responseData.result) {
                     this.props.getHomoPageCountAction(responseData.result);
+                }
+            },
+            error: () => {
+            },
+            finish: () => {
+            },
+        });
+    }
+    // 获取首页状态数量
+    getCarrierHomePageCount() {
+        currentTime = new Date().getTime();
+        HTTPRequest({
+            url: API.API_CARRIER_INDEX_STATUS_NUM,
+            params: {
+                carrierCode: '13120382724',
+            },
+            loading: () => {
+            },
+            success: (responseData) => {
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '首页');
+                if (responseData.result) {
+                    this.props.getCarrierHomoPageCountAction(responseData.result);
                 }
             },
             error: () => {
@@ -981,7 +1026,9 @@ class Home extends Component {
                 TimeToDoSomething.uploadDataFromLocalMsg();
             } else {
                 this.getWeather(data.city);
-                this.vehicleLimit(data.city);
+                if(this.props.currentStatus == 'driver') {
+                    this.vehicleLimit(data.city);
+                }
             }
         }).catch(e => {
             console.log(e, 'error');
@@ -1127,7 +1174,7 @@ class Home extends Component {
     }
 
     render() {
-        const {homePageState, routes} = this.props;
+        const {homePageState, carrierHomePageState, routes} = this.props;
         const {weather, temperatureLow, temperatureHigh} = this.state;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
@@ -1248,9 +1295,6 @@ class Home extends Component {
                 renderImage={() => <Image source={StaticImage.roadIcon}/>}
                 clickAction={() => {
                     this.props.navigation.navigate('UploadAbnormal');
-                    {/*this.props.navigation.navigate('UploadReceipt',{*/}
-                    {/*transCode: '2345',*/}
-                    {/*});*/}
                 }}
             />
         </View>;
@@ -1261,7 +1305,7 @@ class Home extends Component {
                     padding={10}// 文字与文字间距
                     imageStyle={styles.imageView}
                     backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                    // badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
+                    badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.notYetReceiveCount}// 消息提示
                     renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                     clickAction={() => { // 点击事件
                         if (this.props.plateNumber && this.props.plateNumber !== '') {
@@ -1285,7 +1329,7 @@ class Home extends Component {
                     padding={10}
                     imageStyle={styles.imageView}
                     backgroundColor={{backgroundColor: WHITE_COLOR}}
-                    // badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
+                    badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.noDispatchCount}
                     renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                     clickAction={() => {
                         if (this.props.plateNumber && this.props.plateNumber !== '') {
@@ -1304,10 +1348,17 @@ class Home extends Component {
                     }}
                 />
             </View>;
+        let state = '';
+        if (this.props.currentStatus == 'driver') {
+            state = this.props.driverStatus == '1' ? '(认证中)' : this.props.driverStatus == '3' ? '(认证驳回)' : '';
+        }else {
+            state = this.props.driverStatus == '11' || this.props.driverStatus == '21' ? '(认证中)' :
+                this.props.driverStatus == '13' || this.props.driverStatus == '23'? '(认证驳回)' : '';
+        }
         return (
             <View style={styles.containerView}>
                 <NavigatorBar
-                    title={'首页'}
+                    title={`首页${state}`}
                     navigator={navigator}
                     leftButtonHidden={false}
                     leftButtonConfig={{
@@ -1455,6 +1506,7 @@ function mapStateToProps(state) {
     return {
         userInfo: state.user.get('userInfo'),
         homePageState: state.app.get('getHomePageCount'),
+        carrierHomePageState: state.app.get('getCarrierHomePageCount'),
         jpushIcon: state.jpush.get('jpushIcon'),
         location: state.app.get('locationData'),
         plateNumber: state.user.get('plateNumber'),
@@ -1473,6 +1525,9 @@ function mapDispatchToProps(dispatch) {
     return {
         getHomoPageCountAction: (response) => {
             dispatch(getHomePageCountAction(response));
+        },
+        getCarrierHomoPageCountAction: (response) => {
+            dispatch(getCarrierHomoPageCountAction(response));
         },
         saveUserSetCarSuccess: (plateNumberObj) => {
             dispatch(setUserCarAction(plateNumberObj));

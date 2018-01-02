@@ -97,6 +97,7 @@ class GoodSource extends BaseContainer{
             this.receiveEventAndFetchData();
         });
     }
+
     componentWillUnmount() {
         this.listener.remove();
     }
@@ -138,8 +139,7 @@ class GoodSource extends BaseContainer{
                     plateNumber: global.plateNumber,
                 } : {
                     beginTime: '2017-06-01 00:00:00',
-                    carrierCode: this.props.carrierCode,
-                    driverPhone: global.phone,
+                    carrierCode: '13120382724',
                     endTime: endTime,
                     pageNum: pageNo,
                     pageSize,
