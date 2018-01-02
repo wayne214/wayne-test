@@ -37,6 +37,7 @@ import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
 import HTTPRequest from '../../../utils/httpRequest';
+import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 
 
 const businessTrunRightImage = require('./images/business_right_add.png');
@@ -68,6 +69,8 @@ let isShowCardInfo = false;
 let userID = '';
 let userName = '';
 let userPhone = '';
+
+let lastTime = 0;
 
 class companyCarOwnerAuth extends Component {
     constructor(props) {
@@ -604,7 +607,14 @@ class companyCarOwnerAuth extends Component {
                 });
             },
             success: (responseData) => {
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('企业车主认证', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '企业车主认证');
 
+                Storage.remove(StorageKey.enterpriseownerInfoResult);
+                Toast.showShortCenter('企业车主认证提交成功');
+
+                this.props.navigation.goBack()
             },
             error: (errorInfo) => {
             },
