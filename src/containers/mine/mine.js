@@ -257,6 +257,7 @@ class Mine extends Component {
 
         /*实名认证状态请求*/
         this.verifiedState();
+        this.certificationState();
 
 
         /*资质认证提交成功，刷新状态*/
