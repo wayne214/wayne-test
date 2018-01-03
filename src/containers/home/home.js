@@ -1474,6 +1474,7 @@ class Home extends Component {
                     <CharacterChooseCell
                         carClick={() => {
 
+                            console.log('this.props.ownerStatus', this.props.ownerStatus);
                             {this.props.ownerStatus == '13' ||  this.props.ownerStatus == '23' ||  this.state.ownerStatus == '0'?
                                 this.props.navigation.navigate('CharacterOwner')
                                 :
