@@ -19,7 +19,7 @@ import {
 import NavigatorBar from '../../../../common/navigationBar/navigationBar';
 import VerifiedGrayTitleItem from './../verifiedIDItem/verifiedGrayTitleItem';
 import RealNameItem from './ownerVerifiedItem/verifiedPersonownerRealNameItem';
-import DriverItem from './../verifiedIDItem/verifiedDriverItem';
+import DriverItem from './ownerVerifiedItem/verifiedPersonOwnerDriverItem';
 import VerifiedFailItem from './../verifiedIDItem/verifiedFailItem';
 import * as API from '../../../../constants/api';
 import Storage from '../../../../utils/storage';
@@ -144,8 +144,11 @@ class personownerVerifiedState extends Component{
         currentTime = new Date().getTime();
         // TODO 获取个人车主认证信息
         HTTPRequest({
-            url: API.API_QUERY_COMPANY_INFO + userPhone,
-            params: {},
+            url: API.API_QUERY_COMPANY_INFO,
+            params: {
+                busTel: userPhone,
+                companyNature: '个人'
+            },
             loading: () => {
                 this.setState({
                     appLoading: true,
@@ -210,14 +213,14 @@ class personownerVerifiedState extends Component{
 
         // 11  个人车主认证中   12 个人车主认证通过  13 个人车主认证驳回
 
-        let headView = this.state.qualifications == '11' ?
+        let headView = this.state.qualifications == '1201' ?
             <View style={styles.headStyle}>
 
                 <Image source={headerImageLoading}/>
 
                 <Text style={styles.textStyle}>认证中</Text>
             </View>
-            : this.state.qualifications == '12' ?
+            : this.state.qualifications == '1202' ?
                 <View style={styles.headStyle}>
 
                     <Image source={headerImageSuccess}/>
@@ -271,7 +274,7 @@ class personownerVerifiedState extends Component{
                 />
 
                 <ScrollView
-                    bounces={false}>
+                    bounces={false} showsVerticalScrollIndicator={false}>
 
                     {headView}
                     <View style={{height: 10, width: width, backgroundColor: '#f5f5f5'}}/>
@@ -281,7 +284,7 @@ class personownerVerifiedState extends Component{
                                   imageClick={(index)=>{
                                       
                                       if (index === 0){
-                                          if (this.state.resultInfo.positiveCard){                   
+                                          if (this.state.resultInfo.positiveCard){
                                               this.showBigImage([this.state.resultInfo.positiveCard], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
@@ -295,20 +298,20 @@ class personownerVerifiedState extends Component{
 
                                   }}/>
                     <View style={{height: 10, width: width, backgroundColor: '#f5f5f5'}}/>
-                    <VerifiedGrayTitleItem title="驾驶证"/>
+                    <VerifiedGrayTitleItem title="行驶证"/>
                     <Line/>
                     <DriverItem resultInfo={this.state.resultInfo}
                                 imageClick={(index)=>{
                                     
                                     if (index === 0){
-                                        if (this.state.resultInfo.drivingLicenceHomePage){                   
-                                            this.showBigImage([this.state.resultInfo.drivingLicenceHomePage], 0);
+                                        if (this.state.resultInfo.drivingCardHomePage){
+                                            this.showBigImage([this.state.resultInfo.drivingCardHomePage], 0);
                                         }else 
                                             Toast.showShortCenter('暂无图片');
                                     }
                                     if (index === 1){
-                                        if (this.state.resultInfo.drivingLicenceSubPage){                   
-                                            this.showBigImage([this.state.resultInfo.drivingLicenceSubPage], 0);
+                                        if (this.state.resultInfo.drivingPermitSubPage){
+                                            this.showBigImage([this.state.resultInfo.drivingPermitSubPage], 0);
                                         }else 
                                             Toast.showShortCenter('暂无图片');
                                     }
