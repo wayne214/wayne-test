@@ -25,7 +25,8 @@ import HTTPRequest from '../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import emptyData from '../../../../assets/carList/emptyData.png';
 import Button from 'apsl-react-native-button';
-
+import Storage from '../../../utils/storage';
+import StorageKey from '../../../constants/storageKeys';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -383,8 +384,15 @@ class AddCarDriver extends BaseContainer {
                                 }}
                                 textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
-                                    this.props.navigation.navigate('CarOwnerAddCarDetail', {
-                                        qualifications: 1202,
+                                    Storage.get(StorageKey.changeCarInfoResult).then((value) => {
+                                        if (value){
+                                            navigator.navigate('CertificationPage', {
+                                                resultInfo: value,
+                                            });
+                                        }else {
+                                            navigator.navigate('CertificationPage');
+                                        }
+
                                     });
                                 }}
                             >
