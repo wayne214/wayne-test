@@ -87,6 +87,8 @@ class entryToBeSignin extends Component {
             isShowRightButton: false,
             showImages: [],
             loading: false,
+            carrierName: params.carrierName,
+            carrierPlateNum: params.carrierPlateNum,
         };
         this.onScrollEnd = this.onScrollEnd.bind(this);
         this.getOrderDetailInfo = this.getOrderDetailInfo.bind(this);
@@ -492,8 +494,8 @@ class entryToBeSignin extends Component {
         });
         const carrierView = <View style={styles.carrierView}>
             <View style={{backgroundColor: StaticColor.BLUE_TAB_BAR_COLOR, width: 3, height: 16,}}/>
-            <Text style={styles.text}>承运车辆：{'京A12345'}</Text>
-            <Text style={styles.text}>{'张三'}</Text>
+            <Text style={styles.text}>承运者：{this.state.carrierName}</Text>
+            <Text style={styles.text}>{this.state.carrierPlateNum}</Text>
         </View>;
 
         return (
