@@ -184,7 +184,7 @@ class uploadAbnormal extends Component {
                 content: this.state.content,
                 driverPhoneNum: global.phone,
                 enclosureList: enclosureList,
-                mediaType: videoList && videoList.size > 0 ? 1 : 0,
+                mediaType: videoList && videoList.size > 0 ? 2 : 1,
                 plateNum: global.plateNumber,
                 scheduleCode: this.state.result.scheduleCode,
                 userId: global.userId,
