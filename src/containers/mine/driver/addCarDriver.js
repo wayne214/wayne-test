@@ -9,22 +9,24 @@ import {
     View,
     Text,
     Image,
-    Button,
     StyleSheet,
-    ScrollView,
+    DeviceEventEmitter,
     Dimensions,
     TextInput,
     FlatList,
     TouchableOpacity,
-    Platform
+    Platform,
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
-import NavigatorBar from '../../../common/navigationBar/navigationBar';
-import BankCode from '../../../utils/ZJBankCode'
 import * as ConstValue from '../../../constants/constValue';
+import StaticImage from '../../../constants/staticImage'
+import * as API from '../../../constants/api';
+import HTTPRequest from '../../../utils/httpRequest';
+import Toast from '@remobile/react-native-toast';
+import emptyData from '../../../../assets/carList/emptyData.png';
+import Button from 'apsl-react-native-button';
 
 const {height, width} = Dimensions.get('window');
-const NumberArr = BankCode.searchCode();
 
 const styles = StyleSheet.create({
     container: {
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     textInputStyle: {
         flex: 1,
         marginLeft: 5,
-        fontSize: 16,
+        fontSize: 13,
         color: '#666666',
         ...Platform.select({
             ios: {},
@@ -59,13 +61,18 @@ class AddCarDriver extends BaseContainer {
     constructor(props) {
         super(props);
         const params = this.props.navigation.state.params;
-        this.onChanegeTextKeyword.bind(this)
+        this.onChanegeTextKeyword.bind(this);
+        this.queryAllCarList = this.queryAllCarList.bind(this);
         this.state = {
-            // NumberArr: params.branchList,
-            // branchList:params.branchList,
             NumberArr: '',
-            branchList: '',
-            text:'',
+            carList: [
+
+            ],
+            text: '',
+            index: null,
+            line: true,
+            clickLine: 'a',
+            haveDate: true,
         }
     }
 
@@ -83,17 +90,17 @@ class AddCarDriver extends BaseContainer {
         this.time = setTimeout(() => {
             if (text === '') {
                 this.setState({
-                    branchList: this.state.NumberArr,
+                    carList: this.state.NumberArr,
                 });
                 return;
             } else {
                 this.setState({
-                    branchList: [],
+                    carList: [],
                 });
                 for (var i = 0; i < this.state.NumberArr.length; i++) {
                     if (this.state.NumberArr[i].branchBank.indexOf(text) > -1) {
                         this.setState({
-                            branchList: this.state.branchList.concat(this.state.NumberArr[i]),
+                            carList: this.state.carList.concat(this.state.NumberArr[i]),
                         });
                         // return;
                     } else {
@@ -105,42 +112,150 @@ class AddCarDriver extends BaseContainer {
 
     }
 
-    //点击城市cell
+    queryAllCarList(carNum) {
+        HTTPRequest({
+            url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
+            params: {
+                carNum: carNum,
+                bindRelieveFlag: 0,
+                carId: "",
+                companionId: "",
+                companionPhone: "",
+                driverIds: [
+                    ""
+                ],
+                driverPhone: ""
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                console.log('queryAllCarList', responseData.result)
+                if(responseData.result == null){
+                    this.setState({
+                        haveDate: false,
+                    })
+                } else {
+                    this.setState({
+                        haveDate: true,
+                        carList: responseData.result,
+                    })
+                }
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+    bindRelieveCar(item) {
+        HTTPRequest({
+            url: API.API_DRIVER_BIND_CAR,
+            params: {
+                bindRelieveFlag: 0,
+                carId: '',
+                carNum: item.carNum,
+                companionId: '',
+                companionPhone: '', //车主手机号
+                driverIds: [],
+                driverPhone: global.phone, // 司机时手机号
+            },
+            loading: () => {
+
+            },
+            success: (responseData) => {
+                Toast.show('添加成功');
+                DeviceEventEmitter.emit('addCarPage');
+                this.props.navigation.goBack();
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
     cityClicked(item) {
-        // alert(item.branchBank + item.branchBankCode);
-        if (this.props.navigation.state.params.BranchBankNameCallback) {
-            this.props.navigation.state.params.BranchBankNameCallback(item.branchBank);
-            this.props.navigation.state.params.BranchBankCodeCallback(item.branchBankCode);
-        }
-        this.props.navigation.goBack();
+        console.log('item', item);
+        // this.props.navigation.goBack();
+        this.bindRelieveCar(item);
     }
 
     //列表的每一行
     renderItemView({item, index}) {
         return (
-            <TouchableOpacity
-                style={{
-                    flex: 1,
-                    backgroundColor: '#E8E8E8',
-                    marginLeft: 10,
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: '#E8E8E8'
-                }}
-                onPress={() => {
-                    this.cityClicked(item)
-                }}
-            >
+
+            <TouchableOpacity onPress={() => {
+
+            }}>
+
                 <View style={{
+                    paddingLeft: 10,
                     backgroundColor: '#ffffff',
-                    height: 40,
-                    justifyContent: 'center',
-                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingTop: 16,
+                    paddingBottom: 16
                 }}>
-                    <Text
-                        style={{color: '#999999', fontSize: 15}}
-                    >{item.branchBank}</Text>
+                    <Image
+                        style={{height: 36, width: 36}}
+                        source={StaticImage.CarAvatar}></Image>
+
+                    <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+
+                            <Text style={{
+                                marginLeft: 10,
+                                color: '#333333',
+                                fontSize: 16,
+                                height: 24,
+                            }}>{item.carNum}</Text>
+
+                            {item.carStatus != '10' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 75,
+                                            marginLeft: width - 220,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#0071FF',
+                                            borderWidth: 0.5,
+                                        }}>
+                                        < Text style={{color: '#0071FF'}}>+添加</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
+                        </View>
+                        {item.carStatus == '禁用' ?
+                            <Text style={{
+                                marginLeft: 10,
+                                color: '#CCCCCC',
+                                fontSize: 12,
+                                height: 18,
+                                marginTop: 3,
+                            }}>平台已禁用此司机，有疑问请联系平台客服人员。</Text>
+                            : null}
+                    </View>
+
                 </View>
+
+                <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+
             </TouchableOpacity>
+
+
         );
     }
 
@@ -157,7 +272,11 @@ class AddCarDriver extends BaseContainer {
         console.log('params', params)
 
         return (
-            <View style={styles.container}>
+            <View style={{
+                backgroundColor: '#FFFFFF',
+                position: 'relative',
+                flex: 1
+            }}>
 
                 <View
                     style={{
@@ -187,18 +306,23 @@ class AddCarDriver extends BaseContainer {
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
+                            blurOnSubmit={true}
+                            onSubmitEditing={(event) => {
+                                console.log('gg', event.nativeEvent.text)
+                                this.queryAllCarList(event.nativeEvent.text);
+                            }}
                             value={text}
-                            placeholder={'车牌号/姓名'}
-                            onChangeText={(text)=>{
+                            placeholder={'车牌号'}
+                            onChangeText={(text) => {
                                 this.setState({
-                                    text:text
+                                    text: text
                                 })
                                 this.onChanegeTextKeyword(text)
                             }}>
                         </TextInput>
                         <TouchableOpacity onPress={() => {
                             this.setState({
-                                text:''
+                                text: ''
                             })
                         }}>
                             <Text
@@ -222,19 +346,53 @@ class AddCarDriver extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color:'#666666',fontsize:15, margin:10}} >添加车辆</Text>
-                {this.state.branchList ?
-                    <FlatList
-                        style={{backgroundColor: 'white', flex: 1}}
-                        data={this.state.branchList}
-                        renderItem={this.renderItemView.bind(this)}
-                        keyExtractor={this.extraUniqueKey}//去除警告
-                    >
+                {this.state.haveDate ?
+                    <View style={{backgroundColor: '#F4F4F4', height: 45, justifyContent: 'center',}}>
+                        <Text style={{color: '#666666', fontSize: 15, marginLeft: 10}}>添加车辆</Text>
+                    </View> : null}
+                {
+                    this.state.haveDate ?
+                        <FlatList
+                            style={{backgroundColor: '#F4F4F4', flex: 1}}
+                            data={this.state.carList}
+                            renderItem={this.renderItemView.bind(this)}
+                            keyExtractor={this.extraUniqueKey}//去除警告
+                        >
+                        </FlatList> :
+                        <View style={{marginTop: 120,alignItems:'center',}}>
+                            <Image
+                                source={emptyData}/>
+                            <Text style={{marginTop:10,fontSize: 16,color:'#666666'}}>
+                                您搜索的车辆不存在
+                            </Text>
+                            <Button
+                                ref='button'
+                                isDisabled={false}
+                                style={{
+                                    backgroundColor: '#0083FF',
+                                    width: width-20,
+                                    marginBottom: 0,
+                                    height: 38,
+                                    borderRadius: 0,
+                                    borderWidth: 0,
+                                    borderColor: '#0083FF',
+                                    borderRadius:5,
+                                    marginLeft:10,
+                                    marginTop:55,
 
-                    </FlatList>
-                    :
-                    <Text style={{marginTop:height/2 -70, marginLeft:width/2-80,color:'#999999',fontSize:16}}>请输入您要添加的车牌</Text>
+                                }}
+                                textStyle={{color: 'white', fontSize: 18}}
+                                onPress={() => {
+                                    this.props.navigation.navigate('CarOwnerAddCarDetail', {
+                                        qualifications: 1202,
+                                    });
+                                }}
+                            >
+                                创建车辆
+                            </Button>
+                        </View>
                 }
+
 
             </View>
 

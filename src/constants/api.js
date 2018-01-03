@@ -167,6 +167,8 @@ export const API_QUERY_CAR_LIST = `${HOST}app/rmc/rmcCar/queryCarListByCompanion
 // 司机列表
 export const API_QUERY_DRIVER_LIST = `${HOST}app/rmc/driver/queryDriversByCarNum/`;
 // export const API_QUERY_DRIVER_LIST = `http://192.168.32.162:8899/app/rmc/driver/queryDriversByCarNum/`;
+//司机绑定车辆
+export const API_DRIVER_BIND_CAR = `${HOST}app/rmc/rmcCar/driverBindCarRelation`;
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口

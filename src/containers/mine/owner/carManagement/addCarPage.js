@@ -23,6 +23,8 @@ import StaticImage from '../../../../constants/staticImage'
 import * as API from '../../../../constants/api';
 import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
+import emptyData from '../../../../../assets/carList/emptyData.png';
+import Button from 'apsl-react-native-button';
 
 const {height, width} = Dimensions.get('window');
 
@@ -75,11 +77,12 @@ class AddCarPage extends BaseContainer {
                 //     companionId: null,
                 //     drivers: null
                 // }
-                ],
+            ],
             text: '',
             index: null,
             line: true,
             clickLine: 'a',
+            haveDate: true,
         }
     }
 
@@ -137,11 +140,18 @@ class AddCarPage extends BaseContainer {
 
             },
             success: (responseData) => {
-                console.log('queryAllCarList', responseData)
                 console.log('queryAllCarList', responseData.result)
-                this.setState({
-                    carList: responseData.result,
-                })
+                if(responseData.result == null){
+                    this.setState({
+                        haveDate: false,
+                    })
+                } else {
+                    this.setState({
+                        haveDate: true,
+                        carList: responseData.result,
+                    })
+                }
+
             },
             error: (errorInfo) => {
 
@@ -190,6 +200,7 @@ class AddCarPage extends BaseContainer {
     //列表的每一行
     renderItemView({item, index}) {
         return (
+
             <TouchableOpacity onPress={() => {
 
             }}>
@@ -345,16 +356,53 @@ class AddCarPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                {this.state.haveDate ?
                 <View style={{backgroundColor: '#F4F4F4', height: 45, justifyContent: 'center',}}>
                     <Text style={{color: '#666666', fontSize: 15, marginLeft: 10}}>添加车辆</Text>
-                </View>
-                <FlatList
-                    style={{backgroundColor: '#F4F4F4', flex: 1}}
-                    data={this.state.carList}
-                    renderItem={this.renderItemView.bind(this)}
-                    keyExtractor={this.extraUniqueKey}//去除警告
-                >
-                </FlatList>
+                </View> : null}
+                {
+                    this.state.haveDate ?
+                        <FlatList
+                            style={{backgroundColor: '#F4F4F4', flex: 1}}
+                            data={this.state.carList}
+                            renderItem={this.renderItemView.bind(this)}
+                            keyExtractor={this.extraUniqueKey}//去除警告
+                        >
+                        </FlatList> :
+                        <View style={{marginTop: 120,alignItems:'center',}}>
+                            <Image
+                                source={emptyData}/>
+                            <Text style={{marginTop:10,fontSize: 16,color:'#666666'}}>
+                                您搜索的车辆不存在
+                            </Text>
+                            <Button
+                                ref='button'
+                                isDisabled={false}
+                                style={{
+                                    backgroundColor: '#0083FF',
+                                    width: width-20,
+                                    marginBottom: 0,
+                                    height: 38,
+                                    borderRadius: 0,
+                                    borderWidth: 0,
+                                    borderColor: '#0083FF',
+                                    borderRadius:5,
+                                    marginLeft:10,
+                                    marginTop:55,
+
+                                }}
+                                textStyle={{color: 'white', fontSize: 18}}
+                                onPress={() => {
+                                    this.props.navigation.navigate('CarOwnerAddCarDetail', {
+                                        qualifications: 1202,
+                                    });
+                                }}
+                            >
+                                创建车辆
+                            </Button>
+                        </View>
+                }
+
 
             </View>
 
