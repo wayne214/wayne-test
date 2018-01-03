@@ -98,14 +98,22 @@ class recordVideo extends Component {
                 >
                     <View style={styles.bottomView}>
                         <Text style={styles.text}>按住摄像</Text>
-
                         <View style={styles.photoView}>
+                            <View style={{width: width / 2 - 42,}}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigator.goBack();
+                                    }}
+                                >
+                                    <Text style={styles.backIcon}>&#xe678;</Text>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.circleView}>
                                 <PercentageCircle
                                     radius={42}
                                     percent={this.state.progress}
                                     borderWidth='6'
-                                    innerColor='transparent'
+                                    // innerColor='transparent'
                                     bgcolor='rgba(255,255,255,0.5)'
                                     color={"#008aff"}
                                 >
@@ -113,42 +121,30 @@ class recordVideo extends Component {
                                         style={styles.hollowCircle}
                                         source={StaticImage.circleView}
                                     >
-                                        <Image
-                                            source={StaticImage.transparentCircle}
-                                            style={styles.transparentCircle}
+                                        <TouchableOpacity
+                                            activeOpacity={0.75}
+                                            onPressIn={() => {
+                                                console.log("onPressIn");
+                                                this.countDown();
+                                                this.startRecord();
+                                            }}
+                                            onPressOut={() => {
+                                                console.log("onPressOut");
+                                                this.timer && clearInterval(this.timer);
+                                                this.stopRecord();
+                                            }}
+                                            onPress={() => {}}
+                                            onLongPress={() => console.log("onLongPress")}
                                         >
-                                            <TouchableOpacity
-                                                activeOpacity={0.75}
-                                                onPressIn={() => {
-                                                    console.log("onPressIn");
-                                                    this.countDown();
-                                                    this.startRecord();
-                                                }}
-                                                onPressOut={() => {
-                                                    console.log("onPressOut");
-                                                    this.timer && clearInterval(this.timer);
-                                                    this.stopRecord();
-                                                }}
-                                                onPress={() => {}}
-                                                onLongPress={() => console.log("onLongPress")}
-                                            >
-                                                <Image
-                                                    style={{width: 57,height: 57}}
-                                                    source={StaticImage.solidCircle}
-                                                />
-                                            </TouchableOpacity>
-                                        </Image>
+                                            <Image
+                                                style={{width: 57,height: 57}}
+                                                source={StaticImage.solidCircle}
+                                            />
+                                        </TouchableOpacity>
                                     </Image>
                                 </PercentageCircle>
                             </View>
                         </View>
-                        <TouchableOpacity
-                            onPress={() => {
-                                navigator.goBack();
-                            }}
-                        >
-                            <Text style={styles.backIcon}>&#xe678;</Text>
-                        </TouchableOpacity>
                     </View>
                 </Camera>
             </View>
@@ -177,13 +173,15 @@ const styles =StyleSheet.create({
         fontFamily: 'iconfont',
         fontSize: 20,
         color: StaticColor.WHITE_COLOR,
-        position: 'absolute',
-        left: 50,
-        bottom: 30,
+        marginLeft: 50,
     },
     hollowCircle: {
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 57,
+        width: 57,
+        height: 57,
+        backgroundColor: StaticColor.WHITE_COLOR,
     },
     text: {
         color: StaticColor.WHITE_COLOR,
@@ -194,7 +192,6 @@ const styles =StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 25,
-        justifyContent: 'center',
     },
     circleView:{
         justifyContent: 'center',

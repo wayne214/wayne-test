@@ -65,18 +65,18 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65a;</Text> : <Text style={styles.renderIcon}>&#xe657;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                if(global.certificationState && global.certificationState == '1202') {
-                    if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
-                        DeviceEventEmitter.emit('resetGood');
+                // if(global.certificationState && global.certificationState == '1202') {
+                //     if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                //         DeviceEventEmitter.emit('resetGood');
                         jumpToIndex(scene.index)
-                    }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
-                        DeviceEventEmitter.emit('notifyCarStatus');
-                    }else {
-                        DeviceEventEmitter.emit('getUserCar');
-                    }
-                }else {
-                    DeviceEventEmitter.emit('getUserCar');
-                }
+                //     }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
+                //         DeviceEventEmitter.emit('notifyCarStatus');
+                //     }else {
+                //         DeviceEventEmitter.emit('getUserCar');
+                //     }
+                // }else {
+                //     DeviceEventEmitter.emit('getUserCar');
+                // }
             }
         }),
     },
@@ -88,17 +88,17 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe659;</Text> : <Text style={styles.renderIcon}>&#xe658;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                if(global.certificationState && global.certificationState == '1202') {
-                    if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                // if(global.certificationState && global.certificationState == '1202') {
+                //     if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
                         jumpToIndex(scene.index)
-                    }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
-                        DeviceEventEmitter.emit('notifyCarStatus');
-                    }else {
-                        DeviceEventEmitter.emit('getUserCar');
-                    }
-                }else {
-                    DeviceEventEmitter.emit('getUserCar');
-                }
+                //     }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
+                //         DeviceEventEmitter.emit('notifyCarStatus');
+                //     }else {
+                //         DeviceEventEmitter.emit('getUserCar');
+                //     }
+                // }else {
+                //     DeviceEventEmitter.emit('getUserCar');
+                // }
             },
         }),
     },
@@ -110,12 +110,12 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65b;</Text> : <Text style={styles.renderIcon}>&#xe65d;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                if(global.verifiedState && global.verifiedState == '1202') {
-                    DeviceEventEmitter.emit('refreshIncome');
+                // if(global.verifiedState && global.verifiedState == '1202') {
+                //     DeviceEventEmitter.emit('refreshIncome');
                     jumpToIndex(scene.index)
-                }else {
-                    DeviceEventEmitter.emit('notifyIncome');
-                }
+                // }else {
+                //     DeviceEventEmitter.emit('notifyIncome');
+                // }
             },
         }),
     },
