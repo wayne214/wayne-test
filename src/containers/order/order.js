@@ -1078,8 +1078,10 @@ let transCodeListData3 = [];
                     waitBeSureOrderNum={dataRow.orderSignNum}
                     beSureOrderNum={dataRow.beSureOrderNum}
                     transCodeNum={dataRow.transCodeNum}
-                    goodsCount={200}
-                    temperature={2}
+                    goodsCount={dataRow.num}
+                    temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
+                    carrierName={dataRow.carrierName}
+                    carrierPlateNum={dataRow.carrierPlateNum}
                     onSelect={() => {
                         if (dataRow.distributionPoint === 0) {
                             Toast.showShortCenter('暂无详情');
@@ -1088,6 +1090,8 @@ let transCodeListData3 = [];
                         // 其他的都跳转到  ORDER_ENTRY_TO_BE_SIGNIN
                         this.props.navigation.navigate('EntryToBeSignIn', {
                             transOrderList: dataRow.transOrderList,
+                            carrierName: dataRow.carrierName,
+                            carrierPlateNum: dataRow.carrierPlateNum,
                         });
                     }}
                 />
@@ -1164,7 +1168,7 @@ let transCodeListData3 = [];
                 beSureOrderNum={dataRow.beSureOrderNum}
                 transCodeNum={dataRow.transCodeNum}
                 goodsCount={dataRow.num}
-                temperature={dataRow.temperature}
+                temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
                 currentStatus={this.props.currentStatus}
                 carrierName={dataRow.carrierName}
                 carrierPlateNum={dataRow.carrierPlateNum}
@@ -1224,6 +1228,8 @@ let transCodeListData3 = [];
                         // 其他的都跳转到  ORDER_ENTRY_TO_BE_SIGNIN
                         this.props.navigation.navigate('EntryToBeSignIn', {
                             transOrderList: dataRow.transOrderList,
+                            carrierName: dataRow.carrierName,
+                            carrierPlateNum: dataRow.carrierPlateNum,
                         });
                     }
                 }}

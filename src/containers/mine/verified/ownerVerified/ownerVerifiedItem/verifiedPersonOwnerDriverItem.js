@@ -29,19 +29,33 @@ const styles = StyleSheet.create({
         marginRight: 10,
         fontSize: 15,
         color: '#333333',
-        flex: 2,
+        flex: 1,
         textAlign: 'right',
     }
 });
 
-class verifiedRealNameItem extends Component{
+class verifiedDriverItem extends Component{
     constructor(props) {
         super(props);
 
+        this.state={
+            IDName: this.props.IDName,
+            IDCard: this.props.IDCard,
+        };
+
+        this.nameValueChange = this.nameValueChange.bind(this);
+        this.cardValueChange = this.cardValueChange.bind(this);
         this.imageClick = this.imageClick.bind(this);
     }
 
-    componentDidMount() {
+
+    /*输入姓名*/
+    nameValueChange(text){
+        this.props.nameChange(text);
+    }
+    /*输入身份证号*/
+    cardValueChange(text){
+        this.props.cardChange(text);
     }
 
     imageClick(index){
@@ -49,27 +63,38 @@ class verifiedRealNameItem extends Component{
     }
     render() {
         const {resultInfo} = this.props;
-        console.log('resultInfo:=',this.props.resultInfo);
 
         return (
             <View style={styles.container}>
 
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.titleStyle}>
-                        姓名
+                        所有人
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualIdCardName : ''}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualHaverName : ''}
                     </Text>
 
                 </View>
                 <Line />
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.titleStyle}>
-                        身份证号
+                        车牌号
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualIdCard : '' }
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualCarNum : ''}
+                    </Text>
+
+                </View>
+                <Line />
+
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.titleStyle}>
+
+                        发动机号
+                    </Text>
+                    <Text style={styles.textInputStyle}>
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualEngineNum : ''}
                     </Text>
 
                 </View>
@@ -80,7 +105,7 @@ class verifiedRealNameItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast? resultInfo.rmcAnalysisAndContrast.manualIdCardValidity.replace(/-/g,'/') : ''}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.drivingValidity.replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>
@@ -92,26 +117,20 @@ class verifiedRealNameItem extends Component{
                 </View>
                 <Line />
 
-                <ImagesItem firstName ="身份证正面"
-                            secondName="身份证反面"
-                            // thirdName="半身照"
-                            firstImagePath={resultInfo.idFaceSideThumbnailAddress ?
-                            resultInfo.idFaceSideThumbnailAddress : resultInfo.positiveCard ?
-                            resultInfo.positiveCard : ''}
-                            secondImagePath={resultInfo.idBackSideThumbnailAddress ?
-                            resultInfo.idBackSideThumbnailAddress : resultInfo.oppositeCard ?
-                            resultInfo.oppositeCard : ''}
-                            // thirdImagePath={resultInfo.handleIdThumbnailAddress ?
-                            // resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
-                            // resultInfo.headPortrait : ''}
+                <ImagesItem firstName ="行驶证主页"
+                            secondName="行驶证副页"
+                            firstImagePath={resultInfo.drivingCardHomePageThumbnail ?
+                            resultInfo.drivingCardHomePageThumbnail : resultInfo.drivingCardHomePage ?
+                            resultInfo.drivingCardHomePage : ''}
+                            secondImagePath={resultInfo.drivingPermitSubPageThumbnail ?
+                            resultInfo.drivingPermitSubPageThumbnail : resultInfo.drivingPermitSubPage ?
+                            resultInfo.drivingPermitSubPage : ''}
                             imageClick={(index)=>{
                                 this.imageClick(index);
-                            }}
-
-                />
+                            }}/>
             </View>
         )
     }
 }
 
-export default verifiedRealNameItem;
+export default verifiedDriverItem;

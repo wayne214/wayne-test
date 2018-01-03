@@ -11,6 +11,7 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
+    Platform,
 } from 'react-native';
 import Camera from 'react-native-camera';
 import * as StaticColor from '../../constants/staticColor';
@@ -65,6 +66,15 @@ class takePhoto extends Component {
                     <View style={styles.bottomView}>
                         <Text style={styles.text}>轻触拍照</Text>
                         <View style={styles.photoView}>
+                            <View style={{width: width / 2 - 39,}}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigator.goBack();
+                                    }}
+                                >
+                                    <Text style={styles.backIcon}>&#xe678;</Text>
+                                </TouchableOpacity>
+                            </View>
                             <Image
                                 style={styles.hollowCircle}
                                 source={StaticImage.hollowCircle}
@@ -82,13 +92,6 @@ class takePhoto extends Component {
                                 </TouchableOpacity>
                             </Image>
                         </View>
-                        <TouchableOpacity
-                            onPress={() => {
-                                navigator.goBack();
-                            }}
-                        >
-                            <Text style={styles.backIcon}>&#xe678;</Text>
-                        </TouchableOpacity>
                     </View>
                 </Camera>
             </View>
@@ -117,9 +120,7 @@ const styles =StyleSheet.create({
         fontFamily: 'iconfont',
         fontSize: 20,
         color: StaticColor.WHITE_COLOR,
-        position: 'absolute',
-        left: 50,
-        bottom: 25,
+        marginLeft: 50,
     },
     hollowCircle: {
         justifyContent: 'center',
@@ -134,7 +135,6 @@ const styles =StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 25,
-        justifyContent: 'center',
     }
 });
 

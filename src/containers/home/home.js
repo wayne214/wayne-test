@@ -1473,6 +1473,7 @@ class Home extends Component {
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {
+
                             {this.props.ownerStatus == '13' ||  this.props.ownerStatus == '23' ||  this.state.ownerStatus == '0'?
                                 this.props.navigation.navigate('CharacterOwner')
                                 :
@@ -1485,6 +1486,7 @@ class Home extends Component {
                             })
                         }}
                         driverClick={() => {
+
                             {this.props.driverStatus == '0' || this.props.driverStatus == '3' ?
                                 Storage.get(StorageKey.changePersonInfoResult).then((value) => {
                                     if (value){
@@ -1496,6 +1498,7 @@ class Home extends Component {
                                     }
                                 })
                                 : this.props.setCurrentCharacterAction('driver')
+
 
                                 // 跳转到司机认证
                             }

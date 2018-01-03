@@ -59,7 +59,7 @@ class verifiedRealNameItem extends Component{
                         姓名
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualIdCardName : ''}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualLegalIdCardName : ''}
                     </Text>
 
                 </View>
@@ -69,7 +69,7 @@ class verifiedRealNameItem extends Component{
                         身份证号
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualIdCard : '' }
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualLegalIdCard : '' }
                     </Text>
 
                 </View>
@@ -80,7 +80,7 @@ class verifiedRealNameItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast? resultInfo.rmcAnalysisAndContrast.manualIdCardValidity.replace(/-/g,'/') : ''}
+                        {resultInfo.rmcAnalysisAndContrast? resultInfo.rmcAnalysisAndContrast.manualLegalIdCardValidity.replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>
@@ -95,12 +95,14 @@ class verifiedRealNameItem extends Component{
                 <ImagesItem firstName ="身份证正面"
                             secondName="身份证反面"
                             // thirdName="半身照"
-                            firstImagePath={resultInfo.idFaceSideThumbnailAddress ?
-                            resultInfo.idFaceSideThumbnailAddress : resultInfo.positiveCard ?
-                            resultInfo.positiveCard : ''}
-                            secondImagePath={resultInfo.idBackSideThumbnailAddress ?
-                            resultInfo.idBackSideThumbnailAddress : resultInfo.oppositeCard ?
-                            resultInfo.oppositeCard : ''}
+                            firstImagePath={resultInfo.legalPersonPositiveCardThumbnail ?
+                            resultInfo.legalPersonPositiveCardThumbnail : resultInfo.legalPersonPositiveCard ?
+                            resultInfo.legalPersonPositiveCard : ''}
+                            secondImagePath={resultInfo.legalPersonOppositeCardThumbnail
+                                ?
+                            resultInfo.legalPersonOppositeCardThumbnail
+                                : resultInfo.legalPersonOppositeCard ?
+                            resultInfo.legalPersonOppositeCard : ''}
                             // thirdImagePath={resultInfo.handleIdThumbnailAddress ?
                             // resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
                             // resultInfo.headPortrait : ''}
