@@ -240,7 +240,7 @@ export const API_COMPANY_CERTIFICATION = `${HOST}app/rmc/company/appInsertCertif
 export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/driver/addDriver`;
 
 // 实名认证详情接口
-export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo`;
+export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo/`;
 
 // 资质认证确认提交接口
 export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/rmcCar/createCertificationQualification`;
