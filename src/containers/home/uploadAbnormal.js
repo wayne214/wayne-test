@@ -150,12 +150,18 @@ class uploadAbnormal extends Component {
                     // // Toast.showShortCenter('上传回单成功');
                     // DeviceEventEmitter.emit('changeStateReceipt');
                     // this.goBackForward();
-                    const list = [...response.result];
-                    console.log('list', list);
-                    // this.uploadAbnormalException();
+                    const list = response.result;
+                    let adArray = [];
+                    if (list && list.indexOf(',') > -1) {
+                        adArray=list.split(',');
+                    } else {
+                        adArray.push(list);
+                    }
+                    console.log('adArray', adArray);
+                    // this.uploadAbnormalException(adArray);
 
                 }else {
-                    Toast.showShortCenter('图片上传失败，请重新上传');
+                    Toast.showShortCenter('上传失败，请重新上传');
                 }
             },
             (error)=>{
@@ -167,6 +173,7 @@ class uploadAbnormal extends Component {
             });
     }
     uploadAbnormalException(enclosureList) {
+        const {videoList} = this.props;
         // 传递参数
         HTTPRequest({
             url: API.API_NEW_APP_UPLOAD_SAVE_EXCEPTIONINFO,
@@ -175,7 +182,7 @@ class uploadAbnormal extends Component {
                 content: this.state.content,
                 driverPhoneNum: global.phone,
                 enclosureList: enclosureList,
-                mediaType: 0,
+                mediaType: videoList && videoList.size > 0 ? 1 : 0,
                 plateNum: global.plateNumber,
                 scheduleCode: this.state.result.scheduleCode,
                 userId: global.userId,

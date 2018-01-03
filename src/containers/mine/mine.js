@@ -251,13 +251,10 @@ class Mine extends Component {
 
         /*点击我，刷新认证状态*/
         this.mineListener = DeviceEventEmitter.addListener('refreshMine', () => {
-            this.certificationState();
             this.verifiedState();
         });
 
 
-        /*资质认证状态请求*/
-        this.certificationState();
         /*实名认证状态请求*/
         this.verifiedState();
 
@@ -784,11 +781,13 @@ class Mine extends Component {
                 </View> :
                 <View
                     style={{
+                        position: 'absolute',
                         height: 18,
                         width: 50,
                         borderRadius: 10,
                         borderWidth: 1,
-                        marginLeft: 10,
+                        marginLeft: 22,
+                        marginTop:55,
                         borderColor: 'transparent',
                         backgroundColor: 'rgba(0,37,105,0.2)',
                         alignItems: 'center',
@@ -918,26 +917,12 @@ class Mine extends Component {
                                                 }
                                             </Text>
                                         </View>
-
-                                        {/*<Text*/}
-                                            {/*style={{*/}
-                                                {/*marginTop: 5,*/}
-                                                {/*marginBottom: 10,*/}
-                                                {/*backgroundColor: 'transparent',*/}
-                                                {/*color: '#FFFFFF',*/}
-                                                {/*fontSize: 14*/}
-                                            {/*}}>*/}
-                                            {/*{*/}
-                                                {/*this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''*/}
-                                            {/*}*/}
-                                        {/*</Text>*/}
                                     </View>
                                     <View style={{flex: 1}}/>
                                     {this.props.currentStatus == 'driver' ?
                                         changeCarView : null}
                                 </View>
                             </View>
-                            {/*{changeCarView}*/}
                         </Image>
                         <View style={styles.contentPostionView}>
                             <ScrollView onMomentumScrollEnd={
@@ -1052,9 +1037,9 @@ class Mine extends Component {
                                                         showBottomLine={false}
                                                         clickAction={() => {
                                                             console.log("认证信息", this.props.ownerStatus);
-                                                            this.props.navigation.navigate('PersonownerVerifiedStatePage', {
-                                                                // qualifications: this.state.verifiedState,
-                                                            });
+                                                            // this.props.navigation.navigate('EnterpriseownerVerifiedStatePage', {
+                                                            //     // qualifications: this.state.verifiedState,
+                                                            // });
                                                             // 个人车主认证信息
                                                             if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
                                                                 this.props.navigation.navigate('PersonownerVerifiedStatePage', {

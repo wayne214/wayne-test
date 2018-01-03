@@ -38,6 +38,10 @@ import StorageKey from '../../../constants/storageKeys';
 import VierifiedBottomItem from './verifiedIDItem/verifiedBottomItem';
 import HTTPRequest from '../../../utils/httpRequest';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
+import {
+    setOwnerCharacterAction,
+} from '../../../action/user';
+import {Geolocation} from 'react-native-baidu-map-xzx';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -73,6 +77,8 @@ let userName = '';
 let userPhone = '';
 
 let lastTime = 0;
+let locationData = '';
+let currentTime = 0;
 
 class personCarOwnerAuth extends Component {
     constructor(props) {
@@ -188,9 +194,12 @@ class personCarOwnerAuth extends Component {
         this.selectCamera = this.selectCamera.bind(this);
         this.upLoadImage = this.upLoadImage.bind(this);
         this.upDataToHttp = this.upDataToHttp.bind(this);
+        this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
     }
     componentDidMount() {
+        this.getCurrentPosition();
+
         userID = global.userId;
         userName = global.userName;
         userPhone = global.phone;
@@ -252,7 +261,15 @@ class personCarOwnerAuth extends Component {
         });
 
     }
-
+    // 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then((data) => {
+            console.log('position =', JSON.stringify(data));
+            locationData = data;
+        }).catch((e) => {
+            console.log(e, 'error');
+        });
+    }
 
     /*显示日期选取器*/
     showDatePick(type) {
@@ -571,6 +588,8 @@ class personCarOwnerAuth extends Component {
     }
 
     upDataToHttp(){
+        currentTime = new Date().getTime();
+
         let obj = {
             userId: userID, //用户ID
             userName: userName, // 用户名
@@ -627,7 +646,9 @@ class personCarOwnerAuth extends Component {
                 Storage.remove(StorageKey.personownerInfoResult);
                 Toast.showShortCenter('个人车主认证提交成功');
 
-                this.props.navigation.goBack()
+                this.props.setOwnerCharacterAction('11');
+                this.props.navigation.navigate('Main');
+
             },
             error: (errorInfo) => {
 
@@ -869,8 +890,13 @@ function mapStateToProps(state){
     return {};
 }
 
+
 function mapDispatchToProps (dispatch){
-    return {};
+    return {
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(personCarOwnerAuth);

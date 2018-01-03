@@ -45,6 +45,12 @@ const carOwnerAddDriverInfo = 'carOwnerAddDriverInfo'; // 车主增加司机
 
 const carOwnerAddCarInfo = 'carOwnerAddCarInfo'; // 车主增加车辆
 
+const USER_DRIVER_STATE = 'USER_ID'; // 司机身份
+
+const USER_CAROWN_STATE = 'USER_CAROWN_STATE'; // 车主身份
+
+const USER_CURRENT_STATE = 'USER_CURRENT_STATE'; // 当前身份
+
 export default {
     IS_FIRST_START_FLAG,
     USER_INFO,
@@ -66,6 +72,9 @@ export default {
     carOwnerAddDriverInfo,
     carOwnerAddCarInfo,
     enterpriseownerInfoResult,
-    personownerInfoResult
+    personownerInfoResult,
+    USER_DRIVER_STATE,
+    USER_CAROWN_STATE,
+    USER_CURRENT_STATE
 }
 

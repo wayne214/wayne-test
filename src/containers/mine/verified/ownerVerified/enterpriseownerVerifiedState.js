@@ -17,7 +17,7 @@ import {
 
 import NavigatorBar from '../../../../common/navigationBar/navigationBar';
 import VerifiedGrayTitleItem from '../verifiedIDItem/verifiedGrayTitleItem';
-import RealNameItem from '../verifiedIDItem/verifiedRealNameItem'
+import RealNameItem from '../ownerVerified/ownerVerifiedItem/verifiedCompanyOwnerRealNameItem';
 import BusinessLicenseItem from './ownerVerifiedItem/verifiedBusinessLicenseItem';
 import VerifiedFailItem from '../verifiedIDItem/verifiedFailItem';
 import * as API from '../../../../constants/api';
@@ -143,8 +143,11 @@ class enterpriseownerVerifiedState extends Component{
         currentTime = new Date().getTime();
         // TODO 获取企业车主认证信息
         HTTPRequest({
-            url: API.API_QUERY_COMPANY_INFO + userPhone,
-            params: {},
+            url: API.API_QUERY_COMPANY_INFO,
+            params: {
+                busTel: userPhone,
+                companyNature: '企业'
+            },
             loading: () => {
                 this.setState({
                     appLoading: true,
@@ -209,14 +212,14 @@ class enterpriseownerVerifiedState extends Component{
 
         // 21  企业车主认证中   22 企业车主认证通过  23 企业车主认证驳回
 
-        let headView = this.state.qualifications == '21' ?
+        let headView = this.state.qualifications == '1201' ?
             <View style={styles.headStyle}>
 
                 <Image source={headerImageLoading}/>
 
                 <Text style={styles.textStyle}>认证中</Text>
             </View>
-            : this.state.qualifications == '22' ?
+            : this.state.qualifications == '1202' ?
                 <View style={styles.headStyle}>
 
                     <Image source={headerImageSuccess} resizeMode='stretch'/>
@@ -270,15 +273,15 @@ class enterpriseownerVerifiedState extends Component{
                 />
 
                 <ScrollView
-                    bounces={false}>
+                    bounces={false} showsVerticalScrollIndicator={false}>
 
                     {headView}
                     <View style={{height: 10, width: width, backgroundColor: '#f5f5f5'}}/>
                     <BusinessLicenseItem resultInfo={this.state.resultInfo}
                                          imageClick={(index)=>{
                                              if (index === 0){
-                                                 if (this.state.resultInfo.drivingLicenceHomePage){
-                                                     this.showBigImage([this.state.resultInfo.drivingLicenceHomePage], 0);
+                                                 if (this.state.resultInfo.businessLicence){
+                                                     this.showBigImage([this.state.resultInfo.businessLicence], 0);
                                                  }else
                                                      Toast.showShortCenter('暂无图片');
                                              }
@@ -290,23 +293,23 @@ class enterpriseownerVerifiedState extends Component{
                                   imageClick={(index)=>{
                                       
                                       if (index === 0){
-                                          if (this.state.resultInfo.positiveCard){                   
-                                              this.showBigImage([this.state.resultInfo.positiveCard], 0);
+                                          if (this.state.resultInfo.legalPersonPositiveCard){
+                                              this.showBigImage([this.state.resultInfo.legalPersonPositiveCard], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }
                                       if (index === 1){
-                                          if (this.state.resultInfo.oppositeCard){                   
-                                              this.showBigImage([this.state.resultInfo.oppositeCard], 0);
+                                          if (this.state.resultInfo.legalPersonOppositeCard){
+                                              this.showBigImage([this.state.resultInfo.legalPersonOppositeCard], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }
-                                      if (index === 2){
-                                          if (this.state.resultInfo.handleIdNormalPhotoAddress){                   
-                                              this.showBigImage([this.state.resultInfo.handleIdNormalPhotoAddress], 0);
-                                          }else 
-                                              Toast.showShortCenter('暂无图片');
-                                      }
+                                      // if (index === 2){
+                                      //     if (this.state.resultInfo.handleIdNormalPhotoAddress){
+                                      //         this.showBigImage([this.state.resultInfo.handleIdNormalPhotoAddress], 0);
+                                      //     }else
+                                      //         Toast.showShortCenter('暂无图片');
+                                      // }
 
                                   }}/>
 

@@ -15,7 +15,13 @@ import {
 import {connect} from 'react-redux';
 
 import { NavigationActions } from 'react-navigation';
-import {loginSuccessAction, setUserNameAction, setUserCarAction} from '../../action/user';
+import {loginSuccessAction,
+    setUserNameAction,
+    setUserCarAction,
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+    setCurrentCharacterAction
+} from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
 import BaseContainer from '../base/baseContainer';
@@ -75,6 +81,23 @@ class Splash extends BaseContainer {
                 console.log('-- Create New UDID  --', global.UDID);
             }
         });
+
+        Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
+            console.log('USER_DRIVER_STATE', value.toString());
+            this.props.setDriverCharacterAction(value.toString());
+        });
+
+        Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
+            console.log('USER_CAROWN_STATE', value.toString());
+            this.props.setOwnerCharacterAction(value.toString());
+        });
+
+        Storage.get(StorageKey.USER_CURRENT_STATE).then((value) => {
+            console.log('USER_CURRENT_STATE', value);
+            this.props.setCurrentCharacterAction(value);
+        });
+
+
         global.platform = Platform.OS === 'ios' ? 1 : 2;
     }
 
@@ -166,6 +189,15 @@ function mapDispatchToProps(dispatch) {
         },
         sendUserPlateNumberAction: (result) => {
           dispatch(setUserCarAction(result));
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+        setCurrentCharacterAction: (result) => {
+            dispatch(setCurrentCharacterAction(result));
         },
     };
 }

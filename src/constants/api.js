@@ -1,10 +1,14 @@
 import { HOST } from './setting';
 
 /** *****************************************************伙伴资源中心接口***************************************************/
+// 查询伙伴角色信息
 export const API_INQUIRE_ACCOUNT_ROLE = `${HOST}app/rmc/company/queryAppRoleInfoByBusTel/`;
+// export const API_INQUIRE_ACCOUNT_ROLE = `http://192.168.32.83:8899/app/rmc/company/queryAppRoleInfoByBusTel/`;
 // 根据手机号查询伙伴信息
 export const API_QUERY_COMPANY_INFO = `${HOST}app/rmc/company/queryCompanyInfoByBusTel/`;
+// export const API_QUERY_COMPANY_INFO = `http://192.168.32.83:8899/app/rmc/company/queryCompanyInfoByBusTel`;
 /** *****************************************************在线用户接口******************************************************/
+// APP退出登录
 // export const API_USER_LOGOUT = `${HOST}app/user/logout/`;
 export const API_USER_LOGOUT = `${HOST}app/user/logout/v3.0/`;
 
@@ -61,12 +65,10 @@ export const API_QUERY_USER_AVATAR = `${HOST}app/uam/queryUserAvatar`;
 // export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatar`;
 export const API_CHANGE_USER_AVATAR = `${HOST}app/uam/changeUserAvatarNew`;
 
-// 道路异常-上传附件
-// export const API_UPLOAD_FILE = `${HOST}app/uam/uploadFile`;
-export const API_UPLOAD_FILE = `http://192.168.32.83:8899/app/uam/uploadFile`;
-
-// export const API_UPLOAD_VIDEO_FILE = `${HOST}app/uam/uploadVideoFile`;
-export const API_UPLOAD_VIDEO_FILE = `http://192.168.32.83:8899/app/uam/uploadVideoFile`;
+// 道路异常-上传图片附件
+export const API_UPLOAD_FILE = `${HOST}app/uam/uploadFile`;
+// 道路异常-上传视频附件
+export const API_UPLOAD_VIDEO_FILE = `${HOST}app/uam/uploadVideoFile`;
 
 /** *****************************************************调度中心接口******************************************************/
 // 取消接单
@@ -223,7 +225,7 @@ export const API_COMPANY_CERTIFICATION = `${HOST}app/rmc/company/appInsertCertif
 export const API_AUTH_REALNAME_COMMIT = `${HOST}app/rmc/driver/addDriver`;
 
 // 实名认证详情接口
-export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo`;
+export const API_AUTH_REALNAME_DETAIL = `${HOST}app/rmc/driver/queryDriverInfo/`;
 
 // 资质认证确认提交接口
 export const API_AUTH_QUALIFICATIONS_COMMIT = `${HOST}app/rmc/rmcCar/createCertificationQualification`;

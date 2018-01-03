@@ -80,14 +80,23 @@ class CharacterList extends BaseContainer {
                                 [
                                     {
                                         text: '再看看', onPress: () => {
-                                        this.props.navigation.navigate('Main');
+                                        //this.props.navigation.navigate('Main');
                                     }
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setDriverCharacterAction('1');
+                                        //this.props.setDriverCharacterAction('1');
                                         // this.props.navigation.navigate('Main');
-                                    }
+                                            Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                                if (value){
+                                                    navigator.navigate('VerifiedPage', {
+                                                        resultInfo: value,
+                                                        });
+                                                }else {
+                                                    navigator.navigate('VerifiedPage');
+                                                }
+                                            });
+                                        }
                                     },
                                 ]
                             )
@@ -109,8 +118,18 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setOwnerCharacterAction('11');
-                                    }
+                                        //this.props.setOwnerCharacterAction('11');
+
+                                            Storage.get(StorageKey.personownerInfoResult).then((value) => {
+                                                if (value){
+                                                    navigator.navigate('PersonCarOwnerAuth', {
+                                                        resultInfo: value,
+                                                    });
+                                                }else {
+                                                   navigator.navigate('PersonCarOwnerAuth');
+                                                }
+                                            });
+                                        }
                                     },
                                 ]
                             )
@@ -132,8 +151,17 @@ class CharacterList extends BaseContainer {
                                     },
                                     {
                                         text: '确认', onPress: () => {
-                                        this.props.setOwnerCharacterAction('21');
-                                    }
+                                        //this.props.setOwnerCharacterAction('21');
+                                            Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+                                                if (value){
+                                                    navigator.navigate('CompanyCarOwnerAuth', {
+                                                        resultInfo: value,
+                                                    });
+                                                }else {
+                                                   navigator.navigate('CompanyCarOwnerAuth');
+                                                }
+                                            });
+                                        }
                                     },
                                 ]
                             )

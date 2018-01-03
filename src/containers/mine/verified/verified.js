@@ -45,9 +45,11 @@ import HTTPRequest from '../../../utils/httpRequest';
 import { setUserNameAction } from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
 import Validator from '../../../utils/validator';
+import {
+    setDriverCharacterAction,
+} from '../../../action/user';
 
-
-const idCardLeftImage = require('./images/IdCardModel.png');
+import idCardLeftImage from './images/IdCardModel.png';
 const idCardRightImage = require('./images/IdCardAdd.png');
 const idCardTrunLeftImage = require('./images/IdCardTurnModel.png');
 const idCardTrunRightImage = require('./images/IdCardTurnAdd.png');
@@ -859,7 +861,9 @@ class Verified extends Component {
                 Toast.showShortCenter('司机认证提交成功');
                 //DeviceEventEmitter.emit('verifiedSuccess');
                 //this.popToTop();
-                this.props.navigation.goBack()
+
+                this.props.setDriverCharacterAction('1');
+                this.props.navigation.navigate('Main');
             },
             error: (errorInfo) => {
             },
@@ -1122,7 +1126,10 @@ function mapDispatchToProps(dispatch) {
     return {
         reloadUserName:(data)=>{
             dispatch(setUserNameAction(data));
-        }
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
     };
 }
 
