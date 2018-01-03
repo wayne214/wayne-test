@@ -91,8 +91,8 @@ export default (state = initState, action) => {
             globalState = globalState.set('plateNumberObj', {carNum: '', carStatus: 0});
             globalState = globalState.set('userCarList', []);
 
-            globalState = globalState.set('driverStatus', '');
-            globalState = globalState.set('ownerStatus', '');
+            globalState = globalState.set('driverStatus', '0');
+            globalState = globalState.set('ownerStatus', '0');
             globalState = globalState.set('currentStatus', '');
 
             return globalState;
