@@ -78,7 +78,7 @@ class verifiedBusinessLicenseItem extends Component{
     }
     render() {
         const {resultInfo} = this.props;
-        const businessLicenceImagePath = resultInfo.positiveCard;
+        const businessLicenceImagePath = resultInfo.businessLicenceThumbnail;
         let firstImageObj;
         if (businessLicenceImagePath){
             firstImageObj = {uri: businessLicenceImagePath}
@@ -94,7 +94,7 @@ class verifiedBusinessLicenseItem extends Component{
                         公司名称
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.drivingLicenceName}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualComName : ''}
                     </Text>
 
                 </View>
@@ -104,7 +104,7 @@ class verifiedBusinessLicenseItem extends Component{
                         法人名称
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.driverCard}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualPerson : ''}
                     </Text>
 
                 </View>
@@ -116,7 +116,7 @@ class verifiedBusinessLicenseItem extends Component{
                         公司地址
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.quasiCarType}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualComAddress : ''}
                     </Text>
 
                 </View>
@@ -127,7 +127,7 @@ class verifiedBusinessLicenseItem extends Component{
                         统一社会信用代码
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.driverCardExpiry}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualUnifiedSocialCreditCode : ''}
                     </Text>
 
                 </View>
@@ -138,7 +138,7 @@ class verifiedBusinessLicenseItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.driverCardExpiry}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualBusinessValidity.replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>

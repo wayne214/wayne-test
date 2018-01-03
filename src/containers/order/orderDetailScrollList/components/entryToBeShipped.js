@@ -274,6 +274,7 @@ class entryToBeShipped extends Component {
                 userName,
                 scheduleCode: this.state.scheduleCode,
                 transOrderInfo,
+                plateNum: global.plateNumber,
             },
             loading: ()=>{
                 this.setState({

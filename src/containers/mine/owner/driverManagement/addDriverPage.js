@@ -24,7 +24,10 @@ import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
 import StaticImage from '../../../../constants/staticImage';
 import Toast from '@remobile/react-native-toast';
-
+import emptyDataDriver from '../../../../../assets/carList/emptyDataDriver.png';
+import Button from 'apsl-react-native-button';
+import Storage from '../../../../utils/storage';
+import StorageKey from '../../../../constants/storageKeys';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -71,6 +74,7 @@ class AddDriverPage extends BaseContainer {
             index: null,
             line: true,
             clickLine: 'a',
+            haveDate: true,
         }
     }
 
@@ -84,9 +88,18 @@ class AddDriverPage extends BaseContainer {
 
             },
             success: (responseData) => {
-                this.setState({
-                    driverOne: responseData.result,
-                });
+
+                if(responseData.result.size == 0){
+                    this.setState({
+                        haveDate: false,
+                    })
+                } else {
+                    this.setState({
+                        haveDate: true,
+                        driverOne: responseData.result,
+                    })
+                }
+
             },
             error: (errorInfo) => {
 
@@ -316,16 +329,59 @@ class AddDriverPage extends BaseContainer {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                {this.state.haveDate ?
                 <View style={{backgroundColor:'#F4F4F4',height:45,justifyContent: 'center',}}>
                     <Text style={{color: '#666666', fontSize: 15,marginLeft:10}}>添加司机</Text>
-                </View>
-                <FlatList
-                    style={{backgroundColor: '#F4F4F4', flex: 1}}
-                    data={this.state.driverOne}
-                    renderItem={this.renderItemView.bind(this)}
-                    keyExtractor={this.extraUniqueKey}//去除警告
-                >
-                </FlatList>
+                </View>:null}
+
+                    {
+                        this.state.haveDate ?
+                            <FlatList
+                                style={{backgroundColor: '#F4F4F4', flex: 1}}
+                                data={this.state.driverOne}
+                                renderItem={this.renderItemView.bind(this)}
+                                keyExtractor={this.extraUniqueKey}//去除警告
+                            >
+                            </FlatList> :
+                            <View style={{marginTop: 120,alignItems:'center',}}>
+                                <Image
+                                    source={emptyDataDriver}/>
+                                <Text style={{marginTop:10,fontSize: 16,color:'#666666'}}>
+                                    您搜索的司机不存在
+                                </Text>
+                                <Button
+                                    ref='button'
+                                    isDisabled={false}
+                                    style={{
+                                        backgroundColor: '#0083FF',
+                                        width: width-20,
+                                        marginBottom: 0,
+                                        height: 38,
+                                        borderRadius: 0,
+                                        borderWidth: 0,
+                                        borderColor: '#0083FF',
+                                        borderRadius:5,
+                                        marginLeft:10,
+                                        marginTop:55,
+
+                                    }}
+                                    textStyle={{color: 'white', fontSize: 18}}
+                                    onPress={() => {
+                                        Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {
+                                            if (value){
+                                                navigator.navigate('CarOwnerAddDriver', {
+                                                    resultInfo: value,
+                                                });
+                                            }else {
+                                                navigator.navigate('CarOwnerAddDriver');
+                                            }
+                                        });
+                                    }}
+                                >
+                                    创建司机
+                                </Button>
+                            </View>
+                    }
 
             </View>
 
