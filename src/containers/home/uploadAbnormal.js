@@ -26,6 +26,7 @@ import Loading from '../../utils/loading';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
 import Toast from '@remobile/react-native-toast';
+import UniqueUtil from '../../utils/unique';
 import {
     updateImages
 } from '../../action/order';
@@ -106,10 +107,8 @@ class uploadAbnormal extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER,
-            params: {
-                plateNum: global.plateNumber
-            },
+            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER + '?plateNum=' + global.plateNumber,
+            params: {},
             loading: ()=>{
                 this.setState({
                     loading: true,
@@ -413,6 +412,20 @@ class uploadAbnormal extends Component {
                 {videoView}
             </View>
         </View>;
+        const orderDetailTypeList = this.state.result.ofcOrderDetailTypeDtoList;
+        let goodTypesTemp = [];
+        let goodTypesName = [];
+        if(orderDetailTypeList && orderDetailTypeList.length > 0) {
+            let good = '';
+            for (let i = 0; i < orderDetailTypeList.length; i++) {
+                good = orderDetailTypeList[i];
+                goodTypesTemp = goodTypesTemp.concat(good.goodsTypes);
+            }
+            // 去重
+            goodTypesName = UniqueUtil.unique(goodTypesTemp);
+        } else {
+            goodTypesName.push('其他');
+        }
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -485,14 +498,16 @@ class uploadAbnormal extends Component {
                     </View>
                     <View style={styles.bottomView}>
                         <OrdersItemCell
-                            time={this.state.result.pushTime}
+                            time={this.state.result.time ? this.state.result.time.replace(/-/g,'/').substring(0, this.state.result.time.length - 3) : ''}
                             scheduleCode={this.state.result.scheduleCode}
                             scheduleRoutes={this.state.result.scheduleRoutes}
                             distributionPoint={this.state.result.distributionPoint}
-                            arrivalTime={this.state.result.arrivalTime}
+                            arrivalTime={this.state.result.arrivalTime ? this.state.result.arrivalTime.replace(/-/g,'/').substring(0, this.state.result.arrivalTime.length - 3) : ''}
                             weight={this.state.result.weight}
                             vol={this.state.result.vol}
-                            goodKindsNames={this.state.result.goodTypesName} // 货品种类
+                            temperature={this.state.result.temperature ? `${this.state.result.temperature}℃` : ''}
+                            goodsCount={this.state.result.num}
+                            goodKindsNames={goodTypesName} // 货品种类
                             transCodeNum={this.state.result.transCodeNum}
                             currentStatus={this.props.currentStatus}
                             onSelect={() => {}}
