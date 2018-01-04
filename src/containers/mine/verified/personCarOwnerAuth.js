@@ -645,9 +645,9 @@ class personCarOwnerAuth extends Component {
 
                 Storage.remove(StorageKey.personownerInfoResult);
                 Toast.showShortCenter('个人车主认证提交成功');
+                this.props.navigation.navigate('Main',{CarOwnerState: true});
 
                 this.props.setOwnerCharacterAction('11');
-                this.props.navigation.navigate('Main');
 
             },
             error: (errorInfo) => {
@@ -748,6 +748,9 @@ class personCarOwnerAuth extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
+                                        this.props.navigation.navigate('Main',{CarOwnerState: true});
+
+                                        return
                         let info = {
                             appLoading: false,
                             IDName: this.state.IDName,
