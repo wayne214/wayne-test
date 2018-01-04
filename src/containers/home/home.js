@@ -261,6 +261,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         // if (Platform.OS === 'android') JPushModule.initPush();
+        const params = this.props.navigation.state.params;
 
         this.state = {
             acceptMessge: '',
@@ -276,7 +277,10 @@ class Home extends Component {
             character: '司机',
             bubbleSwitch: false,
             show: false,
+            CarOwnerState: params ? params.CarOwnerState : ''
         };
+
+
 
         this.getHomePageCount = this.getHomePageCount.bind(this);
         this.getCarrierHomePageCount = this.getCarrierHomePageCount.bind(this);
@@ -305,6 +309,8 @@ class Home extends Component {
 
         this.speechContent = this.speechContent.bind(this);
         this.notifyIncome = this.notifyIncome.bind(this);
+
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -324,6 +330,14 @@ class Home extends Component {
     }
 
     componentDidMount() {
+
+        if (this.state.CarOwnerState){
+            this.props.setCurrentCharacterAction('owner');
+            this.setState({
+                bubbleSwitch: false,
+                show : false,
+            })
+        }
 
         this.compareVersion();
         this.getCurrentPosition(0);
@@ -1173,6 +1187,7 @@ class Home extends Component {
         );
     }
 
+
     render() {
         const {homePageState, carrierHomePageState, routes} = this.props;
         const {weather, temperatureLow, temperatureHigh} = this.state;
@@ -1474,38 +1489,72 @@ class Home extends Component {
                     <CharacterChooseCell
                         carClick={() => {
 
-                            {this.props.ownerStatus == '13' ||  this.props.ownerStatus == '23' ||  this.state.ownerStatus == '0'?
-                                this.props.navigation.navigate('CharacterOwner')
-                                :
-                                this.props.setCurrentCharacterAction('owner');
+                            console.log('this.props.ownerStatus', this.props.ownerStatus);
+
+
+                            if (this.props.ownerStatus == '0'){
+                                this.props.navigation.navigate('CharacterOwner');
+                                    this.setState({
+                                        show : false,
+                                    })
+                            }else {
+                                if (this.props.ownerStatus == '23' ||  this.props.ownerStatus == '13'){
+                                    this.props.navigation.navigate('CharacterOwner');
+                                    this.setState({
+                                        show : false,
+                                    })
+
+                                }else {
+                                    this.props.setCurrentCharacterAction('owner');
+                                    this.setState({
+                                        bubbleSwitch: false,
+                                        show : false,
+                                    })
+                                }
 
                             }
-                            this.setState({
-                                bubbleSwitch: false,
-                                show : false,
-                            })
+
                         }}
                         driverClick={() => {
+                                if (this.props.driverStatus == '0' || this.props.driverStatus == '3'){
+                                    Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                        if (value){
+                                            navigator.navigate('VerifiedPage', {
+                                                resultInfo: value,
+                                                commitSuccess:()=>{
+                                                     this.setState({
+                                                        bubbleSwitch: false,
+                                                        show : false,
+                                                    })
+                                                }
+                                            });
+                                        }else {
+                                            navigator.navigate('VerifiedPage', {
+                                                commitSuccess:()=>{
+                                                     this.setState({
+                                                        bubbleSwitch: false,
+                                                        show : false,
+                                                    })
+                                                }
+                                            });
+                                        }
+                                    });
 
-                            {this.props.driverStatus == '0' || this.props.driverStatus == '3' ?
-                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-                                    if (value){
-                                        navigator.navigate('VerifiedPage', {
-                                            resultInfo: value,
-                                        });
-                                    }else {
-                                        navigator.navigate('VerifiedPage');
-                                    }
-                                })
-                                : this.props.setCurrentCharacterAction('driver')
+                                    this.setState({
+                                        show : false,
+                                    })
 
+                            }else {
+                                this.props.setCurrentCharacterAction('driver')
 
-                                // 跳转到司机认证
+                                    this.setState({
+                                        bubbleSwitch: false,
+                                        show : false,
+                                    })
                             }
-                            this.setState({
-                                bubbleSwitch: false,
-                                show : false,
-                            })
+
+
+
                         }}
                     /> : null}
 

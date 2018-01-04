@@ -633,6 +633,8 @@ class companyCarOwnerAuth extends Component {
                 Toast.showShortCenter('企业车主认证提交成功');
 
                 this.props.setOwnerCharacterAction('21');
+                this.props.navigation.navigate('Main',{CarOwnerState: true});
+
                 this.props.navigation.navigate('Main');
 
             },

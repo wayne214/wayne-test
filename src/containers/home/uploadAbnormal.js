@@ -158,7 +158,7 @@ class uploadAbnormal extends Component {
                         adArray.push(list);
                     }
                     console.log('adArray', adArray);
-                    // this.uploadAbnormalException(adArray);
+                    this.uploadAbnormalException(adArray);
 
                 }else {
                     Toast.showShortCenter('上传失败，请重新上传');
@@ -172,6 +172,8 @@ class uploadAbnormal extends Component {
                 // Toast.showShortCenter('上传回单失败');
             });
     }
+
+    // 上传道路异常
     uploadAbnormalException(enclosureList) {
         const {videoList} = this.props;
         // 传递参数
@@ -182,7 +184,7 @@ class uploadAbnormal extends Component {
                 content: this.state.content,
                 driverPhoneNum: global.phone,
                 enclosureList: enclosureList,
-                mediaType: videoList && videoList.size > 0 ? 1 : 0,
+                mediaType: videoList && videoList.size > 0 ? 2 : 1,
                 plateNum: global.plateNumber,
                 scheduleCode: this.state.result.scheduleCode,
                 userId: global.userId,
@@ -194,7 +196,10 @@ class uploadAbnormal extends Component {
                 });
             },
             success: (responseData) => {
-
+                Toast.showShortCenter('道路异常提交成功!');
+                this.props.dispatch(updateImages());
+                this.props.dispatch(clearVideoAction());
+                this.props.navigation.goBack();
             },
             error: (errorInfo) => {
             },
@@ -616,8 +621,8 @@ const styles =StyleSheet.create({
         marginRight: 50,
     },
     bottomView: {
-        width,
-        height: 210,
+        // width,
+        // height: 210,
         marginTop: 15
     },
 });
