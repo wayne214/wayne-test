@@ -106,32 +106,33 @@ export default (state = initState, action) => {
             Storage.save('userCarList', action.payload);
             globalState = globalState.set('userCarList', action.payload);
             return globalState;
+
         case ActionTypes.ACTION_SET_DRIVER_CHARACTER:
             globalState = globalState.set('driverStatus', action.payload);
-
+            global.driverStatus = action.payload;
             action.payload ? Storage.save(StorageKey.USER_DRIVER_STATE, action.payload) : null
-
             return globalState;
+
         case ActionTypes.ACTION_SET_OWNER_CHARACTER:
             globalState = globalState.set('ownerStatus', action.payload);
-
+            global.ownerStatus = action.payload;
             action.payload ? Storage.save(StorageKey.USER_CAROWN_STATE, action.payload) : null
-
-
             return globalState;
+
         case ActionTypes.ACTION_SET_CURRENT_CHARACTER:
             globalState = globalState.set('currentStatus', action.payload);
-
+            global.currentStatus = action.payload;
             action.payload ? Storage.save(StorageKey.USER_CURRENT_STATE, action.payload) : null
-
-
             return globalState;
+
         case ActionTypes.ACTION_GET_COMPANY_CODE:
             globalState = globalState.set('companyCode', action.payload);
             return globalState;
+
         case ActionTypes.ACTION_SET_COMPANY_CODE:
             globalState = globalState.set('companyCode', action.payload);
             return globalState;
+
         default:
             return state;
     }
