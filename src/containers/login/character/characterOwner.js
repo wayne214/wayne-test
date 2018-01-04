@@ -43,6 +43,8 @@ class CharacterOwner extends BaseContainer {
     }
 
     render() {
+        const navigator = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <View style={{flex:1,backgroundColor: '#f5f5f5'}}>
@@ -64,6 +66,17 @@ class CharacterOwner extends BaseContainer {
                         imageAbout={StaticImage.PersonalOwner}
                         onClick={() => {
                             console.log('选择个人车主')
+                            Storage.get(StorageKey.personownerInfoResult).then((value) => {
+                                                if (value){
+                                                    navigator.navigate('PersonCarOwnerAuth', {
+                                                        resultInfo: value,
+                                                    });
+                                                }else {
+                                                   navigator.navigate('PersonCarOwnerAuth');
+                                                }
+                                            });
+
+
                         }}
                     />
 
@@ -72,6 +85,16 @@ class CharacterOwner extends BaseContainer {
                         imageAbout={StaticImage.BusinessOwners}
                         onClick={() => {
                             console.log('选择企业车主')
+
+                            Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+                                                if (value){
+                                                    navigator.navigate('CompanyCarOwnerAuth', {
+                                                        resultInfo: value,
+                                                    });
+                                                }else {
+                                                   navigator.navigate('CompanyCarOwnerAuth');
+                                                }
+                                            });
                         }}
                     />
 
