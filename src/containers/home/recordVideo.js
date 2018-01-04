@@ -11,7 +11,8 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Platform,
 } from 'react-native';
 
 import Camera from 'react-native-camera';
@@ -113,7 +114,7 @@ class recordVideo extends Component {
                                     radius={42}
                                     percent={this.state.progress}
                                     borderWidth='6'
-                                    // innerColor='transparent'
+                                    innerColor='transparent'
                                     bgcolor='rgba(255,255,255,0.5)'
                                     color={"#008aff"}
                                 >
@@ -178,9 +179,13 @@ const styles =StyleSheet.create({
     hollowCircle: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 57,
-        width: 57,
-        height: 57,
+        ...Platform.select({
+            android:{
+                borderRadius: 72,
+                width: 72,
+                height: 72,
+            }
+        }),
         backgroundColor: StaticColor.WHITE_COLOR,
     },
     text: {
