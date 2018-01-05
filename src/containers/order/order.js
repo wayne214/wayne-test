@@ -475,7 +475,7 @@ let transCodeListData3 = [];
         HTTPRequest({
             url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
             params: {
-                carrierCode: this.props.currentStatus == 'driver' ? '' : '13120382724',
+                carrierCode: this.props.currentStatus == 'driver' ? '' : this.props.carrierCode,
                 page: pageNum,
                 pageSize,
                 phone: this.props.currentStatus == 'driver' ? global.phone : '',
@@ -530,7 +530,7 @@ let transCodeListData3 = [];
          HTTPRequest({
              url: API.API_NEW_APP_DISPATCH_DOC_CARRIER,
              params: {
-                 carrierCode: '13120382724',
+                 carrierCode: this.props.carrierCode,
                  page: pageNum,
                  pageSize,
                  queryType,
@@ -591,7 +591,7 @@ let transCodeListData3 = [];
             HTTPRequest({
                 url: API_URL,
                 params: {
-                    carrierCode: this.state.currentStatus == 'driver' ? '' : '13120382724',
+                    carrierCode: this.state.currentStatus == 'driver' ? '' : this.props.carrierCode,
                     page: pageNum,
                     pageSize,
                     phone: this.state.currentStatus == 'driver' ? global.phone : '',
@@ -842,7 +842,7 @@ let transCodeListData3 = [];
          HTTPRequest({
              url: API.API_NEW_GET_CARRIER_ORDER_LIST_TRANSPORT,
              params: {
-                 carrierCode: '13120382724',
+                 carrierCode: this.props.carrierCode,
                  pageNum: pageNum,
                  pageSize,
                  queryType,
@@ -1399,7 +1399,7 @@ function mapStateToProps(state) {
         isResetCity: state.order.get('isResetCity'),
         orderTab: state.order.get('mainPress'),
         currentStatus: state.user.get('currentStatus'),
-        companyCode: state.user.get('companyCode'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 

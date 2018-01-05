@@ -284,7 +284,7 @@ class dispatchDialog extends Component{
                         </View>
                         <View style={{height: height / 2 - 20,backgroundColor:StaticColor.WHITE_COLOR}}>
                             {
-                                this.state.showDetails ?
+                                this.state.showDetails && this.state.details ?
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => {

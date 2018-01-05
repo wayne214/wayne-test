@@ -846,7 +846,7 @@ class Home extends Component {
         HTTPRequest({
             url: API.API_CARRIER_INDEX_STATUS_NUM,
             params: {
-                carrierCode: '13120382724',
+                carrierCode: this.props.carrierCode,
             },
             loading: () => {
             },
@@ -1589,6 +1589,7 @@ function mapStateToProps(state) {
         driverStatus: state.user.get('driverStatus'),
         ownerStatus: state.user.get('ownerStatus'),
         currentStatus: state.user.get('currentStatus'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 
