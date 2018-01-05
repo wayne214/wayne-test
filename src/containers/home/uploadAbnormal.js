@@ -78,7 +78,6 @@ class uploadAbnormal extends Component {
     componentDidMount() {
         this.getCurrentPosition();
         this.getItemContent();
-
     }
 
     getCurrentPosition() {
