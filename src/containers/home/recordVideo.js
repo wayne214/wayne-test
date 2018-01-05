@@ -117,15 +117,14 @@ class recordVideo extends Component {
                                         width: 84,
                                         height: 84
                                     }}
-                                    size={84}
-                                    progress={this.state.progress}
-                                    unfilledColor="rgba(255,255,255,0.5)"
-                                    color={"#008aff"}
-                                    thickness={6}
-                                    strokeCap="round"
-                                    direction="clockwise"
-                                    borderWidth={0}
-                                    children={
+                                    size={84} // 圆的直径
+                                    progress={this.state.progress} // 进度
+                                    unfilledColor="rgba(255,255,255,0.5)" // 剩余进度的颜色
+                                    color={"#008aff"} // 颜色
+                                    thickness={6} // 内圆厚度
+                                    direction="clockwise" // 方向
+                                    borderWidth={0} // 边框
+                                    children={ // 子布局
                                         <View style={{
                                             position: 'absolute',
                                             top: 6,
@@ -212,3 +211,4 @@ function mapDispatchToProps (dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(recordVideo);
+
