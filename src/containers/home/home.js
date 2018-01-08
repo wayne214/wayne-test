@@ -621,6 +621,7 @@ class Home extends Component {
         this.Listener.remove();
         this.bindCarListener.remove();
         this.notifyCarStatusListener.remove();
+        this.notifyCertificationListener.remove();
         this.logListener.remove();
     }
 
