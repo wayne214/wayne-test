@@ -560,6 +560,14 @@ class Home extends Component {
             this.notifyCarStatus();
         });
 
+        this.notifyCertificationListener = DeviceEventEmitter.addListener('certification', () => {
+            if (this.props.driverStatus == 1) {
+                Alert.alert('提示', '认证资料正在审核中');
+            }else if (this.props.driverStatus == 3) {
+                Alert.alert('提示', '认证资料已驳回，请重新上传资料');
+            }
+        });
+
         this.notifyIncomeListener = DeviceEventEmitter.addListener('notifyIncome', () => {
             this.notifyIncome();
         });
@@ -603,6 +611,7 @@ class Home extends Component {
     }
 
     notifyIncome() {
+        console.log('global.verifiedState=',global.verifiedState);
         if (global.verifiedState && global.verifiedState == '1201') {
             Alert.alert('提示', '认证资料正在审核中');
         } else if (global.verifiedState && global.verifiedState == '1203') {
@@ -743,9 +752,9 @@ class Home extends Component {
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
-                this.certificationState();
+                // this.certificationState();
             } else {
-                this.certificationState();
+                // this.certificationState();
             }
         } else {
             Alert.alert('提示', '您的账号未绑定车辆，请进行资质认证',
@@ -837,7 +846,7 @@ class Home extends Component {
         HTTPRequest({
             url: API.API_CARRIER_INDEX_STATUS_NUM,
             params: {
-                carrierCode: '13120382724',
+                carrierCode: this.props.carrierCode,
             },
             loading: () => {
             },
@@ -1580,6 +1589,7 @@ function mapStateToProps(state) {
         driverStatus: state.user.get('driverStatus'),
         ownerStatus: state.user.get('ownerStatus'),
         currentStatus: state.user.get('currentStatus'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 

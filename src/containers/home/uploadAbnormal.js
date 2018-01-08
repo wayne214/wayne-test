@@ -20,8 +20,9 @@ import {
 import Video from 'react-native-video';
 import NavigationBar from '../../common/navigationBar/navigationBar';
 import * as StaticColor from '../../constants/staticColor';
-import OrdersItemCell from '../order/components/ordersItemCell';
+import StaticImage from '../../constants/staticImage';
 import DialogSelected from '../../common/alertSelected';
+import DispatchDialog from './components/dispatchDialog';
 import Loading from '../../utils/loading';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
@@ -43,26 +44,12 @@ const ImageWH = (width - 70) / 4;
 import HTTPRequest from '../../utils/httpRequest';
 import * as API from '../../constants/api';
 
-// let result = {
-//     pushTime: '2017-12-12 12:12',
-//     scheduleCode: 'DP17121100012',
-//     scheduleRoutes: '北京-深圳',
-//     distributionPoint: '2',
-//     arrivalTime: '2017-12-12 12:12',
-//     weight: '200',
-//     vol: '202',
-//     transCodeNum: '4',
-//     goodTypesName: ['其他'],
-//
-// };
-
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
-
 let enclosureList = [];
 
-var url = '';
+let url = '';
 
 class uploadAbnormal extends Component {
     constructor(props) {
@@ -70,14 +57,17 @@ class uploadAbnormal extends Component {
         this.state = {
             loading: false,
             location: '',
-            result: {},
+            result: [],
             content: '',
+            chooseItem: null,
         };
         this.submit = this.submit.bind(this);
         this.takePhoto = this.takePhoto.bind(this);
         this.recordVideo = this.recordVideo.bind(this);
+        this.dispatchItemSelected = this.dispatchItemSelected.bind(this);
         this.callbackSelected = this.callbackSelected.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
+        this.showDispatchDialog = this.showDispatchDialog.bind(this);
         this.clickImage = this.clickImage.bind(this);
         this.clickVideo = this.clickVideo.bind(this);
         this.createAddItem = this.createAddItem.bind(this);
@@ -88,7 +78,6 @@ class uploadAbnormal extends Component {
     componentDidMount() {
         this.getCurrentPosition();
         this.getItemContent();
-
     }
 
     getCurrentPosition() {
@@ -107,8 +96,11 @@ class uploadAbnormal extends Component {
         currentTime = new Date().getTime();
         // 传递参数
         HTTPRequest({
-            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER + '?plateNum=' + global.plateNumber,
-            params: {},
+            url: API.API_NEW_APP_UPLOAD_DISPATCH_ORDER,
+            params: {
+                plateNum: global.plateNumber,
+                driverPhoneNum: global.phone,
+            },
             loading: ()=>{
                 this.setState({
                     loading: true,
@@ -143,13 +135,6 @@ class uploadAbnormal extends Component {
                     loading: false,
                 });
                 if (response.code === 200){
-
-                    // lastTime = new Date().getTime();
-                    // ReadAndWriteFileUtil.appendFile('上传回单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    //     locationData.district, lastTime - currentTime, '上传回单页面');
-                    // // Toast.showShortCenter('上传回单成功');
-                    // DeviceEventEmitter.emit('changeStateReceipt');
-                    // this.goBackForward();
                     const list = response.result;
                     let adArray = [];
                     if (list && list.indexOf(',') > -1) {
@@ -169,7 +154,7 @@ class uploadAbnormal extends Component {
                 this.setState({
                     loading: false,
                 });
-                // Toast.showShortCenter('上传回单失败');
+                // Toast.showShortCenter('上传失败，请重新上传');
             });
     }
 
@@ -186,7 +171,7 @@ class uploadAbnormal extends Component {
                 enclosureList: enclosureList,
                 mediaType: videoList && videoList.size > 0 ? 2 : 1,
                 plateNum: global.plateNumber,
-                scheduleCode: this.state.result.scheduleCode,
+                scheduleCode: this.state.chooseItem.scheduleCode,
                 userId: global.userId,
                 userName: global.userName
             },
@@ -261,6 +246,15 @@ class uploadAbnormal extends Component {
 
     showAlertSelected(){
         this.dialog.show(title, selectedArr, '#333333', this.callbackSelected);
+    }
+    showDispatchDialog(){
+        this.dispatchDialog.show(this.state.result, this.dispatchItemSelected);
+    }
+
+    dispatchItemSelected(item) {
+        this.setState({
+            chooseItem: item,
+        })
     }
 
     callbackSelected(i){
@@ -424,20 +418,6 @@ class uploadAbnormal extends Component {
                 {videoView}
             </View>
         </View>;
-        const orderDetailTypeList = this.state.result.ofcOrderDetailTypeDtoList;
-        let goodTypesTemp = [];
-        let goodTypesName = [];
-        if(orderDetailTypeList && orderDetailTypeList.length > 0) {
-            let good = '';
-            for (let i = 0; i < orderDetailTypeList.length; i++) {
-                good = orderDetailTypeList[i];
-                goodTypesTemp = goodTypesTemp.concat(good.goodsTypes);
-            }
-            // 去重
-            goodTypesName = UniqueUtil.unique(goodTypesTemp);
-        } else {
-            goodTypesName.push('其他');
-        }
         return (
             <View style={styles.container}>
                 <NavigationBar
@@ -455,9 +435,13 @@ class uploadAbnormal extends Component {
                                 {
                                     text: '退出',
                                     onPress: () => {
+                                        this.setState({
+                                            chooseItem: null,
+                                        });
                                         this.props.dispatch(updateImages());
                                         this.props.dispatch(clearVideoAction());
                                         navigator.goBack();
+
                                     }
                                 },
                             ], {cancelable: true});
@@ -509,23 +493,46 @@ class uploadAbnormal extends Component {
                         </View>
                     </View>
                     <View style={styles.bottomView}>
-                        <OrdersItemCell
-                            time={this.state.result.time ? this.state.result.time.replace(/-/g,'/').substring(0, this.state.result.time.length - 3) : ''}
-                            scheduleCode={this.state.result.scheduleCode}
-                            scheduleRoutes={this.state.result.scheduleRoutes}
-                            distributionPoint={this.state.result.distributionPoint}
-                            arrivalTime={this.state.result.arrivalTime ? this.state.result.arrivalTime.replace(/-/g,'/').substring(0, this.state.result.arrivalTime.length - 3) : ''}
-                            weight={this.state.result.weight}
-                            vol={this.state.result.vol}
-                            temperature={this.state.result.temperature ? `${this.state.result.temperature}℃` : ''}
-                            goodsCount={this.state.result.num}
-                            goodKindsNames={goodTypesName} // 货品种类
-                            transCodeNum={this.state.result.transCodeNum}
-                            currentStatus={this.props.currentStatus}
-                            onSelect={() => {}}
-                        />
+                        <Text style={styles.tipText}>调度单</Text>
+                        {
+                            this.state.chooseItem ?
+                                <View>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.showDispatchDialog();
+                                        }}
+                                    >
+                                        <View style={styles.chooseStyle}>
+                                            <View>
+                                                <Text
+                                                    style={styles.lineStyle}
+                                                    numberOfLines={1}
+                                                >{this.state.chooseItem.scheduleRoutes}</Text>
+                                                <Text style={styles.codeStyle}>调度单号：{this.state.chooseItem.scheduleCode}</Text>
+                                            </View>
+                                            <Image style={styles.rightIcon} source={StaticImage.rightArrow}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View> :
+                                <View>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.showDispatchDialog();
+                                        }}
+                                    >
+                                        <View style={styles.chooseStyle}>
+                                            <Text style={styles.contentText}>请选择调度单</Text>
+                                            <Image style={styles.rightIcon} source={StaticImage.rightArrow}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                        }
                     </View>
                 </View>
+                <DispatchDialog ref={(dialog)=>{
+                    this.dispatchDialog = dialog;
+                }}
+                />
                 <DialogSelected ref={(dialog)=>{
                     this.dialog = dialog;
                 }} />
@@ -551,6 +558,11 @@ const styles =StyleSheet.create({
         fontSize: 15,
         marginTop: 10,
         marginBottom: 12,
+        ...Platform.select({
+            android: {
+
+            }
+        })
     },
     imageLayout: {
         marginLeft: 10,
@@ -621,10 +633,44 @@ const styles =StyleSheet.create({
         marginRight: 50,
     },
     bottomView: {
-        // width,
-        // height: 210,
-        marginTop: 15
+        marginTop: 10
     },
+    tipText: {
+        fontSize: 16,
+        color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
+        marginLeft: 10,
+        marginBottom: 10,
+    },
+    rightIcon: {
+        marginRight: 10,
+        alignSelf: 'center',
+    },
+    chooseStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: StaticColor.WHITE_COLOR,
+    },
+    contentText: {
+        fontSize: 16,
+        color: StaticColor.LIGHT_GRAY_TEXT_COLOR,
+        marginLeft: 10,
+        paddingTop: 14,
+        paddingBottom: 14,
+    },
+    lineStyle: {
+        fontSize: 17,
+        color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        marginLeft: 10,
+        paddingTop: 15,
+        paddingBottom: 10,
+        width: width - 40,
+    },
+    codeStyle: {
+        fontSize: 13,
+        color: StaticColor.GRAY_TEXT_COLOR,
+        paddingBottom: 15,
+        marginLeft: 10,
+    }
 });
 
 function mapStateToProps(state){

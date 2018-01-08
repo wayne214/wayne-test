@@ -15,8 +15,8 @@ import {
     Platform,
 } from 'react-native';
 
+import * as Progress from 'react-native-progress';
 import Camera from 'react-native-camera';
-import PercentageCircle from 'react-native-percentage-circle';
 import * as StaticColor from '../../constants/staticColor';
 import StaticImage from '../../constants/staticImage';
 const {width, height} = Dimensions.get('window');
@@ -46,9 +46,10 @@ class recordVideo extends Component {
         this.timer = setInterval(() => {
             seconds += 0.1;
             console.log(seconds);
+            console.log('---',this.state.progress);
             if(seconds <= 15){
                 this.setState({
-                    progress: seconds / 15 * 100,
+                    progress: seconds / 15,
                 });
             }
             if(seconds > 15){
@@ -110,18 +111,25 @@ class recordVideo extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.circleView}>
-                                <PercentageCircle
-                                    radius={42}
-                                    percent={this.state.progress}
-                                    borderWidth='6'
-                                    innerColor='transparent'
-                                    bgcolor='rgba(255,255,255,0.5)'
-                                    color={"#008aff"}
-                                >
-                                    <Image
-                                        style={styles.hollowCircle}
-                                        source={StaticImage.circleView}
-                                    >
+                                <Progress.Circle
+                                    style={{
+                                        borderRadius: 42,
+                                        width: 84,
+                                        height: 84
+                                    }}
+                                    size={84} // 圆的直径
+                                    progress={this.state.progress} // 进度
+                                    unfilledColor="rgba(255,255,255,0.5)" // 剩余进度的颜色
+                                    color={"#008aff"} // 颜色
+                                    thickness={6} // 内圆厚度
+                                    direction="clockwise" // 方向
+                                    borderWidth={0} // 边框
+                                    children={ // 子布局
+                                        <View style={{
+                                            position: 'absolute',
+                                            top: 6,
+                                            left: 6,
+                                        }}>
                                         <TouchableOpacity
                                             activeOpacity={0.75}
                                             onPressIn={() => {
@@ -138,12 +146,14 @@ class recordVideo extends Component {
                                             onLongPress={() => console.log("onLongPress")}
                                         >
                                             <Image
-                                                style={{width: 57,height: 57}}
+                                            style={{width:72,height:72}}
                                                 source={StaticImage.solidCircle}
                                             />
                                         </TouchableOpacity>
-                                    </Image>
-                                </PercentageCircle>
+                                        </View>
+                                    }
+                                >
+                                </Progress.Circle>
                             </View>
                         </View>
                     </View>
@@ -176,18 +186,6 @@ const styles =StyleSheet.create({
         color: StaticColor.WHITE_COLOR,
         marginLeft: 50,
     },
-    hollowCircle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        ...Platform.select({
-            android:{
-                borderRadius: 72,
-                width: 72,
-                height: 72,
-            }
-        }),
-        backgroundColor: StaticColor.WHITE_COLOR,
-    },
     text: {
         color: StaticColor.WHITE_COLOR,
         fontSize: 15,
@@ -202,11 +200,6 @@ const styles =StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    transparentCircle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: StaticColor.WHITE_COLOR,
-    },
 });
 
 function mapStateToProps(state){
@@ -218,3 +211,4 @@ function mapDispatchToProps (dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(recordVideo);
+

@@ -139,7 +139,7 @@ class GoodSource extends BaseContainer{
                     plateNumber: global.plateNumber,
                 } : {
                     beginTime: '2017-06-01 00:00:00',
-                    carrierCode: '13120382724',
+                    carrierCode: this.props.carrierCode,
                     endTime: endTime,
                     pageNum: pageNo,
                     pageSize,

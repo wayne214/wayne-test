@@ -296,7 +296,7 @@ class Login extends BaseContainer {
                         // });
                         // this.props.navigation.dispatch(resetAction);
 
-                        // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                        JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
                         this.InquireAccountRole();
                     } else {
                         //跳转到绑定设备界面
@@ -451,7 +451,7 @@ class Login extends BaseContainer {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
 
             },
             error: (errorInfo) => {

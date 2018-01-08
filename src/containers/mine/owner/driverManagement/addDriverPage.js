@@ -88,8 +88,8 @@ class AddDriverPage extends BaseContainer {
 
             },
             success: (responseData) => {
-
-                if(responseData.result.size == 0){
+debugger
+                if(responseData.result.length == 0){
                     this.setState({
                         haveDate: false,
                     })
