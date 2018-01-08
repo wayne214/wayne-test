@@ -818,26 +818,28 @@ class Home extends Component {
     // 获取首页状态数量
     getCarrierHomePageCount() {
         currentTime = new Date().getTime();
-        HTTPRequest({
-            url: API.API_CARRIER_INDEX_STATUS_NUM,
-            params: {
-                carrierCode: this.props.carrierCode,
-            },
-            loading: () => {
-            },
-            success: (responseData) => {
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '首页');
-                if (responseData.result) {
-                    this.props.getCarrierHomoPageCountAction(responseData.result);
-                }
-            },
-            error: () => {
-            },
-            finish: () => {
-            },
-        });
+        if(this.props.carrierCode){
+            HTTPRequest({
+                url: API.API_CARRIER_INDEX_STATUS_NUM,
+                params: {
+                    carrierCode: this.props.carrierCode,
+                },
+                loading: () => {
+                },
+                success: (responseData) => {
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '首页');
+                    if (responseData.result) {
+                        this.props.getCarrierHomoPageCountAction(responseData.result);
+                    }
+                },
+                error: () => {
+                },
+                finish: () => {
+                },
+            });
+        }
     }
 
     setData() {
