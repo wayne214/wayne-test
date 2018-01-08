@@ -863,7 +863,12 @@ class Verified extends Component {
                 //this.popToTop();
 
                 this.props.setDriverCharacterAction('1');
-                this.props.commitSuccess();
+                // this.props.commitSuccess();
+
+                if (this.props.navigation.state.params){
+                    this.props.navigation.state.params.commitSuccess();
+                }
+
                 this.props.navigation.navigate('Main');
             },
             error: (errorInfo) => {

@@ -13,7 +13,6 @@ const {width, height} = Dimensions.get('window');
 class CharacterCell extends Component {
     static propTypes = {
         textAbout: PropTypes.string,
-        imageAbout: PropTypes.object,
         onClick: PropTypes.func,
     };
 
