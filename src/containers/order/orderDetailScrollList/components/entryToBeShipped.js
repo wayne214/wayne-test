@@ -60,6 +60,8 @@ let plateNumber = '';
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
+let bindGPSType = '';
+let isBindGPS = false;
 
 class entryToBeShipped extends Component {
     constructor(props) {
@@ -460,6 +462,8 @@ class entryToBeShipped extends Component {
 
     contentView(navigator) {
         const aa = this.state.datas.map((item, index) => {
+            isBindGPS = item.isBindGPS;
+            bindGPSType = item.bindGPSType;
             return (
                 <EntryTest
                     key={index}
@@ -493,15 +497,15 @@ class entryToBeShipped extends Component {
             <Text style={styles.text}>承运者：{this.state.carrierName}</Text>
             <Text style={styles.text}>{this.state.carrierPlateNum}</Text>
         </View>;
-        const carrierBottomView = 3 === 3 ? <BottomButton
+        const carrierBottomView = <BottomButton
             onClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {
                     this.arrangeCar();
                 }
             }}
             text="安排车辆"
-        /> : null;
-        const bottomView = 2 === 3 ? <BottomButton
+        /> ;
+        const bottomView = isBindGPS || (bindGPSType && bindGPSType != '座头鲸') ? <BottomButton
             text={'发运'}
             onClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {
