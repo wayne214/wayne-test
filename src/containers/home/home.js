@@ -1376,8 +1376,8 @@ class Home extends Component {
         if (this.props.currentStatus == 'driver') {
             state = this.props.driverStatus == '1' ? '(认证中)' : this.props.driverStatus == '3' ? '(认证驳回)' : '';
         }else {
-            state = this.props.driverStatus == '11' || this.props.driverStatus == '21' ? '(认证中)' :
-                this.props.driverStatus == '13' || this.props.driverStatus == '23'? '(认证驳回)' : '';
+            state = this.props.ownerStatus == '11' || this.props.ownerStatus == '21' ? '(认证中)' :
+                this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
         }
         return (
             <View style={styles.containerView}>
