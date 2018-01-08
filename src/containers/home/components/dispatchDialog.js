@@ -39,18 +39,20 @@ const styles = StyleSheet.create({
     titleView: {
         flexDirection: 'row',
         backgroundColor: '#F0F0F0',
-        paddingTop: 17,
-        paddingBottom: 17,
+        paddingTop: 7,
+        paddingBottom: 7,
     },
     titleText: {
         fontSize: 18,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
     cancelText: {
         fontSize: 18,
         color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
-        marginLeft: 10,
         width: width / 2 - 64,
+        padding: 10,
     },
     rightIcon: {
         fontFamily: 'iconfont',
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         paddingTop: 15,
         paddingBottom: 10,
-        width: width - 50,
+        width: width - 55,
     },
     detailTip: {
         fontSize: 14,
@@ -263,14 +265,21 @@ class dispatchDialog extends Component{
 
                     <Animated.View style={[{
                         width: width,
-                        height: height / 2 - 20,
                         left: 0,
-                        // top: height / 2,
+                        ...Platform.select({
+                            android: {
+                                height: height / 2 + 40,
+                            },
+                            ios: {
+                                height: height / 2 + 20,
+                                bottom: - 25,
+                            }
+                        })
                     }, {
                         transform: [{
                             translateY: this.state.offset.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [height, height / 2 - 20]
+                                outputRange: [height, height / 2 - 50]
                             }),
                         }]
                     }]}>
@@ -282,7 +291,19 @@ class dispatchDialog extends Component{
                             </TouchableOpacity>
                             <Text style={styles.titleText}>请选择调度单</Text>
                         </View>
-                        <View style={{height: height / 2 - 20,backgroundColor:StaticColor.WHITE_COLOR}}>
+                        <View
+                            style={{
+                                ...Platform.select({
+                                   ios: {
+                                       height: height / 2 - 20,
+                                   },
+                                    android: {
+                                       height: height / 2,
+                                    }
+                                }),
+                                backgroundColor:StaticColor.WHITE_COLOR
+                            }}
+                        >
                             {
                                 this.state.showDetails && this.state.details ?
                                     <View>

@@ -16,7 +16,8 @@ import {
 } from '../../action/user';
 import {
     voiceSpeechAction,
-    getHomePageCountAction
+    getHomePageCountAction,
+    getCarrierHomoPageCountAction,
 } from '../../action/app';
 import * as API from '../../constants/api';
 import JPushModule from 'jpush-react-native';
@@ -166,8 +167,12 @@ class setting extends Component {
     /*退出登录*/
     press() {
         DeviceEventEmitter.emit('updateOrderList');
+        if(this.props.currentStatus == 'driver'){
+            this.props.reloadHomePageNum();
+        }else {
+            this.props.reloadCarrierHomePageNum();
+        }
         this.loginOut();
-        this.props.reloadHomePageNum();
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
@@ -311,6 +316,9 @@ function mapDispatchToProps(dispatch) {
         },
         reloadHomePageNum:()=>{
             dispatch(getHomePageCountAction(null));
+        },
+        reloadCarrierHomePageNum: () => {
+            dispatch(getCarrierHomoPageCountAction(null));
         }
     };
 }
