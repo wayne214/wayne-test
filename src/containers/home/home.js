@@ -318,6 +318,7 @@ class Home extends Component {
         if(nextProps.currentStatus != this.props.currentStatus) {
             if (nextProps.currentStatus == 'driver') {
                 this.getHomePageCount(this.props.plateNumber, this.props.userInfo.phone);
+            } else if(nextProps.currentStatus == ''){
             } else {
                 this.getCarrierHomePageCount();
             }
