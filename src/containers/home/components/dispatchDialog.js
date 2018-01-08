@@ -39,18 +39,20 @@ const styles = StyleSheet.create({
     titleView: {
         flexDirection: 'row',
         backgroundColor: '#F0F0F0',
-        paddingTop: 17,
-        paddingBottom: 17,
+        paddingTop: 7,
+        paddingBottom: 7,
     },
     titleText: {
         fontSize: 18,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
     cancelText: {
         fontSize: 18,
         color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
-        marginLeft: 10,
         width: width / 2 - 64,
+        padding: 10,
     },
     rightIcon: {
         fontFamily: 'iconfont',
