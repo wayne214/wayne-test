@@ -65,18 +65,19 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65a;</Text> : <Text style={styles.renderIcon}>&#xe657;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                // if (global.driverStatus && global.driverStatus == 2) {
-                //     if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
-                //         DeviceEventEmitter.emit('resetGood');
+                if(global.currentStatus == 'driver') {
+                    if(global.driverStatus && global.driverStatus == 2) {
                         jumpToIndex(scene.index)
-                //     }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
-                //         DeviceEventEmitter.emit('notifyCarStatus');
-                //     }else {
-                //         DeviceEventEmitter.emit('getUserCar');
-                //     }
-                // }else {
-                //     DeviceEventEmitter.emit('certification');
-                // }
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
+                }else {
+                    if((global.ownerStatus && global.ownerStatus == 12 ) || (global.ownerStatus && global.ownerStatus == 22 )){
+                        jumpToIndex(scene.index)
+                    } else {
+                        DeviceEventEmitter.emit('certification');
+                    }
+                }
             }
         }),
     },
@@ -92,23 +93,17 @@ const TabRouteConfigs = {
                 console.log('global.driverStatus=',global.driverStatus);
                 console.log('global.ownerStatus=',global.ownerStatus);
                 if (global.currentStatus == 'driver') { // 司机身份
-                    // if(global.driverStatus && global.driverStatus == 2) {
-                        // if(global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 20) {
+                    if(global.driverStatus && global.driverStatus == 2) {
                             jumpToIndex(scene.index)
-                        // }else if (global.plateNumberObj.carStatus && global.plateNumberObj.carStatus === 10) {
-                        //     DeviceEventEmitter.emit('notifyCarStatus');
-                        // }else {
-                        //     DeviceEventEmitter.emit('getUserCar');
-                        // }
-                    // }else {
-                    //     DeviceEventEmitter.emit('certification');
-                    // }
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
                 }else { // 车主身份
-                    // if (global.ownerStatus && (global.ownerStatus == 12 || global.ownerStatus == 22)) {
+                    if ((global.ownerStatus && global.ownerStatus == 12) || (global.ownerStatus && global.ownerStatus == 22)) {
                         jumpToIndex(scene.index)
-                    // }else {
-                    //     DeviceEventEmitter.emit('certification');
-                    // }
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
                 }
             },
         }),
@@ -121,11 +116,19 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65b;</Text> : <Text style={styles.renderIcon}>&#xe65d;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
-                if(global.driverStatus && global.driverStatus == 2) {
-                    DeviceEventEmitter.emit('refreshIncome');
-                    jumpToIndex(scene.index)
+                if(global.currentStatus == 'driver'){
+                    if(global.driverStatus && global.driverStatus == 2) {
+                        DeviceEventEmitter.emit('refreshIncome');
+                        jumpToIndex(scene.index)
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
                 }else {
-                    DeviceEventEmitter.emit('notifyIncome');
+                    if ((global.ownerStatus && global.ownerStatus == 12) || (global.ownerStatus && global.ownerStatus == 22)) {
+                        jumpToIndex(scene.index)
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
                 }
             },
         }),

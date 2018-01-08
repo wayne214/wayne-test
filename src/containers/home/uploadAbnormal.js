@@ -38,8 +38,8 @@ import {Geolocation} from 'react-native-baidu-map-xzx';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import {upLoadImageManager} from '../../utils/upLoadImageToVerified';
 const {width, height} = Dimensions.get('window');
-let selectedArr = ["拍照", "视频"];
-let title = '请选择照片或视频';
+let selectedArr = ["拍照"];
+let title = '请选择照片';
 const ImageWH = (width - 70) / 4;
 import HTTPRequest from '../../utils/httpRequest';
 import * as API from '../../constants/api';
@@ -107,9 +107,18 @@ class uploadAbnormal extends Component {
                 });
             },
             success: (responseData)=>{
-                this.setState({
-                    result: responseData.result,
-                });
+                if(responseData.result && responseData.result.length > 0){
+                    this.setState({
+                        result: responseData.result,
+                    });
+                }else {
+                    Alert.alert('提示', '当前无调度单信息，无法提交道路异常',[{
+                        text: '确定',
+                        onPress: () => {
+                            this.props.navigation.goBack();
+                        }
+                    }]);
+                }
             },
             error: (errorInfo)=>{},
             finish:()=>{
@@ -197,6 +206,10 @@ class uploadAbnormal extends Component {
     }
     // 提交道路异常
     submit() {
+        if(!this.state.chooseItem) {
+            Toast.showShortCenter('请先选择调度单');
+            return;
+        }
         const {videoList} = this.props;
         let formData = new FormData();
         if (videoList.size > 0) {
@@ -227,7 +240,12 @@ class uploadAbnormal extends Component {
         }
         formData.append('userId', global.userId);
         formData.append('userName', global.userName);
-        this.uploadImage(url, formData);
+
+        if(videoList.size > 0 || this.props.imageList.size > 0){
+            this.uploadImage(url, formData);
+        }else {
+            Toast.showShortCenter('请添加照片');
+        }
     }
     createAddItem(type) {
         const {imageList} = this.props;
@@ -274,21 +292,21 @@ class uploadAbnormal extends Component {
                     });
                 }
                 break;
-            case 1: // 视频
-                if (Platform.OS === 'ios') {
-                    PermissionsManager.cameraPermission().then(data => {
-                        this.recordVideo();
-                    }).catch(err=>{
-                        Alert.alert(null,err.message)
-                    });
-                }else{
-                    PermissionsManagerAndroid.cameraPermission().then((data) => {
-                        this.recordVideo();
-                    }, (err) => {
-                        Alert.alert('提示','请到设置-应用-授权管理设置相机权限');
-                    });
-                }
-                break;
+            // case 1: // 视频
+            //     if (Platform.OS === 'ios') {
+            //         PermissionsManager.cameraPermission().then(data => {
+            //             this.recordVideo();
+            //         }).catch(err=>{
+            //             Alert.alert(null,err.message)
+            //         });
+            //     }else{
+            //         PermissionsManagerAndroid.cameraPermission().then((data) => {
+            //             this.recordVideo();
+            //         }, (err) => {
+            //             Alert.alert('提示','请到设置-应用-授权管理设置相机权限');
+            //         });
+            //     }
+            //     break;
         }
     }
 
@@ -327,13 +345,13 @@ class uploadAbnormal extends Component {
 
     render() {
         const {imageList, videoList} = this.props;
-        if (imageList.size === 0) {
-            selectedArr = ['拍照', '视频'];
-            title = '请选择照片或视频';
-        }else if (imageList.size > 0) {
-            selectedArr = ['拍照'];
-            title = '请选择照片';
-        }
+        // if (imageList.size === 0) {
+        //     selectedArr = ['拍照', '视频'];
+        //     title = '请选择照片或视频';
+        // }else if (imageList.size > 0) {
+        //     selectedArr = ['拍照'];
+        //     title = '请选择照片';
+        // }
         const navigator = this.props.navigation;
         const imagesView = imageList.map((picture, index) => {
             console.log('---imageList--',picture);
@@ -556,13 +574,16 @@ const styles =StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
         fontSize: 15,
-        marginTop: 10,
         marginBottom: 12,
         ...Platform.select({
             android: {
-
+                textAlignVertical: 'top',
+                marginTop: 5,
+            },
+            ios: {
+                marginTop: 10,
             }
-        })
+        }),
     },
     imageLayout: {
         marginLeft: 10,

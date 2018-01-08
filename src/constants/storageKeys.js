@@ -45,7 +45,7 @@ const carOwnerAddDriverInfo = 'carOwnerAddDriverInfo'; // 车主增加司机
 
 const carOwnerAddCarInfo = 'carOwnerAddCarInfo'; // 车主增加车辆
 
-const USER_DRIVER_STATE = 'USER_ID'; // 司机身份
+const USER_DRIVER_STATE = 'USER_DRIVER_STATE'; // 司机身份
 
 const USER_CAROWN_STATE = 'USER_CAROWN_STATE'; // 车主身份
 
