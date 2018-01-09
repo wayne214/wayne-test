@@ -430,7 +430,9 @@ let transCodeListData3 = [];
             case 0:
                 console.log('订单全部界面', pageIndex);
                 if (this.props.currentStatus == 'driver') {
-                    this.getOrderDetailAction('AAA', pageNum, pageSize);
+                    if(global.plateNumber) {
+                        this.getOrderDetailAction('AAA', pageNum, pageSize);
+                    }
                 } else {
                     this.getOrderDetailAction('CCC',pageNum, pageSize);
                 }
@@ -438,15 +440,15 @@ let transCodeListData3 = [];
             case 1:
                 console.log('订单待发运界面', pageIndex);
                 if (this.props.currentStatus == 'driver') {
-                    this.getOrderDetailAction('BBB', pageNum, pageSize);
+                    if(global.plateNumber) {
+                        this.getOrderDetailAction('BBB', pageNum, pageSize);
+                    }
                 } else {
                     this.getDispatchOrderList('BBB',pageNum, pageSize);
                 }
                 break;
             case 2:
                 console.log('订单待签收界面', pageIndex);
-                console.log('订单待签收界面----------', this.props.currentStatus);
-
                 if(this.state.currentStatus == 'driver') {
                     this.getTransPorting();
                 }else {
@@ -587,96 +589,94 @@ let transCodeListData3 = [];
                 isRefresh: true,
             })
         }
-        if (global.plateNumber) {
-            HTTPRequest({
-                url: API_URL,
-                params: {
-                    carrierCode: this.state.currentStatus == 'driver' ? '' : this.props.carrierCode,
-                    page: pageNum,
-                    pageSize,
-                    phone: this.state.currentStatus == 'driver' ? global.phone : '',
-                    plateNumber: this.state.currentStatus == 'driver' ? global.plateNumber : '',
-                    queryType,
+        HTTPRequest({
+            url: API_URL,
+            params: {
+                carrierCode: this.state.currentStatus == 'driver' ? '' : this.props.carrierCode,
+                page: pageNum,
+                pageSize,
+                phone: this.state.currentStatus == 'driver' ? global.phone : '',
+                plateNumber: this.state.currentStatus == 'driver' ? global.plateNumber : '',
+                queryType,
 
-                },
-                loading: () => {
+            },
+            loading: () => {
 
-                },
-                success: (responseData) => {
-                    lastTime = new Date().getTime();
-                    ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                        locationData.district, lastTime - currentTime, '订单页面');
-                    if (!responseData.result.list) {
-                        return;
-                    }
-                    switch (queryType) {
-                        case 'AAA' : {
-                            if (pageNum === 1) {
-                                allListData = [];
-                            }
-                            allListData = allListData.concat(responseData.result.list);
-                            if (allListData.length === responseData.result.total) {
-                                this.setState({
-                                    isLoadallMore: false,
-                                    allCount: allListData.length,
-                                });
-                            }
-
-                            this.setState({
-                                dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
-                            });
-
-                            break;
-                        }
-                        case 'BBB' : {
-                            if (pageNum === 1) {
-                                shipListData = [];
-                            }
-                            shipListData = shipListData.concat(responseData.result.list);
-
-                            if (shipListData.length === responseData.result.total) {
-                                this.setState({
-                                    isLoadshipMore: false,
-                                    allCount: shipListData.length,
-                                })
-                            }
-                            this.setState({
-                                dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
-                            });
-                            break;
-                        }
-                        case 'CCC' : {
-                            if (pageNum === 1) {
-                                allListData = [];
-                            }
-                            allListData = allListData.concat(responseData.result.list);
-                            if (allListData.length === responseData.result.total) {
-                                this.setState({
-                                    isLoadallMore: false,
-                                    allCount: allListData.length,
-                                });
-                            }
-                            this.setState({
-                                dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
-                            });
-
-                            break;
-                        }
-                        default :
-                            break;
-                    }
-
-                },
-                error: (errorInfo) => {
-
-                },
-                finish: () => {
-                    this.setState({
-                        isRefresh: false,
-                    });
+            },
+            success: (responseData) => {
+                lastTime = new Date().getTime();
+                ReadAndWriteFileUtil.appendFile('获取订单列表', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                    locationData.district, lastTime - currentTime, '订单页面');
+                if (!responseData.result.list) {
+                    return;
                 }
-            });
-        }
+                switch (queryType) {
+                    case 'AAA' : {
+                        if (pageNum === 1) {
+                            allListData = [];
+                        }
+                        allListData = allListData.concat(responseData.result.list);
+                        if (allListData.length === responseData.result.total) {
+                            this.setState({
+                                isLoadallMore: false,
+                                allCount: allListData.length,
+                            });
+                        }
+
+                        this.setState({
+                            dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                        });
+
+                        break;
+                    }
+                    case 'BBB' : {
+                        if (pageNum === 1) {
+                            shipListData = [];
+                        }
+                        shipListData = shipListData.concat(responseData.result.list);
+
+                        if (shipListData.length === responseData.result.total) {
+                            this.setState({
+                                isLoadshipMore: false,
+                                allCount: shipListData.length,
+                            })
+                        }
+                        this.setState({
+                            dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                        });
+                        break;
+                    }
+                    case 'CCC' : {
+                        if (pageNum === 1) {
+                            allListData = [];
+                        }
+                        allListData = allListData.concat(responseData.result.list);
+                        if (allListData.length === responseData.result.total) {
+                            this.setState({
+                                isLoadallMore: false,
+                                allCount: allListData.length,
+                            });
+                        }
+                        this.setState({
+                            dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                        });
+
+                        break;
+                    }
+                    default :
+                        break;
+                }
+
+            },
+            error: (errorInfo) => {
+
+            },
+            finish: () => {
+                this.setState({
+                    isRefresh: false,
+                });
+            }
+        });
     }
 
 
