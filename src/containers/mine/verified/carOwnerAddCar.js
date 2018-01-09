@@ -813,7 +813,7 @@ class certification extends Component {
 
                 Toast.showShortCenter('车主增加车辆提交成功');
                 Storage.remove(StorageKey.carOwnerAddCarInfo);
-                //DeviceEventEmitter.emit('certificationSuccess');
+                DeviceEventEmitter.emit('addCarPage');
                 //Storage.remove(StorageKey.carInfoResult);
 
                 //this.popToTop();

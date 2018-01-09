@@ -95,7 +95,7 @@ class Verified extends Component {
     constructor(props) {
         super(props);
 
-        if (this.props.navigation.state.params.resultInfo) {
+        if (this.props.navigation.state.params) {
             const result = this.props.navigation.state.params.resultInfo;
 
             isFirstCarD = result.idCardName ? false : true;
