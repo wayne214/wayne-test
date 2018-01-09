@@ -505,7 +505,19 @@ class entryToBeShipped extends Component {
             }}
             text="安排车辆"
         /> ;
-        const bottomView = isBindGPS || (bindGPSType && bindGPSType != '座头鲸') ? <BottomButton
+        const bottomView = isBindGPS && bindGPSType == '座头鲸' ?
+            <ChooseButton
+                leftContent={'查看GPS设备'}
+                rightContent={'发运'}
+                leftClick={() => {
+                    this.props.navigation.navigate('GPSDetails');
+                }}
+                rightClick={() => {
+                    if (prventDoubleClickUtil.onMultiClick()) {
+                        this.sendOrder();
+                    }
+                }}
+            /> : isBindGPS && bindGPSType && bindGPSType != '座头鲸' ? <BottomButton
             text={'发运'}
             onClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {

@@ -55,7 +55,6 @@ let selectPage = 0; // 当前选择的页面 0:全部，1：待发运，2：待�
 let pageNum = 1; // 第一页
 const pageSize = 10;// 每页显示数量
 
-let API_URL = API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE;
 let userID = '';
 let transCodeList = [];
 
@@ -288,6 +287,9 @@ let transCodeListData3 = [];
         console.log('currentProps=',this.props.currentStatus);
         console.log('selectPage=',selectPage);
          if (nextProps.currentStatus != this.props.currentStatus) {
+             if(nextProps.currentStatus == '') {
+                 return;
+             }
              allListData = []; // 全部数据
              shipListData = []; // 待发运数据
              signListData = []; // 待签收数据
@@ -590,7 +592,7 @@ let transCodeListData3 = [];
             })
         }
         HTTPRequest({
-            url: API_URL,
+            url: API.API_NEW_APP_DISPATCH_DOC_WITH_PAGE,
             params: {
                 carrierCode: this.state.currentStatus == 'driver' ? '' : this.props.carrierCode,
                 page: pageNum,
