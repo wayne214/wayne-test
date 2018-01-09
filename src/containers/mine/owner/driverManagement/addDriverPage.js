@@ -212,7 +212,7 @@ class AddDriverPage extends BaseContainer {
                                 }}>
                                     <View
                                         style={{
-                                            height: 30,
+                                            height: 32,
                                             width: 75,
                                             marginLeft: width - 250,
                                             justifyContent: 'center',
@@ -290,6 +290,8 @@ class AddDriverPage extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit = {true}
                             onSubmitEditing={(event) => {
                                 this.queryPhoneOrName(event.nativeEvent.text);

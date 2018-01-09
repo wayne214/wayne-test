@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     textInputStyle: {
         flex: 1,
         marginLeft: 5,
-        fontSize: 13,
+        fontSize: 16,
         color: '#666666',
         ...Platform.select({
             ios: {},
@@ -318,6 +318,8 @@ class AddCarPage extends BaseContainer {
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 console.log('gg', event.nativeEvent.text)
