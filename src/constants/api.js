@@ -222,6 +222,7 @@ export const API_GET_CAR_HEADER_INFO = `${HOST}app/photo/vehicle`;
 
 // 上传营业执照
 export const API_GET_BUSINESS_LICENSE = `${HOST}app/photo/businessLicense`;
+// export const API_GET_BUSINESS_LICENSE = `http://192.168.32.83:8899/app/photo/businessLicense`;
 
 // 企业车主认证
 export const API_COMPANY_CERTIFICATION = `${HOST}app/rmc/company/appInsertCertificationInfo`;

@@ -35,10 +35,7 @@ const styles = StyleSheet.create({
         width: 22,
         resizeMode: 'contain'
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
+
     textInputStyle: {
         flex: 1,
         marginLeft: 5,
@@ -165,7 +162,6 @@ class BindCarPage extends BaseContainer {
             },
             success: (responseData) => {
                 console.log('bindRelieveCar', responseData);
-                //todo 添加车辆成功 添加监听 跳转页面
                 DeviceEventEmitter.emit('bindCarPage');
                 this.props.navigation.goBack();
             },
@@ -201,7 +197,7 @@ class BindCarPage extends BaseContainer {
                 }}>
                     <Image
                         style={{height: 36, width: 36}}
-                        source={StaticImage.CarAvatar}></Image>
+                        source={StaticImage.CarAvatar}/>
 
                     <View style={{flexDirection: 'column'}}>
                         <View style={{flexDirection: 'row', alignItems: 'center',}}>
