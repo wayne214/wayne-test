@@ -88,7 +88,7 @@ class AddDriverPage extends BaseContainer {
 
             },
             success: (responseData) => {
-debugger
+
                 if(responseData.result.length == 0){
                     this.setState({
                         haveDate: false,
@@ -188,7 +188,7 @@ debugger
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Image
                                 style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
+                                source={StaticImage.DriverAvatar}/>
                             <View>
                                 <Text style={{
                                     marginLeft: 10,
@@ -357,7 +357,6 @@ debugger
                                         width: width-20,
                                         marginBottom: 0,
                                         height: 38,
-                                        borderRadius: 0,
                                         borderWidth: 0,
                                         borderColor: '#0083FF',
                                         borderRadius:5,
