@@ -1198,6 +1198,8 @@ let transCodeListData3 = [];
                             // 待签收、待回单、已完成
                             this.props.navigation.navigate('EntryToBeSignIn', {
                                 transOrderList: dataRow.transOrderList,
+                                carrierName: dataRow.carrierName,
+                                carrierPlateNum: dataRow.carrierPlateNum,
                             });
                         }
 
