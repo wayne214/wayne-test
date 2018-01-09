@@ -158,8 +158,34 @@ class GoodSource extends BaseContainer{
                 finish: ()=>{
                 }
             });
+        } else {
+            if (this.props.currentStatus != 'driver') {
+                HTTPRequest({
+                    url: API.API_CARRIER_GET_SOURCE_BY_DATE,
+                    params: {
+                        beginTime: '2017-06-01 00:00:00',
+                        carrierCode: this.props.carrierCode,
+                        endTime: endTime,
+                        pageNum: pageNo,
+                        pageSize,
+                        status
+                    },
+                    loading: ()=>{
+
+                    },
+                    success: (responseData)=>{
+                        console.log('success',responseData);
+                        getDataSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo)=>{
+                        getDataFailCallBack();
+                    },
+                    finish: ()=>{
+                    }
+                });
+            }
         }
-        console.log('global phone',global.phone);
+        console.log('global phone，',global.phone);
 
     }
     // 成功回调
