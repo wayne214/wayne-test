@@ -720,12 +720,12 @@ class Verified extends Component {
             return;
         }
 
+
         let dataString = this.state.drivingLicenseValidUntil;
 
-        date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
-        dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        if (dataString === '') {
+
+        if (dataString === '' || !dataString) {
             Toast.showShortCenter('请输入驾驶证有效期');
             return;
         }
@@ -740,6 +740,9 @@ class Verified extends Component {
 
             return;
         }
+
+        date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
         console.log('身份证姓名：', this.state.IDName);
         console.log('身份证证号：', this.state.IDCard);
@@ -866,8 +869,9 @@ class Verified extends Component {
                 // this.props.commitSuccess();
 
                 if (this.props.navigation.state.params){
-                    this.props.navigation.state.params.commitSuccess();
-                }
+                    if (this.props.navigation.state.params.commitSuccess){
+                        this.props.navigation.state.params.commitSuccess();
+                    }                }
 
                 this.props.navigation.navigate('Main');
             },
