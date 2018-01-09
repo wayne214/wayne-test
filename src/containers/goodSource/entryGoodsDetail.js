@@ -243,7 +243,7 @@ class entryGoodsDetail extends Component {
             } : {
                 userId: global.userId,
                 userName: global.userName,
-                carrierCode: '13120382724',
+                carrierCode: this.props.carrierCode,
                 dispatchNo: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -310,7 +310,7 @@ class entryGoodsDetail extends Component {
             } : {
                 userId: global.userId,
                 userName: global.userName,
-                carrierCode: '13120382724',
+                carrierCode: this.props.carrierCode,
                 dispatchNo: this.state.scheduleCode,
             },
             loading: ()=>{
@@ -530,6 +530,7 @@ function mapStateToProps(state) {
         plateNumber: state.user.get('plateNumber'),
         routes: state.nav.routes,
         currentStatus: state.user.get('currentStatus'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 

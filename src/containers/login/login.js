@@ -296,7 +296,7 @@ class Login extends BaseContainer {
                         // });
                         // this.props.navigation.dispatch(resetAction);
 
-                        // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                        JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
                         this.InquireAccountRole();
                     } else {
                         //跳转到绑定设备界面
@@ -344,7 +344,7 @@ class Login extends BaseContainer {
                 if (responseData.result.length == 1) {
                     if (responseData.result[0].owner == 1) {
                         // 保存承运商编码
-                        this.props.getCompanyCodeAction(responseData.result[0].companyCode);
+                        // this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -381,7 +381,7 @@ class Login extends BaseContainer {
 
                     if (responseData.result[0].owner == 1) {
                         // 保存承运商编码
-                        this.props.getCompanyCodeAction(responseData.result[0].companyCode);
+                        // this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 先是车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -421,7 +421,7 @@ class Login extends BaseContainer {
                         // 后是车主
                         if (responseData.result[1].companyNature == '个人') {
                             // 保存承运商编码
-                            this.props.getCompanyCodeAction(responseData.result[1].companyCode);
+                            // this.props.getCompanyCodeAction(responseData.result[1].companyCode);
                             // 确认个人车主
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setOwnerCharacterAction('11')
@@ -430,7 +430,7 @@ class Login extends BaseContainer {
                                 this.props.setOwnerCharacterAction('13')
                         } else {
                             // 保存承运商编码
-                            this.props.getCompanyCodeAction(responseData.result[1].companyCode);
+                            // this.props.getCompanyCodeAction(responseData.result[1].companyCode);
                             // 确认企业车主
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setOwnerCharacterAction('21')
@@ -451,7 +451,7 @@ class Login extends BaseContainer {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
 
             },
             error: (errorInfo) => {

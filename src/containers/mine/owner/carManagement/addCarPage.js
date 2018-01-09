@@ -25,6 +25,8 @@ import HTTPRequest from '../../../../utils/httpRequest';
 import Toast from '@remobile/react-native-toast';
 import emptyData from '../../../../../assets/carList/emptyData.png';
 import Button from 'apsl-react-native-button';
+import Storage from '../../../../utils/storage';
+import StorageKey from '../../../../constants/storageKeys';
 
 const {height, width} = Dimensions.get('window');
 
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     textInputStyle: {
         flex: 1,
         marginLeft: 5,
-        fontSize: 13,
+        fontSize: 16,
         color: '#666666',
         ...Platform.select({
             ios: {},
@@ -316,6 +318,8 @@ class AddCarPage extends BaseContainer {
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
                             maxLength={20}
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 console.log('gg', event.nativeEvent.text)
@@ -383,7 +387,6 @@ class AddCarPage extends BaseContainer {
                                     width: width-20,
                                     marginBottom: 0,
                                     height: 38,
-                                    borderRadius: 0,
                                     borderWidth: 0,
                                     borderColor: '#0083FF',
                                     borderRadius:5,
@@ -393,9 +396,16 @@ class AddCarPage extends BaseContainer {
                                 }}
                                 textStyle={{color: 'white', fontSize: 18}}
                                 onPress={() => {
-                                    this.props.navigation.navigate('CarOwnerAddCarDetail', {
-                                        qualifications: 1202,
-                                    });
+                                    Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {
+                                         if (value){
+                                             navigator.navigate('CarOwnerAddCar', {
+                                                 resultInfo: value,
+                                             });
+                                         }else {
+                                             navigator.navigate('CarOwnerAddCar');
+                                         }
+
+                                     });
                                 }}
                             >
                                 创建车辆

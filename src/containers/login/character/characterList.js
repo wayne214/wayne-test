@@ -171,94 +171,96 @@ class CharacterList extends BaseContainer {
 
                 </View>
 
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+
+                {/*<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>*/}
 
 
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                        navigator.navigate('VerifiedStatePage', {
-                            qualifications: 1201,
-                        });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>司机认证详情</Text>
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                        {/*navigator.navigate('VerifiedStatePage', {*/}
+                            {/*qualifications: 1201,*/}
+                        {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>司机认证详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
 
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                         Storage.get(StorageKey.changeCarInfoResult).then((value) => {
-                             if (value){
-                                 navigator.navigate('CertificationPage', {
-                                     resultInfo: value,
-                                 });
-                             }else {
-                                 navigator.navigate('CertificationPage');
-                             }
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                         {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
+                             {/*if (value){*/}
+                                 {/*navigator.navigate('CertificationPage', {*/}
+                                     {/*resultInfo: value,*/}
+                                 {/*});*/}
+                             {/*}else {*/}
+                                 {/*navigator.navigate('CertificationPage');*/}
+                             {/*}*/}
 
-                         });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>司机增加车辆</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                        this.props.navigation.navigate('CerifiedStatePage', {
-                            qualifications: 1202,
-                        });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>
-                    </TouchableOpacity>
+                         {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>司机增加车辆</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                        {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
+                            {/*qualifications: 1202,*/}
+                        {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
 
 
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
 
-                    }}>
-                        <Text style={{textAlign: 'center'}}>个人车主认证详情</Text>
-                    </TouchableOpacity>
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>个人车主认证详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
 
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
 
-                    }}>
-                        <Text style={{textAlign: 'center'}}>企业车主认证详情</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                        Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {
-                            if (value){
-                                navigator.navigate('CarOwnerAddDriver', {
-                                    resultInfo: value,
-                                });
-                            }else {
-                                navigator.navigate('CarOwnerAddDriver');
-                            }
-                        });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>车主增加司机</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                        navigator.navigate('CarOwnerAddDriverDetail', {
-                            qualifications: 1201,
-                        });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>车主增加司机详情</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
-                        Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {
-                             if (value){
-                                 navigator.navigate('CarOwnerAddCar', {
-                                     resultInfo: value,
-                                 });
-                             }else {
-                                 navigator.navigate('CarOwnerAddCar');
-                             }
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>企业车主认证详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                        {/*Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {*/}
+                            {/*if (value){*/}
+                                {/*navigator.navigate('CarOwnerAddDriver', {*/}
+                                    {/*resultInfo: value,*/}
+                                {/*});*/}
+                            {/*}else {*/}
+                                {/*navigator.navigate('CarOwnerAddDriver');*/}
+                            {/*}*/}
+                        {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>车主增加司机</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                        {/*navigator.navigate('CarOwnerAddDriverDetail', {*/}
+                            {/*qualifications: 1201,*/}
+                        {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>车主增加司机详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                        {/*Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {*/}
+                             {/*if (value){*/}
+                                 {/*navigator.navigate('CarOwnerAddCar', {*/}
+                                     {/*resultInfo: value,*/}
+                                 {/*});*/}
+                             {/*}else {*/}
+                                 {/*navigator.navigate('CarOwnerAddCar');*/}
+                             {/*}*/}
 
-                         });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>车主增加车辆</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{
+                         {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>车主增加车辆</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
 
-                        this.props.navigation.navigate('CarOwnerAddCarDetail', {
-                            qualifications: 1202,
-                        });
-                    }}>
-                        <Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>
-                    </TouchableOpacity>
-                </View>
+                        {/*this.props.navigation.navigate('CarOwnerAddCarDetail', {*/}
+                            {/*qualifications: 1202,*/}
+                        {/*});*/}
+                    {/*}}>*/}
+                        {/*<Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
+
             </View>
         );
     }

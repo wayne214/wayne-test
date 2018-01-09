@@ -139,7 +139,7 @@ class GoodSource extends BaseContainer{
                     plateNumber: global.plateNumber,
                 } : {
                     beginTime: '2017-06-01 00:00:00',
-                    carrierCode: '13120382724',
+                    carrierCode: this.props.carrierCode,
                     endTime: endTime,
                     pageNum: pageNo,
                     pageSize,
@@ -158,8 +158,34 @@ class GoodSource extends BaseContainer{
                 finish: ()=>{
                 }
             });
+        } else {
+            if (this.props.currentStatus != 'driver') {
+                HTTPRequest({
+                    url: API.API_CARRIER_GET_SOURCE_BY_DATE,
+                    params: {
+                        beginTime: '2017-06-01 00:00:00',
+                        carrierCode: this.props.carrierCode,
+                        endTime: endTime,
+                        pageNum: pageNo,
+                        pageSize,
+                        status
+                    },
+                    loading: ()=>{
+
+                    },
+                    success: (responseData)=>{
+                        console.log('success',responseData);
+                        getDataSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo)=>{
+                        getDataFailCallBack();
+                    },
+                    finish: ()=>{
+                    }
+                });
+            }
         }
-        console.log('global phone',global.phone);
+        console.log('global phone，',global.phone);
 
     }
     // 成功回调
@@ -286,7 +312,7 @@ class GoodSource extends BaseContainer{
                 goodKindsNames={goodTypesName} // 货品种类
                 orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
                 goodsCount={dataRow.goodsQuantity}
-                temperature={dataRow.temperature}
+                temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList, // 运单号

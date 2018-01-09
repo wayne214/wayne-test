@@ -871,7 +871,7 @@ class carOwnerAddDriver extends Component {
                 Storage.remove(StorageKey.carOwnerAddDriverInfo);
                 //Storage.remove(StorageKey.personInfoResult);
                 Toast.showShortCenter('增加司机提交成功');
-                //DeviceEventEmitter.emit('verifiedSuccess');
+                DeviceEventEmitter.emit('addDriverPage');
 
                 // this.popToTop();
                 this.props.navigation.goBack();

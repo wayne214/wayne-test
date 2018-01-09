@@ -102,7 +102,7 @@ class verifiedImagesItem extends Component{
                 <TouchableOpacity style={styles.subViewStyle} onPress={()=>{
                     this.imageClick(2);
                 }}>
-                    <CachedImage style={styles.itemStyle} source={thirdImageObj}/>
+                    <Image style={styles.itemStyle} source={thirdImageObj}/>
                 </TouchableOpacity>
                 <Text style={styles.textStyle}>{thirdName}</Text>
             </View>: null;
@@ -114,7 +114,7 @@ class verifiedImagesItem extends Component{
                     <TouchableOpacity style={styles.subViewStyle} onPress={()=>{
                         this.imageClick(0);
                     }}>
-                        <CachedImage style={styles.itemStyle} source={firstImageObj}/>
+                        <Image style={styles.itemStyle} source={firstImageObj}/>
                     </TouchableOpacity>
                     <Text style={styles.textStyle}>{firstName}</Text>
                 </View>
@@ -123,7 +123,7 @@ class verifiedImagesItem extends Component{
                     <TouchableOpacity style={styles.subViewStyle} onPress={()=>{
                         this.imageClick(1);
                     }}>
-                        <CachedImage style={styles.itemStyle} source={secondImageObj}/>
+                        <Image style={styles.itemStyle} source={secondImageObj}/>
                     </TouchableOpacity>
                     <Text style={styles.textStyle}>{secondName}</Text>
                 </View>

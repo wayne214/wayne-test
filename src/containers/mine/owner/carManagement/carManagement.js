@@ -394,6 +394,8 @@ class CarManagement extends BaseContainer {
                         <TextInput
                             style={styles.textInputStyle}
                             underlineColorAndroid="transparent"
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 this.queryCarOne(event.nativeEvent.text);

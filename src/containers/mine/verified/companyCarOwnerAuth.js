@@ -668,7 +668,7 @@ class companyCarOwnerAuth extends Component {
                                     }}
                                     textOnFocus={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 500, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 800, animated: true});
                                         }
 
                                     }}
@@ -680,7 +680,7 @@ class companyCarOwnerAuth extends Component {
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 350, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 900, animated: true});
                                         }
                                         selectDatePickerType = 0;
                                         this.showDatePick(true ,'cardID');

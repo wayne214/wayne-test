@@ -251,14 +251,19 @@ class Mine extends Component {
 
         /*点击我，刷新认证状态*/
         this.mineListener = DeviceEventEmitter.addListener('refreshMine', () => {
-            this.verifiedState();
+            if (this.props.currentStatus == 'driver') {
+                this.verifiedState();
+            } else {
+                this.ownerVerifiedState();
+            }
         });
 
 
         /*实名认证状态请求*/
-        this.verifiedState();
-        this.certificationState();
-
+        if (this.props.currentStatus == 'driver') {
+            this.verifiedState();
+            this.certificationState();
+        }
 
         /*资质认证提交成功，刷新状态*/
         this.cerlistener = DeviceEventEmitter.addListener('certificationSuccess', () => {
@@ -268,8 +273,11 @@ class Mine extends Component {
 
         /*实名认证提交成功，刷新状态*/
         this.verlistener = DeviceEventEmitter.addListener('verifiedSuccess', () => {
-
-            this.verifiedState();
+            if (this.props.currentStatus == 'driver') {
+                this.verifiedState();
+            } else {
+                this.ownerVerifiedState();
+            }
         });
 
         /*点击上传图片*/
@@ -431,6 +439,38 @@ class Mine extends Component {
                             verifiedState: responseData.result,
                         });
                         global.verifiedState = responseData.result;
+                    },
+                    error: (errorInfo) => {
+
+                    },
+                    finish: () => {
+                    }
+                });
+            }
+        }
+    }
+
+    ownerVerifiedState() {
+        currentTime = new Date().getTime();
+
+        if (this.props.userInfo) {
+            if (this.props.userInfo.phone) {
+
+                HTTPRequest({
+                    url: API.API_QUERY_COMPANY_INFO,
+                    params: {
+                        busTel: global.phone,
+                        // companyNature: '个人'
+                    },
+                    loading: () => {
+
+                    },
+                    success: (responseData) => {
+                        console.log('ownerVerifiedState==', responseData.result);
+                        let result = responseData.result;
+                        this.setState({
+                            verifiedState: result && result.certificationStatus,
+                        });
                     },
                     error: (errorInfo) => {
 
@@ -1043,9 +1083,11 @@ class Mine extends Component {
                                                             // });
                                                             // 个人车主认证信息
                                                             if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
-                                                                this.props.navigation.navigate('PersonownerVerifiedStatePage', {
-                                                                    qualifications: this.props.ownerStatus,
-                                                                });
+                                                                this.props.navigation.navigate('PersonownerVerifiedStatePage',
+                                                                //     {
+                                                                //     // qualifications: this.props.ownerStatus,
+                                                                // }
+                                                                );
                                                             }
                                                             // 企业车主认证信息
                                                             if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
@@ -1182,10 +1224,7 @@ class Mine extends Component {
                                     />
                                     <View style={styles.separateView}/>
                                     <SettingCell
-                                        leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {
-                                        this.props.navigation.navigate('CharacterList');
-
-                                    }}
+                                        leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {}}
                                         hideArrowIcon={true}
                                         versionName={`V${DeviceInfo.getVersion()}`}
                                     />

@@ -89,32 +89,27 @@ class personownerVerifiedState extends Component{
     constructor(props) {
         super(props);
 
-        this.state={
+        this.state = {
             resultInfo: {},
             appLoading: false,
-            qualifications: this.props.navigation.state.params.qualifications,
+            qualifications: '',
         };
 
         this.getRealNameDetail = this.getRealNameDetail.bind(this);
-
         this.reloadVerified = this.reloadVerified.bind(this);
         this.showBigImage = this.showBigImage.bind(this);
 
     }
 
 
-
     componentDidMount() {
 
         this.getCurrentPosition();
-
-        if (this.state.qualifications == '13') {
-
+        if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
             this.getRealNameDetail(global.phone);
 
         } else {
             Storage.get(StorageKey.personownerInfoResult).then((value) => {
-
                 if (value) {
                     this.setState({
                         resultInfo: value,
@@ -142,7 +137,6 @@ class personownerVerifiedState extends Component{
     /*个人车主实名认证*/
     getRealNameDetail(userPhone) {
         currentTime = new Date().getTime();
-        // TODO 获取个人车主认证信息
         HTTPRequest({
             url: API.API_QUERY_COMPANY_INFO,
             params: {

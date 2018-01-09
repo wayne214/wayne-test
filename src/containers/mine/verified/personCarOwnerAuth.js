@@ -748,10 +748,8 @@ class personCarOwnerAuth extends Component {
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
-                                        this.props.navigation.navigate('Main',{CarOwnerState: true});
 
-                                        return
-                        let info = {
+                        const info = {
                             appLoading: false,
                             IDName: this.state.IDName,
                             IDCard: this.state.IDCard,

@@ -188,7 +188,7 @@ class AddDriverPage extends BaseContainer {
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Image
                                 style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
+                                source={StaticImage.DriverAvatar}/>
                             <View>
                                 <Text style={{
                                     marginLeft: 10,
@@ -213,7 +213,7 @@ class AddDriverPage extends BaseContainer {
                                 }}>
                                     <View
                                         style={{
-                                            height: 30,
+                                            height: 32,
                                             width: 75,
                                             marginLeft: width - 250,
                                             justifyContent: 'center',
@@ -291,6 +291,8 @@ class AddDriverPage extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit = {true}
                             onSubmitEditing={(event) => {
                                 this.queryPhoneOrName(event.nativeEvent.text);
@@ -357,7 +359,6 @@ class AddDriverPage extends BaseContainer {
                                         width: width-20,
                                         marginBottom: 0,
                                         height: 38,
-                                        borderRadius: 0,
                                         borderWidth: 0,
                                         borderColor: '#0083FF',
                                         borderRadius:5,

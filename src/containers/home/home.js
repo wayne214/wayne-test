@@ -293,22 +293,17 @@ class Home extends Component {
         this.saveUserCarList = this.saveUserCarList.bind(this);
 
         this.saveMessage = this.saveMessage.bind(this);
-        this.locate = this.locate.bind(this);
         this.pushToMsgList = this.pushToMsgList.bind(this);
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
         this.getWeather = this.getWeather.bind(this);
         this.getCurrentWeekday = this.getCurrentWeekday.bind(this);
         this.compareVersion = this.compareVersion.bind(this);
 
-        this.getQualificationsStatus = this.getQualificationsStatus.bind(this);
-        this.getQualificationsStatusSuccessCallBack = this.getQualificationsStatusSuccessCallBack.bind(this);
         this.vehicleLimit = this.vehicleLimit.bind(this);
         this.queryEnterpriseNature = this.queryEnterpriseNature.bind(this);
         this.resetTo = this.resetTo.bind(this);
         this.popToTop = this.popToTop.bind(this);
-
         this.speechContent = this.speechContent.bind(this);
-        this.notifyIncome = this.notifyIncome.bind(this);
 
 
     }
@@ -323,6 +318,7 @@ class Home extends Component {
         if(nextProps.currentStatus != this.props.currentStatus) {
             if (nextProps.currentStatus == 'driver') {
                 this.getHomePageCount(this.props.plateNumber, this.props.userInfo.phone);
+            } else if(nextProps.currentStatus == ''){
             } else {
                 this.getCarrierHomePageCount();
             }
@@ -341,6 +337,7 @@ class Home extends Component {
 
         this.compareVersion();
         this.getCurrentPosition(0);
+
         if(this.props.currentStatus == 'driver'){
             this.queryEnterpriseNature();
         }
@@ -560,8 +557,20 @@ class Home extends Component {
             this.notifyCarStatus();
         });
 
-        this.notifyIncomeListener = DeviceEventEmitter.addListener('notifyIncome', () => {
-            this.notifyIncome();
+        this.notifyCertificationListener = DeviceEventEmitter.addListener('certification', () => {
+            if(this.props.currentStatus == 'driver'){
+                if (this.props.driverStatus == 1) {
+                    Alert.alert('提示', '认证资料正在审核中');
+                }else if (this.props.driverStatus == 3) {
+                    Alert.alert('提示', '认证资料已驳回，请重新上传资料');
+                }
+            } else {
+                if (this.props.ownerStatus == 11 || this.props.ownerStatus == 21) {
+                    Alert.alert('提示', '认证资料正在审核中');
+                }else if (this.props.ownerStatus == 13 || this.props.ownerStatus == 23) {
+                    Alert.alert('提示', '认证资料已驳回，请重新上传资料');
+                }
+            }
         });
 
         this.Listener = DeviceEventEmitter.addListener('restToLoginPage', (message) => {
@@ -602,23 +611,6 @@ class Home extends Component {
         Communications.web(this.props.versionUrl);
     }
 
-    notifyIncome() {
-        if (global.verifiedState && global.verifiedState == '1201') {
-            Alert.alert('提示', '认证资料正在审核中');
-        } else if (global.verifiedState && global.verifiedState == '1203') {
-            Alert.alert('提示', '认证资料已驳回，请重新上传资料');
-        } else {
-            Alert.alert('提示', '您的账号未实名认证，请进行实名认证', [
-                {
-                    text: '好的',
-                    onPress: () => {
-                        this.props.navigation.navigate('Mine');
-                    },
-                },
-            ], {cancelable: false});
-        }
-    }
-
 
     notifyCarStatus() {
         Alert.alert('提示', '关联车辆已被禁用，请联系运营人员');
@@ -630,7 +622,7 @@ class Home extends Component {
         this.Listener.remove();
         this.bindCarListener.remove();
         this.notifyCarStatusListener.remove();
-        this.notifyIncomeListener.remove();
+        this.notifyCertificationListener.remove();
         this.logListener.remove();
     }
 
@@ -743,20 +735,11 @@ class Home extends Component {
                     plateNumber: result[0].carNum,
                     plateNumberObj: result[0],
                 });
-                this.certificationState();
-            } else {
-                this.certificationState();
+                this.saveUserCarInfo(result[0]);
+                this.setUserCar(result[0].carNum, this.setUserCarSuccessCallBack);
             }
         } else {
-            Alert.alert('提示', '您的账号未绑定车辆，请进行资质认证',
-                [
-                    {
-                        text: '好的',
-                        onPress: () => {
-                            // this.changeTab('mine');
-                        },
-                    },
-                ], {cancelable: false});
+            Alert.alert('提示', '您的账号未绑定车辆，请添加车辆');
         }
     }
 
@@ -831,117 +814,33 @@ class Home extends Component {
             },
         });
     }
+
     // 获取首页状态数量
     getCarrierHomePageCount() {
         currentTime = new Date().getTime();
-        HTTPRequest({
-            url: API.API_CARRIER_INDEX_STATUS_NUM,
-            params: {
-                carrierCode: '13120382724',
-            },
-            loading: () => {
-            },
-            success: (responseData) => {
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '首页');
-                if (responseData.result) {
-                    this.props.getCarrierHomoPageCountAction(responseData.result);
-                }
-            },
-            error: () => {
-            },
-            finish: () => {
-            },
-        });
-    }
-
-
-    /*资质认证*/
-    certificationState() {
-        setTimeout(() => {
-            Storage.get(StorageKey.PlateNumber).then((plate) => {
-                if (plate) {
-                    this.getQualificationsStatus(plate);
-                } else {
-                    this.getQualificationsStatus(this.state.plateNumber);
-                }
-            });
-        }, 500);
-    }
-
-    // 查询资质认证状态
-    getQualificationsStatus(plate) {
-        if (this.props.userInfo.phone) {
-            let obj = {};
-            if (plate) {
-                obj = {
-                    phoneNum: this.props.userInfo.phone,
-                    plateNumber: plate,
-                }
-            } else {
-                obj = {phoneNum: this.props.userInfo.phone};
-            }
+        if(this.props.carrierCode){
             HTTPRequest({
-                url: API.API_AUTH_QUALIFICATIONS_STATUS,
-                params: obj,
+                url: API.API_CARRIER_INDEX_STATUS_NUM,
+                params: {
+                    carrierCode: this.props.carrierCode,
+                },
                 loading: () => {
                 },
                 success: (responseData) => {
-                    this.getQualificationsStatusSuccessCallBack(responseData.result);
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '首页');
+                    if (responseData.result) {
+                        this.props.getCarrierHomoPageCountAction(responseData.result);
+                    }
                 },
-                error: (errorInfo) => {
+                error: () => {
                 },
                 finish: () => {
-                }
+                },
             });
         }
     }
-
-    // 查询资质认证状态成功
-    getQualificationsStatusSuccessCallBack(result) {
-        console.log('getQualificationsStatusSuccessCallBack', result);
-        if (result === '1201') {
-            Alert.alert('提示', '认证资料正在审核中');
-        } else if (result === '1203') {
-            Alert.alert('提示', '认证资料已驳回，请重新上传资料', [
-                {
-                    text: '好的',
-                    onPress: () => {
-
-                        // Storage.get(StorageKey.changeCarInfoResult).then((value) => {
-                        //
-                        //     if (value) {
-                        //         this.props.navigation.navigate('CertificationPage', {
-                        //             resultInfo: value,
-                        //         });
-                        //     } else {
-                        //         this.props.navigation.navigate('CertificationPage', {
-                        //             resultInfo: this.state.resultInfo,
-                        //         });
-                        //     }
-                        // });
-
-                        // this.props.navigation.navigate('CertificationPage', {
-                        //     qualifications: result,
-                        // })
-                    },
-                },
-            ], {cancelable: true});
-        } else if (result === '1202') {
-            this.saveUserCarInfo(this.state.plateNumberObj);
-            this.setUserCar(this.state.plateNumber, this.setUserCarSuccessCallBack);
-        } else {
-            Alert.alert('提示', '您的账号未绑定车辆，请进行资质认证', [
-                {
-                    text: '好的',
-                    onPress: () => {
-                        // this.props.navigation.navigate('Mine');
-                    },
-                },
-            ], {cancelable: false});
-        }
-    };
 
     setData() {
         Storage.get(StorageKey.CarSuccessFlag).then((value) => {
@@ -966,7 +865,6 @@ class Home extends Component {
                                 if (value === 3) {
                                     const {userInfo} = this.props;
                                     this.saveUserCarInfo(plateNumObj);
-                                    // this.prop.plateNumber
                                     this.getHomePageCount(plateNumber, userInfo.phone);
                                 } else {
                                     if (plateNumber) {
@@ -988,7 +886,6 @@ class Home extends Component {
 
     // 保存车牌号对象
     saveUserCarInfo(plateNumberObj) {
-
         this.props.saveUserSetCarSuccess(plateNumberObj);
     }
 
@@ -1046,18 +943,6 @@ class Home extends Component {
             }
         }).catch(e => {
             console.log(e, 'error');
-        });
-    }
-
-    // 定位城市选择
-    locate() {
-        this.props.navigation.navigate('Location', {
-            changeCity: (cityName) => {
-                console.log('city =', cityName);
-                this.props.getLocationAction(cityName);
-                this.getWeather(cityName);
-                this.vehicleLimit(cityName);
-            }
         });
     }
 
@@ -1191,6 +1076,7 @@ class Home extends Component {
     render() {
         const {homePageState, carrierHomePageState, routes} = this.props;
         const {weather, temperatureLow, temperatureHigh} = this.state;
+        const navigator = this.props.navigation;
         const limitView = this.state.limitNumber || this.state.limitNumber !== '' ?
             <View style={styles.limitViewStyle}>
                 <Text style={{
@@ -1210,17 +1096,11 @@ class Home extends Component {
                 badgeText={homePageState === null ? 0 : homePageState.pendingCount}// 消息提示
                 renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                 clickAction={() => { // 点击事件
-                    if (this.props.plateNumber && this.props.plateNumber !== '') {
-                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                            DeviceEventEmitter.emit('resetGood');
-                            this.props.navigation.navigate('GoodsSource');
-                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                            this.notifyCarStatus();
-                        } else {
-                            this.getUserCar();
-                        }
-                    } else {
-                        this.getUserCar();
+                    if (this.props.driverStatus == 2) {
+                        DeviceEventEmitter.emit('resetGood');
+                        this.props.navigation.navigate('GoodsSource');
+                    }else {
+                        DeviceEventEmitter.emit('certification');
                     }
                 }}
             />
@@ -1234,18 +1114,12 @@ class Home extends Component {
                 badgeText={homePageState === null ? 0 : homePageState.notYetShipmentCount}
                 renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                 clickAction={() => {
-                    if (this.props.plateNumber && this.props.plateNumber !== '') {
-                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                            this.changeOrderTab(1);
-                            DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                            this.props.navigation.navigate('Order');
-                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                            this.notifyCarStatus();
-                        } else {
-                            this.getUserCar();
-                        }
-                    } else {
-                        this.getUserCar();
+                    if (this.props.driverStatus == 2) {
+                        this.changeOrderTab(1);
+                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                        this.props.navigation.navigate('Order');
+                    }else {
+                        DeviceEventEmitter.emit('certification');
                     }
                 }}
             />
@@ -1259,18 +1133,12 @@ class Home extends Component {
                 badgeText={0}
                 renderImage={() => <Image source={StaticImage.signIcon}/>}
                 clickAction={() => {
-                    if (this.props.plateNumber && this.props.plateNumber !== '') {
-                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                            this.changeOrderTab(2);
-                            DeviceEventEmitter.emit('changeOrderTabPage', 2);
-                            this.props.navigation.navigate('Order');
-                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                            this.notifyCarStatus();
-                        } else {
-                            this.getUserCar();
-                        }
-                    } else {
-                        this.getUserCar();
+                    if (this.props.driverStatus == 2) {
+                        this.changeOrderTab(2);
+                        DeviceEventEmitter.emit('changeOrderTabPage', 2);
+                        this.props.navigation.navigate('Order');
+                    }else {
+                        DeviceEventEmitter.emit('certification');
                     }
                 }}
             />
@@ -1284,18 +1152,12 @@ class Home extends Component {
                 badgeText={0}
                 renderImage={() => <Image source={StaticImage.receiveIcon}/>}
                 clickAction={() => {
-                    if (this.props.plateNumber && this.props.plateNumber !== '') {
-                        if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                            this.changeOrderTab(3);
-                            DeviceEventEmitter.emit('changeOrderTabPage', 3);
-                            this.props.navigation.navigate('Order');
-                        } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                            this.notifyCarStatus();
-                        } else {
-                            this.getUserCar();
-                        }
-                    } else {
-                        this.getUserCar();
+                    if (this.props.driverStatus == 2) {
+                        this.changeOrderTab(3);
+                        DeviceEventEmitter.emit('changeOrderTabPage', 3);
+                        this.props.navigation.navigate('Order');
+                    }else {
+                        DeviceEventEmitter.emit('certification');
                     }
                 }}
             />
@@ -1309,7 +1171,11 @@ class Home extends Component {
                 badgeText={0}
                 renderImage={() => <Image source={StaticImage.roadIcon}/>}
                 clickAction={() => {
-                    this.props.navigation.navigate('UploadAbnormal');
+                    if (this.props.driverStatus == 2) {
+                        this.props.navigation.navigate('UploadAbnormal');
+                    }else {
+                        DeviceEventEmitter.emit('certification');
+                    }
                 }}
             />
         </View>;
@@ -1323,17 +1189,11 @@ class Home extends Component {
                     badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.notYetReceiveCount}// 消息提示
                     renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
                     clickAction={() => { // 点击事件
-                        if (this.props.plateNumber && this.props.plateNumber !== '') {
-                            if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                DeviceEventEmitter.emit('resetGood');
-                                this.props.navigation.navigate('GoodsSource');
-                            } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                this.notifyCarStatus();
-                            } else {
-                                this.getUserCar();
-                            }
-                        } else {
-                            this.getUserCar();
+                        if(this.props.ownerStatus == 12 || this.props.ownerStatus == 22){
+                            this.props.navigation.navigate('GoodsSource');
+                            DeviceEventEmitter.emit('resetGood');
+                        }else {
+                            DeviceEventEmitter.emit('certification');
                         }
                     }}
                 />
@@ -1347,28 +1207,24 @@ class Home extends Component {
                     badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.noDispatchCount}
                     renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
                     clickAction={() => {
-                        if (this.props.plateNumber && this.props.plateNumber !== '') {
-                            if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20) {
-                                this.changeOrderTab(1);
-                                DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                                this.props.navigation.navigate('Order');
-                            } else if (this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 10) {
-                                this.notifyCarStatus();
-                            } else {
-                                this.getUserCar();
-                            }
-                        } else {
-                            this.getUserCar();
+                        if(this.props.ownerStatus == 12 || this.props.ownerStatus == 22){
+                            this.changeOrderTab(1);
+                            DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                            this.props.navigation.navigate('Order');
+                        }else {
+                            DeviceEventEmitter.emit('certification');
                         }
                     }}
                 />
             </View>;
         let state = '';
+        console.log('this.props.driverStatus',this.props.driverStatus);
+        console.log('this.props.ownerStatus',this.props.ownerStatus);
         if (this.props.currentStatus == 'driver') {
             state = this.props.driverStatus == '1' ? '(认证中)' : this.props.driverStatus == '3' ? '(认证驳回)' : '';
         }else {
-            state = this.props.driverStatus == '11' || this.props.driverStatus == '21' ? '(认证中)' :
-                this.props.driverStatus == '13' || this.props.driverStatus == '23'? '(认证驳回)' : '';
+            state = this.props.ownerStatus == '11' || this.props.ownerStatus == '21' ? '(认证中)' :
+                this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
         }
         return (
             <View style={styles.containerView}>
@@ -1488,10 +1344,7 @@ class Home extends Component {
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {
-
                             console.log('this.props.ownerStatus', this.props.ownerStatus);
-
-
                             if (this.props.ownerStatus == '0'){
                                 this.props.navigation.navigate('CharacterOwner');
                                     this.setState({
@@ -1519,7 +1372,7 @@ class Home extends Component {
                                 if (this.props.driverStatus == '0' || this.props.driverStatus == '3'){
                                     Storage.get(StorageKey.changePersonInfoResult).then((value) => {
                                         if (value){
-                                            navigator.navigate('VerifiedPage', {
+                                            this.props.navigation.navigate('VerifiedPage', {
                                                 resultInfo: value,
                                                 commitSuccess:()=>{
                                                      this.setState({
@@ -1529,7 +1382,7 @@ class Home extends Component {
                                                 }
                                             });
                                         }else {
-                                            navigator.navigate('VerifiedPage', {
+                                            this.props.navigation.navigate('VerifiedPage', {
                                                 commitSuccess:()=>{
                                                      this.setState({
                                                         bubbleSwitch: false,
@@ -1545,16 +1398,13 @@ class Home extends Component {
                                     })
 
                             }else {
-                                this.props.setCurrentCharacterAction('driver')
+                                this.props.setCurrentCharacterAction('driver');
 
                                     this.setState({
                                         bubbleSwitch: false,
                                         show : false,
                                     })
                             }
-
-
-
                         }}
                     /> : null}
 
@@ -1580,6 +1430,7 @@ function mapStateToProps(state) {
         driverStatus: state.user.get('driverStatus'),
         ownerStatus: state.user.get('ownerStatus'),
         currentStatus: state.user.get('currentStatus'),
+        carrierCode: state.user.get('companyCode'),
     };
 }
 
