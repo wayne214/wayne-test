@@ -98,8 +98,9 @@ class Splash extends BaseContainer {
             this.props.setCurrentCharacterAction(value);
         });
         Storage.get(StorageKey.CARRIER_CODE).then((value) => {
-            console.log('CARRIER_CODE', value);
-            this.props.setCompanyCodeAction(value);
+            console.log('CARRIER_CODE', value.toString());
+            console.log('CARRIER_CODE_TYPE', typeof (value.toString()));
+            this.props.setCompanyCodeAction(value.toString());
         });
 
 
@@ -203,6 +204,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCurrentCharacterAction: (result) => {
             dispatch(setCurrentCharacterAction(result));
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
         },
     };
 }

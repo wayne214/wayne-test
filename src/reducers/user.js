@@ -138,7 +138,7 @@ export default (state = initState, action) => {
         case ActionTypes.ACTION_SET_COMPANY_CODE:
             globalState = globalState.set('companyCode', action.payload);
             global.companyCode = action.payload;
-            action.payload ? Storage.save(StorageKey.CARRIER_CODE, action.payload) : null;
+            action.payload ? Storage.save(StorageKey.CARRIER_CODE, action.payload) : '';
             return globalState;
 
         default:
