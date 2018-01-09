@@ -51,6 +51,8 @@ const USER_CAROWN_STATE = 'USER_CAROWN_STATE'; // 车主身份
 
 const USER_CURRENT_STATE = 'USER_CURRENT_STATE'; // 当前身份
 
+const CARRIER_CODE = 'companyCode'; // 承运商编码
+
 export default {
     IS_FIRST_START_FLAG,
     USER_INFO,
@@ -75,6 +77,7 @@ export default {
     personownerInfoResult,
     USER_DRIVER_STATE,
     USER_CAROWN_STATE,
-    USER_CURRENT_STATE
+    USER_CURRENT_STATE,
+    CARRIER_CODE,
 }
 

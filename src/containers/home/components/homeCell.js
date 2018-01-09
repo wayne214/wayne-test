@@ -115,7 +115,7 @@ export default class HomeCell extends BaseView{
                     </View>
                     <View style={{flexDirection:'row'}}>
                         {
-                            badgeText ?
+                            badgeText && badgeText != 0 ?
                                 <View style={styles.badgeIcon}>
                                     <Text
                                         style={{

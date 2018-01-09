@@ -20,7 +20,8 @@ import {loginSuccessAction,
     setUserCarAction,
     setDriverCharacterAction,
     setOwnerCharacterAction,
-    setCurrentCharacterAction
+    setCurrentCharacterAction,
+    setCompanyCodeAction,
 } from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
@@ -95,6 +96,10 @@ class Splash extends BaseContainer {
         Storage.get(StorageKey.USER_CURRENT_STATE).then((value) => {
             console.log('USER_CURRENT_STATE', value);
             this.props.setCurrentCharacterAction(value);
+        });
+        Storage.get(StorageKey.CARRIER_CODE).then((value) => {
+            console.log('CARRIER_CODE', value);
+            this.props.setCompanyCodeAction(value);
         });
 
 
