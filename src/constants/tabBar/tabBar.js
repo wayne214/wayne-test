@@ -74,6 +74,7 @@ const TabRouteConfigs = {
                     }
                 }else {
                     if((global.ownerStatus && global.ownerStatus == 12 ) || (global.ownerStatus && global.ownerStatus == 22 )){
+                        DeviceEventEmitter.emit('resetGood');
                         jumpToIndex(scene.index)
                     } else {
                         DeviceEventEmitter.emit('certification');
