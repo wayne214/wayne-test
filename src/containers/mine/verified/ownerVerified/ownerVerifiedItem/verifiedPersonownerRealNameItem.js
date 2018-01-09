@@ -101,9 +101,9 @@ class verifiedRealNameItem extends Component{
                             secondImagePath={resultInfo.idBackSideThumbnailAddress ?
                             resultInfo.idBackSideThumbnailAddress : resultInfo.oppositeCard ?
                             resultInfo.oppositeCard : ''}
-                            // thirdImagePath={resultInfo.handleIdThumbnailAddress ?
-                            // resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
-                            // resultInfo.headPortrait : ''}
+                            thirdImagePath={resultInfo.handleIdThumbnailAddress ?
+                            resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
+                            resultInfo.headPortrait : ''}
                             imageClick={(index)=>{
                                 this.imageClick(index);
                             }}

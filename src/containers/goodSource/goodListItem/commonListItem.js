@@ -158,6 +158,14 @@ class commonListItem extends Component {
                                     }
                                     <CommonLabelCell content={`订单${orderCount}单`} containerStyle={{backgroundColor: StaticColor.BLUE_ORDER_NUMBER_COLOR}} textStyle={{color: StaticColor.BLUE_ORDER_TEXT_COLOR}}/>
                                     <CommonLabelCell content={`配送点${distributionPoint}`} containerStyle={{backgroundColor: StaticColor.GREEN_POINTER_COLOR}} textStyle={{color: StaticColor.GREEN_POINTER_TEXT_COLOR}}/>
+                                    {
+                                        temperature ?  <CommonLabelCell
+                                            content={`车厢温度${temperature}℃`}
+                                            containerStyle={{backgroundColor: StaticColor.PINK_TEMPER_COLOR}}
+                                            textStyle={{color: StaticColor.PINK_TEMPER_TEXT_COLOR}}/> : null
+
+                                    }
+
                                     <CommonLabelCell content={`车厢温度${temperature}℃`} containerStyle={{backgroundColor: StaticColor.PINK_TEMPER_COLOR}} textStyle={{color: StaticColor.PINK_TEMPER_TEXT_COLOR}}/>
                                 </View>
                                 <View style={styles.goodsTotal}>

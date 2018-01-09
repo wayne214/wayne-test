@@ -327,6 +327,7 @@ class DriverManagement extends BaseContainer {
                                         style={{
                                             height: 30,
                                             width: 85,
+                                            marginTop: 1,
                                             marginLeft: width - 100,
                                             justifyContent: 'center',
                                             alignItems: 'center',
@@ -396,6 +397,8 @@ class DriverManagement extends BaseContainer {
                             underlineColorAndroid="transparent"
                             maxLength={20}
                             value={text}
+                            returnKeyLabel={'search'}
+                            returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
                                 this.queryDriverOne(event.nativeEvent.text);
