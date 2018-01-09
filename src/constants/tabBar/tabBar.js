@@ -67,12 +67,14 @@ const TabRouteConfigs = {
             tabBarOnPress:(scene, jumpToIndex) => {
                 if(global.currentStatus == 'driver') {
                     if(global.driverStatus && global.driverStatus == 2) {
+                        DeviceEventEmitter.emit('resetGood');
                         jumpToIndex(scene.index)
                     }else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }else {
                     if((global.ownerStatus && global.ownerStatus == 12 ) || (global.ownerStatus && global.ownerStatus == 22 )){
+                        DeviceEventEmitter.emit('resetGood');
                         jumpToIndex(scene.index)
                     } else {
                         DeviceEventEmitter.emit('certification');
