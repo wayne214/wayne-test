@@ -961,6 +961,9 @@ let transCodeListData3 = [];
                 plateNumber: this.props.plateNumber,
                 transCodeList: this.transportsList(dataRow),
                 orderCodeList: this.orderCodeList(dataRow),
+                lan: locationData.latitude ? locationData.latitude : '',
+                lon: locationData.longitude ? locationData.longitude : '',
+                realTimeAddress: locationData.address ? locationData.address : ''
             },
             loading: () => {
             },
