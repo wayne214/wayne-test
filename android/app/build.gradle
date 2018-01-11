@@ -97,8 +97,8 @@ android {
         applicationId "com.xescm.driver"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 6
-        versionName "3.0.1"
+        versionCode 7
+        versionName "4.0.0"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         ndk {

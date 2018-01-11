@@ -1223,11 +1223,11 @@ class Mine extends Component {
                                     }}
                                     />
                                     <View style={styles.separateView}/>
-                                    <SettingCell
-                                        leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {}}
-                                        hideArrowIcon={true}
-                                        versionName={`V${DeviceInfo.getVersion()}`}
-                                    />
+                                    {/*<SettingCell*/}
+                                        {/*leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {}}*/}
+                                        {/*hideArrowIcon={true}*/}
+                                        {/*versionName={`V${DeviceInfo.getVersion()}`}*/}
+                                    {/*/>*/}
                                     <View style={{
                                         height,
                                         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
