@@ -62,7 +62,7 @@ class CharacterList extends BaseContainer {
     onBackAndroid = () => {
         const routers = this.props.nav.routes;
         if (routers.length > 1) {
-            this.props.navigation.goBack();
+            this.props.navigation.navigate('Login');
             return true;
         } else {
             return false;
