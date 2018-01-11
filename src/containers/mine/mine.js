@@ -943,7 +943,7 @@ class Mine extends Component {
                                 </TouchableOpacity>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     <View style={styles.informView}>
-                                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                        <View style={{ }}>
                                             <Text
                                                 style={{
                                                     fontWeight: 'bold',
@@ -955,6 +955,18 @@ class Mine extends Component {
                                             >
                                                 {
                                                     this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                }
+                                            </Text>
+                                            <Text
+                                                style={{
+                                                    marginTop: 5,
+                                                    marginBottom: 10,
+                                                    backgroundColor: 'transparent',
+                                                    color: '#FFFFFF',
+                                                    fontSize: 13
+                                                }}>
+                                                {
+                                                    this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                                 }
                                             </Text>
                                         </View>
