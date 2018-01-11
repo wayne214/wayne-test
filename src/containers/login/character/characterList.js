@@ -11,10 +11,10 @@ import {connect} from 'react-redux';
 import {
     Text,
     View,
-    Image,
+    BackAndroid,
     StyleSheet,
     Dimensions,
-    TouchableOpacity,
+    Platform,
     Alert
 } from 'react-native';
 import BaseContainer from '../../base/baseContainer';
@@ -48,8 +48,26 @@ class CharacterList extends BaseContainer {
     }
 
     componentDidMount() {
-
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
     }
+
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {
+            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+
+    onBackAndroid = () => {
+        const routers = this.props.nav.routes;
+        if (routers.length > 1) {
+            this.props.navigation.goBack();
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     render() {
         const navigator = this.props.navigation;
@@ -87,16 +105,16 @@ class CharacterList extends BaseContainer {
                                         text: '确认', onPress: () => {
                                         //this.props.setDriverCharacterAction('1');
                                         // this.props.navigation.navigate('Main');
-                                            Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-                                                if (value){
-                                                    navigator.navigate('VerifiedPage', {
-                                                        resultInfo: value,
-                                                        });
-                                                }else {
-                                                    navigator.navigate('VerifiedPage');
-                                                }
-                                            });
-                                        }
+                                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                            if (value) {
+                                                navigator.navigate('VerifiedPage', {
+                                                    resultInfo: value,
+                                                });
+                                            } else {
+                                                navigator.navigate('VerifiedPage');
+                                            }
+                                        });
+                                    }
                                     },
                                 ]
                             )
@@ -120,16 +138,16 @@ class CharacterList extends BaseContainer {
                                         text: '确认', onPress: () => {
                                         //this.props.setOwnerCharacterAction('11');
 
-                                            Storage.get(StorageKey.personownerInfoResult).then((value) => {
-                                                if (value){
-                                                    navigator.navigate('PersonCarOwnerAuth', {
-                                                        resultInfo: value,
-                                                    });
-                                                }else {
-                                                   navigator.navigate('PersonCarOwnerAuth');
-                                                }
-                                            });
-                                        }
+                                        Storage.get(StorageKey.personownerInfoResult).then((value) => {
+                                            if (value) {
+                                                navigator.navigate('PersonCarOwnerAuth', {
+                                                    resultInfo: value,
+                                                });
+                                            } else {
+                                                navigator.navigate('PersonCarOwnerAuth');
+                                            }
+                                        });
+                                    }
                                     },
                                 ]
                             )
@@ -152,16 +170,16 @@ class CharacterList extends BaseContainer {
                                     {
                                         text: '确认', onPress: () => {
                                         //this.props.setOwnerCharacterAction('21');
-                                            Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
-                                                if (value){
-                                                    navigator.navigate('CompanyCarOwnerAuth', {
-                                                        resultInfo: value,
-                                                    });
-                                                }else {
-                                                   navigator.navigate('CompanyCarOwnerAuth');
-                                                }
-                                            });
-                                        }
+                                        Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+                                            if (value) {
+                                                navigator.navigate('CompanyCarOwnerAuth', {
+                                                    resultInfo: value,
+                                                });
+                                            } else {
+                                                navigator.navigate('CompanyCarOwnerAuth');
+                                            }
+                                        });
+                                    }
                                     },
                                 ]
                             )
@@ -175,90 +193,90 @@ class CharacterList extends BaseContainer {
                 {/*<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>*/}
 
 
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                        {/*navigator.navigate('VerifiedStatePage', {*/}
-                            {/*qualifications: 1201,*/}
-                        {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>司机认证详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*navigator.navigate('VerifiedStatePage', {*/}
+                {/*qualifications: 1201,*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>司机认证详情</Text>*/}
+                {/*</TouchableOpacity>*/}
 
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                         {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
-                             {/*if (value){*/}
-                                 {/*navigator.navigate('CertificationPage', {*/}
-                                     {/*resultInfo: value,*/}
-                                 {/*});*/}
-                             {/*}else {*/}
-                                 {/*navigator.navigate('CertificationPage');*/}
-                             {/*}*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*Storage.get(StorageKey.changeCarInfoResult).then((value) => {*/}
+                {/*if (value){*/}
+                {/*navigator.navigate('CertificationPage', {*/}
+                {/*resultInfo: value,*/}
+                {/*});*/}
+                {/*}else {*/}
+                {/*navigator.navigate('CertificationPage');*/}
+                {/*}*/}
 
-                         {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>司机增加车辆</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                        {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
-                            {/*qualifications: 1202,*/}
-                        {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>司机增加车辆</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*this.props.navigation.navigate('CerifiedStatePage', {*/}
+                {/*qualifications: 1202,*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>司机增加车辆详情</Text>*/}
+                {/*</TouchableOpacity>*/}
 
 
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
 
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>个人车主认证详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>个人车主认证详情</Text>*/}
+                {/*</TouchableOpacity>*/}
 
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20}} onPress={()=>{*/}
 
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>企业车主认证详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                        {/*Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {*/}
-                            {/*if (value){*/}
-                                {/*navigator.navigate('CarOwnerAddDriver', {*/}
-                                    {/*resultInfo: value,*/}
-                                {/*});*/}
-                            {/*}else {*/}
-                                {/*navigator.navigate('CarOwnerAddDriver');*/}
-                            {/*}*/}
-                        {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>车主增加司机</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                        {/*navigator.navigate('CarOwnerAddDriverDetail', {*/}
-                            {/*qualifications: 1201,*/}
-                        {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>车主增加司机详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
-                        {/*Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {*/}
-                             {/*if (value){*/}
-                                 {/*navigator.navigate('CarOwnerAddCar', {*/}
-                                     {/*resultInfo: value,*/}
-                                 {/*});*/}
-                             {/*}else {*/}
-                                 {/*navigator.navigate('CarOwnerAddCar');*/}
-                             {/*}*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>企业车主认证详情</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*Storage.get(StorageKey.carOwnerAddDriverInfo).then((value) => {*/}
+                {/*if (value){*/}
+                {/*navigator.navigate('CarOwnerAddDriver', {*/}
+                {/*resultInfo: value,*/}
+                {/*});*/}
+                {/*}else {*/}
+                {/*navigator.navigate('CarOwnerAddDriver');*/}
+                {/*}*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>车主增加司机</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*navigator.navigate('CarOwnerAddDriverDetail', {*/}
+                {/*qualifications: 1201,*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>车主增加司机详情</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*Storage.get(StorageKey.carOwnerAddCarInfo).then((value) => {*/}
+                {/*if (value){*/}
+                {/*navigator.navigate('CarOwnerAddCar', {*/}
+                {/*resultInfo: value,*/}
+                {/*});*/}
+                {/*}else {*/}
+                {/*navigator.navigate('CarOwnerAddCar');*/}
+                {/*}*/}
 
-                         {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>车主增加车辆</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>车主增加车辆</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginVertical: 10, marginLeft: 20, backgroundColor: 'red'}} onPress={()=>{*/}
 
-                        {/*this.props.navigation.navigate('CarOwnerAddCarDetail', {*/}
-                            {/*qualifications: 1202,*/}
-                        {/*});*/}
-                    {/*}}>*/}
-                        {/*<Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                {/*this.props.navigation.navigate('CarOwnerAddCarDetail', {*/}
+                {/*qualifications: 1202,*/}
+                {/*});*/}
+                {/*}}>*/}
+                {/*<Text style={{textAlign: 'center'}}>车主增加车辆详情</Text>*/}
+                {/*</TouchableOpacity>*/}
                 {/*</View>*/}
 
             </View>
