@@ -134,7 +134,7 @@ class personCarOwnerAuth extends Component {
                 moRencarNum: result.moRencarNum, // 车牌号
                 moRenhaverName: result.moRenhaverName, // 所有人
                 moRenengineNum: result.moRenengineNum, // 发动机号码
-                moRendrivingValidity: result.moRendrivingValidity, // 行驶证有效期
+                moRendrivingValidsity: result.moRendrivingValidity, // 行驶证有效期
             };
         }else {
             this.state = {

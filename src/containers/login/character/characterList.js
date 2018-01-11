@@ -170,15 +170,15 @@ class CharacterList extends BaseContainer {
                                     {
                                         text: '确认', onPress: () => {
                                         //this.props.setOwnerCharacterAction('21');
-                                        Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
-                                            if (value) {
-                                                navigator.navigate('CompanyCarOwnerAuth', {
-                                                    resultInfo: value,
-                                                });
-                                            } else {
+                                        {/*Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {*/}
+                                            {/*if (value) {*/}
+                                                {/*navigator.navigate('CompanyCarOwnerAuth', {*/}
+                                                    {/*resultInfo: value,*/}
+                                                {/*});*/}
+                                            {/*} else {*/}
                                                 navigator.navigate('CompanyCarOwnerAuth');
-                                            }
-                                        });
+                                            {/*}*/}
+                                        {/*});*/}
                                     }
                                     },
                                 ]

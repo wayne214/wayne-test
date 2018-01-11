@@ -95,11 +95,10 @@ class Verified extends Component {
     constructor(props) {
         super(props);
 
-        if (this.props.navigation.state.params) {
+        if (this.props.navigation.state.params && this.props.navigation.state.params.resultInfo) {
             const result = this.props.navigation.state.params.resultInfo;
 
 
-            if(result) {
                 isFirstCarD = result.idCardName ? false : true;
                 isFirstDriver = result.driverCard ? false : true;
 
@@ -153,7 +152,7 @@ class Verified extends Component {
                     quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
                     driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
                 };
-            }
+
         } else {
 
             this.state = {
