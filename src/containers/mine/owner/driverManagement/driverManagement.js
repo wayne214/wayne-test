@@ -254,13 +254,14 @@ class DriverManagement extends BaseContainer {
                 }}>
 
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
-                            <Image
-                                style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
-                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <Image
+                                    style={{height: 36, width: 36}}
+                                    source={StaticImage.DriverAvatar}></Image>
+                                <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                            </View>
                             <View style={{
-                                marginLeft: width - 180,
                                 justifyContent: 'center',
                                 width: 90,
                                 alignItems: 'center',
