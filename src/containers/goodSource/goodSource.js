@@ -160,6 +160,14 @@ class GoodSource extends BaseContainer{
             });
         } else {
             if (this.props.currentStatus != 'driver') {
+                if (!this.props.carrierCode) {
+                    list = [];
+                    this.setState({
+                        isRefresh: false,
+                        goodsListLength: 0,
+                    });
+                    return;
+                }
                 HTTPRequest({
                     url: API.API_CARRIER_GET_SOURCE_BY_DATE,
                     params: {

@@ -39,6 +39,7 @@ export const API_CHANGE_ACCEPT_MESSAGE = `${HOST}app/uam/jpush/setPushStatus`;
 export const API_NEW_CHANGE_PSD_WITH_CODE = `${HOST}app/uam/login/forgetPassword`;
 // 获取登录密钥接口
 export const API_GET_SEC_TOKEN = `${HOST}app/uam/login/getSecToken`;
+// export const API_GET_SEC_TOKEN = `http://192.168.32.83:8899/app/uam/login/getSecToken`;
 // 通过密码登录接口
 export const API_LOGIN_WITH_PSD = `${HOST}app/uam/login/loginWithPassword/v3.0`;
 // 通过验证码登录接口
