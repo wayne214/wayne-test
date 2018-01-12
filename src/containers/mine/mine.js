@@ -29,11 +29,15 @@ import StorageKey from '../../constants/storageKeys';
 import StaticImage from '../../constants/staticImage';
 import * as ConstValue from '../../constants/constValue';
 import AlertSheetItem from '../../common/alertSelected';
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import PermissionsManager from '../../utils/permissionManager';
 import PermissionsManagerAndroid from '../../utils/permissionManagerAndroid';
-import DeviceInfo from 'react-native-device-info';
+// import DeviceInfo from 'react-native-device-info';
+import {
+    setDriverCharacterAction,
+    setOwnerCharacterAction,
+} from '../../action/user';
 
 let currentTime = 0;
 let lastTime = 0;
@@ -434,11 +438,17 @@ class Mine extends Component {
                         lastTime = new Date().getTime();
                         ReadAndWriteFileUtil.appendFile('实名认证状态查询', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                             locationData.district, lastTime - currentTime, '我的页面');
-
+                        let result = responseData.result;
                         this.setState({
-                            verifiedState: responseData.result,
+                            verifiedState: result,
                         });
-                        global.verifiedState = responseData.result;
+                        // global.verifiedState = responseData.result;
+                        // 首页状态
+                        result.certificationStatus == '1201' ?
+                            this.props.setDriverCharacterAction('1')
+                            : result.certificationStatus == '1202' ?
+                            this.props.setDriverCharacterAction('2') :
+                            this.props.setDriverCharacterAction('3')
                     },
                     error: (errorInfo) => {
 
@@ -471,6 +481,22 @@ class Mine extends Component {
                         this.setState({
                             verifiedState: result && result.certificationStatus,
                         });
+                        // 首页状态
+                        if (result.companyNature == '个人') {
+                            // 确认个人车主
+                            result.certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('11')
+                                : result.certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('12') :
+                                this.props.setOwnerCharacterAction('13')
+                        } else {
+                            // 确认企业车主
+                            result.certificationStatus == '1201' ?
+                                this.props.setOwnerCharacterAction('21')
+                                : result.certificationStatus == '1202' ?
+                                this.props.setOwnerCharacterAction('22') :
+                                this.props.setOwnerCharacterAction('23')
+                        }
                     },
                     error: (errorInfo) => {
 
@@ -943,7 +969,7 @@ class Mine extends Component {
                                 </TouchableOpacity>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     <View style={styles.informView}>
-                                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                                        <View style={{ }}>
                                             <Text
                                                 style={{
                                                     fontWeight: 'bold',
@@ -955,6 +981,18 @@ class Mine extends Component {
                                             >
                                                 {
                                                     this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                }
+                                            </Text>
+                                            <Text
+                                                style={{
+                                                    marginTop: 5,
+                                                    marginBottom: 10,
+                                                    backgroundColor: 'transparent',
+                                                    color: '#FFFFFF',
+                                                    fontSize: 13
+                                                }}>
+                                                {
+                                                    this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                                 }
                                             </Text>
                                         </View>
@@ -1223,11 +1261,11 @@ class Mine extends Component {
                                     }}
                                     />
                                     <View style={styles.separateView}/>
-                                    <SettingCell
-                                        leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {}}
-                                        hideArrowIcon={true}
-                                        versionName={`V${DeviceInfo.getVersion()}`}
-                                    />
+                                    {/*<SettingCell*/}
+                                        {/*leftIcon="&#xe66e;" content={'版本号'} clickAction={() => {}}*/}
+                                        {/*hideArrowIcon={true}*/}
+                                        {/*versionName={`V${DeviceInfo.getVersion()}`}*/}
+                                    {/*/>*/}
                                     <View style={{
                                         height,
                                         backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
@@ -1265,7 +1303,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mine);

@@ -53,6 +53,7 @@ const TabRouteConfigs = {
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
                 DeviceEventEmitter.emit('refreshHome');
+                DeviceEventEmitter.emit('refreshMine');
                 jumpToIndex(scene.index)
             },
         }),

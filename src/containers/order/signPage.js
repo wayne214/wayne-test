@@ -162,6 +162,9 @@ class signPage extends Component {
                 userName,
                 transCode: this.state.orderID,
                 goodsInfo,
+                lan: locationData.latitude ? locationData.latitude : '',
+                lon: locationData.longitude ? locationData.longitude : '',
+                realTimeAddress: locationData.address ? locationData.address : ''
             },
             loading: ()=>{
                 this.setState({

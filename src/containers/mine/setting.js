@@ -187,6 +187,8 @@ class setting extends Component {
         Storage.remove(StorageKey.changeCarInfoResult);
         Storage.remove(StorageKey.acceptMessage);
         Storage.remove(StorageKey.PlateNumberObj);
+        Storage.remove(StorageKey.enterpriseownerInfoResult);
+        Storage.remove(StorageKey.personownerInfoResult);
 
 
         // 清空存储数据

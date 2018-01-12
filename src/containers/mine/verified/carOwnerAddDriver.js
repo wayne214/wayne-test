@@ -15,6 +15,7 @@ import {
     Platform,
     InteractionManager,
     Alert,
+    TextInput
 } from 'react-native';
 
 import * as API from '../../../constants/api';
@@ -45,7 +46,7 @@ import HTTPRequest from '../../../utils/httpRequest';
 import { setUserNameAction } from '../../../action/user';
 import StorageKey from '../../../constants/storageKeys';
 import Validator from '../../../utils/validator';
-
+import Line from './verifiedIDItem/verifiedLineItem';
 
 
 const idCardLeftImage = require('./images/IdCardModel.png');
@@ -86,6 +87,27 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#f5f5f5',
+    },
+    textInputStyle:{
+        ...Platform.select({
+            ios: {
+                marginTop: 15,
+                marginBottom: 15,
+            }
+        }),
+        marginRight: 10,
+        fontSize: 15,
+        color: '#333333',
+        flex: 2,
+        textAlign: 'right',
+    },
+    titleStyle:{
+        marginTop: 15,
+        marginBottom: 15,
+        marginLeft: 10,
+        fontSize: 15,
+        color: '#666666',
+        flex: 1,
     },
 });
 
@@ -149,10 +171,12 @@ class carOwnerAddDriver extends Component {
                 driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
                 quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
                 driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
+                enterPhone: result.enterPhone,
             };
         }else {
 
             this.state = {
+                enterPhone:'',
                 idCardImage: idCardRightImage,
                 idCardTrunImage: idCardTrunRightImage,
                 driverCarImage: driverCardRightImage,
@@ -842,7 +866,7 @@ class carOwnerAddDriver extends Component {
                 idNum: this.state.IDCard,
                 idValidUntil: date,
                 motorcycleType: this.state.motorcycleType,
-                phoneNum: userPhone,
+                phoneNum: this.state.enterPhone,
                 userId: userID,
                 userName: this.state.IDName,
 
@@ -866,12 +890,12 @@ class carOwnerAddDriver extends Component {
                     appLoading: false,
                 });
 
-                this.props.reloadUserName(this.state.IDName);
+                //this.props.reloadUserName(this.state.IDName);
 
                 Storage.remove(StorageKey.carOwnerAddDriverInfo);
                 //Storage.remove(StorageKey.personInfoResult);
                 Toast.showShortCenter('增加司机提交成功');
-                //DeviceEventEmitter.emit('verifiedSuccess');
+                DeviceEventEmitter.emit('addDriverPage');
 
                 // this.popToTop();
                 this.props.navigation.goBack();
@@ -977,7 +1001,7 @@ class carOwnerAddDriver extends Component {
         return (
             <View style={styles.container}>
                 <NavigatorBar
-                    title={'增加司机'}
+                    title={'新增司机'}
                     navigator={navigator}
                     leftButtonHidden={false}
                     backIconClick={() => {
@@ -1027,7 +1051,7 @@ class carOwnerAddDriver extends Component {
                             isChooseDriverCarImage: this.state.isChooseDriverCarImage,
                             isChooseDriverCarTrunImage: this.state.isChooseDriverCarTrunImage,
                             isChooseHandPicImage: this.state.isChooseHandPicImage,
-
+                            enterPhone: this.state.enterPhone,
                         };
                         Storage.save(StorageKey.carOwnerAddDriverInfo, info);
                         navigator.goBack();
@@ -1035,6 +1059,37 @@ class carOwnerAddDriver extends Component {
                 />
                 <ScrollView keyboardDismissMode={plat} ref="scrollView">
                     <VerifiedSpaceItem />
+
+                    <View>
+                        <View style={{flexDirection: 'row',backgroundColor:'white'}}>
+                            <Text style={styles.titleStyle}>
+                                手机号码
+                            </Text>
+                            <TextInput style={styles.textInputStyle}
+                                       maxLength={15}
+                                       underlineColorAndroid={'transparent'}
+                                       onChangeText={(text) => {
+                                           this.setState({
+                                               enterPhone: text,
+                                           });
+                                       }}
+                                       value={this.state.enterPhone}
+                                       placeholder={'请输入手机号'}
+                                       keyboardType='number-pad'
+
+                            />
+                        </View>
+                        <Line/>
+                        <View style={{backgroundColor: 'white',padding: 10, flexDirection: 'row'}}>
+                            <Text style={{color: 'red'}}>*</Text>
+                            <Text>
+                                此手机号码是司机当前使用的手机号码，请谨慎填写。
+                            </Text>
+                        </View>
+                    </View>
+
+                    <VerifiedSpaceItem />
+
                     <VerifiedIDTitleItem title="身份证正面"/>
                     <VerifiedIDItemView showTitle="身份证号要清晰"
                                         leftImage={idCardLeftImage}

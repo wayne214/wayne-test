@@ -95,62 +95,64 @@ class Verified extends Component {
     constructor(props) {
         super(props);
 
-        if (this.props.navigation.state.params.resultInfo) {
+        if (this.props.navigation.state.params && this.props.navigation.state.params.resultInfo) {
             const result = this.props.navigation.state.params.resultInfo;
 
-            isFirstCarD = result.idCardName ? false : true;
-            isFirstDriver = result.driverCard ? false : true;
 
-            this.state = {
+                isFirstCarD = result.idCardName ? false : true;
+                isFirstDriver = result.driverCard ? false : true;
 
-                isChooseCardImage: result.isChooseCardImage ? true : false,
-                isChooseCardTrunImage: result.isChooseCardTrunImage ? true : false,
-                isChooseDriverCarImage: result.isChooseDriverCarImage ? true : false,
-                isChooseDriverCarTrunImage: result.isChooseDriverCarTrunImage ? true : false,
-                isChooseHandPicImage: result.isChooseHandPicImage ? true : false,
+                this.state = {
 
-                appLoading: false,
+                    isChooseCardImage: result.isChooseCardImage ? true : false,
+                    isChooseCardTrunImage: result.isChooseCardTrunImage ? true : false,
+                    isChooseDriverCarImage: result.isChooseDriverCarImage ? true : false,
+                    isChooseDriverCarTrunImage: result.isChooseDriverCarTrunImage ? true : false,
+                    isChooseHandPicImage: result.isChooseHandPicImage ? true : false,
 
-                IDName: result.idCardName, // 身份证姓名
-                IDCard: result.idCard, // 身份证ID
-                idCardImage: {uri: result.idFaceSideThumbnailAddress}, // 身份证正面图片url
-                idCardTrunImage: {uri: result.idBackSideThumbnailAddress}, // 身份证反面图片url
-                idFaceSideNormalPhotoAddress: result.positiveCardRelative, // 身份证正面原图
-                idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddressRelative, // 身份证正面缩略图
+                    appLoading: false,
 
-                IDDate: result.idCardValidity, // 身份证有效期
-                idBackSideNormalPhotoAddress: result.oppositeCardRelative, // 身份证反面原图
-                idBackSideThumbnailAddress: result.idBackSideThumbnailAddressRelative, // 身份证饭反面缩略图
+                    IDName: result.idCardName, // 身份证姓名
+                    IDCard: result.idCard, // 身份证ID
+                    idCardImage: {uri: result.idFaceSideThumbnailAddress}, // 身份证正面图片url
+                    idCardTrunImage: {uri: result.idBackSideThumbnailAddress}, // 身份证反面图片url
+                    idFaceSideNormalPhotoAddress: result.positiveCardRelative, // 身份证正面原图
+                    idFaceSideThumbnailAddress: result.idFaceSideThumbnailAddressRelative, // 身份证正面缩略图
 
-                drivingLicenseName: result.drivingLicenceName, // 驾驶证姓名
-                drivingLicenseNum: result.driverCard, // 驾驶证号
-                drivingLicenseStartDate: result.drivingLicenseStartDate, // 驾驶证发证日期
-                drivingLicenseValidUntil: result.driverCardExpiry, // 驾驶证有效期
-                motorcycleType: result.quasiCarType, // 驾驶证类型
-                driverCarImage: {uri: result.drivingLicenseHomepageThumbnailAddress}, // 驾驶证正面图片url
-                drivereCarTrunImage: {uri: result.drivingLicenseVicePageThumbnailAddress}, // 驾驶证反面图片url
+                    IDDate: result.idCardValidity, // 身份证有效期
+                    idBackSideNormalPhotoAddress: result.oppositeCardRelative, // 身份证反面原图
+                    idBackSideThumbnailAddress: result.idBackSideThumbnailAddressRelative, // 身份证饭反面缩略图
 
-                drivingLicenseHomepageNormalPhotoAddress: result.drivingLicenceHomePageRelative, // 驾驶证正面原图
-                drivingLicenseHomepageThumbnailAddress: result.drivingLicenseHomepageThumbnailAddressRelative, // 驾驶证正面缩略图
+                    drivingLicenseName: result.drivingLicenceName, // 驾驶证姓名
+                    drivingLicenseNum: result.driverCard, // 驾驶证号
+                    drivingLicenseStartDate: result.drivingLicenseStartDate, // 驾驶证发证日期
+                    drivingLicenseValidUntil: result.driverCardExpiry, // 驾驶证有效期
+                    motorcycleType: result.quasiCarType, // 驾驶证类型
+                    driverCarImage: {uri: result.drivingLicenseHomepageThumbnailAddress}, // 驾驶证正面图片url
+                    drivereCarTrunImage: {uri: result.drivingLicenseVicePageThumbnailAddress}, // 驾驶证反面图片url
 
-                drivingLicenseVicePageNormalAddress: result.drivingLicenceSubPageRelative, // 驾驶证反面原图
-                drivingLicenseVicePageThumbnailAddress: result.drivingLicenseVicePageThumbnailAddressRelative, // 驾驶证反面缩略图
+                    drivingLicenseHomepageNormalPhotoAddress: result.drivingLicenceHomePageRelative, // 驾驶证正面原图
+                    drivingLicenseHomepageThumbnailAddress: result.drivingLicenseHomepageThumbnailAddressRelative, // 驾驶证正面缩略图
 
-                handleIDNormalPhotoAddress: result.handleIdNormalPhotoAddressRelative, // 手持身份证原图
-                handleIDThumbnailAddress: result.handleIdThumbnailAddressRelative, // 手持身份证缩略图
-                handPicImage: {uri: result.handleIdThumbnailAddress}, // 手持身份证图片url
+                    drivingLicenseVicePageNormalAddress: result.drivingLicenceSubPageRelative, // 驾驶证反面原图
+                    drivingLicenseVicePageThumbnailAddress: result.drivingLicenseVicePageThumbnailAddressRelative, // 驾驶证反面缩略图
+
+                    handleIDNormalPhotoAddress: result.handleIdNormalPhotoAddressRelative, // 手持身份证原图
+                    handleIDThumbnailAddress: result.handleIdThumbnailAddressRelative, // 手持身份证缩略图
+                    handPicImage: {uri: result.handleIdThumbnailAddress}, // 手持身份证图片url
 
 
-                // 默认
-                idCardNameRecognition: result.idCardNameRecognition, //识别身份证姓名
-                idCardRecognition: result.idCardRecognition, //识别身份证号
-                idCardValidityRecognition: result.idCardValidityRecognition, //识别身份证有效期
+                    // 默认
+                    idCardNameRecognition: result.idCardNameRecognition, //识别身份证姓名
+                    idCardRecognition: result.idCardRecognition, //识别身份证号
+                    idCardValidityRecognition: result.idCardValidityRecognition, //识别身份证有效期
 
-                drivingLicenceNameRecognition: result.drivingLicenceNameRecognition, // 识别驾驶证姓名
-                driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
-                quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
-                driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
-            };
+                    drivingLicenceNameRecognition: result.drivingLicenceNameRecognition, // 识别驾驶证姓名
+                    driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
+                    quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
+                    driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
+                };
+
         } else {
 
             this.state = {
@@ -720,12 +722,12 @@ class Verified extends Component {
             return;
         }
 
+
         let dataString = this.state.drivingLicenseValidUntil;
 
-        date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
-        dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
-        if (dataString === '') {
+
+        if (dataString === '' || !dataString) {
             Toast.showShortCenter('请输入驾驶证有效期');
             return;
         }
@@ -740,6 +742,9 @@ class Verified extends Component {
 
             return;
         }
+
+        date = date.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
+        dataString = dataString.replace(/(^\s*)|(\s*$)/g, ''); //  去除前面的空格
 
         console.log('身份证姓名：', this.state.IDName);
         console.log('身份证证号：', this.state.IDCard);
@@ -866,8 +871,9 @@ class Verified extends Component {
                 // this.props.commitSuccess();
 
                 if (this.props.navigation.state.params){
-                    this.props.navigation.state.params.commitSuccess();
-                }
+                    if (this.props.navigation.state.params.commitSuccess){
+                        this.props.navigation.state.params.commitSuccess();
+                    }                }
 
                 this.props.navigation.navigate('Main');
             },

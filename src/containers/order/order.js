@@ -343,7 +343,7 @@ let transCodeListData3 = [];
 
     // 刷新
     onRefresh() {
-  
+
         switch (selectPage) {
             case 0 : {
                 allListData = [];
@@ -428,6 +428,7 @@ let transCodeListData3 = [];
 
     // 获取网络数据 对页面进行填充
     loadData(pageIndex, pageNum) {
+
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
@@ -469,6 +470,10 @@ let transCodeListData3 = [];
 
     // 获取待回单订单列表
     getReceiveOrderDetailAction(queryType, pageNum, pageSize) {
+
+        if (!this.props.carrierCode)
+            return;
+
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
@@ -525,6 +530,8 @@ let transCodeListData3 = [];
     }
 
      getDispatchOrderList(queryType, pageNum, pageSize) {
+         if (!this.props.carrierCode)
+             return;
          currentTime = new Date().getTime();
          if (pageNum === 1) {
              this.setState({
@@ -585,6 +592,8 @@ let transCodeListData3 = [];
 
     // 获取全部、待发运订单列表
     getOrderDetailAction(queryType, pageNum, pageSize) {
+        if (!this.props.carrierCode)
+            return;
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
@@ -834,6 +843,8 @@ let transCodeListData3 = [];
 
      // 车主获取待签收订单列表
      getWaitForSignList(queryType, pageNum, pageSize) {
+         if (!this.props.carrierCode)
+             return;
          currentTime = new Date().getTime();
          if (pageNum === 1) {
              this.setState({
@@ -961,6 +972,9 @@ let transCodeListData3 = [];
                 plateNumber: this.props.plateNumber,
                 transCodeList: this.transportsList(dataRow),
                 orderCodeList: this.orderCodeList(dataRow),
+                lan: locationData.latitude ? locationData.latitude : '',
+                lon: locationData.longitude ? locationData.longitude : '',
+                realTimeAddress: locationData.address ? locationData.address : ''
             },
             loading: () => {
             },
@@ -1355,6 +1369,7 @@ let transCodeListData3 = [];
                             default :
                                 break;
                         }
+
                         this.loadData(selectPage, pageNum);
                     }}
                 >
