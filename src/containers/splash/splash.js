@@ -88,23 +88,29 @@ class Splash extends BaseContainer {
         });
 
         Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
+
             console.log('USER_DRIVER_STATE', value.toString());
-            this.props.setDriverCharacterAction(value.toString());
+            if (value && !ObjectUitls.isOwnEmpty(value))
+                this.props.setDriverCharacterAction(value.toString());
+
         });
 
         Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
             console.log('USER_CAROWN_STATE', value.toString());
-            this.props.setOwnerCharacterAction(value.toString());
+            if (value && !ObjectUitls.isOwnEmpty(value))
+                this.props.setOwnerCharacterAction(value.toString());
         });
 
         Storage.get(StorageKey.USER_CURRENT_STATE).then((value) => {
             console.log('USER_CURRENT_STATE', value);
-            this.props.setCurrentCharacterAction(value);
+            if (value && !ObjectUitls.isOwnEmpty(value))
+                this.props.setCurrentCharacterAction(value);
         });
         Storage.get(StorageKey.CARRIER_CODE).then((value) => {
             console.log('CARRIER_CODE', value.toString());
             console.log('CARRIER_CODE_TYPE', typeof (value.toString()));
-            this.props.setCompanyCodeAction(value.toString());
+            if (value && !ObjectUitls.isOwnEmpty(value))
+                this.props.setCompanyCodeAction(value.toString());
         });
 
 

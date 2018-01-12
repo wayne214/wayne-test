@@ -232,13 +232,13 @@ debugger
                         businessTrunRightImage: source,
                         isChooseCompanyImage: true,
                     });
-                    //this.upLoadImage(API.'营业执照地址', formData);
+                    this.upLoadImage(API.API_GET_BUSINESS_LICENSE, formData);
                     break;
             }
 
-            // this.setState({
-            //     appLoading: true,
-            // });
+            this.setState({
+                appLoading: true,
+            });
         });
     }
 // 获取当前位置

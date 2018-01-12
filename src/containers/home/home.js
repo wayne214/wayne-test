@@ -1221,10 +1221,41 @@ class Home extends Component {
         console.log('this.props.driverStatus',this.props.driverStatus);
         console.log('this.props.ownerStatus',this.props.ownerStatus);
         if (this.props.currentStatus == 'driver') {
-            state = this.props.driverStatus == '1' ? '(认证中)' : this.props.driverStatus == '3' ? '(认证驳回)' : '';
+
+            switch (this.props.driverStatus){
+                case '1' || 1:
+                    state = '(认证中)';
+                    break;
+                case '2' || 2:
+                    state = '';
+                    break;
+                case '3' || 3:
+                    state = '(认证驳回)';
+                    break;
+                default:
+                    state = '';
+                    break;
+            }
+
         }else {
-            state = this.props.ownerStatus == '11' || this.props.ownerStatus == '21' ? '(认证中)' :
-                this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
+            //state = this.props.ownerStatus == '11' || this.props.ownerStatus == '21' ? '(认证中)' :
+                //this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
+
+            switch (this.props.ownerStatus){
+                case '11' || 11:
+                case '21' || 21:
+                    state = '(认证中)';
+                    break;
+                case '13' || 13:
+                case '23' || 23:
+                    state = '(认证驳回)';
+                    break;
+                default:
+                    state = '';
+                    break;
+            }
+
+
         }
         return (
             <View style={styles.containerView}>

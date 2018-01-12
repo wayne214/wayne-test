@@ -118,6 +118,9 @@ class entryToBeShipped extends Component {
                 plateNumber = plate;
             }
         });
+        this.listener = DeviceEventEmitter.addListener('refreshShippedDetails',() => {
+            this.getOrderDetailInfo();
+        });
     }
 // 获取当前位置
     getCurrentPosition(){
@@ -505,7 +508,7 @@ class entryToBeShipped extends Component {
             }}
             text="安排车辆"
         /> ;
-        const bottomView = isBindGPS && bindGPSType == '座头鲸' ?
+        const bottomView = isBindGPS && bindGPSType == '1' ?
             <ChooseButton
                 leftContent={'查看GPS设备'}
                 rightContent={'发运'}
@@ -517,7 +520,7 @@ class entryToBeShipped extends Component {
                         this.sendOrder();
                     }
                 }}
-            /> : isBindGPS && bindGPSType && bindGPSType != '座头鲸' ? <BottomButton
+            /> : isBindGPS && bindGPSType && bindGPSType != '1' ? <BottomButton
             text={'发运'}
             onClick={() => {
                 if (prventDoubleClickUtil.onMultiClick()) {

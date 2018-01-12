@@ -176,19 +176,6 @@ class setting extends Component {
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
 
-        Storage.remove(StorageKey.USER_INFO);
-        Storage.remove(StorageKey.CarSuccessFlag);
-        Storage.remove(StorageKey.PlateNumber);
-        Storage.remove(StorageKey.userCarList);
-        Storage.remove(StorageKey.personInfoResult);
-        Storage.remove(StorageKey.carInfoResult);
-        Storage.remove(StorageKey.PHOTO_REF_NO );
-        Storage.remove(StorageKey.changePersonInfoResult);
-        Storage.remove(StorageKey.changeCarInfoResult);
-        Storage.remove(StorageKey.acceptMessage);
-        Storage.remove(StorageKey.PlateNumberObj);
-        Storage.remove(StorageKey.enterpriseownerInfoResult);
-        Storage.remove(StorageKey.personownerInfoResult);
 
 
         // 清空存储数据

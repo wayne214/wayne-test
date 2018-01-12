@@ -444,11 +444,27 @@ class Mine extends Component {
                         });
                         // global.verifiedState = responseData.result;
                         // 首页状态
-                        result.certificationStatus == '1201' ?
-                            this.props.setDriverCharacterAction('1')
-                            : result.certificationStatus == '1202' ?
-                            this.props.setDriverCharacterAction('2') :
-                            this.props.setDriverCharacterAction('3')
+
+                        // result == '1201' ?
+                        //     this.props.setDriverCharacterAction('1')
+                        //     : result.certificationStatus == '1202' ?
+                        //     this.props.setDriverCharacterAction('2') :
+                        //     this.props.setDriverCharacterAction('3')
+                        //
+
+                        switch (result){
+                            case '1201' || 1201:
+                                this.props.setDriverCharacterAction('1');
+                                break;
+                            case '1202' || 1202:
+                                this.props.setDriverCharacterAction('2');
+                                break;
+                            case '1203' || 1203:
+                                this.props.setDriverCharacterAction('3');
+                                break;
+                        }
+
+
                     },
                     error: (errorInfo) => {
 
@@ -992,7 +1008,7 @@ class Mine extends Component {
                                                     fontSize: 13
                                                 }}>
                                                 {
-                                                    this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
+                                                    this.props.currentStatus == 'driver' && this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                                 }
                                             </Text>
                                         </View>
@@ -1305,6 +1321,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         setDriverCharacterAction: (result) => {
+
             dispatch(setDriverCharacterAction(result));
         },
         setOwnerCharacterAction: (result) => {
