@@ -31,6 +31,8 @@ import Storage from '../../utils/storage';
 import UUID from '../../utils/uuid';
 import ObjectUitls from '../../utils/objectUitls';
 import PermissionManagerAndroid from '../../utils/permissionManagerAndroid';
+import HTTPRequest from '../../utils/httpRequest';
+import * as API from '../../constants/api';
 
 const {width, height} = Dimensions.get('window');
 
@@ -177,6 +179,7 @@ class Splash extends BaseContainer {
         });
     }
 
+
     /*跳转*/
     jumpPage(title){
         if (Platform.OS === 'ios') {
@@ -193,6 +196,7 @@ class Splash extends BaseContainer {
             }, 3000);
         }
     }
+
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);

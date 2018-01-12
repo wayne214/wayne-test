@@ -17,6 +17,7 @@ import {
     Platform,
     Alert
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import BaseContainer from '../../base/baseContainer';
 import {loginSuccessAction, setUserNameAction} from '../../../action/user';
 import StaticImage from '../../../constants/staticImage';
@@ -60,7 +61,7 @@ class CharacterList extends BaseContainer {
     }
 
     onBackAndroid = () => {
-        return false;
+        return true;
     };
 
     render() {
@@ -77,7 +78,13 @@ class CharacterList extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
-                                this.props.navigation.navigate('Login');
+                                const resetAction = NavigationActions.reset({
+                                    index: 0,
+                                    actions: [
+                                        NavigationActions.navigate({ routeName: 'LoginSms'}),
+                                    ]
+                                });
+                                this.props.navigation.dispatch(resetAction);
                             },
                         }}
                     />
