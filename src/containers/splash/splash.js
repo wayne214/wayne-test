@@ -31,8 +31,6 @@ import Storage from '../../utils/storage';
 import UUID from '../../utils/uuid';
 import ObjectUitls from '../../utils/objectUitls';
 import PermissionManagerAndroid from '../../utils/permissionManagerAndroid';
-import HTTPRequest from '../../utils/httpRequest';
-import * as API from '../../constants/api';
 
 const {width, height} = Dimensions.get('window');
 
@@ -42,7 +40,6 @@ class Splash extends BaseContainer {
         this.getInfoForGlobal = this.getInfoForGlobal.bind(this);
         this.skip = this.skip.bind(this);
         this.resetTo = this.resetTo.bind(this);
-        this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentDidMount() {
@@ -54,8 +51,7 @@ class Splash extends BaseContainer {
             })
         }
         this.getInfoForGlobal();
-        this.InquireAccountRole();
-
+        this.skip();
     }
 
     //global赋值
@@ -88,29 +84,23 @@ class Splash extends BaseContainer {
         });
 
         Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
-
             console.log('USER_DRIVER_STATE', value.toString());
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setDriverCharacterAction(value.toString());
-
+            this.props.setDriverCharacterAction(value.toString());
         });
 
         Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
             console.log('USER_CAROWN_STATE', value.toString());
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setOwnerCharacterAction(value.toString());
+            this.props.setOwnerCharacterAction(value.toString());
         });
 
         Storage.get(StorageKey.USER_CURRENT_STATE).then((value) => {
             console.log('USER_CURRENT_STATE', value);
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setCurrentCharacterAction(value);
+            this.props.setCurrentCharacterAction(value);
         });
         Storage.get(StorageKey.CARRIER_CODE).then((value) => {
             console.log('CARRIER_CODE', value.toString());
             console.log('CARRIER_CODE_TYPE', typeof (value.toString()));
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setCompanyCodeAction(value.toString());
+            this.props.setCompanyCodeAction(value.toString());
         });
 
 
@@ -170,43 +160,6 @@ class Splash extends BaseContainer {
             }
         });
     }
-
-    InquireAccountRole() {
-        HTTPRequest({
-            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
-            params: {},
-            loading: () => {
-                this.setState({
-                    loading: true,
-                });
-            },
-            success: (responseData) => {
-                console.log('===responseData', responseData);
-
-                if (responseData.result.length == 0) {
-                    const resetAction = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({ routeName: 'LoginSms'}),
-                        ]
-                    });
-                    this.props.navigation.dispatch(resetAction);
-                    NativeModules.SplashScreen.close();
-                } else {
-                    this.skip();
-
-                }
-            },
-            error: (errorInfo) => {
-                this.resetTo(0, 'LoginSms');
-                return
-            },
-            finish: () => {
-
-            }
-        })
-    }
-
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
