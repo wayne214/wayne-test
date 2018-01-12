@@ -86,6 +86,23 @@ export default (state = initState, action) => {
             Storage.remove(StorageKey.USER_CAROWN_STATE);
             Storage.remove(StorageKey.USER_CURRENT_STATE);
             Storage.remove(StorageKey.CARRIER_CODE);
+            Storage.remove(StorageKey.CarSuccessFlag);
+            Storage.remove(StorageKey.PlateNumber);
+            Storage.remove(StorageKey.userCarList);
+            Storage.remove(StorageKey.personInfoResult);
+            Storage.remove(StorageKey.carInfoResult);
+            Storage.remove(StorageKey.changePersonInfoResult);
+            Storage.remove(StorageKey.changeCarInfoResult);
+            Storage.remove(StorageKey.acceptMessage);
+            Storage.remove(StorageKey.PlateNumberObj);
+            Storage.remove(StorageKey.enterpriseownerInfoResult);
+            Storage.remove(StorageKey.personownerInfoResult);
+            Storage.remove(StorageKey.newMessageFlag);
+            Storage.remove(StorageKey.payPassword);
+            Storage.remove(StorageKey.carOwnerAddDriverInfo);
+            Storage.remove(StorageKey.carOwnerAddCarInfo);
+
+
 
             globalState = globalState.set('userInfo', {});
             globalState = globalState.set('userName', '');
