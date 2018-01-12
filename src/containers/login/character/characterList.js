@@ -60,13 +60,7 @@ class CharacterList extends BaseContainer {
     }
 
     onBackAndroid = () => {
-        const routers = this.props.nav.routes;
-        if (routers.length > 1) {
-            this.props.navigation.navigate('Login');
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     };
 
     render() {
@@ -170,15 +164,23 @@ class CharacterList extends BaseContainer {
                                     {
                                         text: '确认', onPress: () => {
                                         //this.props.setOwnerCharacterAction('21');
-                                        {/*Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {*/}
-                                            {/*if (value) {*/}
-                                                {/*navigator.navigate('CompanyCarOwnerAuth', {*/}
-                                                    {/*resultInfo: value,*/}
-                                                {/*});*/}
-                                            {/*} else {*/}
-                                                navigator.navigate('CompanyCarOwnerAuth');
-                                            {/*}*/}
-                                        {/*});*/}
+                                        {/*Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {*/
+                                        }
+                                        {/*if (value) {*/
+                                        }
+                                        {/*navigator.navigate('CompanyCarOwnerAuth', {*/
+                                        }
+                                        {/*resultInfo: value,*/
+                                        }
+                                        {/*});*/
+                                        }
+                                        {/*} else {*/
+                                        }
+                                        navigator.navigate('CompanyCarOwnerAuth');
+                                        {/*}*/
+                                        }
+                                        {/*});*/
+                                        }
                                     }
                                     },
                                 ]
