@@ -869,6 +869,7 @@ class carOwnerAddDriver extends Component {
                 phoneNum: this.state.enterPhone,
                 userId: userID,
                 userName: this.state.IDName,
+                companyPhone: userPhone,
 
                 // 默认
                 idCardNameRecognition: this.state.idCardNameRecognition, //识别身份证姓名
