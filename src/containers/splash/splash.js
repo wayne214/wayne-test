@@ -31,6 +31,8 @@ import Storage from '../../utils/storage';
 import UUID from '../../utils/uuid';
 import ObjectUitls from '../../utils/objectUitls';
 import PermissionManagerAndroid from '../../utils/permissionManagerAndroid';
+import HTTPRequest from '../../utils/httpRequest';
+import * as API from '../../constants/api';
 
 const {width, height} = Dimensions.get('window');
 
@@ -40,6 +42,7 @@ class Splash extends BaseContainer {
         this.getInfoForGlobal = this.getInfoForGlobal.bind(this);
         this.skip = this.skip.bind(this);
         this.resetTo = this.resetTo.bind(this);
+        this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentDidMount() {
@@ -51,7 +54,8 @@ class Splash extends BaseContainer {
             })
         }
         this.getInfoForGlobal();
-        this.skip();
+        this.InquireAccountRole();
+
     }
 
     //global赋值
@@ -160,6 +164,43 @@ class Splash extends BaseContainer {
             }
         });
     }
+
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+                console.log('===responseData', responseData);
+
+                if (responseData.result.length == 0) {
+                    const resetAction = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'LoginSms'}),
+                        ]
+                    });
+                    this.props.navigation.dispatch(resetAction);
+                    NativeModules.SplashScreen.close();
+                } else {
+                    this.skip();
+
+                }
+            },
+            error: (errorInfo) => {
+                this.resetTo(0, 'LoginSms');
+                return
+            },
+            finish: () => {
+
+            }
+        })
+    }
+
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
