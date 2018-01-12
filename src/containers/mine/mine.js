@@ -992,7 +992,7 @@ class Mine extends Component {
                                                     fontSize: 13
                                                 }}>
                                                 {
-                                                    this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
+                                                    this.props.currentStatus == 'driver' && this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
                                                 }
                                             </Text>
                                         </View>
