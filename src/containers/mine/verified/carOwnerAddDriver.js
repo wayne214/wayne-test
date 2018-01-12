@@ -890,7 +890,7 @@ class carOwnerAddDriver extends Component {
                     appLoading: false,
                 });
 
-                this.props.reloadUserName(this.state.IDName);
+                //this.props.reloadUserName(this.state.IDName);
 
                 Storage.remove(StorageKey.carOwnerAddDriverInfo);
                 //Storage.remove(StorageKey.personInfoResult);
@@ -1083,7 +1083,7 @@ class carOwnerAddDriver extends Component {
                         <View style={{backgroundColor: 'white',padding: 10, flexDirection: 'row'}}>
                             <Text style={{color: 'red'}}>*</Text>
                             <Text>
-                                此手机号码是司机当前使用的搜集好吗，请谨慎填写。
+                                此手机号码是司机当前使用的手机号码，请谨慎填写。
                             </Text>
                         </View>
                     </View>
