@@ -507,19 +507,23 @@ class personCarOwnerAuth extends Component {
                     switch (selectType) {
                         case 0:
                             if (respones.result.idName && respones.result.idNum){
+                                this.setState({
+                                    IDName: respones.result.idName,
+                                    IDCard: respones.result.idNum,
+
+                                    // 默认
+                                    moRenidCardName: respones.result.idName, // 身份证解析姓名
+                                    moRenidCard: respones.result.idNum, // 解析身份证号
+
+                                    idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
+                                    idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
+                                    isShowCardInfo : true,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                IDName: respones.result.idName,
-                                IDCard: respones.result.idNum,
 
-                                // 默认
-                                moRenidCardName: respones.result.idName, // 身份证解析姓名
-                                moRenidCard: respones.result.idNum, // 解析身份证号
-
-                                idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
-                                idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
                                 isShowCardInfo : true,
                             });
 
@@ -527,37 +531,44 @@ class personCarOwnerAuth extends Component {
                             break;
                         case 1:
                             if (respones.result.idValidUntil){
+                                this.setState({
+                                    IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+
+                                    moRenidCardValidity:  Validator.timeTrunToDateString(respones.result.idValidUntil), // 解析身份证有效期
+
+                                    idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
+                                    idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
+                                    isShowCardInfo : true,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
 
-                                moRenidCardValidity:  Validator.timeTrunToDateString(respones.result.idValidUntil), // 解析身份证有效期
-
-                                idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
-                                idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
                                 isShowCardInfo : true,
                             });
 
                             break;
                         case 2:
                             if (respones.result.plateNumber && respones.result.owner && respones.result.engineNumber) {
+                                this.setState({
+                                    carNumber: respones.result.plateNumber,
+                                    carOwner: respones.result.owner,
+                                    carEngineNumber: respones.result.engineNumber,
+                                    vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
+                                    vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
+                                    isShowDriverInfo: true,
+
+                                    moRencarNum: respones.result.plateNumber, // 车牌号
+                                    moRenhaverName: respones.result.owner, // 所有人
+                                    moRenengineNum: respones.result.engineNumber, // 发动机号码
+
+                                });
                             } else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                carNumber: respones.result.plateNumber,
-                                carOwner: respones.result.owner,
-                                carEngineNumber: respones.result.engineNumber,
-                                vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
-                                vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
                                 isShowDriverInfo: true,
-
-                                moRencarNum: respones.result.plateNumber, // 车牌号
-                                moRenhaverName: respones.result.owner, // 所有人
-                                moRenengineNum: respones.result.engineNumber, // 发动机号码
-
                             });
 
                             break;

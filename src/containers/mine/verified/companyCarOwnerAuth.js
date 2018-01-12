@@ -67,8 +67,6 @@ let selectType = 0;
  * */
 let selectDatePickerType = 0;
 
-let isShowCompanyInfo = false;
-let isShowCardInfo = false;
 
 let userID = '';
 let userName = '';
@@ -83,9 +81,8 @@ class companyCarOwnerAuth extends Component {
         super(props);
         if (this.props.navigation.state.params) {
             const result = this.props.navigation.state.params.resultInfo;
+debugger
 
-            isShowCardInfo = result.IDCard ? true : false;
-            isShowCompanyInfo = result.companyCode ? true : false;
             this.state = {
                 appLoading: false,
 
@@ -125,6 +122,9 @@ class companyCarOwnerAuth extends Component {
                 comAddress: result.comAddress, // 解析的公司地址
                 unifiedSocialCreditCode: result.unifiedSocialCreditCode, // 解析的统一社会信用代码
                 businessValidity: result.businessValidity, // 营业执照有效期
+
+                isShowCardInfo:result.IDCard ? true : false,
+                isShowCompanyInfo: result.companyCode ? true : false
             };
         }else {
             this.state = {
@@ -168,9 +168,11 @@ class companyCarOwnerAuth extends Component {
                 comAddress: '', // 解析的公司地址
                 unifiedSocialCreditCode: '', // 解析的统一社会信用代码
                 businessValidity: '', // 营业执照有效期
+                isShowCardInfo:false,
+                isShowCompanyInfo: false,
 
             }
-        };
+        }
 
         this.showDatePick = this.showDatePick.bind(this);
         this.showAlertSelected = this.showAlertSelected.bind(this);
@@ -478,56 +480,69 @@ class companyCarOwnerAuth extends Component {
                     switch (selectType) {
                         case 0:
                             if (respones.result.idName && respones.result.idNum){
-                            }else
+                                this.setState({
+                                    IDName: respones.result.idName,
+                                    IDCard: respones.result.idNum,
+                                    // 默认
+                                    leadPersonName: respones.result.idName, // 法人姓名
+                                    leadPersonCardCode: respones.result.idNum, // 法人身份证号
+
+                                    legalPersonPositiveCard: respones.result.idFaceSideNormalPhotoAddress,
+                                    legalPersonPositiveCardThumbnail: respones.result.idFaceSideThumbnailAddress,
+                                });
+
+                            }else {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
+                            }
                             this.setState({
-                                IDName: respones.result.idName,
-                                IDCard: respones.result.idNum,
-                                // 默认
-                                leadPersonName: respones.result.idName, // 法人姓名
-                                leadPersonCardCode: respones.result.idNum, // 法人身份证号
-
-                                legalPersonPositiveCard: respones.result.idFaceSideNormalPhotoAddress,
-                                legalPersonPositiveCardThumbnail: respones.result.idFaceSideThumbnailAddress,
+                                isShowCardInfo: true,
                             });
 
-                            isShowCardInfo = true;
+
+
                             break;
                         case 1:
                             if (respones.result.idValidUntil){
+                                this.setState({
+                                    IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+
+                                    leadPersonCardCodeTime: Validator.timeTrunToDateString(respones.result.idValidUntil), //法人身份证有效期至
+
+                                    legalPersonOppositeCard: respones.result.idBackSideNormalPhotoAddress,
+                                    legalPersonOppositeCardThumbnail: respones.result.idBackSideThumbnailAddress,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
+
                             this.setState({
-                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
 
-                                leadPersonCardCodeTime: Validator.timeTrunToDateString(respones.result.idValidUntil), //法人身份证有效期至
-
-                                legalPersonOppositeCard: respones.result.idBackSideNormalPhotoAddress,
-                                legalPersonOppositeCardThumbnail: respones.result.idBackSideThumbnailAddress,
+                                isShowCardInfo: true,
                             });
-                            isShowCardInfo = true;
                             break;
                         case 2:
                             if (respones.result.regNum){
-                            }else
+                                this.setState({
+                                    businessLicence: respones.result.businessLicensePhotoAddress, // 营业执照原图
+                                    businessCardPhotoThumb:  respones.result.businessLicenseThumbnailAddress,// 营业执照缩略图
+                                    companyName: respones.result.name,
+                                    companyOwnerName: respones.result.person,
+                                    companyAddress: respones.result.address,
+                                    companyCode: respones.result.regNum,
+
+                                    comName: respones.result.name, // 解析的公司名称
+                                    person: respones.result.person, // 解析的法人名称
+                                    comAddress: respones.result.address, // 解析的公司地址
+                                    unifiedSocialCreditCode: respones.result.regNum, // 解析的统一社会信用代码
+                                    businessValidity: Validator.timeTrunToDateString(respones.result.validNeriod), // 营业执照有效期
+                                });
+                            }else {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
-
+                            }
                             this.setState({
-                                businessLicence: respones.result.businessLicensePhotoAddress, // 营业执照原图
-                                businessCardPhotoThumb:  respones.result.businessLicenseThumbnailAddress,// 营业执照缩略图
-                                companyName: respones.result.name,
-                                companyOwnerName: respones.result.person,
-                                companyAddress: respones.result.address,
-                                companyCode: respones.result.regNum,
-
-                                comName: respones.result.name, // 解析的公司名称
-                                person: respones.result.person, // 解析的法人名称
-                                comAddress: respones.result.address, // 解析的公司地址
-                                unifiedSocialCreditCode: respones.result.regNum, // 解析的统一社会信用代码
-                                businessValidity: Validator.timeTrunToDateString(respones.result.validNeriod), // 营业执照有效期
+                                isShowCompanyInfo: true,
                             });
-                            isShowCompanyInfo = true;
+
                             break;
                     }
                 }else
@@ -651,7 +666,7 @@ class companyCarOwnerAuth extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        const personCardInfo = isShowCardInfo ?
+        const personCardInfo = this.state.isShowCardInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认身份证基本信息"/>
                 <VerifiedIDInfoItem IDName={this.state.IDName}
@@ -675,7 +690,7 @@ class companyCarOwnerAuth extends Component {
                 />
             </View> : null;
 
-        const personCardDate = isShowCardInfo ?
+        const personCardDate = this.state.isShowCardInfo ?
             <View>
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
@@ -688,7 +703,7 @@ class companyCarOwnerAuth extends Component {
             </View> : null;
 
 
-        const companyInfo = isShowCompanyInfo ?
+        const companyInfo = this.state.isShowCompanyInfo ?
             <View>
                 <VerifiedGrayTitleItem title="确认营业执照基本信息"/>
 
