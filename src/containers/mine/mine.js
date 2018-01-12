@@ -444,9 +444,9 @@ class Mine extends Component {
                         });
                         // global.verifiedState = responseData.result;
                         // 首页状态
-                        result.certificationStatus == '1201' ?
+                        result == '1201' ?
                             this.props.setDriverCharacterAction('1')
-                            : result.certificationStatus == '1202' ?
+                            : result == '1202' ?
                             this.props.setDriverCharacterAction('2') :
                             this.props.setDriverCharacterAction('3')
                     },
