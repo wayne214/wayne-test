@@ -16,9 +16,11 @@ import {
     TouchableOpacity,
     Image,
     Platform,
+    Alert,
 } from 'react-native';
 import Camera from 'react-native-camera';
-
+import HTTPRequest from '../../../utils/httpRequest';
+import * as API from '../../../constants/api';
 import ViewFinder from '../components/viewFinder';
 import Loading from '../../../utils/loading';
 import {Geolocation} from 'react-native-baidu-map-xzx';
@@ -26,6 +28,7 @@ import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import StaticImage from '../../../constants/staticImage';
 import * as StaticColor from '../../../constants/staticColor';
 import * as ConstValue from '../../../constants/constValue';
+import Toast from '@remobile/react-native-toast';
 
 const {width, height} = Dimensions.get('window');
 let isLoadEnd = false;
@@ -58,6 +61,8 @@ class scanGPS extends Component {
         this.changeState = this.changeState.bind(this);
         this.startTimeout = this.startTimeout.bind(this);
         this.endTimeout = this.endTimeout.bind(this);
+        this.bindGPS = this.bindGPS.bind(this);
+        this.getGPSDetails = this.getGPSDetails.bind(this);
     }
     componentDidMount() {
         this.setState({
@@ -109,6 +114,86 @@ class scanGPS extends Component {
         });
     }
 
+    // 获取GPS设备信息
+    getGPSDetails() {
+        HTTPRequest({
+            url: API.API_GET_GPS_DETAILS,
+            params: {
+                barCode: this.state.barCode,
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                if(responseData.result) {
+                    let data = responseData.result;
+                    if(data.isDisabled == 0){
+                        if(data.eleValue && parseInt(data.eleValue) > 20) {
+                            this.bindGPS();
+                        }else {
+                            Alert.alert('提示', '设备当前电量已不足20%，您确认要使用此设备？', [
+                                {
+                                    text: '确定',
+                                    onPress: () => {
+                                        this.bindGPS();
+                                    },
+                                },
+                                {text: '取消'},
+                            ], {cancelable: false});                        }
+                    }else {
+                        Toast.showShortCenter('该设备已禁用，不能进行绑定');
+                    }
+                } else {
+                    Toast.showShortCenter('该设备不存在，不能进行绑定');
+                }
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+    }
+
+    // 绑定GPS设备
+    bindGPS() {
+        // 传递参数
+        HTTPRequest({
+            url: API.API_BIND_OR_RELIEVE_GPS,
+            params: {
+                driverPhone: global.phone,
+                userId: global.userId,
+                userName: global.userName,
+                bindCarNum: global.plateNumber,
+                barCode: this.state.barCode,
+                isBind: 1, // 绑定
+            },
+            loading: ()=>{
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData)=>{
+                if(responseData.result){
+                    Toast.showShortCenter('绑定成功');
+                    this.props.navigation.goBack();
+                    DeviceEventEmitter.emit('refreshShippedDetails');
+                } else {
+                    Toast.showShortCenter('绑定失败');
+                }
+            },
+            error: (errorInfo)=>{},
+            finish:()=>{
+                this.setState({
+                    loading: false,
+                });
+            }
+        });
+    }
+
     barcodeReceived(e) {
         // console.log('before transCode', this.transCode);
         // console.log('------------code-----------', e);
@@ -122,11 +207,7 @@ class scanGPS extends Component {
             this.gpsDeviceCode = e.data; // 放在this上，防止触发多次，setstate有延时
             if (this.state.flag) {
                 this.changeState(false);
-                if (e.data.indexOf('DP') > -1) {
-                    this.searchScheduleCode();
-                } else {
-                    this.searchTransCode();
-                }
+                this.getGPSDetails();
             }
             console.log('after transCode', this.transCode);
         }

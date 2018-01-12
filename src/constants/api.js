@@ -165,6 +165,10 @@ export const API_QUERY_DRIVER_LIST = `${HOST}app/rmc/driver/queryDriversByCarNum
 // export const API_QUERY_DRIVER_LIST = `http://192.168.32.162:8899/app/rmc/driver/queryDriversByCarNum/`;
 //司机绑定车辆
 export const API_DRIVER_BIND_CAR = `${HOST}app/rmc/rmcCar/driverBindCarRelation`;
+// 绑定GPS设备接口
+export const API_BIND_OR_RELIEVE_GPS = `${HOST}app/rmc/rmcCar/bindOrRelieveCarBarCode`;
+// 获取gps设备信息
+export const API_GET_GPS_DETAILS = `${HOST}app/rmc/rmcCar/queryGpsInfoByCarNum`;
 
 
 /** *****************************************************运输中心接口******************************************************/
