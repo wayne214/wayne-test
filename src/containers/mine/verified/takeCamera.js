@@ -294,7 +294,7 @@ export default class takeCamera extends Component {
                     captureTarget={Camera.constants.CaptureTarget.disk}
                     mirrorImage={false}
                     //"high" (default),"medium",  "low",  "photo", "1080p",  "720p",  "480p".
-                    captureQuality="medium"
+                    captureQuality="high"
                     style={styles.preview}
                     //aspect={Camera.constants.Aspect.fill}
                     //AVCaptureVideoOrientationPortrait           = 1,

@@ -86,6 +86,14 @@ class scanGPS extends Component {
         });
     }
 
+    onBackAndroid = () => {
+        if(this.props.navigation && this.props.routes.length > 1) {
+            this.props.navigation.goBack();
+            return true;
+        }
+        return false;
+    };
+
     componentWillUnmount() {
         this.endTimer();
         this.endTimeout();
@@ -209,7 +217,7 @@ class scanGPS extends Component {
                 this.changeState(false);
                 this.getGPSDetails();
             }
-            console.log('after transCode', this.transCode);
+            console.log('after transCode', this.gpsDeviceCode);
         }
     }
     // 播放声音
@@ -367,7 +375,6 @@ class scanGPS extends Component {
                                     <TouchableOpacity
                                         onPress={() => {
                                             this.props.navigation.navigate('BindGPS');
-                                            {/*this.props.navigation.navigate('GPSDetails');*/}
                                         }}
                                     >
                                         <View>
