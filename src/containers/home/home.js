@@ -832,27 +832,29 @@ class Home extends Component {
     // 获取首页状态数量
     getHomePageCount(plateNumber, phone) {
         currentTime = new Date().getTime();
-        HTTPRequest({
-            url: API.API_INDEX_STATUS_NUM,
-            params: {
-                plateNumber,
-                driverPhone: phone,
-            },
-            loading: () => {
-            },
-            success: (responseData) => {
-                lastTime = new Date().getTime();
-                ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
-                    locationData.district, lastTime - currentTime, '首页');
-                if (responseData.result) {
-                    this.props.getHomoPageCountAction(responseData.result);
-                }
-            },
-            error: () => {
-            },
-            finish: () => {
-            },
-        });
+        if (plateNumber) {
+            HTTPRequest({
+                url: API.API_INDEX_STATUS_NUM,
+                params: {
+                    plateNumber,
+                    driverPhone: phone,
+                },
+                loading: () => {
+                },
+                success: (responseData) => {
+                    lastTime = new Date().getTime();
+                    ReadAndWriteFileUtil.appendFile('获取首页状态数量', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
+                        locationData.district, lastTime - currentTime, '首页');
+                    if (responseData.result) {
+                        this.props.getHomoPageCountAction(responseData.result);
+                    }
+                },
+                error: () => {
+                },
+                finish: () => {
+                },
+            });
+        }
     }
 
     // 获取首页状态数量
