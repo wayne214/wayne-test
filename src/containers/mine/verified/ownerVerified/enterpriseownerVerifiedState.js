@@ -91,23 +91,21 @@ class enterpriseownerVerifiedState extends Component{
         this.state={
             resultInfo: {},
             appLoading: false,
-            qualifications: this.props.navigation.state.params.qualifications,
+            qualifications: '',
         };
 
         this.getRealNameDetail = this.getRealNameDetail.bind(this);
-
         this.reloadVerified = this.reloadVerified.bind(this);
         this.showBigImage = this.showBigImage.bind(this);
-
     }
-
-
 
     componentDidMount() {
 
         this.getCurrentPosition();
+        this.getRealNameDetail(global.phone);
 
-        if (this.state.qualifications == '23') {
+        /*
+        if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
 
             this.getRealNameDetail(global.phone);
 
@@ -120,13 +118,13 @@ class enterpriseownerVerifiedState extends Component{
                     });
                 } else {
 
-                    console.log('global.phone:', global.phone);
                     this.getRealNameDetail(global.phone);
 
                 }
             });
 
         }
+        */
     }
 
     // 获取当前位置
@@ -160,13 +158,56 @@ class enterpriseownerVerifiedState extends Component{
                 if(responseData.result){
                     this.setState({
                         resultInfo: responseData.result,
-                        // qualifications: responseData.result.certificationStatus,
-                        qualifications: '1203',
+                        qualifications: responseData.result.certificationStatus,
                     });
 
-                    // if (responseData.result.certificationStatus == '1202'){
-                    //     Storage.save(StorageKey.enterpriseownerInfoResult, responseData.result);
-                    // }
+                    let obj = {
+
+                        IDName: responseData.result.rmcAnalysisAndContrast.manualLegalIdCardName,
+                        IDCard: responseData.result.rmcAnalysisAndContrast.manualLegalIdCard,
+                        IDDate: responseData.result.rmcAnalysisAndContrast.manualLegalIdCardValidity,
+
+                        idCardImage:  responseData.result.legalPersonPositiveCardThumbnail,
+                        idCardTrunImage: responseData.result.legalPersonOppositeCardThumbnail,
+
+                        legalPersonPositiveCard: responseData.result.legalPersonPositiveCard, // 身份证正面原图
+                        legalPersonPositiveCardThumbnail: responseData.result.legalPersonPositiveCardThumbnail, // 身份证正面缩略图
+
+                        legalPersonOppositeCard: responseData.result.legalPersonOppositeCard, // 身份证反面原图
+                        legalPersonOppositeCardThumbnail: responseData.result.legalPersonOppositeCardThumbnail, // 身份证反面缩略图
+
+
+                        companyName: responseData.result.rmcAnalysisAndContrast.manualComName,
+                        companyOwnerName: responseData.result.rmcAnalysisAndContrast.manualPerson,
+                        companyAddress: responseData.result.rmcAnalysisAndContrast.manualComAddress,
+                        companyCode: responseData.result.rmcAnalysisAndContrast.manualUnifiedSocialCreditCode,
+
+                        businessTrunRightImage: responseData.result.businessLicenceThumbnail ,
+                        businessLicence: responseData.result.businessLicence, // 营业执照原图
+                        businessCardPhotoThumb: responseData.result.businessLicenceThumbnail, // 营业执照缩略图
+                        businessLicenseValidUntil: responseData.result.rmcAnalysisAndContrast.manualBusinessValidity, // 营业执照有效期
+
+                        isChooseCompanyImage: false,
+                        isChooseBusinessLicenseValidImage: false,
+                        isChooseBusinessLicenseValidTrunImage: false,
+
+                        // 默认
+                        leadPersonName: responseData.result.person, // 法人姓名
+                        leadPersonCardCode: responseData.result.legalIdCard, // 法人身份证号
+                        leadPersonCardCodeTime: responseData.result.legalIdCardValidity, //法 人身份证有效期至
+                        comName: responseData.result.comName, // 解析的公司名称
+                        person: responseData.result.legalIdCardName, // 解析的法人名称
+                        comAddress: responseData.result.comAddress, // 解析的公司地址
+                        unifiedSocialCreditCode: responseData.result.unifiedSocialCreditCode, // 解析的统一社会信用代码
+                        businessValidity: responseData.result.businessValidity, // 营业执照有效期
+
+                        isShowCardInfo:true,
+                        isShowCompanyInfo: true
+                    };
+
+                    //if (responseData.result.certificationStatus == '1202'){
+                        Storage.save(StorageKey.enterpriseownerInfoResult, obj);
+                    //}
                     DeviceEventEmitter.emit('verifiedSuccess');
 
                 }
@@ -188,6 +229,7 @@ class enterpriseownerVerifiedState extends Component{
     /*重新认证*/
     reloadVerified(){
         Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+
             if (value){
                 this.props.navigation.navigate('CompanyCarOwnerAuth', {
                     resultInfo: value,
@@ -235,13 +277,13 @@ class enterpriseownerVerifiedState extends Component{
                     <Text style={styles.textStyle}>认证驳回</Text>
                 </View>;
 
-        let bottomView = this.state.qualifications == '23' ?
+        let bottomView = this.state.qualifications == '1203' ?
             <View>
                 <VerifiedGrayTitleItem title='驳回原因'/>
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '23' ?
+        let bottomReloadView = this.state.qualifications == '1203' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
@@ -262,12 +304,21 @@ class enterpriseownerVerifiedState extends Component{
                     title={'车主认证'}
                     navigator={navigator}
                     hiddenBackIcon={false}
-                    rightButtonConfig={this.state.qualifications == '23' ? {
+                    rightButtonConfig={this.state.qualifications == '1203' ? {
                         type: 'string',
                         title: '个人认证',
                         onClick: ()=> {
                         // 进行个人车主认证
-                            this.props.navigation.navigate('PersonCarOwnerAuth');
+                            //this.props.navigation.navigate('PersonCarOwnerAuth');
+                            Storage.get(StorageKey.personownerInfoResult).then((value) => {
+                                if (value) {
+                                    navigator.navigate('PersonCarOwnerAuth', {
+                                        resultInfo: value,
+                                        });
+                                } else {
+                                    navigator.navigate('PersonCarOwnerAuth');
+                                }
+                            });
                         }
                     } : {}
                     }
@@ -330,6 +381,7 @@ class enterpriseownerVerifiedState extends Component{
 
 function mapStateToProps(state) {
     return {
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

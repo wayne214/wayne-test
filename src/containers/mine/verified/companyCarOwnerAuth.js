@@ -402,6 +402,11 @@ class companyCarOwnerAuth extends Component {
     /*选择照片*/
     selectPhoto() {
 
+        this.setState({
+            isShowCompanyInfo: false,
+            isShowCardInfo: false
+        });
+
         //  相册选项
         const options = {
             quality: 1.0,

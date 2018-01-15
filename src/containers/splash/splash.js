@@ -135,7 +135,7 @@ class Splash extends BaseContainer {
                                 this.jumpPage('Main');
                             }else{
                                 Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
-                                    
+
                                     if (value && value != 0) {
                                         // 跳转到主页
                                         this.jumpPage('Main');
