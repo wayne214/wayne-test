@@ -270,6 +270,19 @@ class AddDriverPage extends BaseContainer {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            navigator.goBack();
+                        }}>
+                        <Text
+                            style={{
+                                marginLeft: 10,
+                                fontFamily: 'iconfont',
+                                fontSize: 16,
+                                color: '#999999'
+                            }}>&#xe662;
+                        </Text>
+                    </TouchableOpacity>
                     <View style={{
                         flexDirection: 'row',
                         backgroundColor: '#F4F4F4',
@@ -323,11 +336,11 @@ class AddDriverPage extends BaseContainer {
 
                     </View>
                     <TouchableOpacity onPress={() => {
-                        navigator.goBack();
+                        this.queryAllCarList(this.state.text);
                     }}>
                         <Text
                             style={{color: '#0071FF', fontSize: 16, width: 49, textAlign: 'center'}}
-                        >取消
+                        >搜索
                         </Text>
                     </TouchableOpacity>
                 </View>
