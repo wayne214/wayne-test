@@ -51,23 +51,26 @@ class bindGPS extends Component {
                 });
             },
             success: (responseData)=>{
-                let data = responseData.result;
-                if(data.isDisabled == 0){
-                    if(data.eleValue && parseInt(data.eleValue) > 20) {
-                        this.bindGPS();
-                    }else {
-                        Alert.alert('提示', '设备当前电量已不足20%，您确认要使用此设备？', [
-                            {
-                                text: '确定',
-                                onPress: () => {
-                                    this.bindGPS();
+                if(responseData.result) {
+                    let data = responseData.result;
+                    if(data.isDisabled == 0){
+                        if(data.eleValue && parseInt(data.eleValue) > 20) {
+                            this.bindGPS();
+                        }else {
+                            Alert.alert('提示', '设备当前电量已不足20%，您确认要使用此设备？', [
+                                {
+                                    text: '确定',
+                                    onPress: () => {
+                                        this.bindGPS();
+                                    },
                                 },
-                            },
-                            {text: '取消'},
-                        ], {cancelable: false});
+                                {text: '取消'},
+                            ], {cancelable: false});                        }
+                    }else {
+                        Toast.showShortCenter('该设备已禁用，不能进行绑定');
                     }
-                }else {
-                    Toast.showShortCenter('该设备已禁用，不能进行绑定');
+                } else {
+                    Toast.showShortCenter('该设备不存在，不能进行绑定');
                 }
             },
             error: (errorInfo)=>{},
