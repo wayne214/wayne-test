@@ -129,19 +129,19 @@ class Splash extends BaseContainer {
                     if (!ObjectUitls.isOwnEmpty(userInfo)) {
 
                         Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
-                            if (value && !ObjectUitls.isOwnEmpty(value) && value !== 0){
+
+                            if (value && value != 0){
                                 // 跳转到主页
                                 this.jumpPage('Main');
-
                             }else{
                                 Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
-                                    if (value && !ObjectUitls.isOwnEmpty(value) && value !== 0) {
+                                    
+                                    if (value && value != 0) {
                                         // 跳转到主页
                                         this.jumpPage('Main');
                                     }else {
                                         // 跳转到登录页面
                                         this.jumpPage('CharacterList');
-
                                     }
                                 });
                             }
