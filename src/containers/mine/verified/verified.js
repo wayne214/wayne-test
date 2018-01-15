@@ -839,6 +839,7 @@ class Verified extends Component {
                 phoneNum: userPhone,
                 userId: userID,
                 userName: this.state.IDName,
+                companyPhone: userPhone,
 
                 // 默认
                 idCardNameRecognition: this.state.idCardNameRecognition, //识别身份证姓名
