@@ -414,6 +414,11 @@ class personCarOwnerAuth extends Component {
     /*选择照片*/
     selectPhoto() {
 
+        this.setState({
+            isShowCardInfo: false,
+            isShowDriverInfo: false
+        });
+
         //  相册选项
         const options = {
             quality: 1.0,
@@ -676,7 +681,6 @@ class personCarOwnerAuth extends Component {
             }
         });
     }
-
 
 
     render() {
