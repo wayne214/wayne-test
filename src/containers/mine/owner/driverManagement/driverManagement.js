@@ -234,7 +234,7 @@ class DriverManagement extends BaseContainer {
         ];
 
         return (
-
+            item.companyType == 0 ?
             <Swipeout
                 autoClose={false}
                 close={!(this.state.index === index)}
@@ -347,6 +347,100 @@ class DriverManagement extends BaseContainer {
                 </TouchableOpacity>
 
             </Swipeout>
+                :
+
+                <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <Image
+                                    style={{height: 36, width: 36}}
+                                    source={StaticImage.DriverAvatar}></Image>
+                                <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                            </View>
+                            <View style={{
+                                justifyContent: 'center',
+                                width: 90,
+                                alignItems: 'center',
+                            }}>
+                                {item.status == 10 ?
+                                    <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                        禁用
+                                    </Text> :
+                                    item.certificationStatus == '1202' ?
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                            认证通过
+                                        </Text>
+                                        : item.certificationStatus == '1201' ?
+                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                            认证中
+                                        </Text>
+                                        : item.certificationStatus == '1203' ?
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                认证驳回
+                                            </Text>
+                                            :
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                未认证
+                                            </Text>
+                                }
+                            </View>
+                        </View>
+                        <View style={{marginLeft: 45}}>
+                            {this.state.line && this.state.clickLine == index ?
+                                <Text
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
+                                >
+                                    关联车辆：{item.carNums}</Text>
+                                : <Text
+                                    numberOfLines={1}
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{item.carNums}</Text>
+                            }
+
+                            {this.state.line && this.state.clickLine == index ?
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({
+                                        clickLine: 'a',
+                                    })
+                                }}>
+                                    <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>收起</Text>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({
+                                        clickLine: index,
+                                    })
+                                }}>
+                                    <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>全部</Text>
+                                </TouchableOpacity>
+
+                            }
+                        </View>
+                        <View style={{marginBottom: 10,}}>
+                            {item.status != '10' ?
+                                <TouchableOpacity onPress={() => {
+                                    this.cityClicked(item);
+                                }}>
+                                    <View
+                                        style={{
+                                            height: 30,
+                                            width: 85,
+                                            marginTop: 1,
+                                            marginLeft: width - 100,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 20,
+                                            borderColor: '#999999',
+                                            borderWidth: 0.5,
+                                        }}>
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
+                        </View>
+                        <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
+                    </View>
+
         );
     }
 

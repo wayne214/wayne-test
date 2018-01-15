@@ -81,7 +81,7 @@ class companyCarOwnerAuth extends Component {
         super(props);
         if (this.props.navigation.state.params) {
             const result = this.props.navigation.state.params.resultInfo;
-debugger
+
 
             this.state = {
                 appLoading: false,

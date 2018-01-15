@@ -40,6 +40,7 @@ class Splash extends BaseContainer {
         this.getInfoForGlobal = this.getInfoForGlobal.bind(this);
         this.skip = this.skip.bind(this);
         this.resetTo = this.resetTo.bind(this);
+        this.jumpPage = this.jumpPage.bind(this);
     }
 
     componentDidMount() {
@@ -84,29 +85,23 @@ class Splash extends BaseContainer {
         });
 
         Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
-
             console.log('USER_DRIVER_STATE', value.toString());
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setDriverCharacterAction(value.toString());
-
+            this.props.setDriverCharacterAction(value.toString());
         });
 
         Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
             console.log('USER_CAROWN_STATE', value.toString());
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setOwnerCharacterAction(value.toString());
+            this.props.setOwnerCharacterAction(value.toString());
         });
 
         Storage.get(StorageKey.USER_CURRENT_STATE).then((value) => {
             console.log('USER_CURRENT_STATE', value);
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setCurrentCharacterAction(value);
+            this.props.setCurrentCharacterAction(value);
         });
         Storage.get(StorageKey.CARRIER_CODE).then((value) => {
             console.log('CARRIER_CODE', value.toString());
             console.log('CARRIER_CODE_TYPE', typeof (value.toString()));
-            if (value && !ObjectUitls.isOwnEmpty(value))
-                this.props.setCompanyCodeAction(value.toString());
+            this.props.setCompanyCodeAction(value.toString());
         });
 
 
@@ -126,29 +121,38 @@ class Splash extends BaseContainer {
 
     // 跳转逻辑
     skip() {
-        let title;
         Storage.get(StorageKey.IS_FIRST_START_FLAG).then((value) => {
             if (value && value * 1 === 1) {
                 Storage.get(StorageKey.USER_INFO).then((userInfo) => {
+
                     console.log('>>>>>>>> userinfo is login ', userInfo);
                     if (!ObjectUitls.isOwnEmpty(userInfo)) {
-                        title = 'Main';
+
+                        Storage.get(StorageKey.USER_DRIVER_STATE).then((value) => {
+
+                            if (value && value != 0){
+                                // 跳转到主页
+                                this.jumpPage('Main');
+                            }else{
+                                Storage.get(StorageKey.USER_CAROWN_STATE).then((value) => {
+                                    
+                                    if (value && value != 0) {
+                                        // 跳转到主页
+                                        this.jumpPage('Main');
+                                    }else {
+                                        // 跳转到登录页面
+                                        this.jumpPage('CharacterList');
+                                    }
+                                });
+                            }
+                        });
+
+
                     } else {
-                        title = 'LoginSms';
+                        this.jumpPage('LoginSms');
+                        // 跳转到登录页面
                     }
-                    if (Platform.OS === 'ios') {
-                        this.timer = setTimeout(() => {
-                            this.resetTo(0, title);
-                            NativeModules.SplashScreen.close();
-                        },1000)
-                    }
-                    if (Platform.OS === 'android') {
-                        this.timer = setTimeout(() => {
-                            InteractionManager.runAfterInteractions(() => {
-                                this.resetTo(0, title);
-                            });
-                        }, 3000);
-                    }
+
                 });
             } else {
                 if (Platform.OS === 'ios') {
@@ -165,6 +169,23 @@ class Splash extends BaseContainer {
                 }
             }
         });
+    }
+
+    /*跳转*/
+    jumpPage(title){
+        if (Platform.OS === 'ios') {
+            this.timer = setTimeout(() => {
+                this.resetTo(0, title);
+                NativeModules.SplashScreen.close();
+            },1000)
+        }
+        if (Platform.OS === 'android') {
+            this.timer = setTimeout(() => {
+                InteractionManager.runAfterInteractions(() => {
+                    this.resetTo(0, title);
+                });
+            }, 3000);
+        }
     }
 
     componentWillUnmount() {
