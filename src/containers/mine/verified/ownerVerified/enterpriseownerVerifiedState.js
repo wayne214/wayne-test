@@ -160,12 +160,13 @@ class enterpriseownerVerifiedState extends Component{
                 if(responseData.result){
                     this.setState({
                         resultInfo: responseData.result,
-                        qualifications: responseData.result.certificationStatus,
+                        // qualifications: responseData.result.certificationStatus,
+                        qualifications: '1203',
                     });
 
-                    if (responseData.result.certificationStatus == '1202'){
-                        Storage.save(StorageKey.enterpriseownerInfoResult, responseData.result);
-                    }
+                    // if (responseData.result.certificationStatus == '1202'){
+                    //     Storage.save(StorageKey.enterpriseownerInfoResult, responseData.result);
+                    // }
                     DeviceEventEmitter.emit('verifiedSuccess');
 
                 }

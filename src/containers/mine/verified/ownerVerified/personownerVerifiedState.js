@@ -263,8 +263,7 @@ class personownerVerifiedState extends Component{
                             // 进行企业车主认证
                             this.props.navigation.navigate('CompanyCarOwnerAuth');
                         }
-                    } : {}
-                    }
+                    } : {}}
                 />
 
                 <ScrollView

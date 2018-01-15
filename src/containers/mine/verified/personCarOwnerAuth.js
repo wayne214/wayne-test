@@ -427,6 +427,10 @@ class personCarOwnerAuth extends Component {
         ImagePicker.launchImageLibrary(options, (response) => {
             console.log('Response = ', response);
 
+            this.setState({
+                isShowDriverInfo: false,
+            });
+
             if (response.didCancel) {
                 console.log('User cancelled photo picker');
             }
@@ -570,6 +574,7 @@ class personCarOwnerAuth extends Component {
                             this.setState({
                                 isShowDriverInfo: true,
                             });
+
 
                             break;
                         case 3:
