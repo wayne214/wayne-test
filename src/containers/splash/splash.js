@@ -187,7 +187,7 @@ class Splash extends BaseContainer {
             }, 3000);
         }
     }
-    
+
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);
     }
