@@ -428,7 +428,6 @@ let transCodeListData3 = [];
 
     // 获取网络数据 对页面进行填充
     loadData(pageIndex, pageNum) {
-
         switch (pageIndex) {
             case 0:
                 console.log('订单全部界面', pageIndex);
@@ -470,9 +469,10 @@ let transCodeListData3 = [];
 
     // 获取待回单订单列表
     getReceiveOrderDetailAction(queryType, pageNum, pageSize) {
-
-        if (!this.props.carrierCode)
-            return;
+        if(this.props.currentStatus != 'driver') {
+            if (!this.props.carrierCode)
+                return;
+        }
 
         currentTime = new Date().getTime();
         if (pageNum === 1) {
@@ -592,8 +592,10 @@ let transCodeListData3 = [];
 
     // 获取全部、待发运订单列表
     getOrderDetailAction(queryType, pageNum, pageSize) {
-        if (!this.props.carrierCode)
-            return;
+        if(this.props.currentStatus != 'driver'){
+            if (!this.props.carrierCode)
+                return;
+        }
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({

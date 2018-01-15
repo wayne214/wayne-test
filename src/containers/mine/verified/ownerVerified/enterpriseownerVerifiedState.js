@@ -91,7 +91,7 @@ class enterpriseownerVerifiedState extends Component{
         this.state={
             resultInfo: {},
             appLoading: false,
-            qualifications: this.props.navigation.state.params.qualifications,
+            qualifications: '',
         };
 
         this.getRealNameDetail = this.getRealNameDetail.bind(this);
@@ -107,7 +107,7 @@ class enterpriseownerVerifiedState extends Component{
 
         this.getCurrentPosition();
 
-        if (this.state.qualifications == '23') {
+        if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
 
             this.getRealNameDetail(global.phone);
 
@@ -160,12 +160,13 @@ class enterpriseownerVerifiedState extends Component{
                 if(responseData.result){
                     this.setState({
                         resultInfo: responseData.result,
-                        qualifications: responseData.result.certificationStatus,
+                        // qualifications: responseData.result.certificationStatus,
+                        qualifications: '1203',
                     });
 
-                    if (responseData.result.certificationStatus == '1202'){
-                        Storage.save(StorageKey.enterpriseownerInfoResult, responseData.result);
-                    }
+                    // if (responseData.result.certificationStatus == '1202'){
+                    //     Storage.save(StorageKey.enterpriseownerInfoResult, responseData.result);
+                    // }
                     DeviceEventEmitter.emit('verifiedSuccess');
 
                 }
@@ -234,13 +235,13 @@ class enterpriseownerVerifiedState extends Component{
                     <Text style={styles.textStyle}>认证驳回</Text>
                 </View>;
 
-        let bottomView = this.state.qualifications == '23' ?
+        let bottomView = this.state.qualifications == '1203' ?
             <View>
                 <VerifiedGrayTitleItem title='驳回原因'/>
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '23' ?
+        let bottomReloadView = this.state.qualifications == '1203' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
@@ -261,7 +262,7 @@ class enterpriseownerVerifiedState extends Component{
                     title={'车主认证'}
                     navigator={navigator}
                     hiddenBackIcon={false}
-                    rightButtonConfig={this.state.qualifications == '23' ? {
+                    rightButtonConfig={this.state.qualifications == '1203' ? {
                         type: 'string',
                         title: '个人认证',
                         onClick: ()=> {
@@ -329,6 +330,7 @@ class enterpriseownerVerifiedState extends Component{
 
 function mapStateToProps(state) {
     return {
+        ownerStatus: state.user.get('ownerStatus'),
     };
 }
 

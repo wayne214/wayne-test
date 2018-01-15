@@ -69,7 +69,8 @@ const timeTrunToDateString = (time)=>{
         dataString = time.toString().substr(0, 4) + '/' + time.toString().substr(4, 2) + '/' + time.toString().substr(6, 2);
     }else if (time.length === 6) {
         dataString = time.toString().substr(0, 4) + '/' + time.toString().substr(4, 2);
-    }
+    }else
+        dataString = time;
 
     return dataString;
 };
