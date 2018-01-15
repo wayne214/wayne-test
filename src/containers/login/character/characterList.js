@@ -29,6 +29,7 @@ import NavigatorBar from '../../../common/navigationBar/navigationBar';
 import CharacterCell from '../components/characterCell';
 import CharacterChooseCell from '../components/characterChooseCell';
 import {
+    clearUser,
     setDriverCharacterAction,
     setOwnerCharacterAction,
 } from '../../../action/user';
@@ -78,6 +79,7 @@ class CharacterList extends BaseContainer {
                             type: 'string',
                             title: '退出',
                             onClick: () => {
+                                this.props.removeUserInfoAction();
                                 const resetAction = NavigationActions.reset({
                                     index: 0,
                                     actions: [
@@ -297,6 +299,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        removeUserInfoAction:()=>{
+            dispatch(clearUser());
+        },
         setCharacter: (data) => {
             dispatch(setCharacterAction(data));
         },

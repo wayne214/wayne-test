@@ -140,7 +140,7 @@ class Splash extends BaseContainer {
                                         this.jumpPage('Main');
                                     }else {
                                         // 跳转到登录页面
-                                        this.jumpPage('LoginSms');
+                                        this.jumpPage('CharacterList');
 
                                     }
                                 });
