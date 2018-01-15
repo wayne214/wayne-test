@@ -291,6 +291,8 @@ class Home extends Component {
         this.getUserCarSuccessCallBack = this.getUserCarSuccessCallBack.bind(this);
         this.saveUserCarInfo = this.saveUserCarInfo.bind(this);
         this.saveUserCarList = this.saveUserCarList.bind(this);
+        this.getUserCarMine = this.getUserCarMine.bind(this);
+        this.getUserCarMineSuccessCallBack = this.getUserCarMineSuccessCallBack.bind(this);
 
         this.saveMessage = this.saveMessage.bind(this);
         this.pushToMsgList = this.pushToMsgList.bind(this);
@@ -589,6 +591,10 @@ class Home extends Component {
         this.logListener = NativeAppEventEmitter.addListener('nativeSendMsgToRN', (data) => {
             this.getCurrentPosition(1);
         });
+        // 我的界面车辆列表监听
+        this.getUserCarMine = NativeAppEventEmitter.addListener('getUserCarMine', (data) => {
+            this.getUserCarMine();
+        });
     }
 
     // componentDidUpdate() {
@@ -624,6 +630,7 @@ class Home extends Component {
         this.notifyCarStatusListener.remove();
         this.notifyCertificationListener.remove();
         this.logListener.remove();
+        this.getUserCarMine.remove();
     }
 
     // 版本对比
@@ -738,6 +745,39 @@ class Home extends Component {
                 this.saveUserCarInfo(result[0]);
                 this.setUserCar(result[0].carNum, this.setUserCarSuccessCallBack);
             }
+        } else {
+            Alert.alert('提示', '您的账号未绑定车辆，请添加车辆');
+        }
+    }
+    // 获取车辆列表
+    getUserCarMine() {
+        Storage.get(StorageKey.USER_INFO).then((value) => {
+            if (value) {
+                console.log('value', value);
+                HTTPRequest({
+                    url: API.API_QUERY_ALL_BIND_CAR_BY_PHONE,
+                    params: {
+                        phoneNum: value.phone,
+                    },
+                    loading: () => {
+                    },
+                    success: (responseData) => {
+                        this.getUserCarMineSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo) => {
+                    },
+                    finish: () => {
+                    }
+                });
+            }
+        });
+    }
+
+    // 获取车辆列表成功
+    getUserCarMineSuccessCallBack(result) {
+        if (result) {
+            if (result.length != 0)
+                this.saveUserCarList(result);
         } else {
             Alert.alert('提示', '您的账号未绑定车辆，请添加车辆');
         }

@@ -171,6 +171,7 @@ class AddCarDriver extends BaseContainer {
             success: (responseData) => {
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('addCarPage');
+                DeviceEventEmitter.emit('getUserCarMine');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
