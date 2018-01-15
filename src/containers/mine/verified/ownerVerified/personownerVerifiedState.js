@@ -229,13 +229,13 @@ class personownerVerifiedState extends Component{
                     <Text style={styles.textStyle}>认证驳回</Text>
                 </View>;
 
-        let bottomView = this.state.qualifications == '13' ?
+        let bottomView = this.state.qualifications == '1203' ?
             <View>
                 <VerifiedGrayTitleItem title='驳回原因'/>
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '13' ?
+        let bottomReloadView = this.state.qualifications == '12033' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
@@ -256,7 +256,7 @@ class personownerVerifiedState extends Component{
                     title={'车主认证'}
                     navigator={navigator}
                     hiddenBackIcon={false}
-                    rightButtonConfig={this.state.qualifications == '13' ? {
+                    rightButtonConfig={this.state.qualifications == '1203' ? {
                         type: 'string',
                         title: '企业认证',
                         onClick: ()=> {

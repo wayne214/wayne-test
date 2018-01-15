@@ -1145,9 +1145,11 @@ class Mine extends Component {
                                                             }
                                                             // 企业车主认证信息
                                                             if (this.props.ownerStatus == '21' || this.props.ownerStatus == '23') {
-                                                                this.props.navigation.navigate('EnterpriseownerVerifiedStatePage', {
-                                                                    qualifications: this.props.ownerStatus,
-                                                                });
+                                                                this.props.navigation.navigate('EnterpriseownerVerifiedStatePage',
+                                                                //     {
+                                                                //     qualifications: this.props.ownerStatus,
+                                                                // }
+                                                                );
                                                             }
                                                         }}
                                                     />
