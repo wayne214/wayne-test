@@ -87,8 +87,6 @@ class personCarOwnerAuth extends Component {
         if (this.props.navigation.state.params) {
             const result = this.props.navigation.state.params.resultInfo;
 
-
-
             this.state = {
                 appLoading: false,
 

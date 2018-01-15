@@ -105,6 +105,9 @@ class personownerVerifiedState extends Component{
     componentDidMount() {
 
         this.getCurrentPosition();
+        this.getRealNameDetail(global.phone);
+
+        /*
         if (this.props.ownerStatus == '11' || this.props.ownerStatus == '13') {
             this.getRealNameDetail(global.phone);
 
@@ -123,6 +126,7 @@ class personownerVerifiedState extends Component{
             });
 
         }
+        */
     }
 
     // 获取当前位置
@@ -153,14 +157,62 @@ class personownerVerifiedState extends Component{
                 ReadAndWriteFileUtil.appendFile('获取实名认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '实名认证详情页面');
                 if(responseData.result){
+
+                    let obj = {
+                        IDName: responseData.result.rmcAnalysisAndContrast.manualIdCardName,
+                        IDCard: responseData.result.rmcAnalysisAndContrast.manualIdCard,
+                        IDDate: responseData.result.rmcAnalysisAndContrast.manualIdCardValidity,
+
+                        idCardImage: responseData.result.positiveCardThumbnail ,
+                        idCardTrunImage: responseData.result.oppositeCardThumbnail ,
+
+                        idFaceSideNormalPhotoAddress: responseData.result.positiveCard, // 身份证正面原图
+                        idFaceSideThumbnailAddress: responseData.result.positiveCardThumbnail, // 身份证正面缩略图
+
+                        idBackSideNormalPhotoAddress: responseData.result.oppositeCard, // 身份证反面原图
+                        idBackSideThumbnailAddress: responseData.result.oppositeCardThumbnail, // 身份证反面缩略图
+
+
+                        carNumber: responseData.result.rmcAnalysisAndContrast.manualCarNum,
+                        carOwner: responseData.result.rmcAnalysisAndContrast.manualHaverName,
+                        carEngineNumber: responseData.result.rmcAnalysisAndContrast.manualEngineNum,
+
+                        travelRightImage: responseData.result.drivingCardHomePageThumbnail ,
+                        travelTrunRightImage:  responseData.result.drivingPermitSubPageThumbnail,
+                        drivingLicenseValidUntil: responseData.result.drivingValidity, // 行驶证有效期
+
+                        vehicleLicenseHomepageNormalPhotoAddress: responseData.result.drivingCardHomePage, // 行驶证主页原图
+                        vehicleLicenseHomepageThumbnailAddress: responseData.result.drivingCardHomePageThumbnail, // 行驶证主页缩略图
+
+                        vehicleLicenseVicePageNormalPhotoAddress: responseData.result.drivingPermitSubPage, // 行驶证副页原图
+                        vehicleLicenseVicePageThumbnailAddress: responseData.result.drivingPermitSubPageThumbnail, // 行驶证副页缩略图
+
+                        isChooseCardImage: false,
+                        isChooseCardTrunImage: false,
+                        isChooseVehicleLicenseViceImage: false,
+                        isChooseVehicleLicenseViceTrunImage: false,
+
+                        isShowCardInfo: true,
+                        isShowDriverInfo: true,
+
+                        // 默认
+                        moRenidCardName: responseData.result.idCardName, // 身份证解析姓名
+                        moRenidCard: responseData.result.idCard, // 解析身份证号
+                        moRenidCardValidity: responseData.result.idCardValidity, // 解析身份证有效期
+                        moRencarNum: responseData.result.carNum, // 车牌号
+                        moRenhaverName: responseData.result.haverName, // 所有人
+                        moRenengineNum: responseData.result.engineNum, // 发动机号码
+                        moRendrivingValidsity: responseData.result.drivingValidity, // 行驶证有效期
+                    };
+
                     this.setState({
                         resultInfo: responseData.result,
                         qualifications: responseData.result.certificationStatus,
                     });
 
-                    if (responseData.result.certificationStatus == '1202'){
-                        Storage.save(StorageKey.personownerInfoResult, responseData.result);
-                    }
+                    //if (responseData.result.certificationStatus == '1202'){
+                        Storage.save(StorageKey.personownerInfoResult, obj);
+                    //}
                     DeviceEventEmitter.emit('verifiedSuccess');
 
                 }
@@ -182,6 +234,8 @@ class personownerVerifiedState extends Component{
     /*重新认证*/
     reloadVerified(){
         Storage.get(StorageKey.personownerInfoResult).then((value) => {
+
+
             if (value){
                 this.props.navigation.navigate('PersonCarOwnerAuth', {
                     resultInfo: value,
@@ -235,7 +289,7 @@ class personownerVerifiedState extends Component{
                 <VerifiedFailItem reason={this.state.resultInfo.certificationOpinion}/>
             </View> : null;
 
-        let bottomReloadView = this.state.qualifications == '12033' ?
+        let bottomReloadView = this.state.qualifications == '1203' ?
             <Image style={styles.bottomViewStyle} source ={StaticImage.BlueButtonArc}>
                 <Button
                     ref='button'
@@ -261,7 +315,16 @@ class personownerVerifiedState extends Component{
                         title: '企业认证',
                         onClick: ()=> {
                             // 进行企业车主认证
-                            this.props.navigation.navigate('CompanyCarOwnerAuth');
+                            //this.props.navigation.navigate('CompanyCarOwnerAuth');
+                            Storage.get(StorageKey.enterpriseownerInfoResult).then((value) => {
+                                 if (value) {
+                                     navigator.navigate('CompanyCarOwnerAuth', {
+                                         resultInfo: value,
+                                         });
+                                 } else {
+                                     navigator.navigate('CompanyCarOwnerAuth');
+                                 }
+                            });
                         }
                     } : {}}
                 />

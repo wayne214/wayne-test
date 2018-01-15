@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 15,
         color: StaticColor.GRAY_TEXT_COLOR,
-        flex: 1,
+        flex: 2,
     },
     touchStyle:{
         flex: 2,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         fontSize: 15,
         color: StaticColor.LIGHT_BLACK_TEXT_COLOR,
-        flex: 1,
+        flex: 3,
         textAlign: 'right',
     },
     imgArea: {
