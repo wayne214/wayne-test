@@ -1097,7 +1097,7 @@ let transCodeListData3 = [];
                     beSureOrderNum={dataRow.beSureOrderNum}
                     transCodeNum={dataRow.transCodeNum}
                     goodsCount={dataRow.num}
-                    temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
+                    temperature={dataRow.temperature && dataRow.temperature != '0-0' ? `${dataRow.temperature}℃` : ''}
                     carrierName={dataRow.carrierName}
                     carrierPlateNum={dataRow.carrierPlateNum}
                     onSelect={() => {
@@ -1186,7 +1186,7 @@ let transCodeListData3 = [];
                 beSureOrderNum={dataRow.beSureOrderNum}
                 transCodeNum={dataRow.transCodeNum}
                 goodsCount={dataRow.num}
-                temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
+                temperature={dataRow.temperature && dataRow.temperature != '0-0'? `${dataRow.temperature}℃` : ''}
                 currentStatus={this.props.currentStatus}
                 carrierName={dataRow.carrierName}
                 carrierPlateNum={dataRow.carrierPlateNum}

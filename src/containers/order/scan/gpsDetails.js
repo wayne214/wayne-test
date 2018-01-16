@@ -68,7 +68,7 @@ class gpsDetails extends Component {
                 userId: global.userId,
                 userName: global.userName,
                 bindCarNum: global.plateNumber,
-                barCode: this.state.data.deviceNo,
+                barCode: this.state.data.barCode,
                 isBind: 0, // 解除绑定
             },
             loading: ()=>{
@@ -104,11 +104,11 @@ class gpsDetails extends Component {
                     navigator={navigator}
                 />
                 <View style={{flex: 1,}}>
-                    <CommonCell itemName="供应商设备:" content={data.deviceSupplier} hideBottomLine={true}/>
-                    <CommonCell itemName="供应商设备型号:" content={data.deviceVersion} hideBottomLine={true}/>
-                    <CommonCell itemName="供应商设备编号:" content={data.deviceNo} hideBottomLine={true} />
+                    <CommonCell itemName="供应商设备:" content={data.deviceSupplier ?data.deviceSupplier : ''} hideBottomLine={true}/>
+                    <CommonCell itemName="供应商设备型号:" content={data.deviceVersion ? data.deviceVersion : ''} hideBottomLine={true}/>
+                    <CommonCell itemName="供应商设备编号:" content={data.deviceNo ? data.deviceNo : ''} hideBottomLine={true} />
                     <CommonCell itemName="开启/关闭:" content={data.onOff == 0 ? '开启': '关闭'} hideBottomLine={true}/>
-                    <CommonCell itemName="当前电量:" content={`${data.eleValue}%`} hideBottomLine={true}/>
+                    <CommonCell itemName="当前电量:" content={data.eleValue ? `${data.eleValue}%` : '0%'} hideBottomLine={true}/>
                 </View>
                 <BottomButton
                     onClick={() => {
