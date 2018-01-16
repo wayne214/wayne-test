@@ -41,7 +41,6 @@ class scanGPS extends Component {
         super(props);
         this.camera = null;
         this.state = {
-            gpsDeviceCode: '',
             openFlash: false,
             active: false,
             flag: true,
@@ -104,7 +103,6 @@ class scanGPS extends Component {
         isLoadEnd = false;
 
         this.setState({
-            gpsDeviceCode: '',
             openFlash: false,
             active: false,
             flag: true,
@@ -127,7 +125,7 @@ class scanGPS extends Component {
         HTTPRequest({
             url: API.API_GET_GPS_DETAILS,
             params: {
-                barCode: this.state.barCode,
+                barCode: this.gpsDeviceCode,
             },
             loading: ()=>{
                 this.setState({
@@ -148,8 +146,15 @@ class scanGPS extends Component {
                                         this.bindGPS();
                                     },
                                 },
-                                {text: '取消'},
-                            ], {cancelable: false});                        }
+                                {text: '取消',
+                                    onPress: () => {
+                                        this.gpsDeviceCode = null;
+                                        isLoadEnd = false;
+                                        this.changeState(true);
+                                    }
+                                },
+                            ], {cancelable: false});
+                        }
                     }else {
                         Toast.showShortCenter('该设备已禁用，不能进行绑定');
                     }
@@ -176,7 +181,7 @@ class scanGPS extends Component {
                 userId: global.userId,
                 userName: global.userName,
                 bindCarNum: global.plateNumber,
-                barCode: this.state.barCode,
+                barCode: this.gpsDeviceCode,
                 isBind: 1, // 绑定
             },
             loading: ()=>{

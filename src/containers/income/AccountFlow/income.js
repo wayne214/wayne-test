@@ -89,10 +89,13 @@ class Income extends Component {
             accountMoney: 0,
         };
         this.acBalance = this.acBalance.bind(this);
+        // this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentDidMount() {
         this.getCurrentPosition();
+        // this.InquireAccountRole();
+
         this.acBalance();
         //点击收入页面进行刷新
         this.incomeListener = DeviceEventEmitter.addListener('refreshIncome', () => {
@@ -102,6 +105,43 @@ class Income extends Component {
 
     componentWillUnmount() {
         this.incomeListener.remove();
+    }
+
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+                console.log('===收入responseData', responseData);
+                let result = responseData.result;
+                if (result) {
+                    if (result.length == 1) {
+                        if(result[0].owner == 2) {
+                            // 司机查余额
+                        } else if (result[0].owner = 1) {
+                            // 车主查余额
+                        }
+                    } else {
+                        // 司机、车主余额
+
+                    }
+                }
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
     }
 
 // 获取当前位置
@@ -116,10 +156,12 @@ class Income extends Component {
 
     acBalance() {
         currentTime = new Date().getTime();
-
+        // 司机：1  车主：2
         HTTPRequest({
             url: API.API_AC_BALANCE + global.phone,
-            params: {},
+            params: {
+
+            },
             loading: () => {
             },
             success: (response) => {

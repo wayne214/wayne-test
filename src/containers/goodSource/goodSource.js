@@ -320,7 +320,7 @@ class GoodSource extends BaseContainer{
                 goodKindsNames={goodTypesName} // 货品种类
                 orderCount={dataRow.transCodeNum ? dataRow.transCodeNum : ''} // 订单总数
                 goodsCount={dataRow.goodsQuantity}
-                temperature={dataRow.temperature ? `${dataRow.temperature}℃` : ''}
+                temperature={dataRow.temperature && dataRow.temperature != '0-0' ? `${dataRow.temperature}℃` : ''}
                 onSelect={() => {
                     this.props.navigation.navigate('GoodsDetailPage',{
                         transOrderList: dataRow.transOrderList, // 运单号

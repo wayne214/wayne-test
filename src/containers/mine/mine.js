@@ -478,7 +478,6 @@ class Mine extends Component {
 
     ownerVerifiedState() {
         currentTime = new Date().getTime();
-
         if (this.props.userInfo) {
             if (this.props.userInfo.phone) {
 
@@ -1112,7 +1111,13 @@ class Mine extends Component {
                                                 content={'司机管理'}
                                                 showBottomLine={false}
                                                 clickAction={() => {
-                                                    navigator.navigate('DriverManagement');
+                                                    if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
+                                                        navigator.navigate('DriverManagement');
+                                                    } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
+                                                        Alert.alert('提示', '实名认证中');
+                                                    } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
+                                                        Alert.alert('提示', '实名认证被驳回');
+                                                    }
                                                 }}
                                             />
                                             <SettingCell
@@ -1120,7 +1125,13 @@ class Mine extends Component {
                                                 content={'车辆管理'}
                                                 showBottomLine={false}
                                                 clickAction={() => {
-                                                    navigator.navigate('CarManagement');
+                                                    if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
+                                                        navigator.navigate('CarManagement');
+                                                    } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
+                                                        Alert.alert('提示', '实名认证中');
+                                                    } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
+                                                        Alert.alert('提示', '实名认证被驳回');
+                                                    }
                                                 }}
                                             />
                                             {
