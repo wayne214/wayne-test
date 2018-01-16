@@ -1203,6 +1203,7 @@ let transCodeListData3 = [];
                                 scheduleCode: dataRow.scheduleCode,
                                 carrierName: dataRow.carrierName,
                                 carrierPlateNum: dataRow.carrierPlateNum,
+                                isCompany: dataRow.isCompany,
                                 successCallBack: () => {
                                     // 刷新
                                     setTimeout(() => {
@@ -1226,6 +1227,7 @@ let transCodeListData3 = [];
                             scheduleCode: dataRow.scheduleCode,
                             carrierName: dataRow.carrierName,
                             carrierPlateNum: dataRow.carrierPlateNum,
+                            isCompany: dataRow.isCompany,
                             successCallBack: () => {
                                 // 刷新
                                 // InteractionManager.runAfterInteractions(() => {
