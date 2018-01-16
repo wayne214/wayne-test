@@ -81,7 +81,10 @@ class DriverManagement extends BaseContainer {
             index: null,
             line: true,
             clickLine: 'a',
+            buttonShow:false,
+            numberOfLines:null,
         }
+        this.numberOfLines = props.numberOfLines;
     }
 
     componentDidMount() {
@@ -219,6 +222,11 @@ class DriverManagement extends BaseContainer {
         });
     }
 
+    _onTextLayout(event){
+        console.log('event',event)
+        console.log('event',event.nativeEvent.layout.height)
+    }
+
     //列表的每一行
     renderItemView({item, index}) {
         // Buttons
@@ -299,6 +307,7 @@ class DriverManagement extends BaseContainer {
                                 </View>
                             </View>
                             <View style={{marginLeft: 45}}>
+
                                 {this.state.line && this.state.clickLine == index ?
                                     <Text
                                         style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
@@ -306,6 +315,7 @@ class DriverManagement extends BaseContainer {
                                         关联车辆：{item.carNums}</Text>
                                     : <Text
                                         numberOfLines={1}
+                                        onLayout={this._onTextLayout.bind(this)}
                                         style={{
                                             fontSize: 14,
                                             lineHeight: 24,
