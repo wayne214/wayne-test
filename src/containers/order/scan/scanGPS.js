@@ -331,10 +331,8 @@ class scanGPS extends Component {
                                                 </View>
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={styles.leftContainer}>
+                                        <View style={styles.leftTitle}>
                                             <Text style={styles.titleText}>扫描GPS设备</Text>
-                                        </View>
-                                        <View style={styles.leftContainer}>
                                         </View>
                                     </View>
                                 </View>
@@ -440,7 +438,10 @@ const styles =StyleSheet.create({
     },
     leftContainer: {
         justifyContent: 'center',
-        flex: 1
+        width: width / 2 - 50,
+    },
+    leftTitle: {
+        justifyContent: 'center',
     },
     backImg: {
         marginLeft: 10,
@@ -496,9 +497,17 @@ const styles =StyleSheet.create({
     bottomContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginLeft: 54,
-        marginRight: 54,
-        marginBottom: 17
+        paddingLeft: 54,
+        paddingRight: 54,
+        ...Platform.select({
+            ios: {
+                height: 80,
+            },
+            android: {
+                height: 100,
+            }
+        }),
+        backgroundColor: 'rgba(0,0,0,0.2)',
     },
     bottomIcon: {
         alignSelf: 'center',
@@ -506,6 +515,7 @@ const styles =StyleSheet.create({
     tipText: {
         fontSize: 13,
         color: StaticColor.COLOR_LIGHT_GRAY_TEXT,
+        paddingTop: 5,
     }
 });
 
