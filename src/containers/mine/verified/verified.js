@@ -204,24 +204,22 @@ class Verified extends Component {
                 driverCardRecognition: '', // 识别驾驶证号
                 quasiCarTypeRecognition: '', // 识别准驾车型
                 driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
-            }
-
-            this.showAlertSelected = this.showAlertSelected.bind(this);
-            this.callbackSelected = this.callbackSelected.bind(this);
-            this.selectPhoto = this.selectPhoto.bind(this);
-            this.selectCamera = this.selectCamera.bind(this);
-
-            this.upLoadImage = this.upLoadImage.bind(this);
-            this.showDatePick = this.showDatePick.bind(this);
-            this.checkUploadParams = this.checkUploadParams.bind(this);
-
-            this.realNameVerified = this.realNameVerified.bind(this);
-
-            this.isRightData = this.isRightData.bind(this);
-            this.formatterTime = this.formatterTime.bind(this);
-            this.popToTop = this.popToTop.bind(this);
-
+            };
         }
+        this.showAlertSelected = this.showAlertSelected.bind(this);
+        this.alertCallbackSelected = this.alertCallbackSelected.bind(this);
+        this.selectedphoto = this.selectedphoto.bind(this);
+        this.selectedcamera = this.selectedcamera.bind(this);
+
+        this.upLoadImage = this.upLoadImage.bind(this);
+        this.showDatePick = this.showDatePick.bind(this);
+        this.checkUploadParams = this.checkUploadParams.bind(this);
+
+        this.realNameVerified = this.realNameVerified.bind(this);
+
+        this.isRightData = this.isRightData.bind(this);
+        this.formatterTime = this.formatterTime.bind(this);
+        this.popToTop = this.popToTop.bind(this);
     }
     componentDidMount() {
         this.getCurrentPosition();
@@ -320,11 +318,11 @@ class Verified extends Component {
 
     /*点击弹出菜单*/
     showAlertSelected() {
-        this.dialog.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
+        this.dialog.show("请选择照片", selectedArr, '#333333', this.alertCallbackSelected);
     }
 
     /*选择 拍照  相册*/
-    callbackSelected(i) {
+    alertCallbackSelected(i) {
 
         switch (i) {
             case 0:
@@ -332,7 +330,7 @@ class Verified extends Component {
 
                 if (Platform.OS === 'ios') {
                     PermissionsManager.cameraPermission().then(data=>{
-                        this.selectCamera();
+                        this.selectedcamera();
 
                     }).catch(err=>{
                         // Toast.showShortCenter(err.message);
@@ -340,7 +338,7 @@ class Verified extends Component {
                     });
                 }else{
                     PermissionsManagerAndroid.cameraPermission().then((data) => {
-                        this.selectCamera();
+                        this.selectedcamera();
                     }, (err) => {
                         Alert.alert('提示','请到设置-应用-授权管理设置相机权限');
                     });
@@ -350,15 +348,16 @@ class Verified extends Component {
                 if (Platform.OS === 'ios') {
                     // 图库
                     PermissionsManager.photoPermission().then(data=>{
-                        this.selectPhoto();
+                        this.selectedphoto();
 
                     }).catch(err=>{
                         // Toast.showShortCenter(err.message);
                         Alert.alert(null,err.message)
 
                     });
-                }else
-                    this.selectPhoto();
+                }else{
+                    this.selectedphoto();
+                }
 
 
                 break;
@@ -366,7 +365,7 @@ class Verified extends Component {
     }
 
     /*选择相机*/
-    selectCamera() {
+    selectedcamera() {
         this.props.navigation.navigate('TakeCamearPage', {
             cameraType: selectType,
             verifiedType: 1,
@@ -375,7 +374,7 @@ class Verified extends Component {
     }
 
     /*选择照片*/
-    selectPhoto() {
+    selectedphoto() {
 
         //  相册选项
         const options = {
@@ -482,8 +481,8 @@ class Verified extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                IDName: respones.result.idName,
-                                IDCard: respones.result.idNum,
+                                IDName: respones.result.idName === 'FailInRecognition' ? '' : respones.result.idName,
+                                IDCard: respones.result.idNum === 'FailInRecognition' ? '' : respones.result.idNum,
                                 idCardNameRecognition: respones.result.idName, //识别身份证姓名
                                 idCardRecognition: respones.result.idNum, //识别身份证号
 
@@ -513,11 +512,11 @@ class Verified extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                drivingLicenseName: respones.result.drivingLicenseName, // 驾驶证姓名
-                                drivingLicenseNum: respones.result.drivingLicenseNum, // 驾驶证号
+                                drivingLicenseName: respones.result.drivingLicenseName === 'FailInRecognition' ? '' : respones.result.drivingLicenseName, // 驾驶证姓名
+                                drivingLicenseNum: respones.result.drivingLicenseNum === 'FailInRecognition' ? '' : respones.result.drivingLicenseNum, // 驾驶证号
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
                                 drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
-                                motorcycleType: respones.result.motorcycleType, // 驾驶证类型
+                                motorcycleType: respones.result.motorcycleType === 'FailInRecognition' ? '' : respones.result.motorcycleType, // 驾驶证类型
 
                                 drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
                                 driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号

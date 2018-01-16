@@ -412,10 +412,6 @@ class personCarOwnerAuth extends Component {
     /*选择照片*/
     selectPhoto() {
 
-        this.setState({
-            isShowCardInfo: false,
-            isShowDriverInfo: false
-        });
 
         //  相册选项
         const options = {
@@ -515,8 +511,8 @@ class personCarOwnerAuth extends Component {
                         case 0:
                             if (respones.result.idName && respones.result.idNum){
                                 this.setState({
-                                    IDName: respones.result.idName,
-                                    IDCard: respones.result.idNum,
+                                    IDName: respones.result.idName === 'FailInRecognition' ? '' : respones.result.idName,
+                                    IDCard: respones.result.idNum === 'FailInRecognition' ? '' : respones.result.idNum,
 
                                     // 默认
                                     moRenidCardName: respones.result.idName, // 身份证解析姓名
@@ -559,9 +555,9 @@ class personCarOwnerAuth extends Component {
                         case 2:
                             if (respones.result.plateNumber && respones.result.owner && respones.result.engineNumber) {
                                 this.setState({
-                                    carNumber: respones.result.plateNumber,
-                                    carOwner: respones.result.owner,
-                                    carEngineNumber: respones.result.engineNumber,
+                                    carNumber: respones.result.plateNumber === 'FailInRecognition' ? '' : respones.result.plateNumber,
+                                    carOwner: respones.result.owner === 'FailInRecognition' ? '' : respones.result.owner,
+                                    carEngineNumber: respones.result.engineNumber === 'FailInRecognition' ? '' : respones.result.engineNumber,
                                     vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
                                     vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
                                     isShowDriverInfo: true,
@@ -753,7 +749,6 @@ class personCarOwnerAuth extends Component {
                                             textOnFocus={(value)=>{
                                                  if (Platform.OS === 'ios'){
                                                      this.refs.scrollView.scrollTo({x: 0, y: value, animated: true});
-
                                                  }
 
                                             }}
@@ -825,6 +820,10 @@ class personCarOwnerAuth extends Component {
                                         click={()=> {
                                             selectType=0;
                                             this.showAlertSelected();
+
+                                            this.setState({
+                                                isShowCardInfo: false,
+                                            });
                                         }}
                     />
                     <VerifiedLineItem />
@@ -866,6 +865,10 @@ class personCarOwnerAuth extends Component {
                                         click={()=> {
                                             selectType=2;
                                             this.showAlertSelected();
+
+                                            this.setState({
+                                                isShowDriverInfo: false
+                                            });
                                         }}
                     />
                     <VerifiedLineItem />
