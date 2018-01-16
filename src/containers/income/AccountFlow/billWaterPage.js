@@ -84,6 +84,46 @@ export default class BillWaterPage extends Component {
         listResult = [];
         type = 1
     }
+
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+                console.log('===收入responseData', responseData);
+                let result = responseData.result;
+                if (result) {
+                    if (result.length == 1) {
+                        if(result[0].owner == 2) {
+                            // 司机查流水
+                            this.acAccountFlow('1');
+                        } else if (result[0].owner = 1) {
+                            // 车主查流水
+                            this.acAccountFlow('2');
+                        }
+                    } else {
+                        // 司机、车主流水
+                        this.acAccountFlow('2');
+                    }
+                }
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
 // 获取当前位置
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then(data => {
@@ -93,7 +133,7 @@ export default class BillWaterPage extends Component {
             console.log(e, 'error');
         });
     }
-    acAccountFlow() {
+    acAccountFlow(type) {
         currentTime = new Date().getTime();
 
         HTTPRequest({
@@ -102,7 +142,8 @@ export default class BillWaterPage extends Component {
                 page: this.state.page,
                 pageSize: 20,
                 phoneNum: global.phone,  //13312345678
-                status: String(type)
+                status: String(type),
+                roleType: type,
             },
             loading: () => {
 
@@ -177,7 +218,7 @@ export default class BillWaterPage extends Component {
             dataSource: this.state.dataSource.cloneWithRows(listResult),
             //isRefresh:true
         }, ()=>{
-            this.acAccountFlow();
+            this.InquireAccountRole();
         });
     }
     //上拉加载
@@ -187,7 +228,8 @@ export default class BillWaterPage extends Component {
             this.setState({
                 page:this.state.page + 1,
             }, ()=>{
-                this.acAccountFlow();
+                // this.acAccountFlow();
+                this.InquireAccountRole();
             });
 
         }

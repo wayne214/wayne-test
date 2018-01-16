@@ -466,9 +466,9 @@ class certification extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                carNumber: respones.result.plateNumber,
-                                carOwner: respones.result.owner,
-                                carEngineNumber: respones.result.engineNumber,
+                                carNumber: respones.result.plateNumber === 'FailInRecognition' ? '' : respones.result.plateNumber,
+                                carOwner: respones.result.owner === 'FailInRecognition' ? '' : respones.result.owner,
+                                carEngineNumber: respones.result.engineNumber === 'FailInRecognition' ? '' : respones.result.engineNumber,
 
                                 analysisCarNum: respones.result.plateNumber, // 解析车牌号
                                 analysisHaverName:respones.result.owner, // 解析所有人

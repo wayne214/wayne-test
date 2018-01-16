@@ -402,11 +402,6 @@ class companyCarOwnerAuth extends Component {
     /*选择照片*/
     selectPhoto() {
 
-        this.setState({
-            isShowCompanyInfo: false,
-            isShowCardInfo: false
-        });
-
         //  相册选项
         const options = {
             quality: 1.0,
@@ -486,8 +481,8 @@ class companyCarOwnerAuth extends Component {
                         case 0:
                             if (respones.result.idName && respones.result.idNum){
                                 this.setState({
-                                    IDName: respones.result.idName,
-                                    IDCard: respones.result.idNum,
+                                    IDName: respones.result.idName === 'FailInRecognition' ? '' : respones.result.idName,
+                                    IDCard: respones.result.idNum === 'FailInRecognition' ? '' : respones.result.idNum,
                                     // 默认
                                     leadPersonName: respones.result.idName, // 法人姓名
                                     leadPersonCardCode: respones.result.idNum, // 法人身份证号
@@ -530,10 +525,10 @@ class companyCarOwnerAuth extends Component {
                                 this.setState({
                                     businessLicence: respones.result.businessLicensePhotoAddress, // 营业执照原图
                                     businessCardPhotoThumb:  respones.result.businessLicenseThumbnailAddress,// 营业执照缩略图
-                                    companyName: respones.result.name,
-                                    companyOwnerName: respones.result.person,
-                                    companyAddress: respones.result.address,
-                                    companyCode: respones.result.regNum,
+                                    companyName: respones.result.name === 'FailInRecognition' ? '' : respones.result.name ,
+                                    companyOwnerName: respones.result.person === 'FailInRecognition' ? '' : respones.result.person,
+                                    companyAddress: respones.result.address === 'FailInRecognition' ? '' : respones.result.address,
+                                    companyCode: respones.result.regNum === 'FailInRecognition' ? '' : respones.result.regNum,
 
                                     comName: respones.result.name, // 解析的公司名称
                                     person: respones.result.person, // 解析的法人名称
@@ -688,7 +683,7 @@ class companyCarOwnerAuth extends Component {
                                     }}
                                     textOnFocus={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 800, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 900, animated: true});
                                         }
 
                                     }}
@@ -700,7 +695,7 @@ class companyCarOwnerAuth extends Component {
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 900, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 1000, animated: true});
                                         }
                                         selectDatePickerType = 0;
                                         this.showDatePick(true ,'cardID');
@@ -738,7 +733,7 @@ class companyCarOwnerAuth extends Component {
                                     }}
                                     textOnFocus={(y)=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: y, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: y+100, animated: true});
                                         }
                                     }}
                                     />
@@ -832,6 +827,11 @@ class companyCarOwnerAuth extends Component {
                                         click={()=> {
                                             selectType=2;
                                             this.showAlertSelected();
+
+                                            this.setState({
+                                                isShowCompanyInfo: false,
+                                            });
+
                                         }}
                     />
 
@@ -847,6 +847,11 @@ class companyCarOwnerAuth extends Component {
                                         click={()=> {
                                             selectType=0;
                                             this.showAlertSelected();
+
+                                            this.setState({
+                                                isShowCardInfo: false
+                                            });
+
                                         }}
                     />
                     <VerifiedLineItem />

@@ -76,6 +76,7 @@ class entryToBeShipped extends Component {
             loading: false,
             carrierName: params.carrierName,
             carrierPlateNum: params.carrierPlateNum,
+            isCompany: params.isCompany,
         };
 
         this.onScrollEnd = this.onScrollEnd.bind(this);
@@ -546,7 +547,8 @@ class entryToBeShipped extends Component {
                     title={'订单详情'}
                     navigator={navigator}
                     hiddenBackIcon={false}
-                    rightButtonConfig={{
+                    rightButtonConfig={
+                        this.state.isCompany && this.state.isCompany == '1' ? {} : {
                         type: 'string',
                         title: '取消接单',
                         onClick: this.cancelOrder,

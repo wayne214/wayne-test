@@ -286,7 +286,7 @@ class LoginSms extends BaseContainer {
                     // 发送Action,全局赋值用户信息
                     this.props.sendLoginSuccessAction(responseData.result);
 
-                    this.InquireAccountRole();
+                    this.InquireAccountRole(responseData.result.phone;
                     // const resetAction = NavigationActions.reset({
                     //     index: 0,
                     //     actions: [
@@ -295,7 +295,6 @@ class LoginSms extends BaseContainer {
                     // });
                     // this.props.navigation.dispatch(resetAction);
 
-                    // JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
                 }else{//跳转到绑定设备界面
                     this.props.navigation.navigate('CheckPhone', {
                         loginPhone: responseData.result.phone,
@@ -318,7 +317,7 @@ class LoginSms extends BaseContainer {
     }
 
     /*查询账户角色*/
-    InquireAccountRole() {
+    InquireAccountRole(phone) {
         HTTPRequest({
             url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
             params: {},
@@ -436,7 +435,7 @@ class LoginSms extends BaseContainer {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(responseData.result.phone, ()=>{}, ()=>{});
+                JPushModule.setAlias(phone, ()=>{}, ()=>{});
 
             },
             error: (errorInfo) => {

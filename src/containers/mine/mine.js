@@ -445,23 +445,12 @@ class Mine extends Component {
                         // global.verifiedState = responseData.result;
                         // 首页状态
 
-                        // result == '1201' ?
-                        //     this.props.setDriverCharacterAction('1')
-                        //     : result.certificationStatus == '1202' ?
-                        //     this.props.setDriverCharacterAction('2') :
-                        //     this.props.setDriverCharacterAction('3')
-                        //
-
-                        switch (result){
-                            case '1201' || 1201:
-                                this.props.setDriverCharacterAction('1');
-                                break;
-                            case '1202' || 1202:
-                                this.props.setDriverCharacterAction('2');
-                                break;
-                            case '1203' || 1203:
-                                this.props.setDriverCharacterAction('3');
-                                break;
+                        if (result == '1201') {
+                            this.props.setDriverCharacterAction('1');
+                        } else if (result == '1202') {
+                            this.props.setDriverCharacterAction('2');
+                        } else if (result == '1203') {
+                            this.props.setDriverCharacterAction('3');
                         }
 
 
