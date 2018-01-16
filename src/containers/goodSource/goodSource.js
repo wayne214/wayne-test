@@ -191,6 +191,12 @@ class GoodSource extends BaseContainer{
                     finish: ()=>{
                     }
                 });
+            } else {
+                list = [];
+                this.setState({
+                    isRefresh: false,
+                    goodsListLength: 0,
+                });
             }
         }
         console.log('global phone，',global.phone);

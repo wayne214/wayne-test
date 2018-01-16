@@ -83,6 +83,7 @@ class AddDriverPage extends BaseContainer {
             url: API.API_QUERY_DRIVERS_ALL,
             params: {
                 phoneNumOrDriverName: text,
+                companyPhone:global.phone,
             },
             loading: () => {
 
@@ -336,7 +337,7 @@ class AddDriverPage extends BaseContainer {
 
                     </View>
                     <TouchableOpacity onPress={() => {
-                        this.queryAllCarList(this.state.text);
+                        this.queryPhoneOrName(this.state.text);
                     }}>
                         <Text
                             style={{color: '#0071FF', fontSize: 16, width: 49, textAlign: 'center'}}

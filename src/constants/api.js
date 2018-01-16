@@ -13,7 +13,7 @@ export const API_QUERY_COMPANY_INFO = `${HOST}app/rmc/company/queryCompanyInfoBy
 export const API_USER_LOGOUT = `${HOST}app/user/logout/v3.0/`;
 
 /** *****************************************************结算中心接口******************************************************/
-export const API_AC_BALANCE = `${HOST}app/ac/balance/`;
+export const API_AC_BALANCE = `${HOST}app/ac/balance`;
 
 export const API_AC_ACCOUNT_FLOW = `${HOST}app/ac/accountFlow`;
 // 根据单号获取结算金额
@@ -144,11 +144,13 @@ export const API_QUERY_CAR_LIST_BY_COMPANIONINFO = `${HOST}app/rmc/rmcCar/queryC
 //根据司机手机号 查询伙伴下所有车辆列表
 export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriversByPhoneNum/`;
 //搜索全库车辆信息
-export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
+// export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
+export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNumForCompanion`;
 //搜索全库车辆信息
 export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieveCarCompanionRelation`;
 //通过手机号或司机名称
-export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
+// export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
+export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversByCompanyPhone`;
 //通过手机号或司机名称
 export const API_COMPANION_RELATION = `${HOST}/app/rmc/driver/addDriverCompanionRelation`;
 // 司机管理-绑定车辆

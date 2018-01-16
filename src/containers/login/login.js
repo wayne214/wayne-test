@@ -296,8 +296,7 @@ class Login extends BaseContainer {
                         // });
                         // this.props.navigation.dispatch(resetAction);
 
-                        JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
-                        this.InquireAccountRole();
+                        this.InquireAccountRole(responseData.result.phone);
                     } else {
                         //跳转到绑定设备界面
                         this.props.navigation.navigate('CheckPhone', {
@@ -324,7 +323,7 @@ class Login extends BaseContainer {
     }
 
     /*查询账户角色*/
-    InquireAccountRole() {
+    InquireAccountRole(phone) {
         HTTPRequest({
             url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
             params: {},
@@ -451,7 +450,7 @@ class Login extends BaseContainer {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                // JPushModule.setAlias(responseData.result.phone, this.success, this.fail);
+                JPushModule.setAlias(phone, this.success, this.fail);
 
             },
             error: (errorInfo) => {
