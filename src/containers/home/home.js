@@ -63,6 +63,7 @@ import {
     queryEnterpriseNatureSuccessAction,
     saveUserCarList,
     setCurrentCharacterAction,
+    setOwnerCharacterAction
 } from '../../action/user';
 import {setMessageListIconAction} from '../../action/jpush';
 import CharacterChooseCell from '../login/components/characterChooseCell';
@@ -281,7 +282,6 @@ class Home extends Component {
         };
 
 
-
         this.getHomePageCount = this.getHomePageCount.bind(this);
         this.getCarrierHomePageCount = this.getCarrierHomePageCount.bind(this);
         this.setData = this.setData.bind(this);
@@ -315,12 +315,12 @@ class Home extends Component {
             this.getWeather(nextProps.location);
             this.vehicleLimit(nextProps.location);
         }
-        console.log('nextProps=',nextProps.currentStatus);
-        console.log('currentProps=',this.props.currentStatus);
-        if(nextProps.currentStatus != this.props.currentStatus) {
+        console.log('nextProps=', nextProps.currentStatus);
+        console.log('currentProps=', this.props.currentStatus);
+        if (nextProps.currentStatus != this.props.currentStatus) {
             if (nextProps.currentStatus == 'driver') {
                 this.getHomePageCount(this.props.plateNumber, this.props.userInfo.phone);
-            } else if(nextProps.currentStatus == ''){
+            } else if (nextProps.currentStatus == '') {
             } else {
                 this.getCarrierHomePageCount();
             }
@@ -329,18 +329,18 @@ class Home extends Component {
 
     componentDidMount() {
 
-        if (this.state.CarOwnerState){
+        if (this.state.CarOwnerState) {
             this.props.setCurrentCharacterAction('owner');
             this.setState({
                 bubbleSwitch: false,
-                show : false,
+                show: false,
             })
         }
 
         this.compareVersion();
         this.getCurrentPosition(0);
 
-        if(this.props.currentStatus == 'driver'){
+        if (this.props.currentStatus == 'driver') {
             this.queryEnterpriseNature();
         }
         if (Platform.OS === 'android') {
@@ -547,7 +547,7 @@ class Home extends Component {
                     const {userInfo} = this.props;
                     this.getHomePageCount(this.props.plateNumber, userInfo.phone)
                 }
-            }else {
+            } else {
                 this.getCarrierHomePageCount();
             }
         });
@@ -560,16 +560,16 @@ class Home extends Component {
         });
 
         this.notifyCertificationListener = DeviceEventEmitter.addListener('certification', () => {
-            if(this.props.currentStatus == 'driver'){
+            if (this.props.currentStatus == 'driver') {
                 if (this.props.driverStatus == 1) {
                     Alert.alert('提示', '认证资料正在审核中');
-                }else if (this.props.driverStatus == 3) {
+                } else if (this.props.driverStatus == 3) {
                     Alert.alert('提示', '认证资料已驳回，请重新上传资料');
                 }
             } else {
                 if (this.props.ownerStatus == 11 || this.props.ownerStatus == 21) {
                     Alert.alert('提示', '认证资料正在审核中');
-                }else if (this.props.ownerStatus == 13 || this.props.ownerStatus == 23) {
+                } else if (this.props.ownerStatus == 13 || this.props.ownerStatus == 23) {
                     Alert.alert('提示', '认证资料已驳回，请重新上传资料');
                 }
             }
@@ -661,7 +661,7 @@ class Home extends Component {
                 } else {
                     if (this.props.currentStatus == 'driver') {
                         this.setData();
-                    }else {
+                    } else {
                         this.getCarrierHomePageCount();
                     }
                 }
@@ -669,7 +669,7 @@ class Home extends Component {
             error: (errorInfo) => {
                 if (this.props.currentStatus == 'driver') {
                     this.setData();
-                }else {
+                } else {
                     this.getCarrierHomePageCount();
                 }
             },
@@ -749,6 +749,7 @@ class Home extends Component {
             Alert.alert('提示', '您的账号未绑定车辆，请添加车辆');
         }
     }
+
     // 获取车辆列表
     getUserCarMine() {
         Storage.get(StorageKey.USER_INFO).then((value) => {
@@ -860,7 +861,7 @@ class Home extends Component {
     // 获取首页状态数量
     getCarrierHomePageCount() {
         currentTime = new Date().getTime();
-        if(this.props.carrierCode){
+        if (this.props.carrierCode) {
             HTTPRequest({
                 url: API.API_CARRIER_INDEX_STATUS_NUM,
                 params: {
@@ -979,7 +980,7 @@ class Home extends Component {
                 TimeToDoSomething.uploadDataFromLocalMsg();
             } else {
                 this.getWeather(data.city);
-                if(this.props.currentStatus == 'driver') {
+                if (this.props.currentStatus == 'driver') {
                     this.vehicleLimit(data.city);
                 }
             }
@@ -1088,6 +1089,98 @@ class Home extends Component {
         });
     }
 
+    ownerVerifiedHome() {
+        if (this.props.userInfo) {
+            if (this.props.userInfo.phone) {
+
+                HTTPRequest({
+                    url: API.API_QUERY_COMPANY_INFO,
+                    params: {
+                        busTel: global.phone,
+                        // companyNature: '个人'
+                    },
+                    loading: () => {
+
+                    },
+                    success: (responseData) => {
+                        console.log('ownerVerifiedState==', responseData.result);
+                        let result = responseData.result;
+                        this.setState({
+                            verifiedState: result && result.certificationStatus,
+                        });
+                        // 首页状态
+                        if (result.companyNature == '个人') {
+                            // 确认个人车主
+                            if (result.certificationStatus == '1201') {
+                                this.props.setOwnerCharacterAction('11');
+                                this.props.setCurrentCharacterAction('owner');
+                                this.setState({
+                                    bubbleSwitch: false,
+                                    show: false,
+                                })
+                            } else {
+                                if (result.certificationStatus == '1202') {
+                                    this.props.setOwnerCharacterAction('12');
+                                    this.props.setCurrentCharacterAction('owner');
+                                    this.setState({
+                                        bubbleSwitch: false,
+                                        show: false,
+                                    })
+                                } else {
+                                    this.props.setOwnerCharacterAction('13');
+                                    this.props.navigation.navigate('PersonownerVerifiedStatePage');
+                                    this.setState({
+                                        show: false,
+                                    })
+                                }
+                            }
+
+                        } else {
+                            if (result.companyNature == '企业') {
+                                // 确认企业车主
+                                if (result.certificationStatus == '1201') {
+                                    this.props.setOwnerCharacterAction('21');
+                                    this.props.setCurrentCharacterAction('owner');
+                                    this.setState({
+                                        bubbleSwitch: false,
+                                        show: false,
+                                    })
+                                } else {
+                                    if (result.certificationStatus == '1202') {
+                                        this.props.setOwnerCharacterAction('22');
+                                        this.props.setCurrentCharacterAction('owner');
+                                        this.setState({
+                                            bubbleSwitch: false,
+                                            show: false,
+                                        })
+                                    } else {
+                                        this.props.setOwnerCharacterAction('23');
+                                        this.props.navigation.navigate('EnterpriseownerVerifiedStatePage');
+                                        this.setState({
+                                            show: false,
+                                        })
+                                    }
+                                }
+                            } else {
+                                this.props.navigation.navigate('CharacterOwner');
+                                this.setState({
+                                    show: false,
+                                })
+                            }
+
+                        }
+
+                    },
+                    error: (errorInfo) => {
+
+                    },
+                    finish: () => {
+                    }
+                });
+            }
+        }
+    }
+
     getCurrentWeekday(day) {
         let weekday = new Array(7);
         weekday[0] = "周日";
@@ -1141,7 +1234,7 @@ class Home extends Component {
                     if (this.props.driverStatus == 2) {
                         DeviceEventEmitter.emit('resetGood');
                         this.props.navigation.navigate('GoodsSource');
-                    }else {
+                    } else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }}
@@ -1160,7 +1253,7 @@ class Home extends Component {
                         this.changeOrderTab(1);
                         DeviceEventEmitter.emit('changeOrderTabPage', 1);
                         this.props.navigation.navigate('Order');
-                    }else {
+                    } else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }}
@@ -1179,7 +1272,7 @@ class Home extends Component {
                         this.changeOrderTab(2);
                         DeviceEventEmitter.emit('changeOrderTabPage', 2);
                         this.props.navigation.navigate('Order');
-                    }else {
+                    } else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }}
@@ -1198,7 +1291,7 @@ class Home extends Component {
                         this.changeOrderTab(3);
                         DeviceEventEmitter.emit('changeOrderTabPage', 3);
                         this.props.navigation.navigate('Order');
-                    }else {
+                    } else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }}
@@ -1215,56 +1308,56 @@ class Home extends Component {
                 clickAction={() => {
                     if (this.props.driverStatus == 2) {
                         this.props.navigation.navigate('UploadAbnormal');
-                    }else {
+                    } else {
                         DeviceEventEmitter.emit('certification');
                     }
                 }}
             />
         </View>;
-            const carrierView = <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
-                <HomeCell
-                    title="接单"// 文字
-                    describe="方便接单，快速查看"
-                    padding={10}// 文字与文字间距
-                    imageStyle={styles.imageView}
-                    backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
-                    badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.notYetReceiveCount}// 消息提示
-                    renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
-                    clickAction={() => { // 点击事件
-                        if(this.props.ownerStatus == 12 || this.props.ownerStatus == 22){
-                            this.props.navigation.navigate('GoodsSource');
-                            DeviceEventEmitter.emit('resetGood');
-                        }else {
-                            DeviceEventEmitter.emit('certification');
-                        }
-                    }}
-                />
-                <View style={styles.line}/>
-                <HomeCell
-                    title="调度"
-                    describe="一键调度，快捷无忧"
-                    padding={10}
-                    imageStyle={styles.imageView}
-                    backgroundColor={{backgroundColor: WHITE_COLOR}}
-                    badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.noDispatchCount}
-                    renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
-                    clickAction={() => {
-                        if(this.props.ownerStatus == 12 || this.props.ownerStatus == 22){
-                            this.changeOrderTab(1);
-                            DeviceEventEmitter.emit('changeOrderTabPage', 1);
-                            this.props.navigation.navigate('Order');
-                        }else {
-                            DeviceEventEmitter.emit('certification');
-                        }
-                    }}
-                />
-            </View>;
+        const carrierView = <View style={{marginTop: 10, backgroundColor: WHITE_COLOR, width: width,}}>
+            <HomeCell
+                title="接单"// 文字
+                describe="方便接单，快速查看"
+                padding={10}// 文字与文字间距
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}// 背景色
+                badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.notYetReceiveCount}// 消息提示
+                renderImage={() => <Image source={StaticImage.receiptIcon}/>}// 图标
+                clickAction={() => { // 点击事件
+                    if (this.props.ownerStatus == 12 || this.props.ownerStatus == 22) {
+                        this.props.navigation.navigate('GoodsSource');
+                        DeviceEventEmitter.emit('resetGood');
+                    } else {
+                        DeviceEventEmitter.emit('certification');
+                    }
+                }}
+            />
+            <View style={styles.line}/>
+            <HomeCell
+                title="调度"
+                describe="一键调度，快捷无忧"
+                padding={10}
+                imageStyle={styles.imageView}
+                backgroundColor={{backgroundColor: WHITE_COLOR}}
+                badgeText={carrierHomePageState === null ? 0 : carrierHomePageState.noDispatchCount}
+                renderImage={() => <Image source={StaticImage.dispatchIcon}/>}
+                clickAction={() => {
+                    if (this.props.ownerStatus == 12 || this.props.ownerStatus == 22) {
+                        this.changeOrderTab(1);
+                        DeviceEventEmitter.emit('changeOrderTabPage', 1);
+                        this.props.navigation.navigate('Order');
+                    } else {
+                        DeviceEventEmitter.emit('certification');
+                    }
+                }}
+            />
+        </View>;
         let state = '';
-        console.log('this.props.driverStatus',this.props.driverStatus);
-        console.log('this.props.ownerStatus',this.props.ownerStatus);
+        console.log('this.props.driverStatus', this.props.driverStatus);
+        console.log('this.props.ownerStatus', this.props.ownerStatus);
         if (this.props.currentStatus == 'driver') {
 
-            switch (this.props.driverStatus){
+            switch (this.props.driverStatus) {
                 case '1' || 1:
                     state = '(认证中)';
                     break;
@@ -1279,11 +1372,11 @@ class Home extends Component {
                     break;
             }
 
-        }else {
+        } else {
             //state = this.props.ownerStatus == '11' || this.props.ownerStatus == '21' ? '(认证中)' :
-                //this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
+            //this.props.ownerStatus == '13' || this.props.ownerStatus == '23'? '(认证驳回)' : '';
 
-            switch (this.props.ownerStatus){
+            switch (this.props.ownerStatus) {
                 case '11' || 11:
                 case '21' || 21:
                     state = '(认证中)';
@@ -1417,66 +1510,66 @@ class Home extends Component {
                 {this.state.show ?
                     <CharacterChooseCell
                         carClick={() => {
-                            console.log('this.props.ownerStatus', this.props.ownerStatus);
-                            if (this.props.ownerStatus == '0'){
-                                this.props.navigation.navigate('CharacterOwner');
-                                    this.setState({
-                                        show : false,
-                                    })
-                            }else {
-                                if (this.props.ownerStatus == '23' ||  this.props.ownerStatus == '13'){
-                                    this.props.navigation.navigate('CharacterOwner');
-                                    this.setState({
-                                        show : false,
-                                    })
-
-                                }else {
-                                    this.props.setCurrentCharacterAction('owner');
-                                    this.setState({
-                                        bubbleSwitch: false,
-                                        show : false,
-                                    })
-                                }
-
-                            }
+                            this.ownerVerifiedHome();
+                            // if (this.props.ownerStatus == '0'){
+                            //     this.props.navigation.navigate('CharacterOwner');
+                            //         this.setState({
+                            //             show : false,
+                            //         })
+                            // }else {
+                            //     if (this.props.ownerStatus == '23' ||  this.props.ownerStatus == '13'){
+                            //         this.props.navigation.navigate('CharacterOwner');
+                            //         this.setState({
+                            //             show : false,
+                            //         })
+                            //
+                            //     }else {
+                            //         this.props.setCurrentCharacterAction('owner');
+                            //         this.setState({
+                            //             bubbleSwitch: false,
+                            //             show : false,
+                            //         })
+                            //     }
+                            //
+                            // }
 
                         }}
                         driverClick={() => {
-                                if (this.props.driverStatus == '0' || this.props.driverStatus == '3'){
-                                    Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-                                        if (value){
-                                            this.props.navigation.navigate('VerifiedPage', {
-                                                resultInfo: value,
-                                                commitSuccess:()=>{
-                                                     this.setState({
-                                                        bubbleSwitch: false,
-                                                        show : false,
-                                                    })
-                                                }
-                                            });
-                                        }else {
-                                            this.props.navigation.navigate('VerifiedPage', {
-                                                commitSuccess:()=>{
-                                                     this.setState({
-                                                        bubbleSwitch: false,
-                                                        show : false,
-                                                    })
-                                                }
-                                            });
-                                        }
-                                    });
+                            if (this.props.driverStatus == '0' || this.props.driverStatus == '3') {
+                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                    if (value) {
+                                        this.props.navigation.navigate('VerifiedPage', {
+                                            resultInfo: value,
+                                            commitSuccess: () => {
+                                                this.setState({
+                                                    bubbleSwitch: false,
+                                                    show: false,
+                                                })
+                                            }
+                                        });
+                                    } else {
+                                        this.props.navigation.navigate('VerifiedPage', {
+                                            commitSuccess: () => {
+                                                this.setState({
+                                                    bubbleSwitch: false,
+                                                    show: false,
+                                                })
+                                            }
+                                        });
+                                    }
+                                });
 
-                                    this.setState({
-                                        show : false,
-                                    })
+                                this.setState({
+                                    show: false,
+                                })
 
-                            }else {
+                            } else {
                                 this.props.setCurrentCharacterAction('driver');
 
-                                    this.setState({
-                                        bubbleSwitch: false,
-                                        show : false,
-                                    })
+                                this.setState({
+                                    bubbleSwitch: false,
+                                    show: false,
+                                })
                             }
                         }}
                     /> : null}
@@ -1542,6 +1635,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCurrentCharacterAction: (data) => {
             dispatch(setCurrentCharacterAction(data));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
         },
     };
 }
