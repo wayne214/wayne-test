@@ -1178,7 +1178,7 @@ let transCodeListData3 = [];
                 arrivalTime={arrivalTime}
                 weight={dataRow.weight}
                 vol={dataRow.vol}
-                stateName={dataRow.stateName}
+                stateName={dataRow.stateName === '已接单' ? '待发运' : dataRow.stateName}
                 dispatchStatus={dataRow.dispatchStatus}
                 orderStatus={selectPage}
                 goodKindsNames={goodTypesName} // 货品种类
@@ -1196,7 +1196,7 @@ let transCodeListData3 = [];
                         return;
                     }
                     if (selectPage === 0) {
-                        if (dataRow.stateName === '待发运') {
+                        if (dataRow.stateName === '待发运' || dataRow.stateName === '已接单') {
                             // 待发运
                             this.props.navigation.navigate('EntryToBeShipped', {
                                 transOrderList: dataRow.transOrderList,
