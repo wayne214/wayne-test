@@ -84,8 +84,48 @@ class detailsPage extends Component {
         });
     }
 
+    /*查询账户角色*/
+    InquireAccountRole() {
+        HTTPRequest({
+            url: API.API_INQUIRE_ACCOUNT_ROLE + global.phone,
+            params: {},
+            loading: () => {
+                this.setState({
+                    loading: true,
+                });
+            },
+            success: (responseData) => {
+                console.log('===收入responseData', responseData);
+                let result = responseData.result;
+                if (result) {
+                    if (result.length == 1) {
+                        if(result[0].owner == 2) {
+                            // 司机查余额
+                            this.getData('1');
+                        } else if (result[0].owner = 1) {
+                            // 车主查余额
+                            this.getData('2');
+                        }
+                    } else {
+                        // 司机、车主余额
+                        this.getData('2')
+                    }
+                }
+            },
+            error: (errorInfo) => {
+                this.setState({
+                    loading: false,
+                });
+            },
+            finish: () => {
+
+            }
+        });
+    }
+
+
     // 获取数据
-    getData() {
+    getData(type) {
         currentTime = new Date().getTime();
 
         HTTPRequest({
@@ -94,7 +134,8 @@ class detailsPage extends Component {
                 page: pageNO,
                 pageSize: pageSize,
                 phoneNum: global.phone, //   13312345678
-                searchType: searchType
+                searchType: searchType,
+                roleType: type,
             },
             loading: ()=>{
 
@@ -156,7 +197,8 @@ class detailsPage extends Component {
             isRefresh: true,
         }, ()=>{
             // 请求刷新接口
-            this.getData();
+            // this.getData();
+            this.InquireAccountRole();
         });
 
     }
@@ -165,7 +207,8 @@ class detailsPage extends Component {
     loadMoreData() {
         if (isLoadMore){
             pageNO++;
-            this.getData();
+            // this.getData();
+            this.InquireAccountRole();
         }else {
             if (pageNO !== 1){
                 Toast.showShortCenter('没有更多了');

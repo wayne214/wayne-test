@@ -89,17 +89,17 @@ class Income extends Component {
             accountMoney: 0,
         };
         this.acBalance = this.acBalance.bind(this);
-        // this.InquireAccountRole = this.InquireAccountRole.bind(this);
+        this.InquireAccountRole = this.InquireAccountRole.bind(this);
     }
 
     componentDidMount() {
         this.getCurrentPosition();
-        // this.InquireAccountRole();
+        this.InquireAccountRole();
 
-        this.acBalance();
+        // this.acBalance();
         //点击收入页面进行刷新
         this.incomeListener = DeviceEventEmitter.addListener('refreshIncome', () => {
-            this.acBalance();
+            this.acBalance('1');
         });
     }
 
@@ -124,12 +124,14 @@ class Income extends Component {
                     if (result.length == 1) {
                         if(result[0].owner == 2) {
                             // 司机查余额
+                            this.acBalance('1');
                         } else if (result[0].owner = 1) {
                             // 车主查余额
+                            this.acBalance('2');
                         }
                     } else {
                         // 司机、车主余额
-
+                        this.acBalance('2');
                     }
                 }
             },
@@ -154,13 +156,14 @@ class Income extends Component {
         });
     }
 
-    acBalance() {
+    acBalance(type) {
         currentTime = new Date().getTime();
         // 司机：1  车主：2
         HTTPRequest({
-            url: API.API_AC_BALANCE + global.phone,
+            url: API.API_AC_BALANCE,
             params: {
-
+                phoneNum: global.phone,
+                roleType: type,
             },
             loading: () => {
             },
