@@ -478,7 +478,6 @@ class Mine extends Component {
 
     ownerVerifiedState() {
         currentTime = new Date().getTime();
-
         if (this.props.userInfo) {
             if (this.props.userInfo.phone) {
 
