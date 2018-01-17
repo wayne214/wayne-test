@@ -33,6 +33,10 @@ class arrangeCarList extends Component {
         this.getCarList();
     }
 
+    componentWillUnmount() {
+        selected = null;
+    }
+
     getCarList() {
         // 传递参数
         HTTPRequest({

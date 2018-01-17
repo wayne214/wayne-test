@@ -37,6 +37,10 @@ class arrangeDriverList extends Component {
         this.getDriverList();
     }
 
+    componentWillUnmount() {
+        selected = null;
+    }
+
     // 获取司机列表信息
     getDriverList() {
         // 传递参数
