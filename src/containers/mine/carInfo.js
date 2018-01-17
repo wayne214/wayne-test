@@ -29,9 +29,9 @@ import Loading from '../../utils/loading';
 import StorageKeys from '../../constants/storageKeys';
 import StaticImage from '../../constants/staticImage';
 
-const headerImageFail = require('./verified/images/verifiedFail.png');
-const headerImageSuccess = require('./verified/images/verifiedSuccess.png');
-const headerImageLoading = require('./verified/images/verifieding.png');
+const headerImageFail = require('./verified/images/carInfoFail.png');
+const headerImageSuccess = require('./verified/images/carInfoHeader.png');
+const headerImageLoading = require('./verified/images/carInfoIng.png');
 
 let imgListTemp = [];
 let imgList = [];
