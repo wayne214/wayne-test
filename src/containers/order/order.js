@@ -434,6 +434,12 @@ let transCodeListData3 = [];
                 if (this.props.currentStatus == 'driver') {
                     if(global.plateNumber) {
                         this.getOrderDetailAction('AAA', pageNum, pageSize);
+                    } else {
+                        allListData = [];
+                        this.setState({
+                            dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                            allCount: 0,
+                        });
                     }
                 } else {
                     this.getOrderDetailAction('CCC',pageNum, pageSize);
@@ -444,6 +450,12 @@ let transCodeListData3 = [];
                 if (this.props.currentStatus == 'driver') {
                     if(global.plateNumber) {
                         this.getOrderDetailAction('BBB', pageNum, pageSize);
+                    }else {
+                        shipListData = []; // 待发运数据
+                        this.setState({
+                            dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                            allCount: 0,
+                        });
                     }
                 } else {
                     this.getDispatchOrderList('BBB',pageNum, pageSize);
@@ -452,7 +464,15 @@ let transCodeListData3 = [];
             case 2:
                 console.log('订单待签收界面', pageIndex);
                 if(this.state.currentStatus == 'driver') {
-                    this.getTransPorting();
+                    if(global.plateNumber){
+                        this.getTransPorting();
+                    } else {
+                        signListData = [];
+                        this.setState({
+                            allCount:0,
+                            dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
+                        });
+                    }
                 }else {
                     this.getWaitForSignList('CCC',pageNum, pageSize);
                 }
@@ -469,18 +489,25 @@ let transCodeListData3 = [];
 
     // 获取待回单订单列表
     getReceiveOrderDetailAction(queryType, pageNum, pageSize) {
-        if(this.props.currentStatus != 'driver') {
+        if(this.props.currentStatus == 'driver') {
+            if(!this.props.plateNumber) {
+                receiptListData = [];
+                this.setState({
+                    dataSourceReceipt: this.state.dataSourceReceipt.cloneWithRows(receiptListData),
+                    allCount: 0,
+                });
+                return;
+            }
+        }else {
             if (!this.props.carrierCode)
                 return;
         }
-
         currentTime = new Date().getTime();
         if (pageNum === 1) {
             this.setState({
                 isRefresh: true,
             })
         }
-
         HTTPRequest({
             url: API.API_NEW_GET_RECEIVE_ORDER_LIST,
             params: {
@@ -488,7 +515,7 @@ let transCodeListData3 = [];
                 page: pageNum,
                 pageSize,
                 phone: this.props.currentStatus == 'driver' ? global.phone : '',
-                plateNumber: this.props.currentStatus == 'driver' ? global.plateNumber : '',
+                plateNumber: this.props.currentStatus == 'driver' ? this.props.plateNumber : '',
                 queryType,
             },
             loading: () => {
@@ -609,7 +636,7 @@ let transCodeListData3 = [];
                 page: pageNum,
                 pageSize,
                 phone: this.state.currentStatus == 'driver' ? global.phone : '',
-                plateNumber: this.state.currentStatus == 'driver' ? global.plateNumber : '',
+                plateNumber: this.state.currentStatus == 'driver' ? this.props.plateNumber : '',
                 queryType,
 
             },
@@ -845,8 +872,9 @@ let transCodeListData3 = [];
 
      // 车主获取待签收订单列表
      getWaitForSignList(queryType, pageNum, pageSize) {
-         if (!this.props.carrierCode)
+         if (!this.props.carrierCode){
              return;
+         }
          currentTime = new Date().getTime();
          if (pageNum === 1) {
              this.setState({

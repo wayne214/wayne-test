@@ -29,6 +29,10 @@ import Loading from '../../utils/loading';
 import StorageKeys from '../../constants/storageKeys';
 import StaticImage from '../../constants/staticImage';
 
+const headerImageFail = require('./verified/images/carInfoFail.png');
+const headerImageSuccess = require('./verified/images/carInfoHeader.png');
+const headerImageLoading = require('./verified/images/carInfoIng.png');
+
 let imgListTemp = [];
 let imgList = [];
 const {width} = Dimensions.get('window');
@@ -40,7 +44,7 @@ let locationData = '';
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        // marginTop: 10,
         backgroundColor: 'white',
     },
     imgArea: {
@@ -140,18 +144,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:'center'
     },
+    headStyle:{
+        //backgroundColor: '#1b82d1',
+        height: 190,
+        alignItems: 'center',
+    },
+    textStyle: {
+        fontSize: 20,
+        color: 'white',
+        position: 'absolute',
+        bottom: 10,
+        backgroundColor: 'transparent'
+    },
 });
 
 class CarInfo extends Component {
 
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
             aCar: '',
             showLoadingView: true,
             modalVisible: false,
             imageUrl: '',
             loading: false,
+            certificationState: params.certificationState,
         };
         this.fetchData = this.fetchData.bind(this);
         this.onClickImage = this.onClickImage.bind(this);
@@ -314,6 +332,30 @@ class CarInfo extends Component {
             aCar.carHeadPic && aCar.carHeadPic !== '';
         const showInsurancePic = aCar.insuranceThumbnail !== null && aCar.insuranceThumbnail !== '' ||
             aCar.insurancePic && aCar.insurancePic !== '';
+
+
+        let headView = this.state.certificationState == '1201' ?
+            <View style={styles.headStyle}>
+
+                <Image source={headerImageLoading}/>
+
+                <Text style={styles.textStyle}>认证中</Text>
+            </View>
+            : this.state.certificationState == '1202' ?
+                <View style={styles.headStyle}>
+
+                    <Image source={headerImageSuccess}/>
+
+                    <Text style={styles.textStyle}>认证通过</Text>
+                </View>
+                :
+                <View style={styles.headStyle}>
+
+                    <Image source={headerImageFail}/>
+
+                    <Text style={styles.textStyle}>认证驳回</Text>
+                </View>;
+
         return (
             <View style={styles.allContainer}>
                 <NavigationBar
@@ -325,7 +367,6 @@ class CarInfo extends Component {
                         title: '添加车辆',
                         disable:'false',
                         rightTitleStyle: {
-
                         },
                         onClick: () => {
                             this.props.navigation.navigate('AddCarDriver');
@@ -367,6 +408,9 @@ class CarInfo extends Component {
                         </View> :
                         <ScrollView>
                             <View style={styles.container}>
+                                {
+                                    headView
+                                }
                                 <CommonCell itemName="车辆牌照" content={aCar.carNum !== null ? aCar.carNum : ''}/>
                                 <CommonCell itemName="手机号码" content={aCar.phoneNum !== null ? aCar.phoneNum : ''}/>
                                 <CommonCell itemName="车辆类型" content={aCar.carType !== null ? aCar.carType : ''}/>

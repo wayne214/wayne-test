@@ -382,7 +382,11 @@ class Mine extends Component {
                 modalVisible: false,
             });
             DeviceEventEmitter.emit('imageCameraCallBack', image);
-        });
+        }).catch(e => {
+            this.setState({
+                modalVisible: false,
+            });
+            console.log(e)});
     }
 
     selectPhoto() {
@@ -404,7 +408,11 @@ class Mine extends Component {
                 modalVisible: false,
             });
             DeviceEventEmitter.emit('imagePhotoCallBack', image);
-        })
+        }).catch(e => {
+            this.setState({
+                modalVisible: false,
+            });
+            console.log(e)});
     }
 
 
@@ -1049,7 +1057,9 @@ class Mine extends Component {
                                                         if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
                                                             if (this.props.plateNumberObj) {
                                                                 if (this.props.plateNumberObj.size === 0 || this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20 || this.props.plateNumberObj.carStatus === 0) {
-                                                                    navigator.navigate('CarInfo');
+                                                                    navigator.navigate('CarInfo', {
+                                                                        certificationState: this.state.certificationState,
+                                                                    });
                                                                 } else {
                                                                     navigator.navigate('CarDisablePage');
                                                                 }
@@ -1103,9 +1113,9 @@ class Mine extends Component {
                                                     if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
                                                         navigator.navigate('DriverManagement');
                                                     } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
-                                                        Alert.alert('提示', '实名认证中');
+                                                        Alert.alert('提示', '车主实名认证中');
                                                     } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
-                                                        Alert.alert('提示', '实名认证被驳回');
+                                                        Alert.alert('提示', '车主实名认证被驳回');
                                                     }
                                                 }}
                                             />
@@ -1117,9 +1127,9 @@ class Mine extends Component {
                                                     if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
                                                         navigator.navigate('CarManagement');
                                                     } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
-                                                        Alert.alert('提示', '实名认证中');
+                                                        Alert.alert('提示', '车主实名认证中');
                                                     } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
-                                                        Alert.alert('提示', '实名认证被驳回');
+                                                        Alert.alert('提示', '车主实名认证被驳回');
                                                     }
                                                 }}
                                             />

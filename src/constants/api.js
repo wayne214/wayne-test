@@ -144,7 +144,8 @@ export const API_QUERY_CAR_LIST_BY_COMPANIONINFO = `${HOST}app/rmc/rmcCar/queryC
 //根据司机手机号 查询伙伴下所有车辆列表
 export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriversByPhoneNum/`;
 //搜索全库车辆信息
-// export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
+export const API_QUERY_CAR_INFO_BY_PHONE_NUM_DRIVER = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
+
 export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNumForCompanion`;
 //搜索全库车辆信息
 export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieveCarCompanionRelation`;
