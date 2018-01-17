@@ -8,6 +8,7 @@ import {
     View,
     StyleSheet,
     Alert,
+    DeviceEventEmitter,
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import NavigatorBar from "../../../common/navigationBar/navigationBar";
@@ -15,9 +16,7 @@ import RadioList from '../components/RadioList';
 import BottomButton from '../components/bottomButtonComponent';
 import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
-let data = [{'driverName': '张三', 'phone': '13121210000'},
-    {'driverName': '李三', 'phone': '13812345678'},
-    {'driverName': '王三', 'phone': '15800112233'}];
+import Toast from '@remobile/react-native-toast';
 
 let selected = null;
 
@@ -26,7 +25,7 @@ class arrangeDriverList extends Component {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
-            data: data,
+            data: [],
             driverOption: params.driverOption,
             dispatchCode: params.dispatchCode,
         };
@@ -36,6 +35,10 @@ class arrangeDriverList extends Component {
 
     componentDidMount() {
         this.getDriverList();
+    }
+
+    componentWillUnmount() {
+        selected = null;
     }
 
     // 获取司机列表信息
@@ -83,9 +86,14 @@ class arrangeDriverList extends Component {
                 });
             },
             success: (responseData)=>{
-                const routes = this.props.routes;
-                let key = routes[routes.length - 3].key;
-                this.props.navigation.goBack(key);
+                if(responseData.result) {
+                    DeviceEventEmitter.emit('reloadOrderAllAnShippt');
+                    const routes = this.props.routes;
+                    let key = routes[routes.length - 3].key;
+                    this.props.navigation.goBack(key);
+                }else {
+                    Toast.showShortCenter('安排车辆失败！');
+                }
             },
             error: (errorInfo)=>{},
             finish:()=>{

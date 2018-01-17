@@ -16,9 +16,7 @@ import RadioList from '../components/RadioList';
 import BottomButton from '../components/bottomButtonComponent';
 import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
-let data = [{'plateNumber': '京A12345', 'carLength': '4.5米', 'carWeight': '4.0吨'},
-    {'plateNumber': '京A12345', 'carLength': '4米', 'carWeight': '3.0吨'},
-    {'plateNumber': '京A12345', 'carLength': '4.2米', 'carWeight': '3.5吨'}];
+
 let selected = null;
 
 class arrangeCarList extends Component {
@@ -26,13 +24,17 @@ class arrangeCarList extends Component {
         super(props);
         const params = this.props.navigation.state.params;
         this.state = {
-            data: data,
+            data: [],
             dispatchCode: params.dispatchCode,
         };
         this.getCarList = this.getCarList.bind(this);
     }
     componentDidMount() {
         this.getCarList();
+    }
+
+    componentWillUnmount() {
+        selected = null;
     }
 
     getCarList() {
