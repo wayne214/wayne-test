@@ -429,6 +429,18 @@ class LoginSms extends BaseContainer {
 
                         if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {
                             Toast.show('司机车主身份均被禁用，请联系客服人员')
+                            return
+                        }
+                        if (responseData.result[0].status == 10) {
+                            this.props.setCurrentCharacterAction('driver');
+                        }
+
+                        if (responseData.result[1].status == 10) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                this.props.setCurrentCharacterAction('personalOwner');
+                            } else {
+                                this.props.setCurrentCharacterAction('businessOwner');
+                            }
                         } else {
                             this.props.setCurrentCharacterAction('driver');
                             this.props.setCompanyCodeAction(responseData.result[0].companyCode);
@@ -474,8 +486,21 @@ class LoginSms extends BaseContainer {
                             }
                         }
 
+
                         if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {
                             Toast.show('司机车主身份均被禁用，请联系客服人员')
+                            return
+                        }
+                        if (responseData.result[1].status == 10) {
+                            this.props.setCurrentCharacterAction('driver');
+                        }
+
+                        if (responseData.result[0].status == 10) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                this.props.setCurrentCharacterAction('personalOwner');
+                            } else {
+                                this.props.setCurrentCharacterAction('businessOwner');
+                            }
                         } else {
                             this.props.setCurrentCharacterAction('driver');
                             this.props.setCompanyCodeAction(responseData.result[1].companyCode);
