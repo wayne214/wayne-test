@@ -159,6 +159,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-resizer')
     compile project(':react-native-video')
     compile project(':react-native-update')
     compile fileTree(dir: "libs", include: ["*.jar"])
