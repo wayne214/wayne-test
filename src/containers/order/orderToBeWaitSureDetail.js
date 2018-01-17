@@ -144,108 +144,115 @@ class orderToBeWaitSureDetail extends Component {
             /> : null;
 
         return (
-            <View
-                style={{
-                    backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
-                    width: screenWidth,
-                    paddingLeft: space,
-                    paddingRight: space,
-                    overflow: 'hidden',
-                    marginTop: topSpace,
-                    ...Platform.select({
-                        ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - carrierViewHeight},
-                        android:{height: screenHeight - topHeight - 73 - carrierViewHeight}
-                    })
-                }}
-            >
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
+            <View style={{
+                ...Platform.select({
+                    ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
+                    android:{height: screenHeight - topHeight - 73}
+                })
+            }}>
+                <View
                     style={{
-                        backgroundColor: StaticColor.WHITE_COLOR,
+                        backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND,
+                        width: screenWidth,
+                        paddingLeft: space,
+                        paddingRight: space,
+                        overflow: 'hidden',
+                        marginTop: topSpace,
                         ...Platform.select({
-                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
-                            android:{height: screenHeight - topHeight - 73}
-                        }),
-                        borderColor: StaticColor.WHITE_COLOR,
-                        borderWidth: 1,
-                        borderRadius: 5,
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - carrierViewHeight - 45},
+                            android:{height: screenHeight - topHeight - 73 - carrierViewHeight - 45}
+                        })
                     }}
                 >
-                    {
-                        taskInfo ?
-                            <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
-                                <View style={styles.constantStyle}>
-                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
-                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
-                                        {deliveryInfo.receiveContact}
-                                    </Text>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        style={{
+                            backgroundColor: StaticColor.WHITE_COLOR,
+                            ...Platform.select({
+                                ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height},
+                                android:{height: screenHeight - topHeight - 73}
+                            }),
+                            borderColor: StaticColor.WHITE_COLOR,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }}
+                    >
+                        {
+                            taskInfo ?
+                                <ImageBackground source={StaticImage.TaskBackground} style={styles.imageBackground} resizeMode='stretch'>
+                                    <View style={styles.constantStyle}>
+                                        <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                        <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10,}}>
+                                            {deliveryInfo.receiveContact}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.separateLine}/>
+                                    <View style={{marginHorizontal: 10}}>
+                                        <DetailsOrdersCell
+                                            ifReceipt={taskInfo.isReceipt?taskInfo.isReceipt:''}
+                                            receiptStyle={taskInfo.receiptWay}
+                                            arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
+                                        />
+                                    </View>
+                                </ImageBackground> :
+                                <View>
+                                    <View style={[styles.constantStyle, {marginLeft: 5}]}>
+                                        <Text style={styles.constantIcon}>&#xe66d;</Text>
+                                        <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
+                                            {deliveryInfo.receiveContact}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.divideLine}/>
                                 </View>
-                                <View style={styles.separateLine}/>
-                                <View style={{marginHorizontal: 10}}>
-                                    <DetailsOrdersCell
-                                        ifReceipt={taskInfo.isReceipt?taskInfo.isReceipt:''}
-                                        receiptStyle={taskInfo.receiptWay}
-                                        arrivalTime={taskInfo.committedArrivalTime ? taskInfo.committedArrivalTime.replace(/-/g, '/') : ''}
+                        }
+                        <TitlesCell title="配送信息" />
+                        <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 10}}/>
+                        <DetailsUserCell
+                            deliveryInfo={deliveryInfo}
+                            onSelectAddr={() => {
+                                this.props.addressMapSelect(index, 'departure');
+                            }}
+                            isShowContactAndPhone={true}
+                        />
+                        <DetailsRedUserCell
+                            deliveryInfo={deliveryInfo}
+                            onSelectAddr={() => {
+                                this.props.addressMapSelect(index, 'receive');
+                            }}
+                            isShowContactAndPhone={true}
+                        />
+                        <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                        <TitlesCell title="货品信息" showArrowIcon={true} onPress={(value) => { this.showGoodInfoList(value); }}/>
+                        {
+                            this.state.showGoodList ? goodsInfoList.map((item, indexRow) => {
+                                return (
+                                    <ProductShowItem
+                                        key={indexRow}
+                                        orderInfo={item}
+                                        isLast={indexRow === goodsInfoList.length - 1}
                                     />
-                                </View>
-                            </ImageBackground> :
-                            <View>
-                                <View style={[styles.constantStyle, {marginLeft: 5}]}>
-                                    <Text style={styles.constantIcon}>&#xe66d;</Text>
-                                    <Text style={{fontSize: 17, fontWeight: 'bold', marginLeft: 10}}>
-                                        {deliveryInfo.receiveContact}
-                                    </Text>
-                                </View>
-                                <View style={styles.divideLine}/>
-                            </View>
-                    }
-                    <TitlesCell title="配送信息" />
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, marginLeft: 10}}/>
-                    <DetailsUserCell
-                        deliveryInfo={deliveryInfo}
-                        onSelectAddr={() => {
-                            this.props.addressMapSelect(index, 'departure');
-                        }}
-                        isShowContactAndPhone={true}
-                    />
-                    <DetailsRedUserCell
-                        deliveryInfo={deliveryInfo}
-                        onSelectAddr={() => {
-                            this.props.addressMapSelect(index, 'receive');
-                        }}
-                        isShowContactAndPhone={true}
-                    />
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-                    <TitlesCell title="货品信息" showArrowIcon={true} onPress={(value) => { this.showGoodInfoList(value); }}/>
-                    {
-                        this.state.showGoodList ? goodsInfoList.map((item, indexRow) => {
-                            return (
-                                <ProductShowItem
-                                    key={indexRow}
-                                    orderInfo={item}
-                                    isLast={indexRow === goodsInfoList.length - 1}
-                                />
-                            );
-                        }) : null
-                    }
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-                    <TotalsItemCell totalTons={weight} totalSquare={vol} />
-                    <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
-                    <DetailsCell
-                        transportNO_={transCode}
-                        transportTime={time}
-                        customerCode={customerCode}
-                        transOrderType={transOrderType}
-                        transOrderStatus={transOrderStatus}
-                        scheduleTime={scheduleTime}
-                        scheduleTimeAgain={scheduleTimeAgain}
-                        dispatchTime={dispatchTime}
-                        dispatchTimeAgain={dispatchTimeAgain}
-                        signTime={signTime}
-                    />
+                                );
+                            }) : null
+                        }
+                        <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                        <TotalsItemCell totalTons={weight} totalSquare={vol} />
+                        <View style={{height: 1, backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND}} />
+                        <DetailsCell
+                            transportNO_={transCode}
+                            transportTime={time}
+                            customerCode={customerCode}
+                            transOrderType={transOrderType}
+                            transOrderStatus={transOrderStatus}
+                            scheduleTime={scheduleTime}
+                            scheduleTimeAgain={scheduleTimeAgain}
+                            dispatchTime={dispatchTime}
+                            dispatchTimeAgain={dispatchTimeAgain}
+                            signTime={signTime}
+                        />
 
-                </ScrollView>
-                <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                    </ScrollView>
+                    <View style={{backgroundColor: StaticColor.COLOR_VIEW_BACKGROUND, height: 13}} />
+                </View>
                 {
                     this.props.currentStatus == 'driver' ? buttonView : null
                 }
