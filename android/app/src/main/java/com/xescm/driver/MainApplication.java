@@ -3,7 +3,6 @@ package com.xescm.driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.remobile.toast.RCTToastPackage;
 import com.brentvatne.react.ReactVideoPackage;
 
@@ -46,7 +45,6 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new ImageResizerPackage(),
                     new ReactVideoPackage(),
                     new UpdatePackage(),
                     new RNSoundPackage(),
