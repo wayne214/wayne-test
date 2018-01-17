@@ -241,12 +241,14 @@ class DriverManagement extends BaseContainer {
             }
         ];
         const carList = item.carNums;
-        let carContent = ''
-        for (let i = 0; i < carList.length; i++) {
-            if (i < carList.length - 1) {
-                carContent = carContent.concat(carList[i]+'、');
-            } else {
-                carContent = carContent.concat(carList[i]);
+        let carContent = '';
+        if (carList) {
+            for (let i = 0; i < carList.length; i++) {
+                if (i < carList.length - 1) {
+                    carContent = carContent.concat(carList[i]+'、');
+                } else {
+                    carContent = carContent.concat(carList[i]);
+                }
             }
         }
         console.log('=====item', carContent, carContent.length);

@@ -234,16 +234,23 @@ class CarManagement extends BaseContainer {
 
             }
         ];
-        const driverList = item.drivers.split(',');
+        const driverList = item.drivers && item.drivers.split(',');
         console.log('=====driverList', driverList);
         let driverContent = '';
-        for (let i = 0; i < driverList.length; i++) {
-            if (i < driverList.length - 1) {
-                driverContent = driverContent.concat(driverList[i]+'、');
+        if(driverList) {
+            if (driverList.length > 1) {
+                for (let i = 0; i < driverList.length; i++) {
+                    if (i < driverList.length - 1) {
+                        driverContent = driverContent.concat(driverList[i]+'、');
+                    } else {
+                        driverContent = driverContent.concat(driverList[i]);
+                    }
+                }
             } else {
-                driverContent = driverContent.concat(driverList[i]);
+                driverContent = driverContent.concat(...driverList);
             }
         }
+
         console.log('=====driverList', driverContent.length, width);
         return (
 
