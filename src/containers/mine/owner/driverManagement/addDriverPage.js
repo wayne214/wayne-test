@@ -83,7 +83,6 @@ class AddDriverPage extends BaseContainer {
             url: API.API_QUERY_DRIVERS_ALL,
             params: {
                 phoneNumOrDriverName: text,
-                companyPhone:global.phone,
             },
             loading: () => {
 

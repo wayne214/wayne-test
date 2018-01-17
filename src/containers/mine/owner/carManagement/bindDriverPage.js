@@ -75,11 +75,13 @@ class BindDriverPage extends BaseContainer {
         }
     }
 
+    // 绑定与车主有关系的司机
     queryPhoneOrName(text) {
         HTTPRequest({
-            url: API.API_QUERY_DRIVERS_ALL,
+            url: API.API_QUERY_DRIVERS_ALL_COMPANY,
             params: {
                 phoneNumOrDriverName: text,
+                companyPhone:global.phone,
             },
             loading: () => {
 

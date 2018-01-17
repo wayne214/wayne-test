@@ -121,14 +121,7 @@ class BindCarPage extends BaseContainer {
             url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
             params: {
                 carNum: carNum,
-                bindRelieveFlag: 0,
-                carId: "",
-                companionId: "",
-                companionPhone: "",
-                driverIds: [
-                    ""
-                ],
-                driverPhone: ""
+                companionPhone: global.phone,
             },
             loading: () => {
 
