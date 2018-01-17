@@ -481,6 +481,7 @@ class uploadAbnormal extends Component {
                             placeholder={'请输入备注信息...'}
                             placeholderTextColor={'#999'}
                             multiline={true}
+                            maxLength={50}
                             underlineColorAndroid={'transparent'}
                             onChangeText={(text) => {
                                 this.setState({
