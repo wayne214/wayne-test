@@ -1049,7 +1049,9 @@ class Mine extends Component {
                                                         if (this.state.certificationState == '1202' || this.state.certificationState == '1200') {
                                                             if (this.props.plateNumberObj) {
                                                                 if (this.props.plateNumberObj.size === 0 || this.props.plateNumberObj.carStatus && this.props.plateNumberObj.carStatus === 20 || this.props.plateNumberObj.carStatus === 0) {
-                                                                    navigator.navigate('CarInfo');
+                                                                    navigator.navigate('CarInfo', {
+                                                                        certificationState: this.state.certificationState,
+                                                                    });
                                                                 } else {
                                                                     navigator.navigate('CarDisablePage');
                                                                 }
