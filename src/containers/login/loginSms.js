@@ -286,7 +286,7 @@ class LoginSms extends BaseContainer {
                     // 发送Action,全局赋值用户信息
                     this.props.sendLoginSuccessAction(responseData.result);
 
-                    this.InquireAccountRole(responseData.result.phone;
+                    this.InquireAccountRole(responseData.result.phone);
                     // const resetAction = NavigationActions.reset({
                     //     index: 0,
                     //     actions: [
