@@ -382,7 +382,11 @@ class Mine extends Component {
                 modalVisible: false,
             });
             DeviceEventEmitter.emit('imageCameraCallBack', image);
-        });
+        }).catch(e => {
+            this.setState({
+                modalVisible: false,
+            });
+            console.log(e)});
     }
 
     selectPhoto() {
@@ -404,7 +408,11 @@ class Mine extends Component {
                 modalVisible: false,
             });
             DeviceEventEmitter.emit('imagePhotoCallBack', image);
-        })
+        }).catch(e => {
+            this.setState({
+                modalVisible: false,
+            });
+            console.log(e)});
     }
 
 
