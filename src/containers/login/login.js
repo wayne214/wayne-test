@@ -347,32 +347,47 @@ class Login extends BaseContainer {
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
-                            responseData.result[0].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('11')
-                                : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('12') :
-                                this.props.setOwnerCharacterAction('13')
-                            this.props.setCurrentCharacterAction('personalOwner')
+                            if (responseData.result[0].status != 10) {
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                                this.props.setCurrentCharacterAction('personalOwner')
+                            } else {
+                                Toast.show('个人车主身份被禁用，请联系客服人员');
+                                return
+                            }
                         } else {
                             // 确认企业车主
-                            responseData.result[0].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('21')
-                                : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('22') :
-                                this.props.setOwnerCharacterAction('23')
-                            this.props.setCurrentCharacterAction('businessOwner');
+                            if (responseData.result[0].status != 10) {
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                                this.props.setCurrentCharacterAction('businessOwner');
+                            } else {
+                                Toast.show('企业车主身份被禁用，请联系客服人员');
+                                return
+                            }
                         }
                         this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
                     if (responseData.result[0].owner == 2) {
                         // 司机
-                        responseData.result[0].certificationStatus == '1201' ?
-                            this.props.setDriverCharacterAction('1')
-                            : responseData.result[0].certificationStatus == '1202' ?
-                            this.props.setDriverCharacterAction('2') :
-                            this.props.setDriverCharacterAction('3')
-                        this.props.setCurrentCharacterAction('driver')
+                        if (responseData.result[0].status != 10) {
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                            this.props.setCurrentCharacterAction('driver')
+                        } else {
+                            Toast.show('司机身份被禁用，请联系客服人员');
+                            return
+                        }
                     }
                 }
 
@@ -384,61 +399,118 @@ class Login extends BaseContainer {
                         // 先是车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
-                            responseData.result[0].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('11')
-                                : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('12') :
-                                this.props.setOwnerCharacterAction('13')
+                            if (responseData.result[0].status != 10) {
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                            } else {
+                                this.props.setOwnerCharacterAction('14')
+                            }
                         } else {
                             // 确认企业车主
-                            responseData.result[0].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('21')
-                                : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('22') :
-                                this.props.setOwnerCharacterAction('23')
+                            if (responseData.result[0].status != 10) {
+                                responseData.result[0].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[0].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                            } else {
+                                this.props.setOwnerCharacterAction('24')
+                            }
                         }
 
                         // 后是司机
-                        responseData.result[1].certificationStatus == '1201' ?
-                            this.props.setDriverCharacterAction('1')
-                            : responseData.result[1].certificationStatus == '1202' ?
-                            this.props.setDriverCharacterAction('2') :
-                            this.props.setDriverCharacterAction('3')
+                        if (responseData.result[1].status != 10) {
+                            responseData.result[1].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[1].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                        } else {
+                            this.props.setOwnerCharacterAction('4')
+                        }
 
-                        this.props.setCurrentCharacterAction('driver');
-                        this.props.setCompanyCodeAction(responseData.result[0].companyCode);
+                        if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {
+                            Toast.show('司机车主身份均被禁用，请联系客服人员')
+                            return
+                        }
+                        if (responseData.result[0].status == 10) {
+                            this.props.setCurrentCharacterAction('driver');
+                        }
+
+                        if (responseData.result[1].status == 10) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                this.props.setCurrentCharacterAction('personalOwner');
+                            } else {
+                                this.props.setCurrentCharacterAction('businessOwner');
+                            }
+                        } else {
+                            this.props.setCurrentCharacterAction('driver');
+                            this.props.setCompanyCodeAction(responseData.result[0].companyCode);
+                        }
                     }
 
                     if (responseData.result[0].owner == 2) {
                         // 先是司机
-                        responseData.result[0].certificationStatus == '1201' ?
-                            this.props.setDriverCharacterAction('1')
-                            : responseData.result[0].certificationStatus == '1202' ?
-                            this.props.setDriverCharacterAction('2') :
-                            this.props.setDriverCharacterAction('3')
+                        if (responseData.result[0].status != 10) {
+                            responseData.result[0].certificationStatus == '1201' ?
+                                this.props.setDriverCharacterAction('1')
+                                : responseData.result[0].certificationStatus == '1202' ?
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
+                        } else {
+                            this.props.setDriverCharacterAction('4')
+                        }
 
                         // 后是车主
                         if (responseData.result[1].companyNature == '个人') {
-                            // 保存承运商编码
-                            // this.props.getCompanyCodeAction(responseData.result[1].companyCode);
+
                             // 确认个人车主
-                            responseData.result[1].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('11')
-                                : responseData.result[1].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('12') :
-                                this.props.setOwnerCharacterAction('13')
+                            if (responseData.result[1].status != 10) {
+                                responseData.result[1].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('11')
+                                    : responseData.result[1].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
+                            } else {
+                                this.props.setOwnerCharacterAction('14')
+                            }
                         } else {
-                            // 保存承运商编码
-                            // this.props.getCompanyCodeAction(responseData.result[1].companyCode);
+
                             // 确认企业车主
-                            responseData.result[1].certificationStatus == '1201' ?
-                                this.props.setOwnerCharacterAction('21')
-                                : responseData.result[1].certificationStatus == '1202' ?
-                                this.props.setOwnerCharacterAction('22') :
-                                this.props.setOwnerCharacterAction('23')
+                            if (responseData.result[1].status != 10) {
+                                responseData.result[1].certificationStatus == '1201' ?
+                                    this.props.setOwnerCharacterAction('21')
+                                    : responseData.result[1].certificationStatus == '1202' ?
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
+                            } else {
+                                this.props.setOwnerCharacterAction('24')
+                            }
                         }
-                        this.props.setCurrentCharacterAction('driver')
-                        this.props.setCompanyCodeAction(responseData.result[1].companyCode);
+
+
+                        if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {
+                            Toast.show('司机车主身份均被禁用，请联系客服人员')
+                            return
+                        }
+                        if (responseData.result[1].status == 10) {
+                            this.props.setCurrentCharacterAction('driver');
+                        }
+
+                        if (responseData.result[0].status == 10) {
+                            if (responseData.result[0].companyNature == '个人') {
+                                this.props.setCurrentCharacterAction('personalOwner');
+                            } else {
+                                this.props.setCurrentCharacterAction('businessOwner');
+                            }
+                        } else {
+                            this.props.setCurrentCharacterAction('driver');
+                            this.props.setCompanyCodeAction(responseData.result[1].companyCode);
+                        }
+
                     }
                 }
 
@@ -601,8 +673,8 @@ class Login extends BaseContainer {
 
 function mapStateToProps(state) {
     return {
-        driverStatus:state.user.get('driverStatus'),
-        ownerStatus:state.user.get('ownerStatus'),
+        driverStatus: state.user.get('driverStatus'),
+        ownerStatus: state.user.get('ownerStatus'),
     };
 
 }
