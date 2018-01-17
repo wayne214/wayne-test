@@ -99,24 +99,12 @@ class ImageViewer extends Component {
     componentDidMount() {
         const params = this.props.navigation.state.params;
         const pageNum = params.num;
-
-        if (Platform.OS === 'ios') {
-            setTimeout(() => {
-                this.refs.scrollView.scrollTo({x: width * pageNum, y: 0, animated: false})
-            },0);
-        } else {
-            this.listeners = [
-                this.props.navigation.navigationContext.addListener('didfocus', (e) => {
-                    this.refs.scrollView.scrollTo({x: width * pageNum, y: 0, animated: true});
-                }),
-            ];
-        }
+        setTimeout(() => {
+            this.refs.scrollView.scrollTo({x: width * pageNum, y: 0, animated: false})
+        },0);
     }
 
     componentWillUnmount() {
-        if (Platform.OS !== 'ios') {
-            this.listeners.forEach(listener => listener.remove());
-        }
         this.timer && clearTimeout(this.timer);
         this.timer1 && clearTimeout(this.timer1);
     }
