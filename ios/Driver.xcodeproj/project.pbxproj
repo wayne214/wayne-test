@@ -639,6 +639,7 @@
 		A436F46E678742D1B529CF67 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B0626A591FDE1F2E00E9EA85 /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
+		B37FE8EDC71D438F9460899F /* libRCTImageResizer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageResizer.a; sourceTree = "<group>"; };
 		C3CDF03A99C941639DE3AA02 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		C630DB151FC2B630004FBBA2 /* .gitIgnore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitIgnore; sourceTree = "<group>"; };
 		C630DB161FC2B630004FBBA2 /* BDSASRDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDSASRDefines.h; sourceTree = "<group>"; };
@@ -1043,6 +1044,7 @@
 				9117FF491FE1040700101E0F /* libBaiduSpeechSDK.a */,
 				3885C87517B7456CBAAACCF4 /* libRCTVideo.a */,
 				97C759179B0145BD944565A1 /* libRCTActionSheet.a */,
+				B37FE8EDC71D438F9460899F /* libRCTImageResizer.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -2342,12 +2344,14 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2409,12 +2413,14 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = DriverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2478,6 +2484,7 @@
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2539,6 +2546,7 @@
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = Driver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2605,11 +2613,13 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2681,11 +2691,13 @@
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-percentage-circle/rnpc_demo/ios/rnpc_demo",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "Driver-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2747,6 +2759,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Driver-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2771,6 +2784,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
