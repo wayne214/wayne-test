@@ -240,6 +240,17 @@ class DriverManagement extends BaseContainer {
 
             }
         ];
+        const carList = item.carNums;
+        let carContent = ''
+        for (let i = 0; i < carList.length; i++) {
+            if (i < carList.length - 1) {
+                carContent = carContent.concat(carList[i]+'、');
+            } else {
+                carContent = carContent.concat(carList[i]);
+            }
+        }
+        console.log('=====item', carContent, carContent.length);
+        console.log('=====width', width);
 
         return (
             item.companyType == 0 ?
@@ -312,7 +323,7 @@ class DriverManagement extends BaseContainer {
                                     <Text
                                         style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
                                     >
-                                        关联车辆：{item.carNums}</Text>
+                                        关联车辆：{carContent}</Text>
                                     : <Text
                                         numberOfLines={1}
                                         onLayout={this._onTextLayout.bind(this)}
@@ -320,10 +331,11 @@ class DriverManagement extends BaseContainer {
                                             fontSize: 14,
                                             lineHeight: 24,
                                             color: '#3F3F3F'
-                                        }}>关联车辆：{item.carNums}</Text>
+                                        }}>关联车辆：{carContent}</Text>
                                 }
 
-                                {this.state.line && this.state.clickLine == index ?
+
+                                {carContent.length * (10 * width / 375) < (width - 95) ? null : this.state.line && this.state.clickLine == index ?
                                     <TouchableOpacity onPress={() => {
                                         this.setState({
                                             clickLine: 'a',
@@ -418,13 +430,13 @@ class DriverManagement extends BaseContainer {
                             <Text
                                 style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
                             >
-                                关联车辆：{item.carNums}</Text>
+                                关联车辆：{carContent}</Text>
                             : <Text
                                 numberOfLines={1}
-                                style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{item.carNums}</Text>
+                                style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{carContent}</Text>
                         }
 
-                        {this.state.line && this.state.clickLine == index ?
+                        {carContent.length * (10 * width / 375) < (width - 95) ? null : this.state.line && this.state.clickLine == index ?
                             <TouchableOpacity onPress={() => {
                                 this.setState({
                                     clickLine: 'a',

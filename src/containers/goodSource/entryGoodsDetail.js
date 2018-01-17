@@ -278,6 +278,7 @@ class entryGoodsDetail extends Component {
         ReadAndWriteFileUtil.appendFile('接单',locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源详情页面');
         Toast.showShortCenter('接单成功!');
+        DeviceEventEmitter.emit('refreshHome');
         if (this.props.navigation.state.params.getOrderSuccess) {
             this.props.navigation.state.params.getOrderSuccess();
         }

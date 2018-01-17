@@ -43,6 +43,7 @@ import {
     setDriverCharacterAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
+    setCompanyCodeAction,
 } from '../../action/user';
 import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
@@ -671,6 +672,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCurrentCharacterAction: (result) => {
             dispatch(setCurrentCharacterAction(result));
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
         },
     };
 }

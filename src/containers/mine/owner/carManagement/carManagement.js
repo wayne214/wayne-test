@@ -234,7 +234,17 @@ class CarManagement extends BaseContainer {
 
             }
         ];
-
+        const driverList = item.drivers.split(',');
+        console.log('=====driverList', driverList);
+        let driverContent = '';
+        for (let i = 0; i < driverList.length; i++) {
+            if (i < driverList.length - 1) {
+                driverContent = driverContent.concat(driverList[i]+'、');
+            } else {
+                driverContent = driverContent.concat(driverList[i]);
+            }
+        }
+        console.log('=====driverList', driverContent.length, width);
         return (
 
             <Swipeout
@@ -289,17 +299,17 @@ class CarManagement extends BaseContainer {
                                 <Text
                                     style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
                                 >
-                                    关联司机：{item.drivers}</Text>
+                                    关联司机：{driverContent}</Text>
                                 : <Text
                                     numberOfLines={1}
                                     style={{
                                         fontSize: 14,
                                         lineHeight: 24,
                                         color: '#3F3F3F'
-                                    }}>关联司机：{item.drivers}</Text>
+                                    }}>关联司机：{driverContent}</Text>
                             }
 
-                            {this.state.line && this.state.clickLine == index ?
+                            {driverContent.length * (17 * width / 375) < (width - 95) ? null :this.state.line && this.state.clickLine == index ?
                                 <TouchableOpacity onPress={() => {
                                     this.setState({
                                         clickLine: 'a',
