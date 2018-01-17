@@ -774,6 +774,20 @@ class certification extends Component {
     implementationVerified(carDate, insuranceData) {
         currentTime = new Date().getTime();
 
+        // driver 司机  personalOwner 个人车主 businessOwner 企业车主
+
+        // OUTSIDEDRIVER 司机  Personalowner 个人    Enterpriseowner 企业
+        let shenfen = '';
+        if (this.props.currentStatus === 'driver'){
+            shenfen = 'OUTSIDEDRIVER';
+        }
+        if (this.props.currentStatus === 'personalOwner'){
+            shenfen = 'Personalowner';
+        }
+        if (this.props.currentStatus === 'businessOwner'){
+            shenfen = 'Enterpriseowner';
+        }
+
         HTTPRequest({
             url: API.API_AUTH_QUALIFICATIONS_COMMIT,
             params: {
@@ -799,7 +813,7 @@ class certification extends Component {
                 analysisCarNum: this.state.analysisCarNum, // 解析车牌号
                 analysisHaverName:this.state.analysisHaverName, // 解析所有人
                 analysisEngineNum:this.state.analysisEngineNum, //  解析发动机号
-                currentRole: 'Personalowner' // OUTSIDEDRIVER 司机  Personalowner 个人    Enterpriseowner企业
+                currentRole: shenfen
             },
             loading: () => {
 
@@ -1042,6 +1056,7 @@ class certification extends Component {
 function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
+        currentStatus: state.user.currentStatus
     };
 }
 
