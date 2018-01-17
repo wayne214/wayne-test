@@ -126,10 +126,9 @@ class AddCarPage extends BaseContainer {
 
     queryAllCarList(carNum) {
         HTTPRequest({
-            url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM,
+            url: API.API_QUERY_CAR_INFO_BY_PHONE_NUM_DRIVER,
             params: {
                 carNum: carNum,
-                companionPhone: global.phone,
             },
             loading: () => {
 

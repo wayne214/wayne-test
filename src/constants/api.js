@@ -143,15 +143,18 @@ export const API_QUERY_BANK_BRANCH = `${HOST}/app/rmc/bankCard/queryBankBranch`;
 export const API_QUERY_CAR_LIST_BY_COMPANIONINFO = `${HOST}app/rmc/rmcCar/queryCarListByCompanionInfo`;
 //根据司机手机号 查询伙伴下所有车辆列表
 export const API_QUERY_CAR_LIST_BY_PHONE_NUM = `${HOST}/app/rmc/driver/queryDriversByPhoneNum/`;
+
 //搜索全库车辆信息
 export const API_QUERY_CAR_INFO_BY_PHONE_NUM_DRIVER = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNum`;
-
+//根据手机号查询
 export const API_QUERY_CAR_INFO_BY_PHONE_NUM = `${HOST}app/rmc/rmcCar/queryCarInfoByCarNumForCompanion`;
+//通过手机号或司机名称
+export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
+//根据手机号查询司机
+export const API_QUERY_DRIVERS_ALL_COMPANY = `${HOST}/app/rmc/driver/queryDriversByCompanyPhone`;
+
 //搜索全库车辆信息
 export const API_BIND_RELIEVE_CAR_COMPANION = `${HOST}app/rmc/rmcCar/bindRelieveCarCompanionRelation`;
-//通过手机号或司机名称
-// export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversAll`;
-export const API_QUERY_DRIVERS_ALL = `${HOST}/app/rmc/driver/queryDriversByCompanyPhone`;
 //通过手机号或司机名称
 export const API_COMPANION_RELATION = `${HOST}/app/rmc/driver/addDriverCompanionRelation`;
 // 司机管理-绑定车辆
