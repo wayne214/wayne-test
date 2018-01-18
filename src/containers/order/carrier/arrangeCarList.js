@@ -18,6 +18,7 @@ import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 
 let selected = null;
+let selectedArr = [];
 
 class arrangeCarList extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class arrangeCarList extends Component {
 
     componentWillUnmount() {
         selected = null;
+        selectedArr = [];
     }
 
     getCarList() {
@@ -93,10 +95,11 @@ class arrangeCarList extends Component {
                     options={this.state.data}
                     renderEmpty={this.renderListEmpty}
                     maxSelectedOptions={1}
+                    selectedOptions={selectedArr}
                     onSelection={(option) => {
                         selected = option;
+                        selectedArr.push(selected);
                     }}
-                    type={'car'}
                 />
                 <BottomButton
                     text={'下一步'}

@@ -284,7 +284,7 @@ class DriverManagement extends BaseContainer {
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     <Image
                                         style={{height: 36, width: 36}}
-                                        source={StaticImage.DriverAvatar}></Image>
+                                        source={StaticImage.DriverAvatar}/>
                                     <Text style={{
                                         marginLeft: 10,
                                         color: '#333333',
