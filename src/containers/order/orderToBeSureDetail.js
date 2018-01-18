@@ -2,7 +2,7 @@
  * Created by mymac on 2017/4/13.
  */
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
 import {
     View,
     ScrollView,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class orderToBeSureDetail extends Component {
+class orderToBeSureDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -116,7 +116,7 @@ export default class orderToBeSureDetail extends Component {
                     marginTop: topSpace,
                     ...Platform.select({
                         ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - bottomSpace},
-                        android:{height: screenHeight - topHeight - 73 - bottomSpace}
+                        android:{height: screenHeight - topHeight - (this.props.currentStatus == 'driver' ? 73 : 110) - bottomSpace}
                     }),
                 }}
             >
@@ -126,7 +126,7 @@ export default class orderToBeSureDetail extends Component {
                         backgroundColor: StaticColor.WHITE_COLOR,
                         ...Platform.select({
                             ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - bottomSpace},
-                            android:{height: screenHeight - topHeight - 73 - bottomSpace}
+                            android:{height: screenHeight - topHeight - (this.props.currentStatus == 'driver' ? 73 : 110)- bottomSpace}
                         }),
                         borderColor: StaticColor.WHITE_COLOR,
                         borderWidth: 1,
@@ -214,3 +214,16 @@ export default class orderToBeSureDetail extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        currentStatus: state.user.get('currentStatus'),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(orderToBeSureDetail);
