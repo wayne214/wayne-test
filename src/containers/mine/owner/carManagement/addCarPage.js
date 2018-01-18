@@ -326,7 +326,7 @@ class AddCarPage extends BaseContainer {
                             returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
-                                this.queryAllCarList(event.nativeEvent.text);
+                                // this.queryAllCarList(event.nativeEvent.text);
                             }}
                             value={text}
                             placeholder={'车牌号'}

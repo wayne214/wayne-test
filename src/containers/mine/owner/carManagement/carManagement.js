@@ -290,7 +290,8 @@ class CarManagement extends BaseContainer {
                                     禁用
                                 </Text> :
                                 item.certificationStatus == '1202' ?
-                                    <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                    <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
                                         认证通过
                                     </Text>
                                     : item.certificationStatus == '1201' ?
@@ -298,7 +299,8 @@ class CarManagement extends BaseContainer {
                                         认证中
                                     </Text>
                                     : item.certificationStatus == '1203' ?
-                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                        <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
                                             认证驳回
                                         </Text>
                                         :
@@ -343,7 +345,7 @@ class CarManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.certificationStatus != '10' ?
+                            {item.carStatus != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
@@ -399,6 +401,19 @@ class CarManagement extends BaseContainer {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            navigator.goBack();
+                        }}>
+                        <Text
+                            style={{
+                                marginLeft: 10,
+                                fontFamily: 'iconfont',
+                                fontSize: 16,
+                                color: '#999999'
+                            }}>&#xe662;
+                        </Text>
+                    </TouchableOpacity>
                     <View style={{
                         flexDirection: 'row',
                         backgroundColor: '#F4F4F4',
@@ -422,7 +437,7 @@ class CarManagement extends BaseContainer {
                             returnKeyType={'search'}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
-                                this.queryCarOne(event.nativeEvent.text);
+                                // this.queryCarOne(event.nativeEvent.text);
                             }}
                             maxLength={20}
                             value={text}
@@ -452,11 +467,11 @@ class CarManagement extends BaseContainer {
 
                     </View>
                     <TouchableOpacity onPress={() => {
-                        navigator.goBack();
+                        this.queryCarOne(this.state.text);
                     }}>
                         <Text
                             style={{color: '#0071FF', fontSize: 16, width: 49, textAlign: 'center'}}
-                        >取消
+                        >搜索
                         </Text>
                     </TouchableOpacity>
                 </View>

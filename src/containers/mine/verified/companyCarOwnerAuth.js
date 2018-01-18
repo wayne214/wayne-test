@@ -40,6 +40,8 @@ import HTTPRequest from '../../../utils/httpRequest';
 import ReadAndWriteFileUtil from '../../../utils/readAndWriteFileUtil';
 import {
     setOwnerCharacterAction,
+    setOwnerNameAction,
+    setCurrentCharacterAction
 } from '../../../action/user';
 import {Geolocation} from 'react-native-baidu-map-xzx';
 
@@ -651,6 +653,9 @@ class companyCarOwnerAuth extends Component {
                 this.props.navigation.navigate('Main',{CarOwnerState: true});
 
                 this.props.navigation.navigate('Main');
+                this.props.setOwnerNameAction(this.state.companyName);
+                this.props.setCurrentCharacterAction('owner');
+
 
             },
             error: (errorInfo) => {
@@ -903,6 +908,12 @@ function mapDispatchToProps (dispatch){
     return {
         setOwnerCharacterAction: (result) => {
             dispatch(setOwnerCharacterAction(result));
+        },
+        setOwnerNameAction:(data)=>{
+            dispatch(setOwnerNameAction(data));
+        },
+        setCurrentCharacterAction: (data) => {
+            dispatch(setCurrentCharacterAction(data));
         },
     };
 }

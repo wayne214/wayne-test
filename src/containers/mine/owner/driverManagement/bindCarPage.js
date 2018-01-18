@@ -306,7 +306,7 @@ class BindCarPage extends BaseContainer {
                             maxLength={20}
                             blurOnSubmit={true}
                             onSubmitEditing={(event) => {
-                                this.queryAllCarList(event.nativeEvent.text);
+                                // this.queryAllCarList(event.nativeEvent.text);
                             }}
                             value={text}
                             placeholder={'车牌号'}

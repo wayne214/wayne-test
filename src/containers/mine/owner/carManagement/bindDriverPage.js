@@ -300,7 +300,7 @@ class BindDriverPage extends BaseContainer {
                             value={text}
                             blurOnSubmit = {true}
                             onSubmitEditing={(event) => {
-                                this.queryPhoneOrName(event.nativeEvent.text);
+                                // this.queryPhoneOrName(event.nativeEvent.text);
                             }}
                             placeholder={'手机号/姓名'}
                             onChangeText={(text) => {
