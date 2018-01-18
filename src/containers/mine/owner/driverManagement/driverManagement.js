@@ -256,84 +256,90 @@ class DriverManagement extends BaseContainer {
 
         return (
             item.companyType == 1 ?
-                <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
-                    <View style={{
+                <TouchableOpacity onPress={()=>{
+                    this.props.navigation.navigate('PersonInfo', {
+                        phone: item.driverPhone,
+                        isShowCache: false
+                    });
+                }}>
+                    <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
+                        <View style={{
                         flexDirection: 'row',
                         alignItems: 'center',
                         height: 50,
                         justifyContent: 'space-between'
                     }}>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Image
-                                style={{height: 36, width: 36}}
-                                source={StaticImage.DriverAvatar}></Image>
-                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
-                        </View>
-                        <View style={{
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <Image
+                                    style={{height: 36, width: 36}}
+                                    source={StaticImage.DriverAvatar}></Image>
+                                <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.driverName}</Text>
+                            </View>
+                            <View style={{
                             justifyContent: 'center',
                             width: 90,
                             alignItems: 'center',
                         }}>
-                            {item.status == 10 ?
-                                <Text style={{fontSize: 14, color: '#FA5741'}}>
-                                    禁用
-                                </Text> :
-                                item.certificationStatus == '1202' ?
-                                    <Text style={{fontSize: 14, color: '#0071FF'}}>
-                                        认证通过
-                                    </Text>
-                                    : item.certificationStatus == '1201' ?
-                                    <Text style={{fontSize: 14, color: '#0071FF'}}>
-                                        认证中
-                                    </Text>
-                                    : item.certificationStatus == '1203' ?
+                                {item.status == 10 ?
+                                    <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                        禁用
+                                    </Text> :
+                                    item.certificationStatus == '1202' ?
                                         <Text style={{fontSize: 14, color: '#0071FF'}}>
-                                            认证驳回
+                                            认证通过
                                         </Text>
-                                        :
-                                        <Text style={{fontSize: 14, color: '#0071FF'}}>
-                                            未认证
-                                        </Text>
-                            }
+                                        : item.certificationStatus == '1201' ?
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                认证中
+                                            </Text>
+                                            : item.certificationStatus == '1203' ?
+                                                <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                    认证驳回
+                                                </Text>
+                                                :
+                                                <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                    未认证
+                                                </Text>
+                                }
+                            </View>
                         </View>
-                    </View>
-                    <View style={{marginLeft: 45}}>
-                        {this.state.line && this.state.clickLine == index ?
-                            <Text
-                                style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
-                            >
-                                关联车辆：{carContent}</Text>
-                            : <Text
-                                numberOfLines={1}
-                                style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{carContent}</Text>
-                        }
+                        <View style={{marginLeft: 45}}>
+                            {this.state.line && this.state.clickLine == index ?
+                                <Text
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}
+                                >
+                                    关联车辆：{carContent}</Text>
+                                : <Text
+                                    numberOfLines={1}
+                                    style={{fontSize: 14, lineHeight: 24, color: '#3F3F3F'}}>关联车辆：{carContent}</Text>
+                            }
 
-                        {carContent.length * (10 * width / 375) < (width - 95) ? null : this.state.line && this.state.clickLine == index ?
-                            <TouchableOpacity onPress={() => {
+                            {carContent.length * (10 * width / 375) < (width - 95) ? null : this.state.line && this.state.clickLine == index ?
+                                    <TouchableOpacity onPress={() => {
                                 this.setState({
                                     clickLine: 'a',
                                 })
                             }}>
-                                <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>收起</Text>
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity onPress={() => {
+                                        <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>收起</Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity onPress={() => {
                                 this.setState({
                                     clickLine: index,
                                 })
                             }}>
-                                <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>全部</Text>
-                            </TouchableOpacity>
+                                        <Text style={{color: '#008AFF', fontSize: 12, lineHeight: 24}}>全部</Text>
+                                    </TouchableOpacity>
 
-                        }
-                    </View>
-                    <View style={{marginBottom: 10,}}>
-                        {item.status != '10' ?
-                            <TouchableOpacity onPress={() => {
+                            }
+                        </View>
+                        <View style={{marginBottom: 10,}}>
+                            {item.status != '10' ?
+                                <TouchableOpacity onPress={() => {
                                 this.cityClicked(item);
                             }}>
-                                <View
-                                    style={{
+                                    <View
+                                        style={{
                                         height: 30,
                                         width: 85,
                                         marginTop: 1,
@@ -344,14 +350,15 @@ class DriverManagement extends BaseContainer {
                                         borderColor: '#999999',
                                         borderWidth: 0.5,
                                     }}>
-                                    < Text style={{color: 'black'}}>绑定车辆</Text>
-                                </View>
-                            </TouchableOpacity>
-                            : null
-                        }
+                                        < Text style={{color: 'black'}}>绑定车辆</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                : null
+                            }
+                        </View>
+                        <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
                     </View>
-                    <View style={{backgroundColor: '#E8E8E8', height: 1}}/>
-                </View>
+                </TouchableOpacity>
                 :
                 <Swipeout
                     autoClose={false}
@@ -368,7 +375,10 @@ class DriverManagement extends BaseContainer {
                     scroll={event => console.log('scroll event')}
                 >
                     <TouchableOpacity onPress={() => {
-
+                         this.props.navigation.navigate('PersonInfo', {
+                             phone: item.driverPhone,
+                             isShowCache: false
+                         });
                     }}>
 
                         <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
