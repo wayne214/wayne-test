@@ -27,7 +27,7 @@ import emptyData from '../../../../../assets/carList/emptyData.png';
 import Button from 'apsl-react-native-button';
 import Storage from '../../../../utils/storage';
 import StorageKey from '../../../../constants/storageKeys';
-
+import Loading from '../../../../utils/loading';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -85,6 +85,7 @@ class AddCarPage extends BaseContainer {
             line: true,
             clickLine: 'a',
             haveDate: true,
+            loading: false,
         }
     }
 
@@ -131,15 +132,19 @@ class AddCarPage extends BaseContainer {
                 carNum: carNum,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 if(responseData.result == null){
                     this.setState({
                         haveDate: false,
+                        loading: false,
                     })
                 } else {
                     this.setState({
+                        loading: false,
                         haveDate: true,
                         carList: responseData.result,
                     })
@@ -147,7 +152,9 @@ class AddCarPage extends BaseContainer {
 
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -168,15 +175,22 @@ class AddCarPage extends BaseContainer {
                 driverPhone: '' // 司机时手机号
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
+                this.setState({
+                    loading: false,
+                });
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('addCarPage');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -416,7 +430,9 @@ class AddCarPage extends BaseContainer {
                         </View>
                 }
 
-
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );

@@ -1071,11 +1071,9 @@ class Mine extends Component {
                                                                     navigator.navigate('CarDisablePage');
                                                                 }
                                                             }
-                                                        } else if (this.state.certificationState === '1201') {
-                                                            Alert.alert('提示', '资质认证中');
-                                                        } else if (this.state.certificationState === '1203') {
-                                                            Alert.alert('提示', '资质认证被驳回');
-                                                        }
+                                                        } else if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
+                                                            navigator.navigate('CerifiedStatePage', {qualifications: this.state.certificationState,})
+                                                        } 
                                                     }
                                                 }}
                                             />
