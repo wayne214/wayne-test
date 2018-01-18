@@ -308,7 +308,7 @@ class AddDriverPage extends BaseContainer {
                             returnKeyType={'search'}
                             blurOnSubmit = {true}
                             onSubmitEditing={(event) => {
-                                this.queryPhoneOrName(event.nativeEvent.text);
+                                // this.queryPhoneOrName(event.nativeEvent.text);
                             }}
                             placeholder={'手机号/姓名'}
                             onChangeText={(text) => {
