@@ -1073,8 +1073,9 @@ class Mine extends Component {
                                                                 }
                                                             }
                                                         } else if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
-                                                            navigator.navigate('CerifiedStatePage', {qualifications: this.state.certificationState,})
-                                                        } 
+                                                            // Alert.alert('提示', '资质认证中');
+                                                            navigator.navigate('')
+                                                        }
                                                     }
                                                 }}
                                             />
