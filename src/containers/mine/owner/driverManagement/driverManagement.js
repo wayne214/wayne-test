@@ -258,7 +258,7 @@ class DriverManagement extends BaseContainer {
             item.companyType == 1 ?
                 <TouchableOpacity onPress={()=>{
                     this.props.navigation.navigate('PersonInfo', {
-                        phone: item.phone,
+                        phone: item.driverPhone,
                         isShowCache: false
                     });
                 }}>
@@ -376,7 +376,7 @@ class DriverManagement extends BaseContainer {
                 >
                     <TouchableOpacity onPress={() => {
                          this.props.navigation.navigate('PersonInfo', {
-                             phone: item.phone,
+                             phone: item.driverPhone,
                              isShowCache: false
                          });
                     }}>
