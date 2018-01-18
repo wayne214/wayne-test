@@ -266,13 +266,13 @@ class Mine extends Component {
         /*实名认证状态请求*/
         if (this.props.currentStatus == 'driver') {
             this.verifiedState();
-            this.certificationState();
+            //this.certificationState();
         }
 
         /*资质认证提交成功，刷新状态*/
         this.cerlistener = DeviceEventEmitter.addListener('certificationSuccess', () => {
 
-            this.certificationState();
+            //this.certificationState();
         });
 
         /*实名认证提交成功，刷新状态*/
@@ -1044,7 +1044,6 @@ class Mine extends Component {
                                                         if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
                                                             navigator.navigate('PersonInfo', {
                                                                 phone: global.phone,
-                                                                isShowCache: true
                                                             });
 
                                                         } else if (this.state.verifiedState == '1201') {
@@ -1104,6 +1103,7 @@ class Mine extends Component {
 
                                                                 this.props.navigation.navigate('VerifiedStatePage', {
                                                                     qualifications: this.state.verifiedState,
+                                                                    phone: global.phone,
                                                                 });
                                                             }
                                                         }}

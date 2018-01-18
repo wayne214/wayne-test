@@ -270,9 +270,8 @@ class DriverManagement extends BaseContainer {
         return (
             item.companyType == 1 ?
                 <TouchableOpacity onPress={()=>{
-                    this.props.navigation.navigate('PersonInfo', {
+                    this.props.navigation.navigate('VerifiedStatePage', {
                         phone: item.driverPhone,
-                        isShowCache: false
                     });
                 }}>
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
@@ -388,9 +387,8 @@ class DriverManagement extends BaseContainer {
                     scroll={event => console.log('scroll event')}
                 >
                     <TouchableOpacity onPress={() => {
-                         this.props.navigation.navigate('PersonInfo', {
+                         this.props.navigation.navigate('VerifiedStatePage', {
                              phone: item.driverPhone,
-                             isShowCache: false
                          });
                     }}>
 

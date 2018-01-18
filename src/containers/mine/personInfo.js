@@ -109,7 +109,6 @@ class PersonInfo extends Component {
             personInfo: null,
             loading: false,
             phone: params.phone,
-            isShowCache: params.isShowCache
         };
         this.fetchData = this.fetchData.bind(this);
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
@@ -122,7 +121,7 @@ class PersonInfo extends Component {
         imgListTemp = [];
         imgList = [];
 
-        this.state.isShowCache ? Storage.get(StorageKeys.personInfoResult).then((value) => {
+       Storage.get(StorageKeys.personInfoResult).then((value) => {
             if (value) {
                 if (value.drivingLicenceHomePage && value.drivingLicenceHomePage !== '') {
                     imgListTemp.push(value.drivingLicenceHomePage);
@@ -151,8 +150,9 @@ class PersonInfo extends Component {
                     this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
                 }
             }
-        }) : this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
+        })
     }
+
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then((data) => {
             console.log('position =',JSON.stringify(data));
@@ -177,7 +177,7 @@ class PersonInfo extends Component {
         lastTime = new Date().getTime();
         ReadAndWriteFileUtil.appendFile('实名认证详情', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '个人信息页面');
-        if (result && this.state.isShowCache) {
+        if (result) {
             Storage.save(StorageKeys.personInfoResult, result);
             this.setState({
                 personInfo: result,
@@ -275,7 +275,7 @@ class PersonInfo extends Component {
                     leftButtonHidden={false}
                 />
                 {
-                    person == '' && this.state.isShowCache ?
+                    person == '' ?
                         <View style={{
                             width,
                             alignItems: 'center',
