@@ -592,7 +592,7 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
         // 我的界面车辆列表监听
-        this.getUserCarMine = DeviceEventEmitter.addListener('getUserCarMine', (data) => {
+        this.getUserCarMineListener = DeviceEventEmitter.addListener('getUserCarMine', (data) => {
             this.getUserCarMine();
         });
     }
@@ -630,7 +630,7 @@ class Home extends Component {
         this.notifyCarStatusListener.remove();
         this.notifyCertificationListener.remove();
         this.logListener.remove();
-        this.getUserCarMine.remove();
+        this.getUserCarMineListener.remove();
     }
 
     // 版本对比
