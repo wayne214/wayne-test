@@ -105,7 +105,7 @@ class gpsDetails extends Component {
                 />
                 <View style={{flex: 1,}}>
                     <CommonCell itemName="供应商设备:" content={data.deviceSupplier ?data.deviceSupplier : ''} hideBottomLine={true}/>
-                    <CommonCell itemName="供应商设备型号:" content={data.deviceVersion ? data.deviceVersion : ''} hideBottomLine={true}/>
+                    <CommonCell itemName="供应商设备型号:" content={data.terminalVersion ? data.terminalVersion : ''} hideBottomLine={true}/>
                     <CommonCell itemName="供应商设备编号:" content={data.deviceNo ? data.deviceNo : ''} hideBottomLine={true} />
                     <CommonCell itemName="开启/关闭:" content={data.onOff == 0 ? '开启': '关闭'} hideBottomLine={true}/>
                     <CommonCell itemName="当前电量:" content={data.eleValue ? `${data.eleValue}%` : '0%'} hideBottomLine={true}/>
