@@ -105,6 +105,7 @@ class entryToBeSignin extends Component {
     }
 
     componentDidMount() {
+        this.getCurrentPosition();
         this.getOrderDetailInfo();
         Storage.get(StorageKey.USER_INFO).then((userInfo) => {
             if(userInfo) {
@@ -128,7 +129,15 @@ class entryToBeSignin extends Component {
         this.timeout && clearTimeout(this.timeout);
         this.listener.remove();
     }
-
+// 获取当前位置
+    getCurrentPosition() {
+        Geolocation.getCurrentPosition().then(data => {
+            console.log('position =',JSON.stringify(data));
+            locationData = data;
+        }).catch(e =>{
+            console.log(e, 'error');
+        });
+    }
     onScrollEnd(event) {
         // 得出滚动的位置
         const index = event.nativeEvent.contentOffset.x / screenWidth + 1;
@@ -169,6 +178,9 @@ class entryToBeSignin extends Component {
                 userName,
                 transCode: orderID,
                 goodsInfo: null,
+                lan: locationData.latitude ? locationData.latitude : '',
+                lon: locationData.longitude ? locationData.longitude : '',
+                realTimeAddress: locationData.address ? locationData.address : ''
             },
             loading: ()=>{
                 this.setState({
