@@ -27,6 +27,8 @@ import emptyData from '../../../../assets/carList/emptyData.png';
 import Button from 'apsl-react-native-button';
 import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
+import Loading from '../../../utils/loading';
+
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -74,6 +76,7 @@ class AddCarDriver extends BaseContainer {
             line: true,
             clickLine: 'a',
             haveDate: true,
+            loading: false,
         }
     }
 
@@ -128,24 +131,30 @@ class AddCarDriver extends BaseContainer {
                 driverPhone: ""
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 console.log('queryAllCarList', responseData.result)
                 if(responseData.result == null){
                     this.setState({
                         haveDate: false,
+                        loading: false,
                     })
                 } else {
                     this.setState({
                         haveDate: true,
                         carList: responseData.result,
+                        loading: false,
                     })
                 }
 
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -166,16 +175,23 @@ class AddCarDriver extends BaseContainer {
                 driverPhone: global.phone, // 司机时手机号
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
+                this.setState({
+                    loading: false,
+                });
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('addCarPage');
                 DeviceEventEmitter.emit('getUserCarMine');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
