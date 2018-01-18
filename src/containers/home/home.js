@@ -1094,8 +1094,7 @@ class Home extends Component {
             if (this.props.userInfo.phone) {
 
                 HTTPRequest({
-                    //url: API.API_QUERY_COMPANY_INFO,
-                    url: 'http://192.168.32.83:8899/app/rmc/company/queryCompanyInfoByBusTel',
+                    url: API.API_QUERY_COMPANY_INFO,
                     params: {
                         busTel: global.phone,
                         // companyNature: '个人'
@@ -1173,7 +1172,7 @@ class Home extends Component {
 
                     },
                     error: (errorInfo) => {
-                        
+
                         if (errorInfo.message == '没有车主角色'){
                             this.props.navigation.navigate('CharacterOwner');
                             this.setState({
