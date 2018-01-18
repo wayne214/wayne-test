@@ -87,7 +87,8 @@ export default class certificationState extends Component{
         this.state={
             resultInfo: {},
             appLoading: false,
-            qualifications: this.props.navigation.state.params.qualifications,
+            phone: this.props.navigation.state.params.phone,
+            plateNumber: this.props.navigation.state.params.plateNumber
         };
 
         this.getVerifiedDetail = this.getVerifiedDetail.bind(this);
@@ -95,11 +96,13 @@ export default class certificationState extends Component{
         this.showBigImage = this.showBigImage.bind(this);
     }
 
-
     componentDidMount(){
 
         this.getCurrentPosition();
 
+        this.getVerifiedDetail(this.state.phone, this.state.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
+
+        /*
         if (this.state.qualifications == '1203'){
 
             this.getVerifiedDetail(global.userInfo.phone, global.plateNumber, this.getDetailSuccessCallBack, this.getDetailFailCallBack);
@@ -118,11 +121,14 @@ export default class certificationState extends Component{
                 }
             });
         }
+        */
 
     }
 
     /*资质详情认证*/
     getVerifiedDetail(phoneNum, plateNumber, verifiedSuccessCallBack, verifiedFailCallBack) {
+
+       debugger
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AUTH_QUALIFICATIONS_DETAIL,
