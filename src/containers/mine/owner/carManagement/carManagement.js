@@ -283,7 +283,7 @@ class CarManagement extends BaseContainer {
                                     禁用
                                 </Text> :
                                 item.certificationStatus == '1202' ?
-                                    <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
+                                    <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
                                         认证通过
                                     </Text>
                                     : item.certificationStatus == '1201' ?
@@ -291,7 +291,7 @@ class CarManagement extends BaseContainer {
                                         认证中
                                     </Text>
                                     : item.certificationStatus == '1203' ?
-                                        <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
+                                        <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
                                             认证驳回
                                         </Text>
                                         :
@@ -336,7 +336,7 @@ class CarManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.certificationStatus != '10' ?
+                            {item.carStatus != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>

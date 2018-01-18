@@ -992,7 +992,11 @@ class Mine extends Component {
                                                 }}
                                             >
                                                 {
+                                                    this.props.currentStatus == 'driver' ?
+
                                                     this.state.verifiedState == 1202 ? this.props.userName : this.props.userInfo.phone
+                                                        : this.props.ownerName
+
                                                 }
                                             </Text>
                                             <Text
@@ -1321,6 +1325,7 @@ function mapStateToProps(state) {
     return {
         userInfo: state.user.get('userInfo'),
         userName: state.user.get('userName'),
+        ownerName: state.user.get('ownerName'),
         plateNumber: state.user.get('plateNumber'),
         userCarList: state.user.get('userCarList'),
         plateNumberObj: state.user.get('plateNumberObj'),

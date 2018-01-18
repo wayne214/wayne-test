@@ -860,7 +860,7 @@ class Verified extends Component {
                     appLoading: false,
                 });
 
-                //this.props.reloadUserName(this.state.IDName);
+                this.props.reloadUserName(this.state.IDName);
                 Storage.remove(StorageKey.changePersonInfoResult);
                 // Storage.remove(StorageKey.personInfoResult);
                 Toast.showShortCenter('司机认证提交成功');
@@ -873,7 +873,8 @@ class Verified extends Component {
                 if (this.props.navigation.state.params){
                     if (this.props.navigation.state.params.commitSuccess){
                         this.props.navigation.state.params.commitSuccess();
-                    }                }
+                    }
+                }
 
                 this.props.navigation.navigate('Main');
             },

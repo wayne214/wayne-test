@@ -44,6 +44,7 @@ import {
     setOwnerCharacterAction,
     setCurrentCharacterAction,
     setCompanyCodeAction,
+    setOwnerNameAction
 } from '../../action/user';
 import PermissionsAndroid from '../../utils/permissionManagerAndroid';
 
@@ -346,9 +347,10 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('12') :
-                                    this.props.setOwnerCharacterAction('13')
-                                this.props.setCurrentCharacterAction('personalOwner')
+                                        this.props.setOwnerCharacterAction('12') :
+                                        this.props.setOwnerCharacterAction('13')
+                                this.props.setCurrentCharacterAction('personalOwner');
+                                this.props.setOwnerNameAction(responseData.result[0].name);
                             } else {
                                 Toast.show('个人车主身份被禁用，请联系客服人员');
                                 return
@@ -359,9 +361,10 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('22') :
-                                    this.props.setOwnerCharacterAction('23')
+                                        this.props.setOwnerCharacterAction('22') :
+                                        this.props.setOwnerCharacterAction('23')
                                 this.props.setCurrentCharacterAction('businessOwner');
+                                this.props.setOwnerNameAction(responseData.result[0].name);
                             } else {
                                 Toast.show('企业车主身份被禁用，请联系客服人员');
                                 return
@@ -376,8 +379,8 @@ class LoginSms extends BaseContainer {
                             responseData.result[0].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setDriverCharacterAction('2') :
-                                this.props.setDriverCharacterAction('3')
+                                    this.props.setDriverCharacterAction('2') :
+                                    this.props.setDriverCharacterAction('3')
                             this.props.setCurrentCharacterAction('driver')
                         } else {
                             Toast.show('司机身份被禁用，请联系客服人员');
@@ -398,8 +401,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('12') :
-                                    this.props.setOwnerCharacterAction('13')
+                                        this.props.setOwnerCharacterAction('12') :
+                                        this.props.setOwnerCharacterAction('13')
                             } else {
                                 this.props.setOwnerCharacterAction('14')
                             }
@@ -409,8 +412,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('22') :
-                                    this.props.setOwnerCharacterAction('23')
+                                        this.props.setOwnerCharacterAction('22') :
+                                        this.props.setOwnerCharacterAction('23')
                             } else {
                                 this.props.setOwnerCharacterAction('24')
                             }
@@ -421,8 +424,8 @@ class LoginSms extends BaseContainer {
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[1].certificationStatus == '1202' ?
-                                this.props.setDriverCharacterAction('2') :
-                                this.props.setDriverCharacterAction('3')
+                                    this.props.setDriverCharacterAction('2') :
+                                    this.props.setDriverCharacterAction('3')
                         } else {
                             this.props.setOwnerCharacterAction('4')
                         }
@@ -438,11 +441,14 @@ class LoginSms extends BaseContainer {
                         if (responseData.result[1].status == 10) {
                             if (responseData.result[0].companyNature == '个人') {
                                 this.props.setCurrentCharacterAction('personalOwner');
+                                this.props.setOwnerNameAction(responseData.result[0].name);
                             } else {
                                 this.props.setCurrentCharacterAction('businessOwner');
+                                this.props.setOwnerNameAction(responseData.result[0].name);
                             }
                         } else {
                             this.props.setCurrentCharacterAction('driver');
+                            this.props.setOwnerNameAction(responseData.result[0].name);
                             this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                         }
                     }
@@ -453,8 +459,8 @@ class LoginSms extends BaseContainer {
                             responseData.result[0].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[0].certificationStatus == '1202' ?
-                                this.props.setDriverCharacterAction('2') :
-                                this.props.setDriverCharacterAction('3')
+                                    this.props.setDriverCharacterAction('2') :
+                                    this.props.setDriverCharacterAction('3')
                         } else {
                             this.props.setDriverCharacterAction('4')
                         }
@@ -467,8 +473,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[1].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[1].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('12') :
-                                    this.props.setOwnerCharacterAction('13')
+                                        this.props.setOwnerCharacterAction('12') :
+                                        this.props.setOwnerCharacterAction('13')
                             } else {
                                 this.props.setOwnerCharacterAction('14')
                             }
@@ -479,8 +485,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[1].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[1].certificationStatus == '1202' ?
-                                    this.props.setOwnerCharacterAction('22') :
-                                    this.props.setOwnerCharacterAction('23')
+                                        this.props.setOwnerCharacterAction('22') :
+                                        this.props.setOwnerCharacterAction('23')
                             } else {
                                 this.props.setOwnerCharacterAction('24')
                             }
@@ -497,12 +503,15 @@ class LoginSms extends BaseContainer {
 
                         if (responseData.result[0].status == 10) {
                             if (responseData.result[0].companyNature == '个人') {
+                                this.props.setOwnerNameAction(responseData.result[1].name);
                                 this.props.setCurrentCharacterAction('personalOwner');
                             } else {
+                                this.props.setOwnerNameAction(responseData.result[1].name);
                                 this.props.setCurrentCharacterAction('businessOwner');
                             }
                         } else {
                             this.props.setCurrentCharacterAction('driver');
+                            this.props.setOwnerNameAction(responseData.result[1].name);
                             this.props.setCompanyCodeAction(responseData.result[1].companyCode);
                         }
 
@@ -756,6 +765,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCompanyCodeAction: (result) => {
             dispatch(setCompanyCodeAction(result));
+        },
+        setOwnerNameAction:(data)=>{
+            dispatch(setOwnerNameAction(data));
         },
     };
 }

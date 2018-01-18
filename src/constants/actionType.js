@@ -11,6 +11,10 @@ export const ACTION_GET_LOCATION = 'ACTION_GET_LOCATION';
 export const ACTION_LOGIN_SUCCESS = 'ACTION_LOGIN_SUCCESS';
 /*用户名*/
 export const ACTION_USER_NAME = 'ACTION_USER_NAME';
+
+// 车主名称
+export const ACTION_OWNER_NAME = 'ACTION_OWNER_NAME';
+
 /*用户绑定车辆发生改变*/
 export const ACTION_USER_CAR = 'ACTION_USER_CAR';
 /*清空user里面的值*/
