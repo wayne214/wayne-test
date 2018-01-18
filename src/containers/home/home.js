@@ -592,7 +592,7 @@ class Home extends Component {
             this.getCurrentPosition(1);
         });
         // 我的界面车辆列表监听
-        this.getUserCarMine = NativeAppEventEmitter.addListener('getUserCarMine', (data) => {
+        this.getUserCarMine = DeviceEventEmitter.addListener('getUserCarMine', (data) => {
             this.getUserCarMine();
         });
     }
