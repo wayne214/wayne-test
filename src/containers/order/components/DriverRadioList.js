@@ -180,7 +180,7 @@ class RadioList extends Component{
     }
 
     renderRow({item, index}) {
-        return (
+        return(
             <TouchableOpacity
                 onPress={() => {
                     this.onItemPress(item);
@@ -189,21 +189,16 @@ class RadioList extends Component{
                 <View style={{flexDirection: 'row', backgroundColor:StaticColor.WHITE_COLOR}}>
                     <Image
                         style={styles.carIcon}
-                        source={StaticImage.CarAvatar}
+                        source={StaticImage.DriverAvatar}
                     />
                     <View style={{flex: 1,justifyContent: 'center'}}>
-                        <Text style={styles.plateNumText}>{item.carNum}</Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.carText}>{item.carLen}</Text>
-                            <Text style={styles.carText}>{item.carryCapacity}吨</Text>
-                        </View>
+                        <Text style={styles.plateNumText}>{item.driverName}</Text>
                     </View>
                     <View style={styles.optionIndicator}>
                         {this.renderIndicator(item)}
                     </View>
                 </View>
             </TouchableOpacity>
-
         );
     }
 

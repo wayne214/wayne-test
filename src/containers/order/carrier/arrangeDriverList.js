@@ -12,13 +12,14 @@ import {
 } from 'react-native';
 import * as StaticColor from '../../../constants/staticColor';
 import NavigatorBar from "../../../common/navigationBar/navigationBar";
-import RadioList from '../components/RadioList';
+import RadioList from '../components/DriverRadioList';
 import BottomButton from '../components/bottomButtonComponent';
 import HTTPRequest from '../../../utils/httpRequest';
 import * as API from '../../../constants/api';
 import Toast from '@remobile/react-native-toast';
 
 let selected = null;
+let selectedArr = [];
 
 class arrangeDriverList extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class arrangeDriverList extends Component {
 
     componentWillUnmount() {
         selected = null;
+        selectedArr = [];
     }
 
     // 获取司机列表信息
@@ -88,6 +90,7 @@ class arrangeDriverList extends Component {
             success: (responseData)=>{
                 if(responseData.result) {
                     DeviceEventEmitter.emit('reloadOrderAllAnShippt');
+                    Toast.showShortCenter('安排车辆成功！');
                     const routes = this.props.routes;
                     let key = routes[routes.length - 3].key;
                     this.props.navigation.goBack(key);
@@ -132,10 +135,11 @@ class arrangeDriverList extends Component {
                     options={this.state.data}
                     renderEmpty={this.renderListEmpty}
                     maxSelectedOptions={1}
+                    selectedOptions={selectedArr}
                     onSelection={(option) => {
                         selected = option;
+                        selectedArr.push(selected);
                     }}
-                    type={'driver'}
                 />
                 <BottomButton
                     text={'提交'}
