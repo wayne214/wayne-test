@@ -53,6 +53,12 @@ export default (state = initState, action) => {
             globalState = globalState.set('userName', action.payload);
             return globalState;
 
+        case ActionTypes.ACTION_OWNER_NAME:
+            global.ownerName = action.payload;
+
+            globalState = globalState.set('ownerName', action.payload);
+            return globalState;
+
         case ActionTypes.ACTION_USER_CAR:
             global.plateNumber = action.payload.carNum;
             global.plateNumberObj = action.payload;

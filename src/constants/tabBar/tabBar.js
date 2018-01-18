@@ -144,6 +144,7 @@ const TabRouteConfigs = {
                 focused ? <Text style={styles.pressedIcon}>&#xe65f;</Text> : <Text style={styles.renderIcon}>&#xe655;</Text>
             ),
             tabBarOnPress:(scene, jumpToIndex) => {
+                DeviceEventEmitter.emit('getUserCarMine');
                 DeviceEventEmitter.emit('refreshMine');
                 jumpToIndex(scene.index)
             },

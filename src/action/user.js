@@ -16,6 +16,14 @@ export const setUserNameAction = (data) => {
     };
 };
 
+/*车主的用户名发生改变*/
+export const setOwnerNameAction = (data) => {
+    return {
+        type: ActionTypes.ACTION_OWNER_NAME,
+        payload: data,
+    };
+};
+
 /*用户绑定的车牌号发生改变*/
 export const setUserCarAction = (data) => {
     return {

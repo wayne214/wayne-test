@@ -273,33 +273,42 @@ class CarManagement extends BaseContainer {
                 }}>
 
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
-                            <Image
-                                style={{height: 36, width: 36}}
-                                source={StaticImage.CarAvatar}></Image>
-                            <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <Image
+                                    style={{height: 36, width: 36}}
+                                    source={StaticImage.CarAvatar}/>
+                                <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
+                            </View>
+                            <View style={{
+                                justifyContent: 'center',
+                                width: 90,
+                                alignItems: 'center',
+                            }}>
                             {item.carStatus == 10 ?
-                                <Text style={{marginLeft: width - 180, fontSize: 14, color: '#FA5741'}}>
+                                <Text style={{fontSize: 14, color: '#FA5741'}}>
                                     禁用
                                 </Text> :
                                 item.certificationStatus == '1202' ?
-                                    <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
+                                    <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
                                         认证通过
                                     </Text>
                                     : item.certificationStatus == '1201' ?
-                                    <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
+                                    <Text style={{fontSize: 14, color: '#0071FF'}}>
                                         认证中
                                     </Text>
                                     : item.certificationStatus == '1203' ?
-                                        <Text style={{marginLeft: width - 180, fontSize: 14, color: '#0071FF'}}>
+                                        <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
                                             认证驳回
                                         </Text>
                                         :
-                                        <Text style={{marginLeft: width - 180, fontSize: 14, color: '#FA5741'}}>
+                                        <Text style={{fontSize: 14, color: '#FA5741'}}>
                                             禁用
                                         </Text>
                             }
-
+                            </View>
                         </View>
                         <View style={{marginLeft: 45}}>
                             {this.state.line && this.state.clickLine == index ?
@@ -336,7 +345,7 @@ class CarManagement extends BaseContainer {
                             }
                         </View>
                         <View style={{marginBottom: 10,}}>
-                            {item.certificationStatus != '10' ?
+                            {item.carStatus != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>

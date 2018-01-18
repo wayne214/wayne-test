@@ -12,6 +12,7 @@ export default Global;
 * photoRefNo ： 当前用户用户头像
 * plateNumber : 当前车牌号
 * userInfo : 用户信息
+* ownerName: 车主名称
 * */
 
 
