@@ -25,7 +25,7 @@ import Swipeout from 'react-native-swipeout';
 import Button from 'apsl-react-native-button';
 import * as API from '../../../../constants/api';
 import HTTPRequest from '../../../../utils/httpRequest';
-
+import Loading from '../../../../utils/loading';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -145,17 +145,21 @@ class DriverManagement extends BaseContainer {
                 phoneNum: global.phone
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
-                console.log('queryDriverList', responseData)
                 this.setState({
+                    loading: false,
                     driverList: responseData.result,
                 });
 
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -172,16 +176,21 @@ class DriverManagement extends BaseContainer {
                 phoneNum: global.phone
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.setState({
                     driverList: responseData.result,
+                    loading: false,
                 });
 
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -199,13 +208,17 @@ class DriverManagement extends BaseContainer {
                 phoneNum: global.phone
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.queryDriverList();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -626,6 +639,9 @@ class DriverManagement extends BaseContainer {
                 >
                     添加司机
                 </Button>
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );

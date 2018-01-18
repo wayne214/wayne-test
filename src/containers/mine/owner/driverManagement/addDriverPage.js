@@ -28,6 +28,7 @@ import emptyDataDriver from '../../../../../assets/carList/emptyDataDriver.png';
 import Button from 'apsl-react-native-button';
 import Storage from '../../../../utils/storage';
 import StorageKey from '../../../../constants/storageKeys';
+import Loading from '../../../../utils/loading';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -75,6 +76,7 @@ class AddDriverPage extends BaseContainer {
             line: true,
             clickLine: 'a',
             haveDate: true,
+            loading: false,
         }
     }
 
@@ -85,16 +87,20 @@ class AddDriverPage extends BaseContainer {
                 phoneNumOrDriverName: text,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
 
                 if(responseData.result.length == 0){
                     this.setState({
                         haveDate: false,
+                        loading: false,
                     })
                 } else {
                     this.setState({
+                        loading: false,
                         haveDate: true,
                         driverOne: responseData.result,
                     })
@@ -102,7 +108,9 @@ class AddDriverPage extends BaseContainer {
 
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -119,15 +127,22 @@ class AddDriverPage extends BaseContainer {
                 phoneNum: global.phone,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
+                this.setState({
+                    loading: false,
+                });
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('addDriverPage');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -396,7 +411,9 @@ class AddDriverPage extends BaseContainer {
                                 </Button>
                             </View>
                     }
-
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );
