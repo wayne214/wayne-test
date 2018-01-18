@@ -777,6 +777,7 @@ class certification extends Component {
         // driver 司机  personalOwner 个人车主 businessOwner 企业车主
 
         // OUTSIDEDRIVER 司机  Personalowner 个人    Enterpriseowner 企业
+
         let shenfen = '';
         if (this.props.currentStatus === 'driver'){
             shenfen = 'OUTSIDEDRIVER';
@@ -1056,7 +1057,7 @@ class certification extends Component {
 function mapStateToProps(state) {
     return {
         routes: state.nav.routes,
-        currentStatus: state.user.currentStatus
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

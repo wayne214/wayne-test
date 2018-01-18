@@ -1113,7 +1113,7 @@ class Home extends Component {
                             // 确认个人车主
                             if (result.certificationStatus == '1201') {
                                 this.props.setOwnerCharacterAction('11');
-                                this.props.setCurrentCharacterAction('owner');
+                                this.props.setCurrentCharacterAction('personalOwner');
                                 this.setState({
                                     bubbleSwitch: false,
                                     show: false,
@@ -1121,7 +1121,7 @@ class Home extends Component {
                             } else {
                                 if (result.certificationStatus == '1202') {
                                     this.props.setOwnerCharacterAction('12');
-                                    this.props.setCurrentCharacterAction('owner');
+                                    this.props.setCurrentCharacterAction('personalOwner');
                                     this.setState({
                                         bubbleSwitch: false,
                                         show: false,
@@ -1140,7 +1140,7 @@ class Home extends Component {
                                 // 确认企业车主
                                 if (result.certificationStatus == '1201') {
                                     this.props.setOwnerCharacterAction('21');
-                                    this.props.setCurrentCharacterAction('owner');
+                                    this.props.setCurrentCharacterAction('businessOwner');
                                     this.setState({
                                         bubbleSwitch: false,
                                         show: false,
@@ -1148,7 +1148,7 @@ class Home extends Component {
                                 } else {
                                     if (result.certificationStatus == '1202') {
                                         this.props.setOwnerCharacterAction('22');
-                                        this.props.setCurrentCharacterAction('owner');
+                                        this.props.setCurrentCharacterAction('businessOwner');
                                         this.setState({
                                             bubbleSwitch: false,
                                             show: false,
