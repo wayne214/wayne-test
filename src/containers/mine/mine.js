@@ -1073,7 +1073,10 @@ class Mine extends Component {
                                                             }
                                                         } else if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
                                                             // Alert.alert('提示', '资质认证中');
-                                                            navigator.navigate('')
+                                                            this.props.navigation.navigate('CerifiedStatePage', {
+                                                                phone: global.phone,
+                                                                plateNumber: this.props.plateNumber
+                                                            });
                                                         }
                                                     }
                                                 }}
