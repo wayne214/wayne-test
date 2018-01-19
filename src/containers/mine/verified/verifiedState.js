@@ -87,7 +87,8 @@ class verifiedState extends Component{
         this.state={
             resultInfo: {},
             appLoading: false,
-            qualifications: this.props.navigation.state.params.qualifications,
+            qualifications: this.props.navigation.state.params.qualifications || '1200',
+            phone: this.props.navigation.state.params.phone,
         };
 
         this.getRealNameDetail = this.getRealNameDetail.bind(this);
@@ -97,15 +98,14 @@ class verifiedState extends Component{
 
     }
 
-
-
     componentDidMount() {
 
         this.getCurrentPosition();
 
+        /*
         if (this.state.qualifications == '1203') {
 
-            this.getRealNameDetail(global.phone);
+            this.getRealNameDetail(this.state.phone);
 
         } else {
             Storage.get(StorageKey.personInfoResult).then((value) => {
@@ -116,13 +116,16 @@ class verifiedState extends Component{
                     });
                 } else {
 
-                    console.log('global.phone:', global.phone);
-                    this.getRealNameDetail(global.phone);
+                    console.log('this.state.phone:', this.state.phone);
+                    this.getRealNameDetail(this.state.phone);
 
                 }
             });
 
         }
+        */
+        this.getRealNameDetail(this.state.phone);
+
     }
 
     // 获取当前位置

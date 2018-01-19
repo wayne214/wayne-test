@@ -347,8 +347,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('12') :
-                                        this.props.setOwnerCharacterAction('13')
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
                                 this.props.setCurrentCharacterAction('personalOwner');
                                 this.props.setOwnerNameAction(responseData.result[0].name);
                             } else {
@@ -361,8 +361,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('22') :
-                                        this.props.setOwnerCharacterAction('23')
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
                                 this.props.setCurrentCharacterAction('businessOwner');
                                 this.props.setOwnerNameAction(responseData.result[0].name);
                             } else {
@@ -379,8 +379,8 @@ class LoginSms extends BaseContainer {
                             responseData.result[0].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setDriverCharacterAction('2') :
-                                    this.props.setDriverCharacterAction('3')
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
                             this.props.setCurrentCharacterAction('driver')
                         } else {
                             Toast.show('司机身份被禁用，请联系客服人员');
@@ -401,8 +401,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('12') :
-                                        this.props.setOwnerCharacterAction('13')
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
                             } else {
                                 this.props.setOwnerCharacterAction('14')
                             }
@@ -412,8 +412,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[0].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[0].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('22') :
-                                        this.props.setOwnerCharacterAction('23')
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
                             } else {
                                 this.props.setOwnerCharacterAction('24')
                             }
@@ -424,10 +424,10 @@ class LoginSms extends BaseContainer {
                             responseData.result[1].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[1].certificationStatus == '1202' ?
-                                    this.props.setDriverCharacterAction('2') :
-                                    this.props.setDriverCharacterAction('3')
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
                         } else {
-                            this.props.setOwnerCharacterAction('4')
+                            this.props.setDriverCharacterAction('4')
                         }
 
                         if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {
@@ -459,8 +459,8 @@ class LoginSms extends BaseContainer {
                             responseData.result[0].certificationStatus == '1201' ?
                                 this.props.setDriverCharacterAction('1')
                                 : responseData.result[0].certificationStatus == '1202' ?
-                                    this.props.setDriverCharacterAction('2') :
-                                    this.props.setDriverCharacterAction('3')
+                                this.props.setDriverCharacterAction('2') :
+                                this.props.setDriverCharacterAction('3')
                         } else {
                             this.props.setDriverCharacterAction('4')
                         }
@@ -473,8 +473,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[1].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('11')
                                     : responseData.result[1].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('12') :
-                                        this.props.setOwnerCharacterAction('13')
+                                    this.props.setOwnerCharacterAction('12') :
+                                    this.props.setOwnerCharacterAction('13')
                             } else {
                                 this.props.setOwnerCharacterAction('14')
                             }
@@ -485,8 +485,8 @@ class LoginSms extends BaseContainer {
                                 responseData.result[1].certificationStatus == '1201' ?
                                     this.props.setOwnerCharacterAction('21')
                                     : responseData.result[1].certificationStatus == '1202' ?
-                                        this.props.setOwnerCharacterAction('22') :
-                                        this.props.setOwnerCharacterAction('23')
+                                    this.props.setOwnerCharacterAction('22') :
+                                    this.props.setOwnerCharacterAction('23')
                             } else {
                                 this.props.setOwnerCharacterAction('24')
                             }

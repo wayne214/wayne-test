@@ -23,7 +23,7 @@ import * as ConstValue from '../../../../constants/constValue';
 import StaticImage from '../../../../constants/staticImage'
 import * as API from '../../../../constants/api';
 import HTTPRequest from '../../../../utils/httpRequest';
-
+import Loading from '../../../../utils/loading';
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
@@ -77,6 +77,7 @@ class BindCarPage extends BaseContainer {
             line: true,
             clickLine: 'a',
             drManID: this.props.navigation.state.params.drManID,
+            loading: false,
         }
     }
 
@@ -124,17 +125,22 @@ class BindCarPage extends BaseContainer {
                 companionPhone: global.phone,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 console.log('queryAllCarList', responseData)
                 console.log('queryAllCarList', responseData.result)
                 this.setState({
                     carList: responseData.result,
+                    loading: false,
                 })
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -151,15 +157,21 @@ class BindCarPage extends BaseContainer {
                 id: this.state.drManID,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
-                console.log('bindRelieveCar', responseData);
+                this.setState({
+                    loading: false,
+                });
                 DeviceEventEmitter.emit('bindCarPage');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -353,7 +365,9 @@ class BindCarPage extends BaseContainer {
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
                 </FlatList>
-
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );

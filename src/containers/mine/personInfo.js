@@ -104,9 +104,11 @@ class PersonInfo extends Component {
 
     constructor(props) {
         super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
             personInfo: null,
             loading: false,
+            phone: params.phone,
         };
         this.fetchData = this.fetchData.bind(this);
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
@@ -118,7 +120,8 @@ class PersonInfo extends Component {
         const {verifiedState} = this.props;
         imgListTemp = [];
         imgList = [];
-        Storage.get(StorageKeys.personInfoResult).then((value) => {
+
+       Storage.get(StorageKeys.personInfoResult).then((value) => {
             if (value) {
                 if (value.drivingLicenceHomePage && value.drivingLicenceHomePage !== '') {
                     imgListTemp.push(value.drivingLicenceHomePage);
@@ -147,8 +150,9 @@ class PersonInfo extends Component {
                     this.fetchData(this.getPersonInfoSuccessCallback, this.getPersonInfoFailCallback);
                 }
             }
-        });
+        })
     }
+
     getCurrentPosition() {
         Geolocation.getCurrentPosition().then((data) => {
             console.log('position =',JSON.stringify(data));
@@ -202,9 +206,9 @@ class PersonInfo extends Component {
                 currentTime = new Date().getTime();
 
                 HTTPRequest({
-                    url: API.API_AUTH_REALNAME_DETAIL + global.phone,
+                    url: API.API_AUTH_REALNAME_DETAIL + this.state.phone ,
                     params: {
-                        mobilePhone: global.phone,
+                        phoneNum: this.state.phone,
                     },
                     loading: () => {
                         this.setState({

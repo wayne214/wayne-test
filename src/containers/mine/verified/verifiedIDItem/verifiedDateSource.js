@@ -23,7 +23,7 @@ function createCarLengthDate(carWeightDataSource) {
 /*创建日期数据,年月*/
 function createDateDataYearMouth() {
     let date = [];
-    for(let i=2017;i<=2050;i++){
+    for(let i=2018;i<=2050;i++){
         let month = [];
         for(let j = 1;j<13;j++){
             month.push(prefixInteger(j, 2)+'月');
@@ -37,7 +37,7 @@ function createDateDataYearMouth() {
 /*创建日期数据,年月日*/
 function createDateData() {
     let date = [];
-    for(let i=2017;i<=2050;i++){
+    for(let i=2018;i<=2050;i++){
         let month = [];
         for(let j = 1;j<13;j++){
             let day = [];

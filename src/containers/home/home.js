@@ -63,7 +63,8 @@ import {
     queryEnterpriseNatureSuccessAction,
     saveUserCarList,
     setCurrentCharacterAction,
-    setOwnerCharacterAction
+    setOwnerCharacterAction,
+    setDriverCharacterAction
 } from '../../action/user';
 import {setMessageListIconAction} from '../../action/jpush';
 import CharacterChooseCell from '../login/components/characterChooseCell';
@@ -306,6 +307,7 @@ class Home extends Component {
         this.resetTo = this.resetTo.bind(this);
         this.popToTop = this.popToTop.bind(this);
         this.speechContent = this.speechContent.bind(this);
+        this.searchDriverState = this.searchDriverState.bind(this);
 
 
     }
@@ -809,6 +811,80 @@ class Home extends Component {
         });
     }
 
+    searchDriverState() {
+        HTTPRequest({
+            url: API.API_DRIVER_QUERY_DRIVER_INFO+global.phone,
+            params: {
+            },
+            loading: () => {
+            },
+            success: (responseData) => {
+                console.log('--------666--------',responseData)
+                if (responseData.result.status == '10'){
+                    this.props.setDriverCharacterAction('4');
+                    this.setState({
+                        bubbleSwitch: false,
+                        show: false,
+                    })
+                    Toast.show('司机身份已经被禁用，如需帮助请联系客服');
+                    return
+                } else {
+                    if (responseData.result.certificationStatus == '1201'){
+                        this.props.setDriverCharacterAction('1');
+                    }
+                    if (responseData.result.certificationStatus == '1202'){
+                        this.props.setDriverCharacterAction('2');
+                    }
+                    if (responseData.result.certificationStatus == '1203'){
+                        this.props.setDriverCharacterAction('3');
+                    }
+                    if (responseData.result.certificationStatus == '1203' ) {
+                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                            if (value) {
+                                this.props.navigation.navigate('VerifiedPage', {
+                                    resultInfo: value,
+                                    commitSuccess: () => {
+                                        this.setState({
+                                            bubbleSwitch: false,
+                                            show: false,
+                                        })
+                                    }
+                                });
+                            } else {
+                                this.props.navigation.navigate('VerifiedPage', {
+                                    commitSuccess: () => {
+                                        this.setState({
+                                            bubbleSwitch: false,
+                                            show: false,
+                                        })
+                                    }
+                                });
+                            }
+                        });
+
+                        this.setState({
+                            show: false,
+                        })
+
+                    } else {
+                        this.props.setCurrentCharacterAction('driver');
+
+                        this.setState({
+                            bubbleSwitch: false,
+                            show: false,
+                        })
+                    }
+                }
+            },
+            error: (errorInfo) => {
+            },
+            finish: () => {
+            }
+        });
+
+
+    }
+
     // 设置车辆成功
     setUserCarSuccessCallBack(result) {
         lastTime = new Date().getTime();
@@ -1113,7 +1189,7 @@ class Home extends Component {
                             // 确认个人车主
                             if (result.certificationStatus == '1201') {
                                 this.props.setOwnerCharacterAction('11');
-                                this.props.setCurrentCharacterAction('owner');
+                                this.props.setCurrentCharacterAction('personalOwner');
                                 this.setState({
                                     bubbleSwitch: false,
                                     show: false,
@@ -1121,7 +1197,7 @@ class Home extends Component {
                             } else {
                                 if (result.certificationStatus == '1202') {
                                     this.props.setOwnerCharacterAction('12');
-                                    this.props.setCurrentCharacterAction('owner');
+                                    this.props.setCurrentCharacterAction('personalOwner');
                                     this.setState({
                                         bubbleSwitch: false,
                                         show: false,
@@ -1140,7 +1216,7 @@ class Home extends Component {
                                 // 确认企业车主
                                 if (result.certificationStatus == '1201') {
                                     this.props.setOwnerCharacterAction('21');
-                                    this.props.setCurrentCharacterAction('owner');
+                                    this.props.setCurrentCharacterAction('businessOwner');
                                     this.setState({
                                         bubbleSwitch: false,
                                         show: false,
@@ -1148,7 +1224,7 @@ class Home extends Component {
                                 } else {
                                     if (result.certificationStatus == '1202') {
                                         this.props.setOwnerCharacterAction('22');
-                                        this.props.setCurrentCharacterAction('owner');
+                                        this.props.setCurrentCharacterAction('businessOwner');
                                         this.setState({
                                             bubbleSwitch: false,
                                             show: false,
@@ -1172,6 +1248,13 @@ class Home extends Component {
 
                     },
                     error: (errorInfo) => {
+
+                        if (errorInfo.message == '没有车主角色') {
+                            this.props.navigation.navigate('CharacterOwner');
+                            this.setState({
+                                show: false,
+                            })
+                        }
 
                     },
                     finish: () => {
@@ -1535,42 +1618,52 @@ class Home extends Component {
 
                         }}
                         driverClick={() => {
-                            if (this.props.driverStatus == '0' || this.props.driverStatus == '3') {
-                                Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-                                    if (value) {
-                                        this.props.navigation.navigate('VerifiedPage', {
-                                            resultInfo: value,
-                                            commitSuccess: () => {
-                                                this.setState({
-                                                    bubbleSwitch: false,
-                                                    show: false,
-                                                })
-                                            }
-                                        });
-                                    } else {
-                                        this.props.navigation.navigate('VerifiedPage', {
-                                            commitSuccess: () => {
-                                                this.setState({
-                                                    bubbleSwitch: false,
-                                                    show: false,
-                                                })
-                                            }
-                                        });
-                                    }
-                                });
-
-                                this.setState({
-                                    show: false,
-                                })
-
-                            } else {
-                                this.props.setCurrentCharacterAction('driver');
-
-                                this.setState({
-                                    bubbleSwitch: false,
-                                    show: false,
-                                })
-                            }
+                            this.searchDriverState();
+                            // if (this.props.driverStatus == '4') {
+                            //     this.setState({
+                            //         bubbleSwitch: false,
+                            //         show: false,
+                            //     })
+                            //     Toast.show('司机身份已经被禁用，如需帮助请联系客服');
+                            //     return
+                            // } else {
+                            //     if (this.props.driverStatus == '0' || this.props.driverStatus == '3') {
+                            //         Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                            //             if (value) {
+                            //                 this.props.navigation.navigate('VerifiedPage', {
+                            //                     resultInfo: value,
+                            //                     commitSuccess: () => {
+                            //                         this.setState({
+                            //                             bubbleSwitch: false,
+                            //                             show: false,
+                            //                         })
+                            //                     }
+                            //                 });
+                            //             } else {
+                            //                 this.props.navigation.navigate('VerifiedPage', {
+                            //                     commitSuccess: () => {
+                            //                         this.setState({
+                            //                             bubbleSwitch: false,
+                            //                             show: false,
+                            //                         })
+                            //                     }
+                            //                 });
+                            //             }
+                            //         });
+                            //
+                            //         this.setState({
+                            //             show: false,
+                            //         })
+                            //
+                            //     } else {
+                            //         this.props.setCurrentCharacterAction('driver');
+                            //
+                            //         this.setState({
+                            //             bubbleSwitch: false,
+                            //             show: false,
+                            //         })
+                            //     }
+                            // }
                         }}
                     /> : null}
 
@@ -1638,6 +1731,9 @@ function mapDispatchToProps(dispatch) {
         },
         setOwnerCharacterAction: (result) => {
             dispatch(setOwnerCharacterAction(result));
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
         },
     };
 }

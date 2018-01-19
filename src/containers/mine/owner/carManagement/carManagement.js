@@ -25,6 +25,7 @@ import Swipeout from 'react-native-swipeout';
 import Button from 'apsl-react-native-button';
 import * as API from '../../../../constants/api';
 import HTTPRequest from '../../../../utils/httpRequest';
+import Loading from '../../../../utils/loading';
 
 const {height, width} = Dimensions.get('window');
 
@@ -80,6 +81,7 @@ class CarManagement extends BaseContainer {
             index: null,
             line: true,
             clickLine: 'a',
+            loading: false,
         }
     }
 
@@ -142,16 +144,22 @@ class CarManagement extends BaseContainer {
                 companionPhone: global.phone,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 console.log('carManagement', responseData)
                 this.setState({
                     carList: responseData.result,
+                    loading: false,
                 });
+
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -168,15 +176,20 @@ class CarManagement extends BaseContainer {
                 companionPhone: global.phone,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.setState({
                     carList: responseData.result,
+                    loading: false,
                 })
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -198,14 +211,20 @@ class CarManagement extends BaseContainer {
                 driverPhone: '' // 司机时手机号
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
-                console.log('unBindRelieveCar', responseData)
+                this.setState({
+                    loading: false,
+                });
                 this.queryCarList();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -269,7 +288,12 @@ class CarManagement extends BaseContainer {
                 scroll={event => console.log('scroll event')}
             >
                 <TouchableOpacity onPress={() => {
-
+                    {/*phone: item.carPhone,*/}
+                        {/*plateNumber:item.carNum*/}
+                    this.props.navigation.navigate('CerifiedStatePage', {
+                         phone: '18725836920',
+                        plateNumber:'黑NE5286'
+                    });
                 }}>
 
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
@@ -502,6 +526,9 @@ class CarManagement extends BaseContainer {
                 >
                     添加车辆
                 </Button>
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );

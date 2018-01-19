@@ -266,13 +266,13 @@ class Mine extends Component {
         /*实名认证状态请求*/
         if (this.props.currentStatus == 'driver') {
             this.verifiedState();
-            this.certificationState();
+            //this.certificationState();
         }
 
         /*资质认证提交成功，刷新状态*/
         this.cerlistener = DeviceEventEmitter.addListener('certificationSuccess', () => {
 
-            this.certificationState();
+            //this.certificationState();
         });
 
         /*实名认证提交成功，刷新状态*/
@@ -1042,7 +1042,10 @@ class Mine extends Component {
                                                     ClickUtil.resetLastTime();
                                                     if (ClickUtil.onMultiClick()) {
                                                         if (this.state.verifiedState == '1202' || this.state.verifiedState == '1200') {
-                                                            navigator.navigate('PersonInfo');
+                                                            navigator.navigate('PersonInfo', {
+                                                                phone: global.phone,
+                                                            });
+
                                                         } else if (this.state.verifiedState == '1201') {
                                                             Alert.alert('提示', '实名认证中');
                                                         } else if (this.state.verifiedState == '1203') {
@@ -1068,10 +1071,12 @@ class Mine extends Component {
                                                                     navigator.navigate('CarDisablePage');
                                                                 }
                                                             }
-                                                        } else if (this.state.certificationState === '1201') {
-                                                            Alert.alert('提示', '资质认证中');
-                                                        } else if (this.state.certificationState === '1203') {
-                                                            Alert.alert('提示', '资质认证被驳回');
+                                                        } else if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
+                                                            // Alert.alert('提示', '资质认证中');
+                                                            this.props.navigation.navigate('CerifiedStatePage', {
+                                                                phone: global.phone,
+                                                                plateNumber: this.props.plateNumber
+                                                            });
                                                         }
                                                     }
                                                 }}
@@ -1101,6 +1106,7 @@ class Mine extends Component {
 
                                                                 this.props.navigation.navigate('VerifiedStatePage', {
                                                                     qualifications: this.state.verifiedState,
+                                                                    phone: global.phone,
                                                                 });
                                                             }
                                                         }}

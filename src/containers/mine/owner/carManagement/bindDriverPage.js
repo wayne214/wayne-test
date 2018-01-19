@@ -24,7 +24,7 @@ import BaseContainer from '../../../base/baseContainer';
 import * as ConstValue from '../../../../constants/constValue';
 import StaticImage from '../../../../constants/staticImage';
 import Toast from '@remobile/react-native-toast';
-
+import Loading from '../../../../utils/loading';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -72,6 +72,7 @@ class BindDriverPage extends BaseContainer {
             line: true,
             clickLine: 'a',
             carId: this.props.navigation.state.params.carId,
+            loading: false,
         }
     }
 
@@ -84,15 +85,20 @@ class BindDriverPage extends BaseContainer {
                 companyPhone:global.phone,
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
                 this.setState({
                     driverOne: responseData.result,
+                    loading: false,
                 });
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -113,15 +119,22 @@ class BindDriverPage extends BaseContainer {
                 driverPhone: ""
             },
             loading: () => {
-
+                this.setState({
+                    loading: true,
+                });
             },
             success: (responseData) => {
+                this.setState({
+                    loading: false,
+                });
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('bindDriverPage');
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
-
+                this.setState({
+                    loading: false,
+                });
             },
             finish: () => {
 
@@ -346,7 +359,9 @@ class BindDriverPage extends BaseContainer {
                     keyExtractor={this.extraUniqueKey}//去除警告
                 >
                 </FlatList>
-
+                {
+                    this.state.loading ? <Loading/> : null
+                }
             </View>
 
         );
