@@ -260,6 +260,7 @@ class CarInfo extends Component {
             }
             this.setState({
                 aCar: result,
+                certificationState: result.certificationStatus,
             });
             Storage.save('carInfoResult', result);
         }
