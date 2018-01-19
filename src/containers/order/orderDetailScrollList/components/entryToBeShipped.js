@@ -541,7 +541,7 @@ class entryToBeShipped extends Component {
                     navigator={navigator}
                     hiddenBackIcon={false}
                     rightButtonConfig={
-                        this.state.isCompany && this.state.isCompany == '1' ? {} : {
+                        this.props.currentStatus == 'driver' && this.state.isCompany && this.state.isCompany == '1' ? {} : {
                         type: 'string',
                         title: '取消接单',
                         onClick: this.cancelOrder,

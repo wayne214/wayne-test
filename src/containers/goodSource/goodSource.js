@@ -208,7 +208,7 @@ class GoodSource extends BaseContainer{
         ReadAndWriteFileUtil.appendFile('根据时间查询调度单', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
             locationData.district, lastTime - currentTime, '货源页面');
         startRow = result.startRow + pageSize;
-        console.log('....startRow', startRow);
+        console.log('....startRow', startRow, result.list.length);
         if (result.total <= startRow || result.total === 0) {
             this.setState({
                 isLoadMore: false,
@@ -224,13 +224,20 @@ class GoodSource extends BaseContainer{
         if (pageNO === 1) {
             list = [];
         }
-
-        list = list.concat(result.list);
-        console.log('goooododisfiodojif---list,', list);
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(list),
-            isRefresh: false,
-        });
+        if (result.list.length === 0) {
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(list),
+                isRefresh: false,
+                goodsListLength: 0,
+            });
+        } else {
+            list = list.concat(result.list);
+            console.log('goooododisfiodojif---list,', list);
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(list),
+                isRefresh: false,
+            });
+        }
         // this.getTotalProduct(result.total);
     }
     // 失败回调
