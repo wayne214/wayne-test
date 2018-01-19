@@ -432,7 +432,7 @@ class Login extends BaseContainer {
                                 this.props.setDriverCharacterAction('2') :
                                 this.props.setDriverCharacterAction('3')
                         } else {
-                            this.props.setOwnerCharacterAction('4')
+                            this.props.setDriverCharacterAction('4')
                         }
 
                         if (responseData.result[0].status == 10 && responseData.result[1].status == 10) {

@@ -176,6 +176,8 @@ export const API_BIND_OR_RELIEVE_GPS = `${HOST}app/rmc/rmcCar/bindOrRelieveCarBa
 // 获取gps设备信息
 export const API_GET_GPS_DETAILS = `${HOST}app/rmc/rmcCar/queryGpsInfoByCarNum`;
 
+export const API_DRIVER_QUERY_DRIVER_INFO = `${HOST}/app/rmc/driver/queryDriverInfo/`;
+
 
 /** *****************************************************运输中心接口******************************************************/
 // 发运接口
