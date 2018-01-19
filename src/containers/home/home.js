@@ -820,61 +820,73 @@ class Home extends Component {
             },
             success: (responseData) => {
                 console.log('--------666--------',responseData)
-                if (responseData.result.status == '10'){
-                    this.props.setDriverCharacterAction('4');
-                    this.setState({
-                        bubbleSwitch: false,
-                        show: false,
-                    })
-                    Toast.show('司机身份已经被禁用，如需帮助请联系客服');
-                    return
-                } else {
-                    if (responseData.result.certificationStatus == '1201'){
-                        this.props.setDriverCharacterAction('1');
-                    }
-                    if (responseData.result.certificationStatus == '1202'){
-                        this.props.setDriverCharacterAction('2');
-                    }
-                    if (responseData.result.certificationStatus == '1203'){
-                        this.props.setDriverCharacterAction('3');
-                    }
-                    if (responseData.result.certificationStatus == '1203' ) {
-                        Storage.get(StorageKey.changePersonInfoResult).then((value) => {
-                            if (value) {
-                                this.props.navigation.navigate('VerifiedPage', {
-                                    resultInfo: value,
-                                    commitSuccess: () => {
-                                        this.setState({
-                                            bubbleSwitch: false,
-                                            show: false,
-                                        })
-                                    }
-                                });
-                            } else {
-                                this.props.navigation.navigate('VerifiedPage', {
-                                    commitSuccess: () => {
-                                        this.setState({
-                                            bubbleSwitch: false,
-                                            show: false,
-                                        })
-                                    }
-                                });
-                            }
-                        });
-
-                        this.setState({
-                            show: false,
-                        })
-
-                    } else {
-                        this.props.setCurrentCharacterAction('driver');
-
+                if (!responseData.result) {
+                    if (responseData.result.status == '10') {
+                        this.props.setDriverCharacterAction('4');
                         this.setState({
                             bubbleSwitch: false,
                             show: false,
                         })
+                        Toast.show('司机身份已经被禁用，如需帮助请联系客服');
+                        return
+                    } else {
+                        if (responseData.result.certificationStatus == '1201') {
+                            this.props.setDriverCharacterAction('1');
+                        }
+                        if (responseData.result.certificationStatus == '1202') {
+                            this.props.setDriverCharacterAction('2');
+                        }
+                        if (responseData.result.certificationStatus == '1203') {
+                            this.props.setDriverCharacterAction('3');
+                        }
+                        if (responseData.result.certificationStatus == '1203') {
+                            Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+                                if (value) {
+                                    this.props.navigation.navigate('VerifiedPage', {
+                                        resultInfo: value,
+                                        commitSuccess: () => {
+                                            this.setState({
+                                                bubbleSwitch: false,
+                                                show: false,
+                                            })
+                                        }
+                                    });
+                                } else {
+                                    this.props.navigation.navigate('VerifiedPage', {
+                                        commitSuccess: () => {
+                                            this.setState({
+                                                bubbleSwitch: false,
+                                                show: false,
+                                            })
+                                        }
+                                    });
+                                }
+                            });
+
+                            this.setState({
+                                show: false,
+                            })
+
+                        } else {
+                            this.props.setCurrentCharacterAction('driver');
+
+                            this.setState({
+                                bubbleSwitch: false,
+                                show: false,
+                            })
+                        }
                     }
+                } else {
+                    this.props.navigation.navigate('VerifiedPage', {
+                        commitSuccess: () => {
+                            this.setState({
+                                bubbleSwitch: false,
+                                show: false,
+                            })
+                        }
+                    });
                 }
+
             },
             error: (errorInfo) => {
             },
