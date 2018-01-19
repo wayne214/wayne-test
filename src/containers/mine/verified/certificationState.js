@@ -88,7 +88,8 @@ export default class certificationState extends Component{
             resultInfo: {},
             appLoading: false,
             phone: this.props.navigation.state.params.phone,
-            plateNumber: this.props.navigation.state.params.plateNumber
+            plateNumber: this.props.navigation.state.params.plateNumber,
+            qualifications: '1201'
         };
 
         this.getVerifiedDetail = this.getVerifiedDetail.bind(this);

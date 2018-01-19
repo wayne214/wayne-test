@@ -178,10 +178,12 @@ class CarInfo extends Component {
     }
 
     componentDidMount() {
+        debugger
         this.getCurrentPosition();
         imgListTemp = [];
         imgList = [];
         const {certificationState} = this.props;
+        /*
         Storage.get('carInfoResult').then((value) => {
             if (value) {
                 if (value.drivingLicensePic && value.drivingLicensePic !== '') {
@@ -212,6 +214,9 @@ class CarInfo extends Component {
                 }
             }
         });
+        */
+        this.fetchData();
+
     }
     // 获取当前位置
     getCurrentPosition() {
@@ -223,11 +228,16 @@ class CarInfo extends Component {
         });
     }
     fetchData() {
+         
+        /*
         Storage.get(StorageKeys.USER_INFO).then((userInfo) => {
             if (userInfo) {
                 this.getCarInfo(userInfo, this.getCarInfoSuccessCallBack, this.getCarInfoFailCallBack);
             }
         });
+        */
+        this.getCarInfo(userInfo, this.getCarInfoSuccessCallBack, this.getCarInfoFailCallBack);
+
     }
     getCarInfoFailCallBack() {
         const {certificationState} = this.props;
@@ -260,11 +270,13 @@ class CarInfo extends Component {
             }
             this.setState({
                 aCar: result,
+                certificationState: result.certificationStatus,
             });
             Storage.save('carInfoResult', result);
         }
     }
     getCarInfo(userInfo, getCarInfoSuccessCallBack, getCarInfoFailCallBack) {
+
         currentTime = new Date().getTime();
         const plateNumber = this.props.userPlateNumber;
         if (plateNumber) {

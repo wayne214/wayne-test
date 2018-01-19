@@ -62,6 +62,7 @@ const newPhone = (phone)=>{
 };
 /*处理事件格式*/
 const timeTrunToDateString = (time)=>{
+    debugger
     let dataString;
     //20121212 or 201212  转化为 2012/12/12  or  2012/12
     if (time.length === 8){

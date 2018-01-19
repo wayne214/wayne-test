@@ -98,7 +98,7 @@ class verifiedDriverCardInfoItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.insuranceDate}
+                        {resultInfo.insuranceDate ? resultInfo.insuranceDate.toString().replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>
