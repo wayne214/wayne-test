@@ -143,6 +143,7 @@ class personownerVerifiedState extends Component{
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_QUERY_COMPANY_INFO,
+            //url: '192.168.32.83:8899/app/rmc/company/queryCompanyInfoByBusTel',
             params: {
                 busTel: userPhone,
                 companyNature: '个人'
@@ -181,6 +182,7 @@ class personownerVerifiedState extends Component{
                         travelTrunRightImage:  responseData.result.drivingPermitSubPageThumbnail,
                         drivingLicenseValidUntil: responseData.result.drivingValidity, // 行驶证有效期
 
+                        //resultInfo.rmcAnalysisAndContrast.drivingValidity.replace(/-/g,'/')
                         vehicleLicenseHomepageNormalPhotoAddress: responseData.result.drivingCardHomePage, // 行驶证主页原图
                         vehicleLicenseHomepageThumbnailAddress: responseData.result.drivingCardHomePageThumbnail, // 行驶证主页缩略图
 

@@ -197,6 +197,10 @@ class personCarOwnerAuth extends Component {
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
 
     }
+
+    componentWillUnmount() {
+        this.listener && this.listener.remove();
+    }
     componentDidMount() {
         this.getCurrentPosition();
 

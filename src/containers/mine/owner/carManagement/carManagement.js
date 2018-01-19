@@ -288,11 +288,10 @@ class CarManagement extends BaseContainer {
                 scroll={event => console.log('scroll event')}
             >
                 <TouchableOpacity onPress={() => {
-                    {/*phone: item.carPhone,*/}
-                        {/*plateNumber:item.carNum*/}
+
                     this.props.navigation.navigate('CerifiedStatePage', {
-                         phone: '18725836920',
-                        plateNumber:'黑NE5286'
+                        phone: item.carPhone,
+                        plateNumber:item.carNum
                     });
                 }}>
 

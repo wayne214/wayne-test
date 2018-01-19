@@ -145,7 +145,7 @@ class Verified extends Component {
                     // 默认
                     idCardNameRecognition: result.idCardNameRecognition, //识别身份证姓名
                     idCardRecognition: result.idCardRecognition, //识别身份证号
-                    idCardValidityRecognition: result.idCardValidityRecognition, //识别身份证有效期
+                    idCardValidityRecognition: result.idCardValidity, //识别身份证有效期
 
                     drivingLicenceNameRecognition: result.drivingLicenceNameRecognition, // 识别驾驶证姓名
                     driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
@@ -153,7 +153,8 @@ class Verified extends Component {
                     driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
                 };
 
-        } else {
+        }
+        else {
 
             this.state = {
                 idCardImage: idCardRightImage,
@@ -206,6 +207,7 @@ class Verified extends Component {
                 driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
             };
         }
+
         this.showAlertSelected = this.showAlertSelected.bind(this);
         this.alertCallbackSelected = this.alertCallbackSelected.bind(this);
         this.selectedphoto = this.selectedphoto.bind(this);
@@ -302,8 +304,7 @@ class Verified extends Component {
     }
 
     componentWillUnmount() {
-        if (this.listener)
-            this.listener.remove();
+        this.listener && this.listener.remove();
     }
 
     // 获取当前位置
@@ -511,11 +512,23 @@ class Verified extends Component {
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
+
+                            let time = 0;
+                            if (respones.result.drivingLicenseValidUntil.length <= 3){
+                                // 返回有效期为  多少年的
+                                time = parseInt(respones.result.drivingLicenseStartDate) + parseInt(respones.result.drivingLicenseValidUntil)*10000;
+                            }else
+                                time = parseInt(respones.result.drivingLicenseValidUntil);
+
+
+
                             this.setState({
                                 drivingLicenseName: respones.result.drivingLicenseName === 'FailInRecognition' ? '' : respones.result.drivingLicenseName, // 驾驶证姓名
                                 drivingLicenseNum: respones.result.drivingLicenseNum === 'FailInRecognition' ? '' : respones.result.drivingLicenseNum, // 驾驶证号
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
-                                drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
+                                drivingLicenseValidUntil: Validator.timeTrunToDateString(time.toString()), // 驾驶证有效期
+
+
                                 motorcycleType: respones.result.motorcycleType === 'FailInRecognition' ? '' : respones.result.motorcycleType, // 驾驶证类型
 
                                 drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名

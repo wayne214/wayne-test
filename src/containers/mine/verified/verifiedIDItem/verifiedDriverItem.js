@@ -105,7 +105,7 @@ class verifiedDriverItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.driverCardExpiry}
+                        {resultInfo.driverCardExpiry ? resultInfo.driverCardExpiry.toString().replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>

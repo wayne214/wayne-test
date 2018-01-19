@@ -91,7 +91,7 @@ class verifiedRealNameItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.idCardValidity}
+                        {resultInfo.idCardValidity ? resultInfo.idCardValidity.toString().replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>

@@ -88,7 +88,8 @@ export default class certificationState extends Component{
             resultInfo: {},
             appLoading: false,
             phone: this.props.navigation.state.params.phone,
-            plateNumber: this.props.navigation.state.params.plateNumber
+            plateNumber: this.props.navigation.state.params.plateNumber,
+            qualifications: '1201'
         };
 
         this.getVerifiedDetail = this.getVerifiedDetail.bind(this);
@@ -128,7 +129,6 @@ export default class certificationState extends Component{
     /*资质详情认证*/
     getVerifiedDetail(phoneNum, plateNumber, verifiedSuccessCallBack, verifiedFailCallBack) {
 
-       debugger
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AUTH_QUALIFICATIONS_DETAIL,
