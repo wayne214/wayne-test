@@ -292,6 +292,7 @@ class CarManagement extends BaseContainer {
                     this.props.navigation.navigate('CerifiedStatePage', {
                         phone: item.carPhone,
                         plateNumber:item.carNum
+
                     });
                 }}>
 

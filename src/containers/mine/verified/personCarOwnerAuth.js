@@ -111,7 +111,7 @@ class personCarOwnerAuth extends Component {
                 carEngineNumber: result.carEngineNumber,
                 travelRightImage: {uri: result.travelRightImage} ,
                 travelTrunRightImage:  {uri: result.travelTrunRightImage},
-                drivingLicenseValidUntil: result.drivingLicenseValidUntil, // 行驶证有效期
+                drivingLicenseValidUntil: result.drivingLicenseValidUntil.replace(/-/g, '/'), // 行驶证有效期
 
                 vehicleLicenseHomepageNormalPhotoAddress: result.vehicleLicenseHomepageNormalPhotoAddress, // 行驶证主页原图
                 vehicleLicenseHomepageThumbnailAddress: result.vehicleLicenseHomepageThumbnailAddress, // 行驶证主页缩略图

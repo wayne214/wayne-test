@@ -522,17 +522,17 @@ class entryToBeShipped extends Component {
                     }
                 }}
             /> : <ChooseButton
-            leftContent={'绑定GPS设备'}
-            rightContent={'发运'}
-            leftClick={() => {
-                this.props.navigation.navigate('ScanGPS');
-            }}
-            rightClick={() => {
-                if (prventDoubleClickUtil.onMultiClick()) {
-                    this.sendOrder();
-                }
-            }}
-        />;
+                leftContent={'绑定GPS设备'}
+                rightContent={'发运'}
+                leftClick={() => {
+                    this.props.navigation.navigate('ScanGPS');
+                }}
+                rightClick={() => {
+                    if (prventDoubleClickUtil.onMultiClick()) {
+                        this.sendOrder();
+                    }
+                }}
+            />;
 
         return (
             <View style={styles.container}>
@@ -541,7 +541,7 @@ class entryToBeShipped extends Component {
                     navigator={navigator}
                     hiddenBackIcon={false}
                     rightButtonConfig={
-                        this.state.isCompany && this.state.isCompany == '1' ? {} : {
+                        this.props.currentStatus == 'driver' && this.state.isCompany && this.state.isCompany == '1' ? {} : {
                         type: 'string',
                         title: '取消接单',
                         onClick: this.cancelOrder,

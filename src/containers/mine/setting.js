@@ -166,12 +166,11 @@ class setting extends Component {
 
     /*退出登录*/
     press() {
+        this.props.reloadHomePageNum();
+        this.props.reloadCarrierHomePageNum();
+        console.log('homePageState=',this.props.homePageState);
+        console.log('carrierHomePageState=',this.props.carrierHomePageState);
         DeviceEventEmitter.emit('updateOrderList');
-        if(this.props.currentStatus == 'driver'){
-            this.props.reloadHomePageNum();
-        }else {
-            this.props.reloadCarrierHomePageNum();
-        }
         this.loginOut();
         this.props.removeUserInfoAction();
         ImageCache.get().clear();
@@ -291,7 +290,10 @@ class setting extends Component {
 
 function mapStateToProps(state) {
     return {
-        speechSwitchStatus: state.app.get('speechSwitchStatus')
+        speechSwitchStatus: state.app.get('speechSwitchStatus'),
+        homePageState: state.app.get('getHomePageCount'),
+        carrierHomePageState: state.app.get('getCarrierHomePageCount'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

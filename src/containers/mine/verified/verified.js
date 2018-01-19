@@ -47,6 +47,7 @@ import StorageKey from '../../../constants/storageKeys';
 import Validator from '../../../utils/validator';
 import {
     setDriverCharacterAction,
+    setCurrentCharacterAction
 } from '../../../action/user';
 
 import idCardLeftImage from './images/IdCardModel.png';
@@ -881,6 +882,7 @@ class Verified extends Component {
                 //this.popToTop();
 
                 this.props.setDriverCharacterAction('1');
+                this.props.setCurrentCharacterAction('driver');
                 // this.props.commitSuccess();
 
                 if (this.props.navigation.state.params){
@@ -1155,6 +1157,9 @@ function mapDispatchToProps(dispatch) {
         },
         setDriverCharacterAction: (result) => {
             dispatch(setDriverCharacterAction(result));
+        },
+        setCurrentCharacterAction: (result) => {
+            dispatch(setCurrentCharacterAction(result));
         },
     };
 }

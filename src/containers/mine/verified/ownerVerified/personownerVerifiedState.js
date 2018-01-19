@@ -180,7 +180,7 @@ class personownerVerifiedState extends Component{
 
                         travelRightImage: responseData.result.drivingCardHomePageThumbnail ,
                         travelTrunRightImage:  responseData.result.drivingPermitSubPageThumbnail,
-                        drivingLicenseValidUntil: responseData.result.drivingValidity, // 行驶证有效期
+                        drivingLicenseValidUntil: responseData.result.rmcAnalysisAndContrast.drivingValidity, // 行驶证有效期
 
                         //resultInfo.rmcAnalysisAndContrast.drivingValidity.replace(/-/g,'/')
                         vehicleLicenseHomepageNormalPhotoAddress: responseData.result.drivingCardHomePage, // 行驶证主页原图
