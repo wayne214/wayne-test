@@ -347,6 +347,7 @@ class entryGoodsDetail extends Component {
             locationData.district, lastTime - currentTime, '货源详情页面');
         Toast.showShortCenter('拒单成功!');
         DeviceEventEmitter.emit('refreshHome');
+        DeviceEventEmitter.emit('resetGood');
         if (this.props.navigation.state.params.getOrderSuccess) {
             this.props.navigation.state.params.getOrderSuccess();
         }
