@@ -208,7 +208,7 @@ class verifiedCarInfoItem extends Component{
                                           this.clickDatePicker();
                                       }}>
                         <Text style={[styles.textInputStyle1, color]}>
-                            {dataString}
+                            {dataString.replace(/-/g,'/')}
                         </Text>
                     </TouchableOpacity>
                 </View>

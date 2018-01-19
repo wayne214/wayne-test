@@ -540,11 +540,18 @@ class carOwnerAddDriver extends Component {
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
+                            let time = 0;
+                            if (respones.result.drivingLicenseValidUntil.length <= 3){
+                                // 返回有效期为  多少年的
+                                time = parseInt(respones.result.drivingLicenseStartDate) + parseInt(respones.result.drivingLicenseValidUntil)*10000;
+                            }else
+                                time = parseInt(respones.result.drivingLicenseValidUntil);
+
                             this.setState({
                                 drivingLicenseName: respones.result.drivingLicenseName, // 驾驶证姓名
                                 drivingLicenseNum: respones.result.drivingLicenseNum, // 驾驶证号
                                 drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
-                                drivingLicenseValidUntil: Validator.timeTrunToDateString(respones.result.drivingLicenseValidUntil), // 驾驶证有效期
+                                drivingLicenseValidUntil: Validator.timeTrunToDateString(time.toString()), // 驾驶证有效期
 
                                 drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
                                 driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号

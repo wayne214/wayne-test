@@ -185,6 +185,10 @@ class companyCarOwnerAuth extends Component {
         this.uploadData = this.uploadData.bind(this);
         this.getCurrentPosition = this.getCurrentPosition.bind(this);
     }
+
+    componentWillUnmount() {
+        this.listener && this.listener.remove();
+    }
     componentDidMount() {
         this.getCurrentPosition();
 

@@ -119,7 +119,7 @@ class verifiedDriverCardItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.driveValidity}
+                        {resultInfo.driveValidity ? resultInfo.driveValidity.toString().replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>

@@ -185,8 +185,12 @@ class verifiedState extends Component{
     /*重新认证*/
     reloadVerified(){
         Storage.remove(StorageKey.personInfoResult);
-
+        this.props.navigation.navigate('VerifiedPage', {
+            resultInfo: this.state.resultInfo,
+        });
+        /*
         Storage.get(StorageKey.changePersonInfoResult).then((value) => {
+
             if (value){
                 this.props.navigation.navigate('VerifiedPage', {
                     resultInfo: value,
@@ -197,6 +201,7 @@ class verifiedState extends Component{
                 });
             }
         });
+        */
     }
 
     /*显示原图*/

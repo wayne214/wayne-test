@@ -54,7 +54,7 @@ class verifiedIDInfoDateItem extends Component{
 
         if (IDDate && IDDate !== '请选择有效期') {
             color = {color: 'black'};
-            date = IDDate;
+            date = IDDate.replace(/-/g,'/');
             // date = IDDate.length === 8 && IDDate.indexOf('/') < 0 ?
             //     IDDate.substr(0, 4) + '/' + IDDate.substr(4, 2) + '/' + IDDate.substr(6, 2) + ''
             //     : IDDate;
