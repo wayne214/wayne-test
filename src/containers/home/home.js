@@ -819,7 +819,6 @@ class Home extends Component {
             loading: () => {
             },
             success: (responseData) => {
-                console.log('--------666--------',responseData)
                 if (!responseData.result) {
                     if (responseData.result.status == '10') {
                         this.props.setDriverCharacterAction('4');
