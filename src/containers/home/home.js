@@ -1476,6 +1476,10 @@ class Home extends Component {
                 case '21' || 21:
                     state = '(认证中)';
                     break;
+                case '22' || 22:
+                case '32' || 32:
+                    state = '';
+                    break;
                 case '13' || 13:
                 case '23' || 23:
                     state = '(认证驳回)';
