@@ -1197,57 +1197,68 @@ class Home extends Component {
                         });
                         // 首页状态
                         if (result.companyNature == '个人') {
-                            // 确认个人车主
-                            if (result.certificationStatus == '1201') {
-                                this.props.setOwnerCharacterAction('11');
-                                this.props.setCurrentCharacterAction('personalOwner');
-                                this.setState({
-                                    bubbleSwitch: false,
-                                    show: false,
-                                })
+                            if (result.status == '10') {
+                                Toast.show('个人车主身份被禁用');
+                                return
                             } else {
-                                if (result.certificationStatus == '1202') {
-                                    this.props.setOwnerCharacterAction('12');
+                                // 确认个人车主
+                                if (result.certificationStatus == '1201') {
+                                    this.props.setOwnerCharacterAction('11');
                                     this.props.setCurrentCharacterAction('personalOwner');
                                     this.setState({
                                         bubbleSwitch: false,
                                         show: false,
                                     })
                                 } else {
-                                    this.props.setOwnerCharacterAction('13');
-                                    this.props.navigation.navigate('PersonownerVerifiedStatePage');
-                                    this.setState({
-                                        show: false,
-                                    })
+                                    if (result.certificationStatus == '1202') {
+                                        this.props.setOwnerCharacterAction('12');
+                                        this.props.setCurrentCharacterAction('personalOwner');
+                                        this.setState({
+                                            bubbleSwitch: false,
+                                            show: false,
+                                        })
+                                    } else {
+                                        this.props.setOwnerCharacterAction('13');
+                                        this.props.navigation.navigate('PersonownerVerifiedStatePage');
+                                        this.setState({
+                                            show: false,
+                                        })
+                                    }
                                 }
                             }
 
                         } else {
                             if (result.companyNature == '企业') {
-                                // 确认企业车主
-                                if (result.certificationStatus == '1201') {
-                                    this.props.setOwnerCharacterAction('21');
-                                    this.props.setCurrentCharacterAction('businessOwner');
-                                    this.setState({
-                                        bubbleSwitch: false,
-                                        show: false,
-                                    })
+                                if (result.status == '10') {
+                                    Toast.show('企业车主身份被禁用');
+                                    return
                                 } else {
-                                    if (result.certificationStatus == '1202') {
-                                        this.props.setOwnerCharacterAction('22');
+                                    // 确认企业车主
+                                    if (result.certificationStatus == '1201') {
+                                        this.props.setOwnerCharacterAction('21');
                                         this.props.setCurrentCharacterAction('businessOwner');
                                         this.setState({
                                             bubbleSwitch: false,
                                             show: false,
                                         })
                                     } else {
-                                        this.props.setOwnerCharacterAction('23');
-                                        this.props.navigation.navigate('EnterpriseownerVerifiedStatePage');
-                                        this.setState({
-                                            show: false,
-                                        })
+                                        if (result.certificationStatus == '1202') {
+                                            this.props.setOwnerCharacterAction('22');
+                                            this.props.setCurrentCharacterAction('businessOwner');
+                                            this.setState({
+                                                bubbleSwitch: false,
+                                                show: false,
+                                            })
+                                        } else {
+                                            this.props.setOwnerCharacterAction('23');
+                                            this.props.navigation.navigate('EnterpriseownerVerifiedStatePage');
+                                            this.setState({
+                                                show: false,
+                                            })
+                                        }
                                     }
                                 }
+
                             } else {
                                 this.props.navigation.navigate('CharacterOwner');
                                 this.setState({
