@@ -80,7 +80,7 @@ class verifiedRealNameItem extends Component{
                         有效期至
                     </Text>
                     <Text style={styles.textInputStyle}>
-                        {resultInfo.rmcAnalysisAndContrast? resultInfo.rmcAnalysisAndContrast.manualIdCardValidity.replace(/-/g,'/') : ''}
+                        {resultInfo.rmcAnalysisAndContrast ? resultInfo.rmcAnalysisAndContrast.manualIdCardValidity.replace(/-/g,'/') : ''}
                     </Text>
 
                 </View>
@@ -92,19 +92,15 @@ class verifiedRealNameItem extends Component{
                 </View>
                 <Line />
 
+
                 <ImagesItem firstName ="身份证正面"
                             secondName="身份证反面"
                             // thirdName="半身照"
-                            firstImagePath={resultInfo.idFaceSideThumbnailAddress ?
-                            resultInfo.idFaceSideThumbnailAddress : resultInfo.positiveCard ?
-                            resultInfo.positiveCard : ''}
-                            secondImagePath={resultInfo.idBackSideThumbnailAddress ?
-                            resultInfo.idBackSideThumbnailAddress : resultInfo.oppositeCard ?
-                            resultInfo.oppositeCard : ''}
-                            thirdImagePath={resultInfo.handleIdThumbnailAddress ?
-                            resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
-                            resultInfo.headPortrait : ''}
-                            imageClick={(index)=>{
+                            firstImagePath={resultInfo.rmcPicAddress ?
+                            (resultInfo.rmcPicAddress.positiveCardThumbnailAddress ? resultInfo.rmcPicAddress.positiveCardThumbnailAddress :  '') : ''}
+                            secondImagePath={resultInfo.rmcPicAddress ?
+                                                (resultInfo.rmcPicAddress.oppositeCardThumbnailAddress ? resultInfo.rmcPicAddress.oppositeCardThumbnailAddress : '')  : ''}
+                                                imageClick={(index)=>{
                                 this.imageClick(index);
                             }}
 

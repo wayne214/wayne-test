@@ -164,8 +164,8 @@ class personownerVerifiedState extends Component{
                         IDCard: responseData.result.rmcAnalysisAndContrast.manualIdCard,
                         IDDate: responseData.result.rmcAnalysisAndContrast.manualIdCardValidity,
 
-                        idCardImage: responseData.result.positiveCardThumbnail ,
-                        idCardTrunImage: responseData.result.oppositeCardThumbnail ,
+                        idCardImage: responseData.result.rmcPicAddress.positiveCardThumbnailAddress ,
+                        idCardTrunImage: responseData.result.rmcPicAddress.oppositeCardThumbnailAddress ,
 
                         idFaceSideNormalPhotoAddress: responseData.result.positiveCard, // 身份证正面原图
                         idFaceSideThumbnailAddress: responseData.result.positiveCardThumbnail, // 身份证正面缩略图
@@ -178,11 +178,10 @@ class personownerVerifiedState extends Component{
                         carOwner: responseData.result.rmcAnalysisAndContrast.manualHaverName,
                         carEngineNumber: responseData.result.rmcAnalysisAndContrast.manualEngineNum,
 
-                        travelRightImage: responseData.result.drivingCardHomePageThumbnail ,
-                        travelTrunRightImage:  responseData.result.drivingPermitSubPageThumbnail,
+                        travelRightImage: responseData.result.rmcPicAddress.drivingCardHomePageThumbnailAddress ,
+                        travelTrunRightImage:  responseData.result.rmcPicAddress.drivingPermitSubPageThumbnailAddress,
                         drivingLicenseValidUntil: responseData.result.rmcAnalysisAndContrast.drivingValidity, // 行驶证有效期
 
-                        //resultInfo.rmcAnalysisAndContrast.drivingValidity.replace(/-/g,'/')
                         vehicleLicenseHomepageNormalPhotoAddress: responseData.result.drivingCardHomePage, // 行驶证主页原图
                         vehicleLicenseHomepageThumbnailAddress: responseData.result.drivingCardHomePageThumbnail, // 行驶证主页缩略图
 
@@ -206,6 +205,7 @@ class personownerVerifiedState extends Component{
                         moRenengineNum: responseData.result.engineNum, // 发动机号码
                         moRendrivingValidsity: responseData.result.drivingValidity, // 行驶证有效期
                     };
+
 
                     this.setState({
                         resultInfo: responseData.result,
@@ -235,12 +235,9 @@ class personownerVerifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
-        this.props.navigation.navigate('PersonCarOwnerAuth', {
-            resultInfo: this.state.resultInfo,
-        });
-        /*
-        Storage.get(StorageKey.personownerInfoResult).then((value) => {
 
+
+        Storage.get(StorageKey.personownerInfoResult).then((value) => {
 
             if (value){
                 this.props.navigation.navigate('PersonCarOwnerAuth', {
@@ -252,7 +249,7 @@ class personownerVerifiedState extends Component{
                 });
             }
         });
-        */
+
     }
 
     /*显示原图*/
@@ -345,16 +342,17 @@ class personownerVerifiedState extends Component{
                     <Line/>
                     <RealNameItem resultInfo={this.state.resultInfo}
                                   imageClick={(index)=>{
-                                      
+                                      if (!this.state.resultInfo.rmcPicAddress)
+                                         return;
                                       if (index === 0){
-                                          if (this.state.resultInfo.positiveCard){
-                                              this.showBigImage([this.state.resultInfo.positiveCard], 0);
+                                          if (this.state.resultInfo.rmcPicAddress.positiveCardAddress){
+                                              this.showBigImage([this.state.resultInfo.rmcPicAddress.positiveCardAddress], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }
                                       if (index === 1){
-                                          if (this.state.resultInfo.oppositeCard){                   
-                                              this.showBigImage([this.state.resultInfo.oppositeCard], 0);
+                                          if (this.state.resultInfo.rmcPicAddress.oppositeCardAddress){
+                                              this.showBigImage([this.state.resultInfo.rmcPicAddress.oppositeCardAddress], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }
@@ -365,16 +363,17 @@ class personownerVerifiedState extends Component{
                     <Line/>
                     <DriverItem resultInfo={this.state.resultInfo}
                                 imageClick={(index)=>{
-                                    
+                                    if (!this.state.resultInfo.rmcPicAddress)
+                                        return;
                                     if (index === 0){
-                                        if (this.state.resultInfo.drivingCardHomePage){
-                                            this.showBigImage([this.state.resultInfo.drivingCardHomePage], 0);
+                                        if (this.state.resultInfo.rmcPicAddress.drivingCardHomePageAddress){
+                                            this.showBigImage([this.state.resultInfo.rmcPicAddress.drivingCardHomePageAddress], 0);
                                         }else 
                                             Toast.showShortCenter('暂无图片');
                                     }
                                     if (index === 1){
-                                        if (this.state.resultInfo.drivingPermitSubPage){
-                                            this.showBigImage([this.state.resultInfo.drivingPermitSubPage], 0);
+                                        if (this.state.resultInfo.rmcPicAddress.drivingPermitSubPageAddress){
+                                            this.showBigImage([this.state.resultInfo.rmcPicAddress.drivingPermitSubPageAddress], 0);
                                         }else 
                                             Toast.showShortCenter('暂无图片');
                                     }

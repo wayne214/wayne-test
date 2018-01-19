@@ -117,14 +117,13 @@ class verifiedDriverItem extends Component{
                 </View>
                 <Line />
 
+
                 <ImagesItem firstName ="行驶证主页"
                             secondName="行驶证副页"
-                            firstImagePath={resultInfo.drivingCardHomePageThumbnail ?
-                            resultInfo.drivingCardHomePageThumbnail : resultInfo.drivingCardHomePage ?
-                            resultInfo.drivingCardHomePage : ''}
-                            secondImagePath={resultInfo.drivingPermitSubPageThumbnail ?
-                            resultInfo.drivingPermitSubPageThumbnail : resultInfo.drivingPermitSubPage ?
-                            resultInfo.drivingPermitSubPage : ''}
+                            firstImagePath={resultInfo.rmcPicAddress ?
+                                               (resultInfo.rmcPicAddress.drivingCardHomePageThumbnailAddress ? resultInfo.rmcPicAddress.drivingCardHomePageThumbnailAddress : '') : ''}
+                                                secondImagePath={resultInfo.rmcPicAddress ?
+                            (resultInfo.rmcPicAddress.drivingPermitSubPageThumbnailAddress ? resultInfo.rmcPicAddress.drivingPermitSubPageThumbnailAddress : '') : ''}
                             imageClick={(index)=>{
                                 this.imageClick(index);
                             }}/>

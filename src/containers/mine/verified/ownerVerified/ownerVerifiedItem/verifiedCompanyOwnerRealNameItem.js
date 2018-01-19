@@ -92,17 +92,15 @@ class verifiedRealNameItem extends Component{
                 </View>
                 <Line />
 
+
                 <ImagesItem firstName ="身份证正面"
                             secondName="身份证反面"
                             // thirdName="半身照"
-                            firstImagePath={resultInfo.legalPersonPositiveCardThumbnail ?
-                            resultInfo.legalPersonPositiveCardThumbnail : resultInfo.legalPersonPositiveCard ?
-                            resultInfo.legalPersonPositiveCard : ''}
-                            secondImagePath={resultInfo.legalPersonOppositeCardThumbnail
-                                ?
-                            resultInfo.legalPersonOppositeCardThumbnail
-                                : resultInfo.legalPersonOppositeCard ?
-                            resultInfo.legalPersonOppositeCard : ''}
+                            firstImagePath={resultInfo.rmcPicAddress ?
+                            (resultInfo.rmcPicAddress.legalPersonPositiveCardThumbnailAddress ? resultInfo.rmcPicAddress.legalPersonPositiveCardThumbnailAddress : '') :  ''}
+                            secondImagePath={resultInfo.rmcPicAddress ?
+                            (resultInfo.rmcPicAddress.legalPersonOppositeCardThumbnailAddress ? resultInfo.rmcPicAddress.legalPersonOppositeCardThumbnailAddress : '')
+                                : ''}
                             // thirdImagePath={resultInfo.handleIdThumbnailAddress ?
                             // resultInfo.handleIdThumbnailAddress : resultInfo.headPortrait ?
                             // resultInfo.headPortrait : ''}

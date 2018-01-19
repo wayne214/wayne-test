@@ -167,8 +167,8 @@ class enterpriseownerVerifiedState extends Component{
                         IDCard: responseData.result.rmcAnalysisAndContrast.manualLegalIdCard,
                         IDDate: responseData.result.rmcAnalysisAndContrast.manualLegalIdCardValidity,
 
-                        idCardImage:  responseData.result.legalPersonPositiveCardThumbnail,
-                        idCardTrunImage: responseData.result.legalPersonOppositeCardThumbnail,
+                        idCardImage:  responseData.result.rmcPicAddress.legalPersonPositiveCardThumbnailAddress,
+                        idCardTrunImage: responseData.result.rmcPicAddress.legalPersonOppositeCardThumbnailAddress,
 
                         legalPersonPositiveCard: responseData.result.legalPersonPositiveCard, // 身份证正面原图
                         legalPersonPositiveCardThumbnail: responseData.result.legalPersonPositiveCardThumbnail, // 身份证正面缩略图
@@ -182,7 +182,7 @@ class enterpriseownerVerifiedState extends Component{
                         companyAddress: responseData.result.rmcAnalysisAndContrast.manualComAddress,
                         companyCode: responseData.result.rmcAnalysisAndContrast.manualUnifiedSocialCreditCode,
 
-                        businessTrunRightImage: responseData.result.businessLicenceThumbnail ,
+                        businessTrunRightImage: responseData.result.rmcPicAddress.businessLicenceThumbnailAddress ,
                         businessLicence: responseData.result.businessLicence, // 营业执照原图
                         businessCardPhotoThumb: responseData.result.businessLicenceThumbnail, // 营业执照缩略图
                         businessLicenseValidUntil: responseData.result.rmcAnalysisAndContrast.manualBusinessValidity, // 营业执照有效期
@@ -331,9 +331,11 @@ class enterpriseownerVerifiedState extends Component{
                     <View style={{height: 10, width: width, backgroundColor: '#f5f5f5'}}/>
                     <BusinessLicenseItem resultInfo={this.state.resultInfo}
                                          imageClick={(index)=>{
+                                             if (!this.state.resultInfo.rmcPicAddress)
+                                                return;
                                              if (index === 0){
-                                                 if (this.state.resultInfo.businessLicence){
-                                                     this.showBigImage([this.state.resultInfo.businessLicence], 0);
+                                                 if (this.state.resultInfo.rmcPicAddress.businessLicenceAddress){
+                                                     this.showBigImage([this.state.resultInfo.rmcPicAddress.businessLicenceAddress], 0);
                                                  }else
                                                      Toast.showShortCenter('暂无图片');
                                              }
@@ -343,16 +345,18 @@ class enterpriseownerVerifiedState extends Component{
                     <Line/>
                     <RealNameItem resultInfo={this.state.resultInfo}
                                   imageClick={(index)=>{
-                                      
+                                       if (!this.state.resultInfo.rmcPicAddress)
+                                        return;
+
                                       if (index === 0){
-                                          if (this.state.resultInfo.legalPersonPositiveCard){
-                                              this.showBigImage([this.state.resultInfo.legalPersonPositiveCard], 0);
+                                          if (this.state.resultInfo.rmcPicAddress.legalPersonPositiveCardAddress){
+                                              this.showBigImage([this.state.resultInfo.rmcPicAddress.legalPersonPositiveCardAddress], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }
                                       if (index === 1){
-                                          if (this.state.resultInfo.legalPersonOppositeCard){
-                                              this.showBigImage([this.state.resultInfo.legalPersonOppositeCard], 0);
+                                          if (this.state.resultInfo.rmcPicAddress.legalPersonOppositeCardAddress){
+                                              this.showBigImage([this.state.resultInfo.rmcPicAddress.legalPersonOppositeCardAddress], 0);
                                           }else 
                                               Toast.showShortCenter('暂无图片');
                                       }

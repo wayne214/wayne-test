@@ -78,7 +78,7 @@ class verifiedBusinessLicenseItem extends Component{
     }
     render() {
         const {resultInfo} = this.props;
-        const businessLicenceImagePath = resultInfo.businessLicenceThumbnail;
+        const businessLicenceImagePath = resultInfo.rmcPicAddress ? (resultInfo.rmcPicAddress.businessLicenceThumbnailAddress ? resultInfo.rmcPicAddress.businessLicenceThumbnailAddress : '') : '';
         let firstImageObj;
         if (businessLicenceImagePath){
             firstImageObj = {uri: businessLicenceImagePath}

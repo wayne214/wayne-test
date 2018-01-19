@@ -178,7 +178,7 @@ class CarInfo extends Component {
     }
 
     componentDidMount() {
-        debugger
+
         this.getCurrentPosition();
         imgListTemp = [];
         imgList = [];
