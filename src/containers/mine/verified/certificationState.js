@@ -133,7 +133,7 @@ export default class certificationState extends Component{
         HTTPRequest({
             url: API.API_AUTH_QUALIFICATIONS_DETAIL,
             params: {
-                phoneNum: phoneNum,
+                // phoneNum: phoneNum, // 只传车牌号
                 plateNumber: plateNumber,
             },
             loading: () => {
