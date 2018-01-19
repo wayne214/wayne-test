@@ -522,17 +522,17 @@ class entryToBeShipped extends Component {
                     }
                 }}
             /> : <ChooseButton
-            leftContent={'绑定GPS设备'}
-            rightContent={'发运'}
-            leftClick={() => {
-                this.props.navigation.navigate('ScanGPS');
-            }}
-            rightClick={() => {
-                if (prventDoubleClickUtil.onMultiClick()) {
-                    this.sendOrder();
-                }
-            }}
-        />;
+                leftContent={'绑定GPS设备'}
+                rightContent={'发运'}
+                leftClick={() => {
+                    this.props.navigation.navigate('ScanGPS');
+                }}
+                rightClick={() => {
+                    if (prventDoubleClickUtil.onMultiClick()) {
+                        this.sendOrder();
+                    }
+                }}
+            />;
 
         return (
             <View style={styles.container}>
