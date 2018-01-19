@@ -143,7 +143,7 @@ class personownerVerifiedState extends Component{
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_QUERY_COMPANY_INFO,
-            //url: '192.168.32.83:8899/app/rmc/company/queryCompanyInfoByBusTel',
+            //url: 'http://192.168.32.83:8899/app/rmc/company/queryCompanyInfoByBusTel',
             params: {
                 busTel: userPhone,
                 companyNature: '个人'
@@ -235,6 +235,10 @@ class personownerVerifiedState extends Component{
 
     /*重新认证*/
     reloadVerified(){
+        this.props.navigation.navigate('PersonCarOwnerAuth', {
+            resultInfo: this.state.resultInfo,
+        });
+        /*
         Storage.get(StorageKey.personownerInfoResult).then((value) => {
 
 
@@ -248,6 +252,7 @@ class personownerVerifiedState extends Component{
                 });
             }
         });
+        */
     }
 
     /*显示原图*/
