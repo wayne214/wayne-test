@@ -232,6 +232,7 @@ class entryGoodsDetail extends Component {
      * */
     receiveGoodsAction(receiveGoodsSuccessCallBack, receiveGoodsFailCallBack) {
         currentTime = new Date().getTime();
+        console.log('this.props.ownerName',this.props.ownerName);
         // 传递参数
         HTTPRequest({
             url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_RECEIVE_ORDER : API.API_NEW_CARRIER_RECEIVE_ORDER,
@@ -241,8 +242,8 @@ class entryGoodsDetail extends Component {
                 plateNumber: this.props.plateNumber,
                 dispatchCode: this.state.scheduleCode,
             } : {
-                userId: global.userId,
-                userName: global.userName,
+                userId: '',
+                userName: this.props.ownerName,
                 carrierCode: this.props.carrierCode,
                 dispatchNo: this.state.scheduleCode,
             },
@@ -534,6 +535,7 @@ function mapStateToProps(state) {
         routes: state.nav.routes,
         currentStatus: state.user.get('currentStatus'),
         carrierCode: state.user.get('companyCode'),
+        ownerName: state.user.get('ownerName'),
     };
 }
 
