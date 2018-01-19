@@ -128,7 +128,6 @@ export default class certificationState extends Component{
     /*资质详情认证*/
     getVerifiedDetail(phoneNum, plateNumber, verifiedSuccessCallBack, verifiedFailCallBack) {
 
-       debugger
         currentTime = new Date().getTime();
         HTTPRequest({
             url: API.API_AUTH_QUALIFICATIONS_DETAIL,

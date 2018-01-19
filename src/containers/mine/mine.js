@@ -1338,6 +1338,7 @@ function mapStateToProps(state) {
         driverStatus: state.user.get('driverStatus'),
         currentStatus: state.user.get('currentStatus'),
         ownerStatus: state.user.get('ownerStatus'),
+        jpushIcon: state.jpush.get('jpushIcon'),
     };
 }
 
