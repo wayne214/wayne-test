@@ -113,7 +113,9 @@ class AddDriverPage extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -145,7 +147,9 @@ class AddDriverPage extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

@@ -242,7 +242,9 @@ class Login extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -540,7 +542,9 @@ class Login extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

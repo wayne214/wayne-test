@@ -104,7 +104,9 @@ export default class VerificationCardPhone extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             },
 
         })
@@ -144,7 +146,9 @@ export default class VerificationCardPhone extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             },
         })
     }
@@ -185,7 +189,9 @@ export default class VerificationCardPhone extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             },
         })
     }

@@ -58,7 +58,6 @@ class drawalsChooseCard extends Component {
             },
 
         })
-
     }
     // 获取当前位置
     getCurrentPosition() {

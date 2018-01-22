@@ -143,7 +143,9 @@ class BindCarPage extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -174,7 +176,9 @@ class BindCarPage extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

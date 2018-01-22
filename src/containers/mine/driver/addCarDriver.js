@@ -157,7 +157,9 @@ class AddCarDriver extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -194,7 +196,9 @@ class AddCarDriver extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

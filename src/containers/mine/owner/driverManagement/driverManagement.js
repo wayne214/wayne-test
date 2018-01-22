@@ -162,7 +162,9 @@ class DriverManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -193,7 +195,9 @@ class DriverManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -221,7 +225,9 @@ class DriverManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

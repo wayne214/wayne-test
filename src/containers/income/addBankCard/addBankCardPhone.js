@@ -100,7 +100,9 @@ export default class AddBankCardPhone extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             },
 
         })

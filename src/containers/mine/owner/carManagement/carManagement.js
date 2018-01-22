@@ -162,7 +162,9 @@ class CarManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -192,7 +194,9 @@ class CarManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -227,7 +231,9 @@ class CarManagement extends BaseContainer {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -256,11 +262,11 @@ class CarManagement extends BaseContainer {
         const driverList = item.drivers && item.drivers.split(',');
         console.log('=====driverList', driverList);
         let driverContent = '';
-        if(driverList) {
+        if (driverList) {
             if (driverList.length > 1) {
                 for (let i = 0; i < driverList.length; i++) {
                     if (i < driverList.length - 1) {
-                        driverContent = driverContent.concat(driverList[i]+'、');
+                        driverContent = driverContent.concat(driverList[i] + '、');
                     } else {
                         driverContent = driverContent.concat(driverList[i]);
                     }
@@ -291,47 +297,53 @@ class CarManagement extends BaseContainer {
 
                     this.props.navigation.navigate('CerifiedStatePage', {
                         phone: item.carPhone,
-                        plateNumber:item.carNum
+                        plateNumber: item.carNum
 
                     });
                 }}>
 
                     <View style={{paddingLeft: 10, backgroundColor: '#ffffff'}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', height: 50, justifyContent: 'space-between'}}>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            height: 50,
+                            justifyContent: 'space-between'
+                        }}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 <Image
                                     style={{height: 36, width: 36}}
                                     source={StaticImage.CarAvatar}/>
-                                <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
-                            </View>
-                            <View style={{
-                                justifyContent: 'center',
-                                width: 90,
-                                alignItems: 'center',
-                            }}>
-                            {item.carStatus == 10 ?
-                                <Text style={{fontSize: 14, color: '#FA5741'}}>
-                                    禁用
-                                </Text> :
-                                item.certificationStatus == '1202' ?
-                                    <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+                                <Text style={{width:width - 250,marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
 
-                                        认证通过
-                                    </Text>
-                                    : item.certificationStatus == '1201' ?
-                                    <Text style={{fontSize: 14, color: '#0071FF'}}>
-                                        认证中
-                                    </Text>
-                                    : item.certificationStatus == '1203' ?
-                                        <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
-
-                                            认证驳回
-                                        </Text>
-                                        :
+                                <View style={{
+                                    justifyContent: 'center',
+                                    width: 90,
+                                    alignItems: 'center',
+                                }}>
+                                    {item.carStatus == 10 ?
                                         <Text style={{fontSize: 14, color: '#FA5741'}}>
                                             禁用
-                                        </Text>
-                            }
+                                        </Text> :
+                                        item.certificationStatus == '1202' ?
+                                            <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
+                                                认证通过
+                                            </Text>
+                                            : item.certificationStatus == '1201' ?
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                                认证中
+                                            </Text>
+                                            : item.certificationStatus == '1203' ?
+                                                <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+
+                                                    认证驳回
+                                                </Text>
+                                                :
+                                                <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                                    禁用
+                                                </Text>
+                                    }
+                                </View>
                             </View>
                         </View>
                         <View style={{marginLeft: 45}}>
@@ -349,7 +361,7 @@ class CarManagement extends BaseContainer {
                                     }}>关联司机：{driverContent}</Text>
                             }
 
-                            {driverContent.length * (17 * width / 375) < (width - 95) ? null :this.state.line && this.state.clickLine == index ?
+                            {driverContent.length * (17 * width / 375) < (width - 95) ? null : this.state.line && this.state.clickLine == index ?
                                 <TouchableOpacity onPress={() => {
                                     this.setState({
                                         clickLine: 'a',
@@ -426,7 +438,7 @@ class CarManagement extends BaseContainer {
                         alignItems: 'center',
                     }}>
                     <TouchableOpacity
-                        onPress={()=>{
+                        onPress={() => {
                             navigator.goBack();
                         }}>
                         <Text
