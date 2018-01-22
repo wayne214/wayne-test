@@ -204,7 +204,9 @@ class AddDriverPage extends BaseContainer {
                             <Image
                                 style={{height: 36, width: 36}}
                                 source={StaticImage.DriverAvatar}/>
-                            <View>
+                            <View style={{
+                                width:width-36-75-150,
+                            }}>
                                 <Text style={{
                                     marginLeft: 10,
                                     color: '#333333',

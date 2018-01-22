@@ -64,7 +64,8 @@ import {
     saveUserCarList,
     setCurrentCharacterAction,
     setOwnerCharacterAction,
-    setDriverCharacterAction
+    setDriverCharacterAction,
+    setCompanyCodeAction,
 } from '../../action/user';
 import {setMessageListIconAction} from '../../action/jpush';
 import CharacterChooseCell from '../login/components/characterChooseCell';
@@ -1211,6 +1212,7 @@ class Home extends Component {
                                     })
                                 } else {
                                     if (result.certificationStatus == '1202') {
+                                        this.props.setCompanyCodeAction(result.companyCode);
                                         this.props.setOwnerCharacterAction('12');
                                         this.props.setCurrentCharacterAction('personalOwner');
                                         this.setState({
@@ -1243,6 +1245,7 @@ class Home extends Component {
                                         })
                                     } else {
                                         if (result.certificationStatus == '1202') {
+                                            this.props.setCompanyCodeAction(result.companyCode);
                                             this.props.setOwnerCharacterAction('22');
                                             this.props.setCurrentCharacterAction('businessOwner');
                                             this.setState({
@@ -1760,6 +1763,9 @@ function mapDispatchToProps(dispatch) {
         },
         setDriverCharacterAction: (result) => {
             dispatch(setDriverCharacterAction(result));
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
         },
     };
 }
