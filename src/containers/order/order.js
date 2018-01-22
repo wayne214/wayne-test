@@ -499,8 +499,14 @@ let transCodeListData3 = [];
                 return;
             }
         }else {
-            if (!this.props.carrierCode)
+            if (!this.props.carrierCode){
+                receiptListData = [];
+                this.setState({
+                    dataSourceReceipt: this.state.dataSourceReceipt.cloneWithRows(receiptListData),
+                    allCount: 0,
+                });
                 return;
+            }
         }
         currentTime = new Date().getTime();
         if (pageNum === 1) {
@@ -557,8 +563,14 @@ let transCodeListData3 = [];
     }
 
      getDispatchOrderList(queryType, pageNum, pageSize) {
-         if (!this.props.carrierCode)
+         if (!this.props.carrierCode){
+             shipListData = []; // 待发运数据
+             this.setState({
+                 dataSourceShip: this.state.dataSourceShip.cloneWithRows(shipListData),
+                 allCount: 0,
+             });
              return;
+         }
          currentTime = new Date().getTime();
          if (pageNum === 1) {
              this.setState({
@@ -620,8 +632,14 @@ let transCodeListData3 = [];
     // 获取全部、待发运订单列表
     getOrderDetailAction(queryType, pageNum, pageSize) {
         if(this.props.currentStatus != 'driver'){
-            if (!this.props.carrierCode)
+            if (!this.props.carrierCode){
+                allListData = [];
+                this.setState({
+                    dataSourceAll: this.state.dataSourceAll.cloneWithRows(allListData),
+                    allCount: 0,
+                });
                 return;
+            }
         }
         currentTime = new Date().getTime();
         if (pageNum === 1) {
@@ -873,6 +891,11 @@ let transCodeListData3 = [];
      // 车主获取待签收订单列表
      getWaitForSignList(queryType, pageNum, pageSize) {
          if (!this.props.carrierCode){
+             signListData = [];
+             this.setState({
+                 allCount:0,
+                 dataSourceSign: this.state.dataSourceSign.cloneWithRows(signListData),
+             });
              return;
          }
          currentTime = new Date().getTime();
