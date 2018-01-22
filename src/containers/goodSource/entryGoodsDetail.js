@@ -168,6 +168,9 @@ class entryGoodsDetail extends Component {
                 getOrderDetailInfoFailCallBack();
             },
             finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -232,45 +235,86 @@ class entryGoodsDetail extends Component {
      * */
     receiveGoodsAction(receiveGoodsSuccessCallBack, receiveGoodsFailCallBack) {
         currentTime = new Date().getTime();
-        console.log('this.props.ownerName',this.props.ownerName);
-        // 传递参数
-        HTTPRequest({
-            url: this.props.currentStatus == 'driver' ? API.API_NEW_DRIVER_RECEIVE_ORDER : API.API_NEW_CARRIER_RECEIVE_ORDER,
-            params: this.props.currentStatus == 'driver' ? {
-                userId: global.userId,
-                userName: global.userName,
-                plateNumber: this.props.plateNumber,
-                dispatchCode: this.state.scheduleCode,
-            } : {
-                userId: '',
-                userName: this.props.ownerName,
-                carrierCode: this.props.carrierCode,
-                dispatchNo: this.state.scheduleCode,
-            },
-            loading: ()=>{
-                this.setState({
-                    loading: true,
-                });
-            },
-            success: (responseData)=>{
-                console.log('success',responseData);
-                this.setState({
-                    loading: false,
-                }, ()=>{
-                    receiveGoodsSuccessCallBack(responseData.result);
-                });
+        console.log('this.props.ownerName', this.props.ownerName);
+        if(this.props.currentStatus == 'driver'){
+            // 传递参数
+            HTTPRequest({
+                url: API.API_NEW_DRIVER_RECEIVE_ORDER,
+                params: {
+                    userId: global.userId,
+                    userName: global.userName,
+                    plateNumber: this.props.plateNumber,
+                    dispatchCode: this.state.scheduleCode,
+                },
+                loading: ()=>{
+                    this.setState({
+                        loading: true,
+                    });
+                },
+                success: (responseData)=>{
+                    console.log('success',responseData);
+                    this.setState({
+                        loading: false,
+                    }, ()=>{
+                        receiveGoodsSuccessCallBack(responseData.result);
+                    });
 
-            },
-            error: (errorInfo)=>{
-                this.setState({
-                    loading: false,
-                }, () => {
-                    receiveGoodsFailCallBack();
+                },
+                error: (errorInfo)=>{
+                    this.setState({
+                        loading: false,
+                    }, () => {
+                        receiveGoodsFailCallBack();
+                    });
+                },
+                finish: ()=>{
+                    this.setState({
+                        loading: false,
+                    });
+                }
+            });
+        }else {
+            if(this.props.ownerName){
+                // 传递参数
+                HTTPRequest({
+                    url: API.API_NEW_CARRIER_RECEIVE_ORDER,
+                    params: {
+                        userId: '',
+                        userName: this.props.ownerName,
+                        carrierCode: this.props.carrierCode,
+                        dispatchNo: this.state.scheduleCode,
+                    },
+                    loading: ()=>{
+                        this.setState({
+                            loading: true,
+                        });
+                    },
+                    success: (responseData)=>{
+                        console.log('success',responseData);
+                        this.setState({
+                            loading: false,
+                        }, ()=>{
+                            receiveGoodsSuccessCallBack(responseData.result);
+                        });
+
+                    },
+                    error: (errorInfo)=>{
+                        this.setState({
+                            loading: false,
+                        }, () => {
+                            receiveGoodsFailCallBack();
+                        });
+                    },
+                    finish: ()=>{
+                        this.setState({
+                            loading: false,
+                        });
+                    }
                 });
-            },
-            finish: ()=>{
+            }else {
+                Toast.showShortCenter('接单失败!');
             }
-        });
+        }
     }
 
     // 获取数据成功回调
@@ -337,6 +381,9 @@ class entryGoodsDetail extends Component {
                 });
             },
             finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
