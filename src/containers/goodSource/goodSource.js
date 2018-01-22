@@ -28,6 +28,12 @@ import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import * as ConstValue from '../../constants/constValue';
 import UniqueUtil from '../../utils/unique';
 import Toast from '@remobile/react-native-toast';
+import {
+    setCurrentCharacterAction,
+    setOwnerCharacterAction,
+    setDriverCharacterAction,
+    setCompanyCodeAction,
+} from '../../action/user';
 
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
@@ -94,12 +100,12 @@ class GoodSource extends BaseContainer{
                 isRefresh: true,
             });
         }
-        if(this.props.currentStatus != 'driver') {
-            this.ownerVerifiedHome();
-        }
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
         this.listener = DeviceEventEmitter.addListener('resetGood', () => {
             this.receiveEventAndFetchData();
+        });
+        this.stateListener = DeviceEventEmitter.addListener('getCarrierCode', () => {
+            this.ownerVerifiedHome();
         });
     }
 
@@ -264,8 +270,8 @@ class GoodSource extends BaseContainer{
                         // 首页状态
                         if (result.companyNature == '个人') {
                             if (result.status == '10') {
-                                Toast.show('个人车主身份被禁用');
-                                return
+                                Toast.showShortCenter('个人车主身份被禁用');
+                                return;
                             } else {
                                 // 确认个人车主
                                 if (result.certificationStatus == '1201') {
@@ -274,6 +280,7 @@ class GoodSource extends BaseContainer{
                                 } else {
                                     if (result.certificationStatus == '1202') {
                                         this.props.setOwnerCharacterAction('12');
+                                        this.props.setCompanyCodeAction(result.companyCode);
                                         this.props.setCurrentCharacterAction('personalOwner');
                                     } else {
                                         this.props.setOwnerCharacterAction('13');
@@ -284,7 +291,7 @@ class GoodSource extends BaseContainer{
                             if (result.companyNature == '企业') {
                                 if (result.status == '10') {
                                     Toast.showShortCenter('企业车主身份被禁用');
-                                    return
+                                    return;
                                 } else {
                                     // 确认企业车主
                                     if (result.certificationStatus == '1201') {
@@ -293,6 +300,7 @@ class GoodSource extends BaseContainer{
                                     } else {
                                         if (result.certificationStatus == '1202') {
                                             this.props.setOwnerCharacterAction('22');
+                                            this.props.setCompanyCodeAction(result.companyCode);
                                             this.props.setCurrentCharacterAction('businessOwner');
                                         } else {
                                             this.props.setOwnerCharacterAction('23');
@@ -485,6 +493,18 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        setCurrentCharacterAction: (data) => {
+            dispatch(setCurrentCharacterAction(data));
+        },
+        setOwnerCharacterAction: (result) => {
+            dispatch(setOwnerCharacterAction(result));
+        },
+        setDriverCharacterAction: (result) => {
+            dispatch(setDriverCharacterAction(result));
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
+        },
     };
 }
 
