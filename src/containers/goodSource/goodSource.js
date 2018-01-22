@@ -27,6 +27,7 @@ import CommonListItem from './goodListItem/commonListItem';
 import ReadAndWriteFileUtil from '../../utils/readAndWriteFileUtil';
 import * as ConstValue from '../../constants/constValue';
 import UniqueUtil from '../../utils/unique';
+import Toast from '@remobile/react-native-toast';
 
 let pageNO = 1; // 第一页
 const pageSize = 10; // 每页显示的数量
@@ -82,6 +83,7 @@ class GoodSource extends BaseContainer{
         this.getData = this.getData.bind(this);
         this.getDataSuccessCallBack = this.getDataSuccessCallBack.bind(this);
         this.getDataFailCallBack = this.getDataFailCallBack.bind(this);
+        this.ownerVerifiedHome = this.ownerVerifiedHome.bind(this);
     }
     componentDidMount(){
         this.getCurrentPosition();
@@ -91,6 +93,9 @@ class GoodSource extends BaseContainer{
             this.setState({
                 isRefresh: true,
             });
+        }
+        if(this.props.currentStatus != 'driver') {
+            this.ownerVerifiedHome();
         }
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
         this.listener = DeviceEventEmitter.addListener('resetGood', () => {
@@ -117,7 +122,6 @@ class GoodSource extends BaseContainer{
                 isRefresh: true,
             });
         }
-
         this.resetParams();
         this.getDataAndCallBack(this.state.goodStatus, this.state.date, pageNO);
     }
@@ -126,18 +130,51 @@ class GoodSource extends BaseContainer{
         currentTime = new Date().getTime();
         // const beginTimeTemp = this.getPreMonth(moment(new Date()).format('YYYY-MM-DD'));
         // const plateNumber = this.props.userPlateNumber;
-        if (global.plateNumber) {
+        if(this.props.currentStatus == 'driver') {
+            if(global.plateNumber){
+                HTTPRequest({
+                    url: API.API_NEW_GET_SOURCE_BY_DATE,
+                    params: {
+                        beginTime: '2017-06-01 00:00:00',
+                        endTime: endTime,
+                        pageNum: pageNo,
+                        pageSize,
+                        driverPhone: global.phone,
+                        status,
+                        plateNumber: global.plateNumber,
+                    },
+                    loading: ()=>{
+
+                    },
+                    success: (responseData)=>{
+                        console.log('success',responseData);
+                        getDataSuccessCallBack(responseData.result);
+                    },
+                    error: (errorInfo)=>{
+                        getDataFailCallBack();
+                    },
+                    finish: ()=>{
+                    }
+                });
+            }else {
+                list = [];
+                this.setState({
+                    isRefresh: false,
+                    goodsListLength: 0,
+                });
+            }
+        }else {
+            if (!this.props.carrierCode) {
+                list = [];
+                this.setState({
+                    isRefresh: false,
+                    goodsListLength: 0,
+                });
+                return;
+            }
             HTTPRequest({
-                url: this.props.currentStatus == 'driver' ? API.API_NEW_GET_SOURCE_BY_DATE : API.API_CARRIER_GET_SOURCE_BY_DATE,
-                params: this.props.currentStatus == 'driver' ? {
-                    beginTime: '2017-06-01 00:00:00',
-                    endTime: endTime,
-                    pageNum: pageNo,
-                    pageSize,
-                    driverPhone: global.phone,
-                    status,
-                    plateNumber: global.plateNumber,
-                } : {
+                url: API.API_CARRIER_GET_SOURCE_BY_DATE,
+                params: {
                     beginTime: '2017-06-01 00:00:00',
                     carrierCode: this.props.carrierCode,
                     endTime: endTime,
@@ -158,49 +195,7 @@ class GoodSource extends BaseContainer{
                 finish: ()=>{
                 }
             });
-        } else {
-            if (this.props.currentStatus != 'driver') {
-                if (!this.props.carrierCode) {
-                    list = [];
-                    this.setState({
-                        isRefresh: false,
-                        goodsListLength: 0,
-                    });
-                    return;
-                }
-                HTTPRequest({
-                    url: API.API_CARRIER_GET_SOURCE_BY_DATE,
-                    params: {
-                        beginTime: '2017-06-01 00:00:00',
-                        carrierCode: this.props.carrierCode,
-                        endTime: endTime,
-                        pageNum: pageNo,
-                        pageSize,
-                        status
-                    },
-                    loading: ()=>{
-
-                    },
-                    success: (responseData)=>{
-                        console.log('success',responseData);
-                        getDataSuccessCallBack(responseData.result);
-                    },
-                    error: (errorInfo)=>{
-                        getDataFailCallBack();
-                    },
-                    finish: ()=>{
-                    }
-                });
-            } else {
-                list = [];
-                this.setState({
-                    isRefresh: false,
-                    goodsListLength: 0,
-                });
-            }
         }
-        console.log('global phone，',global.phone);
-
     }
     // 成功回调
     getDataSuccessCallBack(result) {
@@ -249,6 +244,72 @@ class GoodSource extends BaseContainer{
     }
     getDataAndCallBack(goodStatus, date, pageNo) {
         this.getData(goodStatus, date, this.getDataSuccessCallBack, this.getDataFailCallBack, pageNo);
+    }
+
+    ownerVerifiedHome() {
+        if (this.props.userInfo) {
+            if (this.props.userInfo.phone) {
+                HTTPRequest({
+                    url: API.API_QUERY_COMPANY_INFO,
+                    params: {
+                        busTel: global.phone,
+                        // companyNature: '个人'
+                    },
+                    loading: () => {
+
+                    },
+                    success: (responseData) => {
+                        console.log('ownerVerifiedState==', responseData.result);
+                        let result = responseData.result;
+                        // 首页状态
+                        if (result.companyNature == '个人') {
+                            if (result.status == '10') {
+                                Toast.show('个人车主身份被禁用');
+                                return
+                            } else {
+                                // 确认个人车主
+                                if (result.certificationStatus == '1201') {
+                                    this.props.setOwnerCharacterAction('11');
+                                    this.props.setCurrentCharacterAction('personalOwner');
+                                } else {
+                                    if (result.certificationStatus == '1202') {
+                                        this.props.setOwnerCharacterAction('12');
+                                        this.props.setCurrentCharacterAction('personalOwner');
+                                    } else {
+                                        this.props.setOwnerCharacterAction('13');
+                                    }
+                                }
+                            }
+                        } else {
+                            if (result.companyNature == '企业') {
+                                if (result.status == '10') {
+                                    Toast.showShortCenter('企业车主身份被禁用');
+                                    return
+                                } else {
+                                    // 确认企业车主
+                                    if (result.certificationStatus == '1201') {
+                                        this.props.setOwnerCharacterAction('21');
+                                        this.props.setCurrentCharacterAction('businessOwner');
+                                    } else {
+                                        if (result.certificationStatus == '1202') {
+                                            this.props.setOwnerCharacterAction('22');
+                                            this.props.setCurrentCharacterAction('businessOwner');
+                                        } else {
+                                            this.props.setOwnerCharacterAction('23');
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    },
+                    error: (errorInfo) => {
+                    },
+                    finish: () => {
+                    }
+                });
+            }
+        }
     }
     // 重置数据
     resetParams() {
@@ -418,6 +479,7 @@ function mapStateToProps(state) {
         userPlateNumber: state.user.get('plateNumber'),
         currentStatus: state.user.get('currentStatus'),
         carrierCode: state.user.get('companyCode'),
+        userInfo: state.user.get('userInfo'),
     };
 }
 
