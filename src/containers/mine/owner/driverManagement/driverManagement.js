@@ -236,8 +236,7 @@ class DriverManagement extends BaseContainer {
     }
 
     _onTextLayout(event){
-        console.log('event',event)
-        console.log('event',event.nativeEvent.layout.height)
+
     }
 
     //列表的每一行
@@ -264,8 +263,7 @@ class DriverManagement extends BaseContainer {
                 }
             }
         }
-        console.log('=====item', carContent, carContent.length);
-        console.log('=====width', width);
+
 
         return (
             item.companyType == 1 ?
