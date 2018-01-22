@@ -22,6 +22,7 @@ import {loginSuccessAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
     setCompanyCodeAction,
+    setOwnerNameAction,
 } from '../../action/user';
 
 import splashImg from '../../../assets/splash/splash.png';
@@ -102,6 +103,9 @@ class Splash extends BaseContainer {
             console.log('CARRIER_CODE', value.toString());
             console.log('CARRIER_CODE_TYPE', typeof (value.toString()));
             this.props.setCompanyCodeAction(value.toString());
+        });
+        Storage.get(StorageKey.OWNER_NAME).then((value) => {
+            this.props.setOwnerNameAction(value.toString());
         });
 
 
@@ -234,6 +238,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCompanyCodeAction: (result) => {
             dispatch(setCompanyCodeAction(result));
+        },
+        setOwnerNameAction:(data)=>{
+            dispatch(setOwnerNameAction(data));
         },
     };
 }

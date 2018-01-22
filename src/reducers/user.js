@@ -23,6 +23,7 @@ const initState = Immutable.fromJS({
     ownerStatus: '0',
     currentStatus:'driver',
     companyCode: '', // 承运商编码
+    ownerName: '',
 });
 
 export default (state = initState, action) => {
@@ -55,7 +56,7 @@ export default (state = initState, action) => {
 
         case ActionTypes.ACTION_OWNER_NAME:
             global.ownerName = action.payload;
-
+            Storage.save(StorageKey.OWNER_NAME, action.payload);
             globalState = globalState.set('ownerName', action.payload);
             return globalState;
 
