@@ -33,6 +33,7 @@ import {
     setOwnerCharacterAction,
     setDriverCharacterAction,
     setCompanyCodeAction,
+    setOwnerNameAction,
 } from '../../action/user';
 
 let pageNO = 1; // 第一页
@@ -281,6 +282,7 @@ class GoodSource extends BaseContainer{
                                     if (result.certificationStatus == '1202') {
                                         this.props.setOwnerCharacterAction('12');
                                         this.props.setCompanyCodeAction(result.companyCode);
+                                        this.props.setOwnerNameAction(result.companyName);
                                         this.props.setCurrentCharacterAction('personalOwner');
                                     } else {
                                         this.props.setOwnerCharacterAction('13');
@@ -301,6 +303,7 @@ class GoodSource extends BaseContainer{
                                         if (result.certificationStatus == '1202') {
                                             this.props.setOwnerCharacterAction('22');
                                             this.props.setCompanyCodeAction(result.companyCode);
+                                            this.props.setOwnerNameAction(result.companyName);
                                             this.props.setCurrentCharacterAction('businessOwner');
                                         } else {
                                             this.props.setOwnerCharacterAction('23');
@@ -488,6 +491,7 @@ function mapStateToProps(state) {
         currentStatus: state.user.get('currentStatus'),
         carrierCode: state.user.get('companyCode'),
         userInfo: state.user.get('userInfo'),
+        ownerName: state.user.get('ownerName'),
     };
 }
 
@@ -504,6 +508,9 @@ function mapDispatchToProps(dispatch) {
         },
         setCompanyCodeAction: (result) => {
             dispatch(setCompanyCodeAction(result));
+        },
+        setOwnerNameAction:(data)=>{
+            dispatch(setOwnerNameAction(data));
         },
     };
 }
