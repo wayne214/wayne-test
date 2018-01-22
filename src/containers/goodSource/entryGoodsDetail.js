@@ -168,6 +168,9 @@ class entryGoodsDetail extends Component {
                 getOrderDetailInfoFailCallBack();
             },
             finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -269,6 +272,9 @@ class entryGoodsDetail extends Component {
                 });
             },
             finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -337,6 +343,9 @@ class entryGoodsDetail extends Component {
                 });
             },
             finish: ()=>{
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

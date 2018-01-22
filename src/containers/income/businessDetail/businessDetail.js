@@ -118,7 +118,9 @@ class detailsPage extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

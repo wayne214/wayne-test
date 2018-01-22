@@ -400,7 +400,9 @@ class CheckPhoneStepTwo extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }

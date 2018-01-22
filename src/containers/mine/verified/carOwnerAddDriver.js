@@ -171,7 +171,7 @@ class carOwnerAddDriver extends Component {
                 driverCardRecognition: result.driverCardRecognition, // 识别驾驶证号
                 quasiCarTypeRecognition: result.quasiCarTypeRecognition, // 识别准驾车型
                 driverLicenseValidateRecognition: result.driverLicenseValidateRecognition,  // 识别驾驶证有效期
-                enterPhone: result.enterPhone,
+                enterPhone: result.driverPhone,
             };
         }else {
 
@@ -945,7 +945,7 @@ class carOwnerAddDriver extends Component {
                                     }}
                                     textOnFocus={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 300, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 400, animated: true});
                                         }
 
                                     }}
@@ -957,7 +957,7 @@ class carOwnerAddDriver extends Component {
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
                                         if (Platform.OS === 'ios'){
-                                            this.refs.scrollView.scrollTo({x: 0, y: 350, animated: true});
+                                            this.refs.scrollView.scrollTo({x: 0, y: 450, animated: true});
                                         }
                                         selectDatePickerType = 0;
                                         this.showDatePick('cardID', true);

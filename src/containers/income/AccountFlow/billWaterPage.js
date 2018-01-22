@@ -119,7 +119,9 @@ export default class BillWaterPage extends Component {
                 });
             },
             finish: () => {
-
+                this.setState({
+                    loading: false,
+                });
             }
         });
     }
@@ -154,9 +156,9 @@ export default class BillWaterPage extends Component {
             error: (err) => {
             },
             finish: () => {
-                // this.setState({
-                //     isRefresh:false,
-                // })
+                this.setState({
+                    loading: false,
+                });
             },
         })
     }

@@ -185,9 +185,17 @@ class verifiedState extends Component{
     /*重新认证*/
     reloadVerified(){
         Storage.remove(StorageKey.personInfoResult);
-        this.props.navigation.navigate('VerifiedPage', {
-            resultInfo: this.state.resultInfo,
-        });
+
+        if (this.state.resultInfo.driverPhone !== global.phone){
+            this.props.navigation.navigate('CarOwnerAddDriver', {
+                resultInfo: this.state.resultInfo,
+            });
+        }else {
+            this.props.navigation.navigate('VerifiedPage', {
+                resultInfo: this.state.resultInfo,
+            });
+        }
+
         /*
         Storage.get(StorageKey.changePersonInfoResult).then((value) => {
 

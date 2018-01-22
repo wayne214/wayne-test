@@ -303,6 +303,10 @@ class certification extends Component {
 
             },
             finish: () => {
+                this.setState({
+                    appLoading: false,
+                });
+
             }
         });
     }
