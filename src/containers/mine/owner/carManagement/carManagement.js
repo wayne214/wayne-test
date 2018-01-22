@@ -315,7 +315,7 @@ class CarManagement extends BaseContainer {
                                     alignItems: 'center',
                                 }}>
                                     {item.carStatus == 10 ?
-                                        <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                        <Text style={{marginLeft: width - 190,fontSize: 14, color: '#FA5741'}}>
                                             禁用
                                         </Text> :
                                         item.certificationStatus == '1202' ?
@@ -324,7 +324,7 @@ class CarManagement extends BaseContainer {
                                                 认证通过
                                             </Text>
                                             : item.certificationStatus == '1201' ?
-                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
+                                            <Text style={{marginLeft: width - 190,fontSize: 14, color: '#0071FF'}}>
                                                 认证中
                                             </Text>
                                             : item.certificationStatus == '1203' ?
@@ -333,7 +333,7 @@ class CarManagement extends BaseContainer {
                                                     认证驳回
                                                 </Text>
                                                 :
-                                                <Text style={{fontSize: 14, color: '#FA5741'}}>
+                                                <Text style={{marginLeft: width - 190,fontSize: 14, color: '#FA5741'}}>
                                                     禁用
                                                 </Text>
                                     }
