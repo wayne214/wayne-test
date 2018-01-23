@@ -30,6 +30,7 @@ let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
 let imageHeight = width *255 / 375;
+let accountType = 1;
 
 const styles = StyleSheet.create({
     allContainer: {
@@ -158,7 +159,9 @@ class Income extends Component {
         });
     }
 
+    // 账户余额
     acBalance(type) {
+        accountType = type;
         currentTime = new Date().getTime();
         // 司机：1  车主：2
         HTTPRequest({
@@ -238,11 +241,13 @@ class Income extends Component {
                     {/*}}/>*/}
                     {/*<View style={{marginTop: 1}}/>*/}
                     {
-                        this.props.queryEnterPrise == '个人' ?
+                        this.props.queryEnterPrise == '个人' || this.props.currentStatus == 'personalOwner' ?
                             <IncomeCell leftIcon="&#xe624;" content={'我的银行卡'}
                                         iconColor="rgb(250,128,10)"
                                         clickAction={() => {
-                                            navigator.navigate('MyBankCard')
+                                            navigator.navigate('MyBankCard',{
+                                                accountType: accountType
+                                            })
                                         }}/> : null
                     }
                 </View>
@@ -254,6 +259,7 @@ class Income extends Component {
 function mapStateToProps(state) {
     return {
         queryEnterPrise: state.user.get('queryEnterPrise'),
+        currentStatus: state.user.get('currentStatus'),
     };
 }
 

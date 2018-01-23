@@ -130,7 +130,7 @@ export const API_QUERY_GOODSOURCE_PREFERENCE = `${HOST}app/rmc/preference/v2.0.1
 //银行卡-绑定接口
 export const API_BANK_CARD_BUNDING = `${HOST}app/rmc/bankCard/bunding/`;
 //银行卡-列表查询接口
-export const API_BANK_CARD_LIST = `${HOST}app/rmc/bankCard/list/`;
+export const API_BANK_CARD_LIST = `${HOST}app/rmc/bankCard/list`;
 //银行卡-默认卡设置
 export const API_BANK_CARD_SETDEFAULT = `${HOST}app/rmc/bankCard/setDefault/`;
 //银行卡-解除绑定设置

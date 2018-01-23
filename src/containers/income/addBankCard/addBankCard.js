@@ -77,6 +77,9 @@ export default class AddBankCard extends Component {
         this.getPersonInfoSuccessCallback = this.getPersonInfoSuccessCallback.bind(this);
         this.getBranchInfo = this.getBranchInfo.bind(this);
         this.bindBankCard = this.bindBankCard.bind(this);
+
+        const params = this.props.navigation.state.params;
+
         // 初始状态
         this.state = {
             holdCardName: '',           // 持卡人の姓名
@@ -91,6 +94,8 @@ export default class AddBankCard extends Component {
             selectedProvinceName: '',   // 选择省の名称
             selectedProvinceCode: '',   // 选择省の代码
             loading: false,
+            companyCode: params.companyCode
+
         };
     }
 
@@ -250,7 +255,7 @@ export default class AddBankCard extends Component {
                 cityCode: bankCityCode,
                 documentNum: IDCardNum,
                 documentType: 'A',
-                phoneNum: global.phone,
+                phoneNum: this.state.companyCode,
                 province: selectedProvinceName,
                 provinceCode: selectedProvinceCode,
                 userId: global.userId,

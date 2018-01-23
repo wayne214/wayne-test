@@ -29,7 +29,7 @@ const styles = StyleSheet.create({});
 let currentTime = 0;
 let lastTime = 0;
 let locationData = '';
-
+let companyCode = '';
 
 export default class MyBankCard extends Component {
     static propTypes = {
@@ -80,17 +80,22 @@ export default class MyBankCard extends Component {
             console.log(e, 'error');
         });
     }
+
     bankCardList(bankCardBundingCallBack) {
         currentTime = new Date().getTime();
 
         HTTPRequest({
-            url: API.API_BANK_CARD_LIST + global.phone,
-            params: {},
+            url: API.API_BANK_CARD_LIST,
+            params: {
+                type: this.props.navigation.state.params.accountType,
+                phoneNum: global.phone
+            },
             loading: () => {
 
             },
             success: (response) => {
-                this.bankCardBundingCallBack(response.result);
+                companyCode = response.result.companyCode;
+                this.bankCardBundingCallBack(response.result.rmcCompanyAccountVos);
             },
             error: (err) => {
 
@@ -126,7 +131,7 @@ export default class MyBankCard extends Component {
             url: API.API_BANK_CARD_UNBUNDING,
             params: {
                 bankCardNumber: bankAccount,
-                phoneNum: global.phone,
+                phoneNum: companyCode,
                 userId: global.userId,
                 userName: global.userName,
             },
@@ -217,6 +222,7 @@ export default class MyBankCard extends Component {
                                                     </View>
                                                 </View>],
                                                 onPress: ()=>{
+
                                                     this.unBankCardBunding(rowData.bankAccount, this.unBankCardBundingCallBack);
                                                 },
 
@@ -251,7 +257,8 @@ export default class MyBankCard extends Component {
                                                             bankProvinceName: rowData.province,
                                                             bankProvinceCode: rowData.provinceCode,
                                                             bankBranchName: rowData.branchBank,
-                                                            bankBranchCode: rowData.branchBankCode
+                                                            bankBranchCode: rowData.branchBankCode,
+                                                            companyCode: companyCode
                                                         })
                                                 }}
                                         />
@@ -261,7 +268,9 @@ export default class MyBankCard extends Component {
                     }
                 </View>
                 <TouchableOpacity onPress={() => {
-                    navigator.navigate('AddBankCard');
+                    navigator.navigate('AddBankCard',{
+                        companyCode: companyCode
+                    });
                 }}>
                     <View style={{
                         justifyContent: 'center',
