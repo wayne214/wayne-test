@@ -1165,6 +1165,7 @@ class Home extends Component {
             loading: () => {
             },
             success: (responseData) => {
+
                 global.enterpriseNature = responseData.result;
                 if (responseData.result) {
                     this.props.queryEnterpriseNatureAction(responseData.result);

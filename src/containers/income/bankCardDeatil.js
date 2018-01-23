@@ -80,7 +80,8 @@ export default class BankCardDeatil extends Component {
             selectedProvinceName: params.bankProvinceName,
             selectedProvinceCode: params.bankProvinceCode,
             branchName: params.bankBranchName,
-            branchCode: params.bankBranchCode
+            branchCode: params.bankBranchCode,
+            companyCode: params.companyCode
         };
 
         this.bankCardSetDefault = this.bankCardSetDefault.bind(this);
@@ -95,7 +96,7 @@ export default class BankCardDeatil extends Component {
             url: API.API_BANK_CARD_SETDEFAULT,
             params: {
                 bankCardNumber: this.state.bankAccount,
-                phoneNum: global.phone,
+                phoneNum: this.state.companyCode,
                 userId: global.userId,
                 userName: global.userName,
             },
@@ -191,7 +192,7 @@ export default class BankCardDeatil extends Component {
                 cityCode: this.state.bankCityCode,
                 province: this.state.selectedProvinceName,
                 provinceCode: this.state.selectedProvinceCode,
-                phone:global.phone,
+                phone:this.state.companyCode,
             },
             loading: () => {
                 this.setState({
