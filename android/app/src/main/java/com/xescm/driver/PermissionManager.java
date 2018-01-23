@@ -4,10 +4,12 @@ import android.*;
 import android.Manifest;
 import android.app.Activity;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -81,15 +83,15 @@ public class PermissionManager extends ReactContextBaseJavaModule {
             promise.reject(E_ACTIVITY_DOES_NOT_EXIST, "Activity doesn't exist");
             return;
         }
-
         int hasPermission = ContextCompat.checkSelfPermission(currentActivity, CAMERA);
         if (hasPermission == PackageManager.PERMISSION_GRANTED) {
             promise.resolve(CAMERA);
-        } else {
-
+        } else if(hasPermission == PackageManager.PERMISSION_DENIED) {
+            promise.reject(E_PERMISSION_DENIED, "没有访问权限");
+        }else {
             List<String> permList = new ArrayList<>();
             permList.add(CAMERA);
-            requestPermission(permList, currentActivity,REQUEST_CAMERA_CODE, promise);
+            requestPermission(permList, currentActivity, REQUEST_CAMERA_CODE, promise);
         }
     }
     @ReactMethod
@@ -147,7 +149,6 @@ public class PermissionManager extends ReactContextBaseJavaModule {
 
     public void requestPermission (final List<String> permsArray, Activity currentActivity, final int reqCode, final Promise promise) {
         WritableNativeMap q = new WritableNativeMap();
-
         List<String> permList = new ArrayList<>();
         for (int i=0; i<permsArray.size(); i++) {
             int hasPermission = ContextCompat.checkSelfPermission(currentActivity, permsArray.get(i));
@@ -159,30 +160,25 @@ public class PermissionManager extends ReactContextBaseJavaModule {
             }
         }
 
-        if(permList.size() > 0)
-        {
+        if(permList.size() > 0) {
             requestPromises.put(reqCode, promise);
             requestResults.put(reqCode, q);
 
             String[] perms = permList.toArray(new String[permList.size()]);
             ActivityCompat.requestPermissions(currentActivity, perms, reqCode);
         }
-        else
-        {
+        else {
             WritableNativeMap result = new WritableNativeMap();
             result.putString("code", ALL_GRANTED);
             result.putMap("result", q);
-
             promise.resolve(result);
         }
     }
 
     protected static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if(requestPromises.containsKey(requestCode) && requestResults.containsKey(requestCode))
-        {
+        if(requestPromises.containsKey(requestCode) && requestResults.containsKey(requestCode)) {
             Promise promise = requestPromises.get(requestCode);
             WritableNativeMap q = requestResults.get(requestCode);
-
             for(int i=0; i<permissions.length; i++) {
                 q.putBoolean(permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED);
             }
@@ -199,16 +195,14 @@ public class PermissionManager extends ReactContextBaseJavaModule {
                 totalPerms++;
             }
 
-            if(countGranted > 0)
-            {
+            if(countGranted > 0) {
                 WritableNativeMap result = new WritableNativeMap();
                 result.putString("code", countGranted == totalPerms ? ALL_GRANTED : SOME_GRANTED);
                 result.putMap("result", q);
 
                 promise.resolve(result); // some or all of permissions was granted...
             }
-            else
-            {
+            else {
                 promise.reject(E_PERMISSION_DENIED, "Permission request denied");
             }
 

@@ -324,8 +324,9 @@ class Mine extends Component {
 
     /*点击弹出菜单*/
     showAlertSelected() {
-        if (this.refs.choose)
+        if (this.refs.choose){
             this.refs.choose.show("请选择照片", selectedArr, '#333333', this.callbackSelected);
+        }
     }
 
     /*选择 拍照  相册*/
@@ -337,15 +338,21 @@ class Mine extends Component {
                     PermissionsManager.cameraPermission().then(data => {
                         this.selectCamera();
                     }).catch(err => {
-                        // Toast.showShortCenter(err.message);
-                        Alert.alert(null, err.message)
+                        Alert.alert(null, err.message);
+                        this.setState({
+                            modalVisible: false,
+                        });
                     });
                 } else {
                     PermissionsManagerAndroid.cameraPermission().then((data) => {
                         this.selectCamera();
-                    }, (err) => {
+                    },(err) => {
                         Alert.alert('提示', '请到设置-应用-授权管理设置相机权限');
+                        this.setState({
+                            modalVisible: false,
+                        });
                     });
+
                 }
                 break;
             case 1:
@@ -355,7 +362,10 @@ class Mine extends Component {
                         this.selectPhoto();
                     }).catch(err => {
                         // Toast.showShortCenter(err.message);
-                        Alert.alert(null, err.message)
+                        Alert.alert(null, err.message);
+                        this.setState({
+                            modalVisible: false,
+                        });
                     });
                 } else
                     this.selectPhoto();
@@ -371,7 +381,6 @@ class Mine extends Component {
         //     });
         //     DeviceEventEmitter.emit('imageCallBack', response);
         // })
-
         ImageCropPicker.openCamera({
             width: 400,
             height: 400,
@@ -723,6 +732,7 @@ class Mine extends Component {
     /*获取头像拍摄数据*/
     imageCropCameraProcess(image) {
 
+        debugger
         if (image.didCancel) {
             console.log('User cancelled image picker');
         }
@@ -822,9 +832,9 @@ class Mine extends Component {
 
     // 判断ScrollView滑动到底部
     contentViewScroll(e: Object) {
-        var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
-        var contentSizeHeight = e.nativeEvent.contentSize.height - 300; //scrollView contentSize高度
-        var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+        let offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+        let contentSizeHeight = e.nativeEvent.contentSize.height - 300; //scrollView contentSize高度
+        let oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
         console.log('fjafd===', ConstValue.NavigationBar_StatusBar_Height, ConstValue.Tabbar_Height,);
         console.log('滑动距离', offsetY, contentSizeHeight, oriageScrollHeight, height);
         if (offsetY + oriageScrollHeight >= contentSizeHeight) {
