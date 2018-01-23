@@ -310,36 +310,38 @@ class CarManagement extends BaseContainer {
                             justifyContent: 'space-between'
                         }}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Image
-                                    style={{height: 36, width: 36}}
-                                    source={StaticImage.CarAvatar}/>
-                                <Text style={{width:width - 250,marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
-
+                                <View style={{flexDirection: 'row', alignItems: 'center',width: 120}}>
+                                    <Image
+                                        style={{height: 36, width: 36}}
+                                        source={StaticImage.CarAvatar}/>
+                                    <Text style={{marginLeft: 10, color: '#333333', fontSize: 14}}>{item.carNum}</Text>
+                                </View>
                                 <View style={{
                                     justifyContent: 'center',
                                     width: 90,
                                     alignItems: 'center',
+                                    marginLeft: width - 230,
                                 }}>
                                     {item.carStatus == 10 ?
-                                        <Text style={{marginLeft: width - 190,fontSize: 14, color: '#FA5741'}}>
+                                        <Text style={{fontSize: 14, color: '#FA5741'}}>
                                             禁用
                                         </Text> :
                                         item.certificationStatus == '1202' ?
-                                            <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
 
                                                 认证通过
                                             </Text>
                                             : item.certificationStatus == '1201' ?
-                                            <Text style={{marginLeft: width - 190,fontSize: 14, color: '#0071FF'}}>
+                                            <Text style={{fontSize: 14, color: '#0071FF'}}>
                                                 认证中
                                             </Text>
                                             : item.certificationStatus == '1203' ?
-                                                <Text style={{marginLeft: width - 190, fontSize: 14, color: '#0071FF'}}>
+                                                <Text style={{fontSize: 14, color: '#0071FF'}}>
 
                                                     认证驳回
                                                 </Text>
                                                 :
-                                                <Text style={{marginLeft: width - 190,fontSize: 14, color: '#FA5741'}}>
+                                                <Text style={{fontSize: 14, color: '#FA5741'}}>
                                                     禁用
                                                 </Text>
                                     }
