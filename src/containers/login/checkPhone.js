@@ -132,28 +132,19 @@ class CheckPhone extends Component {
                 ReadAndWriteFileUtil.appendFile('绑定设备', locationData.city, locationData.latitude, locationData.longitude, locationData.province,
                     locationData.district, lastTime - currentTime, '绑定设备');
                 if (responseData.result) {
+                    const loginUserId = this.loginData.result.userId;
+                    Storage.save(StorageKey.USER_ID, loginUserId);
+                    Storage.save(StorageKey.USER_INFO, this.loginData.result);
+                    Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
+
+                    // 发送Action,全局赋值用户信息
+                    this.props.sendLoginSuccessAction(this.loginData.result);
+
                     this.InquireAccountRole(this.phoneNo);
-                    // const loginUserId = this.loginData.result.userId;
-                    // Storage.save(StorageKey.USER_ID, loginUserId);
-                    // Storage.save(StorageKey.USER_INFO, this.loginData.result);
-                    // Storage.save(StorageKey.CarSuccessFlag, '1'); // 设置车辆的Flag
-                    //
-                    // // 发送Action,全局赋值用户信息
-                    // this.props.sendLoginSuccessAction(this.loginData.result);
-                    //
-                    //
-                    // const resetAction = NavigationActions.reset({
-                    //     index: 0,
-                    //     actions: [
-                    //         // NavigationActions.navigate({ routeName: 'Main'}),
-                    //         NavigationActions.navigate({routeName: 'CharacterList'}),
-                    //     ]
-                    // });
-                    // this.props.navigation.dispatch(resetAction);
-                    //
-                    // JPushModule.setAlias(this.loginData.result.phone, () => {
-                    // }, () => {
-                    // });
+
+                    JPushModule.setAlias(this.loginData.result.phone, () => {
+                    }, () => {
+                    });
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }

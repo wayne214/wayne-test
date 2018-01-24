@@ -157,18 +157,10 @@ class CheckPhoneStepTwo extends Component {
                     this.props.sendLoginSuccessAction(this.loginResponseData.result);
 
                     this.InquireAccountRole(responseData.result.phone);
-                    // const resetAction = NavigationActions.reset({
-                    //     index: 0,
-                    //     actions: [
-                    //         NavigationActions.navigate({routeName: 'CharacterList'}),
-                    //
-                    //     ]
-                    // });
-                    // this.props.navigation.dispatch(resetAction);
-                    //
-                    // JPushModule.setAlias(this.loginResponseData.result.phone, () => {
-                    // }, () => {
-                    // });
+                    
+                    JPushModule.setAlias(this.loginResponseData.result.phone, () => {
+                    }, () => {
+                    });
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }
