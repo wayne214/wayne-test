@@ -142,6 +142,15 @@ class CheckPhone extends Component {
 
                     this.InquireAccountRole(this.phoneNo);
 
+                    // const resetAction = NavigationActions.reset({
+                    //     index: 0,
+                    //     actions: [
+                    //         // NavigationActions.navigate({ routeName: 'Main'}),
+                    //         NavigationActions.navigate({routeName: 'CharacterList'}),
+                    //     ]
+                    // });
+                    // this.props.navigation.dispatch(resetAction);
+                    //
                     JPushModule.setAlias(this.loginData.result.phone, () => {
                     }, () => {
                     });

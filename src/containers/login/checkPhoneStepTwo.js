@@ -157,7 +157,7 @@ class CheckPhoneStepTwo extends Component {
                     this.props.sendLoginSuccessAction(this.loginResponseData.result);
 
                     this.InquireAccountRole(responseData.result.phone);
-                    
+
                     JPushModule.setAlias(this.loginResponseData.result.phone, () => {
                     }, () => {
                     });
