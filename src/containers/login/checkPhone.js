@@ -141,10 +141,12 @@ class CheckPhone extends Component {
                     this.props.sendLoginSuccessAction(this.loginData.result);
 
                     this.InquireAccountRole(this.phoneNo);
+                    if (this.loginData.result.phone) {
+                        JPushModule.setAlias(this.loginData.result.phone, () => {
+                        }, () => {
+                        });
+                    }
 
-                    JPushModule.setAlias(this.loginData.result.phone, () => {
-                    }, () => {
-                    });
                 } else {
                     Toast.showShortCenter('输入的验证码不正确');
                 }
@@ -398,11 +400,11 @@ class CheckPhone extends Component {
                     ]
                 });
                 this.props.navigation.dispatch(resetAction);
-
-                JPushModule.setAlias(phone,() => {
-                }, () => {
-                });
-
+                if (phone) {
+                    JPushModule.setAlias(phone, () => {
+                    }, () => {
+                    });
+                }
             },
             error: (errorInfo) => {
                 this.setState({
