@@ -43,7 +43,8 @@ import {
     setDriverCharacterAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
-    setOwnerNameAction
+    setOwnerNameAction,
+    setCompanyCodeAction,
 } from '../../action/user';
 
 let currentTime = 0;
@@ -203,8 +204,6 @@ class CheckPhoneStepTwo extends Component {
 
                 if (responseData.result.length == 1) {
                     if (responseData.result[0].owner == 1) {
-                        // 保存承运商编码
-                        // this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -235,6 +234,7 @@ class CheckPhoneStepTwo extends Component {
                                 return
                             }
                         }
+                        // 保存承运商编码
                         this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
@@ -603,6 +603,9 @@ function mapDispatchToProps(dispatch) {
         },
         setOwnerNameAction:(data)=>{
             dispatch(setOwnerNameAction(data));
+        },
+        setCompanyCodeAction: (result) => {
+            dispatch(setCompanyCodeAction(result));
         },
     };
 }

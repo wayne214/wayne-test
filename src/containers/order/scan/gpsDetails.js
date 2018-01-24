@@ -69,7 +69,7 @@ class gpsDetails extends Component {
                 userName: global.userName,
                 bindCarNum: global.plateNumber,
                 barCode: this.state.data.barCode,
-                isBind: 0, // 解除绑定
+                isBind: 2, // 解除绑定
             },
             loading: ()=>{
                 this.setState({

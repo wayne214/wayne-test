@@ -30,7 +30,6 @@ import {
     setDriverCharacterAction,
     setOwnerCharacterAction,
     setCurrentCharacterAction,
-    getCompanyCodeAction,
     setCompanyCodeAction,
     setOwnerNameAction
 } from '../../action/user';
@@ -275,7 +274,6 @@ class Login extends BaseContainer {
                     let isBind = responseData.result.isBind;
                     console.log('-lqq---isBind', isBind);
                     // TODO 暂时关掉登录验证
-                    isBind = true;
                     if (isBind) {//继续登录操作
                         lastTime = new Date().getTime();
 
@@ -345,8 +343,6 @@ class Login extends BaseContainer {
 
                 if (responseData.result.length == 1) {
                     if (responseData.result[0].owner == 1) {
-                        // 保存承运商编码
-                        // this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -377,6 +373,7 @@ class Login extends BaseContainer {
                                 return
                             }
                         }
+                        // 保存承运商编码
                         this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
@@ -707,9 +704,6 @@ function mapDispatchToProps(dispatch) {
         },
         setCurrentCharacterAction: (result) => {
             dispatch(setCurrentCharacterAction(result));
-        },
-        getCompanyCodeAction: (data) => {
-            dispatch(getCompanyCodeAction(data));
         },
         setCompanyCodeAction: (result) => {
             dispatch(setCompanyCodeAction(result));

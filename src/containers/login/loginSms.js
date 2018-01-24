@@ -338,8 +338,6 @@ class LoginSms extends BaseContainer {
 
                 if (responseData.result.length == 1) {
                     if (responseData.result[0].owner == 1) {
-                        // 保存承运商编码
-                        // this.props.getCompanyCodeAction(responseData.result[0].companyCode);
                         // 车主
                         if (responseData.result[0].companyNature == '个人') {
                             // 确认个人车主
@@ -370,6 +368,7 @@ class LoginSms extends BaseContainer {
                                 return
                             }
                         }
+                        // 保存承运商编码
                         this.props.setCompanyCodeAction(responseData.result[0].companyCode);
                     }
 
