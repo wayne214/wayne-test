@@ -383,7 +383,9 @@ class CheckPhoneStepTwo extends Component {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(phone, this.success, this.fail);
+                JPushModule.setAlias(phone, () => {
+                }, () => {
+                });
 
             },
             error: (errorInfo) => {

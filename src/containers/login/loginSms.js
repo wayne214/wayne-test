@@ -525,7 +525,9 @@ class LoginSms extends BaseContainer {
                 });
                 this.props.navigation.dispatch(resetAction);
 
-                JPushModule.setAlias(phone, this.success, this.fail);
+                JPushModule.setAlias(phone, () => {
+                }, () => {
+                });
 
             },
             error: (errorInfo) => {
