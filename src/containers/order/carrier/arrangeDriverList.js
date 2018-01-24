@@ -50,6 +50,7 @@ class arrangeDriverList extends Component {
             url: API.API_QUERY_DRIVER_LIST,
             params: {
                 carNum: this.state.driverOption.carNum,
+                carrierCode: this.props.carrierCode,
             },
             loading: ()=>{
                 this.setState({
@@ -166,6 +167,7 @@ const styles =StyleSheet.create({
 function mapStateToProps(state){
     return {
         routes: state.nav.routes,
+        carrierCode: state.user.get('companyCode'),
     };
 }
 
