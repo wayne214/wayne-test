@@ -403,7 +403,7 @@ class CheckPhoneStepTwo extends Component {
                 this.setState({
                     loading: false,
                 });
-            }
+               }
         });
     }
 
