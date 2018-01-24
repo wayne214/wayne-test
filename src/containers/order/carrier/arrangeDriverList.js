@@ -139,7 +139,9 @@ class arrangeDriverList extends Component {
                     selectedOptions={selectedArr}
                     onSelection={(option) => {
                         selected = option;
-                        selectedArr.push(selected);
+                        if(selectedArr.length < 1) {
+                            selectedArr.push(selected);
+                        }
                     }}
                 />
                 <BottomButton
