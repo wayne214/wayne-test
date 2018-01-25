@@ -49,6 +49,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 20,
     },
+    iconStyle: {
+        fontFamily: 'iconfont',
+        color:'#0071FF',
+        fontSize: 16
+    }
 });
 export default class downMenu extends Component {
     static propTypes = {
@@ -219,11 +224,11 @@ export default class downMenu extends Component {
                 <View style={{flex: 1, alignItems: 'center', paddingHorizontal: 15, flexDirection: 'row', backgroundColor: 'white'}}>
 
                     {
-                        index === 0 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                        index === 0 ?  <Text style={styles.iconStyle}>
                                 &#xe625;
-                            </Text> : index === 1 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                            </Text> : index === 1 ?  <Text style={styles.iconStyle}>
                                     &#xe628;
-                                </Text> :  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                                </Text> :  <Text style={styles.iconStyle}>
                                     &#xe627;
                                 </Text>
                     }
@@ -244,11 +249,11 @@ export default class downMenu extends Component {
             return (
                 <View style={{flex: 1, alignItems: 'center', paddingHorizontal: 15, flexDirection: 'row', backgroundColor: 'white'}}>
                     {
-                        index === 0 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                        index === 0 ?  <Text style={styles.iconStyle}>
                                 &#xe625;
-                            </Text> : index === 1 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                            </Text> : index === 1 ?  <Text style={styles.iconStyle}>
                                     &#xe628;
-                                </Text> :  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
+                                </Text> :  <Text style={styles.iconStyle}>
                                     &#xe627;
                                 </Text>
                     }
