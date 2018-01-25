@@ -390,7 +390,7 @@ class scanGPS extends Component {
                                     >
                                         <View>
                                             <Image style={styles.bottomIcon} source={StaticImage.light}/>
-                                            <Text style={styles.tipText}>打开手电筒</Text>
+                                            <Text style={styles.tipText}>开灯/关灯</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
