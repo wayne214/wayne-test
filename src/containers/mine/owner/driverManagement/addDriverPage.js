@@ -228,7 +228,7 @@ class AddDriverPage extends BaseContainer {
                                 </Text>
 
                             </View>
-                            {item.carStatus != '10' ?
+                            {item.status != '10' ?
                                 <TouchableOpacity onPress={() => {
                                     this.cityClicked(item);
                                 }}>
@@ -250,7 +250,7 @@ class AddDriverPage extends BaseContainer {
                             }
 
                         </View>
-                        {item.carStatus == '10' ?
+                        {item.status == '10' ?
                             <Text style={{
                                 marginLeft: 46,
                                 color: '#CCCCCC',
