@@ -158,6 +158,7 @@ class CheckPhoneStepTwo extends Component {
 
                     this.InquireAccountRole(responseData.result.phone);
 
+
                     if(this.loginResponseData.result.phone){
                         JPushModule.setAlias(this.loginResponseData.result.phone, () => {
                         }, () => {
