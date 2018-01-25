@@ -1140,7 +1140,7 @@ class Mine extends Component {
                                             <SettingCell
                                                 leftIcon="&#xe62a;"
                                                 content={'司机管理'}
-                                                showBottomLine={false}
+                                                showBottomLine={true}
                                                 clickAction={() => {
                                                     if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
                                                         navigator.navigate('DriverManagement');

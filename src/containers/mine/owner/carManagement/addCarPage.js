@@ -259,7 +259,7 @@ class AddCarPage extends BaseContainer {
                                 : null
                             }
                         </View>
-                        {item.carStatus == '禁用' ?
+                        {item.carStatus == '10' ?
                             <Text style={{
                                 marginLeft: 10,
                                 color: '#CCCCCC',
