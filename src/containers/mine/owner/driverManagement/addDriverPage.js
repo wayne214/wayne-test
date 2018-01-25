@@ -209,7 +209,7 @@ class AddDriverPage extends BaseContainer {
                                 style={{height: 36, width: 36}}
                                 source={StaticImage.DriverAvatar}/>
                             <View style={{
-                                width:width-36-75-150,
+                                width:width-150,
                             }}>
                                 <Text style={{
                                     marginLeft: 10,
@@ -236,7 +236,7 @@ class AddDriverPage extends BaseContainer {
                                         style={{
                                             height: 32,
                                             width: 75,
-                                            marginLeft: width - 250,
+                                            marginLeft: 10,
                                             justifyContent: 'center',
                                             alignItems: 'center',
                                             borderRadius: 20,
