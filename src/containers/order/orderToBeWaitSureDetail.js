@@ -35,7 +35,6 @@ import BottomButton from './components/bottomButtonComponent';
 const space = 10;
 const topSpace = 10;
 const topHeight = 40;
-let carrierViewHeight = 0;
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 let userID = '';
@@ -128,12 +127,6 @@ class orderToBeWaitSureDetail extends Component {
             scheduleTimeAgain,
         } = this.props;
 
-        if(this.props.currentStatus != 'driver') {
-            carrierViewHeight = 44;
-        }else {
-            carrierViewHeight = 0;
-        }
-
         const buttonView = taskInfo && taskInfo.isReceipt === '是' ?
             <BottomButton
                 text={'回单'}
@@ -159,8 +152,8 @@ class orderToBeWaitSureDetail extends Component {
                         overflow: 'hidden',
                         marginTop: topSpace,
                         ...Platform.select({
-                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - carrierViewHeight - 45},
-                            android:{height: screenHeight - topHeight - 73 - carrierViewHeight - 45}
+                            ios:{height: screenHeight - topHeight - ConstValue.NavigationBar_StatusBar_Height - 45},
+                            android:{height: screenHeight - topHeight - 73 - 45}
                         })
                     }}
                 >
