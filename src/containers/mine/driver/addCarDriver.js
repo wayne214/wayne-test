@@ -28,7 +28,9 @@ import Button from 'apsl-react-native-button';
 import Storage from '../../../utils/storage';
 import StorageKey from '../../../constants/storageKeys';
 import Loading from '../../../utils/loading';
-
+import {
+    setUserCarAction,
+} from '../../../action/user';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -136,7 +138,8 @@ class AddCarDriver extends BaseContainer {
                 });
             },
             success: (responseData) => {
-                console.log('queryAllCarList', responseData.result)
+                console.log('queryAllCarList', responseData.result);
+
                 if(responseData.result == null){
                     this.setState({
                         haveDate: false,
@@ -188,6 +191,10 @@ class AddCarDriver extends BaseContainer {
                 Toast.show('添加成功');
                 DeviceEventEmitter.emit('addCarPage');
                 DeviceEventEmitter.emit('getUserCarMine');
+
+                this.props.saveUserSetCarSuccess({carNum: item.carNum, carStatus: item.carStatus});
+
+
                 this.props.navigation.goBack();
             },
             error: (errorInfo) => {
@@ -227,7 +234,7 @@ class AddCarDriver extends BaseContainer {
                 }}>
                     <Image
                         style={{height: 36, width: 36}}
-                        source={StaticImage.CarAvatar}></Image>
+                        source={StaticImage.CarAvatar}/>
 
                     <View style={{flexDirection: 'column'}}>
                         <View style={{flexDirection: 'row', alignItems: 'center',}}>
@@ -450,7 +457,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        saveUserSetCarSuccess: (plateNumberObj) => {
+            dispatch(setUserCarAction(plateNumberObj));
+        },
     };
 }
 

@@ -231,6 +231,7 @@ class Mine extends Component {
 
 
     componentDidMount() {
+
         this.choosePhotoListener = DeviceEventEmitter.addListener('choosePhoto', () => {
             this.showAlertSelected();
         });
@@ -266,13 +267,14 @@ class Mine extends Component {
         /*实名认证状态请求*/
         if (this.props.currentStatus == 'driver') {
             this.verifiedState();
+
             this.certificationState();
         }
 
         /*资质认证提交成功，刷新状态*/
         this.cerlistener = DeviceEventEmitter.addListener('certificationSuccess', () => {
 
-            //this.certificationState();
+            this.certificationState();
         });
 
         /*实名认证提交成功，刷新状态*/
@@ -552,6 +554,7 @@ class Mine extends Component {
 
                 },
                 success: (responseData) => {
+
                     this.setState({
                         certificationState: responseData.result,
                     });
@@ -732,7 +735,7 @@ class Mine extends Component {
     /*获取头像拍摄数据*/
     imageCropCameraProcess(image) {
 
-        debugger
+
         if (image.didCancel) {
             console.log('User cancelled image picker');
         }
@@ -1018,8 +1021,9 @@ class Mine extends Component {
                                                     fontSize: 13
                                                 }}>
                                                 {
-                                                    this.props.currentStatus == 'driver' && this.state.certificationState == 1202 ? '车辆：' + this.props.plateNumber : ''
+                                                    this.props.currentStatus == 'driver' ? '车辆：' + this.props.plateNumber : ''
                                                 }
+
                                             </Text>
                                         </View>
                                     </View>
@@ -1056,9 +1060,11 @@ class Mine extends Component {
                                                                 phone: global.phone,
                                                             });
 
-                                                        } else if (this.state.verifiedState == '1201') {
+                                                        }
+                                                        if (this.state.verifiedState == '1201') {
                                                             Alert.alert('提示', '实名认证中');
-                                                        } else if (this.state.verifiedState == '1203') {
+                                                        }
+                                                        if (this.state.verifiedState == '1203') {
                                                             Alert.alert('提示', '实名认证被驳回');
                                                         }
                                                     }
@@ -1084,7 +1090,8 @@ class Mine extends Component {
                                                                     navigator.navigate('CarDisablePage');
                                                                 }
                                                             }
-                                                        } else if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
+                                                        }
+                                                        if (this.state.certificationState === '1201' || this.state.certificationState === '1203') {
 
                                                             navigator.navigate('CerifiedStatePage', {
                                                                 qualifications: this.state.certificationState,
@@ -1137,9 +1144,11 @@ class Mine extends Component {
                                                 clickAction={() => {
                                                     if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
                                                         navigator.navigate('DriverManagement');
-                                                    } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
+                                                    }
+                                                    if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
                                                         Alert.alert('提示', '车主实名认证中');
-                                                    } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
+                                                    }
+                                                    if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
                                                         Alert.alert('提示', '车主实名认证被驳回');
                                                     }
                                                 }}
@@ -1151,9 +1160,11 @@ class Mine extends Component {
                                                 clickAction={() => {
                                                     if (this.props.ownerStatus == '12' || this.props.ownerStatus == '22') {
                                                         navigator.navigate('CarManagement');
-                                                    } else if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
+                                                    }
+                                                    if (this.props.ownerStatus == '11' || this.props.ownerStatus == '21') {
                                                         Alert.alert('提示', '车主实名认证中');
-                                                    } else if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
+                                                    }
+                                                    if (this.props.ownerStatus == '13' || this.props.ownerStatus == '23') {
                                                         Alert.alert('提示', '车主实名认证被驳回');
                                                     }
                                                 }}
