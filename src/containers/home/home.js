@@ -740,6 +740,7 @@ class Home extends Component {
                     flag: true,
                 });
             } else if (result.length === 1) {
+
                 this.saveUserCarList(result);
                 this.setState({
                     plateNumber: result[0].carNum,
