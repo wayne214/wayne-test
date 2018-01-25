@@ -219,11 +219,11 @@ export default class downMenu extends Component {
                 <View style={{flex: 1, alignItems: 'center', paddingHorizontal: 15, flexDirection: 'row', backgroundColor: 'white'}}>
 
                     {
-                        index === 0 ?  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                        index === 0 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                 &#xe625;
-                            </Text> : index === 1 ?  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                            </Text> : index === 1 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                     &#xe628;
-                                </Text> :  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                                </Text> :  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                     &#xe627;
                                 </Text>
                     }
@@ -244,11 +244,11 @@ export default class downMenu extends Component {
             return (
                 <View style={{flex: 1, alignItems: 'center', paddingHorizontal: 15, flexDirection: 'row', backgroundColor: 'white'}}>
                     {
-                        index === 0 ?  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                        index === 0 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                 &#xe625;
-                            </Text> : index === 1 ?  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                            </Text> : index === 1 ?  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                     &#xe628;
-                                </Text> :  <Text style={{fontFamily: 'iconfont',color:'#0071FF'}}>
+                                </Text> :  <Text style={{fontSize: 17,fontFamily: 'iconfont',color:'#0071FF'}}>
                                     &#xe627;
                                 </Text>
                     }

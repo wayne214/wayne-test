@@ -229,7 +229,9 @@ class Income extends Component {
                     <IncomeCell leftIcon="&#xe622;" content={'业务明细'} clickAction={() => {
                         navigator.navigate('BusinessDetail');
                     }}/>
-                    <View style={{marginTop: 1}}/>
+                    <View style={{backgroundColor: 'white'}}>
+                        <View style={{marginLeft: 45, backgroundColor: '#f5f5f5', width: width, height: 1}}/>
+                    </View>
                     <IncomeCell leftIcon="&#xe625;" content={'账户流水'} clickAction={() => {
                         navigator.navigate('BillWaterPage')
                     }}/>
