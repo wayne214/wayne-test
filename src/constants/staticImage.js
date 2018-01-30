@@ -3,10 +3,10 @@
 import EmptyImage from '../../assets/emptyView/nodata.png';
 
 /*引导页图片*/
-import Img01 from '../../assets/guide/guide_01.png';
-import Img02 from '../../assets/guide/guide_02.png';
-import Img03 from '../../assets/guide/guide_03.png';
-import Img04 from '../../assets/guide/guide_04.png';
+import Img01 from '../../assets/guide/guide_01.jpg';
+import Img02 from '../../assets/guide/guide_02.jpg';
+import Img03 from '../../assets/guide/guide_03.jpg';
+import Img04 from '../../assets/guide/guide_04.jpg';
 
 /*登录背景图片*/
 import LoginBackground from '../../assets/login/loginbg.png';
