@@ -218,6 +218,7 @@ class companyCarOwnerAuth extends Component {
                     this.setState({
                         idCardImage: source,
                         isChooseBusinessLicenseValidImage: true,
+                        isShowCardInfo: false,
                     });
 
                     this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
@@ -227,6 +228,7 @@ class companyCarOwnerAuth extends Component {
                     this.setState({
                         idCardTrunImage: source,
                         isChooseBusinessLicenseValidTrunImage: true,
+                        isShowCardInfo: false,
                     });
 
                     this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
@@ -237,7 +239,9 @@ class companyCarOwnerAuth extends Component {
                     this.setState({
                         businessTrunRightImage: source,
                         isChooseCompanyImage: true,
+                        isShowCompanyInfo: false,
                     });
+
                     this.upLoadImage(API.API_GET_BUSINESS_LICENSE, formData);
                     break;
             }
@@ -445,6 +449,7 @@ class companyCarOwnerAuth extends Component {
                         this.setState({
                             idCardImage: source,
                             isChooseBusinessLicenseValidImage: false,
+                            isShowCardInfo: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
@@ -454,6 +459,7 @@ class companyCarOwnerAuth extends Component {
                         this.setState({
                             idCardTrunImage: source,
                             isChooseBusinessLicenseValidTrunImage: false,
+                            isShowCardInfo: false,
                         });
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
                         break;
@@ -462,6 +468,7 @@ class companyCarOwnerAuth extends Component {
                         this.setState({
                             businessTrunRightImage: source,
                             isChooseCompanyImage: false,
+                            isShowCompanyInfo: false,
                         });
                         this.upLoadImage(API.API_GET_BUSINESS_LICENSE, formData);
                         break;
@@ -475,6 +482,9 @@ class companyCarOwnerAuth extends Component {
     }
     /*上传图片*/
     upLoadImage(url, data) {
+
+
+
         upLoadImageManager(url,
             data,
             () => {
@@ -501,6 +511,7 @@ class companyCarOwnerAuth extends Component {
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             }
+
                             this.setState({
                                 isShowCardInfo: true,
                             });

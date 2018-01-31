@@ -229,7 +229,8 @@ class personCarOwnerAuth extends Component {
                 case 0:
                     this.setState({
                         idCardImage: source,
-                        isChooseCardImage: true
+                        isChooseCardImage: true,
+                        isShowCardInfo: false,
                     });
 
                     this.upLoadImage(API.API_GET_IDCARD_INFO, formData, 'camera');
@@ -238,6 +239,7 @@ class personCarOwnerAuth extends Component {
                     this.setState({
                         idCardTrunImage: source,
                         isChooseCardTrunImage: true,
+                        isShowCardInfo: false,
                     });
                     this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData, 'camera');
 
@@ -245,7 +247,8 @@ class personCarOwnerAuth extends Component {
                 case 2:
                     this.setState({
                         travelRightImage: source,
-                        isChooseVehicleLicenseViceImage: true
+                        isChooseVehicleLicenseViceImage: true,
+                        isShowDriverInfo: false,
                     });
                     this.upLoadImage(API.API_GET_TRAVEL_INFO, formData, 'camera');
 
@@ -253,7 +256,8 @@ class personCarOwnerAuth extends Component {
                 case 3:
                     this.setState({
                         travelTrunRightImage: source,
-                        isChooseVehicleLicenseViceTrunImage: true
+                        isChooseVehicleLicenseViceTrunImage: true,
+                        isShowDriverInfo: false,
                     });
                     this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData, 'camera');
 
@@ -459,7 +463,8 @@ class personCarOwnerAuth extends Component {
                     case 0:
                         this.setState({
                             idCardImage: source,
-                            isChooseCardImage: false
+                            isChooseCardImage: false,
+                            isShowCardInfo: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData, 'photo');
@@ -468,7 +473,8 @@ class personCarOwnerAuth extends Component {
                     case 1:
                         this.setState({
                             idCardTrunImage: source,
-                            isChooseCardTrunImage: false
+                            isChooseCardTrunImage: false,
+                            isShowCardInfo: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData, 'photo');
@@ -478,7 +484,8 @@ class personCarOwnerAuth extends Component {
                     case 2:
                         this.setState({
                             travelRightImage: source,
-                            isChooseVehicleLicenseViceImage: false
+                            isChooseVehicleLicenseViceImage: false,
+                            isShowDriverInfo: false,
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_INFO, formData, 'photo');
                         break;
@@ -487,6 +494,7 @@ class personCarOwnerAuth extends Component {
                         this.setState({
                             travelTrunRightImage: source,
                             isChooseVehicleLicenseViceTrunImage: false,
+                            isShowDriverInfo: false,
 
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData, 'photo');
@@ -526,7 +534,6 @@ class personCarOwnerAuth extends Component {
 
                                     idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
                                     idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
-                                    isShowCardInfo : true,
                                 });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
@@ -547,7 +554,6 @@ class personCarOwnerAuth extends Component {
 
                                     idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
                                     idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
-                                    isShowCardInfo : true,
                                 });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');

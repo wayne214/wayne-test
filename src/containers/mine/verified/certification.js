@@ -63,7 +63,6 @@ let userID = '';
 let userName = '';
 let userPhone = '';
 
-let isFirst = true;
 
 /*
  * 0=行驶证主页
@@ -97,12 +96,10 @@ class certification extends Component {
 
             const result = this.props.navigation.state.params.resultInfo;
 
-            if (result.carNum){
-                isFirst =false
-            } else
-                isFirst = true;
 
             this.state = {
+
+                isFirst: result.carNum? true : false,
                 appLoading: false,
 
                 isChooseTravelRightImage: result.isChooseTravelRightImage ? true : false,
@@ -225,9 +222,9 @@ class certification extends Component {
                     this.setState({
                         travelRightImage: source,
                         carOwner: '',
-                        isChooseTravelRightImage: true
+                        isChooseTravelRightImage: true,
+                        isFirst: false
                     });
-                    isFirst = true;
                     this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
 
                     break;
@@ -235,6 +232,7 @@ class certification extends Component {
                     this.setState({
                         travelTrunRightImage: source,
                         isChooseTravelTrunRightImage: true,
+                        isFirst: false
                     });
                     this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData);
 
@@ -411,14 +409,15 @@ class certification extends Component {
                         this.setState({
                             travelRightImage: source,
                             isChooseTravelRightImage: false,
+                            isFirst: false
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_INFO, formData);
-                        isFirst = true;
                         break;
                     case 1:
                         this.setState({
                             travelTrunRightImage: source,
                             isChooseTravelTrunRightImage: false,
+                            isFirst: false
                         });
                         this.upLoadImage(API.API_GET_TRAVEL_TRUN_INFO, formData);
 
@@ -465,27 +464,32 @@ class certification extends Component {
                         case 0:
 
                             if (respones.result.plateNumber && respones.result.owner && respones.result.engineNumber) {
+                                this.setState({
+                                    carNumber: respones.result.plateNumber === 'FailInRecognition' ? '' : respones.result.plateNumber,
+                                    carOwner: respones.result.owner === 'FailInRecognition' ? '' : respones.result.owner,
+                                    carEngineNumber: respones.result.engineNumber === 'FailInRecognition' ? '' : respones.result.engineNumber,
+
+                                    analysisCarNum: respones.result.plateNumber, // 解析车牌号
+                                    analysisHaverName:respones.result.owner, // 解析所有人
+                                    analysisEngineNum:respones.result.engineNumber, //  解析发动机号
+
+                                    vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
+                                    vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
+                                });
                             } else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
-
                             this.setState({
-                                carNumber: respones.result.plateNumber === 'FailInRecognition' ? '' : respones.result.plateNumber,
-                                carOwner: respones.result.owner === 'FailInRecognition' ? '' : respones.result.owner,
-                                carEngineNumber: respones.result.engineNumber === 'FailInRecognition' ? '' : respones.result.engineNumber,
-
-                                analysisCarNum: respones.result.plateNumber, // 解析车牌号
-                                analysisHaverName:respones.result.owner, // 解析所有人
-                                analysisEngineNum:respones.result.engineNumber, //  解析发动机号
-
-                                vehicleLicenseHomepageNormalPhotoAddress: respones.result.vehicleLicenseHomepageNormalPhotoAddress,
-                                vehicleLicenseHomepageThumbnailAddress: respones.result.vehicleLicenseHomepageThumbnailAddress,
+                                isFirst: true
                             });
-                            isFirst = false;
+
                             break;
                         case 1:
                             this.setState({
                                 vehicleLicenseVicePageNormalPhotoAddress: respones.result.vehicleLicenseVicePageNormalPhotoAddress,
                                 vehicleLicenseVicePageThumbnailAddress: respones.result.vehicleLicenseVicePageThumbnailAddress,
+                            });
+                            this.setState({
+                                isFirst: true
                             });
                             break;
                         case 2:
@@ -858,7 +862,7 @@ class certification extends Component {
         console.log('this.state.carOwner:',this.state.carOwner);
         console.log('this.state.carNumber:',this.state.carNumber);
 
-        let travelInfo = !isFirst ?
+        let travelInfo = this.state.isFirst ?
             <View>
                 <VerifiedGrayTitleItem title="确认行驶证基本信息"/>
                 <VerifiedTravelInfoItem carNumber={this.state.carNumber}

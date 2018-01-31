@@ -1,5 +1,5 @@
 // export const DEBUG = __DEV__;
-export const DEBUG = false;
+export const DEBUG = true;
 
 export const IS_FIRST_START_FLAG = 'IS_FIRST_START_FLAG'; // 第一次启动App的标记
 export const UDID = 'UDID';

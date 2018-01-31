@@ -64,8 +64,6 @@ const handCardTrunRightImage = require('./images/handPicModel.png');
 
 const selectedArr = ["拍照", "从手机相册选择"];
 
-let isFirstCarD = true;
-let isFirstDriver = true;
 /*
  * 0=身份证正面
  * 1=身份证反面
@@ -100,10 +98,9 @@ class Verified extends Component {
             const result = this.props.navigation.state.params.resultInfo;
 
 
-                isFirstCarD = result.idCardName ? false : true;
-                isFirstDriver = result.driverCard ? false : true;
-
                 this.state = {
+                    isFirstCarD: result.idCardName ? true : false,
+                    isFirstDriver: result.driverCard ? true : false,
 
                     isChooseCardImage: result.isChooseCardImage ? true : false,
                     isChooseCardTrunImage: result.isChooseCardTrunImage ? true : false,
@@ -206,6 +203,9 @@ class Verified extends Component {
                 driverCardRecognition: '', // 识别驾驶证号
                 quasiCarTypeRecognition: '', // 识别准驾车型
                 driverLicenseValidateRecognition: '',  // 识别驾驶证有效期
+
+                isFirstCarD: false,
+                isFirstDriver: false,
             };
         }
 
@@ -254,14 +254,15 @@ class Verified extends Component {
                         this.setState({
                             idCardImage: source,
                             isChooseCardImage: true,
+                            isFirstCarD: false,
                         });
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
-                        isFirstCarD = true;
                         break;
                     case 1:
                         this.setState({
                             idCardTrunImage: source,
                             isChooseCardTrunImage: true,
+                            isFirstCarD: false,
 
                         });
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
@@ -272,15 +273,16 @@ class Verified extends Component {
                         this.setState({
                             driverCarImage: source,
                             isChooseDriverCarImage: true,
+                            isFirstDriver: false,
                         });
                         this.upLoadImage(API.API_GET_DRIVER_INFO, formData);
-                        isFirstDriver = true;
 
                         break;
                     case 3:
                         this.setState({
                             drivereCarTrunImage: source,
                             isChooseDriverCarTrunImage: true,
+                            isFirstDriver: false,
                         });
 
                         this.upLoadImage(API.API_GET_DRIVER_TRUN_INFO, formData);
@@ -415,8 +417,8 @@ class Verified extends Component {
                         this.setState({
                             idCardImage: source,
                             isChooseCardImage: false,
+                            isFirstCarD: false,
                         });
-                        isFirstCarD = true;
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
 
                         break;
@@ -424,6 +426,7 @@ class Verified extends Component {
                         this.setState({
                             idCardTrunImage: source,
                             isChooseCardTrunImage: false,
+                            isFirstCarD: false,
                         });
 
                         this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
@@ -434,8 +437,8 @@ class Verified extends Component {
                         this.setState({
                             driverCarImage: source,
                             isChooseDriverCarImage: false,
+                            isFirstDriver: false,
                         });
-                        isFirstDriver = true;
                         this.upLoadImage(API.API_GET_DRIVER_INFO, formData);
 
                         break;
@@ -443,6 +446,7 @@ class Verified extends Component {
                         this.setState({
                             drivereCarTrunImage: source,
                             isChooseDriverCarTrunImage: false,
+                            isFirstDriver: false,
                         });
 
                         this.upLoadImage(API.API_GET_DRIVER_TRUN_INFO, formData);
@@ -467,6 +471,10 @@ class Verified extends Component {
 
     /*上传图片*/
     upLoadImage(url, data) {
+        this.setState({
+            isFirstCarD: false,
+            isFirstDriver: false
+        });
         upLoadImageManager(url,
             data,
             () => {
@@ -479,76 +487,81 @@ class Verified extends Component {
                     switch (selectType) {
                         case 0:
                             if (respones.result.idName && respones.result.idNum){
+                                this.setState({
+                                    IDName: respones.result.idName === 'FailInRecognition' ? '' : respones.result.idName,
+                                    IDCard: respones.result.idNum === 'FailInRecognition' ? '' : respones.result.idNum,
+                                    idCardNameRecognition: respones.result.idName, //识别身份证姓名
+                                    idCardRecognition: respones.result.idNum, //识别身份证号
+
+                                    idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
+                                    idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
                             this.setState({
-                                IDName: respones.result.idName === 'FailInRecognition' ? '' : respones.result.idName,
-                                IDCard: respones.result.idNum === 'FailInRecognition' ? '' : respones.result.idNum,
-                                idCardNameRecognition: respones.result.idName, //识别身份证姓名
-                                idCardRecognition: respones.result.idNum, //识别身份证号
-
-                                idFaceSideNormalPhotoAddress: respones.result.idFaceSideNormalPhotoAddress,
-                                idFaceSideThumbnailAddress: respones.result.idFaceSideThumbnailAddress,
+                                isFirstCarD: true
                             });
-                            isFirstCarD = false;
 
                             break;
                         case 1:
                             if (respones.result.idValidUntil){
+                                this.setState({
+                                    IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
+                                    idCardValidityRecognition: respones.result.idValidUntil, //识别身份证有效期
+
+                                    idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
+                                    idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
+
                             this.setState({
-                                IDDate: Validator.timeTrunToDateString(respones.result.idValidUntil),
-                                idCardValidityRecognition: respones.result.idValidUntil, //识别身份证有效期
-
-                                idBackSideNormalPhotoAddress: respones.result.idBackSideNormalPhotoAddress,
-                                idBackSideThumbnailAddress: respones.result.idBackSideThumbnailAddress,
+                                isFirstCarD: true
                             });
-                            isFirstCarD = false;
-
                             break;
                         case 2:
                             if (respones.result.drivingLicenseName && respones.result.drivingLicenseNum){
+                                let time = 0;
+                                if (respones.result.drivingLicenseValidUntil.length <= 3){
+                                    // 返回有效期为  多少年的
+                                    time = parseInt(respones.result.drivingLicenseStartDate) + parseInt(respones.result.drivingLicenseValidUntil)*10000;
+                                }else
+                                    time = parseInt(respones.result.drivingLicenseValidUntil);
+
+                                this.setState({
+                                    drivingLicenseName: respones.result.drivingLicenseName === 'FailInRecognition' ? '' : respones.result.drivingLicenseName, // 驾驶证姓名
+                                    drivingLicenseNum: respones.result.drivingLicenseNum === 'FailInRecognition' ? '' : respones.result.drivingLicenseNum, // 驾驶证号
+                                    drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
+                                    drivingLicenseValidUntil: Validator.timeTrunToDateString(time.toString()), // 驾驶证有效期
+
+
+                                    motorcycleType: respones.result.motorcycleType === 'FailInRecognition' ? '' : respones.result.motorcycleType, // 驾驶证类型
+
+                                    drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
+                                    driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号
+                                    quasiCarTypeRecognition: respones.result.motorcycleType, // 识别准驾车型
+                                    driverLicenseValidateRecognition: respones.result.drivingLicenseValidUntil,  // 识别驾驶证有效期
+
+                                    drivingLicenseHomepageNormalPhotoAddress: respones.result.drivingLicenseHomepageNormalPhotoAddress,
+                                    drivingLicenseHomepageThumbnailAddress: respones.result.drivingLicenseHomepageThumbnailAddress,
+                                });
                             }else
                                 Toast.showShortCenter('图片解析失败，请手动填写信息');
 
 
-                            let time = 0;
-                            if (respones.result.drivingLicenseValidUntil.length <= 3){
-                                // 返回有效期为  多少年的
-                                time = parseInt(respones.result.drivingLicenseStartDate) + parseInt(respones.result.drivingLicenseValidUntil)*10000;
-                            }else
-                                time = parseInt(respones.result.drivingLicenseValidUntil);
-
-
-
                             this.setState({
-                                drivingLicenseName: respones.result.drivingLicenseName === 'FailInRecognition' ? '' : respones.result.drivingLicenseName, // 驾驶证姓名
-                                drivingLicenseNum: respones.result.drivingLicenseNum === 'FailInRecognition' ? '' : respones.result.drivingLicenseNum, // 驾驶证号
-                                drivingLicenseStartDate: respones.result.drivingLicenseStartDate, // 驾驶证发证日期
-                                drivingLicenseValidUntil: Validator.timeTrunToDateString(time.toString()), // 驾驶证有效期
-
-
-                                motorcycleType: respones.result.motorcycleType === 'FailInRecognition' ? '' : respones.result.motorcycleType, // 驾驶证类型
-
-                                drivingLicenceNameRecognition: respones.result.drivingLicenseName, // 识别驾驶证姓名
-                                driverCardRecognition: respones.result.drivingLicenseNum, // 识别驾驶证号
-                                quasiCarTypeRecognition: respones.result.motorcycleType, // 识别准驾车型
-                                driverLicenseValidateRecognition: respones.result.drivingLicenseValidUntil,  // 识别驾驶证有效期
-
-                                drivingLicenseHomepageNormalPhotoAddress: respones.result.drivingLicenseHomepageNormalPhotoAddress,
-                                drivingLicenseHomepageThumbnailAddress: respones.result.drivingLicenseHomepageThumbnailAddress,
+                                isFirstDriver: true
                             });
-                            isFirstDriver = false;
+
 
                             break;
                         case 3:
                             this.setState({
                                 drivingLicenseVicePageNormalAddress: respones.result.drivingLicenseVicePageNormalAddress,
                                 drivingLicenseVicePageThumbnailAddress: respones.result.drivingLicenseVicePageThumbnailAddress,
+                                isFirstDriver: true
                             });
-                            isFirstDriver = false;
 
                             break;
                         case 4:
@@ -907,12 +920,12 @@ class Verified extends Component {
     render() {
         const navigator = this.props.navigation;
 
-        const IDInfoTitle = (!isFirstCarD) ?
+        const IDInfoTitle = this.state.isFirstCarD ?
             <View>
                 <VerifiedGrayTitleItem title="确认身份证基本信息"/>
 
             </View> : null;
-        const IDCardInfo = (!isFirstCarD) ?
+        const IDCardInfo = this.state.isFirstCarD ?
             <View>
 
                 <VerifiedIDInfoItem IDName={this.state.IDName}
@@ -936,7 +949,7 @@ class Verified extends Component {
                 />
             </View> : null;
 
-        const IDCardDate = (!isFirstCarD) ?
+        const IDCardDate = this.state.isFirstCarD ?
             <View>
                 <VerifiedIDDateItem IDDate={this.state.IDDate}
                                     clickDataPick={()=>{
@@ -948,7 +961,7 @@ class Verified extends Component {
                                     }}/>
             </View> : null;
 
-        const carInfo = (!isFirstDriver) ?
+        const carInfo = this.state.isFirstDriver ?
             <View>
                 <VerifiedGrayTitleItem title="确认驾驶证基本信息"/>
                 <VerifiedCarInfoItem drivingLicenseName={this.state.drivingLicenseName}
