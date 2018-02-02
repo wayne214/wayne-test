@@ -275,6 +275,8 @@ class carOwnerAddDriver extends Component {
                         isChooseCardImage: true,
                         isFirstCarD: false
                     });
+
+
                     this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
 
                     break;
@@ -285,6 +287,8 @@ class carOwnerAddDriver extends Component {
                         isChooseCardTrunImage: true,
                         isFirstCarD: false,
                     });
+
+
                     this.upLoadImage(API.API_GET_IDCARD_TRUN_INFO, formData);
 
                     break;
@@ -298,6 +302,8 @@ class carOwnerAddDriver extends Component {
                         isFirstDriver: false,
 
                     });
+
+
                     this.upLoadImage(API.API_GET_DRIVER_INFO, formData);
 
 
@@ -308,6 +314,7 @@ class carOwnerAddDriver extends Component {
                         isChooseDriverCarTrunImage: true,
                         isFirstDriver: false,
                     });
+
 
                     this.upLoadImage(API.API_GET_DRIVER_TRUN_INFO, formData);
 
@@ -497,10 +504,7 @@ class carOwnerAddDriver extends Component {
     /*上传图片*/
     upLoadImage(url, data) {
 
-        this.setState({
-            isFirstCarD: false,
-            isFirstDriver: false
-        });
+
 
         upLoadImageManager(url,
             data,

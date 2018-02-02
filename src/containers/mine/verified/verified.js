@@ -256,6 +256,7 @@ class Verified extends Component {
                             isChooseCardImage: true,
                             isFirstCarD: false,
                         });
+
                         this.upLoadImage(API.API_GET_IDCARD_INFO, formData);
                         break;
                     case 1:
@@ -471,10 +472,7 @@ class Verified extends Component {
 
     /*上传图片*/
     upLoadImage(url, data) {
-        this.setState({
-            isFirstCarD: false,
-            isFirstDriver: false
-        });
+
         upLoadImageManager(url,
             data,
             () => {
